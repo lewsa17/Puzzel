@@ -62,8 +62,8 @@
             this.button22 = new System.Windows.Forms.Button();
             this.button21 = new System.Windows.Forms.Button();
             this.CommandContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.CMDMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.cMDSYSTEMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.CMDMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.PowershellMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.button18 = new System.Windows.Forms.Button();
             this.button16 = new System.Windows.Forms.Button();
@@ -487,30 +487,30 @@
             // CommandContextMenu
             // 
             this.CommandContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.CMDMenuItem1,
             this.cMDSYSTEMToolStripMenuItem,
+            this.CMDMenuItem1,
             this.PowershellMenuItem2});
             this.CommandContextMenu.Name = "CommandContextMenu";
-            this.CommandContextMenu.Size = new System.Drawing.Size(146, 70);
-            // 
-            // CMDMenuItem1
-            // 
-            this.CMDMenuItem1.Name = "CMDMenuItem1";
-            this.CMDMenuItem1.Size = new System.Drawing.Size(145, 22);
-            this.CMDMenuItem1.Text = "CMD";
-            this.CMDMenuItem1.Click += new System.EventHandler(this.CMDMenuItem1_Click);
+            this.CommandContextMenu.Size = new System.Drawing.Size(181, 70);
             // 
             // cMDSYSTEMToolStripMenuItem
             // 
             this.cMDSYSTEMToolStripMenuItem.Name = "cMDSYSTEMToolStripMenuItem";
-            this.cMDSYSTEMToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
-            this.cMDSYSTEMToolStripMenuItem.Text = "CMD (SYSTEM)";
+            this.cMDSYSTEMToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.cMDSYSTEMToolStripMenuItem.Text = "Zdalne CMD (SYSTEM)";
             this.cMDSYSTEMToolStripMenuItem.Click += new System.EventHandler(this.cMDSYSTEMToolStripMenuItem_Click);
+            // 
+            // CMDMenuItem1
+            // 
+            this.CMDMenuItem1.Name = "CMDMenuItem1";
+            this.CMDMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.CMDMenuItem1.Text = "CMD";
+            this.CMDMenuItem1.Click += new System.EventHandler(this.CMDMenuItem1_Click);
             // 
             // PowershellMenuItem2
             // 
             this.PowershellMenuItem2.Name = "PowershellMenuItem2";
-            this.PowershellMenuItem2.Size = new System.Drawing.Size(145, 22);
+            this.PowershellMenuItem2.Size = new System.Drawing.Size(180, 22);
             this.PowershellMenuItem2.Text = "Powershell";
             this.PowershellMenuItem2.Click += new System.EventHandler(this.PowershellMenuItem2_Click);
             // 
@@ -652,98 +652,98 @@
             this.uptimeToolStripMenuItem.Name = "uptimeToolStripMenuItem";
             this.uptimeToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.uptimeToolStripMenuItem.Text = "Uptime";
-            this.uptimeToolStripMenuItem.Click += new System.EventHandler(this.uptimeToolStripMenuItem_Click);
+            this.uptimeToolStripMenuItem.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
             // nrSeryjnyINrPartiiToolStripMenuItem
             // 
             this.nrSeryjnyINrPartiiToolStripMenuItem.Name = "nrSeryjnyINrPartiiToolStripMenuItem";
             this.nrSeryjnyINrPartiiToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.nrSeryjnyINrPartiiToolStripMenuItem.Text = "Nr Seryjny i Nr Partii";
-            this.nrSeryjnyINrPartiiToolStripMenuItem.Click += new System.EventHandler(this.nrSeryjnyINrPartiiToolStripMenuItem_Click);
+            this.nrSeryjnyINrPartiiToolStripMenuItem.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
             // modelToolStripMenuItem
             // 
             this.modelToolStripMenuItem.Name = "modelToolStripMenuItem";
             this.modelToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.modelToolStripMenuItem.Text = "Model";
-            this.modelToolStripMenuItem.Click += new System.EventHandler(this.modelToolStripMenuItem_Click);
+            this.modelToolStripMenuItem.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
             // oSToolStripMenuItem
             // 
             this.oSToolStripMenuItem.Name = "oSToolStripMenuItem";
             this.oSToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.oSToolStripMenuItem.Text = "OS";
-            this.oSToolStripMenuItem.Click += new System.EventHandler(this.oSToolStripMenuItem_Click);
+            this.oSToolStripMenuItem.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
             // pamięćRAMToolStripMenuItem
             // 
             this.pamięćRAMToolStripMenuItem.Name = "pamięćRAMToolStripMenuItem";
             this.pamięćRAMToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.pamięćRAMToolStripMenuItem.Text = "Pamięć RAM";
-            this.pamięćRAMToolStripMenuItem.Click += new System.EventHandler(this.pamięćRAMToolStripMenuItem_Click);
+            this.pamięćRAMToolStripMenuItem.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
             // procesorToolStripMenuItem
             // 
             this.procesorToolStripMenuItem.Name = "procesorToolStripMenuItem";
             this.procesorToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.procesorToolStripMenuItem.Text = "CPU";
-            this.procesorToolStripMenuItem.Click += new System.EventHandler(this.procesorToolStripMenuItem_Click);
+            this.procesorToolStripMenuItem.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
             // zalogowanyUżytkownikToolStripMenuItem
             // 
             this.zalogowanyUżytkownikToolStripMenuItem.Name = "zalogowanyUżytkownikToolStripMenuItem";
             this.zalogowanyUżytkownikToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.zalogowanyUżytkownikToolStripMenuItem.Text = "Zalogowany";
-            this.zalogowanyUżytkownikToolStripMenuItem.Click += new System.EventHandler(this.zalogowanyUżytkownikToolStripMenuItem_Click);
+            this.zalogowanyUżytkownikToolStripMenuItem.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
             // profileUżytkownikówToolStripMenuItem
             // 
             this.profileUżytkownikówToolStripMenuItem.Name = "profileUżytkownikówToolStripMenuItem";
             this.profileUżytkownikówToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.profileUżytkownikówToolStripMenuItem.Text = "Profile Użytkowników";
-            this.profileUżytkownikówToolStripMenuItem.Click += new System.EventHandler(this.profileUżytkownikówToolStripMenuItem_Click);
+            this.profileUżytkownikówToolStripMenuItem.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
             // dyskiToolStripMenuItem
             // 
             this.dyskiToolStripMenuItem.Name = "dyskiToolStripMenuItem";
             this.dyskiToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.dyskiToolStripMenuItem.Text = "Dyski";
-            this.dyskiToolStripMenuItem.Click += new System.EventHandler(this.dyskiToolStripMenuItem_Click);
+            this.dyskiToolStripMenuItem.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
             // drukarkiSiecioweToolStripMenuItem
             // 
             this.drukarkiSiecioweToolStripMenuItem.Name = "drukarkiSiecioweToolStripMenuItem";
             this.drukarkiSiecioweToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.drukarkiSiecioweToolStripMenuItem.Text = "Drukarki sieciowe";
-            this.drukarkiSiecioweToolStripMenuItem.Click += new System.EventHandler(this.drukarkiSiecioweToolStripMenuItem_Click);
+            this.drukarkiSiecioweToolStripMenuItem.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
             // udziałyToolStripMenuItem
             // 
             this.udziałyToolStripMenuItem.Name = "udziałyToolStripMenuItem";
             this.udziałyToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.udziałyToolStripMenuItem.Text = "Udziały";
-            this.udziałyToolStripMenuItem.Click += new System.EventHandler(this.udziałyToolStripMenuItem_Click);
+            this.udziałyToolStripMenuItem.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
             // autostartToolStripMenuItem
             // 
             this.autostartToolStripMenuItem.Name = "autostartToolStripMenuItem";
             this.autostartToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.autostartToolStripMenuItem.Text = "Autostart";
-            this.autostartToolStripMenuItem.Click += new System.EventHandler(this.autostartToolStripMenuItem_Click);
+            this.autostartToolStripMenuItem.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
             // pATHToolStripMenuItem
             // 
             this.pATHToolStripMenuItem.Name = "pATHToolStripMenuItem";
             this.pATHToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.pATHToolStripMenuItem.Text = "PATH";
-            this.pATHToolStripMenuItem.Click += new System.EventHandler(this.pATHToolStripMenuItem_Click);
+            this.pATHToolStripMenuItem.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
             // zasobySiecioweToolStripMenuItem
             // 
             this.zasobySiecioweToolStripMenuItem.Name = "zasobySiecioweToolStripMenuItem";
             this.zasobySiecioweToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.zasobySiecioweToolStripMenuItem.Text = "Zasoby sieciowe";
-            this.zasobySiecioweToolStripMenuItem.Click += new System.EventHandler(this.zasobySiecioweToolStripMenuItem_Click);
+            this.zasobySiecioweToolStripMenuItem.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
             // button11
             // 
@@ -933,28 +933,28 @@
             this.dziennikZdarzeńToolStripMenuItem.Name = "dziennikZdarzeńToolStripMenuItem";
             this.dziennikZdarzeńToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
             this.dziennikZdarzeńToolStripMenuItem.Text = "Dziennik zdarzeń";
-            this.dziennikZdarzeńToolStripMenuItem.Click += new System.EventHandler(this.dziennikZdarzeńToolStripMenuItem_Click);
+            this.dziennikZdarzeńToolStripMenuItem.Click += new System.EventHandler(this.narzedziaadministracyjne);
             // 
             // usługiToolStripMenuItem
             // 
             this.usługiToolStripMenuItem.Name = "usługiToolStripMenuItem";
             this.usługiToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
             this.usługiToolStripMenuItem.Text = "Usługi";
-            this.usługiToolStripMenuItem.Click += new System.EventHandler(this.usługiToolStripMenuItem_Click);
+            this.usługiToolStripMenuItem.Click += new System.EventHandler(this.narzedziaadministracyjne);
             // 
             // harmonogramZadańToolStripMenuItem
             // 
             this.harmonogramZadańToolStripMenuItem.Name = "harmonogramZadańToolStripMenuItem";
             this.harmonogramZadańToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
             this.harmonogramZadańToolStripMenuItem.Text = "Harmonogram zadań";
-            this.harmonogramZadańToolStripMenuItem.Click += new System.EventHandler(this.harmonogramZadańToolStripMenuItem_Click);
+            this.harmonogramZadańToolStripMenuItem.Click += new System.EventHandler(this.narzedziaadministracyjne);
             // 
             // użytkownicyIGrupyLokalneToolStripMenuItem
             // 
             this.użytkownicyIGrupyLokalneToolStripMenuItem.Name = "użytkownicyIGrupyLokalneToolStripMenuItem";
             this.użytkownicyIGrupyLokalneToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
             this.użytkownicyIGrupyLokalneToolStripMenuItem.Text = "Użytkownicy i grupy lokalne";
-            this.użytkownicyIGrupyLokalneToolStripMenuItem.Click += new System.EventHandler(this.użytkownicyIGrupyLokalneToolStripMenuItem_Click);
+            this.użytkownicyIGrupyLokalneToolStripMenuItem.Click += new System.EventHandler(this.narzedziaadministracyjne);
             // 
             // dHCPToolStripMenuItem
             // 
@@ -1222,7 +1222,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(1202, 511);
             this.Name = "Form1";
-            this.Text = "Puzzel v0.63";
+            this.Text = "Puzzel v0.64";
             this.Resize += new System.EventHandler(this.Form1_Resize);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
