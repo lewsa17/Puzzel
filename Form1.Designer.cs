@@ -343,7 +343,7 @@
             this.button1.TabIndex = 4;
             this.button1.Text = "User log";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.szukajLogow);
             // 
             // numericUpDown1
             // 
@@ -810,7 +810,7 @@
             this.button10.TabIndex = 0;
             this.button10.Text = "Komputer log";
             this.button10.UseVisualStyleBackColor = true;
-            this.button10.Click += new System.EventHandler(this.button10_Click);
+            this.button10.Click += new System.EventHandler(this.szukajLogow);
             // 
             // groupBox4
             // 
@@ -1237,7 +1237,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(1180, 511);
             this.Name = "Form1";
-            this.Text = "Puzzel v0.54";
+            this.Text = "Puzzel v0.55";
             this.Load += new System.EventHandler(this.button20_Click);
             this.Resize += new System.EventHandler(this.Form1_Resize);
             this.groupBox1.ResumeLayout(false);

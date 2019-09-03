@@ -66,9 +66,9 @@ namespace Puzzel
                 progress.RunWorkerAsync();
             }
         }
-        
+
         private void WybierzUżytkownikaToolStripMenuItem_Click(object sender, EventArgs e)
-        {   
+        {
             this.Text = "Lockout Status";
             LockoutStatusWyborUzytkownika lswu = new LockoutStatusWyborUzytkownika();
             lswu.ShowDialog();
@@ -82,20 +82,19 @@ namespace Puzzel
             for (int i = 0; i < domainControlerName.Count(); i++)
                 GetUserPasswordDetails(domainControlerName[i]);
         }
-        
+
         private void AddEntry()
         {
-
             var domaincontrooler = File.ReadAllLines("DefaultValue.txt");
             var domainControlerName = domaincontrooler[12].Split(',');
             for (int i = 0; i < domainControlerName.Count(); i++)
-                        GetUserPasswordDetails(domainControlerName[i]);
+                GetUserPasswordDetails(domainControlerName[i]);
         }
 
         private void DeleteEntryRows()
         {
-            if (this.dataGridView1.Rows.Count>1)
-                this.dataGridView1.Rows.Clear(); 
+            if (this.dataGridView1.Rows.Count > 1)
+                this.dataGridView1.Rows.Clear();
         }
 
         private void OdświeżZaznaczoneToolStripMenuItem_Click(object sender, EventArgs e)
@@ -117,7 +116,7 @@ namespace Puzzel
         string _accountLockoutTime = null;
         public void GetUserPasswordDetails(string dcName)
         {
-            
+
             using (PrincipalContext context = new PrincipalContext(ContextType.Domain, dcName))
             {
                 UserPrincipal uP = UserPrincipal.FindByIdentity(context, IdentityType.SamAccountName, Username);
@@ -139,10 +138,10 @@ namespace Puzzel
                 if (uP.AccountLockoutTime != null)
                     _accountLockoutTime = DateTime.FromFileTime(uP.AccountLockoutTime.Value.ToFileTime()).ToString();
                 else _accountLockoutTime = "0";
-                
-                if(dataGridView1.InvokeRequired)
-                    dataGridView1.Invoke(new MethodInvoker(() =>  this.dataGridView1.Rows.Add(dcName, useraccaountLocked,_badLogonCount,_lastBadPasswordAttempt, _lastPasswordSet,_accountLockoutTime)));
-            } 
+
+                if (dataGridView1.InvokeRequired)
+                    dataGridView1.Invoke(new MethodInvoker(() => this.dataGridView1.Rows.Add(dcName, useraccaountLocked, _badLogonCount, _lastBadPasswordAttempt, _lastPasswordSet, _accountLockoutTime)));
+            } dataGridView1.ClearSelection();
         }
 
         private void wyczyśćToolStripMenuItem_Click(object sender, EventArgs e)
@@ -163,20 +162,33 @@ namespace Puzzel
 
         private void statusHasłaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
-            string tempt = null;    
+
+            string tempt = null;
             TimeSpan temp = (Convert.ToDateTime(_lastPasswordSet).AddDays(30) - DateTime.Now);
             if (temp > (DateTime.Now.AddDays(2) - DateTime.Now))
             {
-                tempt +=(temp.ToString("'Obecne hasło wynosi :'dd' dni 'hh'g'mm'm'ss's'") + "\n");
+                tempt += (temp.ToString("'Obecne hasło wynosi :'dd' dni 'hh'g'mm'm'ss's'") + "\n");
             }
             else if (temp < (DateTime.Now.AddDays(1) - DateTime.Now))
-                tempt +=(temp.ToString("'Obecne hasło wynosi :'dd' dzień 'hh'g'mm'm'ss's'") + "\n");
+                tempt += (temp.ToString("'Obecne hasło wynosi :'dd' dzień 'hh'g'mm'm'ss's'") + "\n");
 
 
-            
+
 
             MessageBox.Show("Maksymalna długość hasła dla " + Username + " wynosi 30 dni. \n\n " + (DateTime.Now - Convert.ToDateTime(_lastPasswordSet)).ToString("'Hasło wygasa za: 'dd' dni 'hh'g'mm'm'ss's'") + "\n\n " + tempt, "Status hasła");
         }
+
+        private void odblokujZaznaczoneToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int selectedRowIndex = dataGridView1.SelectedRows[0].Index;
+            string dcName = dataGridView1.Rows[selectedRowIndex].Cells[0].Value.ToString();
+            using (PrincipalContext context = new PrincipalContext(ContextType.Domain, dcName))
+            {
+                UserPrincipal uP = UserPrincipal.FindByIdentity(context, IdentityType.SamAccountName, Username);
+                uP.UnlockAccount();
+            }
+            MessageBox.Show("Konto odblokowane na kontrolerze: "+dcName);
+        }
+        
     }
 }

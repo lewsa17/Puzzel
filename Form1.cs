@@ -428,7 +428,7 @@ namespace Puzzel
                     System.Collections.Generic.List<string> list = new System.Collections.Generic.List<string>(sr.ReadToEnd().Split('\n'));
                     sr.Close();
                     list.RemoveAt(0);
-                    list.RemoveAt(list.Count-1);
+                    //list.RemoveAt(list.Count-1);
                     list.Reverse();
                     int maxLines = list.Count;
                     string[] word;
@@ -455,21 +455,22 @@ namespace Puzzel
             
             stopTime();
         }
-        private void button1_Click(object sender, EventArgs e)
+
+        private void szukajLogow(object sender, EventArgs e)
         {
-            loGi(UserName(), "User", numericUpDown1.Value);
+            if (((Button)sender).Name == "button1")
+            {
+                loGi(UserName(), "User", numericUpDown1.Value);
+            }
+
+            if (((Button)sender).Name == "button10")
+            {
+                loGi(HostName(), "Computer", numericUpDown2.Value);
+            }
             comboBox1.Text = "";
             comboBox1.Items.Clear();
-        }
-        
 
-        private void button10_Click(object sender, EventArgs e)
-        {
-            loGi(HostName(), "Computer", numericUpDown2.Value);
-            comboBox1.Text = "";
-            comboBox1.Items.Clear();
         }
-
         private void button9_Click(object sender, EventArgs e)
         {
             startTime();
@@ -1281,16 +1282,16 @@ namespace Puzzel
             startTime();
             ClearRichTextBox(null);
             Puzzel.Ping.Pinging(HostName());
-            osName(textBox2.Text, ComputerInfo.pathCIMv2, ComputerInfo.queryOperatingSystem);
             if (PingStatus == 0)
             {
+                osName(textBox2.Text, ComputerInfo.pathCIMv2, ComputerInfo.queryOperatingSystem);
                 if (osname.Contains("Microsoft Windows 10"))
                 {
                     ProcExec exec = new ProcExec("powershell", "-noexit Enter-PSSession -ComputerName " + HostName());
                 }
                 else if (osarch.Contains("64-bit"))
                     try
-                    { 
+                    {
                         ProcExec Exec = new ProcExec("PsExec64.exe", @"\\" + HostName() + " cmd");
                     }
                     catch (Win32Exception)
@@ -1308,8 +1309,9 @@ namespace Puzzel
                         UpdateRichTextBox("Nie można odnaleźć określonego pliku\n");
                         UpdateRichTextBox(Directory.GetCurrentDirectory() + @"\PsExec.exe");
                     }
-
             }
+            else
+                UpdateRichTextBox("Stacja: " + HostName() + " nie jest widoczna na sieci");
             stopTime();
         }
 
@@ -1933,16 +1935,14 @@ namespace Puzzel
                 if (((TextBox)sender).Name == "textBox1")
                 {
                     loGi(UserName(), "User", numericUpDown1.Value);
-                    comboBox1.Text = "";
-                    comboBox1.Items.Clear();
                 }
 
                 if (((TextBox)sender).Name == "textBox2")
                 {
                     loGi(HostName(), "Computer", numericUpDown2.Value);
+                }
                     comboBox1.Text = "";
                     comboBox1.Items.Clear();
-                }
             }
 
             if (e.Control && e.KeyCode == Keys.C)
