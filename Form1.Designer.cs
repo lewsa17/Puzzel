@@ -559,13 +559,13 @@
             this.RemoteDesktopContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.rDPBezPustyContextMenu});
             this.RemoteDesktopContextMenu.Name = "RemoteDesktopContextMenu";
-            this.RemoteDesktopContextMenu.Size = new System.Drawing.Size(181, 48);
+            this.RemoteDesktopContextMenu.Size = new System.Drawing.Size(145, 26);
             this.RemoteDesktopContextMenu.Text = "ZdalnyPulpit";
             // 
             // rDPBezPustyContextMenu
             // 
             this.rDPBezPustyContextMenu.Name = "rDPBezPustyContextMenu";
-            this.rDPBezPustyContextMenu.Size = new System.Drawing.Size(180, 22);
+            this.rDPBezPustyContextMenu.Size = new System.Drawing.Size(144, 22);
             this.rDPBezPustyContextMenu.Text = "RDP bez pusty";
             this.rDPBezPustyContextMenu.Click += new System.EventHandler(this.rDPBezPustyContextMenu_Click);
             // 
@@ -1220,8 +1220,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(1202, 511);
             this.Name = "Form1";
-            this.Text = "Puzzel v0.61";
-            this.Load += new System.EventHandler(this.button20_Click);
+            this.Text = "Puzzel v0.62";
             this.Resize += new System.EventHandler(this.Form1_Resize);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

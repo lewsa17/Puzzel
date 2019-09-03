@@ -41,7 +41,7 @@ namespace Puzzel
                 progress.Start();
             }*/
 
-        }
+        }/*
         string[] Working = null;
         private void GetLogs()
         {
@@ -49,7 +49,7 @@ namespace Puzzel
             logi.GetLogs();
             logi.SaveLogs();
             logi.LoadLogs();
-        }
+        }*/
         public static void InvokeProgress()
         { Progress progress = new Progress();
             if (progress.InvokeRequired)
@@ -62,15 +62,17 @@ namespace Puzzel
         }
         public static System.Threading.Thread progressBar;// = new System.Threading.Thread(InvokeProgress);
         public DirectorySearcher dirsearch = null;
-        public string domainName = null;
+        public string domainName() { return System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().DomainName; }
         public static int ProgressMax = 0;
         public static int ProgressBarValue = 0;
         //public static string[] UserLogs;
         //public static string[] ComputerLogs;
+        string[] domainControllerName = { };
         public void getDomainControllers()
-
         {
-            try
+            domainControllerName = DDomainController().Split(',');
+            /*
+            if (File.Exists(@"C:\Windows\System32\dsquery.exe"))
             {
                 Process p = new Process();
                 p.StartInfo.FileName = "dsquery.exe";
@@ -84,23 +86,24 @@ namespace Puzzel
                 p.BeginOutputReadLine();
                 p.WaitForExit();
             }
-            catch (Win32Exception)
+            else
             {
                 UpdateRichTextBox("Nie można odnaleźć określonego pliku\n");
                 UpdateRichTextBox(@"C:\Windows\System32\dsquery.exe");
-            }
+            }*/
         }
 
-
         public static string domainController2;
-        static string domainController = null;
+        string[] domainController = new string[4];
+        int licznik_dla_controlera = 0;
         void DomainControllersa(object sender, DataReceivedEventArgs e)
         {
             Trace.WriteLine(e.Data);
             this.BeginInvoke(new MethodInvoker(() =>
             {
-                domainController += (e.Data);
+                domainController[licznik_dla_controlera]+= (e.Data) ?? string.Empty;
             }));
+            licznik_dla_controlera++;
         }
         private delegate void UpdateRichTextBoxEventHandler(string message);
         private void UpdateRichTextBox(string message)
@@ -150,22 +153,6 @@ namespace Puzzel
                 richTextBox1.Invoke(new ReplaceRichTextBoxEventHandler(ReplaceRichTextBox), new object[] { message });
             }
             else { richTextBox1.Text = message; }
-        }
-
-        private string getDomainName()
-        {
-            if (File.Exists(Working[0].Remove(12) + HostName() + "_logons.log"))
-            {
-                StreamReader sr = new StreamReader(Working[0].Remove(12) + HostName() + "_logons.log");
-
-                string[] lines = sr.ReadToEnd().Split('\n');
-                sr.Close();
-
-                string[] word;
-                word = lines[1].Split(';');
-                domainName = word[6];
-            }
-            return domainName;
         }
 
         private void button14_Click(object sender, EventArgs e)
@@ -450,16 +437,14 @@ namespace Puzzel
             UpdateRichTextBox(sb.ToString());
             stopTime();
         }
-
-
+        
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
             ClearRichTextBox(null);
-
-            System.Threading.Thread thread;
+            //System.Threading.Thread thread;
             if (counterlist > 2)
             {
-                containst(Name, senderZ);
+                containst(NameZ, senderZ);
                 if (LogsNames.Count() > 0)
                 {
                     foreach (string LogsName in LogsNames)
@@ -471,97 +456,6 @@ namespace Puzzel
             }
             else ReplaceRichTextBox("Za mało danych");
 
-            /*
-
-
-
-
-
-
-
-
-
-            if (senderZ is TextBox)
-            {
-                if (((TextBox)senderZ).Name == "textBox1")
-                {
-                    System.Threading.Thread thread;
-                    if (textBox1.Text.Length > 2)
-                    {
-                        containst(UserName(), "User");
-                        if (LogsNames.Count() > 0)
-                        {
-                            foreach (string user in LogsNames)
-                            {
-                                loGi(user, "User", numericUpDown1.Value);
-                            }
-                        }
-                        else ReplaceRichTextBox("Brak w logach");
-                    }
-                    else ReplaceRichTextBox("Za mało danych");
-                } 
-
-                if (((TextBox)senderZ).Name == "textBox2")
-                {
-                    System.Threading.Thread thread;
-                    if (textBox2.Text.Length > 2)
-                    {
-                        containst(HostName(), "Computer");
-                        if (LogsNames.Count() > 0)
-                        {
-                            foreach (string computer in LogsNames)
-                            {
-                                loGi(computer, "Computer", numericUpDown2.Value);
-                            }
-                        }
-                        else ReplaceRichTextBox("Brak w logach");
-                    }
-                    else ReplaceRichTextBox("Za mało danych");
-                }
-            }
-
-            if (senderZ is Button)
-            {
-                if (((Button)senderZ).Name == "button1")
-                {
-                    System.Threading.Thread thread;
-                    if (textBox1.Text.Length > 2)
-                    {
-                        containst(UserName(), "User");
-                        if (LogsNames.Count() > 0)
-                        {
-                            foreach (string user in LogsNames)
-                            {
-                                loGi(user, "User", numericUpDown1.Value);
-                                //thread = new Thread(() => loGi(user, "User", numericUpDown1.Value));
-                                //thread.Start();
-                            }
-                        }
-                        else ReplaceRichTextBox("Brak w logach");
-                    }
-                    else ReplaceRichTextBox("Za mało danych");
-                }
-
-                if (((Button)senderZ).Name == "button10")
-                {
-                    System.Threading.Thread thread;
-                    if (textBox2.Text.Length > 2)
-                    {
-                        containst(HostName(), "Computer");
-                        if (LogsNames.Count() > 0)
-                        {
-                            foreach (string computer in LogsNames)
-                            {
-                                loGi(computer, "Computer", numericUpDown2.Value);
-                                //thread = new Thread(() => loGi(computer, "Computer", numericUpDown2.Value));
-                                //thread.Start();
-                            }
-                        }
-                        else ReplaceRichTextBox("Brak w logach");
-                    }
-                    else ReplaceRichTextBox("Za mało danych");
-                }
-            }*/
             if (comboBox1.InvokeRequired)
                 comboBox1.Invoke(new MethodInvoker(() =>
             {
@@ -615,25 +509,22 @@ namespace Puzzel
         private void button9_Click(object sender, EventArgs e)
         {
             startTime();
-            try
-            {
-                string temp1 = comboBox1.Items[comboBox1.SelectedIndex].ToString();
+            if (comboBox1.Items.Count > 0)
+            { 
+                string wybranaLinijka = comboBox1.Items[comboBox1.SelectedIndex].ToString();
                 if (comboBox1.SelectedIndex >= 0)
                 {
-                    string[] temp = temp1.Split(' ');
+                    string[] SlowowTekscie = wybranaLinijka.Split(' ');
                     Process session = new Process();
                     session.StartInfo.FileName = @"C:\Windows\sysnative\logoff.exe";
-                    session.StartInfo.Arguments = temp[0] + " /server:" + temp[1];
+                    session.StartInfo.Arguments = SlowowTekscie[0] + " /server:" + SlowowTekscie[1];
                     session.StartInfo.CreateNoWindow = true;
                     session.StartInfo.UseShellExecute = false;
                     session.Start();
                     session.WaitForExit();
                 }
             }
-            catch (ArgumentOutOfRangeException)
-            {
-                UpdateRichTextBox("Nie znalazł żadnej sesji by się do niej podłączyć");
-            }
+            MessageBox.Show("Sesja została wylogowana");
             stopTime();
         }
 
@@ -663,7 +554,8 @@ namespace Puzzel
             {
                 ProcExec Exec = new ProcExec(Working[9].Remove(13), "-m:" + HostName() + " -x -a:1");
             }
-            else            {
+            else
+            {
                 UpdateRichTextBox("Nie można odnaleźć określonego pliku\n");
                 UpdateRichTextBox(Working[9].Remove(13));
             }
@@ -698,7 +590,7 @@ namespace Puzzel
 
         private string SearchProperty(string propertyName)
         {
-            DirectoryEntry entry = new DirectoryEntry("LDAP://" + getDomainName());
+            DirectoryEntry entry = new DirectoryEntry("LDAP://" + domainName());
             DirectorySearcher searcher = new DirectorySearcher(entry);
             SearchResult searchResult = searcher.FindOne();
             ResultPropertyValueCollection valueCollection = searchResult.Properties[propertyName];
@@ -1191,11 +1083,6 @@ namespace Puzzel
             }
             else { comboBox1.Items.Add(message); }
         }
-        int tasksession = 0;
-        private void button7_Click(object sender, EventArgs e)
-        {
-
-        }
         private string Allowed_workstions()
         { string[] temp = netuserdomain.Split('\n');
             return temp[16].ToString();
@@ -1230,7 +1117,6 @@ namespace Puzzel
         {
             startTime();
             ClearRichTextBox("");
-            getDomainName();
             Process p = new Process();
             p.StartInfo.FileName = @"net";
             p.StartInfo.Arguments = @"user " + UserName() + " /domain";
@@ -1245,7 +1131,7 @@ namespace Puzzel
 
             if (UserName().Trim().Length != 0)
             {
-                GetInfo(Working[10].Remove(7));
+                GetInfo(domainName());
                 //1 linijka
                 TimeSpan temp = (pwdLastSet.AddDays(30) - DateTime.Now);
                 if (temp > (DateTime.Now.AddDays(2) - DateTime.Now))
@@ -1264,11 +1150,11 @@ namespace Puzzel
                 //5 linijka
                 UpdateRichTextBox("Pełna nazwa:\t\t\t\t" + displayName + "\n");
                 //6 linijka
-                UpdateRichTextBox("Komentarz:\t\t\t\t" + title + "\n");
+                UpdateRichTextBox("Komentarz:\t\t\t\t\t" + title + "\n");
                 //7 linijka
                 UpdateRichTextBox("Firma zatrudniająca:\t\t\t" + company + "\n");
                 //8 linijka
-                UpdateRichTextBox("Mail:\t\t\t\t\t" + mail + "\n");
+                UpdateRichTextBox("Mail:\t\t\t\t\t\t" + mail + "\n");
                 //9 linijka
                 UpdateRichTextBox("Konto jest aktywne:\t\t\t" + userEnabled + "\n");
                 //10 linijka
@@ -1297,8 +1183,8 @@ namespace Puzzel
                 UpdateRichTextBox("Ostatnie logowanie:\t\t\t" + lastLogon + "\n");
                 //21 linijka
                 if (lastLogoff > lastLogon)
-                    UpdateRichTextBox("Ostatnie wylogowanie:\t\t" + lastLogoff + "\n");
-                else UpdateRichTextBox("Ostatnie wylogowanie:\t\t" + 0 + "\n");
+                    UpdateRichTextBox("Ostatnie wylogowanie:\t\t\t\t" + lastLogoff + "\n");
+                else UpdateRichTextBox("Ostatnie wylogowanie:\t\t\t" + "0" + "\n");
                 //22 linijka
                 UpdateRichTextBox("\n");
                 //23  i 24 linijka
@@ -1306,11 +1192,11 @@ namespace Puzzel
                 //25
                 UpdateRichTextBox(Allowed_workstions() + "\n");
                 //26 linijka
-                UpdateRichTextBox("Skrypt logowania:\t\t\t" + scriptPath + "\n");
+                UpdateRichTextBox("Skrypt logowania:\t\t\t\t" + scriptPath + "\n");
                 //27 linijka
                 UpdateRichTextBox("Katalog macierzysty:\t\t\t" + homeDirectory + "\n");
                 //28 linijka
-                UpdateRichTextBox("Dysk macierzysty:\t\t\t" + homeDrive + "\n");
+                UpdateRichTextBox("Dysk macierzysty:\t\t\t\t" + homeDrive + "\n");
                 //29 linijka
                 UpdateRichTextBox("\n");
                 //30 linijka
@@ -1323,10 +1209,20 @@ namespace Puzzel
             stopTime();
         }
 
+
         private void button20_Click(object sender, EventArgs e)
         {
+            // domainController = null;
+            //getDomainControllers();
+            DDomainController();
             //if(!ladujLogiWTle.IsBusy)
             //ladujLogiWTle.RunWorkerAsync();
+
+            if (domainController !=null && domainController.Length > 1)
+            {
+                MessageBox.Show(domainController[1]);
+            }
+           
         }
         static AutoCompleteStringCollection ComputerCollection = new AutoCompleteStringCollection();
        
@@ -1808,11 +1704,12 @@ namespace Puzzel
 
         private void ladujLogiWTle_DoWork(object sender, DoWorkEventArgs e)
         {
-            GetLogs();
+         //   GetLogs();
         }
 
         private void szukaniesesji(object sender, EventArgs e)
         {
+            ClearRichTextBox(null);
             Thread thread;
             foreach (string termserv in termservers)
             {
@@ -1847,10 +1744,8 @@ namespace Puzzel
         {
             UserName();
             Lockout_Status LS = new Lockout_Status(UserName());
-            getDomainControllers();
+            //getDomainControllers();
             LS.Show();
-            // Thread thread = new Thread(() => LS.Show());
-            //thread.Start();
 
         }
 
@@ -1868,7 +1763,6 @@ namespace Puzzel
                 thread = new Thread(() => terminalExplorer.szukanieSesji(((ToolStripMenuItem)sender).Text));
                 thread.Start();
                 terminalExplorer.Show();
-//                terminalExplorer.szukanieSesji(((ToolStripMenuItem)sender).Text);
             }
             else MessageBox.Show("Plik cassia.dll nie jest dostępny.");
         }
@@ -2004,7 +1898,7 @@ namespace Puzzel
 
         string PwdLcl(string computername)
         {
-            DirectoryEntry myLdapConnection = new DirectoryEntry("LDAP://" + System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().DomainName);
+            DirectoryEntry myLdapConnection = new DirectoryEntry("LDAP://" + domainName());
             DirectorySearcher search = new DirectorySearcher(myLdapConnection);
             search.Filter = "(cn=" + computername + ")";
             SearchResult result = search.FindOne();
@@ -2017,7 +1911,7 @@ namespace Puzzel
 
         string Nazwauzytkownika(string username)
         {
-            DirectoryEntry myLdapConnection = new DirectoryEntry("LDAP://" + System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().DomainName);
+            DirectoryEntry myLdapConnection = new DirectoryEntry("LDAP://" + domainName());
             DirectorySearcher search = new DirectorySearcher(myLdapConnection);
             search.Filter = "(sAMAccountName="+ username+")";
             SearchResult result = search.FindOne();
@@ -2026,6 +1920,23 @@ namespace Puzzel
                 text = "brak w AD";
             else text = result.GetDirectoryEntry().Properties["displayName"].Value.ToString();
             return text;
+        }
+
+        string DDomainController()
+        {
+            DirectoryEntry myLdapConnection = new DirectoryEntry("LDAP://OU=Domain Controllers," + domainName());
+            DirectorySearcher search = new DirectorySearcher(new DirectoryEntry("LDAP://" + domainName()));
+            //search.Filter = "(sAMAccountName=" + username + ")";
+            SearchResult search1 = search.FindOne();
+            //SearchResultCollection collection = search.FindAll();
+            object[] lines = (object[])search1.GetDirectoryEntry().Properties["msds-isdomainfor"].Value;
+            string table = null;
+            foreach (string line in lines)
+            {
+                string[] words = line.Split(',');
+                table +=words[1].Replace("CN=","")+",";
+            }
+            return table;
         }
 
         private void DyDWContextMenu_Click(object sender, EventArgs e)

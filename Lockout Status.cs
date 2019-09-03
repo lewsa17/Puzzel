@@ -8,9 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.DirectoryServices;
 using System.DirectoryServices.AccountManagement;
 using System.Threading;
-using System.IO;
+
 namespace Puzzel
 {
     public partial class Lockout_Status : Form
@@ -20,11 +21,33 @@ namespace Puzzel
             InitializeComponent();
             Username = username;
         }
+        public string domainName() { return System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().DomainName; }
 
+        string DomainController()
+        {
+            DirectoryEntry myLdapConnection = new DirectoryEntry("LDAP://OU=Domain Controllers," + domainName());
+            DirectorySearcher search = new DirectorySearcher(new DirectoryEntry("LDAP://" + domainName()));
+            //search.Filter = "(sAMAccountName=" + username + ")";
+            SearchResult search1 = search.FindOne();
+            //SearchResultCollection collection = search.FindAll();
+            object[] lines = (object[])search1.GetDirectoryEntry().Properties["msds-isdomainfor"].Value;
+            string table = null;
+            foreach (string line in lines)
+            {
+                string[] words = line.Split(',');
+                table += words[1].Replace("CN=", "") + ",";
+            }
+            return table;
+        }
         public static string Username;
         public static string domainAddress = null;
-        public void GetDomainControllers()
+
+        public void GetDomainControllers(ref string[] array)
         {
+            array = DomainController().Split(',');
+            Array.Resize(ref array, domainControllerName.Length - 1);
+            domainControllerName = array;
+            /*
             try
             {
                 Process p = new Process();
@@ -55,8 +78,8 @@ namespace Puzzel
             {
                 domainController += (e.Data + ",");
             }));
+        */
         }
-
         private void Lockout_Status_Load(object sender, EventArgs e)
         {
             this.Text = "Lockout Status";
@@ -78,21 +101,21 @@ namespace Puzzel
 
         private void UpdateEntry()
         {
-            var domaincontrooler = File.ReadAllLines("DefaultValue.txt");
-            var domainControlerName = domaincontrooler[12].Split(',');
-            for (int i = 0; i < domainControlerName.Count(); i++)
-                GetUserPasswordDetails(domainControlerName[i]);
+            if (domainControllerName == null)
+                GetDomainControllers(ref domainControllerName);
+            else 
+            for (int i = 0; i < domainControllerName.Count()-1; i++)
+                GetUserPasswordDetails(domainControllerName[i]);
+            
         }
 
         private void AddEntry()
         {
-            var domaincontrooler = File.ReadAllLines("DefaultValue.txt");
-            var domainControlerName = domaincontrooler[12].Split(',');
-            
-            
-            foreach (string dc in domainControlerName)
+            GetDomainControllers(ref domainControllerName);
+
+            foreach(string dcName in domainControllerName)
             {
-                Thread thread = new Thread(() => GetUserPasswordDetails(dc));
+                Thread thread = new Thread(() => GetUserPasswordDetails(dcName));
                 thread.Start();
             }
         }
@@ -115,6 +138,7 @@ namespace Puzzel
             if (Username.Length > 1)
                 this.Text = Username;
         }
+        static string[] domainControllerName = {};
         string useraccaountLocked = null;
         string _badLogonCount = null;
         string _lastBadPasswordAttempt = null;
@@ -178,7 +202,7 @@ namespace Puzzel
 
         private void odblokujZaznaczoneToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.SelectedColumns.Count != 0)
+            if (dataGridView1.SelectedRows.Count != 0)
             {
                 int selectedRowIndex = dataGridView1.SelectedRows[0].Index;
                 string dcName = dataGridView1.Rows[selectedRowIndex].Cells[0].Value.ToString();
