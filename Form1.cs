@@ -60,7 +60,7 @@ namespace Puzzel
                 }));
             }
         }
-        public static System.Threading.Thread progressBar;// = new System.Threading.Thread(InvokeProgress);
+        public static Thread progressBar;// = new System.Threading.Thread(InvokeProgress);
         public DirectorySearcher dirsearch = null;
         public string domainName() { return System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().DomainName; }
         public static int ProgressMax = 0;
@@ -1515,7 +1515,7 @@ namespace Puzzel
             });
             thread1.Start();
             Thread thread;
-            if (File.Exists(@"C:\Windows\System32\Cassia.dll"))
+            if (File.Exists(Directory.GetCurrentDirectory() + @"\Cassia.dll")) 
             {
                 TerminalExplorer terminalExplorer = new TerminalExplorer();
                 thread1.Join();
