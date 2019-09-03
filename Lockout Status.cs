@@ -46,6 +46,7 @@ namespace Puzzel
             }
         }
         string domainController;
+
         void domainControllers(object sender, DataReceivedEventArgs e)
         {
             domainController = null;

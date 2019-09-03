@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Puzzel
@@ -18,5 +15,7 @@ namespace Puzzel
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
         }
+        public static AutoCompleteStringCollection ComputerCollection = new AutoCompleteStringCollection();
+        public static AutoCompleteStringCollection UserCollection = new AutoCompleteStringCollection();
     }
 }

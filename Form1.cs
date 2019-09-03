@@ -65,8 +65,8 @@ namespace Puzzel
         public string domainName = null;
         public static int ProgressMax = 0;
         public static int ProgressBarValue = 0;
-        public static string[] UserLogs;
-        public static string[] ComputerLogs;
+        //public static string[] UserLogs;
+        //public static string[] ComputerLogs;
         public void getDomainControllers()
 
         {
@@ -789,80 +789,80 @@ namespace Puzzel
             {
                 ComputerInfo computerInfo = new ComputerInfo();
                 ComputerInfo_TEMP += ("Nazwa komputera: ");
-                ProgressBarValue++;
+                ProgressBarValue = 1;
                 computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryComputerSystem, "DNSHostName");
                 ComputerInfo_TEMP += ("----------------------------------------\n");
                 ComputerInfo_TEMP += ("Domena: ");
-                ProgressBarValue++;
+                ProgressBarValue = 2;
                 computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryComputerSystem, "Domain");
                 ComputerInfo_TEMP += ("----------------------------------------\n");
                 ComputerInfo_TEMP += ("Uptime: ");
-                ProgressBarValue++;
+                ProgressBarValue = 3;
                 computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryOperatingSystem, "LastBootUpTime");
                 ComputerInfo_TEMP += ("----------------------------------------\n");
                 ComputerInfo_TEMP += ("SN: ");
-                ProgressBarValue++;
+                ProgressBarValue = 4;
                 computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryComputerSystemProduct, "IdentifyingNumber");
                 ComputerInfo_TEMP += ("PN: ");
-                ProgressBarValue++;
+                ProgressBarValue = 5;
                 computerInfo.GetInfo(HostName(), ComputerInfo.pathWMI, ComputerInfo.querySystemInformation, "SystemSKU");
                 ComputerInfo_TEMP += ("----------------------------------------\n");
                 ComputerInfo_TEMP += ("Model: ");
-                ProgressBarValue++;
+                ProgressBarValue = 6;
                 computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryComputerSystem, "Model");
                 ComputerInfo_TEMP += ("----------------------------------------\n");
                 ComputerInfo_TEMP += ("OS: ");
-                ProgressBarValue++;
+                ProgressBarValue = 7;
                 computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryOperatingSystem, "Caption", "CsdVersion", "OsArchitecture", "Version");
                 ComputerInfo_TEMP += ("----------------------------------------\n");
                 //TotalCapacity
                 ComputerInfo_TEMP += ("Pamięć TOTAL: \n");
-                ProgressBarValue++;
+                ProgressBarValue = 8;
                 computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryPhysicalMemory, "Capacity");
                 ComputerInfo_TEMP += ("\n");
                 computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryPhysicalMemory, "DeviceLocator", "Manufacturer", "Capacity", "Speed", "PartNumber", "SerialNumber");
                 ComputerInfo_TEMP += ("----------------------------------------\n");
                 ComputerInfo_TEMP += ("CPU \n");
-                ProgressBarValue++;
+                ProgressBarValue = 9;
                 computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryProcessor, "Name");
                 ComputerInfo_TEMP += ("Rdzenie: ");
-                ProgressBarValue++;
+                ProgressBarValue = 10;
                 computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryProcessor, "NumberOfCores");
                 ComputerInfo_TEMP += ("Wątki: ");
-                ProgressBarValue++;
+                ProgressBarValue = 11;
                 computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryProcessor, "NumberOfLogicalProcessors");
                 ComputerInfo_TEMP += ("----------------------------------------\n");
                 ComputerInfo_TEMP += ("Użytkownik: ");
-                ProgressBarValue++;
+                ProgressBarValue = 12;
                 computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryComputerSystem, "UserName");
                 ComputerInfo_TEMP += ("----------------------------------------\n");
                 ComputerInfo_TEMP += ("Profile\n");
-                ProgressBarValue++;
+                ProgressBarValue = 13;
                 computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryDesktop, "Name");
                 ComputerInfo_TEMP += ("----------------------------------------\n");
                 ComputerInfo_TEMP += ("Dyski: \n");
-                ProgressBarValue++;
+                ProgressBarValue = 14;
                 ComputerInfo_TEMP += ("Nazwa   Opis                  System plików   Wolna przestrzeń       Rozmiar \n");
                 computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryLogicalDisk, "Name", "Description", "FileSystem", "FreeSpace", "Size");
                 ComputerInfo_TEMP += ("----------------------------------------\n");
                 ComputerInfo_TEMP += ("Zasoby sieciowe\n\n");
-                ProgressBarValue++;
+                ProgressBarValue = 15;
                 computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryNetworkConnection, "LocalName", "RemoteName");
                 ComputerInfo_TEMP += ("----------------------------------------\n");
                 ComputerInfo_TEMP += ("Drukarki sieciowe\n\n");
-                ProgressBarValue++;
+                ProgressBarValue = 16;
                 computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryPrinterConfiguration, "DeviceName");
                 ComputerInfo_TEMP += ("----------------------------------------\n");
                 ComputerInfo_TEMP += ("Udziały\n");
-                ProgressBarValue++;
+                ProgressBarValue = 17;
                 computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryShare, "Name", "Path", "Description");
                 ComputerInfo_TEMP += ("----------------------------------------\n");
                 ComputerInfo_TEMP += ("AutoStart\n");
-                ProgressBarValue++;
+                ProgressBarValue = 18;
                 computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryStartupCommand, "Caption", "Command");
                 ComputerInfo_TEMP += ("----------------------------------------\n");
                 ComputerInfo_TEMP += ("Środowisko uruchomieniowe\n");
-                ProgressBarValue++;
+                ProgressBarValue = 19;
                 ComputerInfo_TEMP += ("Nazwa zmiennej           Wartość zmiennej\n");
                 computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryEnvironment, "Name", "VariableValue");
                 UpdateRichTextBox(ComputerInfo_TEMP);
@@ -995,7 +995,7 @@ namespace Puzzel
                 session.StartInfo.RedirectStandardOutput = true;
                 session.Start();
                 session.WaitForExit();
-                using (System.IO.StreamReader reader = session.StandardOutput)
+                using (StreamReader reader = session.StandardOutput)
                 {
                     if (reader != null)
                         sesjelogs = reader.ReadToEnd() + "\n";
@@ -1191,58 +1191,58 @@ namespace Puzzel
 
         private void button20_Click(object sender, EventArgs e)
         {
+            if(!ladujLogiWTle.IsBusy)
             ladujLogiWTle.RunWorkerAsync();
         }
         static AutoCompleteStringCollection ComputerCollection = new AutoCompleteStringCollection();
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-            if (!ladujLogiWTle.IsBusy)
-                if (ComputerLogs.Count() >= 0)
-                    if ((HostName() != null) && (HostName().Length > 3))
-                    {
-                        ComputerCollection.AddRange(ComputerLogs);
-                        textBox2.AutoCompleteCustomSource = ComputerCollection;
-                        textBox2.AutoCompleteMode = AutoCompleteMode.Suggest;
-                        textBox2.AutoCompleteSource = AutoCompleteSource.CustomSource;
-                    }
-                    else
-                    {
-                        textBox2.AutoCompleteSource = AutoCompleteSource.None;
-                        textBox2.AutoCompleteMode = AutoCompleteMode.None;
-                    }
-                else
-                {
-                    Logi logi = new Logi(UserName(), HostName());
-                    logi.LoadLogs();
-                    ComputerCollection.AddRange(ComputerLogs);
-                }
-        }
-
+       
         static AutoCompleteStringCollection UserCollection = new AutoCompleteStringCollection();
-        private void textBox1_TextChanged(object sender, EventArgs e)
+       
+        private void AutoComplete(object sender, EventArgs e)
         {
-            if (!ladujLogiWTle.IsBusy)
-                if (UserLogs.Count() >= 0)
-                    if ((UserName() != null) && (UserName().Length > 3))
-                    {
-                        UserCollection.AddRange(UserLogs);
-                        textBox1.AutoCompleteCustomSource = UserCollection;
-                        textBox1.AutoCompleteMode = AutoCompleteMode.Suggest;
-                        textBox1.AutoCompleteSource = AutoCompleteSource.CustomSource;
-                    }
+            //string[] log =null;
+            string name = null;
+            AutoCompleteStringCollection autocompl = null;
+            if (((TextBox)sender).Name == "textBox1")
+            {
+                //log = UserLogs;
+                name = UserName();
+                autocompl = Program.UserCollection;
+            }
+            if (((TextBox)sender).Name == "textBox2")
+            {
+                //log = ComputerLogs;
+                name = HostName();
+                autocompl = Program.ComputerCollection;
+            }
+            try
+            {
+                if (!ladujLogiWTle.IsBusy)
+                    //if (log.Count() > 0 && log !=null)
+                    if (autocompl != null && autocompl.Count > 0)
+                        if //((name != null) && 
+                        (name.Length > 3)//)
+                        {
+                            //autocompl.AddRange(log);
+                            ((TextBox)sender).AutoCompleteCustomSource = autocompl;
+                            ((TextBox)sender).AutoCompleteMode = AutoCompleteMode.Suggest;
+                            ((TextBox)sender).AutoCompleteSource = AutoCompleteSource.CustomSource;
+                        }
+                        else
+                        {
+                            ((TextBox)sender).AutoCompleteSource = AutoCompleteSource.None;
+                            ((TextBox)sender).AutoCompleteMode = AutoCompleteMode.None;
+                        }
                     else
                     {
-                        textBox1.AutoCompleteSource = AutoCompleteSource.None;
-                        textBox1.AutoCompleteMode = AutoCompleteMode.None;
+                        ladujLogiWTle.RunWorkerAsync();
                     }
-                else
-                {
-                    Logi logi = new Logi(UserName(), HostName());
-                    logi.LoadLogs();
-                    UserCollection.AddRange(UserLogs);
-                }
+            }
+            catch(Exception)
+            {
+                throw;
+            }
         }
-
         private void osName(string nazwaKomputera, string path, string query)
         {
             ManagementScope scope = new ManagementScope();
@@ -1906,7 +1906,7 @@ namespace Puzzel
 
         private void DyDWContextMenu_Click(object sender, EventArgs e)
         {
-            startTime(); 
+            startTime();
             if(File.Exists(Working[9].Remove(13)))
             {
                 ProcExec Exec = new ProcExec(Working[9].Remove(13), "-m:" + HostName() + " -x -a:2 "+Working[12].Remove(6)+ PwdLcl(HostName()) + " -d:");
@@ -1927,15 +1927,24 @@ namespace Puzzel
         }
 
         private void Keys_PreviewKeyDown (object sender, PreviewKeyDownEventArgs e)
-        {/*
+        {
             if (e.KeyCode == Keys.Enter)
             {
-                
-                    loGi(textBox1.Text + "*", "User", numericUpDown1.Value);
-                //if (tb.Name == "TextBox2")
-                   // loGi("*" + textBox2.Text + "*", "Computer", numericUpDown2.Value);
+                if (((TextBox)sender).Name == "textBox1")
+                {
+                    loGi(UserName(), "User", numericUpDown1.Value);
+                    comboBox1.Text = "";
+                    comboBox1.Items.Clear();
+                }
+
+                if (((TextBox)sender).Name == "textBox2")
+                {
+                    loGi(HostName(), "Computer", numericUpDown2.Value);
+                    comboBox1.Text = "";
+                    comboBox1.Items.Clear();
+                }
             }
-            */
+
             if (e.Control && e.KeyCode == Keys.C)
             {
                 if (richTextBox1.Focused)

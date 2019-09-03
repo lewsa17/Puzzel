@@ -64,16 +64,17 @@ namespace Puzzel
             cmp.WriteLine(computerlogon);
             cmp.Close();
         }
-
         public void LoadLogs()
         {
             Puzzel.Form1.ProgressBarValue++;
             StreamReader usr = new StreamReader(Path.GetTempPath() + @"\UserLogCache.log");
-            Puzzel.Form1.UserLogs = usr.ReadLine().Split(',');
+            //Puzzel.Form1.UserLogs = usr.ReadLine().Split(',');
+            Program.UserCollection.AddRange(usr.ReadLine().Split(','));
             usr.Close();
             Puzzel.Form1.ProgressBarValue++;
             StreamReader cmp = new StreamReader(Path.GetTempPath() + @"\ComputerLogCache.log");
-            Puzzel.Form1.ComputerLogs = cmp.ReadLine().Split(',');
+            //Puzzel.Form1.ComputerLogs = cmp.ReadLine().Split(',');
+            Program.ComputerCollection.AddRange(cmp.ReadLine().Split(','));
             cmp.Close();
         }
     }
