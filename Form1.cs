@@ -1688,7 +1688,7 @@ namespace Puzzel
 
                 if (File.Exists(Directory.GetCurrentDirectory() + @"\" + applicationName))
                 {
-                    ProcExec Exec = new ProcExec(applicationName, @"\\" + HostName() + "-s  cmd");
+                    ProcExec Exec = new ProcExec(applicationName, @"\\" + HostName() + " -s  cmd");
                 }
                 else
                 {

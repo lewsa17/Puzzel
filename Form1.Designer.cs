@@ -1189,7 +1189,7 @@
             // ręcznaNazwaToolStripMenuItem
             // 
             this.ręcznaNazwaToolStripMenuItem.Name = "ręcznaNazwaToolStripMenuItem";
-            this.ręcznaNazwaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.ręcznaNazwaToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.ręcznaNazwaToolStripMenuItem.Text = "Ręczna nazwa";
             this.ręcznaNazwaToolStripMenuItem.Click += new System.EventHandler(this.szukanieSesjiCustom);
             // 
@@ -1222,7 +1222,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(1202, 511);
             this.Name = "Form1";
-            this.Text = "Puzzel v0.67";
+            this.Text = "Puzzel v0.68";
             this.Resize += new System.EventHandler(this.Form1_Resize);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
