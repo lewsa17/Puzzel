@@ -210,6 +210,16 @@ namespace Puzzel
             stopTime();
         }
 
+        private void profilsieciowy(string folder)
+        {
+            startTime();
+            ProcExec Exec = new ProcExec();
+            if (Directory.Exists(folder))
+                Exec.ProcExecIF(ProcExec.explorer, folder + UserName());
+            else ReplaceRichTextBox("Katalog jest niedostępny");
+            stopTime();
+        }
+
         private void button4_Click(object sender, EventArgs e)
         {
             startTime();
@@ -307,15 +317,16 @@ namespace Puzzel
         }
 
         private void Form1_Resize(object sender, EventArgs e)
-        { if (WindowState != FormWindowState.Minimized)
+        {
+            if (WindowState != FormWindowState.Minimized)
                 try
                 {
                     int height = Form1.ActiveForm.Height - 511;
                     int width = Form1.ActiveForm.Width - 1190;
-                    groupBox1.Width = width + 1162;
-                    groupBox3.Width = width + 1162;
-                    groupBox4.Width = width + 1162;
-                    richTextBox1.Width = width + 1163;
+                    groupBox1.Width = width + 1172;
+                    groupBox3.Width = width + 1172;
+                    groupBox4.Width = width + 1172;
+                    richTextBox1.Width = width + 1173;
                     richTextBox1.Height = height + 230;
                 }
                 catch (System.NullReferenceException)
@@ -387,15 +398,15 @@ namespace Puzzel
             }
             else ReplaceRichTextBox(null);
         }
-        
-        private void SearchbySama(object sender,DataReceivedEventArgs e)
+
+        private void SearchbySama(object sender, DataReceivedEventArgs e)
         {
-            Trace.WriteLine(e.Data); 
-                this.BeginInvoke(new MethodInvoker(() =>
-            {
-                ImieNazwisko += (((e.Data) ?? string.Empty));
-            }));
-            
+            Trace.WriteLine(e.Data);
+            this.BeginInvoke(new MethodInvoker(() =>
+        {
+            ImieNazwisko += (((e.Data) ?? string.Empty));
+        }));
+
         }
         private string ImieNazwisko = null;
         private void SearchNameBysAMA(string UserName)
@@ -417,21 +428,18 @@ namespace Puzzel
         string[] LogsNames = null;
         private void containst(string pole, string rodzaj)
         {
-            if (!string.IsNullOrEmpty(pole) | !string.IsNullOrWhiteSpace(pole) | pole != "")
+            if (!string.IsNullOrEmpty(pole) | !string.IsNullOrWhiteSpace(pole))
             {
-                if (pole.Length > 1)
+            	if (Directory.Exists(Working[8].Remove(8)))
                 {
-            if (Directory.Exists(Working[0].Remove(13))
-            {
-                LogsNames = Directory.GetFiles(Working[0].Remove(13), "*_logons.log", SearchOption.TopDirectoryOnly);
-                for (int i = 0; i < LogsNames.Length; i++)
-                {
-                    LogsNames[i] = Path.GetFileNameWithoutExtension(LogsNames[i]);
-                    LogsNames[i] = LogsNames[i].Replace("_logons", "");
-                        }
+                    LogsNames = Directory.GetFiles(Working[8].Remove(8) + rodzaj + @"\", "*" + pole + "*_logons.log", SearchOption.TopDirectoryOnly);
+                    for (int i = 0; i < LogsNames.Length; i++)
+                    {
+                        LogsNames[i] = Path.GetFileNameWithoutExtension(LogsNames[i]);
+                        LogsNames[i] = LogsNames[i].Replace("_logons", "");
                     }
                 }
-                else ReplaceRichTextBox("Brak w logach");
+                else MessageBox.Show("Brak dostępu do zasobu");
             }
             else ReplaceRichTextBox("Pole puste lub niepotrzebna spacja");
         }
@@ -439,55 +447,188 @@ namespace Puzzel
         private void loGi(string pole, string rodzaj, decimal licznik)
         {
             startTime();
-            
-                 int a = Convert.ToInt32(licznik);
-                    StreamReader sr = new StreamReader(Working[8].Remove(8) + rodzaj + @"\" + pole + "_logons.log");
-                    System.Collections.Generic.List<string> list = new System.Collections.Generic.List<string>(sr.ReadToEnd().Split('\n'));
-                    sr.Close();
-                    list.RemoveAt(0);
-                    //list.RemoveAt(list.Count-1);
-                    list.Reverse();
-                    int maxLines = list.Count;
-                    string[] word;
-                    string[] words;
-                    word = list[1].Split(';');
-                    UpdateRichTextBox(string.Format("{0,-13}{1,-14}{2,-30}{3,-12}{4,-28}{5,-10}", "LOGOWANIE", "KOMPUTER", "NAZWA","UŻYTKOWNIK", "DATA", "WERSJA SYSTEMU" + "\n"));
-                    if (a < maxLines)
-                        for (int i = 1; i <= a; i++)
-                        {
-                            words = list[i].Split(';');
-                            UpdateRichTextBox(string.Format("{0,-13}{1,-15}{2,-30}{3,-11}{4,-28}{5,-10}", " "+words[0], words[1], Nazwauzytkownika(words[2]),words[2].Replace(" ",""), words[3], words[word.Count() - 2]) + "\n");
-                        }
-                    else
-                        for (int i = 1; i < maxLines; i++)
-                        {
-                            words = list[i].Split(';');
-                            UpdateRichTextBox(string.Format("{0,-13}{1,-15}{2,-30}{3,-11}{4,-28}{5,-10}", words[0], words[1], Nazwauzytkownika(words[2]), words[2].Replace(" ", ""), words[3], words[word.Count() - 2]) + "\n");
-                        }
+            StringBuilder sb = new StringBuilder();
+            int a = Convert.ToInt32(licznik);
+            StreamReader sr = new StreamReader(Working[8].Remove(8) + rodzaj + @"\" + pole + "_logons.log");
+            System.Collections.Generic.List<string> list = new System.Collections.Generic.List<string>(sr.ReadToEnd().Split('\n'));
+            sr.Close();
+            list.RemoveAt(0);
+            //list.RemoveAt(list.Count-1);
+            list.Reverse();
+            int maxLines = list.Count;
+            string[] word;
+            string[] words;
+            word = list[1].Split(';');
+            UpdateRichTextBox(string.Format("{0,-13}{1,-16}{2,-30}{3,-12}{4,-28}{5,-10}", "LOGOWANIE", "KOMPUTER", "NAZWA", "UŻYTKOWNIK", "DATA", "WERSJA SYSTEMU" + "\n"));
+            if (a < maxLines)
+                for (int i = 1; i <= a; i++)
+                {
+                    words = list[i].Split(';');
+                    sb.Append(string.Format("{0,-13}{1,-17}{2,-30}{3,-11}{4,-28}{5,-10}", " " + words[0], words[1], Nazwauzytkownika(words[2]), words[2].Replace(" ", ""), words[3], words[word.Count() - 2]) + "\n");
+                }
+            else
+                for (int i = 1; i < maxLines; i++)
+                {
+                    words = list[i].Split(';');
+                    sb.Append(string.Format("{0,-13}{1,-17}{2,-30}{3,-11}{4,-28}{5,-10}", words[0], words[1], Nazwauzytkownika(words[2]), words[2].Replace(" ", ""), words[3], words[word.Count() - 2]) + "\n");
+                }
 
-            
+            UpdateRichTextBox(sb.ToString());
             stopTime();
         }
 
-        private void szukajLogow(object sender, EventArgs e)
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
             ClearRichTextBox(null);
-            if (((Button)sender).Name == "Button1")
+
+            System.Threading.Thread thread;
+            if (counterlist > 2)
             {
-                containst(UserName(), "User");
-                foreach (string user in LogsNames)
-                    loGi(user, "User", numericUpDown1.Value);
+                containst(UserName(), senderZ);
+                if (LogsNames.Count() > 0)
+                {
+                    foreach (string LogsName in LogsNames)
+                    {
+                        loGi(LogsName, senderZ, counter);
+                    }
+                }
+                else ReplaceRichTextBox("Brak w logach");
+            }
+            else ReplaceRichTextBox("Za mało danych");
+
+            /*
+
+
+
+
+
+
+
+
+
+            if (senderZ is TextBox)
+            {
+                if (((TextBox)senderZ).Name == "textBox1")
+                {
+                    System.Threading.Thread thread;
+                    if (textBox1.Text.Length > 2)
+                    {
+                        containst(UserName(), "User");
+                        if (LogsNames.Count() > 0)
+                        {
+                            foreach (string user in LogsNames)
+                            {
+                                loGi(user, "User", numericUpDown1.Value);
+                            }
+                        }
+                        else ReplaceRichTextBox("Brak w logach");
+                    }
+                    else ReplaceRichTextBox("Za mało danych");
+                } 
+
+                if (((TextBox)senderZ).Name == "textBox2")
+                {
+                    System.Threading.Thread thread;
+                    if (textBox2.Text.Length > 2)
+                    {
+                        containst(HostName(), "Computer");
+                        if (LogsNames.Count() > 0)
+                        {
+                            foreach (string computer in LogsNames)
+                            {
+                                loGi(computer, "Computer", numericUpDown2.Value);
+                            }
+                        }
+                        else ReplaceRichTextBox("Brak w logach");
+                    }
+                    else ReplaceRichTextBox("Za mało danych");
+                }
             }
 
-            if (((Button)sender).Name == "Button10")
+            if (senderZ is Button)
             {
-                containst(HostName(), "Computer");
-                foreach (string computer in LogsNames)
-                    loGi(computer, "Computer", numericUpDown2.Value);
-            }
-            comboBox1.Text = "";
-            comboBox1.Items.Clear();
+                if (((Button)senderZ).Name == "button1")
+                {
+                    System.Threading.Thread thread;
+                    if (textBox1.Text.Length > 2)
+                    {
+                        containst(UserName(), "User");
+                        if (LogsNames.Count() > 0)
+                        {
+                            foreach (string user in LogsNames)
+                            {
+                                loGi(user, "User", numericUpDown1.Value);
+                                //thread = new Thread(() => loGi(user, "User", numericUpDown1.Value));
+                                //thread.Start();
+                            }
+                        }
+                        else ReplaceRichTextBox("Brak w logach");
+                    }
+                    else ReplaceRichTextBox("Za mało danych");
+                }
+
+                if (((Button)senderZ).Name == "button10")
+                {
+                    System.Threading.Thread thread;
+                    if (textBox2.Text.Length > 2)
+                    {
+                        containst(HostName(), "Computer");
+                        if (LogsNames.Count() > 0)
+                        {
+                            foreach (string computer in LogsNames)
+                            {
+                                loGi(computer, "Computer", numericUpDown2.Value);
+                                //thread = new Thread(() => loGi(computer, "Computer", numericUpDown2.Value));
+                                //thread.Start();
+                            }
+                        }
+                        else ReplaceRichTextBox("Brak w logach");
+                    }
+                    else ReplaceRichTextBox("Za mało danych");
+                }
+            }*/
+            if (comboBox1.InvokeRequired)
+                comboBox1.Invoke(new MethodInvoker(() =>
+            {
+                comboBox1.Text = "";
+                comboBox1.Items.Clear();
+            }));
         }
+        string senderZ = null;
+        decimal counter = 0;
+        int counterlist = 0;
+        private void szukajLogow(object sender, EventArgs e)
+        {
+            if (sender is Button)
+                if (((Button)sender).Name == "Button1")
+                {
+                    senderZ = "User";
+                    counterlist = textBox1.Text.Length;
+                    counter = numericUpDown1.Value;
+                }
+                else
+                {
+                    senderZ = "Computer";
+                    counterlist = textBox2.Text.Length;
+                    counter = numericUpDown2.Value;
+                }
+            if (sender is TextBox)
+                if (((TextBox)sender).Name == "textBox1")
+                {
+                    senderZ = "User";
+                    counterlist = textBox1.Text.Length;
+                    counter = numericUpDown1.Value;
+                }
+                else
+                {
+                    senderZ = "Computer";
+                    counterlist = textBox2.Text.Length;
+                    counter = numericUpDown2.Value;
+                }
+            backgroundWorker1.RunWorkerAsync();
+        }
+
         private void button9_Click(object sender, EventArgs e)
         {
             startTime();
@@ -1970,7 +2111,11 @@ namespace Puzzel
             DirectorySearcher search = new DirectorySearcher(myLdapConnection);
             search.Filter = "(sAMAccountName="+ username+")";
             SearchResult result = search.FindOne();
-            return result.GetDirectoryEntry().Properties["displayName"].Value.ToString();
+            string text;
+            if (result == null)
+                text = "brak w AD";
+            else text = result.GetDirectoryEntry().Properties["displayName"].Value.ToString();
+            return text;
         }
 
         private void DyDWContextMenu_Click(object sender, EventArgs e)
@@ -1999,27 +2144,7 @@ namespace Puzzel
         {
             if (e.KeyCode == Keys.Enter)
             {
-                if (sender is TextBox)
-                { 
-                    if (((TextBox)sender).Name == "textBox1")
-                    {
-                        ClearRichTextBox(null);
-                        containst(UserName(), "User");
-                        if (UserName().Length > 1) 
-                        foreach (string user in LogsNames)
-                            loGi(user, "User", numericUpDown1.Value);
-                    }
-
-                    if (((TextBox)sender).Name == "textBox2")
-                    {
-                        ClearRichTextBox(null);
-                        containst(HostName(), "Computer");
-                        foreach (string computer in LogsNames)
-                            loGi(computer, "Computer", numericUpDown2.Value);
-                    }
-                    comboBox1.Text = "";
-                    comboBox1.Items.Clear();
-                }
+                szukajLogow(sender,e);
             }
 
             if (e.Control && e.KeyCode == Keys.C)
@@ -2107,7 +2232,6 @@ namespace Puzzel
                     comboBox1.SelectAll();
             }
         }
-
 
         private void kopiujMenuItem1_Click(object sender, EventArgs e)
         {

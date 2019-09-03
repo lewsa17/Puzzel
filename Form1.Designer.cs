@@ -151,6 +151,7 @@
             this.szukajSesjiWTleThread3 = new System.ComponentModel.BackgroundWorker();
             this.szukajSesjiWTleThread4 = new System.ComponentModel.BackgroundWorker();
             this.AutoGettingLogs = new System.Windows.Forms.Timer(this.components);
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
@@ -183,7 +184,7 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(6, 26);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1162, 75);
+            this.groupBox1.Size = new System.Drawing.Size(1182, 75);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Informacje o użytkowniku:";
@@ -450,7 +451,7 @@
             this.groupBox3.Controls.Add(this.button10);
             this.groupBox3.Location = new System.Drawing.Point(6, 107);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(1162, 61);
+            this.groupBox3.Size = new System.Drawing.Size(1182, 61);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Informacje o komputerze:";
@@ -816,7 +817,7 @@
             this.groupBox4.Controls.Add(this.button19);
             this.groupBox4.Location = new System.Drawing.Point(6, 170);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(1162, 45);
+            this.groupBox4.Size = new System.Drawing.Size(1182, 45);
             this.groupBox4.TabIndex = 10;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Różne narzędzia";
@@ -852,7 +853,7 @@
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
             this.richTextBox1.ShortcutsEnabled = false;
-            this.richTextBox1.Size = new System.Drawing.Size(1163, 230);
+            this.richTextBox1.Size = new System.Drawing.Size(1183, 230);
             this.richTextBox1.TabIndex = 12;
             this.richTextBox1.Text = "";
             this.richTextBox1.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Keys_PreviewKeyDown);
@@ -877,7 +878,7 @@
             this.statusBP1,
             this.statusBP2});
             this.statusBar1.ShowPanels = true;
-            this.statusBar1.Size = new System.Drawing.Size(1172, 22);
+            this.statusBar1.Size = new System.Drawing.Size(1194, 22);
             this.statusBar1.TabIndex = 13;
             this.statusBar1.Text = "statusbar";
             // 
@@ -904,7 +905,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.menuStrip1.Size = new System.Drawing.Size(1172, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1194, 24);
             this.menuStrip1.TabIndex = 14;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -1220,11 +1221,15 @@
             this.AutoGettingLogs.Interval = 3600000;
             this.AutoGettingLogs.Tick += new System.EventHandler(this.AutoGettingLogs_Tick);
             // 
+            // backgroundWorker1
+            // 
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1172, 486);
+            this.ClientSize = new System.Drawing.Size(1194, 486);
             this.Controls.Add(this.statusBar1);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.groupBox4);
@@ -1233,9 +1238,9 @@
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.MainMenuStrip = this.menuStrip1;
-            this.MinimumSize = new System.Drawing.Size(1180, 511);
+            this.MinimumSize = new System.Drawing.Size(1202, 511);
             this.Name = "Form1";
-            this.Text = "Puzzel v0.59";
+            this.Text = "Puzzel v0.60";
             this.Load += new System.EventHandler(this.button20_Click);
             this.Resize += new System.EventHandler(this.Form1_Resize);
             this.groupBox1.ResumeLayout(false);
@@ -1384,6 +1389,7 @@
         private System.Windows.Forms.ContextMenuStrip RemoteDesktopContextMenu;
         private System.Windows.Forms.ToolStripMenuItem rDPBezPustyContextMenu;
         private System.Windows.Forms.ToolStripMenuItem wklejStripMenuItem1;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }
 
