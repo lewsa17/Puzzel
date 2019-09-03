@@ -1237,7 +1237,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(1180, 511);
             this.Name = "Form1";
-            this.Text = "Puzzel v0.56";
+            this.Text = "Puzzel v0.57";
             this.Load += new System.EventHandler(this.button20_Click);
             this.Resize += new System.EventHandler(this.Form1_Resize);
             this.groupBox1.ResumeLayout(false);

@@ -414,25 +414,22 @@ namespace Puzzel
             stopTime();
         }
 
-        private string containst(string text)
-        { string[] logs = null;
+		string[] LogsNames = null;
+        private void containst(string pole, string rodzaj)
+        { 
             if (Directory.Exists(Working[0].Remove(13))
             {
-                Puzzel.Form1.ProgressBarValue = 1;
-                string[] usr = Directory.GetFiles(Working[0].Remove(13), "*_logons.log", SearchOption.TopDirectoryOnly);
-                for (int i = 0; i < usr.Length; i++)
+                LogsNames = Directory.GetFiles(Working[0].Remove(13), "*_logons.log", SearchOption.TopDirectoryOnly);
+                for (int i = 0; i < LogsNames.Length; i++)
                 {
-                    string usrfilename = Path.GetFileNameWithoutExtension(usr[i]);
-                    logs[0]+=(usrfilename.Replace("_logons.log", ""));
+                    LogsNames[i] = Path.GetFileNameWithoutExtension(LogsNames[i]);
+                    LogsNames[i] = LogsNames[i].Replace("_logons", "");
                 }
-                logs.Contains(text);
             }
-            return text;
         }
         private void loGi(string pole, string rodzaj, decimal licznik)
         {
             startTime();
-            ClearRichTextBox(null);
             if (!string.IsNullOrEmpty(pole) | !string.IsNullOrWhiteSpace(pole))
             {
                 if (File.Exists(Working[8].Remove(8) + rodzaj + @"\" + pole + "_logons.log"))
@@ -449,7 +446,7 @@ namespace Puzzel
                     string[] word;
                     string[] words;
                     word = list[1].Split(';');
-                    ReplaceRichTextBox(string.Format("{0,-13}{1,-12}{2,-31}{3,-13}{4,-28}{5,-10}", "LOGOWANIE", "KOMPUTER", "NAZWA","UŻYTKOWNIK", "DATA", "WERSJA SYSTEMU" + "\n"));
+                    UpdateRichTextBox(string.Format("{0,-13}{1,-12}{2,-31}{3,-13}{4,-28}{5,-10}", "LOGOWANIE", "KOMPUTER", "NAZWA","UŻYTKOWNIK", "DATA", "WERSJA SYSTEMU" + "\n"));
                     if (a < maxLines)
                         for (int i = 1; i <= a; i++)
                         {
@@ -1997,15 +1994,21 @@ namespace Puzzel
         private void Keys_PreviewKeyDown (object sender, PreviewKeyDownEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
-            { 
+            {
                 if (((TextBox)sender).Name == "textBox1")
                 {
-                    loGi(containst(UserName()), "User", numericUpDown1.Value);
+                    ClearRichTextBox(null);
+                    containst(UserName(), "User");
+                    foreach (string user in LogsNames)
+                        loGi(user, "User", numericUpDown1.Value);
                 }
 
                 if (((TextBox)sender).Name == "textBox2")
                 {
-                    loGi(HostName(), "Computer", numericUpDown2.Value);
+                    ClearRichTextBox(null);
+                    containst(HostName(), "Computer");
+                    foreach (string computer in LogsNames)
+                        loGi(computer, "Computer", numericUpDown2.Value);
                 }
                     comboBox1.Text = "";
                     comboBox1.Items.Clear();
