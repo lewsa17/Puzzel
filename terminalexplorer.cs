@@ -171,6 +171,82 @@ namespace Puzzel
             } 
         }
 
+        private void dynaProcessTab()
+        {
+            TabPage dynaProcessTab = new TabPage
+            {
+                Location = new System.Drawing.Point(4, 22),
+                Name = "dynaProcesTab",
+                Size = new System.Drawing.Size(703, 623),
+                Text = "Procesy",
+                UseVisualStyleBackColor = true
+            };
+
+            DataGridView dynaDataGridView = new DataGridView
+            {
+                ContextMenuStrip = ContextProcessMenu,
+                GridColor = System.Drawing.Color.DarkGray,
+                Location = new System.Drawing.Point(0, 0),
+                MultiSelect = false,
+                Name = "dataGridView2",
+                RowHeadersVisible = false,
+                SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect,
+                Size = new System.Drawing.Size(703, 596),
+                TabIndex = 1,
+                ColumnHeadersDefaultCellStyle = new DataGridViewCellStyle
+                {
+                    Alignment = DataGridViewContentAlignment.MiddleLeft,
+                    BackColor = System.Drawing.SystemColors.Control,
+                    Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238))),
+                    ForeColor = System.Drawing.SystemColors.WindowText,
+                    SelectionBackColor = System.Drawing.SystemColors.Control,
+                    SelectionForeColor = System.Drawing.SystemColors.WindowText,
+                    WrapMode = DataGridViewTriState.False,
+                },
+                ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize,
+                
+            };
+            dynaDataGridView.Columns.AddRange(new DataGridViewColumn[]
+            {
+                    new DataGridViewTextBoxColumn   {  HeaderText = "Serwer",      Width = 64  },
+                    new DataGridViewTextBoxColumn   {  HeaderText = "Użytkownik",  Width = 86  },
+                    new DataGridViewTextBoxColumn   {  HeaderText = "Sesja",       Width = 57  },
+                    new DataGridViewTextBoxColumn   {  HeaderText = "ID",          Width = 42  },
+                    new DataGridViewTextBoxColumn   {  HeaderText = "Proces ID",   Width = 78  },
+                    new DataGridViewTextBoxColumn   {  HeaderText = "Obraz",       Width = 59  }
+            });
+
+
+            Button dynaButton = new Button
+            {
+                Location = new System.Drawing.Point(627, 597),
+                Size = new System.Drawing.Size(76, 23),
+                Text = "Zamknij",
+                UseVisualStyleBackColor = true,
+            };
+
+            Button dynaButton1 = new Button
+            {
+                Location = new System.Drawing.Point(457, 597),
+                Size = new System.Drawing.Size(98, 23),
+                Text = "Zamknij"
+            };
+
+            dynaButton1.Click += new EventHandler(procesyToolStripMenuItem_Click);
+            dynaButton.Click += new EventHandler(zamykanieFormy);
+            dynaProcessTab.Controls.AddRange(new Control[] 
+            {
+                new Label   {
+                                AutoSize = true,
+                                Location = new System.Drawing.Point(8, 602),
+                                Size = new System.Drawing.Size(84, 13),
+                                Text = "Lista procesów: "
+                            },
+                dynaButton,
+                dynaButton1,
+                dynaDataGridView
+            });
+        }
         private void procesyToolStripMenuItem_Click(object sender, EventArgs e)
         {
             dataGridView2.Rows.Clear();
@@ -198,9 +274,8 @@ namespace Puzzel
 
         private void ZabijProcess_Click(object sender, EventArgs e)
         {
-            int selectedRowIndex = dataGridView2.SelectedRows[0].Index;
-            int selectedPID = Convert.ToInt16(dataGridView2.Rows[selectedRowIndex].Cells[4].Value);
-
+            int selectedRowIndex = ((DataGridView)((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl).SelectedRows[0].Index;
+            int selectedPID = Convert.ToInt16(((DataGridView)((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl).Rows[selectedRowIndex].Cells[4].Value);
             var processId = selectedPID;
             using (ITerminalServer server = manager.GetRemoteServer(_hostname))
             {
@@ -208,7 +283,6 @@ namespace Puzzel
                 var process = server.GetProcess(processId);
                 process.Kill();
             }
-
             MessageBox.Show("Zabito aplikację");
         }
     }

@@ -383,32 +383,43 @@ namespace Puzzel
         {
             startTime();
             StringBuilder sb = new StringBuilder();
-            int a = Convert.ToInt32(licznik);
-            StreamReader sr = new StreamReader(Working[8].Remove(8) + rodzaj + @"\" + pole + "_logons.log");
-            System.Collections.Generic.List<string> list = new System.Collections.Generic.List<string>(sr.ReadToEnd().Split('\n'));
-            sr.Close();
-            list.RemoveAt(0);
-            //list.RemoveAt(list.Count-1);
-            list.Reverse();
-            int maxLines = list.Count;
+            FileStream fileStream = new FileStream(Working[8].Remove(8) + rodzaj + @"\" + pole + "_logons.log", FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            StreamReader sr = new StreamReader(fileStream);
+            long fsize = fileStream.Length;
+            decimal lines = licznik;
+            int lineMaxLenOptim = 255;
+            long pos = fsize - lineMaxLenOptim * (long)lines;
+            if (pos > 0)
+            {
+                sr.BaseStream.Position = pos;
+                sr.BaseStream.Seek(pos, SeekOrigin.Begin);
+            }
+            char line = '\n';
+            string[] LogCompLogs = sr.ReadToEnd().Split(line);
+            Array.Resize(ref LogCompLogs, LogCompLogs.Length - 1);
+            Array.Reverse(LogCompLogs);
+            Array.Resize(ref LogCompLogs, LogCompLogs.Length - 1);
+
+            int maxLines = LogCompLogs.Length;
+            decimal a = licznik;
             string[] word;
             string[] words;
-            word = list[1].Split(';');
+            word = LogCompLogs[1].Split(';');
             UpdateRichTextBox(string.Format("{0,-13}{1,-16}{2,-30}{3,-12}{4,-28}{5,-10}", "LOGOWANIE", "KOMPUTER", "NAZWA", "UŻYTKOWNIK", "DATA", "WERSJA SYSTEMU" + "\n"));
             if (a < maxLines)
-                for (int i = 1; i <= a; i++)
+                for (int i = 0; i < a; i++)
                 {
-                    words = list[i].Split(';');
-                    sb.Append(string.Format("{0,-13}{1,-17}{2,-30}{3,-11}{4,-28}{5,-10}", " " + words[0], words[1], Nazwauzytkownika(words[2]), words[2].Replace(" ", ""), words[3], words[word.Count() - 2]) + "\n");
+                    words = LogCompLogs[i].Split(';');
+                    UpdateRichTextBox(string.Format("{0,-13}{1,-17}{2,-30}{3,-11}{4,-28}{5,-10}", " " + words[0], words[1], Nazwauzytkownika(words[2]), words[2].Replace(" ", ""), words[3], words[word.Count() - 2]) + "\n");
                 }
             else
-                for (int i = 1; i < maxLines; i++)
+                for (int i = 0; i < maxLines; i++)
                 {
-                    words = list[i].Split(';');
-                    sb.Append(string.Format("{0,-13}{1,-17}{2,-30}{3,-11}{4,-28}{5,-10}", words[0], words[1], Nazwauzytkownika(words[2]), words[2].Replace(" ", ""), words[3], words[word.Count() - 2]) + "\n");
+                    words = LogCompLogs[i].Split(';');
+                    UpdateRichTextBox(string.Format("{0,-13}{1,-17}{2,-30}{3,-11}{4,-28}{5,-10}", words[0], words[1], Nazwauzytkownika(words[2]), words[2].Replace(" ", ""), words[3], words[word.Count() - 2]) + "\n");
                 }
 
-            UpdateRichTextBox(sb.ToString());
+            //UpdateRichTextBox(sb.ToString());
             stopTime();
         }
         

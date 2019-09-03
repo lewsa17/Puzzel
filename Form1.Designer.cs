@@ -188,7 +188,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(426, 41);
+            this.button5.Location = new System.Drawing.Point(382, 41);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(75, 23);
             this.button5.TabIndex = 9;
@@ -198,7 +198,7 @@
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(426, 15);
+            this.button6.Location = new System.Drawing.Point(382, 15);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(75, 23);
             this.button6.TabIndex = 8;
@@ -305,7 +305,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(348, 41);
+            this.button3.Location = new System.Drawing.Point(304, 41);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 7;
@@ -315,7 +315,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(348, 15);
+            this.button4.Location = new System.Drawing.Point(304, 15);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(75, 23);
             this.button4.TabIndex = 6;
@@ -325,7 +325,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(270, 41);
+            this.button2.Location = new System.Drawing.Point(226, 41);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 5;
@@ -335,7 +335,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(270, 15);
+            this.button1.Location = new System.Drawing.Point(226, 15);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 4;
@@ -348,8 +348,13 @@
             this.numericUpDown1.ContextMenuStrip = this.contextMenuStrip2;
             this.numericUpDown1.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.numericUpDown1.Location = new System.Drawing.Point(143, 40);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
             this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown1.Size = new System.Drawing.Size(60, 20);
             this.numericUpDown1.TabIndex = 3;
             this.numericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDown1.Value = new decimal(new int[] {
@@ -455,7 +460,7 @@
             // 
             // button23
             // 
-            this.button23.Location = new System.Drawing.Point(703, 35);
+            this.button23.Location = new System.Drawing.Point(659, 35);
             this.button23.Name = "button23";
             this.button23.Size = new System.Drawing.Size(107, 23);
             this.button23.TabIndex = 14;
@@ -465,7 +470,7 @@
             // 
             // button22
             // 
-            this.button22.Location = new System.Drawing.Point(703, 10);
+            this.button22.Location = new System.Drawing.Point(659, 10);
             this.button22.Name = "button22";
             this.button22.Size = new System.Drawing.Size(107, 23);
             this.button22.TabIndex = 13;
@@ -476,7 +481,7 @@
             // button21
             // 
             this.button21.ContextMenuStrip = this.CommandContextMenu;
-            this.button21.Location = new System.Drawing.Point(618, 10);
+            this.button21.Location = new System.Drawing.Point(574, 10);
             this.button21.Name = "button21";
             this.button21.Size = new System.Drawing.Size(83, 23);
             this.button21.TabIndex = 12;
@@ -516,7 +521,7 @@
             // 
             // button18
             // 
-            this.button18.Location = new System.Drawing.Point(618, 34);
+            this.button18.Location = new System.Drawing.Point(574, 34);
             this.button18.Name = "button18";
             this.button18.Size = new System.Drawing.Size(83, 24);
             this.button18.TabIndex = 0;
@@ -526,7 +531,7 @@
             // 
             // button16
             // 
-            this.button16.Location = new System.Drawing.Point(523, 34);
+            this.button16.Location = new System.Drawing.Point(479, 34);
             this.button16.Name = "button16";
             this.button16.Size = new System.Drawing.Size(93, 24);
             this.button16.TabIndex = 11;
@@ -536,7 +541,7 @@
             // 
             // button17
             // 
-            this.button17.Location = new System.Drawing.Point(523, 10);
+            this.button17.Location = new System.Drawing.Point(479, 10);
             this.button17.Name = "button17";
             this.button17.Size = new System.Drawing.Size(93, 23);
             this.button17.TabIndex = 10;
@@ -547,7 +552,7 @@
             // Button14
             // 
             this.Button14.ContextMenuStrip = this.RemoteDesktopContextMenu;
-            this.Button14.Location = new System.Drawing.Point(446, 34);
+            this.Button14.Location = new System.Drawing.Point(402, 34);
             this.Button14.Name = "Button14";
             this.Button14.Size = new System.Drawing.Size(75, 24);
             this.Button14.TabIndex = 9;
@@ -573,7 +578,7 @@
             // button15
             // 
             this.button15.ContextMenuStrip = this.DWContext;
-            this.button15.Location = new System.Drawing.Point(446, 10);
+            this.button15.Location = new System.Drawing.Point(402, 10);
             this.button15.Name = "button15";
             this.button15.Size = new System.Drawing.Size(75, 23);
             this.button15.TabIndex = 8;
@@ -606,7 +611,7 @@
             // 
             // button12
             // 
-            this.button12.Location = new System.Drawing.Point(360, 34);
+            this.button12.Location = new System.Drawing.Point(316, 34);
             this.button12.Name = "button12";
             this.button12.Size = new System.Drawing.Size(83, 24);
             this.button12.TabIndex = 7;
@@ -617,7 +622,7 @@
             // button13
             // 
             this.button13.ContextMenuStrip = this.Komputer_info;
-            this.button13.Location = new System.Drawing.Point(360, 10);
+            this.button13.Location = new System.Drawing.Point(316, 10);
             this.button13.Name = "button13";
             this.button13.Size = new System.Drawing.Size(83, 23);
             this.button13.TabIndex = 6;
@@ -747,7 +752,7 @@
             // 
             // button11
             // 
-            this.button11.Location = new System.Drawing.Point(270, 34);
+            this.button11.Location = new System.Drawing.Point(226, 34);
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(87, 23);
             this.button11.TabIndex = 5;
@@ -760,8 +765,13 @@
             this.numericUpDown2.ContextMenuStrip = this.contextMenuStrip2;
             this.numericUpDown2.ImeMode = System.Windows.Forms.ImeMode.Disable;
             this.numericUpDown2.Location = new System.Drawing.Point(143, 35);
+            this.numericUpDown2.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
             this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown2.Size = new System.Drawing.Size(60, 20);
             this.numericUpDown2.TabIndex = 4;
             this.numericUpDown2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDown2.Value = new decimal(new int[] {
@@ -800,7 +810,7 @@
             // 
             // button10
             // 
-            this.button10.Location = new System.Drawing.Point(270, 10);
+            this.button10.Location = new System.Drawing.Point(226, 10);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(87, 23);
             this.button10.TabIndex = 0;
@@ -1223,7 +1233,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(1202, 511);
             this.Name = "Form1";
-            this.Text = "Puzzel v0.69";
+            this.Text = "Puzzel v0.70";
             this.Resize += new System.EventHandler(this.Form1_Resize);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
