@@ -593,7 +593,7 @@
             this.DWContext.Size = new System.Drawing.Size(171, 48);
             this.DWContext.Text = Working[16];
             // 
-            // EAdminDameWareMenuContext
+            // EADWMenuContext
             // 
             this.EADWMenuContext.Name = "EADWMenuContext";
             this.EADWMenuContext.Size = new System.Drawing.Size(170, 22);
@@ -602,7 +602,7 @@
             // 
             // DyDWContextMenu
             // 
-            this.DyDWContextMenu.Name = "DyDWeContextMenu";
+            this.DyDWContextMenu.Name = "DyDWContextMenu";
             this.DyDWContextMenu.Size = new System.Drawing.Size(170, 22);
             this.DyDWContextMenu.Text = Working[14];
             this.DyDWContextMenu.Click += new System.EventHandler(this.DyDWContextMenu_Click);
