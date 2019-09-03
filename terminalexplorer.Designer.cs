@@ -835,12 +835,12 @@
             this.ContextProcessMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ZabijProcess});
             this.ContextProcessMenu.Name = "ContextProcessMenu";
-            this.ContextProcessMenu.Size = new System.Drawing.Size(139, 26);
+            this.ContextProcessMenu.Size = new System.Drawing.Size(133, 26);
             // 
             // ZabijProcess
             // 
             this.ZabijProcess.Name = "ZabijProcess";
-            this.ZabijProcess.Size = new System.Drawing.Size(138, 22);
+            this.ZabijProcess.Size = new System.Drawing.Size(132, 22);
             this.ZabijProcess.Text = "Zabij proces";
             this.ZabijProcess.Click += new System.EventHandler(this.ZabijProcess_Click);
             // 

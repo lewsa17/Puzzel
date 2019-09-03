@@ -208,11 +208,12 @@ namespace Puzzel
         {
             startTime();
             Puzzel.Ping.Pinging(HostName());
-            if (PingStatus == 0)
-            {
-                ProcExec Exec = new ProcExec(ProcExec.explorer, @"\\" + HostName() + @"\c$");
-            }
-            else return;
+            if (HostName().Length > 1)
+                if (PingStatus == 0)
+                {
+                    ProcExec Exec = new ProcExec(ProcExec.explorer, @"\\" + HostName() + @"\c$");
+                }
+                else ReplaceRichTextBox("Za mało danych");
             stopTime();
         }
 
@@ -283,6 +284,7 @@ namespace Puzzel
             catch (ArgumentOutOfRangeException)
             {
                 UpdateRichTextBox("Nie wybrano żadnego terminala lub nie znalazł żadnej sesji\n");
+                MessageBox.Show("Nie wybrano żadnego terminala lub nie znalazł żadnej sesji", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Win32Exception)
             {
@@ -481,14 +483,16 @@ namespace Puzzel
                 }
                 backgroundWorker1.RunWorkerAsync();
             }
-            else MessageBox.Show("Nadal trwa wyszukiwanie"); 
+            else MessageBox.Show("Wyszukiwanie nadal trwa...", "Wyszukiwanie danych");
+            
         }
 
         private void button9_Click(object sender, EventArgs e)
         {
             startTime();
+
             if (comboBox1.Items.Count > 0)
-            { 
+            {
                 string wybranaLinijka = comboBox1.Items[comboBox1.SelectedIndex].ToString();
                 if (comboBox1.SelectedIndex >= 0)
                 {
@@ -500,9 +504,9 @@ namespace Puzzel
                     session.StartInfo.UseShellExecute = false;
                     session.Start();
                     session.WaitForExit();
+                    MessageBox.Show("Sesja została wylogowana");
                 }
             }
-            MessageBox.Show("Sesja została wylogowana");
             stopTime();
         }
 
@@ -511,17 +515,22 @@ namespace Puzzel
         private void button13_Click(object sender, EventArgs e)
         {
             startTime();
-            if (!komputerInfo.IsBusy)
-            {
-                Progress pgclass = new Progress();
-                Puzzel.Form1.ProgressMax = 19;
-                progressBar = new System.Threading.Thread(komputerInfoCOMM);
-                LoadingForm loadingForm = new LoadingForm();
-                System.Threading.Thread progress;
-                progress = new System.Threading.Thread(loadingForm.progress);
-                progressBar.Start();
-                progress.Start();
-            }
+            if (MessageBox.Show(new Form() { TopMost = true }, "Wyszukiwanie może chwile potrwać, zezwolić ?", "Wyszukiwanie danych", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (textBox2.Text.Length > 1)
+                {
+                    if (!komputerInfo.IsBusy)
+                    {
+                        Puzzel.Form1.ProgressMax = 19;
+                        LoadingForm loadingForm = new LoadingForm();
+                        System.Threading.Thread progress;
+                        progress = new System.Threading.Thread(loadingForm.progress);
+                        Progress pgclass = new Progress();
+                        progress.Start();
+                        progressBar = new System.Threading.Thread(komputerInfoCOMM);
+                        komputerInfo.RunWorkerAsync();
+                    }
+                }
+                else UpdateRichTextBox("Nie podałeś nazwy hosta");
             stopTime();
         }
         
@@ -586,14 +595,11 @@ namespace Puzzel
                 rs = SearchByEmail(GetDirectorySearcher(domain), UserName().Trim());
             else
                 rs = SearchByUserName(GetDirectorySearcher(domain), UserName().Trim());
+
             if (rs != null)
-            {
                 ShowUserInformation(rs);
-            }
             else
-            {
                 MessageBox.Show("User not found!", "Search Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
         }
 
         private DirectorySearcher GetDirectorySearcher(string domain)
@@ -877,14 +883,14 @@ namespace Puzzel
                 ProgressBarValue = 19;
                 ComputerInfo_TEMP += ("Nazwa zmiennej           Wartość zmiennej\n");
                 computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryEnvironment, "Name", "VariableValue");
-                UpdateRichTextBox(ComputerInfo_TEMP);
+                ReplaceRichTextBox(ComputerInfo_TEMP);
                 ComputerInfo_TEMP = null;
             }
             stopTime();
         }
         private void komputerInfo_DoWork(object sender, DoWorkEventArgs e)
         {
-            komputerInfoCOMM();
+            progressBar.Start();
         }
 
         private void programList_DoWork(object sender, DoWorkEventArgs e)
@@ -969,7 +975,7 @@ namespace Puzzel
         {
             stopWatch.Start();
             UpdateStatusbp1text("Czekaj");
-           // timer1.Start();
+            //timer1.Start();
         }
 
         private void stopTime()
@@ -982,14 +988,29 @@ namespace Puzzel
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
-            statusBar1.BeginInvoke(new MethodInvoker(() =>
+            Thread timer = new Thread(() =>
             {
-                AppendStatusbp1text("*");
-                if (statusBP1.Text.Length == 22)
-                {
-                    UpdateStatusbp1text("Czekaj");
-                }
-            }));
+                Thread.Sleep(100);
+                while (stopWatch.IsRunning)
+                    if (statusBar1.InvokeRequired)
+                        statusBar1.Invoke(new MethodInvoker(() =>
+                        {
+                            AppendStatusbp1text("*");
+                            if (statusBP1.Text.Length == 16)
+                            {
+                                UpdateStatusbp1text("Czekaj");
+                            }
+                        }));
+                    else
+                    {
+                        AppendStatusbp1text("*");
+                        if (statusBP1.Text.Length == 16)
+                        {
+                            UpdateStatusbp1text("Czekaj");
+                        }
+                    }
+            });
+            timer.Start();
         }
 
         private void szukanieSesji(string termserver, string login)
@@ -1273,7 +1294,7 @@ namespace Puzzel
                 using (ManagementObjectCollection queryCollection = searcher.Get())
                     foreach (ManagementObject m in queryCollection) 
                     {
-                        osname = m["caption"].ToString();
+                        //osname = m["caption"].ToString();
                         osarch = m["osarchitecture"].ToString();
                     }
             }
@@ -1289,7 +1310,7 @@ namespace Puzzel
             }
         }
 
-        string osname = null;
+        //string osname = null;
         string osarch = null;
         private void button21_Click(object sender, EventArgs e)
         {
@@ -1300,26 +1321,18 @@ namespace Puzzel
             {
                 osName(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryOperatingSystem);
                 string applicationName = null;
-                if (osname.Contains("Microsoft Windows 10"))
+                if (osarch.Contains("64-bit"))
+                    applicationName = "PsExec64.exe";
+                else applicationName = "PsExec.exe";
+
+                if (File.Exists(Directory.GetCurrentDirectory() + @"\" + applicationName))
                 {
-                    ProcExec exec = new ProcExec("powershell", "-noexit Enter-PSSession -ComputerName " + HostName());
+                    ProcExec Exec = new ProcExec(applicationName, @"\\" + HostName() + " cmd");
                 }
                 else
                 {
-                    if (osarch.Contains("64-bit"))
-                        if (osarch.Contains("64-bit"))
-                            applicationName = "PsExec64.exe";
-                        else applicationName = "PsExec.exe";
-
-                    if (File.Exists(Directory.GetCurrentDirectory() + @"\" + applicationName))
-                    {
-                        ProcExec Exec = new ProcExec(applicationName, @"\\" + HostName() + " cmd");
-                    }
-                    else
-                    {
-                        UpdateRichTextBox("Nie można odnaleźć określonego pliku\n");
-                        UpdateRichTextBox(Directory.GetCurrentDirectory() + @"\" + applicationName);
-                    }
+                    UpdateRichTextBox("Nie można odnaleźć określonego pliku\n");
+                    UpdateRichTextBox(Directory.GetCurrentDirectory() + @"\" + applicationName);
                 }
             }
             else
@@ -1542,14 +1555,14 @@ namespace Puzzel
 
         public string HostName()
         {
-            return textBox2.Text;
+            return textBox2.Text.ToUpper();
         }
         public static string hostname;
         public static string username;
         public string UserName()
         {
             string _UserName = textBox1.Text;
-            username = textBox1.Text;
+            username = textBox1.Text.ToUpper();
             return _UserName;
         }
 
@@ -1670,7 +1683,7 @@ namespace Puzzel
 
         private void PowershellMenuItem2_Click(object sender, EventArgs e)
         {
-            ProcExec Exec = new ProcExec("Powershell", "");
+            ProcExec exec = new ProcExec("powershell", "-noexit Enter-PSSession -ComputerName " + HostName());
         }
 
         private void cMDSYSTEMToolStripMenuItem_Click(object sender, EventArgs e)

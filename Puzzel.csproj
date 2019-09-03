@@ -62,7 +62,7 @@
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>logon_1.ico</ApplicationIcon>
+    <ApplicationIcon>logon_2.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Cassia, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -207,6 +207,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="logon_1.ico" />
+    <Content Include="logon_2.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

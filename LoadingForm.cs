@@ -47,7 +47,7 @@ namespace Puzzel
         };
         public void progress()
         {
-            while (Puzzel.Form1.progressBar.IsAlive)
+            while (Puzzel.Form1.ProgressBarValue != Puzzel.Form1.ProgressMax )
             {
                 if (progressBar.InvokeRequired)
                     progressBar.Invoke(new MethodInvoker(() =>
