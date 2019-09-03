@@ -53,18 +53,18 @@
             this.odświeżZaznaczoneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.odświerzWszystkoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.odblokujKontoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.wyczyśćToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.progress = new System.ComponentModel.BackgroundWorker();
             this.DC = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.user_state = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bad_pwd_count = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Last_bad_pwd = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Pwd_last_set = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Lockout_time = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.odblokujKontoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.wyczyśćToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.progress = new System.ComponentModel.BackgroundWorker();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
@@ -174,15 +174,15 @@
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AllowUserToResizeColumns = false;
             this.dataGridView1.AllowUserToResizeRows = false;
-            this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
+            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dataGridView1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+            this.dataGridView1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Raised;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -197,13 +197,13 @@
             dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle8;
             this.dataGridView1.GridColor = System.Drawing.SystemColors.Control;
-            this.dataGridView1.Location = new System.Drawing.Point(8, 27);
+            this.dataGridView1.Location = new System.Drawing.Point(8, 25);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
@@ -225,47 +225,6 @@
             this.dataGridView1.Size = new System.Drawing.Size(745, 268);
             this.dataGridView1.TabIndex = 1;
             this.dataGridView1.TabStop = false;
-            // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.statusHasłaToolStripMenuItem,
-            this.odblokujKontoToolStripMenuItem,
-            this.toolStripSeparator3,
-            this.wyczyśćToolStripMenuItem1,
-            this.toolStripSeparator4,
-            this.odświeżZaznaczoneToolStripMenuItem,
-            this.odświerzWszystkoToolStripMenuItem});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(174, 126);
-            // 
-            // odblokujKontoToolStripMenuItem
-            // 
-            this.odblokujKontoToolStripMenuItem.Name = "odblokujKontoToolStripMenuItem";
-            this.odblokujKontoToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
-            this.odblokujKontoToolStripMenuItem.Text = "Odblokuj Konto";
-            this.odblokujKontoToolStripMenuItem.Click += new System.EventHandler(this.odblokujZaznaczoneToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(170, 6);
-            // 
-            // wyczyśćToolStripMenuItem1
-            // 
-            this.wyczyśćToolStripMenuItem1.Name = "wyczyśćToolStripMenuItem1";
-            this.wyczyśćToolStripMenuItem1.Size = new System.Drawing.Size(173, 22);
-            this.wyczyśćToolStripMenuItem1.Text = "Wyczyść";
-            this.wyczyśćToolStripMenuItem1.Click += new System.EventHandler(this.wyczyśćToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(170, 6);
-            // 
-            // progress
-            // 
-            this.progress.DoWork += new System.ComponentModel.DoWorkEventHandler(this.progress_DoWork);
             // 
             // DC
             // 
@@ -352,6 +311,47 @@
             this.Lockout_time.ReadOnly = true;
             this.Lockout_time.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.Lockout_time.Width = 130;
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.statusHasłaToolStripMenuItem,
+            this.odblokujKontoToolStripMenuItem,
+            this.toolStripSeparator3,
+            this.wyczyśćToolStripMenuItem1,
+            this.toolStripSeparator4,
+            this.odświeżZaznaczoneToolStripMenuItem,
+            this.odświerzWszystkoToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(174, 126);
+            // 
+            // odblokujKontoToolStripMenuItem
+            // 
+            this.odblokujKontoToolStripMenuItem.Name = "odblokujKontoToolStripMenuItem";
+            this.odblokujKontoToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.odblokujKontoToolStripMenuItem.Text = "Odblokuj Konto";
+            this.odblokujKontoToolStripMenuItem.Click += new System.EventHandler(this.odblokujZaznaczoneToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(170, 6);
+            // 
+            // wyczyśćToolStripMenuItem1
+            // 
+            this.wyczyśćToolStripMenuItem1.Name = "wyczyśćToolStripMenuItem1";
+            this.wyczyśćToolStripMenuItem1.Size = new System.Drawing.Size(173, 22);
+            this.wyczyśćToolStripMenuItem1.Text = "Wyczyść";
+            this.wyczyśćToolStripMenuItem1.Click += new System.EventHandler(this.wyczyśćToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(170, 6);
+            // 
+            // progress
+            // 
+            this.progress.DoWork += new System.ComponentModel.DoWorkEventHandler(this.progress_DoWork);
             // 
             // Lockout_Status
             // 

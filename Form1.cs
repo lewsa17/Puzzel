@@ -414,6 +414,21 @@ namespace Puzzel
             stopTime();
         }
 
+        private string containst(string text)
+        { string[] logs = null;
+            if (Directory.Exists(Working[0].Remove(13))
+            {
+                Puzzel.Form1.ProgressBarValue = 1;
+                string[] usr = Directory.GetFiles(Working[0].Remove(13), "*_logons.log", SearchOption.TopDirectoryOnly);
+                for (int i = 0; i < usr.Length; i++)
+                {
+                    string usrfilename = Path.GetFileNameWithoutExtension(usr[i]);
+                    logs[0]+=(usrfilename.Replace("_logons.log", ""));
+                }
+                logs.Contains(text);
+            }
+            return text;
+        }
         private void loGi(string pole, string rodzaj, decimal licznik)
         {
             startTime();
@@ -1050,9 +1065,11 @@ namespace Puzzel
             }
             else { comboBox1.Items.Add(message); }
         }
+        int tasksession = 0;
         private void button7_Click(object sender, EventArgs e)
         {
             startTime();
+            tasksession = 0;
             ClearRichTextBox("");
             comboBox1.Items.Clear();
             if (UserName().Length > 0)
@@ -1061,7 +1078,10 @@ namespace Puzzel
             {
                 UpdateRichTextBox("Nie podano loginu");
             }
-            stopTime();
+            
+                stopTime();
+            
+            
         }
         private string Allowed_workstions()
         { string[] temp = netuserdomain.Split('\n');
@@ -1680,10 +1700,28 @@ namespace Puzzel
 
         private void szukajSesjiWTleThread1_4()
         {
-            szukajSesjiWTleThread1.RunWorkerAsync();
-            szukajSesjiWTleThread2.RunWorkerAsync();
-            szukajSesjiWTleThread3.RunWorkerAsync();
-            szukajSesjiWTleThread4.RunWorkerAsync();
+            if (!szukajSesjiWTleThread1.IsBusy | !szukajSesjiWTleThread2.IsBusy | !szukajSesjiWTleThread3.IsBusy | !szukajSesjiWTleThread4.IsBusy)
+            {
+                szukajSesjiWTleThread1.RunWorkerAsync();
+                szukajSesjiWTleThread2.RunWorkerAsync();
+                szukajSesjiWTleThread3.RunWorkerAsync();
+                szukajSesjiWTleThread4.RunWorkerAsync();
+            }
+            else MessageBox.Show("Proszę czekać jest już aktywne wyszukiwanie");
+/*}
+            Thread thread = new Thread(() =>
+            {
+                while (szukajSesjiWTleThread1.IsBusy)
+                {
+                    comboBox1.BeginInvoke(new MethodInvoker(() =>
+                    {
+                        if (comboBox1.Items.Count > 0)
+                            comboBox1.SelectedIndex = 1;
+                        comboBox1.Refresh();
+                    }));
+                }
+            });
+  */      
         }
 
         private void szukajSesjiWTleThread1_DoWork(object sender, DoWorkEventArgs e)
@@ -1692,6 +1730,12 @@ namespace Puzzel
             for(int i=0; i < termservers.Length; i += 4)
             {
                 szukanieSesji(termservers[i], UserName());
+                comboBox1.BeginInvoke(new MethodInvoker(() =>
+                {
+                    if (comboBox1.Items.Count > 0)
+                        comboBox1.SelectedIndex = 0;
+                    comboBox1.Refresh();
+                }));
             }
         }
 
@@ -1701,6 +1745,12 @@ namespace Puzzel
             for (int i = 1; i < termservers.Length; i += 4)
             {
                 szukanieSesji(termservers[i], UserName());
+                comboBox1.BeginInvoke(new MethodInvoker(() =>
+                {
+                    if (comboBox1.Items.Count > 0)
+                        comboBox1.SelectedIndex = 0;
+                    comboBox1.Refresh();
+                }));
             }
         }
 
@@ -1710,6 +1760,12 @@ namespace Puzzel
             for (int i = 2; i < termservers.Length; i += 4)
             {
                 szukanieSesji(termservers[i], UserName());
+                comboBox1.BeginInvoke(new MethodInvoker(() =>
+                {
+                    if (comboBox1.Items.Count > 0)
+                        comboBox1.SelectedIndex = 0;
+                    comboBox1.Refresh();
+                }));
             }
         }
 
@@ -1719,6 +1775,12 @@ namespace Puzzel
             for (int i = 3; i < termservers.Length; i += 4)
             {
                 szukanieSesji(termservers[i], UserName());
+                comboBox1.BeginInvoke(new MethodInvoker(() =>
+                {
+                    if (comboBox1.Items.Count > 0)
+                        comboBox1.SelectedIndex = 0;
+                    comboBox1.Refresh();
+                }));
             }
         }
 
@@ -1752,12 +1814,16 @@ namespace Puzzel
         {
             ladujLogiWTle.RunWorkerAsync();
         }
-
+        
         private void wyszukiwanieSesji_TerminalExplorer(object sender, EventArgs e)
         {
-            TerminalExplorer terminalExplorer = new TerminalExplorer();
-            terminalExplorer.Show();
-            terminalExplorer.szukanieSesji(((ToolStripMenuItem)sender).Text);
+            if (File.Exists(Directory.GetCurrentDirectory() + @"\Cassia.dll"))
+            {
+                TerminalExplorer terminalExplorer = new TerminalExplorer();
+                terminalExplorer.Show();
+                terminalExplorer.szukanieSesji(((ToolStripMenuItem)sender).Text);
+            }
+            else MessageBox.Show("Plik cassia.dll nie jest dostępny.");
         }
 
         public static string PingLicznik=null;
@@ -1931,10 +1997,10 @@ namespace Puzzel
         private void Keys_PreviewKeyDown (object sender, PreviewKeyDownEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
-            {
+            { 
                 if (((TextBox)sender).Name == "textBox1")
                 {
-                    loGi(UserName(), "User", numericUpDown1.Value);
+                    loGi(containst(UserName()), "User", numericUpDown1.Value);
                 }
 
                 if (((TextBox)sender).Name == "textBox2")
@@ -1948,16 +2014,20 @@ namespace Puzzel
             if (e.Control && e.KeyCode == Keys.C)
             {
                 if (richTextBox1.Focused)
-                    Clipboard.SetText(richTextBox1.SelectedText.Trim(' '));
+                    if (richTextBox1.SelectedText.Length > 0 && !string.IsNullOrEmpty(richTextBox1.SelectedText) && !string.IsNullOrWhiteSpace(richTextBox1.SelectedText))
+                        Clipboard.SetText(richTextBox1.SelectedText.Trim(' '));
 
                 if (textBox1.Focused)
-                    Clipboard.SetText(textBox1.SelectedText.Trim(' '));
+                    if (textBox1.SelectedText.Length > 0 && !string.IsNullOrEmpty(textBox1.SelectedText) && !string.IsNullOrWhiteSpace(textBox1.SelectedText))
+                        Clipboard.SetText(textBox1.SelectedText.Trim(' '));
 
                 if (textBox2.Focused)
-                    Clipboard.SetText(textBox2.SelectedText.Trim(' '));
+                    if (textBox2.SelectedText.Length > 0 && !string.IsNullOrEmpty(textBox2.SelectedText) && !string.IsNullOrWhiteSpace(textBox2.SelectedText))
+                        Clipboard.SetText(textBox2.SelectedText.Trim(' '));
 
                 if (comboBox1.Focused)
-                    Clipboard.SetText(comboBox1.SelectedText.Trim(' '));
+                    if (comboBox1.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBox1.SelectedText) && !string.IsNullOrWhiteSpace(comboBox1.SelectedText))
+                        Clipboard.SetText(comboBox1.SelectedText.Trim(' '));
             }
 
             if (e.Control && e.KeyCode == Keys.V)
@@ -1983,28 +2053,29 @@ namespace Puzzel
             if (e.Control && e.KeyCode == Keys.X)
             {
                 if (richTextBox1.Focused)
-                    if (richTextBox1.SelectedText.Length > 0)
+                    if (richTextBox1.SelectedText.Length > 0 && !string.IsNullOrEmpty(richTextBox1.SelectedText) && !string.IsNullOrWhiteSpace(richTextBox1.SelectedText))
                     {
-                        richTextBox1.Cut();
-                        Clipboard.SetText(Clipboard.GetText().Trim(' '));
+                            richTextBox1.Cut();
+                            Clipboard.SetText(Clipboard.GetText().Trim(' '));
+                        
                     }
 
                 if (textBox1.Focused)
-                    if (textBox1.SelectedText.Length > 0)
+                    if (textBox1.SelectedText.Length > 0 && !string.IsNullOrEmpty(textBox1.SelectedText) && !string.IsNullOrWhiteSpace(textBox1.SelectedText))
                     {
                         textBox1.Cut();
                         Clipboard.SetText(Clipboard.GetText().Trim(' '));
                     }
 
                 if (textBox2.Focused)
-                    if (textBox2.SelectedText.Length > 0)
+                    if (textBox2.SelectedText.Length > 0 && !string.IsNullOrEmpty(textBox2.SelectedText) && !string.IsNullOrWhiteSpace(textBox2.SelectedText))
                     {
                         textBox2.Cut();
                         Clipboard.SetText(Clipboard.GetText().Trim(' '));
                     }
 
                 if (comboBox1.Focused)
-                    if (comboBox1.SelectedText.Length > 0)
+                    if (comboBox1.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBox1.SelectedText) && !string.IsNullOrWhiteSpace(comboBox1.SelectedText))
                     {
                         Clipboard.SetText(comboBox1.SelectedText.TrimEnd(' '));
                         comboBox1.Text.Remove(comboBox1.SelectionStart, comboBox1.SelectionLength);

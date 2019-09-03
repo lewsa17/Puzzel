@@ -162,7 +162,6 @@ namespace Puzzel
 
         private void statusHasłaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
             string tempt = null;
             TimeSpan temp = (Convert.ToDateTime(_lastPasswordSet).AddDays(30) - DateTime.Now);
             if (temp > (DateTime.Now.AddDays(2) - DateTime.Now))
@@ -171,10 +170,6 @@ namespace Puzzel
             }
             else if (temp < (DateTime.Now.AddDays(1) - DateTime.Now))
                 tempt += (temp.ToString("'Obecne hasło wynosi :'dd' dzień 'hh'g'mm'm'ss's'") + "\n");
-
-
-
-
             MessageBox.Show("Maksymalna długość hasła dla " + Username + " wynosi 30 dni. \n\n " + (DateTime.Now - Convert.ToDateTime(_lastPasswordSet)).ToString("'Hasło wygasa za: 'dd' dni 'hh'g'mm'm'ss's'") + "\n\n " + tempt, "Status hasła");
         }
 
