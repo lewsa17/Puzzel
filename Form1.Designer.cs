@@ -146,10 +146,6 @@
             this.tRToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ręcznaNazwaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ladujLogiWTle = new System.ComponentModel.BackgroundWorker();
-            this.szukajSesjiWTleThread1 = new System.ComponentModel.BackgroundWorker();
-            this.szukajSesjiWTleThread2 = new System.ComponentModel.BackgroundWorker();
-            this.szukajSesjiWTleThread3 = new System.ComponentModel.BackgroundWorker();
-            this.szukajSesjiWTleThread4 = new System.ComponentModel.BackgroundWorker();
             this.AutoGettingLogs = new System.Windows.Forms.Timer(this.components);
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.groupBox1.SuspendLayout();
@@ -197,7 +193,7 @@
             this.button5.TabIndex = 9;
             this.button5.Text = "Profil EXT";
             this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.button5.Click += new System.EventHandler(this.profilsieciowy);
             // 
             // button6
             // 
@@ -207,7 +203,7 @@
             this.button6.TabIndex = 8;
             this.button6.Text = "Profil TS";
             this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
+            this.button6.Click += new System.EventHandler(this.profilsieciowy);
             // 
             // groupBox2
             // 
@@ -304,7 +300,7 @@
             this.button7.TabIndex = 0;
             this.button7.Text = "Szukaj sesji";
             this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
+            this.button7.Click += new System.EventHandler(this.szukaniesesji);
             // 
             // button3
             // 
@@ -314,7 +310,7 @@
             this.button3.TabIndex = 7;
             this.button3.Text = "Profil ERI";
             this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.button3.Click += new System.EventHandler(this.profilsieciowy);
             // 
             // button4
             // 
@@ -324,7 +320,7 @@
             this.button4.TabIndex = 6;
             this.button4.Text = "Profil VFS";
             this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.button4.Click += new System.EventHandler(this.profilsieciowy);
             // 
             // button2
             // 
@@ -563,13 +559,13 @@
             this.RemoteDesktopContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.rDPBezPustyContextMenu});
             this.RemoteDesktopContextMenu.Name = "RemoteDesktopContextMenu";
-            this.RemoteDesktopContextMenu.Size = new System.Drawing.Size(145, 26);
+            this.RemoteDesktopContextMenu.Size = new System.Drawing.Size(181, 48);
             this.RemoteDesktopContextMenu.Text = "ZdalnyPulpit";
             // 
             // rDPBezPustyContextMenu
             // 
             this.rDPBezPustyContextMenu.Name = "rDPBezPustyContextMenu";
-            this.rDPBezPustyContextMenu.Size = new System.Drawing.Size(144, 22);
+            this.rDPBezPustyContextMenu.Size = new System.Drawing.Size(180, 22);
             this.rDPBezPustyContextMenu.Text = "RDP bez pusty";
             this.rDPBezPustyContextMenu.Click += new System.EventHandler(this.rDPBezPustyContextMenu_Click);
             // 
@@ -1200,22 +1196,6 @@
             // 
             this.ladujLogiWTle.DoWork += new System.ComponentModel.DoWorkEventHandler(this.ladujLogiWTle_DoWork);
             // 
-            // szukajSesjiWTleThread1
-            // 
-            this.szukajSesjiWTleThread1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.szukajSesjiWTleThread1_DoWork);
-            // 
-            // szukajSesjiWTleThread2
-            // 
-            this.szukajSesjiWTleThread2.DoWork += new System.ComponentModel.DoWorkEventHandler(this.szukajSesjiWTleThread2_DoWork);
-            // 
-            // szukajSesjiWTleThread3
-            // 
-            this.szukajSesjiWTleThread3.DoWork += new System.ComponentModel.DoWorkEventHandler(this.szukajSesjiWTleThread3_DoWork);
-            // 
-            // szukajSesjiWTleThread4
-            // 
-            this.szukajSesjiWTleThread4.DoWork += new System.ComponentModel.DoWorkEventHandler(this.szukajSesjiWTleThread4_DoWork);
-            // 
             // AutoGettingLogs
             // 
             this.AutoGettingLogs.Interval = 3600000;
@@ -1240,7 +1220,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(1202, 511);
             this.Name = "Form1";
-            this.Text = "Puzzel v0.60";
+            this.Text = "Puzzel v0.61";
             this.Load += new System.EventHandler(this.button20_Click);
             this.Resize += new System.EventHandler(this.Form1_Resize);
             this.groupBox1.ResumeLayout(false);
@@ -1344,10 +1324,6 @@
         private System.Windows.Forms.ToolStripMenuItem użytkownicyIGrupyLokalneToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dHCPToolStripMenuItem;
         private System.ComponentModel.BackgroundWorker ladujLogiWTle;
-        private System.ComponentModel.BackgroundWorker szukajSesjiWTleThread1;
-        private System.ComponentModel.BackgroundWorker szukajSesjiWTleThread2;
-        private System.ComponentModel.BackgroundWorker szukajSesjiWTleThread3;
-        private System.ComponentModel.BackgroundWorker szukajSesjiWTleThread4;
         private System.Windows.Forms.ToolStripMenuItem lockoutStatusToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem wklejToolStripMenuItem;
         private System.Windows.Forms.Timer AutoGettingLogs;

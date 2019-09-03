@@ -210,52 +210,26 @@ namespace Puzzel
             stopTime();
         }
 
-        private void profilsieciowy(string folder)
+        private void profilsieciowy(object sender, EventArgs e)
         {
             startTime();
+            string folder = null;
+            if (((Button)sender).Name == "button4")
+                folder = ProcExec.vfs;
+
+            if (((Button)sender).Name == "button3")
+                folder = ProcExec.eri;
+
+            if (((Button)sender).Name == "button6")
+                folder = ProcExec.net;
+
+            if (((Button)sender).Name == "button5")
+                folder = ProcExec.ext;
+
             ProcExec Exec = new ProcExec();
             if (Directory.Exists(folder))
                 Exec.ProcExecIF(ProcExec.explorer, folder + UserName());
             else ReplaceRichTextBox("Katalog jest niedostępny");
-            stopTime();
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            startTime();
-            ProcExec Exec = new ProcExec();
-            if (Directory.Exists(ProcExec.vfs))
-                Exec.ProcExecIF(ProcExec.explorer, ProcExec.vfs + UserName());
-            else ReplaceRichTextBox("Katalog jest niedostępny");
-            stopTime();
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            startTime();
-            ProcExec Exec = new ProcExec();
-            if (Directory.Exists(ProcExec.eri))
-                Exec.ProcExecIF(ProcExec.explorer, ProcExec.eri + UserName());
-            else ReplaceRichTextBox("Katalog jest niedostępny");
-            stopTime();
-        }
-
-        private void button6_Click(object sender, EventArgs e)
-        {
-            startTime();
-            ProcExec Exec = new ProcExec();
-            if (Directory.Exists(ProcExec.net))
-                Exec.ProcExecIF(ProcExec.explorer, ProcExec.net + UserName());
-            else ReplaceRichTextBox("Katalog jest niedostępny");
-            stopTime();
-        }
-
-        private void button5_Click(object sender, EventArgs e)
-        {
-            startTime();
-            ProcExec Exec = new ProcExec();
-            if (Directory.Exists(ProcExec.ext))
-                Exec.ProcExecIF(ProcExec.explorer, ProcExec.ext + UserName());
             stopTime();
         }
 
@@ -485,7 +459,7 @@ namespace Puzzel
             System.Threading.Thread thread;
             if (counterlist > 2)
             {
-                containst(UserName(), senderZ);
+                containst(Name, senderZ);
                 if (LogsNames.Count() > 0)
                 {
                     foreach (string LogsName in LogsNames)
@@ -598,34 +572,43 @@ namespace Puzzel
         string senderZ = null;
         decimal counter = 0;
         int counterlist = 0;
+        string NameZ = null;
         private void szukajLogow(object sender, EventArgs e)
         {
             if (sender is Button)
-                if (((Button)sender).Name == "Button1")
+            {  
+                if (((Button)sender).Name == "button1")
                 {
                     senderZ = "User";
                     counterlist = textBox1.Text.Length;
                     counter = numericUpDown1.Value;
+                    NameZ = UserName();
                 }
-                else
+                if (((Button)sender).Name == "button10")
                 {
                     senderZ = "Computer";
                     counterlist = textBox2.Text.Length;
                     counter = numericUpDown2.Value;
+                    NameZ = HostName();
                 }
+            }
             if (sender is TextBox)
+            { 
                 if (((TextBox)sender).Name == "textBox1")
                 {
                     senderZ = "User";
                     counterlist = textBox1.Text.Length;
                     counter = numericUpDown1.Value;
+                    NameZ = UserName();
                 }
-                else
+                if (((TextBox)sender).Name == "textBox2")
                 {
                     senderZ = "Computer";
                     counterlist = textBox2.Text.Length;
                     counter = numericUpDown2.Value;
+                    NameZ = HostName();
                 }
+            }
             backgroundWorker1.RunWorkerAsync();
         }
 
@@ -1211,20 +1194,7 @@ namespace Puzzel
         int tasksession = 0;
         private void button7_Click(object sender, EventArgs e)
         {
-            startTime();
-            tasksession = 0;
-            ClearRichTextBox("");
-            comboBox1.Items.Clear();
-            if (UserName().Length > 0)
-                szukajSesjiWTleThread1_4();
-            else
-            {
-                UpdateRichTextBox("Nie podano loginu");
-            }
-            
-                stopTime();
-            
-            
+
         }
         private string Allowed_workstions()
         { string[] temp = netuserdomain.Split('\n');
@@ -1355,8 +1325,8 @@ namespace Puzzel
 
         private void button20_Click(object sender, EventArgs e)
         {
-            if(!ladujLogiWTle.IsBusy)
-            ladujLogiWTle.RunWorkerAsync();
+            //if(!ladujLogiWTle.IsBusy)
+            //ladujLogiWTle.RunWorkerAsync();
         }
         static AutoCompleteStringCollection ComputerCollection = new AutoCompleteStringCollection();
        
@@ -1841,83 +1811,14 @@ namespace Puzzel
             GetLogs();
         }
 
-        private void szukajSesjiWTleThread1_4()
+        private void szukaniesesji(object sender, EventArgs e)
         {
-            if (!szukajSesjiWTleThread1.IsBusy | !szukajSesjiWTleThread2.IsBusy | !szukajSesjiWTleThread3.IsBusy | !szukajSesjiWTleThread4.IsBusy)
+            Thread thread;
+            foreach (string termserv in termservers)
             {
-                szukajSesjiWTleThread1.RunWorkerAsync();
-                szukajSesjiWTleThread2.RunWorkerAsync();
-                szukajSesjiWTleThread3.RunWorkerAsync();
-                szukajSesjiWTleThread4.RunWorkerAsync();
-            }
-            else MessageBox.Show("Proszę czekać jest już aktywne wyszukiwanie");
-/*}
-            Thread thread = new Thread(() =>
-            {
-                while (szukajSesjiWTleThread1.IsBusy)
-                {
-                    comboBox1.BeginInvoke(new MethodInvoker(() =>
-                    {
-                        if (comboBox1.Items.Count > 0)
-                            comboBox1.SelectedIndex = 1;
-                        comboBox1.Refresh();
-                    }));
-                }
-            });
-  */      
-        }
-
-        private void szukajSesjiWTleThread1_DoWork(object sender, DoWorkEventArgs e)
-        {
-            var termservers = Working[6].Split(',');
-            for(int i=0; i < termservers.Length; i += 4)
-            {
-                szukanieSesji(termservers[i], UserName());
-                comboBox1.BeginInvoke(new MethodInvoker(() =>
-                {
-                    if (comboBox1.Items.Count > 0)
-                        comboBox1.SelectedIndex = 0;
-                    comboBox1.Refresh();
-                }));
-            }
-        }
-
-        private void szukajSesjiWTleThread2_DoWork(object sender, DoWorkEventArgs e)
-        {
-            var termservers = Working[6].Split(',');
-            for (int i = 1; i < termservers.Length; i += 4)
-            {
-                szukanieSesji(termservers[i], UserName());
-                comboBox1.BeginInvoke(new MethodInvoker(() =>
-                {
-                    if (comboBox1.Items.Count > 0)
-                        comboBox1.SelectedIndex = 0;
-                    comboBox1.Refresh();
-                }));
-            }
-        }
-
-        private void szukajSesjiWTleThread3_DoWork(object sender, DoWorkEventArgs e)
-        {
-            var termservers = Working[6].Split(',');
-            for (int i = 2; i < termservers.Length; i += 4)
-            {
-                szukanieSesji(termservers[i], UserName());
-                comboBox1.BeginInvoke(new MethodInvoker(() =>
-                {
-                    if (comboBox1.Items.Count > 0)
-                        comboBox1.SelectedIndex = 0;
-                    comboBox1.Refresh();
-                }));
-            }
-        }
-
-        private void szukajSesjiWTleThread4_DoWork(object sender, DoWorkEventArgs e)
-        {
-            var termservers = Working[6].Split(',');
-            for (int i = 3; i < termservers.Length; i += 4)
-            {
-                szukanieSesji(termservers[i], UserName());
+                thread = new Thread(() => 
+                    szukanieSesji(termserv, UserName()));
+                thread.Start();
                 comboBox1.BeginInvoke(new MethodInvoker(() =>
                 {
                     if (comboBox1.Items.Count > 0)
@@ -1972,7 +1873,7 @@ namespace Puzzel
             else MessageBox.Show("Plik cassia.dll nie jest dostępny.");
         }
 
-        public static string PingLicznik=null;
+        public static string PingLicznik="1";
         int licz = 0;
         public static string PingRemoteHost = null;
         private void button22_Click(object sender, EventArgs e)
@@ -1987,15 +1888,16 @@ namespace Puzzel
                 SW.WriteLine("PsExec64.exe " + @"\\" + HostName() + " ping " + PingRemoteHost + " -n " + PingLicznik + " 1> " + Directory.GetCurrentDirectory() + @"\temp.log");
                 SW.Close();
                 Process p = new Process();
-                p.StartInfo.FileName = "CMD";
+                p.StartInfo.FileName = "cmd.exe";
                 p.StartInfo.Arguments = "/c remoteping.cmd";
-                if (Convert.ToInt16(PingLicznik) > 6)
                 p.Start();
-
-                StreamReader sr = new StreamReader(Directory.GetCurrentDirectory() + @"\temp.log");
-                PingRemoteHost = (sr.ReadToEnd());
-                sr.Close();
-
+                p.WaitForExit();
+                if (File.Exists(Directory.GetCurrentDirectory() + @"\temp.log"))
+                {
+                    StreamReader sr = new StreamReader(Directory.GetCurrentDirectory() + @"\temp.log");
+                    PingRemoteHost = (sr.ReadToEnd());
+                    sr.Close();
+                }
                 licz = PingRemoteHost.IndexOf("Odpowied");
                 PingRemoteHost = PingRemoteHost.Replace(PingRemoteHost[licz + 8], 'ź');
                 PingRemoteHost = PingRemoteHost.Replace("bźźdzenia", "błądzenia");
@@ -2009,7 +1911,10 @@ namespace Puzzel
                 PingLicznik = null;
                 licz = 0;
             }
-
+            if (File.Exists("remoteping.cmd"))
+                File.Delete("remoteping.cmd");
+            if (File.Exists("temp.log"))
+                File.Delete("temp.log");
             stopTime();
         }
 
@@ -2028,6 +1933,7 @@ namespace Puzzel
                 p.StartInfo.FileName = "CMD";
                 p.StartInfo.Arguments = "/c remotetracert.cmd";
                 p.Start();
+                p.WaitForExit();
                 if (File.Exists(Directory.GetCurrentDirectory() + @"\temp.log"))
                 {
                     StreamReader sr = new StreamReader(Directory.GetCurrentDirectory() + @"\temp.log");
@@ -2045,6 +1951,10 @@ namespace Puzzel
                 PingRemoteHost = null;
                 licz = 0;
             }
+            if (File.Exists("remotetracert.cmd"))
+                File.Delete("remotetracert.cmd");
+            if (File.Exists("temp.log"))
+                File.Delete("temp.log");
             stopTime();
         }
 
