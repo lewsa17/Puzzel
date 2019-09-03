@@ -112,60 +112,60 @@
             // wyczyśćToolStripMenuItem
             // 
             this.wyczyśćToolStripMenuItem.Name = "wyczyśćToolStripMenuItem";
-            this.wyczyśćToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.wyczyśćToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.wyczyśćToolStripMenuItem.Text = "Wyczyść";
             this.wyczyśćToolStripMenuItem.Click += new System.EventHandler(this.wyczyśćToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(170, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // statusHasToolStripMenuItem
             // 
             this.statusHasToolStripMenuItem.Name = "statusHasToolStripMenuItem";
-            this.statusHasToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.statusHasToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.statusHasToolStripMenuItem.Text = "Status hasła";
             this.statusHasToolStripMenuItem.Click += new System.EventHandler(this.statusHasłaToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(170, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
             // 
             // odświeżZaznaczoneToolStripMenuItem1
             // 
             this.odświeżZaznaczoneToolStripMenuItem1.Name = "odświeżZaznaczoneToolStripMenuItem1";
-            this.odświeżZaznaczoneToolStripMenuItem1.Size = new System.Drawing.Size(173, 22);
+            this.odświeżZaznaczoneToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.odświeżZaznaczoneToolStripMenuItem1.Text = "Odśwież zaznaczone";
             this.odświeżZaznaczoneToolStripMenuItem1.Click += new System.EventHandler(this.OdświeżZaznaczoneToolStripMenuItem_Click);
             // 
             // odświeżWszystkoToolStripMenuItem
             // 
             this.odświeżWszystkoToolStripMenuItem.Name = "odświeżWszystkoToolStripMenuItem";
-            this.odświeżWszystkoToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.odświeżWszystkoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.odświeżWszystkoToolStripMenuItem.Text = "Odśwież wszystko";
             this.odświeżWszystkoToolStripMenuItem.Click += new System.EventHandler(this.odświerzWszystkoToolStripMenuItem_Click);
             // 
             // statusHasłaToolStripMenuItem
             // 
             this.statusHasłaToolStripMenuItem.Name = "statusHasłaToolStripMenuItem";
-            this.statusHasłaToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.statusHasłaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.statusHasłaToolStripMenuItem.Text = "Status hasła";
             this.statusHasłaToolStripMenuItem.Click += new System.EventHandler(this.statusHasłaToolStripMenuItem_Click);
             // 
             // odświeżZaznaczoneToolStripMenuItem
             // 
             this.odświeżZaznaczoneToolStripMenuItem.Name = "odświeżZaznaczoneToolStripMenuItem";
-            this.odświeżZaznaczoneToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.odświeżZaznaczoneToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.odświeżZaznaczoneToolStripMenuItem.Text = "Odśwież zaznaczone";
             this.odświeżZaznaczoneToolStripMenuItem.Click += new System.EventHandler(this.OdświeżZaznaczoneToolStripMenuItem_Click);
             // 
             // odświerzWszystkoToolStripMenuItem
             // 
             this.odświerzWszystkoToolStripMenuItem.Name = "odświerzWszystkoToolStripMenuItem";
-            this.odświerzWszystkoToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
-            this.odświerzWszystkoToolStripMenuItem.Text = "Odświerz wszystko";
+            this.odświerzWszystkoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.odświerzWszystkoToolStripMenuItem.Text = "Odśwież wszystko";
             this.odświerzWszystkoToolStripMenuItem.Click += new System.EventHandler(this.odświerzWszystkoToolStripMenuItem_Click);
             // 
             // dataGridView1
@@ -323,31 +323,31 @@
             this.odświeżZaznaczoneToolStripMenuItem,
             this.odświerzWszystkoToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(174, 126);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 148);
             // 
             // odblokujKontoToolStripMenuItem
             // 
             this.odblokujKontoToolStripMenuItem.Name = "odblokujKontoToolStripMenuItem";
-            this.odblokujKontoToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.odblokujKontoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.odblokujKontoToolStripMenuItem.Text = "Odblokuj Konto";
             this.odblokujKontoToolStripMenuItem.Click += new System.EventHandler(this.odblokujZaznaczoneToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(170, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 6);
             // 
             // wyczyśćToolStripMenuItem1
             // 
             this.wyczyśćToolStripMenuItem1.Name = "wyczyśćToolStripMenuItem1";
-            this.wyczyśćToolStripMenuItem1.Size = new System.Drawing.Size(173, 22);
+            this.wyczyśćToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.wyczyśćToolStripMenuItem1.Text = "Wyczyść";
             this.wyczyśćToolStripMenuItem1.Click += new System.EventHandler(this.wyczyśćToolStripMenuItem_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(170, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(177, 6);
             // 
             // progress
             // 

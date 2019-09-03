@@ -419,7 +419,6 @@
             this.textBox1.ShortcutsEnabled = false;
             this.textBox1.Size = new System.Drawing.Size(124, 20);
             this.textBox1.TabIndex = 1;
-            this.textBox1.TextChanged += new System.EventHandler(this.AutoComplete);
             this.textBox1.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Keys_PreviewKeyDown);
             // 
             // label1
@@ -790,7 +789,6 @@
             this.textBox2.ShortcutsEnabled = false;
             this.textBox2.Size = new System.Drawing.Size(124, 20);
             this.textBox2.TabIndex = 2;
-            this.textBox2.TextChanged += new System.EventHandler(this.AutoComplete);
             this.textBox2.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Keys_PreviewKeyDown);
             // 
             // label3
@@ -1237,7 +1235,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(1180, 511);
             this.Name = "Form1";
-            this.Text = "Puzzel v0.57";
+            this.Text = "Puzzel v0.58";
             this.Load += new System.EventHandler(this.button20_Click);
             this.Resize += new System.EventHandler(this.Form1_Resize);
             this.groupBox1.ResumeLayout(false);

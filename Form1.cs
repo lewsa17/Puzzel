@@ -446,18 +446,18 @@ namespace Puzzel
                     string[] word;
                     string[] words;
                     word = list[1].Split(';');
-                    UpdateRichTextBox(string.Format("{0,-13}{1,-12}{2,-31}{3,-13}{4,-28}{5,-10}", "LOGOWANIE", "KOMPUTER", "NAZWA","UŻYTKOWNIK", "DATA", "WERSJA SYSTEMU" + "\n"));
+                    UpdateRichTextBox(string.Format("{0,-13}{1,-14}{2,-30}{3,-12}{4,-28}{5,-10}", "LOGOWANIE", "KOMPUTER", "NAZWA","UŻYTKOWNIK", "DATA", "WERSJA SYSTEMU" + "\n"));
                     if (a < maxLines)
                         for (int i = 1; i <= a; i++)
                         {
                             words = list[i].Split(';');
-                            UpdateRichTextBox(string.Format("{0,-12}{1,-13}{2,-31}{3,-13}{4,-28}{5,-10}", words[0], words[1], Nazwauzytkownika(words[2]),words[2].Replace(" ",""), words[3], words[word.Count() - 2]) + "\n");
+                            UpdateRichTextBox(string.Format("{0,-13}{1,-15}{2,-30}{3,-11}{4,-28}{5,-10}", " "+words[0], words[1], Nazwauzytkownika(words[2]),words[2].Replace(" ",""), words[3], words[word.Count() - 2]) + "\n");
                         }
                     else
                         for (int i = 1; i < maxLines; i++)
                         {
                             words = list[i].Split(';');
-                            UpdateRichTextBox(string.Format("{0,-12}{1,-13}{2,-31}{3,-13}{4,-28}{5,-10}", words[0], words[1], Nazwauzytkownika(words[2]), words[2].Replace(" ", ""), words[3], words[word.Count() - 2]) + "\n");
+                            UpdateRichTextBox(string.Format("{0,-13}{1,-15}{2,-30}{3,-11}{4,-28}{5,-10}", words[0], words[1], Nazwauzytkownika(words[2]), words[2].Replace(" ", ""), words[3], words[word.Count() - 2]) + "\n");
                         }
 
                 }
@@ -470,6 +470,7 @@ namespace Puzzel
 
         private void szukajLogow(object sender, EventArgs e)
         {
+            ClearRichTextBox(null);
             if (((Button)sender).Name == "button1")
             {
                 loGi(UserName(), "User", numericUpDown1.Value);
@@ -1814,11 +1815,14 @@ namespace Puzzel
         
         private void wyszukiwanieSesji_TerminalExplorer(object sender, EventArgs e)
         {
+            Thread thread;
             if (File.Exists(Directory.GetCurrentDirectory() + @"\Cassia.dll"))
             {
                 TerminalExplorer terminalExplorer = new TerminalExplorer();
+                thread = new Thread(() => terminalExplorer.szukanieSesji(((ToolStripMenuItem)sender).Text));
+                thread.Start();
                 terminalExplorer.Show();
-                terminalExplorer.szukanieSesji(((ToolStripMenuItem)sender).Text);
+//                terminalExplorer.szukanieSesji(((ToolStripMenuItem)sender).Text);
             }
             else MessageBox.Show("Plik cassia.dll nie jest dostępny.");
         }
@@ -1836,9 +1840,7 @@ namespace Puzzel
             {
                 StreamWriter SW = new StreamWriter("remoteping.cmd");
                 SW.WriteLine("PsExec64.exe " + @"\\" + HostName() + " ping " + PingRemoteHost + " -n " + PingLicznik + " 1> " + Directory.GetCurrentDirectory() + @"\temp.log");
-                //SW.WriteLine("PsExec64.exe " + @"\\" + HostName() + " ping " + PingRemoteHost + " -n " + PingLicznik + " 1> " + Directory.GetCurrentDirectory() + @"\temp.log");
                 SW.Close();
-                //Puzzel.Ping.Pinging(HostName());
                 Process p = new Process();
                 p.StartInfo.FileName = "CMD";
                 p.StartInfo.Arguments = "/c remoteping.cmd";
@@ -1876,9 +1878,7 @@ namespace Puzzel
             {
                 StreamWriter SW = new StreamWriter("remotetracert.cmd");
                 SW.WriteLine("PsExec64.exe " + @"\\" + HostName() + " tracert " + PingRemoteHost + " 1> " + Directory.GetCurrentDirectory() + @"\temp.log");
-                //SW.WriteLine("PsExec64.exe " + @"\\" + HostName() + " ping " + PingRemoteHost + " -n " + PingLicznik + " 1> " + Directory.GetCurrentDirectory() + @"\temp.log");
                 SW.Close();
-                //Puzzel.Ping.Pinging(HostName());
                 Process p = new Process();
                 p.StartInfo.FileName = "CMD";
                 p.StartInfo.Arguments = "/c remotetracert.cmd";
@@ -1990,28 +1990,31 @@ namespace Puzzel
             ProcExec Exec = new ProcExec(ProcExec.rdp, "");
             stopTime();
         }
-
+        
         private void Keys_PreviewKeyDown (object sender, PreviewKeyDownEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                if (((TextBox)sender).Name == "textBox1")
-                {
-                    ClearRichTextBox(null);
-                    containst(UserName(), "User");
-                    foreach (string user in LogsNames)
-                        loGi(user, "User", numericUpDown1.Value);
-                }
+                if (sender is TextBox)
+                { 
+                    if (((TextBox)sender).Name == "textBox1")
+                    {
+                        ClearRichTextBox(null);
+                        containst(UserName(), "User");
+                        foreach (string user in LogsNames)
+                            loGi(user, "User", numericUpDown1.Value);
+                    }
 
-                if (((TextBox)sender).Name == "textBox2")
-                {
-                    ClearRichTextBox(null);
-                    containst(HostName(), "Computer");
-                    foreach (string computer in LogsNames)
-                        loGi(computer, "Computer", numericUpDown2.Value);
-                }
+                    if (((TextBox)sender).Name == "textBox2")
+                    {
+                        ClearRichTextBox(null);
+                        containst(HostName(), "Computer");
+                        foreach (string computer in LogsNames)
+                            loGi(computer, "Computer", numericUpDown2.Value);
+                    }
                     comboBox1.Text = "";
                     comboBox1.Items.Clear();
+                }
             }
 
             if (e.Control && e.KeyCode == Keys.C)
@@ -2058,9 +2061,8 @@ namespace Puzzel
                 if (richTextBox1.Focused)
                     if (richTextBox1.SelectedText.Length > 0 && !string.IsNullOrEmpty(richTextBox1.SelectedText) && !string.IsNullOrWhiteSpace(richTextBox1.SelectedText))
                     {
-                            richTextBox1.Cut();
-                            Clipboard.SetText(Clipboard.GetText().Trim(' '));
-                        
+                        richTextBox1.Cut();
+                        Clipboard.SetText(Clipboard.GetText().Trim(' '));
                     }
 
                 if (textBox1.Focused)

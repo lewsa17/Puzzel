@@ -39,6 +39,7 @@ namespace Puzzel
                 foreach (ITerminalServicesSession session in sessions)
                 {
                     if (session.UserAccount != null)
+                            dataGridView1.BeginInvoke(new Action(() => 
                         dataGridView1.Rows.Add(
                             session.Server.ServerName,
                             session.UserName,
@@ -46,10 +47,10 @@ namespace Puzzel
                             session.SessionId,
                             session.ConnectionState,
                             session.IdleTime,
-                            session.LoginTime);
+                            session.LoginTime)));
                 }
                 server.Close();
-                sessionCount.Text = "Aktywne sesje: " + dataGridView1.Rows.Count;
+                sessionCount.BeginInvoke(new Action(() => sessionCount.Text = "Aktywne sesje: " + dataGridView1.Rows.Count));
             }
         }
 

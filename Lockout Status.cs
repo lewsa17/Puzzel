@@ -164,26 +164,31 @@ namespace Puzzel
         {
             string tempt = null;
             TimeSpan temp = (Convert.ToDateTime(_lastPasswordSet).AddDays(30) - DateTime.Now);
+            
             if (temp > (DateTime.Now.AddDays(2) - DateTime.Now))
             {
-                tempt += (temp.ToString("'Obecne hasło wynosi :'dd' dni 'hh'g'mm'm'ss's'") + "\n");
+                tempt += (temp.ToString("'Obecne hasło wynosi: 'dd' dni 'hh'g'mm'm'ss's'") + "\n");
             }
             else if (temp < (DateTime.Now.AddDays(1) - DateTime.Now))
-                tempt += (temp.ToString("'Obecne hasło wynosi :'dd' dzień 'hh'g'mm'm'ss's'") + "\n");
-            MessageBox.Show("Maksymalna długość hasła dla " + Username + " wynosi 30 dni. \n\n " + (DateTime.Now - Convert.ToDateTime(_lastPasswordSet)).ToString("'Hasło wygasa za: 'dd' dni 'hh'g'mm'm'ss's'") + "\n\n " + tempt, "Status hasła");
+                tempt += (temp.ToString("'Obecne hasło wynosi: 'dd' dzień 'hh'g'mm'm'ss's'") + "\n");
+            MessageBox.Show("Maksymalna długość hasła dla " + Username + " wynosi 30 dni. \n\n" + (DateTime.Now - Convert.ToDateTime(_lastPasswordSet)).ToString
+                          ("'Hasło wygasa za: 'dd' dni 'hh'g'mm'm'ss's'") + "\n\n" + tempt, "Status hasła");
         }
 
         private void odblokujZaznaczoneToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int selectedRowIndex = dataGridView1.SelectedRows[0].Index;
-            string dcName = dataGridView1.Rows[selectedRowIndex].Cells[0].Value.ToString();
-            using (PrincipalContext context = new PrincipalContext(ContextType.Domain, dcName))
+            if (dataGridView1.SelectedColumns.Count != 0)
             {
-                UserPrincipal uP = UserPrincipal.FindByIdentity(context, IdentityType.SamAccountName, Username);
-                uP.UnlockAccount();
+                int selectedRowIndex = dataGridView1.SelectedRows[0].Index;
+                string dcName = dataGridView1.Rows[selectedRowIndex].Cells[0].Value.ToString();
+                using (PrincipalContext context = new PrincipalContext(ContextType.Domain, dcName))
+                {
+                    UserPrincipal uP = UserPrincipal.FindByIdentity(context, IdentityType.SamAccountName, Username);
+                    uP.UnlockAccount();
+                }
+                MessageBox.Show("Konto zostało odblokowane");
             }
-            MessageBox.Show("Konto odblokowane na kontrolerze: "+dcName);
+            else MessageBox.Show("Nic nie zaznaczono");
         }
-        
     }
 }
