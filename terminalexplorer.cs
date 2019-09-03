@@ -1,15 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Threading;
 using Cassia;
-using Cassia.Impl;
 
 namespace Puzzel
 {
@@ -82,12 +74,16 @@ namespace Puzzel
 
                     bajtyprzychodzaceLabel.Text = session.IncomingStatistics.Bytes.ToString();
                     ramkiprzychodzaceLabel.Text = session.IncomingStatistics.Frames.ToString();
-                    if (session.IncomingStatistics.Bytes != 0 && session.IncomingStatistics.Frames != 0) 
+                    if (session.IncomingStatistics.Bytes > 0 && session.IncomingStatistics.Frames > 0) 
                     bajtyramkiprzychodzaceLabel.Text = Math.Floor(Convert.ToDecimal(session.IncomingStatistics.Bytes / session.IncomingStatistics.Frames)).ToString();
+                    else bajtyramkiwychodzace.Text = "brak danych";
 
                     bajtywychodzaceLabel.Text = session.OutgoingStatistics.Bytes.ToString();
                     ramkiwychodzaceLabel.Text = session.OutgoingStatistics.Frames.ToString();
-                    bajtyramkiwychodzace.Text = Math.Floor(Convert.ToDecimal(session.OutgoingStatistics.Bytes / session.OutgoingStatistics.Frames)).ToString();
+
+                    if (session.OutgoingStatistics.Bytes > 0 && session.OutgoingStatistics.Frames > 0)
+                        bajtyramkiwychodzace.Text = Math.Floor(Convert.ToDecimal(session.OutgoingStatistics.Bytes / session.OutgoingStatistics.Frames)).ToString();
+                    else bajtyramkiwychodzace.Text = "brak danych";
                 }
                 server.Close();
             }

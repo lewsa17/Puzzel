@@ -301,7 +301,7 @@
             this.button7.TabIndex = 0;
             this.button7.Text = "Szukaj sesji";
             this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.szukaniesesji);
+            this.button7.Click += new System.EventHandler(this.szukanieSesji);
             // 
             // button3
             // 
@@ -522,7 +522,7 @@
             this.button18.TabIndex = 0;
             this.button18.Text = "Karty sieciowe";
             this.button18.UseVisualStyleBackColor = true;
-            this.button18.Click += new System.EventHandler(this.button18_Click);
+            this.button18.Click += new System.EventHandler(this.narzedziaadministracyjne);
             // 
             // button16
             // 
@@ -612,7 +612,7 @@
             this.button12.TabIndex = 7;
             this.button12.Text = "Zarządzanie";
             this.button12.UseVisualStyleBackColor = true;
-            this.button12.Click += new System.EventHandler(this.button12_Click);
+            this.button12.Click += new System.EventHandler(this.narzedziaadministracyjne);
             // 
             // button13
             // 
@@ -1191,7 +1191,7 @@
             this.ręcznaNazwaToolStripMenuItem.Name = "ręcznaNazwaToolStripMenuItem";
             this.ręcznaNazwaToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.ręcznaNazwaToolStripMenuItem.Text = "Ręczna nazwa";
-            this.ręcznaNazwaToolStripMenuItem.Click += new System.EventHandler(this.ręcznaNazwaToolStripMenuItem_Click);
+            this.ręcznaNazwaToolStripMenuItem.Click += new System.EventHandler(this.szukanieSesjiCustom);
             // 
             // ladujLogiWTle
             // 
@@ -1222,7 +1222,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(1202, 511);
             this.Name = "Form1";
-            this.Text = "Puzzel v0.64";
+            this.Text = "Puzzel v0.66";
             this.Resize += new System.EventHandler(this.Form1_Resize);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

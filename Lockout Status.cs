@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Diagnostics;
 using System.DirectoryServices;
 using System.DirectoryServices.AccountManagement;
 using System.Threading;
@@ -25,7 +18,7 @@ namespace Puzzel
 
         string DomainController()
         {
-            DirectoryEntry myLdapConnection = new DirectoryEntry("LDAP://OU=Domain Controllers," + domainName());
+            //DirectoryEntry myLdapConnection = new DirectoryEntry("LDAP://OU=Domain Controllers," + domainName());
             DirectorySearcher search = new DirectorySearcher(new DirectoryEntry("LDAP://" + domainName()));
             //search.Filter = "(sAMAccountName=" + username + ")";
             SearchResult search1 = search.FindOne();
@@ -75,7 +68,6 @@ namespace Puzzel
             else 
             for (int i = 0; i < domainControllerName.Count()-1; i++)
                 GetUserPasswordDetails(domainControllerName[i]);
-            
         }
 
         private void AddEntry()
@@ -96,9 +88,12 @@ namespace Puzzel
 
         private void OdświeżZaznaczoneToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int RowIndex = this.dataGridView1.CurrentCell.RowIndex;
-            string dcName = dataGridView1.Rows[RowIndex].Cells[0].Value.ToString();
-            GetUserPasswordDetails(dcName);
+            if (dataGridView1.CurrentCell.RowIndex != 0)
+            {
+                int RowIndex = this.dataGridView1.CurrentCell.RowIndex;
+                string dcName = dataGridView1.Rows[RowIndex].Cells[0].Value.ToString();
+                GetUserPasswordDetails(dcName);
+            }
         }
 
         private void Lockout_Status_Activated(object sender, EventArgs e)
@@ -155,17 +150,35 @@ namespace Puzzel
 
         private void statusHasłaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string tempt = null;
-            TimeSpan temp = (Convert.ToDateTime(_lastPasswordSet).AddDays(30) - DateTime.Now);
-            
-            if (temp > (DateTime.Now.AddDays(2) - DateTime.Now))
+            string messagebox = null;
+            DateTime pwdLastSet = Convert.ToDateTime(_lastPasswordSet);
+            TimeSpan pwdAge = DateTime.Now - pwdLastSet.AddHours(1);
+            TimeSpan expirePwd = pwdLastSet.AddDays(30) - DateTime.Now;
+
+            //pierwsza linijka
+            messagebox += "Maksymalna długość hasła dla " + Username + " wynosi 30 dni.";
+            //drugalinijka
+            messagebox +=  "\n\n";
+            //trzecia linijka
+            if (pwdAge > (DateTime.Now.AddDays(2) - DateTime.Now))
             {
-                tempt += (temp.ToString("'Obecne hasło wynosi: 'dd' dni 'hh'g'mm'm'ss's'") + "\n");
+                messagebox += pwdAge.ToString("'Obecne hasło wynosi: 'dd' dni 'hh'g 'mm'm'");
             }
-            else if (temp < (DateTime.Now.AddDays(1) - DateTime.Now))
-               tempt += (temp.ToString("'Obecne hasło wynosi: 'dd' dzień 'hh'g'mm'm'ss's'") + "\n");
-                        MessageBox.Show("Maksymalna długość hasła dla " + Username + " wynosi 30 dni. \n\n" + (DateTime.Now - Convert.ToDateTime(_lastPasswordSet)).ToString
-                                      ("'Hasło wygasa za: 'dd' dni 'hh'g'mm'm'ss's'") + "\n\n" + tempt, "Status hasła");
+            else if (pwdAge < (DateTime.Now.AddDays(1) - DateTime.Now))
+                messagebox += pwdAge.ToString("'Obecne hasło wynosi: 'dd' dni 'hh'g 'mm'm'");
+            //czwarta linijka
+            messagebox += "\n\n";
+            //piąta linijka
+            if (expirePwd > (DateTime.Now.AddDays(2) - DateTime.Now))
+            {
+                messagebox += expirePwd.ToString("'Hasło wygasa za: 'dd' dni 'hh'g 'mm'm'");
+            }
+            else if (expirePwd > (DateTime.Now.AddDays(1) - DateTime.Now))
+            {
+                messagebox += expirePwd.ToString("'Hasło wygasa za: 'dd' dni 'hh'g 'mm'm'");
+            }
+
+            MessageBox.Show(messagebox, "Status hasła");
         }
 
         private void odblokujZaznaczoneToolStripMenuItem_Click(object sender, EventArgs e)

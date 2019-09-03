@@ -48,7 +48,6 @@ namespace Puzzel
 
                 using (ManagementObjectCollection queryCollection = searcher.Get())
                 {
-
                     foreach (ManagementObject m in queryCollection)
                     {
                         switch (args.Length)
@@ -161,9 +160,8 @@ namespace Puzzel
                                                     Puzzel.Form1.ComputerInfo_TEMP += (" ");
                                             }
                                         }
-                                        
-                                    
-                                    string command = null;
+
+                                        string command = null;
                                         if (m[args[1].ToString()] != null)
                                         {
                                             command = m[args[1].ToString()].ToString();
@@ -468,7 +466,6 @@ namespace Puzzel
                                     int speedSize = 0;
 
                                     //wyrzucanie nazw
-
                                     capacitySize = 6;
                                     speedSize = 2;
                                     partnumberSize = 11;
@@ -479,7 +476,6 @@ namespace Puzzel
                                         if (devicelocator.Length > 7)
                                         {
                                             devicelocatorSize = 18;
-
                                         }
                                         else if (devicelocator.Length < 7)
                                         {
@@ -500,7 +496,8 @@ namespace Puzzel
                                         }
                                     }
                                     warunek++;
-                                    if (warunek == 1) {
+                                    if (warunek == 1)
+                                    {
                                         Puzzel.Form1.ComputerInfo_TEMP += ("Rozmiar");
                                         for (int i = 0; i < capacitySize; i++)
                                             Puzzel.Form1.ComputerInfo_TEMP += (" ");
@@ -645,13 +642,12 @@ namespace Puzzel
             }
             catch (UnauthorizedAccessException)
             {
-                MessageBox.Show("Unable to connect – Access is denied for those credentials", "WMI Testing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); return;
+                MessageBox.Show("Dostęp zabroniony na obecnych poświadczeniach", "WMI Testing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); return;
             }
 
             catch (Exception ex)
             {
-                MessageBox.Show("Unable to connect due to an error: " + ex.Message, "WMI Testing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); //return;
-                Puzzel.Form1.ComputerInfo_TEMP += ("coś poszło nie tak"); return;
+                MessageBox.Show("Nie można się połączyć z powodu błędu: " + ex.Message, "WMI Testing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); return;
             }
         }
     }

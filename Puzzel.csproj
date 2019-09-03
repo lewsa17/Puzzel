@@ -67,7 +67,7 @@
   <ItemGroup>
     <Reference Include="Cassia, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>obj\Debug\Cassia.dll</HintPath>
+      <HintPath>.\Cassia.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -87,8 +87,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CardsNetwork.cs" />
-    <Compile Include="FlushDNS.cs" />
     <Compile Include="terminalexplorerCustomSearch.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -123,11 +121,8 @@
     <Compile Include="Logi.cs" />
     <Compile Include="ProcExec.cs" />
     <Compile Include="ProgramsList.cs" />
-    <Compile Include="ExplorerC.cs" />
-    <Compile Include="ComputerMgmt.cs" />
     <Compile Include="ComputerInfo.cs" />
     <Compile Include="Ping.cs" />
-    <Compile Include="ComputerLog.cs" />
     <Compile Include="terminalexplorer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -140,8 +135,6 @@
     <Compile Include="terminalExplorerSendMessage.Designer.cs">
       <DependentUpon>terminalExplorerSendMessage.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserLog.cs" />
-    <Compile Include="InfoAD.cs" />
     <Compile Include="Session.cs" />
     <Compile Include="ShowFolder.cs" />
     <Compile Include="Form1.cs">

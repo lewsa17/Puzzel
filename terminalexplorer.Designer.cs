@@ -177,7 +177,7 @@
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders;
-            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
             this.dataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
@@ -835,12 +835,12 @@
             this.ContextProcessMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ZabijProcess});
             this.ContextProcessMenu.Name = "ContextProcessMenu";
-            this.ContextProcessMenu.Size = new System.Drawing.Size(133, 26);
+            this.ContextProcessMenu.Size = new System.Drawing.Size(139, 26);
             // 
             // ZabijProcess
             // 
             this.ZabijProcess.Name = "ZabijProcess";
-            this.ZabijProcess.Size = new System.Drawing.Size(132, 22);
+            this.ZabijProcess.Size = new System.Drawing.Size(138, 22);
             this.ZabijProcess.Text = "Zabij proces";
             this.ZabijProcess.Click += new System.EventHandler(this.ZabijProcess_Click);
             // 
