@@ -171,29 +171,33 @@ namespace Puzzel
         {
             startTime();
             ClearRichTextBox(null);
-            Process p = new Process();
-            p.StartInfo.FileName = @"ping";
-            p.StartInfo.Arguments = "-n 2 " + HostName();
-            p.StartInfo.StandardOutputEncoding = Encoding.GetEncoding(852);
-            p.StartInfo.CreateNoWindow = true;
-            p.StartInfo.UseShellExecute = false;
-            p.StartInfo.RedirectStandardOutput = true;
-            p.OutputDataReceived += new DataReceivedEventHandler(pOutputHandler);
-            p.Start();
-            p.BeginOutputReadLine();
-            p.WaitForExit();
+            if (HostName().Length > 0)
+            {
+                Process p = new Process();
+                p.StartInfo.FileName = @"ping";
+                p.StartInfo.Arguments = "-n 2 " + HostName();
+                p.StartInfo.StandardOutputEncoding = Encoding.GetEncoding(852);
+                p.StartInfo.CreateNoWindow = true;
+                p.StartInfo.UseShellExecute = false;
+                p.StartInfo.RedirectStandardOutput = true;
+                p.OutputDataReceived += new DataReceivedEventHandler(pOutputHandler);
+                p.Start();
+                p.BeginOutputReadLine();
+                p.WaitForExit();
 
-            Process n = new Process();
-            n.StartInfo.FileName = @"C:\Windows\sysnative\nbtstat.exe";
-            n.StartInfo.Arguments = @"-a " + HostName() + " -c";
-            n.StartInfo.StandardOutputEncoding = Encoding.GetEncoding(852);
-            n.StartInfo.CreateNoWindow = true;
-            n.StartInfo.UseShellExecute = false;
-            n.StartInfo.RedirectStandardOutput = true;
-            n.OutputDataReceived += new DataReceivedEventHandler(pOutputHandler);
-            n.Start();
-            n.BeginOutputReadLine();
-            n.WaitForExit();
+                Process n = new Process();
+                n.StartInfo.FileName = @"C:\Windows\sysnative\nbtstat.exe";
+                n.StartInfo.Arguments = @"-a " + HostName() + " -c";
+                n.StartInfo.StandardOutputEncoding = Encoding.GetEncoding(852);
+                n.StartInfo.CreateNoWindow = true;
+                n.StartInfo.UseShellExecute = false;
+                n.StartInfo.RedirectStandardOutput = true;
+                n.OutputDataReceived += new DataReceivedEventHandler(pOutputHandler);
+                n.Start();
+                n.BeginOutputReadLine();
+                n.WaitForExit();
+            }
+            else MessageBox.Show("Brak danych w 2 polu tekstowym");
             stopTime();
         }
 
@@ -442,6 +446,7 @@ namespace Puzzel
         {
             ClearRichTextBox(null);
             //System.Threading.Thread thread;
+            startTime();
             if (counterlist > 2)
             {
                 containst(NameZ, senderZ);
@@ -462,6 +467,7 @@ namespace Puzzel
                 comboBox1.Text = "";
                 comboBox1.Items.Clear();
             }));
+            stopTime();
         }
         string senderZ = null;
         decimal counter = 0;
@@ -469,41 +475,45 @@ namespace Puzzel
         string NameZ = null;
         private void szukajLogow(object sender, EventArgs e)
         {
-            if (sender is Button)
-            {  
-                if (((Button)sender).Name == "button1")
+            if (!backgroundWorker1.IsBusy)
+            {
+                if (sender is Button)
                 {
-                    senderZ = "User";
-                    counterlist = textBox1.Text.Length;
-                    counter = numericUpDown1.Value;
-                    NameZ = UserName();
+                    if (((Button)sender).Name == "button1")
+                    {
+                        senderZ = "User";
+                        counterlist = textBox1.Text.Length;
+                        counter = numericUpDown1.Value;
+                        NameZ = UserName();
+                    }
+                    if (((Button)sender).Name == "button10")
+                    {
+                        senderZ = "Computer";
+                        counterlist = textBox2.Text.Length;
+                        counter = numericUpDown2.Value;
+                        NameZ = HostName();
+                    }
                 }
-                if (((Button)sender).Name == "button10")
+                if (sender is TextBox)
                 {
-                    senderZ = "Computer";
-                    counterlist = textBox2.Text.Length;
-                    counter = numericUpDown2.Value;
-                    NameZ = HostName();
+                    if (((TextBox)sender).Name == "textBox1")
+                    {
+                        senderZ = "User";
+                        counterlist = textBox1.Text.Length;
+                        counter = numericUpDown1.Value;
+                        NameZ = UserName();
+                    }
+                    if (((TextBox)sender).Name == "textBox2")
+                    {
+                        senderZ = "Computer";
+                        counterlist = textBox2.Text.Length;
+                        counter = numericUpDown2.Value;
+                        NameZ = HostName();
+                    }
                 }
+                backgroundWorker1.RunWorkerAsync();
             }
-            if (sender is TextBox)
-            { 
-                if (((TextBox)sender).Name == "textBox1")
-                {
-                    senderZ = "User";
-                    counterlist = textBox1.Text.Length;
-                    counter = numericUpDown1.Value;
-                    NameZ = UserName();
-                }
-                if (((TextBox)sender).Name == "textBox2")
-                {
-                    senderZ = "Computer";
-                    counterlist = textBox2.Text.Length;
-                    counter = numericUpDown2.Value;
-                    NameZ = HostName();
-                }
-            }
-            backgroundWorker1.RunWorkerAsync();
+            else MessageBox.Show("Nadal trwa wyszukiwanie"); 
         }
 
         private void button9_Click(object sender, EventArgs e)
@@ -1004,14 +1014,14 @@ namespace Puzzel
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (statusBar1.InvokeRequired)
+            statusBar1.BeginInvoke(new MethodInvoker(() =>
             {
                 AppendStatusbp1text("*");
                 if (statusBP1.Text.Length == 22)
                 {
                     UpdateStatusbp1text("Czekaj");
                 }
-            }
+            }));
         }
 
         private void szukanieSesji(string termserver, string login)
@@ -1698,7 +1708,11 @@ namespace Puzzel
         private void dHCPToolStripMenuItem_Click(object sender, EventArgs e)
         {
             startTime();
-            ProcExec Exec = new ProcExec("dhcp.msc", @"/64");
+            ProcExec Exec = new ProcExec();
+            if (File.Exists(Directory.GetCurrentDirectory() + @"\dhcp.msc"))
+                Exec.ProcExecIF("dhcp.msc", @"/64");
+            else
+            UpdateRichTextBox("Brak pliku" +Directory.GetCurrentDirectory() + @"\dhcp.msc");
             stopTime();
         }
 
@@ -1710,19 +1724,16 @@ namespace Puzzel
         private void szukaniesesji(object sender, EventArgs e)
         {
             ClearRichTextBox(null);
+            startTime();
             Thread thread;
             foreach (string termserv in termservers)
             {
                 thread = new Thread(() => 
                     szukanieSesji(termserv, UserName()));
                 thread.Start();
-                comboBox1.BeginInvoke(new MethodInvoker(() =>
-                {
-                    if (comboBox1.Items.Count > 0)
-                        comboBox1.SelectedIndex = 0;
-                    comboBox1.Refresh();
-                }));
             }
+            
+            stopTime();
         }
 
         public string HostName()
@@ -1744,7 +1755,6 @@ namespace Puzzel
         {
             UserName();
             Lockout_Status LS = new Lockout_Status(UserName());
-            //getDomainControllers();
             LS.Show();
 
         }

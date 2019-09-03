@@ -82,6 +82,7 @@ namespace Puzzel
 
                     bajtyprzychodzaceLabel.Text = session.IncomingStatistics.Bytes.ToString();
                     ramkiprzychodzaceLabel.Text = session.IncomingStatistics.Frames.ToString();
+                    if (session.IncomingStatistics.Bytes != 0 && session.IncomingStatistics.Frames != 0) 
                     bajtyramkiprzychodzaceLabel.Text = Math.Floor(Convert.ToDecimal(session.IncomingStatistics.Bytes / session.IncomingStatistics.Frames)).ToString();
 
                     bajtywychodzaceLabel.Text = session.OutgoingStatistics.Bytes.ToString();

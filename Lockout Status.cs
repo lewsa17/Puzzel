@@ -47,39 +47,8 @@ namespace Puzzel
             array = DomainController().Split(',');
             Array.Resize(ref array, domainControllerName.Length - 1);
             domainControllerName = array;
-            /*
-            try
-            {
-                Process p = new Process();
-                p.StartInfo.FileName = "dsquery.exe";
-                p.StartInfo.Arguments = "server -o rdn";
-                p.StartInfo.StandardOutputEncoding = Encoding.GetEncoding(852);
-                p.StartInfo.CreateNoWindow = true;
-                p.StartInfo.UseShellExecute = false;
-                p.StartInfo.RedirectStandardOutput = true;
-                p.OutputDataReceived += new DataReceivedEventHandler(domainControllers);
-                p.Start();
-                p.BeginOutputReadLine();
-                p.WaitForExit();
-            }
-            catch (Win32Exception)
-            {
-                MessageBox.Show("Nie można odnaleźć określonego pliku\n" + @"C:\Windows\System32\dsquery.exe");
-
-            }
         }
-        string domainController;
-
-        void domainControllers(object sender, DataReceivedEventArgs e)
-        {
-            domainController = null;
-            Trace.WriteLine(e.Data);
-            this.BeginInvoke(new MethodInvoker(() =>
-            {
-                domainController += (e.Data + ",");
-            }));
-        */
-        }
+        
         private void Lockout_Status_Load(object sender, EventArgs e)
         {
             this.Text = "Lockout Status";
@@ -112,7 +81,6 @@ namespace Puzzel
         private void AddEntry()
         {
             GetDomainControllers(ref domainControllerName);
-
             foreach(string dcName in domainControllerName)
             {
                 Thread thread = new Thread(() => GetUserPasswordDetails(dcName));

@@ -39,6 +39,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Lockout_Status));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.plikToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.wybierzUżytkownikaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -91,7 +92,7 @@
             // wybierzUżytkownikaToolStripMenuItem
             // 
             this.wybierzUżytkownikaToolStripMenuItem.Name = "wybierzUżytkownikaToolStripMenuItem";
-            this.wybierzUżytkownikaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.wybierzUżytkownikaToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
             this.wybierzUżytkownikaToolStripMenuItem.Text = "Wybierz użytkownika";
             this.wybierzUżytkownikaToolStripMenuItem.Click += new System.EventHandler(this.WybierzUżytkownikaToolStripMenuItem_Click);
             // 
@@ -111,38 +112,38 @@
             // wyczyśćToolStripMenuItem
             // 
             this.wyczyśćToolStripMenuItem.Name = "wyczyśćToolStripMenuItem";
-            this.wyczyśćToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.wyczyśćToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.wyczyśćToolStripMenuItem.Text = "Wyczyść";
             this.wyczyśćToolStripMenuItem.Click += new System.EventHandler(this.wyczyśćToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(170, 6);
             // 
             // statusHasToolStripMenuItem
             // 
             this.statusHasToolStripMenuItem.Name = "statusHasToolStripMenuItem";
-            this.statusHasToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.statusHasToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.statusHasToolStripMenuItem.Text = "Status hasła";
             this.statusHasToolStripMenuItem.Click += new System.EventHandler(this.statusHasłaToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(170, 6);
             // 
             // odświeżZaznaczoneToolStripMenuItem1
             // 
             this.odświeżZaznaczoneToolStripMenuItem1.Name = "odświeżZaznaczoneToolStripMenuItem1";
-            this.odświeżZaznaczoneToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.odświeżZaznaczoneToolStripMenuItem1.Size = new System.Drawing.Size(173, 22);
             this.odświeżZaznaczoneToolStripMenuItem1.Text = "Odśwież zaznaczone";
             this.odświeżZaznaczoneToolStripMenuItem1.Click += new System.EventHandler(this.OdświeżZaznaczoneToolStripMenuItem_Click);
             // 
             // odświeżWszystkoToolStripMenuItem
             // 
             this.odświeżWszystkoToolStripMenuItem.Name = "odświeżWszystkoToolStripMenuItem";
-            this.odświeżWszystkoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.odświeżWszystkoToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.odświeżWszystkoToolStripMenuItem.Text = "Odśwież wszystko";
             this.odświeżWszystkoToolStripMenuItem.Click += new System.EventHandler(this.odświerzWszystkoToolStripMenuItem_Click);
             // 
@@ -357,14 +358,13 @@
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(752, 319);
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(752, 319);
             this.Name = "Lockout_Status";
-            this.ShowIcon = false;
-            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Lockout_Status";
             this.Activated += new System.EventHandler(this.Lockout_Status_Activated);
