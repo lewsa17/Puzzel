@@ -22,5 +22,14 @@ namespace Puzzel
             Puzzel.Form1.terminalName = textBox1.Text;
             this.Close();
         }
+
+        private void textBox1_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Puzzel.Form1.terminalName = textBox1.Text;
+                this.Close();
+            }
+        }
     }
 }

@@ -414,9 +414,13 @@ namespace Puzzel
             stopTime();
         }
 
-		string[] LogsNames = null;
+        string[] LogsNames = null;
         private void containst(string pole, string rodzaj)
-        { 
+        {
+            if (!string.IsNullOrEmpty(pole) | !string.IsNullOrWhiteSpace(pole) | pole != "")
+            {
+                if (pole.Length > 1)
+                {
             if (Directory.Exists(Working[0].Remove(13))
             {
                 LogsNames = Directory.GetFiles(Working[0].Remove(13), "*_logons.log", SearchOption.TopDirectoryOnly);
@@ -424,19 +428,20 @@ namespace Puzzel
                 {
                     LogsNames[i] = Path.GetFileNameWithoutExtension(LogsNames[i]);
                     LogsNames[i] = LogsNames[i].Replace("_logons", "");
+                        }
+                    }
                 }
+                else ReplaceRichTextBox("Brak w logach");
             }
+            else ReplaceRichTextBox("Pole puste lub niepotrzebna spacja");
         }
+
         private void loGi(string pole, string rodzaj, decimal licznik)
         {
             startTime();
-            if (!string.IsNullOrEmpty(pole) | !string.IsNullOrWhiteSpace(pole))
-            {
-                if (File.Exists(Working[8].Remove(8) + rodzaj + @"\" + pole + "_logons.log"))
-                {
-                    //var text = File.ReadLines(@"\\poleczki1\ad$\logons\Debug\" + rodzaj + @"\" + pole + "_logons.log").Reverse();
-                    int a = Convert.ToInt32(licznik);
-                    StreamReader sr = new StreamReader(Working[0].Remove(8) + rodzaj + @"\" + pole + "_logons.log");
+            
+                 int a = Convert.ToInt32(licznik);
+                    StreamReader sr = new StreamReader(Working[8].Remove(8) + rodzaj + @"\" + pole + "_logons.log");
                     System.Collections.Generic.List<string> list = new System.Collections.Generic.List<string>(sr.ReadToEnd().Split('\n'));
                     sr.Close();
                     list.RemoveAt(0);
@@ -460,10 +465,6 @@ namespace Puzzel
                             UpdateRichTextBox(string.Format("{0,-13}{1,-15}{2,-30}{3,-11}{4,-28}{5,-10}", words[0], words[1], Nazwauzytkownika(words[2]), words[2].Replace(" ", ""), words[3], words[word.Count() - 2]) + "\n");
                         }
 
-                }
-                else ReplaceRichTextBox("Brak w logach");
-            }
-            else ReplaceRichTextBox("Pole puste lub niepotrzebna spacja");
             
             stopTime();
         }
@@ -471,18 +472,21 @@ namespace Puzzel
         private void szukajLogow(object sender, EventArgs e)
         {
             ClearRichTextBox(null);
-            if (((Button)sender).Name == "button1")
+            if (((Button)sender).Name == "Button1")
             {
-                loGi(UserName(), "User", numericUpDown1.Value);
+                containst(UserName(), "User");
+                foreach (string user in LogsNames)
+                    loGi(user, "User", numericUpDown1.Value);
             }
 
-            if (((Button)sender).Name == "button10")
+            if (((Button)sender).Name == "Button10")
             {
-                loGi(HostName(), "Computer", numericUpDown2.Value);
+                containst(HostName(), "Computer");
+                foreach (string computer in LogsNames)
+                    loGi(computer, "Computer", numericUpDown2.Value);
             }
             comboBox1.Text = "";
             comboBox1.Items.Clear();
-
         }
         private void button9_Click(object sender, EventArgs e)
         {
@@ -2001,6 +2005,7 @@ namespace Puzzel
                     {
                         ClearRichTextBox(null);
                         containst(UserName(), "User");
+                        if (UserName().Length > 1) 
                         foreach (string user in LogsNames)
                             loGi(user, "User", numericUpDown1.Value);
                     }
@@ -2198,10 +2203,16 @@ namespace Puzzel
                 podajNazweTerminala.ShowDialog();
             });
             thread1.Start();
-            TerminalExplorer terminalExplorer = new TerminalExplorer();
-            thread1.Join();
-            terminalExplorer.Show();
-            terminalExplorer.szukanieSesji(terminalName);
+            Thread thread;
+            if (File.Exists(Directory.GetCurrentDirectory() + @"\Cassia.dll"))
+            {
+                TerminalExplorer terminalExplorer = new TerminalExplorer();
+                thread1.Join();
+                thread = new Thread(() => terminalExplorer.szukanieSesji(terminalName));
+                thread.Start();
+                terminalExplorer.Show();
+            }
+            else MessageBox.Show("Plik cassia.dll nie jest dostępny.");
         }
     }
 }        

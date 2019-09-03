@@ -64,7 +64,6 @@
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.wyczyśćToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.progress = new System.ComponentModel.BackgroundWorker();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
@@ -77,7 +76,7 @@
             this.widokToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(753, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(746, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -92,7 +91,7 @@
             // wybierzUżytkownikaToolStripMenuItem
             // 
             this.wybierzUżytkownikaToolStripMenuItem.Name = "wybierzUżytkownikaToolStripMenuItem";
-            this.wybierzUżytkownikaToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.wybierzUżytkownikaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.wybierzUżytkownikaToolStripMenuItem.Text = "Wybierz użytkownika";
             this.wybierzUżytkownikaToolStripMenuItem.Click += new System.EventHandler(this.WybierzUżytkownikaToolStripMenuItem_Click);
             // 
@@ -150,21 +149,21 @@
             // statusHasłaToolStripMenuItem
             // 
             this.statusHasłaToolStripMenuItem.Name = "statusHasłaToolStripMenuItem";
-            this.statusHasłaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.statusHasłaToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.statusHasłaToolStripMenuItem.Text = "Status hasła";
             this.statusHasłaToolStripMenuItem.Click += new System.EventHandler(this.statusHasłaToolStripMenuItem_Click);
             // 
             // odświeżZaznaczoneToolStripMenuItem
             // 
             this.odświeżZaznaczoneToolStripMenuItem.Name = "odświeżZaznaczoneToolStripMenuItem";
-            this.odświeżZaznaczoneToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.odświeżZaznaczoneToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.odświeżZaznaczoneToolStripMenuItem.Text = "Odśwież zaznaczone";
             this.odświeżZaznaczoneToolStripMenuItem.Click += new System.EventHandler(this.OdświeżZaznaczoneToolStripMenuItem_Click);
             // 
             // odświerzWszystkoToolStripMenuItem
             // 
             this.odświerzWszystkoToolStripMenuItem.Name = "odświerzWszystkoToolStripMenuItem";
-            this.odświerzWszystkoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.odświerzWszystkoToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.odświerzWszystkoToolStripMenuItem.Text = "Odśwież wszystko";
             this.odświerzWszystkoToolStripMenuItem.Click += new System.EventHandler(this.odświerzWszystkoToolStripMenuItem_Click);
             // 
@@ -203,7 +202,7 @@
             dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle8;
             this.dataGridView1.GridColor = System.Drawing.SystemColors.Control;
-            this.dataGridView1.Location = new System.Drawing.Point(8, 25);
+            this.dataGridView1.Location = new System.Drawing.Point(0, 25);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
@@ -222,6 +221,7 @@
             dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle10;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView1.ShowEditingIcon = false;
             this.dataGridView1.Size = new System.Drawing.Size(745, 268);
             this.dataGridView1.TabIndex = 1;
             this.dataGridView1.TabStop = false;
@@ -323,49 +323,45 @@
             this.odświeżZaznaczoneToolStripMenuItem,
             this.odświerzWszystkoToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 148);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(174, 126);
             // 
             // odblokujKontoToolStripMenuItem
             // 
             this.odblokujKontoToolStripMenuItem.Name = "odblokujKontoToolStripMenuItem";
-            this.odblokujKontoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.odblokujKontoToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.odblokujKontoToolStripMenuItem.Text = "Odblokuj Konto";
             this.odblokujKontoToolStripMenuItem.Click += new System.EventHandler(this.odblokujZaznaczoneToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(170, 6);
             // 
             // wyczyśćToolStripMenuItem1
             // 
             this.wyczyśćToolStripMenuItem1.Name = "wyczyśćToolStripMenuItem1";
-            this.wyczyśćToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.wyczyśćToolStripMenuItem1.Size = new System.Drawing.Size(173, 22);
             this.wyczyśćToolStripMenuItem1.Text = "Wyczyść";
             this.wyczyśćToolStripMenuItem1.Click += new System.EventHandler(this.wyczyśćToolStripMenuItem_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(177, 6);
-            // 
-            // progress
-            // 
-            this.progress.DoWork += new System.ComponentModel.DoWorkEventHandler(this.progress_DoWork);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(170, 6);
             // 
             // Lockout_Status
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(753, 295);
+            this.ClientSize = new System.Drawing.Size(746, 294);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(759, 320);
+            this.MaximumSize = new System.Drawing.Size(752, 319);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(759, 320);
+            this.MinimumSize = new System.Drawing.Size(752, 319);
             this.Name = "Lockout_Status";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
@@ -395,7 +391,6 @@
         private System.Windows.Forms.ToolStripMenuItem odświeżZaznaczoneToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem odświerzWszystkoToolStripMenuItem;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.ComponentModel.BackgroundWorker progress;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem odblokujKontoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem wyczyśćToolStripMenuItem1;

@@ -63,7 +63,7 @@ namespace Puzzel
             if (Username.Length > 1)
             {
                 this.Text = Username;
-                progress.RunWorkerAsync();
+                AddEntry();
             }
         }
 
@@ -72,7 +72,8 @@ namespace Puzzel
             this.Text = "Lockout Status";
             LockoutStatusWyborUzytkownika lswu = new LockoutStatusWyborUzytkownika();
             lswu.ShowDialog();
-            progress.RunWorkerAsync();
+            DeleteEntryRows();
+            AddEntry();
         }
 
         private void UpdateEntry()
@@ -87,8 +88,13 @@ namespace Puzzel
         {
             var domaincontrooler = File.ReadAllLines("DefaultValue.txt");
             var domainControlerName = domaincontrooler[12].Split(',');
-            for (int i = 0; i < domainControlerName.Count(); i++)
-                GetUserPasswordDetails(domainControlerName[i]);
+            
+            
+            foreach (string dc in domainControlerName)
+            {
+                Thread thread = new Thread(() => GetUserPasswordDetails(dc));
+                thread.Start();
+            }
         }
 
         private void DeleteEntryRows()
@@ -152,11 +158,6 @@ namespace Puzzel
         private void odświerzWszystkoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DeleteEntryRows();
-            progress.RunWorkerAsync();
-        }
-
-        private void progress_DoWork(object sender, DoWorkEventArgs e)
-        {
             AddEntry();
         }
 
@@ -170,9 +171,9 @@ namespace Puzzel
                 tempt += (temp.ToString("'Obecne hasło wynosi: 'dd' dni 'hh'g'mm'm'ss's'") + "\n");
             }
             else if (temp < (DateTime.Now.AddDays(1) - DateTime.Now))
-                tempt += (temp.ToString("'Obecne hasło wynosi: 'dd' dzień 'hh'g'mm'm'ss's'") + "\n");
-            MessageBox.Show("Maksymalna długość hasła dla " + Username + " wynosi 30 dni. \n\n" + (DateTime.Now - Convert.ToDateTime(_lastPasswordSet)).ToString
-                          ("'Hasło wygasa za: 'dd' dni 'hh'g'mm'm'ss's'") + "\n\n" + tempt, "Status hasła");
+               tempt += (temp.ToString("'Obecne hasło wynosi: 'dd' dzień 'hh'g'mm'm'ss's'") + "\n");
+                        MessageBox.Show("Maksymalna długość hasła dla " + Username + " wynosi 30 dni. \n\n" + (DateTime.Now - Convert.ToDateTime(_lastPasswordSet)).ToString
+                                      ("'Hasło wygasa za: 'dd' dni 'hh'g'mm'm'ss's'") + "\n\n" + tempt, "Status hasła");
         }
 
         private void odblokujZaznaczoneToolStripMenuItem_Click(object sender, EventArgs e)
