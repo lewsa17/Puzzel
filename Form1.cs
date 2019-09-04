@@ -1727,7 +1727,24 @@ namespace Puzzel
         {
             UserName();
             Lockout_Status LS = new Lockout_Status(UserName());
-            LS.Show();
+            string[] array = Lockout_Status.DomainController();
+
+            if (Lockout_Status.GetUserAvailability(array[1]) == 1)
+            {
+                MessageBox.Show(new Form() { TopMost = true }, "Podany login nie występuje w AD", "Wyszukiwanie danych", MessageBoxButtons.OK);
+            }
+            else
+            {
+                //Thread th = new Thread(() => 
+                //{
+                //    foreach (string dcName in array)
+                //        Lockout_Status.GetUserPasswordDetails(dcName);
+                //});
+                //th.Start();
+
+                Lockout_Status.AddEntry();
+                LS.Show();
+            }
         }
 
         private void AutoGettingLogs_Tick(object sender, EventArgs e)

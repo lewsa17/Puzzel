@@ -14,9 +14,9 @@ namespace Puzzel
             InitializeComponent();
             Username = username;
         }
-        public string domainName() { return System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().DomainName; }
+        public static string domainName() { return System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().DomainName; }
 
-        string DomainController()
+        public static string[] DomainController()
         {
             //DirectoryEntry myLdapConnection = new DirectoryEntry("LDAP://OU=Domain Controllers," + domainName());
             DirectorySearcher search = new DirectorySearcher(new DirectoryEntry("LDAP://" + domainName()));
@@ -30,17 +30,22 @@ namespace Puzzel
                 string[] words = line.Split(',');
                 table += words[1].Replace("CN=", "") + ",";
             }
-            return table;
+
+            string[] array = null;
+            array = table.Split(',');
+            Array.Resize(ref array, array.Length - 1);
+
+            return array;
         }
         public static string Username;
         public static string domainAddress = null;
 
-        public void GetDomainControllers(ref string[] array)
-        {
-            array = DomainController().Split(',');
-            Array.Resize(ref array, domainControllerName.Length - 1);
-            domainControllerName = array;
-        }
+        //public static void GetDomainControllers(ref string[] array)
+        //{
+        //    array = DomainController().Split(',');
+        //    Array.Resize(ref array, domainControllerName.Length - 1);
+        //    domainControllerName = array;
+        //}
         
         private void Lockout_Status_Load(object sender, EventArgs e)
         {
@@ -48,7 +53,7 @@ namespace Puzzel
             if (Username.Length > 1)
             {
                 this.Text = Username;
-                AddEntry(sender);
+                //AddEntry();
             }
         }
 
@@ -58,22 +63,20 @@ namespace Puzzel
             LockoutStatusWyborUzytkownika lswu = new LockoutStatusWyborUzytkownika();
             lswu.ShowDialog();
             DeleteEntryRows();
-            AddEntry(sender);
+            AddEntry();
         }
 
-        private void UpdateEntry(object sender)
-        {
-            if (domainControllerName == null)
-                GetDomainControllers(ref domainControllerName);
-            else 
-            for (int i = 0; i < domainControllerName.Count()-1; i++)
-                GetUserPasswordDetails(domainControllerName[i]);
-        }
+        //private void UpdateEntry()
+        //{
+        //    string[] array = DomainController();
+        //    for (int i = 0; i < array.Count(); i++)
+        //        GetUserPasswordDetails(array[i]);
+        //}
 
-        private void AddEntry(object sender)
+        public static void AddEntry()
         {
-            GetDomainControllers(ref domainControllerName);
-            foreach(string dcName in domainControllerName)
+            string[] array = DomainController();
+            foreach(string dcName in array)
             {
                 Thread thread = new Thread(() => GetUserPasswordDetails(dcName));
                 thread.Start();
@@ -83,8 +86,8 @@ namespace Puzzel
 
         private void DeleteEntryRows()
         {
-            if (this.dataGridView1.Rows.Count > 1)
-                this.dataGridView1.Rows.Clear();
+            if (dataGridView1.Rows.Count > 1)
+                dataGridView1.Rows.Clear();
         }
 
         private void OdświeżZaznaczoneToolStripMenuItem_Click(object sender, EventArgs e)
@@ -92,7 +95,7 @@ namespace Puzzel
             if (dataGridView1.CurrentCell != null)
                 if (dataGridView1.CurrentCell.RowIndex != 0)
                 {
-                    int RowIndex = this.dataGridView1.CurrentCell.RowIndex;
+                    int RowIndex = dataGridView1.CurrentCell.RowIndex;
                     string dcName = dataGridView1.Rows[RowIndex].Cells[0].Value.ToString();
                     GetUserPasswordDetails(dcName);
                 }
@@ -104,13 +107,27 @@ namespace Puzzel
                 this.Text = Username;
         }
         static string[] domainControllerName = {};
-        string useraccaountLocked = null;
-        string _badLogonCount = null;
-        string _lastBadPasswordAttempt = null;
-        string _lastPasswordSet = null;
-        string _accountLockoutTime = null;
-        int rett = 0;
-        public void GetUserPasswordDetails(string dcName)
+        static string useraccaountLocked = null;
+        static string _badLogonCount = null;
+        static string _lastBadPasswordAttempt = null;
+        static string _lastPasswordSet = null;
+        static string _accountLockoutTime = null;
+        static int rett = 0;
+
+        public static int GetUserAvailability(string dcName)
+        {
+            int reture = 0;
+            using (PrincipalContext context = new PrincipalContext(ContextType.Domain, dcName))
+            {
+                UserPrincipal uP = UserPrincipal.FindByIdentity(context, IdentityType.SamAccountName, Username);
+                if (uP == null)
+                {
+                    reture = 1;
+                }
+            }
+            return reture;
+        }
+        public static void GetUserPasswordDetails(string dcName)
         {
             try
             {
@@ -147,13 +164,12 @@ namespace Puzzel
 
                         if (dataGridView1.InvokeRequired)
                         {
-                            dataGridView1.Invoke(new MethodInvoker(() => this.dataGridView1.Rows.Add(dcName, useraccaountLocked, _badLogonCount, _lastBadPasswordAttempt, _lastPasswordSet, _accountLockoutTime)));
+                            dataGridView1.Invoke(new MethodInvoker(() => dataGridView1.Rows.Add(dcName, useraccaountLocked, _badLogonCount, _lastBadPasswordAttempt, _lastPasswordSet, _accountLockoutTime)));
                         }
                         else dataGridView1.Rows.Add(dcName, useraccaountLocked, _badLogonCount, _lastBadPasswordAttempt, _lastPasswordSet, _accountLockoutTime);
 
                     }
                     else
-                        rett++;
                     dataGridView1.ClearSelection();
                 }
             }
@@ -161,7 +177,6 @@ namespace Puzzel
             {
                 Form1.Loger(e, dcName);
             }
-            if (rett == 3) MessageBox.Show(new Form() { TopMost = true }, "Podany login nie występuje w AD", "Wyszukiwanie danych", MessageBoxButtons.OK);
         }
 
 
@@ -173,7 +188,7 @@ namespace Puzzel
         private void odświerzWszystkoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DeleteEntryRows();
-            AddEntry(sender);
+            AddEntry();
         }
 
         private void statusHasłaToolStripMenuItem_Click(object sender, EventArgs e)
