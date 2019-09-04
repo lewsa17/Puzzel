@@ -530,9 +530,9 @@ namespace Puzzel
 					{
 						if (((ToolStripMenuItem)sender).Text.Contains(Working[14].Remove(9)))
                         {
-                            LAPSui lAPSui = new LAPSui();
+                            //LAPSui lAPSui = new LAPSui();
                             login = Working[14].Remove(9);
-                            pwd = lAPSui.PwdLcl(HostName());
+                            pwd = LAPSui.PwdLcl(HostName());
                         }
                         else
                         {

@@ -186,7 +186,7 @@
             this.groupBox1.MinimumSize = new System.Drawing.Size(1182, 75);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(1182, 75);
-            this.groupBox1.TabIndex = 0;
+            this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Informacje o użytkowniku:";
             // 
@@ -195,7 +195,8 @@
             this.button5.Location = new System.Drawing.Point(382, 41);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(75, 23);
-            this.button5.TabIndex = 9;
+            this.button5.TabIndex = 0;
+            this.button5.TabStop = false;
             this.button5.Text = "Profil EXT";
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.profilsieciowy);
@@ -205,7 +206,8 @@
             this.button6.Location = new System.Drawing.Point(382, 15);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(75, 23);
-            this.button6.TabIndex = 8;
+            this.button6.TabIndex = 1;
+            this.button6.TabStop = false;
             this.button6.Text = "Profil TS";
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.profilsieciowy);
@@ -219,7 +221,7 @@
             this.groupBox2.Location = new System.Drawing.Point(537, 17);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(378, 47);
-            this.groupBox2.TabIndex = 1;
+            this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "LogOff";
             // 
@@ -228,7 +230,8 @@
             this.button9.Location = new System.Drawing.Point(292, 16);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(75, 23);
-            this.button9.TabIndex = 3;
+            this.button9.TabIndex = 0;
+            this.button9.TabStop = false;
             this.button9.Text = "LogOff";
             this.button9.UseVisualStyleBackColor = true;
             this.button9.Click += new System.EventHandler(this.button9_Click);
@@ -238,7 +241,8 @@
             this.button8.Location = new System.Drawing.Point(214, 16);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(75, 23);
-            this.button8.TabIndex = 2;
+            this.button8.TabIndex = 1;
+            this.button8.TabStop = false;
             this.button8.Text = "Połącz";
             this.button8.UseVisualStyleBackColor = true;
             this.button8.Click += new System.EventHandler(this.button8_Click);
@@ -251,7 +255,7 @@
             this.comboBox1.Location = new System.Drawing.Point(87, 16);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 1;
+            this.comboBox1.TabIndex = 2;
             this.comboBox1.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Keys_PreviewKeyDown);
             // 
             // ContextMenuText
@@ -271,6 +275,7 @@
             this.toolStripMenuItem1.ShortcutKeyDisplayString = "Ctrl + X";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(189, 22);
             this.toolStripMenuItem1.Text = "Wytnij";
+            this.toolStripMenuItem1.Click += new System.EventHandler(wytnijMenuItem1_Click);
             // 
             // toolStripMenuItem2
             // 
@@ -278,6 +283,7 @@
             this.toolStripMenuItem2.ShortcutKeyDisplayString = "Ctrl + C";
             this.toolStripMenuItem2.Size = new System.Drawing.Size(189, 22);
             this.toolStripMenuItem2.Text = "Kopiuj";
+            this.toolStripMenuItem2.Click += new System.EventHandler(kopiujMenuItem1_Click);
             // 
             // toolStripMenuItem3
             // 
@@ -285,6 +291,7 @@
             this.toolStripMenuItem3.ShortcutKeyDisplayString = "Ctrl + V";
             this.toolStripMenuItem3.Size = new System.Drawing.Size(189, 22);
             this.toolStripMenuItem3.Text = "Wklej";
+            this.toolStripMenuItem3.Click += new System.EventHandler(wklejToolStripMenuItem_Click);
             // 
             // toolStripMenuItem4
             // 
@@ -292,13 +299,15 @@
             this.toolStripMenuItem4.ShortcutKeyDisplayString = "Ctrl + A";
             this.toolStripMenuItem4.Size = new System.Drawing.Size(189, 22);
             this.toolStripMenuItem4.Text = "Zaznacz wszystko";
+            this.toolStripMenuItem4.Click += new System.EventHandler(zaznaczWszystkoMenuItem3_Click);
             // 
             // button7
             // 
             this.button7.Location = new System.Drawing.Point(7, 16);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(75, 23);
-            this.button7.TabIndex = 1;
+            this.button7.TabIndex = 3;
+            this.button7.TabStop = false;
             this.button7.Text = "Szukaj sesji";
             this.button7.UseVisualStyleBackColor = true;
             this.button7.Click += new System.EventHandler(this.szukanieSesji);
@@ -308,7 +317,8 @@
             this.button3.Location = new System.Drawing.Point(304, 41);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 7;
+            this.button3.TabIndex = 3;
+            this.button3.TabStop = false;
             this.button3.Text = "Profil ERI";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.profilsieciowy);
@@ -318,7 +328,8 @@
             this.button4.Location = new System.Drawing.Point(304, 15);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 6;
+            this.button4.TabIndex = 4;
+            this.button4.TabStop = false;
             this.button4.Text = "Profil VFS";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.profilsieciowy);
@@ -329,6 +340,7 @@
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 5;
+            this.button2.TabStop = false;
             this.button2.Text = "Info z AD";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
@@ -338,7 +350,8 @@
             this.button1.Location = new System.Drawing.Point(226, 15);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 4;
+            this.button1.TabIndex = 6;
+            this.button1.TabStop = false;
             this.button1.Text = "User log";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.szukajLogow);
@@ -355,7 +368,7 @@
             0});
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(60, 20);
-            this.numericUpDown1.TabIndex = 3;
+            this.numericUpDown1.TabIndex = 1;
             this.numericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDown1.Value = new decimal(new int[] {
             5,
@@ -388,7 +401,7 @@
             this.label1.Location = new System.Drawing.Point(3, 16);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(36, 13);
-            this.label1.TabIndex = 0;
+            this.label1.TabIndex = 7;
             this.label1.Text = "Login:";
             // 
             // ContextMenuRich
@@ -465,7 +478,7 @@
             this.groupBox3.MinimumSize = new System.Drawing.Size(1182, 61);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(1182, 61);
-            this.groupBox3.TabIndex = 2;
+            this.groupBox3.TabIndex = 8;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Informacje o komputerze:";
             // 
@@ -474,7 +487,8 @@
             this.button23.Location = new System.Drawing.Point(659, 35);
             this.button23.Name = "button23";
             this.button23.Size = new System.Drawing.Size(107, 23);
-            this.button23.TabIndex = 14;
+            this.button23.TabIndex = 0;
+            this.button23.TabStop = false;
             this.button23.Text = "Remote TRACERT";
             this.button23.UseVisualStyleBackColor = true;
             this.button23.Click += new System.EventHandler(this.button23_Click);
@@ -484,7 +498,8 @@
             this.button22.Location = new System.Drawing.Point(659, 10);
             this.button22.Name = "button22";
             this.button22.Size = new System.Drawing.Size(107, 23);
-            this.button22.TabIndex = 13;
+            this.button22.TabIndex = 1;
+            this.button22.TabStop = false;
             this.button22.Text = "Remote PING";
             this.button22.UseVisualStyleBackColor = true;
             this.button22.Click += new System.EventHandler(this.button22_Click);
@@ -495,7 +510,8 @@
             this.button21.Location = new System.Drawing.Point(574, 10);
             this.button21.Name = "button21";
             this.button21.Size = new System.Drawing.Size(83, 23);
-            this.button21.TabIndex = 12;
+            this.button21.TabIndex = 2;
+            this.button21.TabStop = false;
             this.button21.Text = "Zdalne CMD";
             this.button21.UseVisualStyleBackColor = true;
             this.button21.Click += new System.EventHandler(this.button21_Click);
@@ -535,7 +551,8 @@
             this.button18.Location = new System.Drawing.Point(574, 34);
             this.button18.Name = "button18";
             this.button18.Size = new System.Drawing.Size(83, 24);
-            this.button18.TabIndex = 0;
+            this.button18.TabIndex = 3;
+            this.button18.TabStop = false;
             this.button18.Text = "Karty sieciowe";
             this.button18.UseVisualStyleBackColor = true;
             this.button18.Click += new System.EventHandler(this.button18_Click);
@@ -545,7 +562,8 @@
             this.button16.Location = new System.Drawing.Point(479, 34);
             this.button16.Name = "button16";
             this.button16.Size = new System.Drawing.Size(93, 24);
-            this.button16.TabIndex = 11;
+            this.button16.TabIndex = 4;
+            this.button16.TabStop = false;
             this.button16.Text = "Lista programów";
             this.button16.UseVisualStyleBackColor = true;
             this.button16.Click += new System.EventHandler(this.button16_Click);
@@ -555,7 +573,8 @@
             this.button17.Location = new System.Drawing.Point(479, 10);
             this.button17.Name = "button17";
             this.button17.Size = new System.Drawing.Size(93, 23);
-            this.button17.TabIndex = 10;
+            this.button17.TabIndex = 5;
+            this.button17.TabStop = false;
             this.button17.Text = "Explorer C$";
             this.button17.UseVisualStyleBackColor = true;
             this.button17.Click += new System.EventHandler(this.button17_Click);
@@ -566,7 +585,8 @@
             this.Button14.Location = new System.Drawing.Point(402, 34);
             this.Button14.Name = "Button14";
             this.Button14.Size = new System.Drawing.Size(75, 24);
-            this.Button14.TabIndex = 9;
+            this.Button14.TabIndex = 6;
+            this.Button14.TabStop = false;
             this.Button14.Text = "Pulpit zdalny";
             this.Button14.UseVisualStyleBackColor = true;
             this.Button14.Click += new System.EventHandler(this.button14_Click);
@@ -592,7 +612,7 @@
             this.button15.Location = new System.Drawing.Point(402, 10);
             this.button15.Name = "button15";
             this.button15.Size = new System.Drawing.Size(75, 23);
-            this.button15.TabIndex = 8;
+            this.button15.TabIndex = 7;
             this.button15.Text = Working[16];
             this.button15.UseVisualStyleBackColor = true;
             this.button15.Click += new System.EventHandler(this.DWButton_Click);
@@ -625,7 +645,8 @@
             this.button12.Location = new System.Drawing.Point(316, 34);
             this.button12.Name = "button12";
             this.button12.Size = new System.Drawing.Size(83, 24);
-            this.button12.TabIndex = 7;
+            this.button12.TabIndex = 8;
+            this.button12.TabStop = false;
             this.button12.Text = "Zarządzanie";
             this.button12.UseVisualStyleBackColor = true;
             this.button12.Click += new System.EventHandler(this.narzedziaadministracyjne);
@@ -636,7 +657,8 @@
             this.button13.Location = new System.Drawing.Point(316, 10);
             this.button13.Name = "button13";
             this.button13.Size = new System.Drawing.Size(83, 23);
-            this.button13.TabIndex = 6;
+            this.button13.TabIndex = 9;
+            this.button13.TabStop = false;
             this.button13.Text = "Komputer info";
             this.button13.UseVisualStyleBackColor = true;
             this.button13.Click += new System.EventHandler(this.button13_Click);
@@ -782,7 +804,8 @@
             this.button11.Location = new System.Drawing.Point(226, 34);
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(87, 23);
-            this.button11.TabIndex = 5;
+            this.button11.TabIndex = 10;
+            this.button11.TabStop = false;
             this.button11.Text = "Ping";
             this.button11.UseVisualStyleBackColor = true;
             this.button11.Click += new System.EventHandler(this.button11_Click);
@@ -813,7 +836,7 @@
             this.label4.Location = new System.Drawing.Point(140, 19);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(63, 13);
-            this.label4.TabIndex = 3;
+            this.label4.TabIndex = 11;
             this.label4.Text = "Ilośc logów:";
             // 
             // textBox2
@@ -823,7 +846,7 @@
             this.textBox2.Name = "textBox2";
             this.textBox2.ShortcutsEnabled = false;
             this.textBox2.Size = new System.Drawing.Size(124, 20);
-            this.textBox2.TabIndex = 2;
+            this.textBox2.TabIndex = 3;
             this.textBox2.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Keys_PreviewKeyDown);
             // 
             // label3
@@ -832,7 +855,7 @@
             this.label3.Location = new System.Drawing.Point(3, 19);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(96, 13);
-            this.label3.TabIndex = 1;
+            this.label3.TabIndex = 12;
             this.label3.Text = "Nazwa komputera:";
             // 
             // button10
@@ -840,7 +863,8 @@
             this.button10.Location = new System.Drawing.Point(226, 10);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(87, 23);
-            this.button10.TabIndex = 0;
+            this.button10.TabIndex = 13;
+            this.button10.TabStop = false;
             this.button10.Text = "Komputer log";
             this.button10.UseVisualStyleBackColor = true;
             this.button10.Click += new System.EventHandler(this.szukajLogow);
@@ -853,18 +877,19 @@
             this.groupBox4.MinimumSize = new System.Drawing.Size(1182, 45);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(1182, 45);
-            this.groupBox4.TabIndex = 10;
+            this.groupBox4.TabIndex = 7;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Różne narzędzia";
             // 
             // button20
             // 
+            this.button20.Enabled = false;
             this.button20.Location = new System.Drawing.Point(84, 16);
             this.button20.Name = "button20";
             this.button20.Size = new System.Drawing.Size(75, 23);
-            this.button20.TabIndex = 11;
+            this.button20.TabIndex = 0;
+            this.button20.TabStop = false;
             this.button20.Text = "Reload Logs";
-            this.button20.Enabled = false;
             this.button20.UseVisualStyleBackColor = true;
             this.button20.Click += new System.EventHandler(this.button20_Click);
             // 
@@ -873,7 +898,8 @@
             this.button19.Location = new System.Drawing.Point(3, 16);
             this.button19.Name = "button19";
             this.button19.Size = new System.Drawing.Size(75, 23);
-            this.button19.TabIndex = 0;
+            this.button19.TabIndex = 1;
+            this.button19.TabStop = false;
             this.button19.Text = "Flush DNS";
             this.button19.UseVisualStyleBackColor = true;
             this.button19.Click += new System.EventHandler(this.button19_Click);
@@ -891,7 +917,7 @@
             richTextBox1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
             richTextBox1.ShortcutsEnabled = false;
             richTextBox1.Size = new System.Drawing.Size(1183, 240);
-            richTextBox1.TabIndex = 12;
+            richTextBox1.TabIndex = 5;
             richTextBox1.Text = "";
             richTextBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RichTextBox1_KeyDown);
             richTextBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.RichMouseDown);
@@ -918,7 +944,7 @@
             this.statusBP2});
             this.statusBar1.ShowPanels = true;
             this.statusBar1.Size = new System.Drawing.Size(1184, 22);
-            this.statusBar1.TabIndex = 13;
+            this.statusBar1.TabIndex = 6;
             this.statusBar1.Text = "statusbar";
             // 
             // statusBP1
@@ -945,7 +971,7 @@
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.menuStrip1.Size = new System.Drawing.Size(1184, 24);
-            this.menuStrip1.TabIndex = 14;
+            this.menuStrip1.TabIndex = 10;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // plikToolStripMenuItem
@@ -1268,7 +1294,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(1200, 509);
             this.Name = "Form1";
-            this.Text = "Puzzel v0.91";
+            this.Text = "Puzzel v0.92";
             this.Resize += new System.EventHandler(this.Form1_Resize);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

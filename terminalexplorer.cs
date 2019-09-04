@@ -416,6 +416,7 @@ namespace Puzzel
                 ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single,
                 GridColor = System.Drawing.Color.DarkGray,
                 Location = new System.Drawing.Point(0, 0),
+                ReadOnly = false,
                 MultiSelect = false,
                 Name = "dataGridView2",
                 RowHeadersVisible = false,

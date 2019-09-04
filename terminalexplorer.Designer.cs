@@ -155,6 +155,7 @@
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(629, 596);
@@ -164,43 +165,50 @@
             // 
             this.serverCol.HeaderText = "Serwer";
             this.serverCol.Name = "serverCol";
-            this.serverCol.Width = 64;
+            this.serverCol.ReadOnly = true;
+            this.serverCol.Width = 65;
             // 
             // userCol
             // 
             this.userCol.HeaderText = "Nazwa użytkownika";
             this.userCol.Name = "userCol";
-            this.userCol.Width = 126;
+            this.userCol.ReadOnly = true;
+            this.userCol.Width = 127;
             // 
             // sessionCol
             // 
             this.sessionCol.HeaderText = "Sesja";
             this.sessionCol.Name = "sessionCol";
-            this.sessionCol.Width = 57;
+            this.sessionCol.ReadOnly = true;
+            this.sessionCol.Width = 58;
             // 
             // idCol
             // 
             this.idCol.HeaderText = "ID";
             this.idCol.Name = "idCol";
-            this.idCol.Width = 42;
+            this.idCol.ReadOnly = true;
+            this.idCol.Width = 43;
             // 
             // statusCol
             // 
             this.statusCol.HeaderText = "Status";
             this.statusCol.Name = "statusCol";
-            this.statusCol.Width = 61;
+            this.statusCol.ReadOnly = true;
+            this.statusCol.Width = 62;
             // 
             // idleCol
             // 
             this.idleCol.HeaderText = "Idle";
             this.idleCol.Name = "idleCol";
-            this.idleCol.Width = 48;
+            this.idleCol.ReadOnly = true;
+            this.idleCol.Width = 49;
             // 
             // LogonTimeCol
             // 
             this.LogonTimeCol.HeaderText = "Czas logowania";
             this.LogonTimeCol.Name = "LogonTimeCol";
-            this.LogonTimeCol.Width = 105;
+            this.LogonTimeCol.ReadOnly = true;
+            this.LogonTimeCol.Width = 106;
             // 
             // ContextSessionMenu
             // 
@@ -354,7 +362,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(636, 645);
+            this.ClientSize = new System.Drawing.Size(636, 633);
             this.Controls.Add(this.tabControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
