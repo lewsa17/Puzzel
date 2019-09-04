@@ -16,16 +16,18 @@ namespace Puzzel
         }
 
         public void StartLoading()
-        {
-            while(Puzzel.Form1.progressBar.IsAlive)
-            if (progressBar1.InvokeRequired)
-                progressBar1.Invoke(new MethodInvoker(() =>
-                {
-                    progressBar1.Value = Puzzel.Form1.ProgressBarValue;
-                    progressBar1.Refresh();
-                }));
-            
-        }
+        {/*StartLoading:
+            if (Puzzel.Form1.progressBar.IsAlive)
+            {
+                if (progressBar1.InvokeRequired)
+                    progressBar1.Invoke(new MethodInvoker(() =>
+                    {
+                        progressBar1.Value = Puzzel.Form1.ProgressBarValue;
+                        progressBar1.Refresh();
+                    }));
+            }
+            else { Thread.Sleep(500); goto StartLoading; }
+        */}
         
     }
 }

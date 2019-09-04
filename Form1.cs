@@ -52,14 +52,15 @@ namespace Puzzel
             logi.LoadLogs();
         }*/
         public static void InvokeProgress()
-        { Progress progress = new Progress();
+        { /*Progress progress = new Progress();
             if (progress.InvokeRequired)
             {
                 progress.Invoke(new MethodInvoker(() =>
                 {
                     progress.Show();
                 }));
-            }
+            }*/
+            
         }
         public static Thread progressBar;// = new System.Threading.Thread(InvokeProgress);
         public DirectorySearcher dirsearch = null;
@@ -541,12 +542,11 @@ namespace Puzzel
                             LoadingForm loadingForm = new LoadingForm();
                             System.Threading.Thread progress;
                             progress = new System.Threading.Thread(loadingForm.progress);
-                            Progress pgclass = new Progress();
+                            //Progress pgclass = new Progress();
                             progress.Start();
                             progressBar = new System.Threading.Thread(komputerInfoCOMM);
                             komputerInfo.RunWorkerAsync();
                         }
-
                 }
                 else
                     UpdateRichTextBox("Stacja: " + HostName() + " nie jest widoczna na sieci");

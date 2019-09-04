@@ -98,12 +98,12 @@
       <DependentUpon>terminalexplorerCustomSearch.cs</DependentUpon>
     </Compile>
     <Compile Include="LoadingForm.cs" />
-    <Compile Include="Progress.cs">
+    <None Include="Progress.cs">
       <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Progress.Designer.cs">
+    </None>
+    <None Include="Progress.Designer.cs">
       <DependentUpon>Progress.cs</DependentUpon>
-    </Compile>
+    </None>
     <Compile Include="RemotePing_Tracert.cs">
       <SubType>Form</SubType>
     </Compile>

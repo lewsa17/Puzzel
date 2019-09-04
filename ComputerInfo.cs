@@ -27,7 +27,7 @@ namespace Puzzel
         public static string queryNetworkConnection = "Win32_NetworkConnection";
         public static string queryNetworkAdapterConfiguration = "Win32_NetworkAdapterConfiguration";
 
-        public void GetInfo(string nazwaKomputera,string path, string query, params object[] args)
+        public void GetInfo(string nazwaKomputera, string path, string query, params object[] args)
         {
             UInt64 TotalCapacity = 0;
             //string _TotalCapacity = null;
@@ -649,6 +649,7 @@ namespace Puzzel
             {
                 MessageBox.Show("Nie można się połączyć z powodu błędu: " + ex.Message, "WMI Testing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); return;
             }
+
         }
     }
 }

@@ -17,13 +17,13 @@ namespace Puzzel
         }
         Form form = new Form
         {
-            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow,
+            FormBorderStyle = FormBorderStyle.FixedToolWindow,
             MinimizeBox = false,
             MaximizeBox = false,
             ShowIcon = false,
             ShowInTaskbar = false,
             TopMost = true,
-            StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen,
+            StartPosition = FormStartPosition.CenterScreen,
             Width = 222,
             Height = 100,
             

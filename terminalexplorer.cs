@@ -28,6 +28,8 @@ namespace Puzzel
         public void szukanieSesji(string hostname)
         {
             _hostname = hostname;
+            if (dataGridView1 != null)
+                dataGridView1.Rows.Clear();
             using (ITerminalServer server = manager.GetRemoteServer(hostname))
             {
                 server.Open();
@@ -121,62 +123,182 @@ namespace Puzzel
                // statusSesji(Convert.ToInt16(IDsesjiLabel.Text));
         }
 
+        Label IDsesjiLabel;         Label rozdzielczoscLabel;         Label sprzetidLabel;         Label poziomszyfrowaniaLabel;
+        Label glebiakolorowLabel;         Label produktidlabel;        Label katalogLabel;        Label adresipLabel;
+        Label nazwaklientaLabel;        Label kartasieciowaLabel;        Label nazwauzytkownikaLabel;        Label label10;
+        Label label9;        Label bajtyramkiwychodzace;        Label ramkiwychodzaceLabel;        Label bajtywychodzaceLabel;
+        Label stopienkompresjiLabel;        Label bajtyramkiprzychodzaceLabel;        Label ramkiprzychodzaceLabel;
+        Label bajtyprzychodzaceLabel;        Label label16;        Label label15;        Label label14;        Label label13;
+        Label label12;        Label label11;        Label label8;        Label label7;        Label label6;        Label label5;
+        Label label4;        Label label3;        Label label2;        Label label1;        Label statusZalogowlabel;
+
+        private void odswiezStatus(object sender, EventArgs e, ITerminalServer server, ITerminalServicesSession session, int selectedSessionID)
+        {
+            if (session.UserAccount != null)
+            {
+                IDsesjiLabel.Text = selectedSessionID.ToString();
+                nazwauzytkownikaLabel.Text = session.UserName;
+                nazwaklientaLabel.Text = session.ClientName;
+
+                if (session.ClientIPAddress != null)
+                {
+                    adresipLabel.Text = session.ClientIPAddress.ToString();
+                }
+                else
+                {
+                    adresipLabel.Text = "brak danych";
+                }
+                katalogLabel.Text = session.ClientDirectory;
+                produktidlabel.Text = session.ClientProductId.ToString();
+                glebiakolorowLabel.Text = session.ClientDisplay.BitsPerPixel.ToString();
+                sprzetidLabel.Text = session.ClientHardwareId.ToString();
+                rozdzielczoscLabel.Text = (session.ClientDisplay.HorizontalResolution + " x " + session.ClientDisplay.VerticalResolution).ToString();
+
+                bajtyprzychodzaceLabel.Text = session.IncomingStatistics.Bytes.ToString();
+                ramkiprzychodzaceLabel.Text = session.IncomingStatistics.Frames.ToString();
+                if (session.IncomingStatistics.Bytes > 0 && session.IncomingStatistics.Frames > 0)
+                    bajtyramkiprzychodzaceLabel.Text = Math.Floor(Convert.ToDecimal(session.IncomingStatistics.Bytes / session.IncomingStatistics.Frames)).ToString();
+                else bajtyramkiwychodzace.Text = "brak danych";
+
+                bajtywychodzaceLabel.Text = session.OutgoingStatistics.Bytes.ToString();
+                ramkiwychodzaceLabel.Text = session.OutgoingStatistics.Frames.ToString();
+
+                if (session.OutgoingStatistics.Bytes > 0 && session.OutgoingStatistics.Frames > 0)
+                    bajtyramkiwychodzace.Text = Math.Floor(Convert.ToDecimal(session.OutgoingStatistics.Bytes / session.OutgoingStatistics.Frames)).ToString();
+                else bajtyramkiwychodzace.Text = "brak danych";
+                statusZalogowlabel.Text = "Lista procesów: " + session;
+            }
+
+            ramkiwychodzaceLabel.Refresh();
+            bajtyramkiwychodzace.Refresh();
+            bajtywychodzaceLabel.Refresh();
+            bajtyramkiprzychodzaceLabel.Refresh();
+            ramkiprzychodzaceLabel.Refresh();
+            bajtyprzychodzaceLabel.Refresh();
+            rozdzielczoscLabel.Refresh();
+            sprzetidLabel.Refresh();
+            glebiakolorowLabel.Refresh();
+            produktidlabel.Refresh();
+            katalogLabel.Refresh();
+            adresipLabel.Refresh();
+            IDsesjiLabel.Refresh();
+            nazwaklientaLabel.Refresh();
+            nazwaklientaLabel.Refresh();
+        }
+        private void odswiezProcess(object sender, EventArgs e, ITerminalServer server, ITerminalServicesSession session, int selectedSessionID)
+        {
+            DataGridView dataGridView = null;
+            TabPage tabPage = null;
+            if (sender is ToolStripMenuItem)
+            {
+                dataGridView = (DataGridView)((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl;
+                tabPage = (TabPage)dataGridView.Parent;
+            }
+            if (sender is Button)
+            {
+                tabPage = ((TabPage)((Button)sender).Parent);
+                dataGridView = (DataGridView)tabPage.Controls.Find("dataGridView2",true)[0];
+            }
+            var label = tabPage.Controls.Find("processCount", true)[0];
+            dataGridView.Rows.Clear();
+            foreach (ITerminalServicesProcess process in server.GetProcesses())
+                if (process.SessionId == selectedSessionID)
+                    dataGridView.Rows.Add(session.Server.ServerName, session.UserName, session.WindowStationName, process.SessionId, process.ProcessId, process.ProcessName);
+            ((Label)label).Text = "Lista procesów: " + dataGridView.Rows.Count;
+            //(Label)label.ToString().Text = "Lista procesów: " + dataGridView.Rows.Count;
+           // dynaProcessTab(server, session, selectedSessionID);
+        }
         private void ContextMenus(object sender, EventArgs e)
         {
-            int selectedRowIndex = ((DataGridView)((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl).SelectedRows[0].Index;
-            int selectedSessionID = Convert.ToInt16(((DataGridView)((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl).Rows[selectedRowIndex].Cells[3].Value);
+            int selectedSessionID = 0;
+            int selectedRowIndex = 0;
+            if (sender is ToolStripMenuItem)
+            {
+                selectedRowIndex = ((DataGridView)((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl).SelectedRows[0].Index;
+                selectedSessionID = Convert.ToInt16(((DataGridView)((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl).Rows[selectedRowIndex].Cells[3].Value);
+            }
+            else {
+                var tabpage = ((Button)sender).Parent;
+                DataGridView dgv = (DataGridView)tabpage.Controls.Find("dataGridView2", true)[0];
+                selectedSessionID = (int)dgv.Rows[0].Cells[3].Value;
+            }
             using (ITerminalServer server = manager.GetRemoteServer(_hostname))
             {
                 server.Open();
                 ITerminalServicesSession session = server.GetSession(selectedSessionID);
-
-                switch (((ToolStripMenuItem)sender).Name)
+                if (sender is ToolStripMenuItem)
                 {
-                    case "rozlaczToolStripMenuItem":
-                        {
-                            session.Disconnect();
-                            break;
-                        }
+                    switch (((ToolStripMenuItem)sender).Name)
+                    {
+                        case "rozlaczToolStripMenuItem":
+                            {
+                                session.Disconnect();
+                                MessageBox.Show(new Form() { TopMost = true }, "Sesja została rozłączona", "Rozłączanie sesji", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                button4_Click(sender, e);
+                                break;
+                            }
 
-                    case "wyslijWiadomoscToolStripMenuItem":
-                        {
-                            new terminalExplorerSendMessage(_hostname, selectedSessionID).ShowDialog();
-                            MessageBox.Show("Wiadomość wysłano", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            break;
-                        }
+                        case "wyslijWiadomoscToolStripMenuItem":
+                            {
+                                new terminalExplorerSendMessage(_hostname, selectedSessionID).ShowDialog();
+                                MessageBox.Show("Wiadomość wysłano", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                break;
+                            }
 
-                    case "zdalnaKontrolaToolStripMenu":
-                        {
-                            server.GetSession(selectedSessionID).StartRemoteControl(ConsoleKey.Multiply, RemoteControlHotkeyModifiers.Control);
-                            break;
-                        }
+                        case "zdalnaKontrolaToolStripMenu":
+                            {
+                                server.GetSession(selectedSessionID).StartRemoteControl(ConsoleKey.Multiply, RemoteControlHotkeyModifiers.Control);
+                                break;
+                            }
 
-                    case "wylogujToolStripMenuItem":
-                        {
-                            session.Logoff();
-                            break;
-                        }
+                        case "wylogujToolStripMenuItem":
+                            {
+                                session.Logoff();
+                                MessageBox.Show(new Form() { TopMost = true }, "Sesja została wylogowana", "Wylogowywanie sesji", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                button4_Click(sender, e);
+                                break;
+                            }
 
-                    case "statusToolStripMenuItem":
-                        {
-                            dynaStatusTab(server,session, selectedSessionID);
-                            break;
-                        }
-                    case "procesyToolStripMenuItem":
-                        {
-                            dynaProcessTab(server, session, selectedSessionID);
-                            break;
-                        }
+                        case "statusToolStripMenuItem":
+                            {
+                                dynaStatusTab(server, session, selectedSessionID);
+                                break;
+                            }
+                        case "procesyToolStripMenuItem":
+                            {
+                                dynaProcessTab(server, session, selectedSessionID);
+                                break;
+                            }
 
-                    case "ZabijProcess":
-                        {
-                            var processId = Convert.ToInt16(((DataGridView)((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl).Rows[selectedRowIndex].Cells[4].Value); ;
-                            var process = server.GetProcess(processId);
-                            process.Kill();
-                            MessageBox.Show("Zabito aplikację");
-                            break;
-                        }
+                        case "ZabijProcess":
+                            {
+                                var processId = Convert.ToInt16(((DataGridView)((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl).Rows[selectedRowIndex].Cells[4].Value);
+                                var process = server.GetProcess(processId);
+                                var tabPage = ((TabPage)((DataGridView)((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl).Parent);
+                                var button = tabPage.Controls.Find("Refresh", true);
+                                process.Kill();
+                                odswiezProcess(sender, e, server, session, selectedSessionID);
+                                MessageBox.Show("Zabito aplikację");
+                                break;
+                            }
+
+                    }
                 }
+                else
+                    switch (((Button)sender).Name)
+                    {
+                        case "RefreshProcess":
+                            {
+                                odswiezProcess(sender, e, server, session, selectedSessionID);
+                                break;
+                            }
+                        case "RefreshStatus":
+                            {
+                                odswiezStatus(sender, e, server, session, selectedSessionID);
+                                break;
+                            }
+                    }
+
                 server.Close();
             }
         }
@@ -237,13 +359,14 @@ namespace Puzzel
                     new DataGridViewTextBoxColumn   {  HeaderText = "Proces ID",   Width = 78  },
                     new DataGridViewTextBoxColumn   {  HeaderText = "Obraz",       Width = 59  }
             });
-            
+
             Label _processCount = new Label
             {
                 AutoSize = true,
                 Location = new System.Drawing.Point(8, 602),
                 Size = new System.Drawing.Size(84, 13),
-                Text = "Lista procesów: "
+                Text = "Lista procesów: ",
+                Name = "processCount"
             };
 
             foreach (ITerminalServicesProcess process in server.GetProcesses())
@@ -264,19 +387,10 @@ namespace Puzzel
             {
                 Location = new System.Drawing.Point(382, 597),
                 Size = new System.Drawing.Size(98, 23),
-                Text = "Odśwież teraz"
+                Text = "Odśwież teraz",
+                Name = "RefreshProcess"
             };
-
-            dynaButton1.Click += (object sender, EventArgs e) =>
-            {
-                dynaDataGridView.Rows.Clear();
-                tabControl1.SelectedTab = dynaProcessTabPage;
-                foreach (ITerminalServicesProcess process in server.GetProcesses())
-                    if (process.SessionId == selectedSessionID)
-                        dynaDataGridView.Rows.Add(session.Server.ServerName, session.UserName, session.WindowStationName, process.SessionId, process.ProcessId, process.ProcessName);
-                _processCount.Text = "Lista procesów: " + dynaDataGridView.Rows.Count;
-                dynaProcessTab(server, session, selectedSessionID);
-            };
+            dynaButton1.Click += (ContextMenus);
 
             dynaProcessTabPage.Controls.AddRange
                 (new Control[]
@@ -317,46 +431,47 @@ namespace Puzzel
             {
                 Location = new System.Drawing.Point(382, 597),
                 Size = new System.Drawing.Size(98, 23),
-                Text = "Odśwież teraz"
+                Text = "Odśwież teraz",
+                Name = "RefreshStatus"
             };
             
 
-            Label IDsesjiLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(151, 3), Size = new System.Drawing.Size(0, 13), };
-            Label rozdzielczoscLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(287, 365), Size = new System.Drawing.Size(66, 13), Text = "brak danych" };
-            Label sprzetidLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(287, 330), Size = new System.Drawing.Size(66, 13), Text = "brak danych" };
-            Label poziomszyfrowaniaLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(287, 295), Size = new System.Drawing.Size(66, 13), Text = "brak danych" };
-            Label glebiakolorowLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(287, 260), Size = new System.Drawing.Size(66, 13), Text = "brak danych" };
-            Label produktidlabel = new Label { AutoSize = true, Location = new System.Drawing.Point(287, 225), Size = new System.Drawing.Size(66, 13), Text = "brak danych" };
-            Label katalogLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(287, 190), Size = new System.Drawing.Size(66, 13), Text = "brak danych" };
-            Label adresipLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(287, 155), Size = new System.Drawing.Size(66, 13), Text = "brak danych" };
-            Label nazwaklientaLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(287,120), Size = new System.Drawing.Size(66, 13), Text = "brak danych" };
-            Label kartasieciowaLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(287, 85), Size = new System.Drawing.Size(66, 13), Text = "brak danych" };
-            Label nazwauzytkownikaLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(287,50), Size = new System.Drawing.Size(66, 13), Text = "brak danych" };
+            IDsesjiLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(151, 3), Size = new System.Drawing.Size(0, 13), };
+            rozdzielczoscLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(287, 365), Size = new System.Drawing.Size(66, 13), Text = "brak danych" };
+            sprzetidLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(287, 330), Size = new System.Drawing.Size(66, 13), Text = "brak danych" };
+            poziomszyfrowaniaLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(287, 295), Size = new System.Drawing.Size(66, 13), Text = "brak danych" };
+            glebiakolorowLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(287, 260), Size = new System.Drawing.Size(66, 13), Text = "brak danych" };
+            produktidlabel = new Label { AutoSize = true, Location = new System.Drawing.Point(287, 225), Size = new System.Drawing.Size(66, 13), Text = "brak danych" };
+            katalogLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(287, 190), Size = new System.Drawing.Size(66, 13), Text = "brak danych" };
+            adresipLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(287, 155), Size = new System.Drawing.Size(66, 13), Text = "brak danych" };
+            nazwaklientaLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(287,120), Size = new System.Drawing.Size(66, 13), Text = "brak danych" };
+            kartasieciowaLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(287, 85), Size = new System.Drawing.Size(66, 13), Text = "brak danych" };
+            nazwauzytkownikaLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(287,50), Size = new System.Drawing.Size(66, 13), Text = "brak danych" };
 
-            Label label10 = new Label { AutoSize = true, Location = new System.Drawing.Point(8, 365), Size = new System.Drawing.Size(75, 13), Text = "Rozdzielczość" };
-            Label label9 = new Label { AutoSize = true, Location = new System.Drawing.Point(8, 330), Size = new System.Drawing.Size(51, 31), Text = "Sprzęt ID" };
-            Label bajtyramkiwychodzace = new Label { AutoSize = true, Location = new System.Drawing.Point(423, 120), Size = new System.Drawing.Size(13, 13), Text = "0" };
-            Label ramkiwychodzaceLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(423, 85), Size = new System.Drawing.Size(13, 13), Text = "0" };
-            Label bajtywychodzaceLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(423, 50), Size = new System.Drawing.Size(13, 13), Text = "0" };
-            Label stopienkompresjiLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(276, 155), Size = new System.Drawing.Size(29, 13), Text = "Brak" };
-            Label bajtyramkiprzychodzaceLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(276, 120), Size = new System.Drawing.Size(13, 13), Text = "0" };
-            Label ramkiprzychodzaceLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(276, 85), Size = new System.Drawing.Size(13, 13), Text = "0" };
-            Label bajtyprzychodzaceLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(276, 50), Size = new System.Drawing.Size(13, 13), Text = "0" };
-            Label label16 = new Label { AutoSize = true, Location = new System.Drawing.Point(423, 20), Size = new System.Drawing.Size(70, 13), Text = "Wychodzące" };
-            Label label15 = new Label { AutoSize = true, Location = new System.Drawing.Point(276, 20), Size = new System.Drawing.Size(74, 13), Text = "Przychodzące" };
-            Label label14 = new Label { AutoSize = true, Location = new System.Drawing.Point(137, 120), Size = new System.Drawing.Size(73, 13), Text = "Bajtów/ramkę" };
-            Label label13 = new Label { AutoSize = true, Location = new System.Drawing.Point(120, 155), Size = new System.Drawing.Size(90, 13), Text = "Stopień kompresji" };
-            Label label12 = new Label { AutoSize = true, Location = new System.Drawing.Point(173, 85), Size = new System.Drawing.Size(37, 13), Text = "Ramki" };
-            Label label11 = new Label { AutoSize = true, Location = new System.Drawing.Point(180, 50), Size = new System.Drawing.Size(30, 13), Text = "Bajty" };
-            Label label8 = new Label { AutoSize = true, Location = new System.Drawing.Point(8, 295), Size = new System.Drawing.Size(99, 13), Text = "Poziom szyfrowania" };
-            Label label7 = new Label { AutoSize = true, Location = new System.Drawing.Point(8, 260), Size = new System.Drawing.Size(79, 13), Text = "Głębia kolorów" };
-            Label label6 = new Label { AutoSize = true, Location = new System.Drawing.Point(8, 225), Size = new System.Drawing.Size(58, 13), Text = "Produkt ID" };
-            Label label5 = new Label { AutoSize = true, Location = new System.Drawing.Point(8, 190), Size = new System.Drawing.Size(43, 13), Text = "Katalog" };
-            Label label4 = new Label { AutoSize = true, Location = new System.Drawing.Point(8, 155), Size = new System.Drawing.Size(47, 13), Text = "Adres IP" };
-            Label label3 = new Label { AutoSize = true, Location = new System.Drawing.Point(8, 120), Size = new System.Drawing.Size(74, 13), Text = "Nazwa klienta" };
-            Label label2 = new Label { AutoSize = true, Location = new System.Drawing.Point(8, 85), Size = new System.Drawing.Size(76, 13), Text = "Karta sieciowa" };
-            Label label1 = new Label { AutoSize = true, Location = new System.Drawing.Point(8, 50), Size = new System.Drawing.Size(102, 13), Text = "Nazwa użytkownika" };
-            Label statusZalogowlabel = new Label { AutoSize = true, Location = new System.Drawing.Point(8, 3), Size = new System.Drawing.Size(139, 13), Text = "Status zalogowanej sesji ID" };
+            label10 = new Label { AutoSize = true, Location = new System.Drawing.Point(8, 365), Size = new System.Drawing.Size(75, 13), Text = "Rozdzielczość" };
+            label9 = new Label { AutoSize = true, Location = new System.Drawing.Point(8, 330), Size = new System.Drawing.Size(51, 31), Text = "Sprzęt ID" };
+            bajtyramkiwychodzace = new Label { AutoSize = true, Location = new System.Drawing.Point(423, 120), Size = new System.Drawing.Size(13, 13), Text = "0" };
+            ramkiwychodzaceLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(423, 85), Size = new System.Drawing.Size(13, 13), Text = "0" };
+            bajtywychodzaceLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(423, 50), Size = new System.Drawing.Size(13, 13), Text = "0" };
+            stopienkompresjiLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(276, 155), Size = new System.Drawing.Size(29, 13), Text = "Brak" };
+            bajtyramkiprzychodzaceLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(276, 120), Size = new System.Drawing.Size(13, 13), Text = "0" };
+            ramkiprzychodzaceLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(276, 85), Size = new System.Drawing.Size(13, 13), Text = "0" };
+            bajtyprzychodzaceLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(276, 50), Size = new System.Drawing.Size(13, 13), Text = "0" };
+            label16 = new Label { AutoSize = true, Location = new System.Drawing.Point(423, 20), Size = new System.Drawing.Size(70, 13), Text = "Wychodzące" };
+            label15 = new Label { AutoSize = true, Location = new System.Drawing.Point(276, 20), Size = new System.Drawing.Size(74, 13), Text = "Przychodzące" };
+            label14 = new Label { AutoSize = true, Location = new System.Drawing.Point(137, 120), Size = new System.Drawing.Size(73, 13), Text = "Bajtów/ramkę" };
+            label13 = new Label { AutoSize = true, Location = new System.Drawing.Point(120, 155), Size = new System.Drawing.Size(90, 13), Text = "Stopień kompresji" };
+            label12 = new Label { AutoSize = true, Location = new System.Drawing.Point(173, 85), Size = new System.Drawing.Size(37, 13), Text = "Ramki" };
+            label11 = new Label { AutoSize = true, Location = new System.Drawing.Point(180, 50), Size = new System.Drawing.Size(30, 13), Text = "Bajty" };
+            label8 = new Label { AutoSize = true, Location = new System.Drawing.Point(8, 295), Size = new System.Drawing.Size(99, 13), Text = "Poziom szyfrowania" };
+            label7 = new Label { AutoSize = true, Location = new System.Drawing.Point(8, 260), Size = new System.Drawing.Size(79, 13), Text = "Głębia kolorów" };
+            label6 = new Label { AutoSize = true, Location = new System.Drawing.Point(8, 225), Size = new System.Drawing.Size(58, 13), Text = "Produkt ID" };
+            label5 = new Label { AutoSize = true, Location = new System.Drawing.Point(8, 190), Size = new System.Drawing.Size(43, 13), Text = "Katalog" };
+            label4 = new Label { AutoSize = true, Location = new System.Drawing.Point(8, 155), Size = new System.Drawing.Size(47, 13), Text = "Adres IP" };
+            label3 = new Label { AutoSize = true, Location = new System.Drawing.Point(8, 120), Size = new System.Drawing.Size(74, 13), Text = "Nazwa klienta" };
+            label2 = new Label { AutoSize = true, Location = new System.Drawing.Point(8, 85), Size = new System.Drawing.Size(76, 13), Text = "Karta sieciowa" };
+            label1 = new Label { AutoSize = true, Location = new System.Drawing.Point(8, 50), Size = new System.Drawing.Size(102, 13), Text = "Nazwa użytkownika" };
+            statusZalogowlabel = new Label { AutoSize = true, Location = new System.Drawing.Point(8, 3), Size = new System.Drawing.Size(139, 13), Text = "Status zalogowanej sesji ID" };
 
             GroupBox stanWeWy = new GroupBox
             {
