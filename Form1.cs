@@ -908,7 +908,7 @@ namespace Puzzel
         {
             progressBar.Start();
         }
-
+        
         private void programList_DoWork(object sender, DoWorkEventArgs e)
         {
 
@@ -924,14 +924,80 @@ namespace Puzzel
                         {
                             var ps = PowerShell.Create();
 
-                            ps.AddScript(@"Invoke-Command -ComputerName " + HostName() + @" -Command {Get-ItemProperty -Path HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\* | Select-Object DisplayName, InstallDate, DisplayVersion}| Format-Table -AutoSize");
+                            ps.AddScript("Invoke-Command -ComputerName " + HostName() + @" -Command {Get-ItemProperty -Path HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\* | Select-Object DisplayName, InstallDate, DisplayVersion}");
                             System.Collections.Generic.List<PSObject> items = ps.Invoke().ToList();
+                            string[] objItem = null;
+                            int firstoptimvalue = 50;
+                            int secondoptimvalue = 31;
+                            ComputerInfo_TEMP += (string.Format("{0,-50}{1,-31}{2,-1}", "DisplayName", "InstallDate", "DisplayVersion" + "\n"));
                             foreach (PSObject item in items)
                             {
-                                UpdateRichTextBox(item.ToString()+"\n"); }
-                            if (ComputerInfo_TEMP == null) {
+                                objItem = item.ToString().Split(';');
+                                objItem[0] = objItem[0].Replace("@{DisplayName=", " ");
+                                objItem[1] = objItem[1].Replace("InstallDate=", "");
+                                objItem[2] = objItem[2].Replace("DisplayVersion=", "").Replace("}", "");
+
+                                int firstObjLength = objItem[0].Length;
+                                int secondObjLenght = objItem[1].Length;
+                                int thirdObjLenght = objItem[2].Length;
+                                int addspace = 0;
+                                if (firstObjLength > 1)
+                                {
+                                    ComputerInfo_TEMP += objItem[0];
+                                    if (firstObjLength < firstoptimvalue)
+                                    {
+                                        addspace = firstoptimvalue - firstObjLength;
+                                        for (int i = 0; i < addspace; i++)
+                                            ComputerInfo_TEMP += " ";
+                                    }
+                                    else
+                                    {
+                                        ComputerInfo_TEMP += "   ";
+                                    }
+                                    if (secondObjLenght > 1 && thirdObjLenght > 1)
+                                    {
+                                        ComputerInfo_TEMP += objItem[1];
+                                        if (firstoptimvalue > firstObjLength)
+                                        {
+                                            addspace = secondoptimvalue - secondObjLenght;
+                                            for (int i = 0; i < addspace; i++)
+                                                ComputerInfo_TEMP += " ";
+                                        }
+                                        if (firstoptimvalue < firstObjLength)
+                                        {
+                                            if (firstoptimvalue + secondoptimvalue > firstObjLength + secondObjLenght + 3)
+                                            {
+                                                addspace = firstoptimvalue + secondoptimvalue - firstObjLength - secondObjLenght - 3;
+                                                for (int i = 0; i < addspace; i++)
+                                                    ComputerInfo_TEMP += " ";
+                                            }
+                                            else ComputerInfo_TEMP += "  ";
+                                        }
+                                    }
+                                    if (secondObjLenght < 4 && thirdObjLenght > 1)
+                                    {
+                                        if (firstoptimvalue > firstObjLength)
+                                            addspace = secondoptimvalue;
+                                        else addspace = firstoptimvalue + secondoptimvalue - firstObjLength - 3;
+                                            for (int i = 0; i < addspace; i++)
+                                                ComputerInfo_TEMP += " ";
+                                        
+                                    }
+                                    if (secondObjLenght < 1 && thirdObjLenght < 1)
+                                    {
+                                        ComputerInfo_TEMP += "\n";
+                                    }
+                                    if (objItem[2].Length < 2)
+                                        objItem[2] = "";
+                                    ComputerInfo_TEMP += objItem[2] + "\n";
+
+                                }
+                            }
+                            UpdateRichTextBox(ComputerInfo_TEMP);
+                            if (ComputerInfo_TEMP == null)
+                            {
                                 text = "slow";
-                            //goto StartAgainIfReturnedValueIsNull;
+                                goto StartAgainIfReturnedValueIsNull;
                             }
                             break;
                         };
@@ -993,7 +1059,6 @@ namespace Puzzel
                                         ComputerInfo_TEMP += (wersja1[i].ToString() + "\n");
                                     }
                                 }
-                                stopTime();
                             }
 
                             catch (UnauthorizedAccessException)
@@ -1011,6 +1076,7 @@ namespace Puzzel
                 }
             }
             else return;
+            stopTime();
         }
 
         Stopwatch stopWatch = new Stopwatch();
