@@ -148,7 +148,6 @@
             this.ręcznaNazwaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ladujLogiWTle = new System.ComponentModel.BackgroundWorker();
             this.AutoGettingLogs = new System.Windows.Forms.Timer(this.components);
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
@@ -1212,11 +1211,6 @@
             this.AutoGettingLogs.Interval = 3600000;
             this.AutoGettingLogs.Tick += new System.EventHandler(this.AutoGettingLogs_Tick);
             // 
-            // backgroundWorker1
-            // 
-            this.backgroundWorker1.WorkerSupportsCancellation = true;
-            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1233,7 +1227,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(1202, 511);
             this.Name = "Form1";
-            this.Text = "Puzzel v0.71";
+            this.Text = "Puzzel v0.72";
             this.Resize += new System.EventHandler(this.Form1_Resize);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -1377,7 +1371,6 @@
         private System.Windows.Forms.ContextMenuStrip RemoteDesktopContextMenu;
         private System.Windows.Forms.ToolStripMenuItem rDPBezPustyContextMenu;
         private System.Windows.Forms.ToolStripMenuItem wklejStripMenuItem1;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }
 

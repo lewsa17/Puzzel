@@ -364,7 +364,7 @@ namespace Puzzel
         }
 
         string[] LogsNames = null;
-        private void containst(string pole, string rodzaj)
+        private void contains(string pole, string rodzaj)
         {
             if (!string.IsNullOrEmpty(pole) | !string.IsNullOrWhiteSpace(pole))
             {
@@ -385,8 +385,8 @@ namespace Puzzel
         private void loGi(string pole, string rodzaj, decimal licznik)
         {
             startTime();
-            StringBuilder sb = new StringBuilder();
             FileStream fileStream = new FileStream(Working[8].Remove(8) + rodzaj + @"\" + pole + "_logons.log", FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            
             StreamReader sr = new StreamReader(fileStream);
             long fsize = fileStream.Length;
             decimal lines = licznik;
@@ -425,41 +425,15 @@ namespace Puzzel
             //UpdateRichTextBox(sb.ToString());
             stopTime();
         }
-        
-        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
-        {
-            ClearRichTextBox(null);
-            //System.Threading.Thread thread;
-            startTime();
-            if (counterlist > 2)
-            {
-                containst(NameZ, senderZ);
-                if (LogsNames.Count() > 0)
-                {
-                    foreach (string LogsName in LogsNames)
-                    {
-                        loGi(LogsName, senderZ, counter);
-                    }
-                }
-                else ReplaceRichTextBox("Brak w logach");
-            }
-            else ReplaceRichTextBox("Za mało danych");
 
-            if (comboBox1.InvokeRequired)
-                comboBox1.Invoke(new MethodInvoker(() =>
-            {
-                comboBox1.Text = "";
-                comboBox1.Items.Clear();
-            }));
-            stopTime();
-        }
         string senderZ = null;
         decimal counter = 0;
         int counterlist = 0;
         string NameZ = null;
         private void szukajLogow(object sender, EventArgs e)
         {
-            if (!backgroundWorker1.IsBusy)
+            BackgroundWorker ladujWtle = new BackgroundWorker();
+            if (!ladujWtle.IsBusy)
             {
                 if (sender is Button)
                 {
@@ -495,10 +469,34 @@ namespace Puzzel
                         NameZ = HostName();
                     }
                 }
-                backgroundWorker1.RunWorkerAsync();
+
+                ladujWtle.DoWork += (object sendzer, DoWorkEventArgs dwea) =>
+                {
+                    ClearRichTextBox(null);
+                    startTime();
+                    if (counterlist > 2)
+                    {
+                        contains(NameZ, senderZ);
+                        if (LogsNames.Count() > 0)
+                        {
+                            foreach (string LogsName in LogsNames)
+                                loGi(LogsName, senderZ, counter);
+                        }
+                        else ReplaceRichTextBox("Brak w logach");
+                    }
+                    else ReplaceRichTextBox("Za mało danych");
+
+                    if (comboBox1.InvokeRequired)
+                        comboBox1.Invoke(new MethodInvoker(() =>
+                        {
+                            comboBox1.Text = "";
+                            comboBox1.Items.Clear();
+                        }));
+                    stopTime();
+                };
+                ladujWtle.RunWorkerAsync();
             }
             else MessageBox.Show("Wyszukiwanie nadal trwa...", "Wyszukiwanie danych");
-            
         }
 
         private void button9_Click(object sender, EventArgs e)
@@ -1759,13 +1757,18 @@ namespace Puzzel
         string Nazwauzytkownika(string username)
         {
             DirectoryEntry myLdapConnection = new DirectoryEntry("LDAP://" + domainName());
+            myLdapConnection.UsePropertyCache = true;
             DirectorySearcher search = new DirectorySearcher(myLdapConnection);
-            search.Filter = "(sAMAccountName="+ username+")";
-            SearchResult result = search.FindOne();
+            search.Filter = "(&(objectClass=user)(sAMAccountName=" + username + "))";
+            search.PropertiesToLoad.Add("displayName");
+            search.PageSize = 1000;
+            search.SizeLimit = 1;
+            //SearchResult result = search.FindOne();
             string text;
-            if (result == null)
+            if (search.FindOne().GetDirectoryEntry().Properties["displayName"].Value == null)
                 text = "brak w AD";
-            else text = result.GetDirectoryEntry().Properties["displayName"].Value.ToString();
+            else text = search.FindOne().GetDirectoryEntry().Properties["displayName"].Value.ToString();
+            search.Dispose();
             return text;
         }
 
