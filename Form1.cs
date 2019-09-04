@@ -1103,7 +1103,8 @@ namespace Puzzel
 
         private void szukanieSesji(object sender, EventArgs e)
         {
-            ClearRichTextBox(null);
+            comboBox1.Items.Clear();
+            richTextBox1.Clear();
             startTime();
 
             foreach (string terms in termservers)
@@ -1111,17 +1112,65 @@ namespace Puzzel
                 Thread th = new Thread(() =>
                 {
                     TerminalExplorer ts = new TerminalExplorer();
-                    string[] combo = ts.FindSession(terms, UserName());
+                    object[] combo = ts.FindSession(terms, UserName());
                     if (combo[0] != null)
                     {
                         updateComboBox(combo[0] + " " + combo[1]);
-                    }
-                    if (comboBox1.Items.Count > 0)
-                        if (comboBox1.InvokeRequired)
-                        {
-                            comboBox1.Invoke(new MethodInvoker(() => comboBox1.SelectedIndex = 0));
+                        UpdateRichTextBox(combo[1] +" --------------------------------\n");
+                        UpdateRichTextBox("Nazwa użytkownika     Nazwa Sesji    Id    Status    Czas bezczynności    Czas logowania\n");
+
+                        UpdateRichTextBox(combo[2].ToString());            
+                        for (int i = 0; i < "Nazwa użytkownika     ".Length - combo[2].ToString().Length; i++)
+                            UpdateRichTextBox(" ");
+
+                        UpdateRichTextBox(combo[3].ToString());
+                        for (int i = 0; i < "Nazwa Sesji    ".Length - combo[3].ToString().Length; i++)
+                        UpdateRichTextBox(" ");
+
+                        UpdateRichTextBox(combo[0].ToString());
+                        for (int i = 0; i < "Id    ".Length - combo[0].ToString().Length; i++)
+                            UpdateRichTextBox(" ");
+
+                        UpdateRichTextBox(combo[4].ToString());
+                        for (int i = 0; i < "Status    ".Length - combo[4].ToString().Length; i++)
+                            UpdateRichTextBox(" ");
+                        
+                        //Wyekstraktowanie całej czasu bezczynności
+                        int time = Convert.ToInt32(Math.Ceiling(((TimeSpan)combo[5]).TotalSeconds));
+                        double _time = 0;
+                        string idletime = "";
+                        if ((time / 3600) >= 1)
+                        { 
+                            _time = (time / 3600);
+                            idletime += (Math.Ceiling(_time).ToString() + ":");
+                            time = time - Convert.ToInt32(Math.Ceiling(_time)) * 3600;
                         }
-                        else comboBox1.SelectedIndex = 0;
+                        if ((time / 60) > 1)
+                        {
+                            _time = (time / 60);
+                            idletime +=(Math.Ceiling(_time).ToString() + ":");
+                            time = time - Convert.ToInt32(Math.Ceiling(_time)) * 60;
+                        }
+
+                        idletime += (time.ToString());
+                        UpdateRichTextBox(idletime);
+                        for (int i = 0; i < "Czas bezczynności    ".Length - idletime.Length; i++)
+                            UpdateRichTextBox(" ");
+
+                        UpdateRichTextBox(combo[6].ToString());
+
+                        UpdateRichTextBox("\n");
+
+
+                    }
+                    if (comboBox1.InvokeRequired)
+                    {
+                            comboBox1.Invoke(new MethodInvoker(() => {
+                                if (comboBox1.SelectedIndex > -1)
+                                    comboBox1.SelectedIndex = 0;
+                            }));
+                    }
+                    else comboBox1.SelectedIndex = 0;
                 });
                 th.Start();
             }
@@ -1772,7 +1821,7 @@ namespace Puzzel
         //        text = "";
         //    else text = search.FindOne().GetDirectoryEntry().Properties[Working[13].Remove(4)].Value.ToString();
         //    return text;
-        // }
+        //}
 
         string DomainController()
         {

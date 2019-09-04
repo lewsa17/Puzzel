@@ -31,7 +31,7 @@ namespace Puzzel
 		string[] termservers = Working[6].Remove(7).Splt(',');
         public string[] FindSession(string serverName, string SearchedLogin)
         {
-            string[] sessioninfo = new string[2];
+            object[] sessioninfo = new object[7];
             using (ITerminalServer server = manager.GetRemoteServer(serverName))
             {
                 server.Open(); 
@@ -39,8 +39,13 @@ namespace Puzzel
                 {
                     if (session.UserName == SearchedLogin)
                     {
-                        sessioninfo.SetValue(session.SessionId.ToString(), 0);
                         sessioninfo.SetValue(session.Server.ServerName, 1);
+                        sessioninfo.SetValue(session.UserName, 2);
+                        sessioninfo.SetValue(session.WindowStationName, 3);
+                        sessioninfo.SetValue(session.SessionId, 0);
+                        sessioninfo.SetValue(session.ConnectionState, 4);
+                        sessioninfo.SetValue(session.IdleTime, 5);
+                        sessioninfo.SetValue(session.LoginTime, 6);
                     }
                 }
                 server.Close();
@@ -52,30 +57,31 @@ namespace Puzzel
         public void szukanieSesji(string hostname)
         {
             _hostname = hostname;
-            try { 
-            if (dataGridView1 != null)
-                dataGridView1.Rows.Clear();
-            using (ITerminalServer server = manager.GetRemoteServer(hostname))
+            try
             {
-                server.Open();
-                IList<ITerminalServicesSession> sessions;
-                sessions = server.GetSessions();
-                foreach (ITerminalServicesSession session in sessions)
-                { 
-                    if (session.UserAccount != null)
-                        dataGridView1.BeginInvoke(new Action(() =>
-                        dataGridView1.Rows.Add(
-                        session.Server.ServerName,
-                        session.UserName,
-                        session.WindowStationName,
-                        session.SessionId,
-                        session.ConnectionState,
-                        session.IdleTime,
-                        session.LoginTime)));
+                if (dataGridView1 != null)
+                    dataGridView1.Rows.Clear();
+                using (ITerminalServer server = manager.GetRemoteServer(hostname))
+                {
+                    server.Open();
+                    IList<ITerminalServicesSession> sessions;
+                    sessions = server.GetSessions();
+                    foreach (ITerminalServicesSession session in sessions)
+                    {
+                        if (session.UserAccount != null)
+                            dataGridView1.BeginInvoke(new Action(() =>
+                            dataGridView1.Rows.Add(
+                            session.Server.ServerName,
+                            session.UserName,
+                            session.WindowStationName,
+                            session.SessionId,
+                            session.ConnectionState,
+                            session.IdleTime,
+                            session.LoginTime)));
+                    }
+                    server.Close();
+                    sessionCount.BeginInvoke(new Action(() => sessionCount.Text = "Aktywne sesje: " + dataGridView1.Rows.Count));
                 }
-                server.Close();
-                sessionCount.BeginInvoke(new Action(() => sessionCount.Text = "Aktywne sesje: " + dataGridView1.Rows.Count));
-            }
             }
             catch (Win32Exception)
             {
