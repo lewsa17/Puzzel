@@ -62,8 +62,7 @@
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>
-    </ApplicationIcon>
+    <ApplicationIcon>logon_2.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Cassia, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -99,6 +98,15 @@
       <DependentUpon>terminalexplorerCustomSearch.cs</DependentUpon>
     </Compile>
     <Compile Include="LoadingForm.cs" />
+    <Compile Include="WyszukiwarkaDlaFormy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WyszukiwarkaDlaFormy.Designer.cs">
+      <DependentUpon>WyszukiwarkaDlaFormy.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="WyszukiwarkaDlaFormy.resx">
+      <DependentUpon>WyszukiwarkaDlaFormy.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Progress.cs">
       <SubType>Form</SubType>
     </None>
@@ -211,7 +219,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="logon_1.ico" />
     <Content Include="logon_2.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

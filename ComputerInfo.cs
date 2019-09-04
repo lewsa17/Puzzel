@@ -607,32 +607,42 @@ namespace Puzzel
                                     //args5 = IPSubnet
                                     //args6 = MACAddress
 
-                                    string[] Suffix;
-                                    string[] Ipaddress;
-                                    string[] IPSubnet;
+                                    string[] Suffix = null;
+                                    string[] Ipaddress = null;
+                                    string[] IPSubnet = null;
 
                                     if (args.Length > 1)
                                     {
-                                        Suffix = (string[])m[args[2].ToString()];
-                                        Ipaddress = (string[])m[args[4].ToString()];
-                                        IPSubnet = (string[])m[args[5].ToString()];
+                                        if (m[args[2].ToString()] != null)
+                                            Suffix = (string[])m[args[2].ToString()];
+                                        if (m[args[4].ToString()] != null)
+                                            Ipaddress = (string[])m[args[4].ToString()];
+                                        if (m[args[5].ToString()] != null)
+                                            IPSubnet = (string[])m[args[5].ToString()];
 
-                                        Puzzel.Form1.ComputerInfo_TEMP += ("Nazwa karty sieciowej   " + m[args[1].ToString()].ToString() + "\n");
+                                        Puzzel.Form1.ComputerInfo_TEMP += ("\nNazwa karty sieciowej   " + m[args[1].ToString()].ToString() + "\n");
                                         Puzzel.Form1.ComputerInfo_TEMP += ("IP Włączone             " + m[args[0].ToString()].ToString() + "\n");
-                                        Puzzel.Form1.ComputerInfo_TEMP += ("DNS Suffix              ");
-                                        for (int i = 0; i < Suffix.Count(); i++)
-                                            Puzzel.Form1.ComputerInfo_TEMP += (Suffix[i] + "; ");
-                                        Puzzel.Form1.ComputerInfo_TEMP += ("\n");
-                                        Puzzel.Form1.ComputerInfo_TEMP += ("Nazwa hosta DNS         " + m[args[3].ToString()].ToString() + "\n");
-                                        Puzzel.Form1.ComputerInfo_TEMP += ("Adres IP                ");
-                                        for (int i = 0; i < Ipaddress.Count(); i++)
-                                            Puzzel.Form1.ComputerInfo_TEMP += (Ipaddress[i] + "; ");
-                                        Puzzel.Form1.ComputerInfo_TEMP += ("\n");
-                                        Puzzel.Form1.ComputerInfo_TEMP += ("Maska podsieci          ");
-                                        for (int i = 0; i < IPSubnet.Count(); i++)
-                                            Puzzel.Form1.ComputerInfo_TEMP += (IPSubnet[i] + "; ");
-                                        Puzzel.Form1.ComputerInfo_TEMP += ("\n");
-                                        Puzzel.Form1.ComputerInfo_TEMP += ("Adres MAC               " + m[args[6].ToString()].ToString() + ";\n");
+
+                                        if (m[args[0].ToString()].ToString() == "True")
+                                        { Puzzel.Form1.ComputerInfo_TEMP += ("DNS Suffix              ");
+                                            if (Suffix != null)
+                                                for (int i = 0; i < Suffix.Count(); i++)
+                                                    Puzzel.Form1.ComputerInfo_TEMP += (Suffix[i] + "; ");
+                                            Puzzel.Form1.ComputerInfo_TEMP += ("\n");
+                                            if (m[args[3].ToString()] != null)
+                                                Puzzel.Form1.ComputerInfo_TEMP += ("Nazwa hosta DNS         " + m[args[3].ToString()].ToString() + "\n");
+                                            Puzzel.Form1.ComputerInfo_TEMP += ("Adres IP                ");
+                                            if (Ipaddress != null)
+                                                for (int i = 0; i < Ipaddress.Count(); i++)
+                                                    Puzzel.Form1.ComputerInfo_TEMP += (Ipaddress[i] + "; ");
+                                            Puzzel.Form1.ComputerInfo_TEMP += ("\n");
+                                            Puzzel.Form1.ComputerInfo_TEMP += ("Maska podsieci          ");
+                                            if (IPSubnet != null)
+                                                for (int i = 0; i < IPSubnet.Count(); i++)
+                                                    Puzzel.Form1.ComputerInfo_TEMP += (IPSubnet[i] + "; ");
+                                            Puzzel.Form1.ComputerInfo_TEMP += ("\n");
+                                            Puzzel.Form1.ComputerInfo_TEMP += ("Adres MAC               " + m[args[6].ToString()].ToString() + ";\n");
+                                        }
                                     }
                                     break;
                                 }
