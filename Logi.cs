@@ -1,76 +1,106 @@
-﻿using System.IO;
+﻿using System;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using System.IO;
+using System.DirectoryServices;
 
 namespace Puzzel
 {
     class Logi
     {
-		string[] Working = null;
-        public Logi(string Username, string Hostname)
+        private string domainName() { return System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().DomainName; }
+        
+        string[] Working = File.ReadAllLines("DefaultValue.txt");
+        public string loGi(string pole, string rodzaj, decimal licznik)
         {
-            username = Username;
-            hostname = Hostname;
-			Working = File.ReadAllLines("DefaultValue.txt");
-        }
-        string username;
-        string hostname;
-        string userlogon;
-        string computerlogon;
-        public void GetLogs()
-        {
-            if (Directory.Exists(Working[0].Remove(13)))
+            //string ComputerInfo_TEMP = null;
+            FileStream fileStream = new FileStream(Working[8].Remove(8) + rodzaj + @"\" + pole + "_logons.log", FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            StringBuilder sb = new StringBuilder();
+            StreamReader sr = new StreamReader(fileStream);
+            long fsize = fileStream.Length;
+            //decimal lines = licznik;
+            int lineMaxLenOptim = 255;
+            long pos = fsize - lineMaxLenOptim * (long)licznik;
+            if (pos > 0)
             {
-                Puzzel.Form1.ProgressBarValue =1;
-                string[] usr = Directory.GetFiles(Working[0].Remove(13), "*_logons.log", SearchOption.TopDirectoryOnly);
-                for (int i = 0; i < usr.Length; i++)
-                {
-                    string usrfilename = Path.GetFileNameWithoutExtension(usr[i]);
-                    string temp = null;
-
-                    for (int j = 0; j < usrfilename.Length - 7; j++)
-                        temp += usrfilename[j];
-                    userlogon += temp + ",";
-                }
-                Puzzel.Form1.ProgressBarValue =2;
+                sr.BaseStream.Position = pos;
+                sr.BaseStream.Seek(pos, SeekOrigin.Begin);
             }
-            if (Directory.Exists(Working[1].Remove(13)))
+            char line = '\n';
+            string[] LogCompLogs = sr.ReadToEnd().Split(line);
+            Array.Resize(ref LogCompLogs, LogCompLogs.Length - 1);
+            Array.Reverse(LogCompLogs);
+            Array.Resize(ref LogCompLogs, LogCompLogs.Length - 1);
+
+            int maxLines = LogCompLogs.Length;
+            decimal a = licznik;
+            string[] word;
+            string[] words;
+            word = LogCompLogs[1].Split(';');
+            sb.Append(string.Format("{0,-13}{1,-16}{2,-30}{3,-12}{4,-28}{5,-10}", "LOGOWANIE", "KOMPUTER", "NAZWA", "UŻYTKOWNIK", "DATA", "WERSJA SYSTEMU" + "\n"));
+            if (a < maxLines)
+                for (int i = 0; i < a; i++)
+                {
+                    words = LogCompLogs[i].Split(';');
+                    sb.Append(string.Format("{0,-13}{1,-17}{2,-30}{3,-11}{4,-28}{5,-10}", " " + words[0], words[1], Nazwauzytkownika(words[2]), words[2].Replace(" ", ""), words[3], words[word.Count() - 2]) + "\n");
+                }
+            else
+                for (int i = 0; i < maxLines; i++)
+                {
+                    words = LogCompLogs[i].Split(';');
+                    sb.Append(string.Format("{0,-13}{1,-17}{2,-30}{3,-11}{4,-28}{5,-10}", words[0], words[1], Nazwauzytkownika(words[2]), words[2].Replace(" ", ""), words[3], words[word.Count() - 2]) + "\n");
+                }
+            return sb.ToString();
+        }
+        string[] LogsNames = null;
+
+        public string[] LogNames()
+        {
+            return LogsNames;
+        }
+        public void contains(string pole, string rodzaj)
+        {
+            if (!string.IsNullOrEmpty(pole) | !string.IsNullOrWhiteSpace(pole))
             {
-                Puzzel.Form1.ProgressBarValue =3;
-                string[] cmp = Directory.GetFiles(Working[1].Remove(13), "*_logons.log", SearchOption.TopDirectoryOnly);
-                for (int i = 0; i < cmp.Length; i++)
+                if (Directory.Exists(Working[8].Remove(8) + rodzaj))
                 {
-                    string cmpfilename = Path.GetFileNameWithoutExtension(cmp[i]);
-                    string temp = null;
-
-                    for (int j = 0; j < cmpfilename.Length - 7; j++)
-                        temp += cmpfilename[j];
-                    computerlogon += temp + ",";
+                    LogsNames = Directory.GetFiles(Working[8].Remove(8) + rodzaj + @"\", "*" + pole + "*_logons.log", SearchOption.TopDirectoryOnly);
+                    for (int i = 0; i < LogsNames.Length; i++)
+                    {
+                        LogsNames[i] = Path.GetFileNameWithoutExtension(LogsNames[i]);
+                        LogsNames[i] = LogsNames[i].Replace("_logons", "");
+                    }
                 }
-                Puzzel.Form1.ProgressBarValue++;
+                else MessageBox.Show("Brak dostępu do zasobu");
             }
+            else MessageBox.Show("Pole puste lub niepotrzebna spacja");
         }
-        public void SaveLogs()
+
+        private string Nazwauzytkownika(string username)
         {
-            Puzzel.Form1.ProgressBarValue=4;
-            StreamWriter usr = new StreamWriter(Path.GetTempPath() + @"\UserLogCache.log");
-            usr.WriteLine(userlogon);
-            usr.Close();
-            Puzzel.Form1.ProgressBarValue =5;
-            StreamWriter cmp = new StreamWriter(Path.GetTempPath() + @"\ComputerLogCache.log");
-            cmp.WriteLine(computerlogon);
-            cmp.Close();
+            DirectoryEntry myLdapConnection = new DirectoryEntry("LDAP://" + domainName());
+            myLdapConnection.UsePropertyCache = true;
+            DirectorySearcher search = new DirectorySearcher(myLdapConnection);
+            search.Filter = "(&(objectClass=user)(sAMAccountName=" + username.Replace(" ", "") + "))";
+            search.PropertiesToLoad.Add("displayName");
+            search.PageSize = 1000;
+            search.SizeLimit = 1;
+            //SearchResult result = search.FindOne();
+            string text;
+            try
+            {
+                text = search.FindOne().GetDirectoryEntry().Properties["displayName"].Value.ToString();
+            }
+            catch (NullReferenceException)
+            {
+                text = "brak w AD";
+            }
+
+            search.Dispose();
+            return text;
         }
-        public void LoadLogs()
-        {
-            Puzzel.Form1.ProgressBarValue++;
-            StreamReader usr = new StreamReader(Path.GetTempPath() + @"\UserLogCache.log");
-            //Puzzel.Form1.UserLogs = usr.ReadLine().Split(',');
-            Program.UserCollection.AddRange(usr.ReadLine().Split(','));
-            usr.Close();
-            Puzzel.Form1.ProgressBarValue++;
-            StreamReader cmp = new StreamReader(Path.GetTempPath() + @"\ComputerLogCache.log");
-            //Puzzel.Form1.ComputerLogs = cmp.ReadLine().Split(',');
-            Program.ComputerCollection.AddRange(cmp.ReadLine().Split(','));
-            cmp.Close();
-        }
+
+
     }
 }

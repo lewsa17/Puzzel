@@ -88,6 +88,7 @@
             this.autostartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pATHToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zasobySiecioweToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ekranyPodłączoneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button11 = new System.Windows.Forms.Button();
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
@@ -97,7 +98,7 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.button20 = new System.Windows.Forms.Button();
             this.button19 = new System.Windows.Forms.Button();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.komputerInfo = new System.ComponentModel.BackgroundWorker();
             this.programList = new System.ComponentModel.BackgroundWorker();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
@@ -142,8 +143,10 @@
             this.tVLEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tRToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ręcznaNazwaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.PwdLclToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ladujLogiWTle = new System.ComponentModel.BackgroundWorker();
             this.AutoGettingLogs = new System.Windows.Forms.Timer(this.components);
+            this.bIOSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
@@ -610,11 +613,13 @@
             this.udziałyToolStripMenuItem,
             this.autostartToolStripMenuItem,
             this.pATHToolStripMenuItem,
-            this.zasobySiecioweToolStripMenuItem});
+            this.zasobySiecioweToolStripMenuItem,
+            this.ekranyPodłączoneToolStripMenuItem,
+            this.bIOSToolStripMenuItem});
             this.Komputer_info.Name = "contextMenuStrip2";
             this.Komputer_info.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.Komputer_info.ShowImageMargin = false;
-            this.Komputer_info.Size = new System.Drawing.Size(164, 312);
+            this.Komputer_info.Size = new System.Drawing.Size(164, 378);
             // 
             // uptimeToolStripMenuItem
             // 
@@ -713,6 +718,13 @@
             this.zasobySiecioweToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.zasobySiecioweToolStripMenuItem.Text = "Zasoby sieciowe";
             this.zasobySiecioweToolStripMenuItem.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
+            // 
+            // ekranyPodłączoneToolStripMenuItem
+            // 
+            this.ekranyPodłączoneToolStripMenuItem.Name = "ekranyPodłączoneToolStripMenuItem";
+            this.ekranyPodłączoneToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.ekranyPodłączoneToolStripMenuItem.Text = "Ekrany podłączone";
+            this.ekranyPodłączoneToolStripMenuItem.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
             // button11
             // 
@@ -817,21 +829,22 @@
             // 
             // richTextBox1
             // 
-            this.richTextBox1.AutoWordSelection = true;
-            this.richTextBox1.ContextMenuStrip = this.contextMenuStrip1;
-            this.richTextBox1.DetectUrls = false;
-            this.richTextBox1.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.richTextBox1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.richTextBox1.Location = new System.Drawing.Point(6, 218);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.richTextBox1.ShortcutsEnabled = false;
-            this.richTextBox1.Size = new System.Drawing.Size(1183, 230);
-            this.richTextBox1.TabIndex = 12;
-            this.richTextBox1.Text = "";
-            this.richTextBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RichTextBox1_KeyDown);
-            this.richTextBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.RichMouseDown);
-            this.richTextBox1.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Keys_PreviewKeyDown);
+            richTextBox1.AutoWordSelection = true;
+            richTextBox1.ContextMenuStrip = this.contextMenuStrip1;
+            richTextBox1.DetectUrls = false;
+            richTextBox1.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            richTextBox1.HideSelection = false;
+            richTextBox1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            richTextBox1.Location = new System.Drawing.Point(6, 218);
+            richTextBox1.Name = "richTextBox1";
+            richTextBox1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            richTextBox1.ShortcutsEnabled = false;
+            richTextBox1.Size = new System.Drawing.Size(1183, 230);
+            richTextBox1.TabIndex = 12;
+            richTextBox1.Text = "";
+            richTextBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RichTextBox1_KeyDown);
+            richTextBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.RichMouseDown);
+            richTextBox1.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Keys_PreviewKeyDown);
             // 
             // komputerInfo
             // 
@@ -901,7 +914,8 @@
             this.użytkownicyIGrupyLokalneToolStripMenuItem,
             this.dHCPToolStripMenuItem,
             this.lockoutStatusToolStripMenuItem,
-            this.terminalExplorerToolStripMenuItem});
+            this.terminalExplorerToolStripMenuItem,
+            this.PwdLclToolStripMenuItem});
             this.narzędziaAdministracyjneToolStripMenuItem.Name = "narzędziaAdministracyjneToolStripMenuItem";
             this.narzędziaAdministracyjneToolStripMenuItem.Size = new System.Drawing.Size(157, 20);
             this.narzędziaAdministracyjneToolStripMenuItem.Text = "Narzędzia administracyjne";
@@ -959,7 +973,7 @@
             this.tRToolStripMenuItem,
             this.ręcznaNazwaToolStripMenuItem});
             this.terminalExplorerToolStripMenuItem.Name = "terminalExplorerToolStripMenuItem";
-            this.terminalExplorerToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
+            this.terminalExplorerToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
             this.terminalExplorerToolStripMenuItem.Text = "Terminal Explorer";
             // 
             // tCToolStripMenuItem
@@ -1171,6 +1185,13 @@
             this.ręcznaNazwaToolStripMenuItem.Text = "Ręczna nazwa";
             this.ręcznaNazwaToolStripMenuItem.Click += new System.EventHandler(this.szukanieSesjiCustom);
             // 
+            // PwdLclToolStripMenuItem
+            // 
+            this.PwdLclToolStripMenuItem.Name = "PwdLclToolStripMenuItem";
+            this.PwdLclToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
+            this.PwdLclToolStripMenuItem.Text = "Hasło do "+Working[14].Remove(9);
+            this.PwdLclToolStripMenuItem.Click += new System.EventHandler(this.PwdLclToolStripMenuItem_Click);
+            // 
             // ladujLogiWTle
             // 
             this.ladujLogiWTle.DoWork += new System.ComponentModel.DoWorkEventHandler(this.ladujLogiWTle_DoWork);
@@ -1180,13 +1201,19 @@
             this.AutoGettingLogs.Interval = 3600000;
             this.AutoGettingLogs.Tick += new System.EventHandler(this.AutoGettingLogs_Tick);
             // 
+            // bIOSToolStripMenuItem
+            // 
+            this.bIOSToolStripMenuItem.Name = "bIOSToolStripMenuItem";
+            this.bIOSToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.bIOSToolStripMenuItem.Text = "BIOS";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1194, 486);
             this.Controls.Add(this.statusBar1);
-            this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(richTextBox1);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox1);
@@ -1196,7 +1223,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(1202, 511);
             this.Name = "Form1";
-            this.Text = "Puzzel v0.82";
+            this.Text = "Puzzel v0.84";
             this.Resize += new System.EventHandler(this.Form1_Resize);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -1255,7 +1282,6 @@
         public System.Windows.Forms.TextBox textBox1;
         public System.Windows.Forms.NumericUpDown numericUpDown2;
         public System.Windows.Forms.TextBox textBox2;
-        public System.Windows.Forms.RichTextBox richTextBox1;
         private System.ComponentModel.BackgroundWorker komputerInfo;
         private System.ComponentModel.BackgroundWorker programList;
         private System.Windows.Forms.Timer timer1;
@@ -1335,6 +1361,10 @@
         private System.Windows.Forms.ContextMenuStrip RemoteDesktopContextMenu;
         private System.Windows.Forms.ToolStripMenuItem rDPBezPustyContextMenu;
         private System.Windows.Forms.ToolStripMenuItem wyszukajMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem PwdLclToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ekranyPodłączoneToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem bIOSToolStripMenuItem;
+        public static System.Windows.Forms.RichTextBox richTextBox1;
     }
 }
 

@@ -23,50 +23,43 @@ namespace Puzzel
         string ostatniouzywanawartosc = null;
 
         private void buttons_Click(object sender, EventArgs e)
-        {if (sender is Button)
+        {
+            string SearchWord = textBox1.Text;
+            int SelectionStart = 0;
+            if (sender is Button)
             {
                 if (Wyszukiwarka.SelectedTab == tabPage1)
                 {
-                    if (((Button)sender) == button1)
-                        Form1.statusOkna = 1;
-                
+                    if (((Button)sender) == button1 | ((Button)sender) == button4)
+                    {
+                        if (Form1.richTextBox1.SelectionStart > 1)
+                            SelectionStart = Form1.richTextBox1.Text.IndexOf(SearchWord, Form1.richTextBox1.SelectionStart + SearchWord.Length, StringComparison.CurrentCultureIgnoreCase);
+                        else SelectionStart = Form1.richTextBox1.Text.IndexOf(SearchWord, Form1.richTextBox1.SelectionStart, StringComparison.CurrentCultureIgnoreCase);
+                    }
+
                     if (((Button)sender) == button3)
-                        Form1.statusOkna = 2;
-
-                    if (((Button)sender) == button4)
-                        Form1.statusOkna = 3;
-                    stringdopracy = textBox1.Text;
-                }
-
-                if (Wyszukiwarka.SelectedTab == tabPage2)
-                {
-                    if (((Button)sender) == button2)
-                        Form1.statusOkna = 4;
-                    stringdopracy = textBox2.Text;
-                    stringdopracy += ";" + textBox3.Text;
+                        SelectionStart = Form1.richTextBox1.Find(SearchWord, 0, Form1.richTextBox1.SelectionStart, RichTextBoxFinds.Reverse);
                 }
             }
-        if (sender is TextBox)
-            { 
-                if (((TextBox)sender) == textBox1)
-                    Form1.statusOkna = 1;
-            }
-            Close();
-        }
-        string stringdopracy = null;
-        public string GetValue()
-        {
-            return stringdopracy;
-        }
 
-        public string GetDialogResult()
-        {
-            return "OK";
+            if (sender is TextBox)
+            {
+                if (Form1.richTextBox1.SelectionStart > 1)
+                    SelectionStart = Form1.richTextBox1.Text.IndexOf(SearchWord, Form1.richTextBox1.SelectionStart + SearchWord.Length, StringComparison.CurrentCultureIgnoreCase);
+                else SelectionStart = Form1.richTextBox1.Text.IndexOf(SearchWord, Form1.richTextBox1.SelectionStart, StringComparison.CurrentCultureIgnoreCase);
+            }
+            if (SelectionStart != -1)
+                Form1.richTextBox1.SelectionStart = SelectionStart;
+            else
+                MessageBox.Show("Nie znaleziono wartości: " + SearchWord);
+            Form1.richTextBox1.SelectionLength = SearchWord.Length;   
         }
 
         private void WyszukiwarkaDlaFormy_Load(object sender, EventArgs e)
         {
             textBox1.Text = ostatniouzywanawartosc;
+            button3.Location = new Point(9, 54);
+            button4.Location = new Point(167, 54);
         }
 
         private void TextBox1_KeyDown(object sender, KeyEventArgs e)
@@ -78,6 +71,22 @@ namespace Puzzel
         private void Wyszukiwarka_Click(object sender, EventArgs e)
         {
             this.Text = Wyszukiwarka.SelectedTab.Text;
+        }
+
+        private void CheckBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked)
+            {
+                button3.Visible = true;
+                button4.Visible = true;
+                button1.Visible = false;
+            }
+            else
+            {
+                button3.Visible = false;
+                button4.Visible = false;
+                button1.Visible = true;
+            }
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Puzzel
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
         }
-        public static AutoCompleteStringCollection ComputerCollection = new AutoCompleteStringCollection();
-        public static AutoCompleteStringCollection UserCollection = new AutoCompleteStringCollection();
+       // public static AutoCompleteStringCollection ComputerCollection = new AutoCompleteStringCollection();
+       // public static AutoCompleteStringCollection UserCollection = new AutoCompleteStringCollection();
     }
 }

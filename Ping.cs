@@ -6,28 +6,18 @@ namespace Puzzel
 {
     public static class Ping
     {
-        public static void Pinging(string hostname)
-        {
+        public static IPStatus Pinging(string hostname)
+        { IPStatus iPStatus;
             try
             {
                 PingReply reply = new System.Net.NetworkInformation.Ping().Send(hostname, 120, Encoding.ASCII.GetBytes("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"), new PingOptions(64, true));
-
-                if (reply.Status == IPStatus.Success)
-                {
-                    Puzzel.Form1.PingStatus = 0;
-                }
-                else
-                {
-                    Puzzel.Form1.PingStatus = 1;
-                }
+                iPStatus = reply.Status;
             }
-
             catch (Exception)
             {
-                Puzzel.Form1.PingStatus = 1;
-                //if (ex is SocketException || ex is PingException)
-                //ReplaceRichTextBox("niewidoczny na sieci lub inny błąd");
+                iPStatus = IPStatus.Unknown;
             }
+            return iPStatus;
         }
     }
 }

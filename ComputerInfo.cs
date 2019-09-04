@@ -26,6 +26,8 @@ namespace Puzzel
         public static string queryEnvironment = "Win32_Environment";
         public static string queryNetworkConnection = "Win32_NetworkConnection";
         public static string queryNetworkAdapterConfiguration = "Win32_NetworkAdapterConfiguration";
+        public static string queryBios = "Win32_BIOS";
+        public static string queryDesktopMonitor = "Win32_DesktopMonitor";
 
         public void GetInfo(string nazwaKomputera, string path, string query, params object[] args)
         {
@@ -340,6 +342,58 @@ namespace Puzzel
                                         }
                                         Puzzel.Form1.ComputerInfo_TEMP += ("\n");
                                     }
+
+                                    //bios
+                                    //args0 = manufacturer
+                                    //args1 = biosversion
+                                    //args2 = smbiobiosversion
+                                    //args3 = releasedate
+                                    if (query == queryBios)
+                                    {
+                                        string manufacturer = null;
+                                        string biosVersion = null;
+                                        string smbiosVersion = null;
+                                        string releaseDate = null;
+
+                                        if (m[args[0].ToString()] != null)
+                                        {
+                                            manufacturer = m[args[0].ToString()].ToString();
+                                            Puzzel.Form1.ComputerInfo_TEMP += (manufacturer);
+                                            int a = 15 - manufacturer.Length;
+                                            for (int i = 0; i < a; i++)
+                                            {
+                                                Puzzel.Form1.ComputerInfo_TEMP += (" ");
+                                            }
+                                        }
+
+                                        if (m[args[1].ToString()] != null)
+                                        {
+                                            biosVersion = m[args[0].ToString()].ToString();
+                                            Puzzel.Form1.ComputerInfo_TEMP += (biosVersion);
+                                            int a = 20 - biosVersion.Length;
+                                            for (int i = 0; i < a; i++)
+                                            {
+                                                Puzzel.Form1.ComputerInfo_TEMP += (" ");
+                                            }
+                                        }
+
+                                        if (m[args[2].ToString()] != null)
+                                        {
+                                            smbiosVersion = m[args[0].ToString()].ToString();
+                                            Puzzel.Form1.ComputerInfo_TEMP += (smbiosVersion);
+                                            int a = 12 - smbiosVersion.Length;
+                                            for (int i = 0; i < a; i++)
+                                            {
+                                                Puzzel.Form1.ComputerInfo_TEMP += (" ");
+                                            }
+                                        }
+
+                                        if (m[args[3].ToString()] != null)
+                                        {
+                                            releaseDate = m[args[0].ToString()].ToString();
+                                            Puzzel.Form1.ComputerInfo_TEMP += (releaseDate);
+                                        }
+                                    }
                                     break;
                                 }
                             case 5:
@@ -441,6 +495,65 @@ namespace Puzzel
                                         else { size = "-"; Puzzel.Form1.ComputerInfo_TEMP += (size); }
 
                                         Puzzel.Form1.ComputerInfo_TEMP += ("\n");
+                                    }
+
+                                    if (query == queryDesktop)
+                                    {
+                                        string caption = null;
+                                        string deviceID = null;
+                                        string screenHeight = null;
+                                        string screenWidth = null;
+                                        string status = null;
+
+                                        if (m[args[0].ToString()] != null)
+                                        {
+                                            caption = m[args[0].ToString()].ToString();
+                                            Puzzel.Form1.ComputerInfo_TEMP += (caption);
+                                            int a = 25 - caption.Length;
+                                            for (int i = 0; i < a; i++)
+                                            {
+                                                Puzzel.Form1.ComputerInfo_TEMP += (" ");
+                                            }
+                                        }
+
+                                        if (m[args[1].ToString()] != null)
+                                        {
+                                            deviceID = m[args[0].ToString()].ToString();
+                                            Puzzel.Form1.ComputerInfo_TEMP += (deviceID);
+                                            int a = 25 - deviceID.Length;
+                                            for (int i = 0; i < a; i++)
+                                            {
+                                                Puzzel.Form1.ComputerInfo_TEMP += (" ");
+                                            }
+                                        }
+
+                                        if (m[args[2].ToString()] != null)
+                                        {
+                                            screenHeight = m[args[0].ToString()].ToString();
+                                            Puzzel.Form1.ComputerInfo_TEMP += (screenHeight);
+                                            int a = 6 - screenHeight.Length;
+                                            for (int i = 0; i < a; i++)
+                                            {
+                                                Puzzel.Form1.ComputerInfo_TEMP += (" ");
+                                            }
+                                        }
+
+                                        if (m[args[3].ToString()] != null)
+                                        {
+                                            screenWidth = m[args[0].ToString()].ToString();
+                                            Puzzel.Form1.ComputerInfo_TEMP += (screenWidth);
+                                            int a = 6 - screenWidth.Length;
+                                            for (int i = 0; i < a; i++)
+                                            {
+                                                Puzzel.Form1.ComputerInfo_TEMP += (" ");
+                                            }
+                                        }
+
+                                        if (m[args[4].ToString()] != null)
+                                        {
+                                            status = m[args[0].ToString()].ToString();
+                                            Puzzel.Form1.ComputerInfo_TEMP += (status);
+                                        }
                                     }
                                     break;
                                 }

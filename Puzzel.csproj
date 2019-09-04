@@ -91,6 +91,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LAPSui.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LAPSui.Designer.cs">
+      <DependentUpon>LAPSui.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Logi.cs" />
     <Compile Include="terminalexplorerCustomSearch.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -104,6 +111,9 @@
     <Compile Include="WyszukiwarkaDlaFormy.Designer.cs">
       <DependentUpon>WyszukiwarkaDlaFormy.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="LAPSui.resx">
+      <DependentUpon>LAPSui.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="WyszukiwarkaDlaFormy.resx">
       <DependentUpon>WyszukiwarkaDlaFormy.cs</DependentUpon>
     </EmbeddedResource>
@@ -131,7 +141,7 @@
     <Compile Include="Lockout Status.Designer.cs">
       <DependentUpon>Lockout Status.cs</DependentUpon>
     </Compile>
-    <Compile Include="Logi.cs" />
+    <None Include="DropDownMenu.cs" />
     <Compile Include="ProcExec.cs" />
     <Compile Include="ProgramsList.cs" />
     <Compile Include="ComputerInfo.cs" />

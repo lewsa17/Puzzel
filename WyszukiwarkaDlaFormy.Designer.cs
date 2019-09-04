@@ -42,6 +42,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.textBox2 = new System.Windows.Forms.TextBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.Wyszukiwarka.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -111,6 +112,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.checkBox1);
             this.tabPage1.Controls.Add(this.textBox1);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.button4);
@@ -181,6 +183,19 @@
             this.textBox2.Size = new System.Drawing.Size(318, 20);
             this.textBox2.TabIndex = 0;
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.checkBox1.Location = new System.Drawing.Point(176, 6);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(145, 17);
+            this.checkBox1.TabIndex = 5;
+            this.checkBox1.Text = "Szukanie dwukierunkowe";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.CheckBox1_CheckedChanged);
+            // 
             // WyszukiwarkaDlaFormy
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -221,5 +236,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBox3;
         public System.Windows.Forms.Button button1;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }

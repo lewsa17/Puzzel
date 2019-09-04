@@ -26,6 +26,29 @@ namespace Puzzel
         }
         public string _hostname = null;
         public string _username = null;
+        
+		string[] Working = File.ReadAllLines("DefaultValue.txt);
+		string[] termservers = Working[6].Remove(7).Splt(',');
+        public string[] FindSession(string serverName, string SearchedLogin)
+        {
+            string[] sessioninfo = new string[2];
+            using (ITerminalServer server = manager.GetRemoteServer(serverName))
+            {
+                server.Open(); 
+                foreach (ITerminalServicesSession session in server.GetSessions())
+                {
+                    if (session.UserName == SearchedLogin)
+                    {
+                        sessioninfo.SetValue(session.SessionId.ToString(), 0);
+                        sessioninfo.SetValue(session.Server.ServerName, 1);
+                    }
+                }
+                server.Close();
+                server.Dispose();
+            }
+            return sessioninfo;
+        }
+
         public void szukanieSesji(string hostname)
         {
             _hostname = hostname;
@@ -38,7 +61,7 @@ namespace Puzzel
                 IList<ITerminalServicesSession> sessions;
                 sessions = server.GetSessions();
                 foreach (ITerminalServicesSession session in sessions)
-                {
+                { 
                     if (session.UserAccount != null)
                         dataGridView1.BeginInvoke(new Action(() =>
                         dataGridView1.Rows.Add(
@@ -215,6 +238,19 @@ namespace Puzzel
             //(Label)label.ToString().Text = "Lista procesów: " + dataGridView.Rows.Count;
            // dynaProcessTab(server, session, selectedSessionID);
         }
+
+        public void LogoffSession(string hostname, int sessionID)
+        {
+           using (ITerminalServer server = manager.GetRemoteServer(hostname))
+           {
+                server.Open();
+                ITerminalServicesSession session = server.GetSession(sessionID);
+                session.Logoff();
+                server.Close();
+                MessageBox.Show(new Form() { TopMost = true }, "Sesja została rozłączona", "Rozłączanie sesji", MessageBoxButtons.OK, MessageBoxIcon.Information);
+           }
+        }
+
         private void ContextMenus(object sender, EventArgs e)
         {
             int selectedSessionID = 0;
