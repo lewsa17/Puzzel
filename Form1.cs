@@ -485,12 +485,39 @@ namespace Puzzel
             stopTime();
         }
 
-        private void button15_Click(object sender, EventArgs e)
+        private void DWButton_Click(object sender, EventArgs e)
         {
             startTime();
             if (File.Exists(Working[9].Remove(13)))
             {
-                ProcExec Exec = new ProcExec(Working[9].Remove(13), "-m:" + HostName() + " -x -a:1");
+            	if (sender is Button)
+            	{
+                	ProcExec Exec = new ProcExec(Working[9].Remove(13), "-m:" + HostName() + " -x -a:1");
+				}
+				else
+				{
+					string login = null
+					string pwd = null;
+					if (sender is ToolStripMenuItem)
+					{
+						if (((ToolStripMenuItem)sender).Text.Contains(Working[14].Remove(9)))
+                        {
+                            LAPSui lAPSui = new LAPSui();
+                            login = Working[14].Remove(9);
+                            pwd = lAPSui.PwdLcl(HostName());
+                        }
+                        else
+                        {
+                            login = Working[15].Remove(9);
+                            pwd = Working[17];
+                        }
+                        if (pwd.Length > 1)
+                        {
+                            ProcExec Exec = new ProcExec(Working[9].Remove(13), "-m:" + HostName() + " -x -a:2 -u:" + login + " -p:" + pwd + " -d:");
+                        }
+                        else MessageBox.Show("Brak hasła");
+                    }
+                }
             }
             else
             {
@@ -834,6 +861,13 @@ namespace Puzzel
             ProgressBarValue = 19;
             ComputerInfo_TEMP += ("Nazwa zmiennej           Wartość zmiennej\n");
             computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryEnvironment, "Name", "VariableValue");
+            ComputerInfo_TEMP += ("----------------------------------------\n");
+            ComputerInfo_TEMP += ("Podłączone ekrany\n");
+            computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryDesktopMonitor, "Caption", "DeviceID", "ScreenHeight", "ScreenWidth", "Status");
+            ComputerInfo_TEMP += ("----------------------------------------\n");
+            ComputerInfo_TEMP += ("BIOS\n");
+            computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryBios, "Manufacturer", "BIOSVersion", "SMBIOSBIOSVersion", "ReleaseDate");
+        
             ReplaceRichTextBox(ComputerInfo_TEMP);
             ComputerInfo_TEMP = null;
             stopTime();
@@ -1726,19 +1760,19 @@ namespace Puzzel
             stopTime();
         }
 
-        string PwdLcl(string computername)
-        {
-            DirectoryEntry myLdapConnection = new DirectoryEntry("LDAP://" + domainName());
-            DirectorySearcher search = new DirectorySearcher(myLdapConnection);
-            search.Filter = "(cn=" + computername + ")";
-
-            //SearchResult result = search.FindOne();
-            string text;
-            if (search.FindOne().GetDirectoryEntry().Properties[Working[13].Remove(4)].Value == null)
-                text = "";
-            else text = search.FindOne().GetDirectoryEntry().Properties[Working[13].Remove(4)].Value.ToString();
-            return text;
-        }
+        //string PwdLcl(string computername)
+        //{
+        //    DirectoryEntry myLdapConnection = new DirectoryEntry("LDAP://" + domainName());
+        //    DirectorySearcher search = new DirectorySearcher(myLdapConnection);
+        //    search.Filter = "(cn=" + computername + ")";
+		//
+        //    //SearchResult result = search.FindOne();
+        //    string text;
+        //    if (search.FindOne().GetDirectoryEntry().Properties[Working[13].Remove(4)].Value == null)
+        //        text = "";
+        //    else text = search.FindOne().GetDirectoryEntry().Properties[Working[13].Remove(4)].Value.ToString();
+        //    return text;
+        // }
 
         string DomainController()
         {
@@ -1756,36 +1790,35 @@ namespace Puzzel
             }
             return table;
         }
-
-        private void DyDWContextMenu_Click(object sender, EventArgs e)
-        {
-            startTime();
-            string login = null;
-            string pwd = null;
-            
-            if (((ToolStripMenuItem)sender).Text.Contains(Working[14].Remove(9)))
-            {
-            	login = Working[14].Remove(9);
-            	pwd = PwdLcl(HostName());
-            }
-            else
-            {
-            	login = Working[15].Remove(9);
-            	pwd = Working[17];
-            }
-            if (pwd.Length > 1)
-	            if (File.Exists(Working[9].Remove(13)))
-	            {
-	                ProcExec Exec = new ProcExec(Working[9].Remove(13), "-m:" + HostName() + " -x -a:2 "+"-u:"+login+" -p:"+ pwd + " -d:");
-	            }
-	            else
-	            {
-	                UpdateRichTextBox("Nie można odnaleźć określonego pliku\n");
-	                UpdateRichTextBox(Working[9].Remove(13));
-	            }
-	        else MessageBox.Show("Brak hasła");
-            stopTime();
-        }
+        //private void DyDWContextMenu_Click(object sender, EventArgs e)
+        //{
+        //    startTime();
+        //    string login = null;
+        //    string pwd = null;
+        //    
+        //    if (((ToolStripMenuItem)sender).Text.Contains(Working[14].Remove(9)))
+        //    {
+        //    	login = Working[14].Remove(9);
+        //    	pwd = PwdLcl(HostName());
+        //    }
+        //    else
+        //    {
+        //    	login = Working[15].Remove(9);
+        //    	pwd = Working[17];
+        //    }
+        //    if (pwd.Length > 1)
+	    //        if (File.Exists(Working[9].Remove(13)))
+	    //        {
+	    //            ProcExec Exec = new ProcExec(Working[9].Remove(13), "-m:" + HostName() + " -x -a:2 "+"-u:"+login+" -p:"+ pwd + " -d:");
+	    //        }
+	    //        else
+	    //        {
+	    //            UpdateRichTextBox("Nie można odnaleźć określonego pliku\n");
+	    //            UpdateRichTextBox(Working[9].Remove(13));
+	    //        }
+	    //    else MessageBox.Show("Brak hasła");
+        //    stopTime();
+        //}
 
         private void rDPBezPustyContextMenu_Click(object sender, EventArgs e)
         {
@@ -1796,10 +1829,14 @@ namespace Puzzel
 
         private void Keys_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter && !(sender is RichTextBox))
+            if (e.KeyCode == Keys.Enter)
             {
-                szukajLogow(sender, e);
+                if (sender is TextBox)
+                {
+                    szukajLogow(sender, e);
+                }
             }
+
 
             if (e.Control && e.KeyCode == Keys.C)
             {
@@ -1975,37 +2012,37 @@ namespace Puzzel
 
         private void RichMouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right)
-            {
-                if (sender is RichTextBox)
-                {
-                    contextMenuStrip1.Visible = true;
-                    kopiujMenuItem.Visible = true;
-                    zaznaczWszystkoMenuItem.Visible = true;
-                    wklejMenuItem.Visible = true;
-                    wytnijMenuItem.Visible = true;
-                    wyszukajMenuItem.Visible = true;
-                }
-                else
-                if (sender is ComboBox || sender is NumericUpDown)
-                {
-                    kopiujMenuItem.Visible = false;
-                    zaznaczWszystkoMenuItem.Visible = false;
-                    wklejMenuItem.Visible = false;
-                    wytnijMenuItem.Visible = false;
-                    contextMenuStrip1.Visible = false;
-                    wyszukajMenuItem.Visible = false;
-                }
-                else
-                {
-                    contextMenuStrip1.Visible = true;
-                    kopiujMenuItem.Visible = true;
-                    zaznaczWszystkoMenuItem.Visible = true;
-                    wklejMenuItem.Visible = true;
-                    wytnijMenuItem.Visible = true;
-                    wyszukajMenuItem.Visible = false;
-                }
-            }
+            //if (e.Button == MouseButtons.Right)
+            //{
+            //    if (sender is RichTextBox)
+            //    {
+            //        ContextMenuRich.Visible = true;
+            //        kopiujMenuItem.Visible = true;
+            //        zaznaczWszystkoMenuItem.Visible = true;
+            //        wklejMenuItem.Visible = true;
+            //        wytnijMenuItem.Visible = true;
+            //        wyszukajMenuItem.Visible = true;
+            //    }
+            //    else
+            //    if (sender is ComboBox || sender is NumericUpDown)
+            //    {
+            //        kopiujMenuItem.Visible = false;
+            //        zaznaczWszystkoMenuItem.Visible = false;
+            //        wklejMenuItem.Visible = false;
+            //        wytnijMenuItem.Visible = false;
+            //        ContextMenuRich.Visible = false;
+            //        wyszukajMenuItem.Visible = false;
+            //    }
+            //    else
+            //    {
+            //        ContextMenuRich.Visible = true;
+            //        kopiujMenuItem.Visible = true;
+            //        zaznaczWszystkoMenuItem.Visible = true;
+            //        wklejMenuItem.Visible = true;
+            //        wytnijMenuItem.Visible = true;
+            //        wyszukajMenuItem.Visible = false;
+            //    }
+            //}
         }
         public static int IDrtb = 0;
         public static int statusOkna = 0;
@@ -2057,20 +2094,20 @@ namespace Puzzel
         {
             wyszukiwanieDanych();
         }
-        private void RichTextBox1_KeyDown(object sender, KeyEventArgs e)
-        {
+        //private void RichTextBox1_KeyDown(object sender, KeyEventArgs e)
+        //{
 
-            if (e.Control && e.KeyCode == Keys.F)
-            {
-                    wyszukiwanieDanych();
-            }
-            /*
-            if (e.Control && e.KeyCode == Keys.Z)
-                richTextBox1.Undo();
+        //    if (e.Control && e.KeyCode == Keys.F)
+        //    {
+        //            wyszukiwanieDanych();
+        //    }
+        //    /*
+        //    if (e.Control && e.KeyCode == Keys.Z)
+        //        richTextBox1.Undo();
 
-            if (e.Control && e.KeyCode == Keys.Y)
-                richTextBox1.Redo(); */
-        }
+        //    if (e.Control && e.KeyCode == Keys.Y)
+        //        richTextBox1.Redo(); */
+        //}
         private void PwdLclToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (HostName().Length > 1)

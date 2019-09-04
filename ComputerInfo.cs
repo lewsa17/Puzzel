@@ -351,7 +351,7 @@ namespace Puzzel
                                     if (query == queryBios)
                                     {
                                         string manufacturer = null;
-                                        string biosVersion = null;
+                                        string[] biosVersion = null;
                                         string smbiosVersion = null;
                                         string releaseDate = null;
 
@@ -359,7 +359,7 @@ namespace Puzzel
                                         {
                                             manufacturer = m[args[0].ToString()].ToString();
                                             Puzzel.Form1.ComputerInfo_TEMP += (manufacturer);
-                                            int a = 15 - manufacturer.Length;
+                                            int a = 17 - manufacturer.Length;
                                             for (int i = 0; i < a; i++)
                                             {
                                                 Puzzel.Form1.ComputerInfo_TEMP += (" ");
@@ -368,9 +368,9 @@ namespace Puzzel
 
                                         if (m[args[1].ToString()] != null)
                                         {
-                                            biosVersion = m[args[0].ToString()].ToString();
-                                            Puzzel.Form1.ComputerInfo_TEMP += (biosVersion);
-                                            int a = 20 - biosVersion.Length;
+                                            biosVersion = ((string[])m[args[1].ToString()]);
+                                            Puzzel.Form1.ComputerInfo_TEMP += (biosVersion[0]);
+                                            int a = 20 - biosVersion[0].Length;
                                             for (int i = 0; i < a; i++)
                                             {
                                                 Puzzel.Form1.ComputerInfo_TEMP += (" ");
@@ -379,7 +379,7 @@ namespace Puzzel
 
                                         if (m[args[2].ToString()] != null)
                                         {
-                                            smbiosVersion = m[args[0].ToString()].ToString();
+                                            smbiosVersion = m[args[2].ToString()].ToString();
                                             Puzzel.Form1.ComputerInfo_TEMP += (smbiosVersion);
                                             int a = 12 - smbiosVersion.Length;
                                             for (int i = 0; i < a; i++)
@@ -390,7 +390,7 @@ namespace Puzzel
 
                                         if (m[args[3].ToString()] != null)
                                         {
-                                            releaseDate = m[args[0].ToString()].ToString();
+                                            releaseDate = m[args[3].ToString()].ToString();
                                             Puzzel.Form1.ComputerInfo_TEMP += (releaseDate);
                                         }
                                     }
@@ -496,15 +496,18 @@ namespace Puzzel
 
                                         Puzzel.Form1.ComputerInfo_TEMP += ("\n");
                                     }
-
-                                    if (query == queryDesktop)
+                                    //args[0] = Caption
+                                    //args[1] = DeviceID
+                                    //args[2] = ScreenHeight
+                                    //args[3] = ScreenWidth
+                                    //args[4] = Status
+                                    if (query == queryDesktopMonitor)
                                     {
                                         string caption = null;
                                         string deviceID = null;
                                         string screenHeight = null;
                                         string screenWidth = null;
                                         string status = null;
-
                                         if (m[args[0].ToString()] != null)
                                         {
                                             caption = m[args[0].ToString()].ToString();
@@ -518,7 +521,7 @@ namespace Puzzel
 
                                         if (m[args[1].ToString()] != null)
                                         {
-                                            deviceID = m[args[0].ToString()].ToString();
+                                            deviceID = m[args[1].ToString()].ToString();
                                             Puzzel.Form1.ComputerInfo_TEMP += (deviceID);
                                             int a = 25 - deviceID.Length;
                                             for (int i = 0; i < a; i++)
@@ -529,7 +532,7 @@ namespace Puzzel
 
                                         if (m[args[2].ToString()] != null)
                                         {
-                                            screenHeight = m[args[0].ToString()].ToString();
+                                            screenHeight = m[args[2].ToString()].ToString();
                                             Puzzel.Form1.ComputerInfo_TEMP += (screenHeight);
                                             int a = 6 - screenHeight.Length;
                                             for (int i = 0; i < a; i++)
@@ -540,7 +543,7 @@ namespace Puzzel
 
                                         if (m[args[3].ToString()] != null)
                                         {
-                                            screenWidth = m[args[0].ToString()].ToString();
+                                            screenWidth = m[args[3].ToString()].ToString();
                                             Puzzel.Form1.ComputerInfo_TEMP += (screenWidth);
                                             int a = 6 - screenWidth.Length;
                                             for (int i = 0; i < a; i++)
@@ -551,10 +554,11 @@ namespace Puzzel
 
                                         if (m[args[4].ToString()] != null)
                                         {
-                                            status = m[args[0].ToString()].ToString();
+                                            status = m[args[4].ToString()].ToString();
                                             Puzzel.Form1.ComputerInfo_TEMP += (status);
                                         }
                                     }
+                                    Puzzel.Form1.ComputerInfo_TEMP += "\n";
                                     break;
                                 }
                             case 6:
