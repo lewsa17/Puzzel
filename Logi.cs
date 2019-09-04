@@ -37,19 +37,39 @@ namespace Puzzel
             decimal a = licznik;
             string[] word;
             string[] words;
+            string[] lastWords;
             word = LogCompLogs[1].Split(';');
+            LastSearchedLogin = Nazwauzytkownika(word[2]);
             sb.Append(string.Format("{0,-13}{1,-16}{2,-30}{3,-12}{4,-28}{5,-10}", "LOGOWANIE", "KOMPUTER", "NAZWA", "UŻYTKOWNIK", "DATA", "WERSJA SYSTEMU" + "\n"));
             if (a < maxLines)
                 for (int i = 0; i < a; i++)
                 {
                     words = LogCompLogs[i].Split(';');
-                    sb.Append(string.Format("{0,-13}{1,-17}{2,-30}{3,-11}{4,-28}{5,-10}", " " + words[0], words[1], Nazwauzytkownika(words[2]), words[2].Replace(" ", ""), words[3], words[word.Count() - 2]) + "\n");
+                    if (i == 0)
+                        sb.Append(string.Format("{0,-13}{1,-17}{2,-30}{3,-11}{4,-28}{5,-10}", " " + words[0], words[1], Nazwauzytkownika(words[2]), words[2].Replace(" ", ""), words[3], words[word.Count() - 2]) + "\n");
+                    else
+                    {
+                        lastWords = LogCompLogs[i - 1].Split(';');
+                        if (words[2] == lastWords[2])
+                            sb.Append(string.Format("{0,-13}{1,-17}{2,-30}{3,-11}{4,-28}{5,-10}", " " + words[0], words[1], LastSearchedLogin, words[2].Replace(" ", ""), words[3], words[word.Count() - 2]) + "\n");
+                        else
+                            sb.Append(string.Format("{0,-13}{1,-17}{2,-30}{3,-11}{4,-28}{5,-10}", " " + words[0], words[1], Nazwauzytkownika(words[2]), words[2].Replace(" ", ""), words[3], words[word.Count() - 2]) + "\n");
+                    }
                 }
             else
                 for (int i = 0; i < maxLines; i++)
                 {
                     words = LogCompLogs[i].Split(';');
-                    sb.Append(string.Format("{0,-13}{1,-17}{2,-30}{3,-11}{4,-28}{5,-10}", words[0], words[1], Nazwauzytkownika(words[2]), words[2].Replace(" ", ""), words[3], words[word.Count() - 2]) + "\n");
+                    if (i == 0)
+                        sb.Append(string.Format("{0,-13}{1,-17}{2,-30}{3,-11}{4,-28}{5,-10}", " " + words[0], words[1], Nazwauzytkownika(words[2]), words[2].Replace(" ", ""), words[3], words[word.Count() - 2]) + "\n");
+                    else
+                    {
+                        lastWords = LogCompLogs[i - 1].Split(';');
+                        if (words[2] == lastWords[2])
+                            sb.Append(string.Format("{0,-13}{1,-17}{2,-30}{3,-11}{4,-28}{5,-10}", " " + words[0], words[1], LastSearchedLogin, words[2].Replace(" ", ""), words[3], words[word.Count() - 2]) + "\n");
+                        else
+                            sb.Append(string.Format("{0,-13}{1,-17}{2,-30}{3,-11}{4,-28}{5,-10}", " " + words[0], words[1], Nazwauzytkownika(words[2]), words[2].Replace(" ", ""), words[3], words[word.Count() - 2]) + "\n");
+                    }
                 }
             return sb.ToString();
         }

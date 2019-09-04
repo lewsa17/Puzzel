@@ -69,24 +69,24 @@ namespace Puzzel
         public static int ProgressBarValue = 0;
         //public static string[] UserLogs;
         //public static string[] ComputerLogs;
-        string[] domainControllerName = { };
-        public void getDomainControllers()
-        {
-            domainControllerName = DomainController().Split(',');
-        }
+        //string[] domainControllerName = { };
+        //public void getDomainControllers()
+        //{
+        //    domainControllerName = DomainController().Split(',');
+        //}
 
-        public static string domainController2;
-        string[] domainController = new string[4];
-        int licznik_dla_controlera = 0;
-        void DomainControllersa(object sender, DataReceivedEventArgs e)
-        {
-            Trace.WriteLine(e.Data);
-            this.BeginInvoke(new MethodInvoker(() =>
-            {
-                domainController[licznik_dla_controlera] += (e.Data) ?? string.Empty;
-            }));
-            licznik_dla_controlera++;
-        }
+        //public static string domainController2;
+        //string[] domainController = new string[4];
+        //int licznik_dla_controlera = 0;
+        //void DomainControllersa(object sender, DataReceivedEventArgs e)
+        //{
+        //    Trace.WriteLine(e.Data);
+        //    this.BeginInvoke(new MethodInvoker(() =>
+        //    {
+        //        domainController[licznik_dla_controlera] += (e.Data) ?? string.Empty;
+        //    }));
+        //    licznik_dla_controlera++;
+        //}
         private delegate void UpdateRichTextBoxEventHandler(string message);
         private void UpdateRichTextBox(string message)
         {
@@ -253,24 +253,30 @@ namespace Puzzel
             else UpdateRichTextBox("Brak podanej nazwy komputera");
             stopTime();
         }
-
+        static int lastWidth = 0;
+        static int lastHeight = 0;
         private void Form1_Resize(object sender, EventArgs e)
         {
             if (WindowState != FormWindowState.Minimized)
                 try
                 {
-                    int height = Form1.ActiveForm.Height - 511;
-                    int width = Form1.ActiveForm.Width - 1190;
-                    groupBox1.Width = width + 1172;
-                    groupBox3.Width = width + 1172;
-                    groupBox4.Width = width + 1172;
-                    richTextBox1.Width = width + 1173;
-                    richTextBox1.Height = height + 230;
+                    int height = this.Height;
+                    int width = this.Width;
+                    if (lastHeight != 0)
+                    {
+                        groupBox1.Width = width - 28;//(width - groupBox1.Width) - (lastWidth - groupBox1.Width);
+                        groupBox3.Width = width - 28;//(width - groupBox3.Width) - (lastWidth - groupBox3.Width);
+                        groupBox4.Width = width - 28;//(width - groupBox4.Width) - (lastWidth - groupBox4.Width);
+                        richTextBox1.Width = width - 28;//(width - richTextBox1.Width) - (lastWidth - richTextBox1.Width);
+                        richTextBox1.Height += (height - richTextBox1.Height) - (lastHeight - richTextBox1.Height);
+                    }
                 }
                 catch (System.NullReferenceException)
                 {
                     return;
                 }
+            lastWidth = this.Width;
+            lastHeight = this.Height;
         }
 
         public void button8_Click(object sender, EventArgs e)
@@ -1117,7 +1123,7 @@ namespace Puzzel
                     {
                         updateComboBox(combo[0] + " " + combo[1]);
                         UpdateRichTextBox(combo[1] +" --------------------------------\n");
-                        UpdateRichTextBox("Nazwa użytkownika     Nazwa Sesji    Id    Status    Czas bezczynności    Czas logowania\n");
+                        UpdateRichTextBox("Nazwa użytkownika     Nazwa Sesji    Id    Status        Czas bezczynności    Czas logowania\n");
 
                         UpdateRichTextBox(combo[2].ToString());            
                         for (int i = 0; i < "Nazwa użytkownika     ".Length - combo[2].ToString().Length; i++)
@@ -1132,7 +1138,7 @@ namespace Puzzel
                             UpdateRichTextBox(" ");
 
                         UpdateRichTextBox(combo[4].ToString());
-                        for (int i = 0; i < "Status    ".Length - combo[4].ToString().Length; i++)
+                        for (int i = 0; i < "Status       ".Length - combo[4].ToString().Length; i++)
                             UpdateRichTextBox(" ");
                         
                         //Wyekstraktowanie całej czasu bezczynności
@@ -2097,6 +2103,8 @@ namespace Puzzel
         public static int statusOkna = 0;
         private void wyszukiwanieDanych()
         {
+            richTextBox1.SelectionStart = 0;
+            richTextBox1.HideSelection = false;
             WyszukiwarkaDlaFormy wyszukiwarka = new WyszukiwarkaDlaFormy();
             wyszukiwarka.Show();
             //string searchVariable = null;
@@ -2143,14 +2151,14 @@ namespace Puzzel
         {
             wyszukiwanieDanych();
         }
-        //private void RichTextBox1_KeyDown(object sender, KeyEventArgs e)
-        //{
+        private void RichTextBox1_KeyDown(object sender, KeyEventArgs e)
+        {
 
-        //    if (e.Control && e.KeyCode == Keys.F)
-        //    {
-        //            wyszukiwanieDanych();
-        //    }
-        //    /*
+            if (e.Control && e.KeyCode == Keys.F)
+            {
+                    wyszukiwanieDanych();
+            }
+            /*
         //    if (e.Control && e.KeyCode == Keys.Z)
         //        richTextBox1.Undo();
 

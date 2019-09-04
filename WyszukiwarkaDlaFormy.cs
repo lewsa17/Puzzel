@@ -88,5 +88,10 @@ namespace Puzzel
                 button1.Visible = true;
             }
         }
+
+        private void WyszukiwarkaDlaFormy_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Form1.richTextBox1.HideSelection = true;
+        }
     }
 }
