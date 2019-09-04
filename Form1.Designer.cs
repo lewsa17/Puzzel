@@ -43,6 +43,7 @@
             this.kopiujMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.wklejMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zaznaczWszystkoMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.wyszukajMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button7 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
@@ -143,7 +144,6 @@
             this.ręcznaNazwaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ladujLogiWTle = new System.ComponentModel.BackgroundWorker();
             this.AutoGettingLogs = new System.Windows.Forms.Timer(this.components);
-            this.wyszukajMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
@@ -255,13 +255,13 @@
             this.wyszukajMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.ShowImageMargin = false;
-            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 114);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(190, 114);
             // 
             // wytnijMenuItem
             // 
             this.wytnijMenuItem.Name = "wytnijMenuItem";
             this.wytnijMenuItem.ShortcutKeyDisplayString = "Ctrl + X";
-            this.wytnijMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.wytnijMenuItem.Size = new System.Drawing.Size(189, 22);
             this.wytnijMenuItem.Text = "Wytnij";
             this.wytnijMenuItem.Click += new System.EventHandler(this.wytnijMenuItem1_Click);
             // 
@@ -269,7 +269,7 @@
             // 
             this.kopiujMenuItem.Name = "kopiujMenuItem";
             this.kopiujMenuItem.ShortcutKeyDisplayString = "Ctrl + C";
-            this.kopiujMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.kopiujMenuItem.Size = new System.Drawing.Size(189, 22);
             this.kopiujMenuItem.Text = "Kopiuj";
             this.kopiujMenuItem.Click += new System.EventHandler(this.kopiujMenuItem1_Click);
             // 
@@ -277,7 +277,7 @@
             // 
             this.wklejMenuItem.Name = "wklejMenuItem";
             this.wklejMenuItem.ShortcutKeyDisplayString = "Ctrl + V";
-            this.wklejMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.wklejMenuItem.Size = new System.Drawing.Size(189, 22);
             this.wklejMenuItem.Text = "Wklej";
             this.wklejMenuItem.Click += new System.EventHandler(this.wklejToolStripMenuItem_Click);
             // 
@@ -285,9 +285,17 @@
             // 
             this.zaznaczWszystkoMenuItem.Name = "zaznaczWszystkoMenuItem";
             this.zaznaczWszystkoMenuItem.ShortcutKeyDisplayString = "Ctrl + A";
-            this.zaznaczWszystkoMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.zaznaczWszystkoMenuItem.Size = new System.Drawing.Size(189, 22);
             this.zaznaczWszystkoMenuItem.Text = "Zaznacz wszystko";
             this.zaznaczWszystkoMenuItem.Click += new System.EventHandler(this.zaznaczWszystkoMenuItem3_Click);
+            // 
+            // wyszukajMenuItem
+            // 
+            this.wyszukajMenuItem.Name = "wyszukajMenuItem";
+            this.wyszukajMenuItem.ShortcutKeyDisplayString = "Ctrl + F";
+            this.wyszukajMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.wyszukajMenuItem.Text = "Wyszukaj";
+            this.wyszukajMenuItem.Click += new System.EventHandler(this.wyszukajMenuItem_Click);
             // 
             // button7
             // 
@@ -452,26 +460,26 @@
             this.CMDMenuItem1,
             this.PowershellMenuItem2});
             this.CommandContextMenu.Name = "CommandContextMenu";
-            this.CommandContextMenu.Size = new System.Drawing.Size(181, 70);
+            this.CommandContextMenu.Size = new System.Drawing.Size(195, 70);
             // 
             // cMDSYSTEMToolStripMenuItem
             // 
             this.cMDSYSTEMToolStripMenuItem.Name = "cMDSYSTEMToolStripMenuItem";
-            this.cMDSYSTEMToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.cMDSYSTEMToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
             this.cMDSYSTEMToolStripMenuItem.Text = "Zdalne CMD (SYSTEM)";
             this.cMDSYSTEMToolStripMenuItem.Click += new System.EventHandler(this.cMDSYSTEMToolStripMenuItem_Click);
             // 
             // CMDMenuItem1
             // 
             this.CMDMenuItem1.Name = "CMDMenuItem1";
-            this.CMDMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.CMDMenuItem1.Size = new System.Drawing.Size(194, 22);
             this.CMDMenuItem1.Text = "CMD";
             this.CMDMenuItem1.Click += new System.EventHandler(this.CMDMenuItem1_Click);
             // 
             // PowershellMenuItem2
             // 
             this.PowershellMenuItem2.Name = "PowershellMenuItem2";
-            this.PowershellMenuItem2.Size = new System.Drawing.Size(180, 22);
+            this.PowershellMenuItem2.Size = new System.Drawing.Size(194, 22);
             this.PowershellMenuItem2.Text = "Powershell";
             this.PowershellMenuItem2.Click += new System.EventHandler(this.PowershellMenuItem2_Click);
             // 
@@ -521,13 +529,13 @@
             this.RemoteDesktopContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.rDPBezPustyContextMenu});
             this.RemoteDesktopContextMenu.Name = "RemoteDesktopContextMenu";
-            this.RemoteDesktopContextMenu.Size = new System.Drawing.Size(125, 26);
+            this.RemoteDesktopContextMenu.Size = new System.Drawing.Size(129, 26);
             this.RemoteDesktopContextMenu.Text = "ZdalnyPulpit";
             // 
             // rDPBezPustyContextMenu
             // 
             this.rDPBezPustyContextMenu.Name = "rDPBezPustyContextMenu";
-            this.rDPBezPustyContextMenu.Size = new System.Drawing.Size(124, 22);
+            this.rDPBezPustyContextMenu.Size = new System.Drawing.Size(128, 22);
             this.rDPBezPustyContextMenu.Text = "RDP pusty";
             this.rDPBezPustyContextMenu.Click += new System.EventHandler(this.rDPBezPustyContextMenu_Click);
             // 
@@ -606,103 +614,103 @@
             this.Komputer_info.Name = "contextMenuStrip2";
             this.Komputer_info.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.Komputer_info.ShowImageMargin = false;
-            this.Komputer_info.Size = new System.Drawing.Size(151, 312);
+            this.Komputer_info.Size = new System.Drawing.Size(164, 312);
             // 
             // uptimeToolStripMenuItem
             // 
             this.uptimeToolStripMenuItem.Name = "uptimeToolStripMenuItem";
-            this.uptimeToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.uptimeToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.uptimeToolStripMenuItem.Text = "Uptime";
             this.uptimeToolStripMenuItem.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
             // nrSeryjnyINrPartiiToolStripMenuItem
             // 
             this.nrSeryjnyINrPartiiToolStripMenuItem.Name = "nrSeryjnyINrPartiiToolStripMenuItem";
-            this.nrSeryjnyINrPartiiToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.nrSeryjnyINrPartiiToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.nrSeryjnyINrPartiiToolStripMenuItem.Text = "Nr Seryjny i Nr Partii";
             this.nrSeryjnyINrPartiiToolStripMenuItem.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
             // modelToolStripMenuItem
             // 
             this.modelToolStripMenuItem.Name = "modelToolStripMenuItem";
-            this.modelToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.modelToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.modelToolStripMenuItem.Text = "Model";
             this.modelToolStripMenuItem.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
             // oSToolStripMenuItem
             // 
             this.oSToolStripMenuItem.Name = "oSToolStripMenuItem";
-            this.oSToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.oSToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.oSToolStripMenuItem.Text = "OS";
             this.oSToolStripMenuItem.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
             // pamięćRAMToolStripMenuItem
             // 
             this.pamięćRAMToolStripMenuItem.Name = "pamięćRAMToolStripMenuItem";
-            this.pamięćRAMToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.pamięćRAMToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.pamięćRAMToolStripMenuItem.Text = "Pamięć RAM";
             this.pamięćRAMToolStripMenuItem.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
             // procesorToolStripMenuItem
             // 
             this.procesorToolStripMenuItem.Name = "procesorToolStripMenuItem";
-            this.procesorToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.procesorToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.procesorToolStripMenuItem.Text = "CPU";
             this.procesorToolStripMenuItem.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
             // zalogowanyUżytkownikToolStripMenuItem
             // 
             this.zalogowanyUżytkownikToolStripMenuItem.Name = "zalogowanyUżytkownikToolStripMenuItem";
-            this.zalogowanyUżytkownikToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.zalogowanyUżytkownikToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.zalogowanyUżytkownikToolStripMenuItem.Text = "Zalogowany";
             this.zalogowanyUżytkownikToolStripMenuItem.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
             // profileUżytkownikówToolStripMenuItem
             // 
             this.profileUżytkownikówToolStripMenuItem.Name = "profileUżytkownikówToolStripMenuItem";
-            this.profileUżytkownikówToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.profileUżytkownikówToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.profileUżytkownikówToolStripMenuItem.Text = "Profile Użytkowników";
             this.profileUżytkownikówToolStripMenuItem.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
             // dyskiToolStripMenuItem
             // 
             this.dyskiToolStripMenuItem.Name = "dyskiToolStripMenuItem";
-            this.dyskiToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.dyskiToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.dyskiToolStripMenuItem.Text = "Dyski";
             this.dyskiToolStripMenuItem.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
             // drukarkiSiecioweToolStripMenuItem
             // 
             this.drukarkiSiecioweToolStripMenuItem.Name = "drukarkiSiecioweToolStripMenuItem";
-            this.drukarkiSiecioweToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.drukarkiSiecioweToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.drukarkiSiecioweToolStripMenuItem.Text = "Drukarki sieciowe";
             this.drukarkiSiecioweToolStripMenuItem.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
             // udziałyToolStripMenuItem
             // 
             this.udziałyToolStripMenuItem.Name = "udziałyToolStripMenuItem";
-            this.udziałyToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.udziałyToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.udziałyToolStripMenuItem.Text = "Udziały";
             this.udziałyToolStripMenuItem.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
             // autostartToolStripMenuItem
             // 
             this.autostartToolStripMenuItem.Name = "autostartToolStripMenuItem";
-            this.autostartToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.autostartToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.autostartToolStripMenuItem.Text = "Autostart";
             this.autostartToolStripMenuItem.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
             // pATHToolStripMenuItem
             // 
             this.pATHToolStripMenuItem.Name = "pATHToolStripMenuItem";
-            this.pATHToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.pATHToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.pATHToolStripMenuItem.Text = "PATH";
             this.pATHToolStripMenuItem.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
             // zasobySiecioweToolStripMenuItem
             // 
             this.zasobySiecioweToolStripMenuItem.Name = "zasobySiecioweToolStripMenuItem";
-            this.zasobySiecioweToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.zasobySiecioweToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.zasobySiecioweToolStripMenuItem.Text = "Zasoby sieciowe";
             this.zasobySiecioweToolStripMenuItem.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
@@ -821,6 +829,7 @@
             this.richTextBox1.Size = new System.Drawing.Size(1183, 230);
             this.richTextBox1.TabIndex = 12;
             this.richTextBox1.Text = "";
+            this.richTextBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RichTextBox1_KeyDown);
             this.richTextBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.RichMouseDown);
             this.richTextBox1.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Keys_PreviewKeyDown);
             // 
@@ -878,7 +887,7 @@
             // plikToolStripMenuItem
             // 
             this.plikToolStripMenuItem.Name = "plikToolStripMenuItem";
-            this.plikToolStripMenuItem.Size = new System.Drawing.Size(34, 20);
+            this.plikToolStripMenuItem.Size = new System.Drawing.Size(38, 20);
             this.plikToolStripMenuItem.Text = "Plik";
             this.plikToolStripMenuItem.Visible = false;
             // 
@@ -894,48 +903,48 @@
             this.lockoutStatusToolStripMenuItem,
             this.terminalExplorerToolStripMenuItem});
             this.narzędziaAdministracyjneToolStripMenuItem.Name = "narzędziaAdministracyjneToolStripMenuItem";
-            this.narzędziaAdministracyjneToolStripMenuItem.Size = new System.Drawing.Size(144, 20);
+            this.narzędziaAdministracyjneToolStripMenuItem.Size = new System.Drawing.Size(157, 20);
             this.narzędziaAdministracyjneToolStripMenuItem.Text = "Narzędzia administracyjne";
             // 
             // dziennikZdarzeńToolStripMenuItem
             // 
             this.dziennikZdarzeńToolStripMenuItem.Name = "dziennikZdarzeńToolStripMenuItem";
-            this.dziennikZdarzeńToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
+            this.dziennikZdarzeńToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
             this.dziennikZdarzeńToolStripMenuItem.Text = "Dziennik zdarzeń";
             this.dziennikZdarzeńToolStripMenuItem.Click += new System.EventHandler(this.narzedziaadministracyjne);
             // 
             // usługiToolStripMenuItem
             // 
             this.usługiToolStripMenuItem.Name = "usługiToolStripMenuItem";
-            this.usługiToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
+            this.usługiToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
             this.usługiToolStripMenuItem.Text = "Usługi";
             this.usługiToolStripMenuItem.Click += new System.EventHandler(this.narzedziaadministracyjne);
             // 
             // harmonogramZadańToolStripMenuItem
             // 
             this.harmonogramZadańToolStripMenuItem.Name = "harmonogramZadańToolStripMenuItem";
-            this.harmonogramZadańToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
+            this.harmonogramZadańToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
             this.harmonogramZadańToolStripMenuItem.Text = "Harmonogram zadań";
             this.harmonogramZadańToolStripMenuItem.Click += new System.EventHandler(this.narzedziaadministracyjne);
             // 
             // użytkownicyIGrupyLokalneToolStripMenuItem
             // 
             this.użytkownicyIGrupyLokalneToolStripMenuItem.Name = "użytkownicyIGrupyLokalneToolStripMenuItem";
-            this.użytkownicyIGrupyLokalneToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
+            this.użytkownicyIGrupyLokalneToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
             this.użytkownicyIGrupyLokalneToolStripMenuItem.Text = "Użytkownicy i grupy lokalne";
             this.użytkownicyIGrupyLokalneToolStripMenuItem.Click += new System.EventHandler(this.narzedziaadministracyjne);
             // 
             // dHCPToolStripMenuItem
             // 
             this.dHCPToolStripMenuItem.Name = "dHCPToolStripMenuItem";
-            this.dHCPToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
+            this.dHCPToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
             this.dHCPToolStripMenuItem.Text = "DHCP";
             this.dHCPToolStripMenuItem.Click += new System.EventHandler(this.dHCPToolStripMenuItem_Click);
             // 
             // lockoutStatusToolStripMenuItem
             // 
             this.lockoutStatusToolStripMenuItem.Name = "lockoutStatusToolStripMenuItem";
-            this.lockoutStatusToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
+            this.lockoutStatusToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
             this.lockoutStatusToolStripMenuItem.Text = "Lockout Status";
             this.lockoutStatusToolStripMenuItem.Click += new System.EventHandler(this.lockoutStatusToolStripMenuItem_Click);
             // 
@@ -1158,7 +1167,7 @@
             // ręcznaNazwaToolStripMenuItem
             // 
             this.ręcznaNazwaToolStripMenuItem.Name = "ręcznaNazwaToolStripMenuItem";
-            this.ręcznaNazwaToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.ręcznaNazwaToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.ręcznaNazwaToolStripMenuItem.Text = "Ręczna nazwa";
             this.ręcznaNazwaToolStripMenuItem.Click += new System.EventHandler(this.szukanieSesjiCustom);
             // 
@@ -1170,14 +1179,6 @@
             // 
             this.AutoGettingLogs.Interval = 3600000;
             this.AutoGettingLogs.Tick += new System.EventHandler(this.AutoGettingLogs_Tick);
-            // 
-            // wyszukajMenuItem
-            // 
-            this.wyszukajMenuItem.Name = "wyszukajMenuItem";
-            this.wyszukajMenuItem.ShortcutKeyDisplayString = "Ctrl + F";
-            this.wyszukajMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.wyszukajMenuItem.Text = "Wyszukaj";
-            this.wyszukajMenuItem.Click += new System.EventHandler(this.wyszukajMenuItem_Click);
             // 
             // Form1
             // 
@@ -1195,7 +1196,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(1202, 511);
             this.Name = "Form1";
-            this.Text = "Puzzel v0.81";
+            this.Text = "Puzzel v0.82";
             this.Resize += new System.EventHandler(this.Form1_Resize);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

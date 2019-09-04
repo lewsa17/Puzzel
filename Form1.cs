@@ -1961,18 +1961,6 @@ namespace Puzzel
                         Clipboard.SetText(comboBox1.SelectedText.Trim(' '));
             }
 
-            if (e.Control && e.KeyCode == Keys.F)
-            {
-                if(richTextBox1.Focused)
-                wyszukiwanieDanych();
-            }
-
-            if (e.Control && e.KeyCode == Keys.Z)
-                if (richTextBox1.Focused)
-                    richTextBox1.Undo();
-            if (e.Control && e.KeyCode == Keys.Y)
-                if (richTextBox1.Focused)
-                    richTextBox1.Redo();
             if (e.Control && e.KeyCode == Keys.V)
             {
                 if (richTextBox1.Focused)
@@ -2161,28 +2149,68 @@ namespace Puzzel
             }
         }
         public static int IDrtb = 0;
+        public static int statusOkna = 0;
         private void wyszukiwanieDanych()
         {
             WyszukiwarkaDlaFormy wyszukiwarka = new WyszukiwarkaDlaFormy();
             string searchVariable = null;
-            wyszukiwarka.Show();
-            if (wyszukiwarka.GetDialogResult() == "OK")
+            if (richTextBox1.SelectionLength > 1)
             {
-                searchVariable = wyszukiwarka.GetValue();
-                int indexof = richTextBox1.Text.IndexOf(searchVariable, IDrtb, StringComparison.CurrentCultureIgnoreCase);
-                if (indexof == -1)
-                {
-                    MessageBox.Show("Nie znaleziono wartośći :" + searchVariable);
-                }
-                else
-                    richTextBox1.SelectionStart = indexof;
-                richTextBox1.SelectionLength = searchVariable.Length;
-                IDrtb = richTextBox1.SelectionStart + searchVariable.Length;
+                wyszukiwarka.lastvalue(richTextBox1.SelectedText);
+            }
+            if (wyszukiwarka.ShowDialog() != DialogResult)
+            searchVariable = wyszukiwarka.GetValue();
+            switch (statusOkna)
+            {
+                case 1:
+                    {
+                        int indexof = richTextBox1.Text.IndexOf(searchVariable, IDrtb, StringComparison.CurrentCultureIgnoreCase);
+                        if (indexof == -1)
+                        {
+                            MessageBox.Show("Nie znaleziono wartości : " + searchVariable);
+                        }
+                        else
+                        {
+                            richTextBox1.SelectionStart = indexof;
+                            richTextBox1.SelectionLength = searchVariable.Length;
+                            IDrtb = richTextBox1.SelectionStart + searchVariable.Length;
+                        }
+                        break;
+                    }
+                case 2:
+                    {
+                        break;
+                    }
+                case 3:
+                    {
+                        break;
+                    }
+                case 4:
+                    {
+                        var oldNewValue = searchVariable.Split(';');
+                        richTextBox1.Text = richTextBox1.Text.Replace(oldNewValue[0], oldNewValue[1]);
+                        break;
+                    }
             }
         }
         private void wyszukajMenuItem_Click(object sender, EventArgs e)
         {
             wyszukiwanieDanych();
+        }
+
+        private void RichTextBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+
+            if (e.Control && e.KeyCode == Keys.F)
+            {
+                    wyszukiwanieDanych();
+            }
+            /*
+            if (e.Control && e.KeyCode == Keys.Z)
+                richTextBox1.Undo();
+
+            if (e.Control && e.KeyCode == Keys.Y)
+                richTextBox1.Redo(); */
         }
     }
 }        
