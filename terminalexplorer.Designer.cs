@@ -121,7 +121,7 @@
             // 
             this.tabControl1.Controls.Add(this.sesjeTab);
             this.tabControl1.Controls.Add(this.statusTab);
-            this.tabControl1.Controls.Add(this.procesTab);
+            //this.tabControl1.Controls.Add(this.procesTab);
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -277,7 +277,7 @@
             this.rozlaczToolStripMenuItem.Name = "rozlaczToolStripMenuItem";
             this.rozlaczToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.rozlaczToolStripMenuItem.Text = "Rozłącz";
-            this.rozlaczToolStripMenuItem.Click += new System.EventHandler(this.rozlaczToolStripMenuItem_Click);
+            this.rozlaczToolStripMenuItem.Click += new System.EventHandler(this.ContextMenus);
             // 
             // wyslijWiadomoscToolStripMenuItem
             // 
@@ -285,7 +285,7 @@
             this.wyslijWiadomoscToolStripMenuItem.ShowShortcutKeys = false;
             this.wyslijWiadomoscToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.wyslijWiadomoscToolStripMenuItem.Text = "Wyślij wiadomość";
-            this.wyslijWiadomoscToolStripMenuItem.Click += new System.EventHandler(this.wyslijWiadomoscToolStripMenuItem_Click);
+            this.wyslijWiadomoscToolStripMenuItem.Click += new System.EventHandler(this.ContextMenus);
             // 
             // zdalnaKontrolaToolStripMenuItem
             // 
@@ -293,7 +293,7 @@
             this.zdalnaKontrolaToolStripMenuItem.ShowShortcutKeys = false;
             this.zdalnaKontrolaToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.zdalnaKontrolaToolStripMenuItem.Text = "Zdalna kontrola";
-            this.zdalnaKontrolaToolStripMenuItem.Click += new System.EventHandler(this.zdalnaKontrolaToolStripMenuItem_Click);
+            this.zdalnaKontrolaToolStripMenuItem.Click += new System.EventHandler(this.ContextMenus);
             // 
             // resetToolStripMenuItem
             // 
@@ -309,7 +309,7 @@
             this.wylogujToolStripMenuItem.ShowShortcutKeys = false;
             this.wylogujToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.wylogujToolStripMenuItem.Text = "Wyloguj";
-            this.wylogujToolStripMenuItem.Click += new System.EventHandler(this.wylogujToolStripMenuItem_Click);
+            this.wylogujToolStripMenuItem.Click += new System.EventHandler(this.ContextMenus);
             // 
             // statusToolStripMenuItem
             // 
@@ -317,7 +317,7 @@
             this.statusToolStripMenuItem.ShowShortcutKeys = false;
             this.statusToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.statusToolStripMenuItem.Text = "Status";
-            this.statusToolStripMenuItem.Click += new System.EventHandler(this.statusToolStripMenuItem_Click);
+            this.statusToolStripMenuItem.Click += new System.EventHandler(this.ContextMenus);
             // 
             // procesyToolStripMenuItem
             // 
@@ -325,7 +325,7 @@
             this.procesyToolStripMenuItem.ShowShortcutKeys = false;
             this.procesyToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.procesyToolStripMenuItem.Text = "Procesy";
-            this.procesyToolStripMenuItem.Click += new System.EventHandler(this.procesyToolStripMenuItem_Click);
+            this.procesyToolStripMenuItem.Click += new System.EventHandler(this.ContextMenus);
             // 
             // statusTab
             // 
@@ -748,7 +748,7 @@
             this.button5.TabIndex = 28;
             this.button5.Text = "Zamknij";
             this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.zamykanieFormy);
+            this.button5.Click += new System.EventHandler(this.zamykaniestrony);
             // 
             // button6
             // 
@@ -758,7 +758,7 @@
             this.button6.TabIndex = 27;
             this.button6.Text = "Odśwież teraz";
             this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.procesyToolStripMenuItem_Click);
+            this.button6.Click += new System.EventHandler(this.ContextMenus);
             // 
             // dataGridView2
             // 
@@ -842,7 +842,7 @@
             this.ZabijProcess.Name = "ZabijProcess";
             this.ZabijProcess.Size = new System.Drawing.Size(132, 22);
             this.ZabijProcess.Text = "Zabij proces";
-            this.ZabijProcess.Click += new System.EventHandler(this.ZabijProcess_Click);
+            this.ZabijProcess.Click += new System.EventHandler(this.ContextMenus);
             // 
             // TerminalExplorer
             // 

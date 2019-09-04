@@ -4,3 +4,5 @@
 
 /.vs/Puzzel/v16
 /.vs/VSWorkspaceState.json
+/obj
+*.json

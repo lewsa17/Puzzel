@@ -209,11 +209,14 @@ namespace Puzzel
             startTime();
             Puzzel.Ping.Pinging(HostName());
             if (HostName().Length > 1)
+            {
                 if (PingStatus == 0)
                 {
                     ProcExec Exec = new ProcExec(ProcExec.explorer, @"\\" + HostName() + @"\c$");
                 }
-                else ReplaceRichTextBox("Za mało danych");
+                else ReplaceRichTextBox("Nie odpowiada w sieci");
+            }
+            else ReplaceRichTextBox("Za mało danych");
             stopTime();
         }
 
