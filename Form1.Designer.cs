@@ -183,7 +183,6 @@
             this.groupBox1.Controls.Add(this.textBox1);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(6, 26);
-            this.groupBox1.MinimumSize = new System.Drawing.Size(1182, 75);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(1182, 75);
             this.groupBox1.TabIndex = 0;
@@ -462,7 +461,6 @@
             this.groupBox3.Controls.Add(this.label3);
             this.groupBox3.Controls.Add(this.button10);
             this.groupBox3.Location = new System.Drawing.Point(6, 107);
-            this.groupBox3.MinimumSize = new System.Drawing.Size(1182, 61);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(1182, 61);
             this.groupBox3.TabIndex = 2;
@@ -850,7 +848,6 @@
             this.groupBox4.Controls.Add(this.button20);
             this.groupBox4.Controls.Add(this.button19);
             this.groupBox4.Location = new System.Drawing.Point(6, 170);
-            this.groupBox4.MinimumSize = new System.Drawing.Size(1182, 45);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(1182, 45);
             this.groupBox4.TabIndex = 10;
@@ -883,13 +880,13 @@
             richTextBox1.ContextMenuStrip = this.ContextMenuRich;
             richTextBox1.DetectUrls = false;
             richTextBox1.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            richTextBox1.HideSelection = false;
             richTextBox1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             richTextBox1.Location = new System.Drawing.Point(6, 218);
-            richTextBox1.MinimumSize = new System.Drawing.Size(1182, 240);
             richTextBox1.Name = "richTextBox1";
             richTextBox1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
             richTextBox1.ShortcutsEnabled = false;
-            richTextBox1.Size = new System.Drawing.Size(1182, 240);
+            richTextBox1.Size = new System.Drawing.Size(1183, 230);
             richTextBox1.TabIndex = 12;
             richTextBox1.Text = "";
             richTextBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.RichMouseDown);
@@ -1264,9 +1261,9 @@
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.MinimumSize = new System.Drawing.Size(1210, 525);
+            this.MinimumSize = new System.Drawing.Size(1202, 511);
             this.Name = "Form1";
-            this.Text = "Puzzel v0.87";
+            this.Text = "Puzzel v0.86";
             this.Resize += new System.EventHandler(this.Form1_Resize);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
