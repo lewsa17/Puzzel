@@ -528,22 +528,30 @@ namespace Puzzel
         private void button13_Click(object sender, EventArgs e)
         {
             startTime();
-            if (MessageBox.Show(new Form() { TopMost = true }, "Wyszukiwanie może chwile potrwać, zezwolić ?", "Wyszukiwanie danych", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                if (textBox2.Text.Length > 1)
+            ClearRichTextBox(null);
+            Puzzel.Ping.Pinging(HostName());
+            if (textBox2.Text.Length > 1)
+            {
+                if (PingStatus == 0)
                 {
-                    if (!komputerInfo.IsBusy)
-                    {
-                        Puzzel.Form1.ProgressMax = 19;
-                        LoadingForm loadingForm = new LoadingForm();
-                        System.Threading.Thread progress;
-                        progress = new System.Threading.Thread(loadingForm.progress);
-                        Progress pgclass = new Progress();
-                        progress.Start();
-                        progressBar = new System.Threading.Thread(komputerInfoCOMM);
-                        komputerInfo.RunWorkerAsync();
-                    }
+                    if (MessageBox.Show(new Form() { TopMost = true }, "Wyszukiwanie może chwile potrwać, zezwolić ?", "Wyszukiwanie danych", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        if (!komputerInfo.IsBusy)
+                        {
+                            Puzzel.Form1.ProgressMax = 19;
+                            LoadingForm loadingForm = new LoadingForm();
+                            System.Threading.Thread progress;
+                            progress = new System.Threading.Thread(loadingForm.progress);
+                            Progress pgclass = new Progress();
+                            progress.Start();
+                            progressBar = new System.Threading.Thread(komputerInfoCOMM);
+                            komputerInfo.RunWorkerAsync();
+                        }
+
                 }
-                else UpdateRichTextBox("Nie podałeś nazwy hosta");
+                else
+                    UpdateRichTextBox("Stacja: " + HostName() + " nie jest widoczna na sieci");
+            }
+            else UpdateRichTextBox("Nie podałeś nazwy hosta");
             stopTime();
         }
         
@@ -814,10 +822,6 @@ namespace Puzzel
         private void komputerInfoCOMM()
         {
             startTime();
-            ClearRichTextBox(null);
-            Puzzel.Ping.Pinging(HostName());
-            if (PingStatus == 0)
-            {
                 ComputerInfo computerInfo = new ComputerInfo();
                 ComputerInfo_TEMP += ("Nazwa komputera: ");
                 ProgressBarValue = 1;
@@ -898,7 +902,6 @@ namespace Puzzel
                 computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryEnvironment, "Name", "VariableValue");
                 ReplaceRichTextBox(ComputerInfo_TEMP);
                 ComputerInfo_TEMP = null;
-            }
             stopTime();
         }
         private void komputerInfo_DoWork(object sender, DoWorkEventArgs e)
@@ -921,7 +924,7 @@ namespace Puzzel
                         {
                             var ps = PowerShell.Create();
 
-                            ps.AddScript(@"Invoke-Command -ComputerName " + HostName() + @" -Command {Get-ItemProperty -Path HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\* | Select-Object DisplayName, InstallDate, DisplayVersion}");
+                            ps.AddScript(@"Invoke-Command -ComputerName " + HostName() + @" -Command {Get-ItemProperty -Path HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\* | Select-Object DisplayName, InstallDate, DisplayVersion}| Format-Table -AutoSize");
                             System.Collections.Generic.List<PSObject> items = ps.Invoke().ToList();
                             foreach (PSObject item in items)
                             {
