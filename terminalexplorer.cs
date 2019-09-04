@@ -29,27 +29,38 @@ namespace Puzzel
         
 		string[] Working = File.ReadAllLines("DefaultValue.txt);
 		string[] termservers = Working[6].Remove(7).Splt(',');
-        public string[] FindSession(string serverName, string SearchedLogin)
+        public object[] FindSession(string serverName, string SearchedLogin)
         {
             object[] sessioninfo = new object[7];
-            using (ITerminalServer server = manager.GetRemoteServer(serverName))
+            try
             {
-                server.Open(); 
-                foreach (ITerminalServicesSession session in server.GetSessions())
+                using (ITerminalServer server = manager.GetRemoteServer(serverName))
                 {
-                    if (session.UserName == SearchedLogin)
+                    server.Open();
+                    foreach (ITerminalServicesSession session in server.GetSessions())
                     {
-                        sessioninfo.SetValue(session.Server.ServerName, 1);
-                        sessioninfo.SetValue(session.UserName, 2);
-                        sessioninfo.SetValue(session.WindowStationName, 3);
-                        sessioninfo.SetValue(session.SessionId, 0);
-                        sessioninfo.SetValue(session.ConnectionState, 4);
-                        sessioninfo.SetValue(session.IdleTime, 5);
-                        sessioninfo.SetValue(session.LoginTime, 6);
+                        if (session.UserName == SearchedLogin)
+                        {
+                            sessioninfo.SetValue(session.Server.ServerName, 1);
+                            sessioninfo.SetValue(session.UserName, 2);
+                            sessioninfo.SetValue(session.WindowStationName, 3);
+                            sessioninfo.SetValue(session.SessionId, 0);
+                            sessioninfo.SetValue(session.ConnectionState, 4);
+                            sessioninfo.SetValue(session.IdleTime, 5);
+                            sessioninfo.SetValue(session.LoginTime, 6);
+                        }
                     }
+                    server.Close();
+                    server.Dispose();
                 }
-                server.Close();
-                server.Dispose();
+            }
+            catch (Exception e)
+            {
+                //Form1.UpdateRichTextBox("--------------------------------"+Environment.NewLine);
+                //Form1.UpdateRichTextBox("Wystąpił problem podczas nawiązywania połączenia z: " + serverName + Environment.NewLine);
+                //Form1.UpdateRichTextBox("--------------------------------" + Environment.NewLine);
+                //Form1.UpdateRichTextBox("Wystąpił błąd");
+                Form1.Loger(e,serverName);
             }
             return sessioninfo;
         }
@@ -257,6 +268,16 @@ namespace Puzzel
            }
         }
 
+        public void ConnectToSession(string hostname, int sessionID)
+        {
+            using (ITerminalServer server = manager.GetRemoteServer(hostname))
+            {
+                server.Open();
+                server.GetSession(sessionID).StartRemoteControl(ConsoleKey.Multiply, RemoteControlHotkeyModifiers.Control);
+                server.Close();
+            }
+        }
+
         private void ContextMenus(object sender, EventArgs e)
         {
             int selectedSessionID = 0;
@@ -277,85 +298,91 @@ namespace Puzzel
                 }
                 else { if (IDsesjiLabel.Text != null) { selectedSessionID = Convert.ToInt16(IDsesjiLabel.Text); } }
             }
-
-            using (ITerminalServer server = manager.GetRemoteServer(_hostname))
+            try
             {
-                server.Open();
-                ITerminalServicesSession session = server.GetSession(selectedSessionID);
-                if (sender is ToolStripMenuItem)
+                using (ITerminalServer server = manager.GetRemoteServer(_hostname))
                 {
-                    switch (((ToolStripMenuItem)sender).Name)
+                    server.Open();
+                    ITerminalServicesSession session = server.GetSession(selectedSessionID);
+                    if (sender is ToolStripMenuItem)
                     {
-                        case "rozlaczToolStripMenuItem":
-                            {
-                                session.Disconnect();
-                                MessageBox.Show(new Form() { TopMost = true }, "Sesja została rozłączona", "Rozłączanie sesji", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                button4_Click(sender, e);
-                                break;
-                            }
+                        switch (((ToolStripMenuItem)sender).Name)
+                        {
+                            case "rozlaczToolStripMenuItem":
+                                {
+                                    session.Disconnect();
+                                    MessageBox.Show(new Form() { TopMost = true }, "Sesja została rozłączona", "Rozłączanie sesji", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    button4_Click(sender, e);
+                                    break;
+                                }
 
-                        case "wyslijWiadomoscToolStripMenuItem":
-                            {
-                                new terminalExplorerSendMessage(_hostname, selectedSessionID).ShowDialog();
-                                MessageBox.Show("Wiadomość wysłano", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                break;
-                            }
+                            case "wyslijWiadomoscToolStripMenuItem":
+                                {
+                                    new terminalExplorerSendMessage(_hostname, selectedSessionID).ShowDialog();
+                                    MessageBox.Show("Wiadomość wysłano", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    break;
+                                }
 
-                        case "zdalnaKontrolaToolStripMenu":
-                            {
-                                server.GetSession(selectedSessionID).StartRemoteControl(ConsoleKey.Multiply, RemoteControlHotkeyModifiers.Control);
-                                break;
-                            }
+                            case "zdalnaKontrolaToolStripMenu":
+                                {
+                                    server.GetSession(selectedSessionID).StartRemoteControl(ConsoleKey.Multiply, RemoteControlHotkeyModifiers.Control);
+                                    break;
+                                }
 
-                        case "wylogujToolStripMenuItem":
-                            {
-                                session.Logoff();
-                                MessageBox.Show(new Form() { TopMost = true }, "Sesja została wylogowana", "Wylogowywanie sesji", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                button4_Click(sender, e);
-                                break;
-                            }
+                            case "wylogujToolStripMenuItem":
+                                {
+                                    session.Logoff();
+                                    MessageBox.Show(new Form() { TopMost = true }, "Sesja została wylogowana", "Wylogowywanie sesji", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    button4_Click(sender, e);
+                                    break;
+                                }
 
-                        case "statusToolStripMenuItem":
-                            {
-                                dynaStatusTab(server, session, selectedSessionID);
-                                break;
-                            }
-                        case "procesyToolStripMenuItem":
-                            {
-                                dynaProcessTab(server, session, selectedSessionID);
-                                break;
-                            }
+                            case "statusToolStripMenuItem":
+                                {
+                                    dynaStatusTab(server, session, selectedSessionID);
+                                    break;
+                                }
+                            case "procesyToolStripMenuItem":
+                                {
+                                    dynaProcessTab(server, session, selectedSessionID);
+                                    break;
+                                }
 
-                        case "ZabijProcess":
-                            {
-                                var processId = Convert.ToInt16(((DataGridView)((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl).Rows[selectedRowIndex].Cells[4].Value);
-                                var process = server.GetProcess(processId);
-                                var tabPage = ((TabPage)((DataGridView)((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl).Parent);
-                                var button = tabPage.Controls.Find("Refresh", true);
-                                process.Kill();
-                                odswiezProcess(sender, e, server, session, selectedSessionID);
-                                MessageBox.Show("Zabito aplikację");
-                                break;
-                            }
+                            case "ZabijProcess":
+                                {
+                                    var processId = Convert.ToInt16(((DataGridView)((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl).Rows[selectedRowIndex].Cells[4].Value);
+                                    var process = server.GetProcess(processId);
+                                    var tabPage = ((TabPage)((DataGridView)((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl).Parent);
+                                    var button = tabPage.Controls.Find("Refresh", true);
+                                    process.Kill();
+                                    odswiezProcess(sender, e, server, session, selectedSessionID);
+                                    MessageBox.Show("Zabito aplikację");
+                                    break;
+                                }
 
+                        }
                     }
+                    else
+                        switch (((Button)sender).Name)
+                        {
+                            case "RefreshProcess":
+                                {
+                                    odswiezProcess(sender, e, server, session, selectedSessionID);
+                                    break;
+                                }
+                            case "RefreshStatus":
+                                {
+                                    odswiezStatus(sender, e, server, session, selectedSessionID);
+                                    break;
+                                }
+                        }
+
+                    server.Close();
                 }
-                else
-                    switch (((Button)sender).Name)
-                    {
-                        case "RefreshProcess":
-                            {
-                                odswiezProcess(sender, e, server, session, selectedSessionID);
-                                break;
-                            }
-                        case "RefreshStatus":
-                            {
-                                odswiezStatus(sender, e, server, session, selectedSessionID);
-                                break;
-                            }
-                    }
-
-                server.Close();
+            }
+            catch(Exception ex)
+            {
+                Form1.Loger(ex, _hostname);
             }
         }
 

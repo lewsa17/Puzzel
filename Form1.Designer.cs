@@ -182,7 +182,7 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.textBox1);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(6, 26);
+            this.groupBox1.Location = new System.Drawing.Point(1, 26);
             this.groupBox1.MinimumSize = new System.Drawing.Size(1182, 75);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(1182, 75);
@@ -295,7 +295,7 @@
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(6, 16);
+            this.button7.Location = new System.Drawing.Point(7, 16);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(75, 23);
             this.button7.TabIndex = 1;
@@ -461,7 +461,7 @@
             this.groupBox3.Controls.Add(this.textBox2);
             this.groupBox3.Controls.Add(this.label3);
             this.groupBox3.Controls.Add(this.button10);
-            this.groupBox3.Location = new System.Drawing.Point(6, 107);
+            this.groupBox3.Location = new System.Drawing.Point(1, 101);
             this.groupBox3.MinimumSize = new System.Drawing.Size(1182, 61);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(1182, 61);
@@ -849,7 +849,7 @@
             // 
             this.groupBox4.Controls.Add(this.button20);
             this.groupBox4.Controls.Add(this.button19);
-            this.groupBox4.Location = new System.Drawing.Point(6, 170);
+            this.groupBox4.Location = new System.Drawing.Point(1, 162);
             this.groupBox4.MinimumSize = new System.Drawing.Size(1182, 45);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(1182, 45);
@@ -864,6 +864,7 @@
             this.button20.Size = new System.Drawing.Size(75, 23);
             this.button20.TabIndex = 11;
             this.button20.Text = "Reload Logs";
+            this.button20.Enabled = false;
             this.button20.UseVisualStyleBackColor = true;
             this.button20.Click += new System.EventHandler(this.button20_Click);
             // 
@@ -884,14 +885,15 @@
             richTextBox1.DetectUrls = false;
             richTextBox1.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             richTextBox1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            richTextBox1.Location = new System.Drawing.Point(6, 218);
-            richTextBox1.MinimumSize = new System.Drawing.Size(1182, 240);
+            richTextBox1.Location = new System.Drawing.Point(1, 208);
+            richTextBox1.MinimumSize = new System.Drawing.Size(1183, 240);
             richTextBox1.Name = "richTextBox1";
             richTextBox1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
             richTextBox1.ShortcutsEnabled = false;
-            richTextBox1.Size = new System.Drawing.Size(1182, 240);
+            richTextBox1.Size = new System.Drawing.Size(1183, 240);
             richTextBox1.TabIndex = 12;
             richTextBox1.Text = "";
+            richTextBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RichTextBox1_KeyDown);
             richTextBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.RichMouseDown);
             richTextBox1.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Keys_PreviewKeyDown);
             // 
@@ -909,13 +911,13 @@
             // 
             // statusBar1
             // 
-            this.statusBar1.Location = new System.Drawing.Point(0, 464);
+            this.statusBar1.Location = new System.Drawing.Point(0, 448);
             this.statusBar1.Name = "statusBar1";
             this.statusBar1.Panels.AddRange(new System.Windows.Forms.StatusBarPanel[] {
             this.statusBP1,
             this.statusBP2});
             this.statusBar1.ShowPanels = true;
-            this.statusBar1.Size = new System.Drawing.Size(1194, 22);
+            this.statusBar1.Size = new System.Drawing.Size(1184, 22);
             this.statusBar1.TabIndex = 13;
             this.statusBar1.Text = "statusbar";
             // 
@@ -942,7 +944,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.menuStrip1.Size = new System.Drawing.Size(1194, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1184, 24);
             this.menuStrip1.TabIndex = 14;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -1254,7 +1256,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1194, 486);
+            this.ClientSize = new System.Drawing.Size(1184, 470);
             this.Controls.Add(this.statusBar1);
             this.Controls.Add(richTextBox1);
             this.Controls.Add(this.groupBox4);
@@ -1264,9 +1266,9 @@
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.MinimumSize = new System.Drawing.Size(1210, 525);
+            this.MinimumSize = new System.Drawing.Size(1200, 509);
             this.Name = "Form1";
-            this.Text = "Puzzel v0.87";
+            this.Text = "Puzzel v0.90";
             this.Resize += new System.EventHandler(this.Form1_Resize);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

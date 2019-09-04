@@ -13,21 +13,30 @@ namespace Puzzel
     public partial class LAPSui : Form
     {
         string admPwd = null;
+		public static string HostName = null;
         public LAPSui()
         {
             InitializeComponent();
+            
         }
-        string PwdLcl(string computername)
+        public static PwdLcl(string computername)
         {
-            DirectoryEntry myLdapConnection = new DirectoryEntry("LDAP://" + System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().DomainName);
-            DirectorySearcher search = new DirectorySearcher(myLdapConnection);
-            search.Filter = "(cn=" + computername + ")";
-            search.PropertiesToLoad.Add(Working[13].Remove(4));
-            string admpwd = null;
-            if (search.FindOne().GetDirectoryEntry().Properties[Working[13].Remove(4)].Value == null)
-                admPwd = "";
-            else admPwd = search.FindOne().GetDirectoryEntry().Properties[Working[13].Remove(4)].Value.ToString();
-		return admPwd;
+			string admpwd = null;
+            try
+            {
+            	DirectoryEntry myLdapConnection = new DirectoryEntry("LDAP://" + System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().DomainName);
+            	DirectorySearcher search = new DirectorySearcher(myLdapConnection);
+            	search.Filter = "(cn=" + computername + ")";
+            	search.PropertiesToLoad.Add(Working[13].Remove(4));
+            	if (search.FindOne() == null)
+           	    	admPwd = "";
+            	else admPwd = search.FindOne().GetDirectoryEntry().Properties[Working[13].Remove(4)].Value.ToString();
+			}
+            catch (Exception e)
+            {
+                Form1.Loger(e, computername);
+            }
+            return admPwd;
         }
         public void loadPassword(string hostname)
         {
@@ -43,8 +52,19 @@ namespace Puzzel
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
             textBox2.Text = PwdLcl(textBox1.Text);
+		}
+			
+		private void LAPSui_Load(object sender, EventArgs e)
+		{
+            
+            if (HostName != null)
+            {
+                loadPassword(HostName);
+                textBox2.Refresh();
+                textBox2.Update();
+            }
+            textBox2.ResumeLayout(false);
         }
     }
 }

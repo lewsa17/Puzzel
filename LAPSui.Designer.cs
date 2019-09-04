@@ -113,7 +113,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(342, 208);
+            this.ClientSize = new System.Drawing.Size(334, 196);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox3);
@@ -129,6 +129,7 @@
             this.MinimumSize = new System.Drawing.Size(350, 235);
             this.Name = "LAPSui";
             this.Text = "LAPSui";
+            this.Load += new System.EventHandler(this.LAPSui_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

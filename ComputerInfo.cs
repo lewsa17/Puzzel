@@ -774,6 +774,7 @@ namespace Puzzel
 
             catch (Exception ex)
             {
+                Form1.Loger(ex, args.Length.ToString());
                 MessageBox.Show("Nie można się połączyć z powodu błędu: " + ex.Message, "WMI Testing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); return;
             }
 

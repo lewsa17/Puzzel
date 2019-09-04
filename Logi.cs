@@ -10,6 +10,7 @@ namespace Puzzel
     class Logi
     {
         private string domainName() { return System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().DomainName; }
+
         
         string[] Working = File.ReadAllLines("DefaultValue.txt");
         public string loGi(string pole, string rodzaj, decimal licznik)
@@ -32,7 +33,7 @@ namespace Puzzel
             Array.Resize(ref LogCompLogs, LogCompLogs.Length - 1);
             Array.Reverse(LogCompLogs);
             Array.Resize(ref LogCompLogs, LogCompLogs.Length - 1);
-
+            string LastSearchedLogin = null;
             int maxLines = LogCompLogs.Length;
             decimal a = licznik;
             string[] word;
@@ -107,7 +108,7 @@ namespace Puzzel
             search.PageSize = 1000;
             search.SizeLimit = 1;
             //SearchResult result = search.FindOne();
-            string text;
+            string text = null;
             try
             {
                 text = search.FindOne().GetDirectoryEntry().Properties["displayName"].Value.ToString();
@@ -115,6 +116,10 @@ namespace Puzzel
             catch (NullReferenceException)
             {
                 text = "brak w AD";
+            }
+            catch (Exception e)
+            {
+                Form1.Loger(e, username);
             }
 
             search.Dispose();

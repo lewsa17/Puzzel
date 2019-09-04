@@ -89,12 +89,13 @@ namespace Puzzel
 
         private void OdświeżZaznaczoneToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.CurrentCell.RowIndex != 0)
-            {
-                int RowIndex = this.dataGridView1.CurrentCell.RowIndex;
-                string dcName = dataGridView1.Rows[RowIndex].Cells[0].Value.ToString();
-                GetUserPasswordDetails(dcName);
-            }
+            if (dataGridView1.CurrentCell != null)
+                if (dataGridView1.CurrentCell.RowIndex != 0)
+                {
+                    int RowIndex = this.dataGridView1.CurrentCell.RowIndex;
+                    string dcName = dataGridView1.Rows[RowIndex].Cells[0].Value.ToString();
+                    GetUserPasswordDetails(dcName);
+                }
         }
 
         private void Lockout_Status_Activated(object sender, EventArgs e)
@@ -111,39 +112,54 @@ namespace Puzzel
         int rett = 0;
         public void GetUserPasswordDetails(string dcName)
         {
-            using (PrincipalContext context = new PrincipalContext(ContextType.Domain, dcName))
+            try
             {
-                UserPrincipal uP = UserPrincipal.FindByIdentity(context, IdentityType.SamAccountName, Username);
-                if (uP != null)
+                using (PrincipalContext context = new PrincipalContext(ContextType.Domain, dcName))
                 {
-                    
-                    if (uP.IsAccountLockedOut())
-                        useraccaountLocked = "Zablokowane";
-                    else useraccaountLocked = "Odblokowane";
-
-                    if (uP.BadLogonCount > 0)
-                        _badLogonCount = uP.BadLogonCount.ToString();
-                    else _badLogonCount = "0";
-
-                    if (uP.LastBadPasswordAttempt != null)
-                        _lastBadPasswordAttempt = DateTime.FromFileTime(uP.LastBadPasswordAttempt.Value.ToFileTime()).ToString();
-
-                    if (uP.LastPasswordSet != null)
-                        _lastPasswordSet = DateTime.FromFileTime(uP.LastPasswordSet.Value.ToFileTime()).ToString();
-
-                    if (uP.AccountLockoutTime != null)
-                        _accountLockoutTime = DateTime.FromFileTime(uP.AccountLockoutTime.Value.ToFileTime()).ToString();
-                    else _accountLockoutTime = "0";
-
-                    if (dataGridView1.InvokeRequired)
+                    UserPrincipal uP = UserPrincipal.FindByIdentity(context, IdentityType.SamAccountName, Username);
+                    if (uP != null)
                     {
-                        dataGridView1.Invoke(new MethodInvoker(() => this.dataGridView1.Rows.Add(dcName, useraccaountLocked, _badLogonCount, _lastBadPasswordAttempt, _lastPasswordSet, _accountLockoutTime)));
-                    }
-                    else dataGridView1.Rows.Add(dcName, useraccaountLocked, _badLogonCount, _lastBadPasswordAttempt, _lastPasswordSet, _accountLockoutTime);
 
-                } else
-                rett++;
-                dataGridView1.ClearSelection();
+                        //if (uP.IsAccountLockedOut())
+                        //    useraccaountLocked = "Zablokowane";
+                        //else useraccaountLocked = "Odblokowane";
+
+                        if (uP.BadLogonCount > 0)
+                            _badLogonCount = uP.BadLogonCount.ToString();
+                        else _badLogonCount = "0";
+
+                        if (uP.LastBadPasswordAttempt != null)
+                            _lastBadPasswordAttempt = DateTime.FromFileTime(uP.LastBadPasswordAttempt.Value.ToFileTime()).ToString();
+
+                        if (uP.LastPasswordSet != null)
+                            _lastPasswordSet = DateTime.FromFileTime(uP.LastPasswordSet.Value.ToFileTime()).ToString();
+
+                        if (uP.AccountLockoutTime != null)
+                        {
+                            useraccaountLocked = "Zablokowane";
+                            _accountLockoutTime = DateTime.FromFileTime(uP.AccountLockoutTime.Value.ToFileTime()).ToString();
+                        }
+                        else
+                        {
+                            useraccaountLocked = "Odblokowane";
+                            _accountLockoutTime = "0";
+                        }
+
+                        if (dataGridView1.InvokeRequired)
+                        {
+                            dataGridView1.Invoke(new MethodInvoker(() => this.dataGridView1.Rows.Add(dcName, useraccaountLocked, _badLogonCount, _lastBadPasswordAttempt, _lastPasswordSet, _accountLockoutTime)));
+                        }
+                        else dataGridView1.Rows.Add(dcName, useraccaountLocked, _badLogonCount, _lastBadPasswordAttempt, _lastPasswordSet, _accountLockoutTime);
+
+                    }
+                    else
+                        rett++;
+                    dataGridView1.ClearSelection();
+                }
+            }
+            catch (Exception e)
+            {
+                Form1.Loger(e, dcName);
             }
             if (rett == 3) MessageBox.Show(new Form() { TopMost = true }, "Podany login nie występuje w AD", "Wyszukiwanie danych", MessageBoxButtons.OK);
         }
