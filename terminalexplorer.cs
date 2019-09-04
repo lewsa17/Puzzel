@@ -412,7 +412,7 @@ namespace Puzzel
                 AllowUserToDeleteRows = false,
                 AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells,
                 AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders,
-                BackgroundColor = System.Drawing.SystemColors.ActiveCaptionText,
+                BackgroundColor = System.Drawing.SystemColors.ControlLightLight,
                 ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single,
                 GridColor = System.Drawing.Color.DarkGray,
                 Location = new System.Drawing.Point(0, 0),
@@ -421,7 +421,7 @@ namespace Puzzel
                 Name = "dataGridView2",
                 RowHeadersVisible = false,
                 SelectionMode = DataGridViewSelectionMode.FullRowSelect,
-                Size = new System.Drawing.Size(703, 596),
+                Size = new System.Drawing.Size(629, 596),
                 ColumnHeadersDefaultCellStyle = new DataGridViewCellStyle
                 {
                     Alignment = DataGridViewContentAlignment.MiddleLeft,

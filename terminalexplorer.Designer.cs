@@ -362,13 +362,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(636, 633);
+            this.ClientSize = new System.Drawing.Size(637, 646);
             this.Controls.Add(this.tabControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(715, 672);
+            this.MaximumSize = new System.Drawing.Size(653, 685);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(644, 672);
+            this.MinimumSize = new System.Drawing.Size(653, 685);
             this.Name = "TerminalExplorer";
             this.Text = "Terminal Explorer";
             this.tabControl1.ResumeLayout(false);

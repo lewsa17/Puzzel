@@ -129,54 +129,55 @@ namespace Puzzel
         }
         public static void GetUserPasswordDetails(string dcName)
         {
-            try
-            {
-                using (PrincipalContext context = new PrincipalContext(ContextType.Domain, dcName))
+            if (dataGridView1.Columns != null)
+                try
                 {
-                    UserPrincipal uP = UserPrincipal.FindByIdentity(context, IdentityType.SamAccountName, Username);
-                    if (uP != null)
+                    using (PrincipalContext context = new PrincipalContext(ContextType.Domain, dcName))
                     {
-
-                        //if (uP.IsAccountLockedOut())
-                        //    useraccaountLocked = "Zablokowane";
-                        //else useraccaountLocked = "Odblokowane";
-
-                        if (uP.BadLogonCount > 0)
-                            _badLogonCount = uP.BadLogonCount.ToString();
-                        else _badLogonCount = "0";
-
-                        if (uP.LastBadPasswordAttempt != null)
-                            _lastBadPasswordAttempt = DateTime.FromFileTime(uP.LastBadPasswordAttempt.Value.ToFileTime()).ToString();
-
-                        if (uP.LastPasswordSet != null)
-                            _lastPasswordSet = DateTime.FromFileTime(uP.LastPasswordSet.Value.ToFileTime()).ToString();
-
-                        if (uP.AccountLockoutTime != null)
+                        UserPrincipal uP = UserPrincipal.FindByIdentity(context, IdentityType.SamAccountName, Username);
+                        if (uP != null)
                         {
-                            useraccaountLocked = "Zablokowane";
-                            _accountLockoutTime = DateTime.FromFileTime(uP.AccountLockoutTime.Value.ToFileTime()).ToString();
-                        }
-                        else
-                        {
-                            useraccaountLocked = "Odblokowane";
-                            _accountLockoutTime = "0";
-                        }
 
-                        if (dataGridView1.InvokeRequired)
-                        {
-                            dataGridView1.Invoke(new MethodInvoker(() => dataGridView1.Rows.Add(dcName, useraccaountLocked, _badLogonCount, _lastBadPasswordAttempt, _lastPasswordSet, _accountLockoutTime)));
-                        }
-                        else dataGridView1.Rows.Add(dcName, useraccaountLocked, _badLogonCount, _lastBadPasswordAttempt, _lastPasswordSet, _accountLockoutTime);
+                            //if (uP.IsAccountLockedOut())
+                            //    useraccaountLocked = "Zablokowane";
+                            //else useraccaountLocked = "Odblokowane";
 
+                            if (uP.BadLogonCount > 0)
+                                _badLogonCount = uP.BadLogonCount.ToString();
+                            else _badLogonCount = "0";
+
+                            if (uP.LastBadPasswordAttempt != null)
+                                _lastBadPasswordAttempt = DateTime.FromFileTime(uP.LastBadPasswordAttempt.Value.ToFileTime()).ToString();
+
+                            if (uP.LastPasswordSet != null)
+                                _lastPasswordSet = DateTime.FromFileTime(uP.LastPasswordSet.Value.ToFileTime()).ToString();
+
+                            if (uP.AccountLockoutTime != null)
+                            {
+                                useraccaountLocked = "Zablokowane";
+                                _accountLockoutTime = DateTime.FromFileTime(uP.AccountLockoutTime.Value.ToFileTime()).ToString();
+                            }
+                            else
+                            {
+                                useraccaountLocked = "Odblokowane";
+                                _accountLockoutTime = "0";
+                            }
+
+                            if (dataGridView1.InvokeRequired)
+                            {
+                                dataGridView1.Invoke(new MethodInvoker(() => dataGridView1.Rows.Add(dcName, useraccaountLocked, _badLogonCount, _lastBadPasswordAttempt, _lastPasswordSet, _accountLockoutTime)));
+                            }
+                            else dataGridView1.Rows.Add(dcName, useraccaountLocked, _badLogonCount, _lastBadPasswordAttempt, _lastPasswordSet, _accountLockoutTime);
+
+                        }
+                        //else
+                        //    dataGridView1.ClearSelection();
                     }
-                    else
-                    dataGridView1.ClearSelection();
                 }
-            }
-            catch (Exception e)
-            {
-                Form1.Loger(e, dcName);
-            }
+                catch (Exception e)
+                {
+                    Form1.Loger(e, dcName);
+                }
         }
 
 

@@ -355,11 +355,15 @@ namespace Puzzel
                                         string smbiosVersion = null;
                                         string releaseDate = null;
 
+
+                                        Puzzel.Form1.ComputerInfo_TEMP += "Producent                Wersja Bios        Wersja SMBios   Data wydania\n";
+
                                         if (m[args[0].ToString()] != null)
                                         {
                                             manufacturer = m[args[0].ToString()].ToString();
                                             Puzzel.Form1.ComputerInfo_TEMP += (manufacturer);
-                                            int a = 17 - manufacturer.Length;
+                                            int a = "Producent".Length + 16 - manufacturer.Length;
+                                                //17 - manufacturer.Length;
                                             for (int i = 0; i < a; i++)
                                             {
                                                 Puzzel.Form1.ComputerInfo_TEMP += (" ");
@@ -370,7 +374,8 @@ namespace Puzzel
                                         {
                                             biosVersion = ((string[])m[args[1].ToString()]);
                                             Puzzel.Form1.ComputerInfo_TEMP += (biosVersion[0]);
-                                            int a = 20 - biosVersion[0].Length;
+                                            int a = "Wersja Bios".Length + 8 - biosVersion[0].Length;
+                                                //20 - biosVersion[0].Length;
                                             for (int i = 0; i < a; i++)
                                             {
                                                 Puzzel.Form1.ComputerInfo_TEMP += (" ");
@@ -381,7 +386,7 @@ namespace Puzzel
                                         {
                                             smbiosVersion = m[args[2].ToString()].ToString();
                                             Puzzel.Form1.ComputerInfo_TEMP += (smbiosVersion);
-                                            int a = 12 - smbiosVersion.Length;
+                                            int a = "Wersja SMBios".Length + 3 - smbiosVersion.Length;//12 - smbiosVersion.Length;
                                             for (int i = 0; i < a; i++)
                                             {
                                                 Puzzel.Form1.ComputerInfo_TEMP += (" ");
@@ -391,7 +396,7 @@ namespace Puzzel
                                         if (m[args[3].ToString()] != null)
                                         {
                                             releaseDate = m[args[3].ToString()].ToString();
-                                            Puzzel.Form1.ComputerInfo_TEMP += (releaseDate);
+                                            Puzzel.Form1.ComputerInfo_TEMP += (releaseDate.Remove(8,releaseDate.Length-8));
                                         }
                                     }
                                     break;
@@ -774,7 +779,7 @@ namespace Puzzel
 
             catch (Exception ex)
             {
-                Form1.Loger(ex, args.Length.ToString());
+                Form1.Loger(ex, nazwaKomputera+","+path+","+query);
                 MessageBox.Show("Nie można się połączyć z powodu błędu: " + ex.Message, "WMI Testing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); return;
             }
 

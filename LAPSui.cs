@@ -40,9 +40,9 @@ namespace Puzzel
         }
         public void loadPassword(string hostname)
         {
-                admPwd = PwdLcl(hostname);
+                //admPwd = PwdLcl(hostname);
             textBox1.Text = hostname;
-            textBox2.Text = admPwd[0].ToString();
+            textBox2.Text = PwdLcl(hostname); //admPwd[0].ToString();
         }
 
         private void button2_Click(object sender, EventArgs e)
