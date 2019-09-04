@@ -34,7 +34,6 @@ namespace Puzzel
         }
         public void loadPassword(string hostname)
         {
-                //admPwd = PwdLcl(hostname);
             textBox1.Text = hostname;
             textBox2.Text = PwdLcl(hostname); //admPwd[0].ToString();
         }
@@ -55,10 +54,10 @@ namespace Puzzel
             if (HostName != null)
             {
                 loadPassword(HostName);
-                textBox2.Refresh();
-                textBox2.Update();
+                //textBox2.Refresh();
+                //textBox2.Update();
             }
-            textBox2.ResumeLayout(false);
+            //textBox2.ResumeLayout(false);
         }
     }
 }

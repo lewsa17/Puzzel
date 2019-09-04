@@ -368,6 +368,7 @@
             this.Name = "Lockout_Status";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Lockout_Status";
+            this.TopMost = true;
             this.Activated += new System.EventHandler(this.Lockout_Status_Activated);
             this.Load += new System.EventHandler(this.Lockout_Status_Load);
             this.menuStrip1.ResumeLayout(false);

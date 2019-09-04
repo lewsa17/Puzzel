@@ -33,12 +33,12 @@ namespace Puzzel
         public enum TCPPingStatus
         {
             Unknown,
-            Connected,
+            Success,
             HostUnknown
         }
         public static TCPPingStatus TCPPing(string HostName, int Port)
         {
-            TCPPingStatus status = TCPPingStatus.Connected;
+            TCPPingStatus status = TCPPingStatus.Success;
             try
             {
                 TcpClient tcpClient = new TcpClient(HostName, Port);

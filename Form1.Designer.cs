@@ -108,7 +108,6 @@
             this.button19 = new System.Windows.Forms.Button();
             richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.komputerInfo = new System.ComponentModel.BackgroundWorker();
-            this.programList = new System.ComponentModel.BackgroundWorker();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.statusBar1 = new System.Windows.Forms.StatusBar();
             this.statusBP1 = new System.Windows.Forms.StatusBarPanel();
@@ -156,7 +155,6 @@
             this.lockoutStatusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zmianaHasłaDomenowegoToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.ladujLogiWTle = new System.ComponentModel.BackgroundWorker();
             this.AutoGettingLogs = new System.Windows.Forms.Timer(this.components);
             this.groupBox1.SuspendLayout();
             this.ContextMenuRich.SuspendLayout();
@@ -205,7 +203,7 @@
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(121, 21);
             this.comboBox2.TabIndex = 1;
-            this.comboBox2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Keys_KeyDown);
+            this.comboBox2.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Keys_PreviewKeyDown);
             // 
             // ContextMenuRich
             // 
@@ -464,7 +462,7 @@
             this.textBox1.Size = new System.Drawing.Size(124, 20);
             this.textBox1.TabIndex = 1;
             this.textBox1.Visible = false;
-            this.textBox1.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Keys_PreviewKeyDown);
+            //this.textBox1.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Keys_PreviewKeyDown);
             // 
             // label1
             // 
@@ -510,7 +508,7 @@
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(121, 21);
             this.comboBox3.TabIndex = 1;
-            this.comboBox3.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Keys_KeyDown);
+            this.comboBox3.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Keys_PreviewKeyDown);
             // 
             // button23
             // 
@@ -585,7 +583,7 @@
             this.button18.TabStop = false;
             this.button18.Text = "Karty sieciowe";
             this.button18.UseVisualStyleBackColor = true;
-            this.button18.Click += new System.EventHandler(this.button18_Click);
+            this.button18.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
             // button16
             // 
@@ -596,7 +594,7 @@
             this.button16.TabStop = false;
             this.button16.Text = "Lista programów";
             this.button16.UseVisualStyleBackColor = true;
-            this.button16.Click += new System.EventHandler(this.button16_Click);
+            this.button16.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
             // button17
             // 
@@ -692,7 +690,7 @@
             this.button13.TabStop = false;
             this.button13.Text = "Komputer info";
             this.button13.UseVisualStyleBackColor = true;
-            this.button13.Click += new System.EventHandler(this.button13_Click);
+            this.button13.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
             // Komputer_info
             // 
@@ -879,7 +877,7 @@
             this.textBox2.Size = new System.Drawing.Size(124, 20);
             this.textBox2.TabIndex = 1;
             this.textBox2.Visible = false;
-            this.textBox2.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Keys_PreviewKeyDown);
+            //this.textBox2.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Keys_PreviewKeyDown);
             // 
             // label3
             // 
@@ -951,17 +949,12 @@
             richTextBox1.Size = new System.Drawing.Size(1183, 240);
             richTextBox1.TabIndex = 4;
             richTextBox1.Text = "";
-            richTextBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RichTextBox1_KeyDown);
-            richTextBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.RichMouseDown);
+            richTextBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Keys_KeyDown);
             richTextBox1.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Keys_PreviewKeyDown);
             // 
             // komputerInfo
             // 
             this.komputerInfo.DoWork += new System.ComponentModel.DoWorkEventHandler(this.komputerInfo_DoWork);
-            // 
-            // programList
-            // 
-            this.programList.DoWork += new System.ComponentModel.DoWorkEventHandler(this.programList_DoWork);
             // 
             // timer1
             // 
@@ -1327,15 +1320,6 @@
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(219, 6);
             // 
-            // ladujLogiWTle
-            // 
-            this.ladujLogiWTle.DoWork += new System.ComponentModel.DoWorkEventHandler(this.ladujLogiWTle_DoWork);
-            // 
-            // AutoGettingLogs
-            // 
-            this.AutoGettingLogs.Interval = 3600000;
-            this.AutoGettingLogs.Tick += new System.EventHandler(this.AutoGettingLogs_Tick);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1352,7 +1336,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(1200, 509);
             this.Name = "Form1";
-            this.Text = "Puzzel v0.99";
+            this.Text = "Puzzel v0.102";
             this.Resize += new System.EventHandler(this.Form1_Resize);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -1413,7 +1397,6 @@
         public System.Windows.Forms.NumericUpDown numericUpDown2;
         public System.Windows.Forms.TextBox textBox2;
         private System.ComponentModel.BackgroundWorker komputerInfo;
-        private System.ComponentModel.BackgroundWorker programList;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.StatusBar statusBar1;
         private System.Windows.Forms.StatusBarPanel statusBP1;
@@ -1449,7 +1432,6 @@
         private System.Windows.Forms.ToolStripMenuItem harmonogramZadańToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem użytkownicyIGrupyLokalneToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dHCPToolStripMenuItem;
-        private System.ComponentModel.BackgroundWorker ladujLogiWTle;
         private System.Windows.Forms.ToolStripMenuItem lockoutStatusToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem wklejMenuItem;
         private System.Windows.Forms.Timer AutoGettingLogs;

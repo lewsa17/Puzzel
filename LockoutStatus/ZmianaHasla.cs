@@ -37,14 +37,13 @@ namespace Puzzel
                     {
                         counter++;
                     }
-
                     if (counter >= 3)
                     {
                         password = textBox1.Text;
                     }
                     else MessageBox.Show("Sprawdź poprawność hasła czy zawiera dużą lub mała literę, cyfrę lub znak specjalny");
                 }
-                else MessageBox.Show("Podane hasło ma mniej niz 8 znaków");
+                else MessageBox.Show("Podane hasło ma mniej niż 8 znaków");
                 Lockout_Status.ustawhaslo(password, UnlockAccout, PasswordExpired);
             }
             else MessageBox.Show("Podane hasła nie są zgodne");

@@ -18,11 +18,9 @@ namespace Puzzel
             StringBuilder sb = new StringBuilder();
             try
             {
-                //string ComputerInfo_TEMP = null;
                 FileStream fileStream = new FileStream(Working[8].Remove(8) + rodzaj + @"\" + pole + "_logons.log", FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
                 StreamReader sr = new StreamReader(fileStream);
                 long fsize = fileStream.Length;
-                //decimal lines = licznik;
                 int lineMaxLenOptim = 255;
                 long pos = fsize - lineMaxLenOptim * (long)licznik;
                 if (pos > 0)
@@ -82,7 +80,6 @@ namespace Puzzel
             return sb.ToString();
         }
         string[] LogsNames = null;
-
         public string[] LogNames()
         {
             return LogsNames;
@@ -91,20 +88,15 @@ namespace Puzzel
         {
             if (!string.IsNullOrEmpty(pole) | !string.IsNullOrWhiteSpace(pole))
             {
-                if (Directory.Exists(Working[8].Remove(8) + rodzaj))
+                LogsNames = Directory.GetFiles(Working[8].Remove(8) + rodzaj + @"\", "*" + pole + "*_logons.log", SearchOption.TopDirectoryOnly);
+                for (int i = 0; i < LogsNames.Length; i++)
                 {
-                    LogsNames = Directory.GetFiles(Working[8].Remove(8) + rodzaj + @"\", "*" + pole + "*_logons.log", SearchOption.TopDirectoryOnly);
-                    for (int i = 0; i < LogsNames.Length; i++)
-                    {
-                        LogsNames[i] = Path.GetFileNameWithoutExtension(LogsNames[i]);
-                        LogsNames[i] = LogsNames[i].Replace("_logons", "");
-                    }
+                    LogsNames[i] = Path.GetFileNameWithoutExtension(LogsNames[i]);
+                    LogsNames[i] = LogsNames[i].Replace("_logons", "");
                 }
-                else MessageBox.Show("Brak dostępu do zasobu");
             }
             else MessageBox.Show("Pole puste lub niepotrzebna spacja");
         }
-
         private string Nazwauzytkownika(string username)
         {
             DirectoryEntry myLdapConnection = new DirectoryEntry("LDAP://" + domainName());
@@ -114,25 +106,24 @@ namespace Puzzel
             search.PropertiesToLoad.Add("displayName");
             search.PageSize = 1000;
             search.SizeLimit = 1;
-            //SearchResult result = search.FindOne();
             string text = null;
             try
             {
-                text = search.FindOne().GetDirectoryEntry().Properties["displayName"].Value.ToString();
+                if (search.FindOne() != null)
+                    text = search.FindOne().GetDirectoryEntry().Properties["displayName"].Value.ToString();
+                else
+                    text = "brak w AD";
             }
-            catch (NullReferenceException)
-            {
-                text = "brak w AD";
-            }
+            //catch (NullReferenceException)
+            //{
+            //    text = "brak w AD";
+            //}
             catch (Exception e)
             {
                 Form1.Loger(e, username);
             }
-
             search.Dispose();
             return text;
         }
-
-
     }
 }

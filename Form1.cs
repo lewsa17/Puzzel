@@ -11,6 +11,8 @@ using System.DirectoryServices.AccountManagement;
 using System.Management;
 using System.Threading;
 using System.Management.Automation;
+using System.Collections.Generic;
+
 namespace Puzzel
 {
     public partial class Form1 : Form
@@ -19,49 +21,47 @@ namespace Puzzel
         {
             Working = File.ReadAllLines("DefaultValue.txt");
             InitializeComponent();
-
-            /*
-            AutoGettingLogs.Start();
-            if (File.Exists(Directory.GetCurrentDirectory() + @"\UserLogCache.log") && File.Exists(Directory.GetCurrentDirectory() + @"\ComputerLogCache.log.log"))
-            {
-                Logi logi = new Logi(UserName(), HostName());
-                progressBar = new System.Threading.Thread(logi.LoadLogs);
-                Puzzel.Form1.ProgressMax = 2;
-                LoadingForm loadingForm = new LoadingForm();
-                System.Threading.Thread progress = new System.Threading.Thread(loadingForm.progress);
-                progressBar.Start();
-                progress.Start();
-            }
-            else
-            {
-                progressBar = new System.Threading.Thread(GetLogs);
-                Puzzel.Form1.ProgressMax = 8;
-                LoadingForm loadingForm = new LoadingForm();
-                System.Threading.Thread progress = new System.Threading.Thread(loadingForm.progress);
-                progressBar.Start();
-                progress.Start();
-            }*/
-
-        }/*
-        string[] Working = null;
-        private void GetLogs()
-        {
-            Logi logi = new Logi(UserName(), HostName());
-            logi.GetLogs();
-            logi.SaveLogs();
-            logi.LoadLogs();
-        }*/
-        public static void InvokeProgress()
-        { /*Progress progress = new Progress();
-            if (progress.InvokeRequired)
-            {
-                progress.Invoke(new MethodInvoker(() =>
-                {
-                    progress.Show();
-                }));
-            }*/
+            //AutoGettingLogs.Start();
+            //if (File.Exists(Directory.GetCurrentDirectory() + @"\UserLogCache.log") && File.Exists(Directory.GetCurrentDirectory() + @"\ComputerLogCache.log.log"))
+            //{
+            //    Logi logi = new Logi(UserName(), HostName());
+            //    progressBar = new System.Threading.Thread(logi.LoadLogs);
+            //    Puzzel.Form1.ProgressMax = 2;
+            //    LoadingForm loadingForm = new LoadingForm();
+            //    System.Threading.Thread progress = new System.Threading.Thread(loadingForm.progress);
+            //    progressBar.Start();
+            //    progress.Start();
+            //}
+            //else
+            //{
+            //    progressBar = new System.Threading.Thread(GetLogs);
+            //    Puzzel.Form1.ProgressMax = 8;
+            //    LoadingForm loadingForm = new LoadingForm();
+            //    System.Threading.Thread progress = new System.Threading.Thread(loadingForm.progress);
+            //    progressBar.Start();
+            //    progress.Start();
+            //}*/
 
         }
+        //private void GetLogs()
+        //{
+        //    Logi logi = new Logi(UserName(), HostName());
+        //    logi.GetLogs();
+        //    logi.SaveLogs();
+        //    logi.LoadLogs();
+        //}
+        //public static void InvokeProgress()
+        //{
+        //    Progress progress = new Progress();
+        //    if (progress.InvokeRequired)
+        //    {
+        //        progress.Invoke(new MethodInvoker(() =>
+        //        {
+        //            progress.Show();
+        //        }));
+        //    }
+
+        //}
         public static Thread progressBar;// = new System.Threading.Thread(InvokeProgress);
         public DirectorySearcher dirsearch = null;
         public static string domainName() { return System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().DomainName; }
@@ -69,24 +69,6 @@ namespace Puzzel
         public static int ProgressBarValue = 0;
         //public static string[] UserLogs;
         //public static string[] ComputerLogs;
-        //string[] domainControllerName = { };
-        //public void getDomainControllers()
-        //{
-        //    domainControllerName = DomainController().Split(',');
-        //}
-
-        //public static string domainController2;
-        //string[] domainController = new string[4];
-        //int licznik_dla_controlera = 0;
-        //void DomainControllersa(object sender, DataReceivedEventArgs e)
-        //{
-        //    Trace.WriteLine(e.Data);
-        //    this.BeginInvoke(new MethodInvoker(() =>
-        //    {
-        //        domainController[licznik_dla_controlera] += (e.Data) ?? string.Empty;
-        //    }));
-        //    licznik_dla_controlera++;
-        //}
         private delegate void UpdateRichTextBoxEventHandler(string message);
         public static void UpdateRichTextBox(string message)
         {
@@ -140,11 +122,15 @@ namespace Puzzel
         private void button14_Click(object sender, EventArgs e)
         {
             startTime();
-            if (Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
+            if (HostName().Length > 0)
             {
-                ProcExec Exec = new ProcExec(ProcExec.rdp, ProcExec.rdp_args + HostName());
+                if (Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
+                {
+                    ProcExec Exec = new ProcExec(ProcExec.rdp, ProcExec.rdp_args + HostName());
+                }
+                else ReplaceRichTextBox("Niewidoczny na sieci");
             }
-            else ReplaceRichTextBox("Niewidoczny na sieci");
+            else ReplaceRichTextBox("Nie podano nazwy hosta");
             stopTime();
         }
 
@@ -178,7 +164,7 @@ namespace Puzzel
                 n.BeginOutputReadLine();
                 n.WaitForExit();
             }
-            else MessageBox.Show("Brak danych w 2 polu tekstowym");
+            else ReplaceRichTextBox("Nie podano nazwy hosta");
             stopTime();
         }
 
@@ -208,7 +194,7 @@ namespace Puzzel
         private void button17_Click(object sender, EventArgs e)
         {
             startTime();
-            if (HostName().Length > 1)
+            if (HostName().Length > 0)
             {
                 if (Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
                 {
@@ -216,239 +202,7 @@ namespace Puzzel
                 }
                 else ReplaceRichTextBox("Nie odpowiada w sieci");
             }
-            else ReplaceRichTextBox("Za mało danych");
-            stopTime();
-        }
-
-        private void button16_Click(object sender, EventArgs e)
-        {
-            startTime();
-            if (programList.IsBusy != true)
-            {
-                programList.RunWorkerAsync();
-            }
-            stopTime();
-        }
-
-        private void programList_DoWork(object sender, DoWorkEventArgs e)
-        {
-
-            startTime();
-            ClearRichTextBox(null);
-            ComputerInfo_TEMP = null;
-            string text = "fast";
-            if (Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
-            {
-                if (Ping.TCPPing(HostName(), 135) == Ping.TCPPingStatus.Connected)
-                {
-                StartAgainIfReturnedValueIsNull:
-                    switch (text)
-                    {
-                        case "fast":
-                            {
-                                try
-                                {
-                                    var ps = PowerShell.Create();
-
-                                    ps.AddScript("Invoke-Command -ComputerName " + HostName() + @" -Command {Get-ItemProperty -Path HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\* | Select-Object DisplayName, InstallDate, DisplayVersion}");
-                                    System.Collections.Generic.List<PSObject> items = ps.Invoke().ToList();
-                                    string[] objItem = null;
-                                    int firstoptimvalue = 80;
-                                    int secondoptimvalue = 31;
-                                    UpdateRichTextBox(string.Format("{0,-80}{1,-31}{2,-1}", "DisplayName", "InstallDate", "DisplayVersion" + "\n"));
-                                    foreach (PSObject item in items)
-                                    {
-                                        objItem = item.ToString().Split(';');
-                                        objItem[0] = objItem[0].Replace("@{DisplayName=", " ");
-                                        objItem[1] = objItem[1].Replace("InstallDate=", "");
-                                        objItem[2] = objItem[2].Replace("DisplayVersion=", "").Replace("}", "");
-
-                                        int firstObjLength = objItem[0].Length;
-                                        int secondObjLenght = objItem[1].Length;
-                                        int thirdObjLenght = objItem[2].Length;
-                                        int addspace = 0;
-                                        if (firstObjLength > 1)
-                                            if (!objItem[0].Contains("for Microsoft") && !objItem[0].Contains("(KB"))
-                                            {
-                                                ComputerInfo_TEMP += objItem[0];
-                                                if (firstObjLength < firstoptimvalue)
-                                                {
-                                                    addspace = firstoptimvalue - firstObjLength;
-                                                    for (int i = 0; i < addspace; i++)
-                                                        ComputerInfo_TEMP += " ";
-                                                }
-                                                else
-                                                {
-                                                    ComputerInfo_TEMP += "   ";
-                                                }
-                                                if (secondObjLenght > 1 && thirdObjLenght > 1)
-                                                {
-                                                    ComputerInfo_TEMP += objItem[1];
-                                                    if (firstoptimvalue > firstObjLength)
-                                                    {
-                                                        addspace = secondoptimvalue - secondObjLenght;
-                                                        for (int i = 0; i < addspace; i++)
-                                                            ComputerInfo_TEMP += " ";
-                                                    }
-                                                    if (firstoptimvalue < firstObjLength)
-                                                    {
-                                                        if (firstoptimvalue + secondoptimvalue > firstObjLength + secondObjLenght + 3)
-                                                        {
-                                                            addspace = firstoptimvalue + secondoptimvalue - firstObjLength - secondObjLenght - 3;
-                                                            for (int i = 0; i < addspace; i++)
-                                                                ComputerInfo_TEMP += " ";
-                                                        }
-                                                        else ComputerInfo_TEMP += "  ";
-                                                    }
-                                                }
-                                                if (secondObjLenght < 4 && thirdObjLenght > 1)
-                                                {
-                                                    if (firstoptimvalue > firstObjLength)
-                                                        addspace = secondoptimvalue;
-                                                    else addspace = firstoptimvalue + secondoptimvalue - firstObjLength - 3;
-                                                    for (int i = 0; i < addspace; i++)
-                                                        ComputerInfo_TEMP += " ";
-
-                                                }
-                                                if (secondObjLenght < 1 && thirdObjLenght < 1)
-                                                {
-                                                    ComputerInfo_TEMP += "\n";
-                                                }
-                                                if (objItem[2].Length < 2)
-                                                    objItem[2] = "";
-                                                ComputerInfo_TEMP += objItem[2] + "\n";
-
-                                            }
-                                    }
-
-                                    if (ComputerInfo_TEMP == null)
-                                    {
-                                        Invoke(new MethodInvoker(() => richTextBox1.Clear()));
-                                        text = "slow";
-                                        goto StartAgainIfReturnedValueIsNull;
-                                    }
-                                    else
-                                    {
-                                        System.Collections.Generic.List<string> trind = ComputerInfo_TEMP.Split('\n').ToList();
-                                        trind.Sort();
-                                        foreach (var line in trind)
-                                            if (line.Length > 3)
-                                                UpdateRichTextBox(line + "\n");
-                                    }
-                                }
-                                catch (Exception ex)
-                                {
-                                    Loger(ex, "szybka metoda");
-                                }
-                                break;
-                            };
-                        case "slow":
-                            {
-
-                                ManagementScope scope = new ManagementScope();
-                                try
-                                {
-                                    ConnectionOptions options = new ConnectionOptions
-                                    {
-                                        EnablePrivileges = true
-                                    };
-
-                                    scope = new ManagementScope(@"\\" + HostName() + @"\root\CIMV2", options);
-                                    scope.Connect();
-                                    //SelectQuery query = new SelectQuery("SELECT * FROM Win32_Product");
-                                    ManagementObjectSearcher searcher = new ManagementObjectSearcher(new ManagementScope(@"\\" + HostName() + @"\root\CIMV2", options), new SelectQuery("SELECT * FROM Win32_Product"));
-                                    int nazwa_dlugosc;
-                                    using (ManagementObjectCollection queryCollection = searcher.Get())
-                                    {
-                                        //sprawdzenie maksymalnej wartości dla nazwa
-                                        string nazwa = null;
-                                        string[] nazwa1 = null;
-                                        string wersja = null;
-                                        string[] wersja1 = null;
-                                        nazwa_dlugosc = 0;
-                                        foreach (ManagementObject m in queryCollection)
-                                        {   //tworzenie ciągu wszystkich nazw po przecinku
-                                            nazwa += m["description"].ToString() + ",";
-                                            //tworzenie ciągu wszystkich wersji po przecinku
-                                            wersja += m["version"].ToString() + ",";
-                                        }
-                                        //rozdzielenie całego ciągu na osobne obiekty
-                                        nazwa1 = nazwa.Split(',');
-                                        wersja1 = wersja.Split(',');
-
-                                        for (int i = nazwa1.Count() - 2; i > 0; i--)
-                                        {//szukanie najdłuższego wyrazu
-                                            if (nazwa1[i].Length > nazwa_dlugosc)
-                                            {
-                                                nazwa_dlugosc = nazwa1[i].Length;
-                                            }
-                                        }
-                                        //dodanie pierwszej linijki informacyjnej
-                                        ComputerInfo_TEMP += ("Nazwa");
-                                        for (int i = 0; i < nazwa_dlugosc - 4; i++)
-                                        {
-                                            ComputerInfo_TEMP += (" ");
-                                        }
-                                        ComputerInfo_TEMP += ("Wersja\n");
-                                        //dodanie nazwy i wersji programu linijka pod linijką
-                                        for (int i = nazwa1.Count() - 2; i > 0; i--)
-                                        {
-                                            ComputerInfo_TEMP += (nazwa1[i].ToString());
-                                            for (int j = 0; j < nazwa_dlugosc - nazwa1[i].Length + 1; j++)
-                                            {
-                                                ComputerInfo_TEMP += (" ");
-                                            }
-                                            ComputerInfo_TEMP += (wersja1[i].ToString() + "\n");
-                                        }
-                                    }
-                                }
-
-                                catch (UnauthorizedAccessException)
-                                {
-                                    MessageBox.Show("Nie można połączyć ponieważ dostęp jest wzbroniony na bieżacych poświadczeniach", "WMI Testing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); return;
-                                }
-
-                                catch (Exception ex)
-                                {
-                                    Loger(ex, "wolna metoda");
-                                    MessageBox.Show("Nie można połączyć z powodu błędu: " + ex.Message, "WMI Testing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); return;
-                                }
-                                ReplaceRichTextBox(ComputerInfo_TEMP);
-                                break;
-                            };
-                    }
-                }
-                else UpdateRichTextBox("Serwer RPC jest niedostępny dla : " + HostName());
-            }
-            else UpdateRichTextBox("Stacja: " + HostName() + " nie jest widoczna w sieci");
-            stopTime();
-        }
-
-        private void button18_Click(object sender, EventArgs e)
-        {
-            ClearRichTextBox(null);
-            if (HostName().Length > 0)
-            {
-                startTime();
-                if (Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
-                {
-                    if (Ping.TCPPing(HostName(), 135) == Ping.TCPPingStatus.Connected)
-                    {
-                        ComputerInfo_TEMP = null;
-                        ComputerInfo computerInfo = new ComputerInfo();
-                        ComputerInfo_TEMP += ("Nazwa komputera: ");
-                        computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryComputerSystem, "DNSHostName");
-                        ComputerInfo_TEMP += ("----------------------------------------\n");
-                        ComputerInfo_TEMP += ("Karty Sieciowe: ");
-                        computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryNetworkAdapterConfiguration, "IPEnabled", "Description", "DNSDomainSuffixSearchOrder", "DNSHostName", "IPAddress", "IPSubnet", "MACAddress");
-                        UpdateRichTextBox(ComputerInfo_TEMP);
-                        ComputerInfo_TEMP = null;
-                    }
-                    else UpdateRichTextBox("Serwer RPC jest niedostępny dla : " + HostName());
-                }
-                else UpdateRichTextBox("Stacja: " + HostName() + " nie jest widoczna w sieci");
-            }
-            else UpdateRichTextBox("Brak podanej nazwy komputera");
+            else ReplaceRichTextBox("Nie podano nazwy hosta");
             stopTime();
         }
         static int lastWidth = 0;
@@ -504,11 +258,13 @@ namespace Puzzel
                         TerminalExplorer Term = new TerminalExplorer();
                         Term.ConnectToSession(SlowowTekscie[1], Convert.ToInt16(SlowowTekscie[0]));
                     }
+                    else ReplaceRichTextBox("Nie wybrano aktywnej sesji");
                 }
+                else ReplaceRichTextBox("Nie ma żadnej aktywnej sesji");
             }
             catch (ArgumentOutOfRangeException)
             {
-                UpdateRichTextBox("Nie wybrano żadnego terminala lub nie znalazł żadnej sesji\n");
+                ReplaceRichTextBox("Nie wybrano żadnego terminala lub nie znalazł żadnej sesji\n");
                 MessageBox.Show("Nie wybrano żadnego terminala lub nie znalazł żadnej sesji", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Win32Exception ex)
@@ -525,24 +281,6 @@ namespace Puzzel
                 UpdateRichTextBox(((e.Data) ?? string.Empty) + "\n");
             }));
         }
-        string sesjelogs;
-        void sesje(object sender, DataReceivedEventArgs e)
-        {
-            Trace.WriteLine(e.Data);
-            this.BeginInvoke(new MethodInvoker(() =>
-            {
-                sesjelogs += e.Data + "\n";
-            }));
-        }
-
-        void netuserdomainbloop(object sender, DataReceivedEventArgs e)
-        {
-            Trace.WriteLine(e.Data);
-            this.BeginInvoke(new MethodInvoker(() =>
-            {
-                netuserdomain += e.Data + "\n";
-            }));
-        }
 
         private delegate void ClearRichTextBoxEventHandler(string sign);
         private void ClearRichTextBox(string sign)
@@ -554,160 +292,104 @@ namespace Puzzel
             else ReplaceRichTextBox(null);
         }
 
-        //private void SearchbySama(object sender, DataReceivedEventArgs e)
-        //{
-        //    Trace.WriteLine(e.Data);
-        //    this.BeginInvoke(new MethodInvoker(() =>
-        //{
-        //    ImieNazwisko += (((e.Data) ?? string.Empty));
-        //}));
-
-        //}
-        //private string ImieNazwisko = null;
-        //private void SearchNameBysAMA(string UserName)
-        //{
-        //    Process n = new Process();
-        //    n.StartInfo.FileName = @"C:\Windows\sysnative\dsquery.exe";
-        //    n.StartInfo.Arguments = @"user -o rdn -samid " + UserName;
-        //    n.StartInfo.StandardOutputEncoding = Encoding.GetEncoding(852);
-        //    n.StartInfo.CreateNoWindow = true;
-        //    n.StartInfo.UseShellExecute = false;
-        //    n.StartInfo.RedirectStandardOutput = true;
-        //    n.OutputDataReceived += new DataReceivedEventHandler(SearchbySama);
-        //    n.Start();
-        //    n.BeginOutputReadLine();
-        //    n.WaitForExit();
-        //    stopTime();
-        //}
         string combobox2_last = null;
         string combobox3_last = null;
         private void szukajLogow(object sender, EventArgs e)
         {
-            //if (sender is Button || sender is ComboBox)
-            //{
-            if (comboBox2.Text.Length > 0)
-                if (comboBox2.Text != combobox2_last)
-                {
-                    combobox2_last = comboBox2.Text;
-                    comboBox2.Items.Add(combobox2_last);
-                    //if (comboBox2.Items[0].ToString() != combobox_last)
-                    //{
-                    //    var toResizeArray = comboBox2.Items;
-                    //}
-                }
-            if (comboBox3.Text.Length > 0)
-                if (comboBox3.Text != combobox3_last)
-                {
-                    combobox3_last = comboBox3.Text;
-                    comboBox3.Items.Add(combobox3_last);
-                    //if (comboBox2.Items[0].ToString() != combobox_last)
-                    //{
-                    //    var toResizeArray = comboBox2.Items;
-                    //}
-                }
-            //}
+            ClearRichTextBox(null);
+            startTime();
+            int NameLength = 0;
             string senderZ = null;
             decimal counter = 0;
-            int counterlist = 0;
             string NameZ = null;
-            //BackgroundWorker ladujWtle = new BackgroundWorker();
-            //if (!ladujWtle.IsBusy)
-            //{
+
             if (sender is Button)
             {
                 if (((Button)sender).Name == "button1")
                 {
                     senderZ = "User";
-                    counterlist = comboBox2.Text.Length;//textBox1.Text.Length;
                     counter = numericUpDown1.Value;
                     NameZ = UserName();
+                    NameLength = NameZ.Length;
                 }
                 if (((Button)sender).Name == "button10")
                 {
                     senderZ = "Computer";
-                    counterlist = /*textBox2.Text.Length*/comboBox3.Text.Length;
                     counter = numericUpDown2.Value;
                     NameZ = HostName();
+                    NameLength = NameZ.Length;
                 }
             }
-            //if (sender is TextBox)
-            //{
-            //    if (((TextBox)sender).Name == "textBox1")
-            //    {
-            //        senderZ = "User";
-            //        counterlist = /*textBox1.Text.Length;*/comboBox2.Text.Length;
-            //        counter = numericUpDown1.Value;
-            //        NameZ = UserName();
-            //    }
-            //    if (((TextBox)sender).Name == "textBox2")
-            //    {
-            //        senderZ = "Computer";
-            //        counterlist = textBox2.Text.Length;
-            //        counter = numericUpDown2.Value;
-            //        NameZ = HostName();
-            //    }
-            //}
+
             if (sender is ComboBox)
             {
                 if (((ComboBox)sender).Name == "comboBox2")
                 {
                     senderZ = "User";
-                    counterlist = comboBox2.Text.Length;
                     counter = numericUpDown1.Value;
                     NameZ = UserName();
+                    NameLength = NameZ.Length;
                 }
                 if (((ComboBox)sender).Name == "comboBox3")
                 {
                     senderZ = "Computer";
-                    counterlist =comboBox3.Text.Length;
                     counter = numericUpDown2.Value;
                     NameZ = HostName();
+                    NameLength = NameZ.Length;
                 }
             }
-
-            //ladujWtle.DoWork += (object sendzer, DoWorkEventArgs dwea) =>
-            //{
-            ClearRichTextBox(null);
-            startTime();
-            Logi logi = new Logi();
-
-            if (counterlist > 2)
+            if (NameLength > 1)
             {
-                int invalidPathChars = 0;
-                foreach (char invalidPathChar in Path.GetInvalidFileNameChars())
-                {
-                    if (NameZ.Contains(invalidPathChar))
-                        invalidPathChars++;
-                }
-                if (invalidPathChars == 0)
-                {
-                    logi.contains(NameZ, senderZ);
-                    if (logi.LogNames().Count() > 0)
+                if (comboBox2.Text.Length > 0)
+                    if (comboBox2.Text != combobox2_last)
                     {
-                        foreach (string LogsName in logi.LogNames())
-                        {
-                            Thread thread = new Thread(() =>
-                            UpdateRichTextBox(logi.loGi(LogsName, senderZ, counter)));
-                            thread.Start();
-                        }
+                        combobox2_last = comboBox2.Text;
+                        comboBox2.Items.Add(combobox2_last);
                     }
-                    else ReplaceRichTextBox("Brak w logach");
+                if (comboBox3.Text.Length > 0)
+                    if (comboBox3.Text != combobox3_last)
+                    {
+                        combobox3_last = comboBox3.Text;
+                        comboBox3.Items.Add(combobox3_last);
+                    }
+
+                if (Directory.Exists(Working[8].Remove(8)))
+                {
+                    Logi logi = new Logi();
+
+                    int invalidPathChars = 0;
+                    foreach (char invalidPathChar in Path.GetInvalidFileNameChars())
+                    {
+                        if (NameZ.Contains(invalidPathChar))
+                            invalidPathChars++;
+                    }
+                    if (invalidPathChars == 0)
+                    {
+                        logi.contains(NameZ, senderZ);
+                        if (logi.LogNames().Count() > 0)
+                        {
+                            foreach (string LogsName in logi.LogNames())
+                            {
+                                Thread thread = new Thread(() =>
+                                UpdateRichTextBox(logi.loGi(LogsName, senderZ, counter)));
+                                thread.Start();
+                            }
+                        }
+                        else ReplaceRichTextBox("Brak w logach");
+                    }
+                    else ReplaceRichTextBox("Użyto niedozwolonych znaków w loginie lub nazwie komputera");
                 }
-                else ReplaceRichTextBox("Użyto niedozwolonych znaków loginie lub nazwie komputera");
+                else MessageBox.Show("Brak dostępu do zasobu");
+
+                if (comboBox1.InvokeRequired)
+                    comboBox1.Invoke(new MethodInvoker(() =>
+                    {
+                        comboBox1.Text = "";
+                        comboBox1.Items.Clear();
+                    }));
             }
             else ReplaceRichTextBox("Za mało danych");
-
-            if (comboBox1.InvokeRequired)
-                comboBox1.Invoke(new MethodInvoker(() =>
-                {
-                    comboBox1.Text = "";
-                    comboBox1.Items.Clear();
-                }));
-            //};
-            //    ladujWtle.RunWorkerAsync();
-            //}
-            //else MessageBox.Show("Wyszukiwanie nadal trwa...", "Wyszukiwanie danych");
-
+            stopTime();
         }
 
         private void button9_Click(object sender, EventArgs e)
@@ -720,38 +402,80 @@ namespace Puzzel
                 {
                     if (comboBox1.SelectedIndex >= 0)
                     {
-                        TerminalExplorer Term = new TerminalExplorer();
-                        Term.LogoffSession(SlowowTekscie[1], Convert.ToInt16(SlowowTekscie[0]));
+                        if (File.Exists(Directory.GetCurrentDirectory() + @"\Cassia.dll"))
+                        {
+                            TerminalExplorer Term = new TerminalExplorer();
+                            Term.LogoffSession(SlowowTekscie[1], Convert.ToInt16(SlowowTekscie[0]));
+                        }
+                        else MessageBox.Show("Plik Cassia.dll nie jest dostępny.");
                     }
+                    else ReplaceRichTextBox("Nie wybrano aktywnej sesji");
                 }
+                else ReplaceRichTextBox("Nie ma żadnej aktywnej sesji");
             }
-            catch (Exception ex)
+            catch (ArgumentOutOfRangeException)
+            {
+                ReplaceRichTextBox("Nie wybrano żadnego terminala lub nie znalazł żadnej sesji\n");
+                MessageBox.Show("Nie wybrano żadnego terminala lub nie znalazł żadnej sesji", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Win32Exception ex)
             {
                 Loger(ex, SlowowTekscie[1]);
             }
             stopTime();
         }
-
+        public static string terminalName = null;
+        private void szukanieSesjiCustom(object sender, EventArgs e)
+        {
+            PodajNazweTerminala podajNazweTerminala = new PodajNazweTerminala();
+            Thread thread1 = new Thread(() =>
+            {
+                podajNazweTerminala.ShowDialog();
+            });
+            thread1.Start();
+            Thread thread;
+            if (File.Exists(Directory.GetCurrentDirectory() + @"\Cassia.dll"))
+            {
+                TerminalExplorer terminalExplorer = new TerminalExplorer();
+                thread1.Join();
+                thread = new Thread(() => terminalExplorer.szukanieSesji(terminalName));
+                thread.Start();
+                terminalExplorer.Show();
+            }
+            else MessageBox.Show("Plik " + Directory.GetCurrentDirectory() + @"\Cassia.dll nie jest dostępny.");
+        }
+        private void wyszukiwanieSesji_TerminalExplorer(object sender, EventArgs e)
+        {
+            Thread thread;
+            if (File.Exists(Directory.GetCurrentDirectory() + @"\Cassia.dll"))
+            {
+                TerminalExplorer terminalExplorer = new TerminalExplorer();
+                thread = new Thread(() => terminalExplorer.szukanieSesji(((ToolStripMenuItem)sender).Text));
+                thread.Start();
+                terminalExplorer.Show();
+            }
+            else MessageBox.Show("Plik Cassia.dll nie jest dostępny.");
+        }
 
         public static string ComputerInfo_TEMP;
         private void button13_Click(object sender, EventArgs e)
         {
             startTime();
             ClearRichTextBox(null);
-            if (comboBox3.Text.Length > 1)
+            if (comboBox3.Text.Length > 0)
             {
                 if (Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
                 {
-                    if (Ping.TCPPing(HostName(), 135) == Ping.TCPPingStatus.Connected)
+                    if (Ping.TCPPing(HostName(), 135) == Ping.TCPPingStatus.Success)
                     {
                         if (MessageBox.Show(new Form() { TopMost = true }, "Wyszukiwanie może chwile potrwać, zezwolić ?", "Wyszukiwanie danych", MessageBoxButtons.YesNo) == DialogResult.Yes)
                             if (!komputerInfo.IsBusy)
                             {
+                                ClearRichTextBox(null);
                                 Puzzel.Form1.ProgressMax = 19;
                                 LoadingForm loadingForm = new LoadingForm();
                                 System.Threading.Thread progress;
                                 progress = new System.Threading.Thread(loadingForm.progress);
-                                //Progress pgclass = new Progress();
                                 progress.Start();
                                 progressBar = new System.Threading.Thread(komputerInfoCOMM);
                                 komputerInfo.RunWorkerAsync();
@@ -768,41 +492,47 @@ namespace Puzzel
         private void DWButton_Click(object sender, EventArgs e)
         {
             startTime();
-            if (File.Exists(Working[9].Remove(13)))
+            try
             {
-            	if (sender is Button)
-            	{
-                	ProcExec Exec = new ProcExec(Working[9].Remove(13), "-m:" + HostName() + " -x -a:1");
-				}
-				else
-				{
-					string login = null
-					string pwd = null;
-					if (sender is ToolStripMenuItem)
+	            if (File.Exists(Working[9].Remove(13)))
+	            {
+	            	if (sender is Button)
+	            	{
+	                	ProcExec Exec = new ProcExec(Working[9].Remove(13), "-m:" + HostName() + " -x -a:1");
+					}
+					else
 					{
-						if (((ToolStripMenuItem)sender).Text.Contains(Working[14].Remove(9)))
-                        {
-                            //LAPSui lAPSui = new LAPSui();
-                            login = Working[14].Remove(9);
-                            pwd = LAPSui.PwdLcl(HostName());
+						string login = null
+						string pwd = null;
+						if (sender is ToolStripMenuItem)
+						{
+							if (((ToolStripMenuItem)sender).Text.Contains(Working[14].Remove(9)))
+	                        {
+	                            login = Working[14].Remove(9);
+	                            pwd = LAPSui.PwdLcl(HostName());
+	                        }
+	                        else
+	                        {
+	                            login = Working[15].Remove(9);
+	                            pwd = Working[17];
+	                        }
+	                        if (pwd.Length > 1)
+	                        {
+	                            ProcExec Exec = new ProcExec(Working[9].Remove(13), "-m:" + HostName() + " -x -a:2 -u:" + login + " -p:" + pwd + " -d:");
+							}
+                        	else MessageBox.Show("Brak hasła");
                         }
-                        else
-                        {
-                            login = Working[15].Remove(9);
-                            pwd = Working[17];
-                        }
-                        if (pwd.Length > 1)
-                        {
-                            ProcExec Exec = new ProcExec(Working[9].Remove(13), "-m:" + HostName() + " -x -a:2 -u:" + login + " -p:" + pwd + " -d:");
-                        }
-                        else MessageBox.Show("Brak hasła");
                     }
                 }
+                else
+                {
+                    UpdateRichTextBox("Nie można odnaleźć określonego pliku\n");
+                    UpdateRichTextBox(Working[9].Remove(13));
+				}
             }
-            else
+            catch (Exception ex)
             {
-                UpdateRichTextBox("Nie można odnaleźć określonego pliku\n");
-                UpdateRichTextBox(Working[9].Remove(13));
+                Loger(ex, "DWButton_Click");
             }
             stopTime();
         }
@@ -902,7 +632,10 @@ namespace Puzzel
         public string homeDrive = null;
         public string userCannotChangePassword = null;
         public string passwordNotRequired = null;
+        string permittedWorkstation = null;
+        string SkypeLogin = null;
 
+        string Groups = null;
         private void ShowUserInformation(SearchResult rs)
         {
             if (rs.GetDirectoryEntry().Properties["sAMAccountName"].Value != null)
@@ -944,6 +677,33 @@ namespace Puzzel
                 if (user.HomeDirectory != null)
                     homeDirectory = user.HomeDirectory;
 
+                if (user.PermittedWorkstations.Count > 0)
+                {
+                    foreach (var permiWorks in user.PermittedWorkstations)
+                    {
+                        permittedWorkstation += permiWorks.ToString() + "\n\t\t\t\t\t\t";
+                    }
+                }
+                else permittedWorkstation = "Wszystkie";
+
+                //if (user.PermittedLogonTimes != null)
+                //{
+                //    var zone = TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time");
+                //    var time = new LogonTime(DayOfWeek.Monday,
+                //         new DateTime(2011, 1, 1, 8, 0, 0),
+                //         new DateTime(2011, 1, 1, 10, 0, 0), zone);
+                //    var times = new List<LogonTime>();
+                //    times.add(time);
+                //    var mask = PermittedLogonTimes.GetByteMask(times);
+
+                //    var times = PermittedLogonTimes.GetLogonTimes(mask);
+                //}
+                //    permittedLogonTime = user.PermittedLogonTimes;
+
+                if (user.GetGroups() != null)
+                    foreach (var groups in user.GetGroups())
+                        Groups += groups.SamAccountName + "\n\t\t\t\t\t\t";
+
                 if (user.HomeDrive != null)
                     homeDrive = (string)user.HomeDrive;
 
@@ -953,21 +713,26 @@ namespace Puzzel
                 if (user.ScriptPath != null)
                     scriptPath = (string)user.ScriptPath;
 
-                if (user.PasswordNotRequired)
-                {
+                //if (user.PasswordNotRequired)
+                //{
                     if (user.PasswordNotRequired == true) passwordNotRequired = "NIE";
-                    if (user.PasswordNotRequired == false) passwordNotRequired = "TAK";
-                }
-                else passwordNotRequired = "Błąd";
+                    else/*(user.PasswordNotRequired == false) passwordNotRequired = "TAK";
+                //}
+                //else passwordNotRequired = "Błąd";
 
-                if (user.UserCannotChangePassword)
-                {
+                //if (user.UserCannotChangePassword)
+                //{
                     if (user.UserCannotChangePassword == true) userCannotChangePassword = "NIE";
-                    if (user.UserCannotChangePassword == false) userCannotChangePassword = "TAK";
-                }
-                else userCannotChangePassword = "Błąd";
+                    else /*(user.UserCannotChangePassword == false)*/ userCannotChangePassword = "TAK";
+                //}
+                //else userCannotChangePassword = "Błąd";
             }
 
+            if (rs.GetDirectoryEntry().Properties["msRTCSIP-PrimaryUserAddress"].Value != null)
+            {
+                SkypeLogin = rs.GetDirectoryEntry().Properties["msRTCSIP-PrimaryUserAddress"].Value.ToString();
+            }
+            else SkypeLogin = "Brak loginu";
             if (rs.GetDirectoryEntry().Properties["msRTCSIP-InternetAccessEnabled"].Value != null)
             {
                 if (rs.GetDirectoryEntry().Properties["msRTCSIP-InternetAccessEnabled"].Value.ToString() == "True")
@@ -1034,13 +799,102 @@ namespace Puzzel
             return myItems;
         }
 
-        string netuserdomain;
         private void button2_Click(object sender, EventArgs e)
         {
             startTime();
             if (InfozAD.IsBusy != true)
             {
                 InfozAD.RunWorkerAsync();
+            }
+            stopTime();
+        }
+        private void InfozAD_DoWork(object sender, DoWorkEventArgs e)
+        {
+            startTime();
+            ClearRichTextBox(null);
+
+            if (UserName().Length != 0)
+            {
+                if (GetInfo(domainName()) != null)
+                {
+                    //1 linijka
+                    TimeSpan temp = (pwdLastSet.AddDays(30) - DateTime.Now);
+                    if (temp > (DateTime.Now.AddDays(2) - DateTime.Now))
+                    {
+                        UpdateRichTextBox(temp.ToString("'Hasło wygasa za: 'dd' dni 'hh'g'mm'm'ss's'") + "\n");
+                    }
+                    else if (temp < (DateTime.Now.AddDays(1) - DateTime.Now))
+                        UpdateRichTextBox(temp.ToString("'Hasło wygasa za: 'dd' dzień 'hh'g'mm'm'ss's'") + "\n");
+
+                    //2 linijka
+                    UpdateRichTextBox("\n");
+                    //3 linijka
+                    UpdateRichTextBox("---------------------------------" + "\n");
+                    //4 linijka
+                    UpdateRichTextBox("Nazwa użytkownika:\t\t\t" + loginName + "\n");
+                    //5 linijka
+                    UpdateRichTextBox("Pełna nazwa:\t\t\t\t" + displayName + "\n");
+                    //6 linijka
+                    UpdateRichTextBox("Komentarz:\t\t\t\t\t" + title + "\n");
+                    //7 linijka
+                    UpdateRichTextBox("Firma zatrudniająca:\t\t\t" + company + "\n");
+                    //8 linijka
+                    UpdateRichTextBox("Mail:\t\t\t\t\t\t" + mail + "\n");
+                    //9 linijka
+                    UpdateRichTextBox("Adres logowania Skype: \t\t\t" + SkypeLogin.Replace("sip:","") + "\n");
+                    //10 linijka
+                    UpdateRichTextBox("Konto jest aktywne:\t\t\t" + userEnabled + "\n");
+                    //11 linijka
+                    UpdateRichTextBox("\n");
+                    //12 linijka
+                    UpdateRichTextBox("Konto wygasa:\t\t\t\t" + accountExpires + "\n");  //działa ale jest zła strefa czasowa
+                    //13 linijka                                                                     //12 linijka
+                    if (pwdLastSet < lockoutTime)
+                        UpdateRichTextBox("Konto zablokowane:\t\t\t" + lockoutTime + "\n");
+                    else UpdateRichTextBox("Konto zablokowane:\t\t\t" + "0" + "\n");
+                    //14 linijka
+                    UpdateRichTextBox("Ostatnie błędne logowanie:\t\t" + badPasswordTime + "\n"); //działa ale potrzebna jest deklaracja serwera
+                    //15 linijka
+                    UpdateRichTextBox("Ilość błędnych prób logowania:\t" + badPwdCount + "\n"); //działa serwerów są 4
+                    //16 linijka                                                                            
+                    UpdateRichTextBox("Dostęp do internetu:\t\t\t" + InternetAccessEnabled + "\n");
+                    //17 linijka
+                    UpdateRichTextBox("Hasło ostatnio ustawiono:\t\t" + pwdLastSet + "\n");
+                    //18 linijka
+                    UpdateRichTextBox("Hasło wygasa:\t\t\t\t" + pwdLastSet.AddDays(30) + "\n");
+                    //19 linijka
+                    UpdateRichTextBox("Hasło może być zmienione:\t\t" + pwdLastSet.AddDays(1) + "\n");
+                    //20 linijka
+                    UpdateRichTextBox("\n");
+                    //21 linijka
+                    UpdateRichTextBox("Ostatnie logowanie:\t\t\t" + lastLogon + "\n");
+                    //22 linijka
+                    if (lastLogoff > lastLogon)
+                        UpdateRichTextBox("Ostatnie wylogowanie:\t\t\t\t" + lastLogoff + "\n");
+                    else UpdateRichTextBox("Ostatnie wylogowanie:\t\t\t" + "0" + "\n");
+                    //23 linijka
+                    UpdateRichTextBox("\n");
+                    //24 linijka
+                    UpdateRichTextBox("Czy hasło jest wymagane? \t\t"+passwordNotRequired + "\n");
+                    //25 linijka
+                    UpdateRichTextBox("Użytkownik nie może zmienić hasła \t" + userCannotChangePassword+"\n");
+                    //26 linijka
+                    UpdateRichTextBox(/*Allowed_workstions() */"Dozwolone stacje robocze:\t\t" + permittedWorkstation + "\n");
+                    //27 linijka
+                    UpdateRichTextBox("Skrypt logowania:\t\t\t\t" + scriptPath + "\n");
+                    //28 linijka
+                    UpdateRichTextBox("Katalog macierzysty:\t\t\t" + homeDirectory + "\n");
+                    //29 linijka
+                    UpdateRichTextBox("Dysk macierzysty:\t\t\t\t" + homeDrive + "\n");
+                    //30 linijka
+                    UpdateRichTextBox("\n");
+                    //31 linijka
+                    //UpdateRichTextBox(/*Allowed_Hours()*/ permittedLogonTime.ToString());
+                    UpdateRichTextBox("\n");
+                    //32 linijka
+                    UpdateRichTextBox(/*MembersOf()*/"Członkowsta grup:\t\t\t\t"+Groups.ToString());
+                }
+                else UpdateRichTextBox("Nie znaleziono użytkownika w AD");
             }
             stopTime();
         }
@@ -1061,6 +915,12 @@ namespace Puzzel
             p.BeginOutputReadLine();
             p.WaitForExit();
             stopTime();
+        }
+
+       
+        private void komputerInfo_DoWork(object sender, DoWorkEventArgs e)
+        {
+            progressBar.Start();
         }
 
         private void komputerInfoCOMM()
@@ -1155,10 +1015,6 @@ namespace Puzzel
             ComputerInfo_TEMP = null;
             stopTime();
         }
-        private void komputerInfo_DoWork(object sender, DoWorkEventArgs e)
-        {
-            progressBar.Start();
-        }
 
         Stopwatch stopWatch = new Stopwatch();
 
@@ -1208,6 +1064,7 @@ namespace Puzzel
         {
             comboBox1.Items.Clear();
             richTextBox1.Clear();
+            int aktywnesesje = 0;
             if (UserName().Length > 1)
             {
                 Thread th1 = new Thread(() =>
@@ -1217,57 +1074,59 @@ namespace Puzzel
                     {
                         Thread th = new Thread(() =>
                         {
-                            //try
-                            //{
+                        try
+                        {
                             TerminalExplorer ts = new TerminalExplorer();
                             object[] combo = ts.FindSession(terms, UserName());
-                            if (combo[0] != null)
-                            {
-                                updateComboBox(combo[0] + " " + combo[1]);
-                                UpdateRichTextBox(combo[1] + " --------------------------------\n");
-                                UpdateRichTextBox("Nazwa użytkownika     Nazwa Sesji    Id    Status        Czas bezczynności    Czas logowania\n");
-
-                                UpdateRichTextBox(combo[2].ToString());
-                                for (int i = 0; i < "Nazwa użytkownika     ".Length - combo[2].ToString().Length; i++)
-                                    UpdateRichTextBox(" ");
-
-                                UpdateRichTextBox(combo[3].ToString());
-                                for (int i = 0; i < "Nazwa Sesji    ".Length - combo[3].ToString().Length; i++)
-                                    UpdateRichTextBox(" ");
-
-                                UpdateRichTextBox(combo[0].ToString());
-                                for (int i = 0; i < "Id    ".Length - combo[0].ToString().Length; i++)
-                                    UpdateRichTextBox(" ");
-
-                                UpdateRichTextBox(combo[4].ToString());
-                                for (int i = 0; i < "Status        ".Length - combo[4].ToString().Length; i++)
-                                    UpdateRichTextBox(" ");
-
-                                //Wyekstraktowanie całej czasu bezczynności
-                                int time = Convert.ToInt32(Math.Ceiling(((TimeSpan)combo[5]).TotalSeconds));
-                                double _time = 0;
-                                string idletime = "";
-                                if ((time / 3600) >= 1)
+                                if (combo != null)
                                 {
-                                    _time = (time / 3600);
-                                    idletime += (Math.Ceiling(_time).ToString() + ":");
-                                    time = time - Convert.ToInt32(Math.Ceiling(_time)) * 3600;
-                                }
-                                if ((time / 60) > 1)
-                                {
-                                    _time = (time / 60);
-                                    idletime += (Math.Ceiling(_time).ToString() + ":");
-                                    time = time - Convert.ToInt32(Math.Ceiling(_time)) * 60;
-                                }
+                                    aktywnesesje++;
+                                    updateComboBox(combo[0] + " " + combo[1]);
+                                    UpdateRichTextBox(combo[1] + " --------------------------------\n");
+                                    UpdateRichTextBox("Nazwa użytkownika     Nazwa Sesji    Id    Status        Czas bezczynności    Czas logowania\n");
 
-                                idletime += (time.ToString());
-                                UpdateRichTextBox(idletime);
-                                for (int i = 0; i < "Czas bezczynności    ".Length - idletime.Length; i++)
-                                    UpdateRichTextBox(" ");
+                                    UpdateRichTextBox(combo[2].ToString());
+                                    for (int i = 0; i < "Nazwa użytkownika     ".Length - combo[2].ToString().Length; i++)
+                                        UpdateRichTextBox(" ");
 
-                                UpdateRichTextBox(combo[6].ToString());
-                                UpdateRichTextBox("\n");
-                            }
+                                    UpdateRichTextBox(combo[3].ToString());
+                                    for (int i = 0; i < "Nazwa Sesji    ".Length - combo[3].ToString().Length; i++)
+                                        UpdateRichTextBox(" ");
+
+                                    UpdateRichTextBox(combo[0].ToString());
+                                    for (int i = 0; i < "Id    ".Length - combo[0].ToString().Length; i++)
+                                        UpdateRichTextBox(" ");
+
+                                    UpdateRichTextBox(combo[4].ToString());
+                                    for (int i = 0; i < "Status        ".Length - combo[4].ToString().Length; i++)
+                                        UpdateRichTextBox(" ");
+
+                                    //Wyekstraktowanie całej czasu bezczynności
+                                    int time = Convert.ToInt32(Math.Ceiling(((TimeSpan)combo[5]).TotalSeconds));
+                                    double _time = 0;
+                                    string idletime = "";
+                                    if ((time / 3600) >= 1)
+                                    {
+                                        _time = (time / 3600);
+                                        idletime += (Math.Ceiling(_time).ToString() + ":");
+                                        time = time - Convert.ToInt32(Math.Ceiling(_time)) * 3600;
+                                    }
+                                    if ((time / 60) > 1)
+                                    {
+                                        _time = (time / 60);
+                                        idletime += (Math.Ceiling(_time).ToString() + ":");
+                                        time = time - Convert.ToInt32(Math.Ceiling(_time)) * 60;
+                                    }
+
+                                    idletime += (time.ToString());
+                                    UpdateRichTextBox(idletime);
+                                    for (int i = 0; i < "Czas bezczynności    ".Length - idletime.Length; i++)
+                                        UpdateRichTextBox(" ");
+
+                                    UpdateRichTextBox(combo[6].ToString());
+                                    UpdateRichTextBox("\n");
+                                    if (aktywnesesje == 0) { ReplaceRichTextBox("Nie znaleziono sesji"); }
+                                }
                             if (comboBox1.Items.Count > 0)
                                 if (comboBox1.InvokeRequired)
                                 {
@@ -1284,11 +1143,12 @@ namespace Puzzel
                                     }));
                                 }
                                 else comboBox1.SelectedIndex = 0;
-                            //}
-                            //catch (Exception ex)
-                            //{
-                            //    Loger(ex, terms);
-                            //}
+                            
+                            }
+                            catch (Exception ex)
+                            {
+                                Loger(ex, terms);
+                            }
                         });
                         th.Start();
                     }
@@ -1306,138 +1166,7 @@ namespace Puzzel
                 comboBox1.Invoke(new updateComboBoxEventHandler(updateComboBox), new object[] { message });
             }
             else { comboBox1.Items.Add(message); }
-        }
-        private string Allowed_workstions()
-        {
-            string[] temp = netuserdomain.Split('\n');
-            return temp[16].ToString();
-        }
-        private string Allowed_Hours()
-        {
-            string[] temp = netuserdomain.Split('\n');
-            return temp[22].ToString();
-        }
-        private string PasswordIsRequired()
-        {
-            string[] temp = netuserdomain.Split('\n');
-            string temp1 = null;
-            for (int i = 13; i < 15; i++)
-            {
-                temp1 += temp[i] + "\n";
-            }
-            return temp1;
-        }
-
-        private string MembersOf()
-        {
-            string[] temp = netuserdomain.Split('\n');
-            string temp1 = null;
-            for (int i = 24; i < temp.Count() - 4; i++)
-            {
-                temp1 += temp[i] + "\n";
-            }
-            return temp1;
-        }
-        private void InfozAD_DoWork(object sender, DoWorkEventArgs e)
-        {
-            startTime();
-            ClearRichTextBox("");
-            Process p = new Process();
-            p.StartInfo.FileName = @"net";
-            p.StartInfo.Arguments = @"user " + UserName() + " /domain";
-            p.StartInfo.StandardOutputEncoding = Encoding.GetEncoding(852);
-            p.StartInfo.CreateNoWindow = true;
-            p.StartInfo.UseShellExecute = false;
-            p.StartInfo.RedirectStandardOutput = true;
-            p.OutputDataReceived += new DataReceivedEventHandler(netuserdomainbloop);
-            p.Start();
-            p.BeginOutputReadLine();
-            p.WaitForExit();
-
-            if (UserName().Length != 0)
-            {
-                if (GetInfo(domainName()) != null)
-                {
-                    //1 linijka
-                    TimeSpan temp = (pwdLastSet.AddDays(30) - DateTime.Now);
-                    if (temp > (DateTime.Now.AddDays(2) - DateTime.Now))
-                    {
-                        UpdateRichTextBox(temp.ToString("'Hasło wygasa za: 'dd' dni 'hh'g'mm'm'ss's'") + "\n");
-                    }
-                    else if (temp < (DateTime.Now.AddDays(1) - DateTime.Now))
-                        UpdateRichTextBox(temp.ToString("'Hasło wygasa za: 'dd' dzień 'hh'g'mm'm'ss's'") + "\n");
-
-                    //2 linijka
-                    UpdateRichTextBox("\n");
-                    //3 linijka
-                    UpdateRichTextBox("---------------------------------" + "\n");
-                    //4 linijka
-                    UpdateRichTextBox("Nazwa użytkownika:\t\t\t" + loginName + "\n");
-                    //5 linijka
-                    UpdateRichTextBox("Pełna nazwa:\t\t\t\t" + displayName + "\n");
-                    //6 linijka
-                    UpdateRichTextBox("Komentarz:\t\t\t\t\t" + title + "\n");
-                    //7 linijka
-                    UpdateRichTextBox("Firma zatrudniająca:\t\t\t" + company + "\n");
-                    //8 linijka
-                    UpdateRichTextBox("Mail:\t\t\t\t\t\t" + mail + "\n");
-                    //9 linijka
-                    UpdateRichTextBox("Konto jest aktywne:\t\t\t" + userEnabled + "\n");
-                    //10 linijka
-                    UpdateRichTextBox("\n");
-                    //11 linijka
-                    UpdateRichTextBox("Konto wygasa:\t\t\t\t" + accountExpires + "\n");  //działa ale jest zła strefa czasowa
-                                                                                         //12 linijka
-                    if (pwdLastSet < lockoutTime)
-                        UpdateRichTextBox("Konto zablokowane:\t\t\t" + lockoutTime + "\n");
-                    else UpdateRichTextBox("Konto zablokowane:\t\t\t" + "0" + "\n");
-                    //13 linijka
-                    UpdateRichTextBox("Ostatnie błędne logowanie:\t\t" + badPasswordTime + "\n"); //działa ale potrzebna jest deklaracja serwera
-                                                                                                  //14 linijka
-                    UpdateRichTextBox("Ilość błędnych prób logowania:\t" + badPwdCount + "\n"); //działa serwerów są 4
-                                                                                                //15 linijka
-                    UpdateRichTextBox("Dostęp do internetu:\t\t\t" + InternetAccessEnabled + "\n");
-                    //16 linijka
-                    UpdateRichTextBox("Hasło ostatnio ustawiono:\t\t" + pwdLastSet + "\n");
-                    //17 linijka
-                    UpdateRichTextBox("Hasło wygasa:\t\t\t\t" + pwdLastSet.AddDays(30) + "\n");
-                    //18 linijka
-                    UpdateRichTextBox("Hasło może być zmienione:\t\t" + pwdLastSet.AddDays(1) + "\n");
-                    //19 linijka
-                    UpdateRichTextBox("\n");
-                    //20 linijka
-                    UpdateRichTextBox("Ostatnie logowanie:\t\t\t" + lastLogon + "\n");
-                    //21 linijka
-                    if (lastLogoff > lastLogon)
-                        UpdateRichTextBox("Ostatnie wylogowanie:\t\t\t\t" + lastLogoff + "\n");
-                    else UpdateRichTextBox("Ostatnie wylogowanie:\t\t\t" + "0" + "\n");
-                    //22 linijka
-                    UpdateRichTextBox("\n");
-                    //23  i 24 linijka
-                    UpdateRichTextBox(PasswordIsRequired() + "\n");
-                    //25
-                    UpdateRichTextBox(Allowed_workstions() + "\n");
-                    //26 linijka
-                    UpdateRichTextBox("Skrypt logowania:\t\t\t\t" + scriptPath + "\n");
-                    //27 linijka
-                    UpdateRichTextBox("Katalog macierzysty:\t\t\t" + homeDirectory + "\n");
-                    //28 linijka
-                    UpdateRichTextBox("Dysk macierzysty:\t\t\t\t" + homeDrive + "\n");
-                    //29 linijka
-                    UpdateRichTextBox("\n");
-                    //30 linijka
-                    UpdateRichTextBox(Allowed_Hours());
-                    //31 linijka
-                    UpdateRichTextBox("\n");
-                    //32 linijka
-                    UpdateRichTextBox(MembersOf());
-                }
-                else UpdateRichTextBox("Nie znaleziono użytkownika w AD");
-            }
-            stopTime();
-        }
-
-
+        }       
         private void button20_Click(object sender, EventArgs e)
         {/*
             // domainController = null;
@@ -1503,8 +1232,9 @@ namespace Puzzel
             }
         }
         */
-        private void osName(string nazwaKomputera, string path, string query)
+        private string osName(string nazwaKomputera, string path, string query)
         {
+            string osarch = null;
             ManagementScope scope = new ManagementScope();
             try
             {
@@ -1522,23 +1252,19 @@ namespace Puzzel
                         osarch = m["osarchitecture"].ToString();
                     }
             }
-
-
             catch (UnauthorizedAccessException ex)
             {
-                Form1.Loger(ex, nazwaKomputera + "," + path + "," + query);
-                MessageBox.Show("Dostęp zabroniony na obecnych poświadczeniach", "WMI Testing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); return;
+                Loger(ex, nazwaKomputera + "," + path + "," + query);
+                MessageBox.Show("Dostęp zabroniony na obecnych poświadczeniach", "WMI Testing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
 
             catch (Exception ex)
             {
-                Form1.Loger(ex, nazwaKomputera + "," + path + "," + query);
-                MessageBox.Show("Nie można się połączyć z powodu błędu: " + ex.Message, "WMI Testing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); return;
+                Loger(ex, nazwaKomputera + "," + path + "," + query);
+                MessageBox.Show("Nie można się połączyć z powodu błędu: " + ex.Message, "WMI Testing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
+            return osarch;
         }
-
-        //string osname = null;
-        string osarch = null;
         private void button21_Click(object sender, EventArgs e)
         {
             startTime();
@@ -1547,9 +1273,9 @@ namespace Puzzel
             {
                 if (Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
                 {
-                    osName(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryOperatingSystem);
+                    var OSName = osName(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryOperatingSystem);
                     string applicationName = null;
-                    if (osarch.Contains("64-bit"))
+                    if (OSName.Contains("64-bit"))
                         applicationName = "PsExec64.exe";
                     else applicationName = "PsExec.exe";
 
@@ -1559,12 +1285,12 @@ namespace Puzzel
                     }
                     else
                     {
-                        UpdateRichTextBox("Nie można odnaleźć określonego pliku\n");
+                        ReplaceRichTextBox("Nie można odnaleźć określonego pliku\n");
                         UpdateRichTextBox(Directory.GetCurrentDirectory() + @"\" + applicationName);
                     }
                 }
                 else
-                    UpdateRichTextBox("Stacja: " + HostName() + " nie jest widoczna na sieci");
+                    ReplaceRichTextBox("Stacja: " + HostName() + " nie jest widoczna na sieci");
 
             }
             catch (Exception ex)
@@ -1577,10 +1303,10 @@ namespace Puzzel
         private void KomputerInfoMenuStrip(object sender, EventArgs e)
         {
             startTime();
-            ClearRichTextBox(null); ;
+            ClearRichTextBox(null); 
             if (Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
             {
-                if (Ping.TCPPing(HostName(), 135) == Ping.TCPPingStatus.Connected)
+                if (Ping.TCPPing(HostName(), 135) == Ping.TCPPingStatus.Success)
                 {
                     ComputerInfo computerInfo = new ComputerInfo();
                     ComputerInfo_TEMP += ("Nazwa komputera: ");
@@ -1691,7 +1417,8 @@ namespace Puzzel
                         if (((ToolStripMenuItem)sender).Name == "bIOSToolStripMenuItem")
                         {
                             ComputerInfo_TEMP += ("BIOS\n\n");
-                            computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryBios, "Manufacturer", "BIOSVersion", "SMBIOSBIOSVersion", "ReleaseDate");
+                            //computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryBios, "Manufacturer", "BIOSVersion", "SMBIOSBIOSVersion", "ReleaseDate");
+                            computerInfo.fast2(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryBios);
                         }
                     }
                     if (sender is Button)
@@ -1700,6 +1427,27 @@ namespace Puzzel
                         {
                             ComputerInfo_TEMP += ("Karty Sieciowe: ");
                             computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryNetworkAdapterConfiguration, "IPEnabled", "Description", "DNSDomainSuffixSearchOrder", "DNSHostName", "IPAddress", "IPSubnet", "MACAddress");
+                        }
+                        
+                        if (((Button)sender).Name == "button16")
+                        {
+                            computerInfo.fast(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryProduct);
+                        }
+
+                        if (((Button)sender).Name == "button13")
+                        {
+                            if (MessageBox.Show(new Form() { TopMost = true }, "Wyszukiwanie może chwile potrwać, zezwolić ?", "Wyszukiwanie danych", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                                if (!komputerInfo.IsBusy)
+                                {
+                                    ClearRichTextBox(null);
+                                    Puzzel.Form1.ProgressMax = 19;
+                                    LoadingForm loadingForm = new LoadingForm();
+                                    System.Threading.Thread progress;
+                                    progress = new System.Threading.Thread(loadingForm.progress);
+                                    progress.Start();
+                                    progressBar = new System.Threading.Thread(komputerInfoCOMM);
+                                    komputerInfo.RunWorkerAsync();
+                                }
                         }
                     }
                     UpdateRichTextBox(ComputerInfo_TEMP);
@@ -1759,62 +1507,30 @@ namespace Puzzel
             stopTime();
         }
 
-        private void ladujLogiWTle_DoWork(object sender, DoWorkEventArgs e)
-        {
-            //   GetLogs();
-        }
-
-
-
-        public static string terminalName = null;
-        private void szukanieSesjiCustom(object sender, EventArgs e)
-        {
-            PodajNazweTerminala podajNazweTerminala = new PodajNazweTerminala();
-            Thread thread1 = new Thread(() =>
-            {
-                podajNazweTerminala.ShowDialog();
-            });
-            thread1.Start();
-            Thread thread;
-            if (File.Exists(Directory.GetCurrentDirectory() + @"\Cassia.dll"))
-            {
-                TerminalExplorer terminalExplorer = new TerminalExplorer();
-                thread1.Join();
-                thread = new Thread(() => terminalExplorer.szukanieSesji(terminalName));
-                thread.Start();
-                terminalExplorer.Show();
-            }
-            else MessageBox.Show("Plik " + Directory.GetCurrentDirectory() + @"\Cassia.dll nie jest dostępny.");
-        }
-
         public string HostName()
         {
             string _HostName = null;
             if (comboBox3.InvokeRequired)
                 comboBox3.Invoke(new MethodInvoker(() => _HostName = comboBox3.Text.ToUpper()));
             else _HostName = comboBox3.Text.ToUpper();
-            return _HostName; /*textBox2.Text.ToUpper();*/ 
+            return _HostName;
         }
         public static string hostname;
         public static string username;
         public string UserName()
         {
-            string _UserName = null/*textBox1.Lines[0]*/;
+            string _UserName = null;
             if (comboBox2.InvokeRequired)
-                comboBox2.Invoke(new MethodInvoker(() => _UserName = comboBox2.Text.ToUpper()));
-            else _UserName = comboBox2.Text.ToUpper();
+                comboBox2.Invoke(new MethodInvoker(() => _UserName = comboBox2.Text));
+            else _UserName = comboBox2.Text;
             return _UserName;
         }
 
         private void lockoutStatusToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Lockout_Status LS = new Lockout_Status(UserName());
-            if (UserName().Length > 1)
+            if (UserName().Length > 0)
             {
-
-                //string sts = Lockout_Status.UserInfo(UserName());
-
-                //Lockout_Status.AddEntry(Lockout_Status.UserInfo());
                 if (Lockout_Status.UserInfo(UserName()) != null)
                 {
                     Lockout_Status.AddEntry(UserName());
@@ -1823,58 +1539,6 @@ namespace Puzzel
             }
             else
                 LS.Show();
-            //string[] dcName = Lockout_Status.DomainController();
-
-            //Thread thread = new Thread(() =>
-            //{
-            //    if (Lockout_Status.GetUserPasswordDetails(dcName[0]) == null)
-            //    {
-            //        MessageBox.Show(new Form() { TopMost = true }, "Podany login nie występuje w AD", "Wyszukiwanie danych", MessageBoxButtons.OK);
-            //    }
-            //    else { 
-            //        for (int i = 1; i <= dcName.Count() - 1; i++)
-            //        {
-            //            Lockout_Status.GetUserPasswordDetails(dcName[i]);
-
-            //        }
-            //        LS.Show();
-            //    }
-            //});
-            //thread.Start();
-            //if (Lockout_Status.GetUserAvailability(array[1]) == 1)
-            //{
-            //    MessageBox.Show(new Form() { TopMost = true }, "Podany login nie występuje w AD", "Wyszukiwanie danych", MessageBoxButtons.OK);
-            //}
-            //else
-            //{
-            //Thread th = new Thread(() => 
-            //{
-            //    foreach (string dcName in array)
-            //        Lockout_Status.GetUserPasswordDetails(dcName);
-            //});
-            //th.Start();
-
-            //Lockout_Status.AddEntry();
-            //LS.Show();
-            //}
-        }
-
-        private void AutoGettingLogs_Tick(object sender, EventArgs e)
-        {
-            ladujLogiWTle.RunWorkerAsync();
-        }
-
-        private void wyszukiwanieSesji_TerminalExplorer(object sender, EventArgs e)
-        {
-            Thread thread;
-            if (File.Exists(Directory.GetCurrentDirectory() + @"\Cassia.dll"))
-            {
-                TerminalExplorer terminalExplorer = new TerminalExplorer();
-                thread = new Thread(() => terminalExplorer.szukanieSesji(((ToolStripMenuItem)sender).Text));
-                thread.Start();
-                terminalExplorer.Show();
-            }
-            else MessageBox.Show("Plik Cassia.dll nie jest dostępny.");
         }
 
         public static string PingLicznik = "1";
@@ -1981,9 +1645,9 @@ namespace Puzzel
             ClearRichTextBox(null);
             if (Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
             {
-                osName(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryOperatingSystem);
+                var OSName = osName(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryOperatingSystem);
                 string applicationName = null;
-                if (osarch.Contains("64-bit"))
+                if (OSName.Contains("64-bit"))
                     applicationName = "PsExec64.exe";
                 else applicationName = "PsExec.exe";
 
@@ -2001,97 +1665,49 @@ namespace Puzzel
                 UpdateRichTextBox("Stacja: " + HostName() + " nie jest widoczna na sieci");
             stopTime();
         }
-
-        //string PwdLcl(string computername)
-        //{
-        //    DirectoryEntry myLdapConnection = new DirectoryEntry("LDAP://" + domainName());
-        //    DirectorySearcher search = new DirectorySearcher(myLdapConnection);
-        //    search.Filter = "(cn=" + computername + ")";
-		//
-        //    //SearchResult result = search.FindOne();
-        //    string text;
-        //    if (search.FindOne().GetDirectoryEntry().Properties[Working[13].Remove(4)].Value == null)
-        //        text = "";
-        //    else text = search.FindOne().GetDirectoryEntry().Properties[Working[13].Remove(4)].Value.ToString();
-        //    return text;
-        //}
-
-        string DomainController()
-        {
-            //DirectoryEntry myLdapConnection = new DirectoryEntry("LDAP://OU=Domain Controllers," + domainName());
-            DirectorySearcher search = new DirectorySearcher(new DirectoryEntry("LDAP://" + domainName()));
-            //search.Filter = "(sAMAccountName=" + username + ")";
-            SearchResult search1 = search.FindOne();
-            //SearchResultCollection collection = search.FindAll();
-            object[] lines = (object[])search1.GetDirectoryEntry().Properties["msds-isdomainfor"].Value;
-            string table = null;
-            foreach (string line in lines)
-            {
-                string[] words = line.Split(',');
-                table += words[1].Replace("CN=", "") + ",";
-            }
-            return table;
-        }
-        //private void DyDWContextMenu_Click(object sender, EventArgs e)
-        //{
-        //    startTime();
-        //    string login = null;
-        //    string pwd = null;
-        
-        //    if (((ToolStripMenuItem)sender).Text.Contains(Working[14].Remove(9)))
-        //    {
-        //    	login = Working[14].Remove(9);
-        //    	pwd = PwdLcl(HostName());
-        //    }
-        //    else
-        //    {
-        //    	login = Working[15].Remove(9);
-        //    	pwd = Working[17];
-        //    }
-        //    if (pwd.Length > 1)
-	    //        if (File.Exists(Working[9].Remove(13)))
-	    //        {
-	    //            ProcExec Exec = new ProcExec(Working[9].Remove(13), "-m:" + HostName() + " -x -a:2 "+"-u:"+login+" -p:"+ pwd + " -d:");
-	    //        }
-	    //        else
-	    //        {
-	    //            UpdateRichTextBox("Nie można odnaleźć określonego pliku\n");
-	    //            UpdateRichTextBox(Working[9].Remove(13));
-	    //        }
-	    //    else MessageBox.Show("Brak hasła");
-        //    stopTime();
-        //}
-
         private void rDPBezPustyContextMenu_Click(object sender, EventArgs e)
         {
             startTime();
             ProcExec Exec = new ProcExec(ProcExec.rdp, "");
             stopTime();
         }
-
         private void Keys_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
+            if (sender is ComboBox && ((ComboBox)sender).Name != "comboBox1")
             {
-                if (sender is ComboBox && ((ComboBox)sender).Name != "comboBox1")
+                if (e.KeyCode == Keys.Enter)
                 {
+
                     szukajLogow(sender, e);
                 }
+            }
+            if (sender is RichTextBox)
+            {
+                if (e.Control && e.KeyCode == Keys.F)
+                {
+                    wyszukiwanieDanych();
+                }
+                /*
+            //    if (e.Control && e.KeyCode == Keys.Z)
+            //        richTextBox1.Undo();
+
+            //    if (e.Control && e.KeyCode == Keys.Y)
+            //        richTextBox1.Redo(); */
             }
         }
+
         private void Keys_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
-        {
+        {  
             if (e.KeyCode == Keys.Enter)
             {
-                if (sender is TextBox)
+                if (sender is TextBox || (sender is ComboBox && ((ComboBox)sender).Name != "comboBox1"))
                 {
                     szukajLogow(sender, e);
                 }
             }
-
-
             if (e.Control && e.KeyCode == Keys.C)
             {
+                Clipboard.Clear();
                 if (richTextBox1.Focused)
                     if (richTextBox1.SelectedText.Length > 0 && !string.IsNullOrEmpty(richTextBox1.SelectedText) && !string.IsNullOrWhiteSpace(richTextBox1.SelectedText))
                         Clipboard.SetText(richTextBox1.SelectedText.Trim(' '));
@@ -2106,15 +1722,28 @@ namespace Puzzel
 
                 if (comboBox1.Focused)
                     if (comboBox1.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBox1.SelectedText) && !string.IsNullOrWhiteSpace(comboBox1.SelectedText))
-                        Clipboard.SetText(comboBox1.SelectedText.Trim(' '));
-
+                    {
+                        comboBox1.Text = comboBox1.Text.Trim(' ');
+                        comboBox1.SelectAll();
+                        Thread.Sleep(250);
+                        Clipboard.SetText(comboBox1.SelectedText.Trim());
+                    }
                 if (comboBox2.Focused)
                     if (comboBox2.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBox2.SelectedText) && !string.IsNullOrWhiteSpace(comboBox2.SelectedText))
+                    {
+                        comboBox2.Text = comboBox2.Text.Trim(' ');
+                        comboBox2.SelectAll();
+                        Thread.Sleep(250);
                         Clipboard.SetText(comboBox2.SelectedText.Trim(' '));
-
+                    }
                 if (comboBox3.Focused)
                     if (comboBox3.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBox3.SelectedText) && !string.IsNullOrWhiteSpace(comboBox3.SelectedText))
+                    {
+                        comboBox3.Text = comboBox3.Text.Trim(' ');
+                        comboBox2.SelectAll();
+                        Thread.Sleep(250);
                         Clipboard.SetText(comboBox3.SelectedText.Trim(' '));
+                    }
             }
 
             if (e.Control && e.KeyCode == Keys.V)
@@ -2133,20 +1762,21 @@ namespace Puzzel
                 }
                 if (comboBox1.Focused)
                 {
-                    Clipboard.GetText(TextDataFormat.UnicodeText);
+                    Clipboard.GetDataObject();
                 }
                 if (comboBox2.Focused)
                 {
-                    Clipboard.GetText(TextDataFormat.UnicodeText);
+                    Clipboard.GetDataObject();
                 }
                 if (comboBox3.Focused)
                 {
-                    Clipboard.GetText(TextDataFormat.UnicodeText);
+                    Clipboard.GetDataObject();
                 }
             }
 
             if (e.Control && e.KeyCode == Keys.X)
             {
+                Clipboard.Clear();
                 if (richTextBox1.Focused)
                     if (richTextBox1.SelectedText.Length > 0 && !string.IsNullOrEmpty(richTextBox1.SelectedText) && !string.IsNullOrWhiteSpace(richTextBox1.SelectedText))
                     {
@@ -2171,23 +1801,30 @@ namespace Puzzel
                 if (comboBox1.Focused)
                     if (comboBox1.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBox1.SelectedText) && !string.IsNullOrWhiteSpace(comboBox1.SelectedText))
                     {
-                        Clipboard.SetText(comboBox1.SelectedText.TrimEnd(' '));
+                        Thread.Sleep(250);
+                        Clipboard.SetText(comboBox1.SelectedText);
                         comboBox1.Text.Remove(comboBox1.SelectionStart, comboBox1.SelectionLength);
-                        Clipboard.SetText(Clipboard.GetText().Trim(' '));
+                        //Clipboard.SetText(Clipboard.GetText().Trim(' '));
                     }
                 if (comboBox2.Focused)
                     if (comboBox2.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBox2.SelectedText) && !string.IsNullOrWhiteSpace(comboBox2.SelectedText))
                     {
-                        Clipboard.SetText(comboBox2.SelectedText.TrimEnd(' '));
+                        comboBox2.Text = comboBox2.Text.Trim(' ');
+                        comboBox2.SelectAll();
+                        Thread.Sleep(250);
+                        Clipboard.SetText(comboBox2.SelectedText.Trim(' '));
                         comboBox2.Text.Remove(comboBox2.SelectionStart, comboBox2.SelectionLength);
-                        Clipboard.SetText(Clipboard.GetText().Trim(' '));
+                        //Clipboard.SetText(Clipboard.GetText().Trim(' '));
                     }
                 if (comboBox3.Focused)
                     if (comboBox3.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBox3.SelectedText) && !string.IsNullOrWhiteSpace(comboBox3.SelectedText))
                     {
-                        Clipboard.SetText(comboBox3.SelectedText.TrimEnd(' '));
+                        comboBox3.Text = comboBox3.Text.Trim(' ');
+                        comboBox3.SelectAll();
+                        Thread.Sleep(250);
+                        Clipboard.SetText(comboBox3.SelectedText.Trim(' '));
                         comboBox3.Text.Remove(comboBox3.SelectionStart, comboBox3.SelectionLength);
-                        Clipboard.SetText(Clipboard.GetText().Trim(' '));
+                        //Clipboard.SetText(Clipboard.GetText().Trim(' '));
                     }
             }
             if (e.Control && e.KeyCode == Keys.A)
@@ -2211,7 +1848,6 @@ namespace Puzzel
                     comboBox3.SelectAll();
             }
         }
-
         private void kopiujMenuItem1_Click(object sender, EventArgs e)
         {
             try
@@ -2281,16 +1917,16 @@ namespace Puzzel
                 if (comboBox2.Focused)
                     if (comboBox2.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBox2.SelectedText) && !string.IsNullOrWhiteSpace(comboBox2.SelectedText))
                     {
-                        Clipboard.SetText(comboBox2.SelectedText);
+                        Clipboard.SetText(comboBox2.SelectedText.Trim(' '));
                         comboBox2.Text = comboBox2.Text.Remove(comboBox2.SelectionStart, comboBox2.SelectionLength);
-                        Clipboard.SetText(Clipboard.GetText());
+                       // Clipboard.SetText(Clipboard.GetText());
                     }
                 if (comboBox3.Focused)
                     if (comboBox3.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBox3.SelectedText) && !string.IsNullOrWhiteSpace(comboBox3.SelectedText))
                     {
-                        Clipboard.SetText(comboBox3.SelectedText);
+                        Clipboard.SetText(comboBox3.SelectedText.Trim(' '));
                         comboBox3.Text = comboBox3.Text.Remove(comboBox3.SelectionStart, comboBox3.SelectionLength);
-                        Clipboard.SetText(Clipboard.GetText());
+                       // Clipboard.SetText(Clipboard.GetText());
                     }
             }
             catch (Exception ex)
@@ -2362,40 +1998,6 @@ namespace Puzzel
             }
         }
 
-        private void RichMouseDown(object sender, MouseEventArgs e)
-        {
-            //if (e.Button == MouseButtons.Right)
-            //{
-            //    if (sender is RichTextBox)
-            //    {
-            //        ContextMenuRich.Visible = true;
-            //        kopiujMenuItem.Visible = true;
-            //        zaznaczWszystkoMenuItem.Visible = true;
-            //        wklejMenuItem.Visible = true;
-            //        wytnijMenuItem.Visible = true;
-            //        wyszukajMenuItem.Visible = true;
-            //    }
-            //    else
-            //    if (sender is ComboBox || sender is NumericUpDown)
-            //    {
-            //        kopiujMenuItem.Visible = false;
-            //        zaznaczWszystkoMenuItem.Visible = false;
-            //        wklejMenuItem.Visible = false;
-            //        wytnijMenuItem.Visible = false;
-            //        ContextMenuRich.Visible = false;
-            //        wyszukajMenuItem.Visible = false;
-            //    }
-            //    else
-            //    {
-            //        ContextMenuRich.Visible = true;
-            //        kopiujMenuItem.Visible = true;
-            //        zaznaczWszystkoMenuItem.Visible = true;
-            //        wklejMenuItem.Visible = true;
-            //        wytnijMenuItem.Visible = true;
-            //        wyszukajMenuItem.Visible = false;
-            //    }
-            //}
-        }
         public static int IDrtb = 0;
         public static int statusOkna = 0;
         private void wyszukiwanieDanych()
@@ -2404,63 +2006,10 @@ namespace Puzzel
             richTextBox1.HideSelection = false;
             WyszukiwarkaDlaFormy wyszukiwarka = new WyszukiwarkaDlaFormy();
             wyszukiwarka.Show();
-            //string searchVariable = null;
-            //if (richTextBox1.SelectionLength > 1)
-            //{
-            //    wyszukiwarka.lastvalue(richTextBox1.SelectedText);
-            //}
-            //if (wyszukiwarka.ShowDialog() != DialogResult)
-            //searchVariable = wyszukiwarka.GetValue();
-            //switch (statusOkna)
-            //{
-            //    case 1:
-            //        {
-            //            int indexof = richTextBox1.Text.IndexOf(searchVariable, IDrtb, StringComparison.CurrentCultureIgnoreCase);
-            //            if (indexof == -1)
-            //            {
-            //                MessageBox.Show("Nie znaleziono wartości : " + searchVariable);
-            //            }
-            //            else
-            //            {
-            //                richTextBox1.SelectionStart = indexof;
-            //                richTextBox1.SelectionLength = searchVariable.Length;
-            //                IDrtb = richTextBox1.SelectionStart + searchVariable.Length;
-            //            }
-            //            break;
-            //        }
-            //    case 2:
-            //        {
-            //            break;
-            //        }
-            //    case 3:
-            //        {
-            //            break;
-            //        }
-            //    case 4:
-            //        {
-            //            var oldNewValue = searchVariable.Split(';');
-            //            richTextBox1.Text = richTextBox1.Text.Replace(oldNewValue[0], oldNewValue[1]);
-            //            break;
-            //        }
-            //}
         }
         private void wyszukajMenuItem_Click(object sender, EventArgs e)
         {
             wyszukiwanieDanych();
-        }
-        private void RichTextBox1_KeyDown(object sender, KeyEventArgs e)
-        {
-
-            if (e.Control && e.KeyCode == Keys.F)
-            {
-                wyszukiwanieDanych();
-            }
-            /*
-        //    if (e.Control && e.KeyCode == Keys.Z)
-        //        richTextBox1.Undo();
-
-        //    if (e.Control && e.KeyCode == Keys.Y)
-        //        richTextBox1.Redo(); */
         }
         private void PwdLclToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -2473,46 +2022,6 @@ namespace Puzzel
             }
             else MessageBox.Show(new Form() { TopMost = true }, "Nie podano nazwy komputera");
         }
-
-        private void Form1_ResizeEnd(object sender, EventArgs e)
-        {
-            //if (WindowState != FormWindowState.Minimized)
-            //    try
-            //    {
-            //        label5.Text = "groupBox1 " + groupBox1.Width;
-            //        label6.Text = "groupBox3 " + groupBox3.Width;
-            //        label7.Text = "groupBox4 " + groupBox4.Width;
-            //        label8.Text = "richTextBox1 " + richTextBox1.Width + "x" + richTextBox1.Height;
-            //        label9.Text = "Form1 " + this.Width + "x" + this.Height;
-            //        label5.Refresh();
-            //        label6.Refresh();
-            //        label7.Refresh();
-            //        label8.Refresh();
-            //        label9.Refresh();
-            //groupBox1.Refresh();
-            //groupBox3.Refresh();
-            //groupBox4.Refresh();
-            //richTextBox1.Refresh();
-            //        int height = this.Height;
-            //        int width = this.Width;
-            //        if (lastHeight != 0)
-            //        {
-            //            groupBox1.Width = width - 15;//(width - groupBox1.Width) - (lastWidth - groupBox1.Width);
-            //            groupBox3.Width = width - 15;//(width - groupBox3.Width) - (lastWidth - groupBox3.Width);
-            //            groupBox4.Width = width - 15;//(width - groupBox4.Width) - (lastWidth - groupBox4.Width);
-            //            richTextBox1.Width = width - 15;//(width - richTextBox1.Width) - (lastWidth - richTextBox1.Width);
-            //            richTextBox1.Height = height - 17;//(height - richTextBox1.Height) - (lastHeight - richTextBox1.Height);
-            //        }
-            //    }
-            //    catch (System.NullReferenceException)
-            //    {
-            //        return;
-            //    }
-            //lastWidth = this.Width;
-            //lastHeight = this.Height;
-        }
-
-
         public static void Loger(Exception e, string InputedValue)
         {
             string path = Directory.GetCurrentDirectory() + @"\" + Application.ProductName + ".log";
@@ -2536,7 +2045,6 @@ namespace Puzzel
             log.WriteLine("");
             log.Close();
         }
-
         private void zmianahasla(object sender, EventArgs e)
         {
             if (UserName().Length > 0)
@@ -2552,4 +2060,3 @@ namespace Puzzel
         }
     }
 }        
- 

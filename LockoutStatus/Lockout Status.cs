@@ -14,7 +14,6 @@ namespace Puzzel
             Username = username;
         }
         public static string domainName() { return System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().DomainName; }
-
         public static string[] DomainController()
         {
             //DirectoryEntry myLdapConnection = new DirectoryEntry("LDAP://OU=Domain Controllers," + domainName());
@@ -37,18 +36,15 @@ namespace Puzzel
             return array;
         }
         public static string Username;
-        public static string domainAddress = null;
-        
+        public static string domainAddress = null;        
         private void Lockout_Status_Load(object sender, EventArgs e)
         {
             this.Text = "Lockout Status";
             if (Username.Length > 1)
             {
                 this.Text = Username;
-                //AddEntrys();
             }
         }
-
         private void WybierzUżytkownikaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Text = "Lockout Status";
@@ -83,10 +79,10 @@ namespace Puzzel
             if (search.FindOne() != null)
                 text = search.FindOne().GetDirectoryEntry().Properties["sAMAccountName"].Value.ToString();
             else
-            MessageBox.Show(new Form() { TopMost = true }, "Podany login nie występuje w AD", "", MessageBoxButtons.OK);
-            
+                MessageBox.Show(new Form() { TopMost = true }, "Podany login nie występuje w AD", "", MessageBoxButtons.OK);            
             return text;
         }
+
         private void DeleteEntryRows()
         {
             if (dataGridView1.Rows.Count > 1)
@@ -110,12 +106,8 @@ namespace Puzzel
                 this.Text = Username;
         }
         static string[] domainControllerName = {};
-
-        //static string useraccaountLocked = null;
-        //static string _badLogonCount = null;
-        //static string _lastBadPasswordAttempt = null;
         static string _lastPasswordSet = null;
-        //static string _accountLockoutTime = null;
+
         public static UserPrincipal GetUserPasswordDetails(string dcName, string Username)
         {
             string useraccaountLocked = null;
@@ -213,22 +205,16 @@ namespace Puzzel
 
         private void odblokujZaznaczoneToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.SelectedRows.Count != 0)
-            {
-                //int selectedRowIndex = dataGridView1.SelectedRows[0].Index;
-                //string dcName = dataGridView1.Rows[selectedRowIndex].Cells[0].Value.ToString();
-                foreach(string dcName in DomainController())
+
+            //int selectedRowIndex = dataGridView1.SelectedRows[0].Index;
+            //string dcName = dataGridView1.Rows[selectedRowIndex].Cells[0].Value.ToString();
+            foreach (string dcName in DomainController())
                 using (PrincipalContext context = new PrincipalContext(ContextType.Domain, dcName))
                 {
                     UserPrincipal uP = UserPrincipal.FindByIdentity(context, IdentityType.SamAccountName, Username);
                     uP.UnlockAccount();
                 }
-                MessageBox.Show("Konto zostało odblokowane");
-            }
-            else MessageBox.Show("Nic nie zaznaczono");
         }
-
-        //public static string password = null;
 
         public static void ustawhaslo(string password, bool UnlockAccount, bool PasswordExpired)
         {

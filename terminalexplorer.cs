@@ -31,7 +31,7 @@ namespace Puzzel
 		string[] termservers = Working[6].Remove(7).Splt(',');
         public object[] FindSession(string serverName, string SearchedLogin)
         {
-            object[] sessioninfo = new object[7];
+            object[] sessioninfo = null;
             try
             {
                 using (ITerminalServer server = manager.GetRemoteServer(serverName))
@@ -41,17 +41,17 @@ namespace Puzzel
                     {
                         if (session.UserName == SearchedLogin)
                         {
-                            sessioninfo.SetValue(session.Server.ServerName, 1);
-                            sessioninfo.SetValue(session.UserName, 2);
-                            sessioninfo.SetValue(session.WindowStationName, 3);
-                            sessioninfo.SetValue(session.SessionId, 0);
-                            sessioninfo.SetValue(session.ConnectionState, 4);
-                            sessioninfo.SetValue(session.IdleTime, 5);
-                            sessioninfo.SetValue(session.LoginTime, 6);
+                            Array.Resize(ref sessioninfo, 7);
+                            sessioninfo[0] = session.Server.ServerName;
+                            sessioninfo[1] = session.UserName;
+                            sessioninfo[2] = session.WindowStationName;
+                            sessioninfo[3] = session.SessionId;
+                            sessioninfo[4] = session.ConnectionState;
+                            sessioninfo[5] = session.IdleTime;
+                            sessioninfo[6] = session.LoginTime; 
                         }
                     }
                     server.Close();
-                    server.Dispose();
                 }
             }
             catch (Exception e)

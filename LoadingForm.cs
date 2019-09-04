@@ -5,7 +5,8 @@ namespace Puzzel
     class LoadingForm
     {
         public LoadingForm()
-        { form.PerformLayout();
+        {
+            form.PerformLayout();
             form.Controls.Add(label);
             form.Controls.Add(progressBar);
             form.SuspendLayout();
@@ -13,7 +14,6 @@ namespace Puzzel
             progressBar.PerformLayout();
             progressBar.SuspendLayout();
             this.label.Refresh();
-
         }
         Form form = new Form
         {
@@ -26,7 +26,6 @@ namespace Puzzel
             StartPosition = FormStartPosition.CenterScreen,
             Width = 222,
             Height = 100,
-            
         };
 
         Label label = new Label
@@ -34,8 +33,6 @@ namespace Puzzel
             Location = new System.Drawing.Point(56, 43),
             Text = "Ładowanie danych",
             Anchor = (AnchorStyles.Bottom | AnchorStyles.Left),
-
-
         };
         ProgressBar progressBar = new ProgressBar
         {
@@ -43,7 +40,6 @@ namespace Puzzel
             Size = new System.Drawing.Size(170, 22),
             Minimum = 0,
             Maximum = Puzzel.Form1.ProgressMax
-
         };
         public void progress()
         {
@@ -63,7 +59,6 @@ namespace Puzzel
                     form.Close();
                 }));
             }
-            
         }
     }
 }
