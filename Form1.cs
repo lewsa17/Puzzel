@@ -1580,7 +1580,7 @@ namespace Puzzel
                 thread.Start();
                 terminalExplorer.Show();
             }
-            else MessageBox.Show("Plik cassia.dll nie jest dostępny.");
+            else MessageBox.Show("Plik "+Directory.GetCurrentDirectory() + @"\Cassia.dll nie jest dostępny.");
         }
 
         private void szukanieSesji(object sender, EventArgs e)
@@ -1672,6 +1672,7 @@ namespace Puzzel
                 PingRemoteHost = null;
                 PingLicznik = null;
                 licz = 0;
+
             }
             if (File.Exists("remoteping.cmd"))
                 File.Delete("remoteping.cmd");
@@ -1703,7 +1704,7 @@ namespace Puzzel
                     sr.Close();
                 }
                 licz = PingRemoteHost.IndexOf("ledzenie");
-                PingRemoteHost = PingRemoteHost.Replace(PingRemoteHost[licz -1], 'ź');
+                PingRemoteHost = PingRemoteHost.Replace(PingRemoteHost[licz - 1], 'ź');
                 PingRemoteHost = PingRemoteHost.Replace("źledzenie", "Śledzenie");
                 PingRemoteHost = PingRemoteHost.Replace("maksymalnź", "maksymalną");
                 PingRemoteHost = PingRemoteHost.Replace("liczbź", "liczbą");
@@ -1780,9 +1781,9 @@ namespace Puzzel
             search.Filter = "(cn=" + computername + ")";
             SearchResult result = search.FindOne();
             string text;
-            if (result.GetDirectoryEntry().Properties[Working[13].Remove(4)].Value == null)
+            if (search.FindOne().GetDirectoryEntry().Properties[Working[13].Remove(4)].Value == null)
                 text = "";
-            else text = result.GetDirectoryEntry().Properties[Working[13].Remove(4)].Value.ToString();
+            else text = search.FindOne().GetDirectoryEntry().Properties[Working[13].Remove(4)].Value.ToString();
             return text;
         }
 

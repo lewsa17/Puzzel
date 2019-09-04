@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows.Forms;
 using Cassia;
 
@@ -28,6 +29,7 @@ namespace Puzzel
         public void szukanieSesji(string hostname)
         {
             _hostname = hostname;
+            try { 
             if (dataGridView1 != null)
                 dataGridView1.Rows.Clear();
             using (ITerminalServer server = manager.GetRemoteServer(hostname))
@@ -50,6 +52,11 @@ namespace Puzzel
                 }
                 server.Close();
                 sessionCount.BeginInvoke(new Action(() => sessionCount.Text = "Aktywne sesje: " + dataGridView1.Rows.Count));
+            }
+            }
+            catch (Win32Exception)
+            {
+                MessageBox.Show(new Form() { TopMost = true }, "Brak dostępu", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
         /*
@@ -136,6 +143,7 @@ namespace Puzzel
         {
             if (session.UserAccount != null)
             {
+                IDsesjiLabel.Text = null;
                 IDsesjiLabel.Text = selectedSessionID.ToString();
                 nazwauzytkownikaLabel.Text = session.UserName;
                 nazwaklientaLabel.Text = session.ClientName;
@@ -166,7 +174,6 @@ namespace Puzzel
                 if (session.OutgoingStatistics.Bytes > 0 && session.OutgoingStatistics.Frames > 0)
                     bajtyramkiwychodzace.Text = Math.Floor(Convert.ToDecimal(session.OutgoingStatistics.Bytes / session.OutgoingStatistics.Frames)).ToString();
                 else bajtyramkiwychodzace.Text = "brak danych";
-                statusZalogowlabel.Text = "Lista procesów: " + session;
             }
 
             ramkiwychodzaceLabel.Refresh();
@@ -196,7 +203,7 @@ namespace Puzzel
             }
             if (sender is Button)
             {
-                tabPage = ((TabPage)((Button)sender).Parent);
+                tabPage = (TabPage)((Button)sender).Parent;
                 dataGridView = (DataGridView)tabPage.Controls.Find("dataGridView2",true)[0];
             }
             var label = tabPage.Controls.Find("processCount", true)[0];
@@ -212,16 +219,23 @@ namespace Puzzel
         {
             int selectedSessionID = 0;
             int selectedRowIndex = 0;
+
             if (sender is ToolStripMenuItem)
             {
                 selectedRowIndex = ((DataGridView)((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl).SelectedRows[0].Index;
                 selectedSessionID = Convert.ToInt16(((DataGridView)((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl).Rows[selectedRowIndex].Cells[3].Value);
             }
-            else {
-                var tabpage = ((Button)sender).Parent;
-                DataGridView dgv = (DataGridView)tabpage.Controls.Find("dataGridView2", true)[0];
-                selectedSessionID = (int)dgv.Rows[0].Cells[3].Value;
+            if (sender is Button)
+            {
+                var tabpage = (TabPage)((Button)sender).Parent;
+                if (tabpage.Name == "dynaProcesTab")
+                {
+                    DataGridView dgv = (DataGridView)tabpage.Controls.Find("dataGridView2", true)[0];
+                    selectedSessionID = (int)dgv.Rows[0].Cells[3].Value;
+                }
+                else { if (IDsesjiLabel.Text != null) { selectedSessionID = Convert.ToInt16(IDsesjiLabel.Text); } }
             }
+
             using (ITerminalServer server = manager.GetRemoteServer(_hostname))
             {
                 server.Open();
@@ -480,59 +494,7 @@ namespace Puzzel
                 TabStop = false,
                 Text = "Stan wejścia/wyjścia"
             };
-            dynaButton1.Click += (object sender, EventArgs e) =>
-            {
-                if (session.UserAccount != null)
-                {
-                    IDsesjiLabel.Text = selectedSessionID.ToString();
-                    nazwauzytkownikaLabel.Text = session.UserName;
-                    nazwaklientaLabel.Text = session.ClientName;
-
-                    if (session.ClientIPAddress != null)
-                    {
-                        adresipLabel.Text = session.ClientIPAddress.ToString();
-                    }
-                    else
-                    {
-                        adresipLabel.Text = "brak danych";
-                    }
-                    katalogLabel.Text = session.ClientDirectory;
-                    produktidlabel.Text = session.ClientProductId.ToString();
-                    glebiakolorowLabel.Text = session.ClientDisplay.BitsPerPixel.ToString();
-                    sprzetidLabel.Text = session.ClientHardwareId.ToString();
-                    rozdzielczoscLabel.Text = (session.ClientDisplay.HorizontalResolution + " x " + session.ClientDisplay.VerticalResolution).ToString();
-
-                    bajtyprzychodzaceLabel.Text = session.IncomingStatistics.Bytes.ToString();
-                    ramkiprzychodzaceLabel.Text = session.IncomingStatistics.Frames.ToString();
-                    if (session.IncomingStatistics.Bytes > 0 && session.IncomingStatistics.Frames > 0)
-                        bajtyramkiprzychodzaceLabel.Text = Math.Floor(Convert.ToDecimal(session.IncomingStatistics.Bytes / session.IncomingStatistics.Frames)).ToString();
-                    else bajtyramkiwychodzace.Text = "brak danych";
-
-                    bajtywychodzaceLabel.Text = session.OutgoingStatistics.Bytes.ToString();
-                    ramkiwychodzaceLabel.Text = session.OutgoingStatistics.Frames.ToString();
-
-                    if (session.OutgoingStatistics.Bytes > 0 && session.OutgoingStatistics.Frames > 0)
-                        bajtyramkiwychodzace.Text = Math.Floor(Convert.ToDecimal(session.OutgoingStatistics.Bytes / session.OutgoingStatistics.Frames)).ToString();
-                    else bajtyramkiwychodzace.Text = "brak danych";
-                    statusZalogowlabel.Text = "Lista procesów: " + session;
-                }
-
-                ramkiwychodzaceLabel.Refresh();
-                bajtyramkiwychodzace.Refresh();
-                bajtywychodzaceLabel.Refresh();
-                bajtyramkiprzychodzaceLabel.Refresh();
-                ramkiprzychodzaceLabel.Refresh();
-                bajtyprzychodzaceLabel.Refresh();
-                rozdzielczoscLabel.Refresh();
-                sprzetidLabel.Refresh();
-                glebiakolorowLabel.Refresh();
-                produktidlabel.Refresh();
-                katalogLabel.Refresh();
-                adresipLabel.Refresh();
-                IDsesjiLabel.Refresh();
-                nazwaklientaLabel.Refresh();
-                nazwaklientaLabel.Refresh();
-            };
+            dynaButton1.Click += new EventHandler(ContextMenus);
             dynaStatusTabPage.Text += " (" + session.UserName + ")";
             stanWeWy.Controls.Add(bajtyramkiwychodzace);
             stanWeWy.Controls.Add(ramkiwychodzaceLabel);
@@ -547,7 +509,6 @@ namespace Puzzel
             stanWeWy.Controls.Add(label14);
             stanWeWy.Controls.Add(label15);
             stanWeWy.Controls.Add(label16);
-
             dynaStatusTabPage.Controls.Add(dynaButton);
             dynaStatusTabPage.Controls.Add(dynaButton1);
             dynaStatusTabPage.Controls.Add(IDsesjiLabel);

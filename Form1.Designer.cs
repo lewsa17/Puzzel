@@ -564,14 +564,14 @@
             this.RemoteDesktopContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.rDPBezPustyContextMenu});
             this.RemoteDesktopContextMenu.Name = "RemoteDesktopContextMenu";
-            this.RemoteDesktopContextMenu.Size = new System.Drawing.Size(145, 26);
+            this.RemoteDesktopContextMenu.Size = new System.Drawing.Size(125, 26);
             this.RemoteDesktopContextMenu.Text = "ZdalnyPulpit";
             // 
             // rDPBezPustyContextMenu
             // 
             this.rDPBezPustyContextMenu.Name = "rDPBezPustyContextMenu";
-            this.rDPBezPustyContextMenu.Size = new System.Drawing.Size(144, 22);
-            this.rDPBezPustyContextMenu.Text = "RDP bez pusty";
+            this.rDPBezPustyContextMenu.Size = new System.Drawing.Size(124, 22);
+            this.rDPBezPustyContextMenu.Text = "RDP pusty";
             this.rDPBezPustyContextMenu.Click += new System.EventHandler(this.rDPBezPustyContextMenu_Click);
             // 
             // button15
@@ -1198,7 +1198,7 @@
             // ręcznaNazwaToolStripMenuItem
             // 
             this.ręcznaNazwaToolStripMenuItem.Name = "ręcznaNazwaToolStripMenuItem";
-            this.ręcznaNazwaToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.ręcznaNazwaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.ręcznaNazwaToolStripMenuItem.Text = "Ręczna nazwa";
             this.ręcznaNazwaToolStripMenuItem.Click += new System.EventHandler(this.szukanieSesjiCustom);
             // 
@@ -1227,7 +1227,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(1202, 511);
             this.Name = "Form1";
-            this.Text = "Puzzel v0.75";
+            this.Text = "Puzzel v0.76";
             this.Resize += new System.EventHandler(this.Form1_Resize);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
