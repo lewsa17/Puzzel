@@ -1461,14 +1461,17 @@ namespace Puzzel
                     }
             }
 
-            catch (UnauthorizedAccessException)
+
+            catch (UnauthorizedAccessException ex)
             {
-                MessageBox.Show("Nie można połączyć ponieważ dostęp jest wzbroniony na bieżacych poświadczeniach", "WMI Testing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); return;
+                Form1.Loger(ex, nazwaKomputera + "," + path + "," + query);
+                MessageBox.Show("Dostęp zabroniony na obecnych poświadczeniach", "WMI Testing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); return;
             }
 
             catch (Exception ex)
             {
-                MessageBox.Show("Nie można połączyć z powodu błędu: " + ex.Message, "WMI Testing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); return;
+                Form1.Loger(ex, nazwaKomputera + "," + path + "," + query);
+                MessageBox.Show("Nie można się połączyć z powodu błędu: " + ex.Message, "WMI Testing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); return;
             }
         }
 
@@ -1478,26 +1481,34 @@ namespace Puzzel
         {
             startTime();
             ClearRichTextBox(null);
-            if (Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
+            try
             {
-                osName(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryOperatingSystem);
-                string applicationName = null;
-                if (osarch.Contains("64-bit"))
-                    applicationName = "PsExec64.exe";
-                else applicationName = "PsExec.exe";
-
-                if (File.Exists(Directory.GetCurrentDirectory() + @"\" + applicationName))
+                if (Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
                 {
-                    ProcExec Exec = new ProcExec(applicationName, @"\\" + HostName() + " cmd");
+                    osName(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryOperatingSystem);
+                    string applicationName = null;
+                    if (osarch.Contains("64-bit"))
+                        applicationName = "PsExec64.exe";
+                    else applicationName = "PsExec.exe";
+
+                    if (File.Exists(Directory.GetCurrentDirectory() + @"\" + applicationName))
+                    {
+                        ProcExec Exec = new ProcExec(applicationName, @"\\" + HostName() + " cmd");
+                    }
+                    else
+                    {
+                        UpdateRichTextBox("Nie można odnaleźć określonego pliku\n");
+                        UpdateRichTextBox(Directory.GetCurrentDirectory() + @"\" + applicationName);
+                    }
                 }
                 else
-                {
-                    UpdateRichTextBox("Nie można odnaleźć określonego pliku\n");
-                    UpdateRichTextBox(Directory.GetCurrentDirectory() + @"\" + applicationName);
-                }
+                    UpdateRichTextBox("Stacja: " + HostName() + " nie jest widoczna na sieci");
+
             }
-            else
-                UpdateRichTextBox("Stacja: " + HostName() + " nie jest widoczna na sieci");
+            catch (Exception ex)
+            {
+                Loger(ex, HostName() + "," + ComputerInfo.pathCIMv2 + "," + ComputerInfo.queryOperatingSystem);
+            }
             stopTime();
         }
 
@@ -1725,26 +1736,55 @@ namespace Puzzel
 
         private void lockoutStatusToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            UserName();
             Lockout_Status LS = new Lockout_Status(UserName());
-            string[] array = Lockout_Status.DomainController();
-
-            if (Lockout_Status.GetUserAvailability(array[1]) == 1)
+            if (UserName().Length > 1)
             {
-                MessageBox.Show(new Form() { TopMost = true }, "Podany login nie występuje w AD", "Wyszukiwanie danych", MessageBoxButtons.OK);
+
+                //string sts = Lockout_Status.UserInfo(UserName());
+
+                //Lockout_Status.AddEntry(Lockout_Status.UserInfo());
+                if (Lockout_Status.UserInfo() != null)
+                {
+                    Lockout_Status.AddEntry(UserName());
+                    LS.Show();
+                }
             }
             else
-            {
-                //Thread th = new Thread(() => 
-                //{
-                //    foreach (string dcName in array)
-                //        Lockout_Status.GetUserPasswordDetails(dcName);
-                //});
-                //th.Start();
-
-                Lockout_Status.AddEntry();
                 LS.Show();
-            }
+            //string[] dcName = Lockout_Status.DomainController();
+
+            //Thread thread = new Thread(() =>
+            //{
+            //    if (Lockout_Status.GetUserPasswordDetails(dcName[0]) == null)
+            //    {
+            //        MessageBox.Show(new Form() { TopMost = true }, "Podany login nie występuje w AD", "Wyszukiwanie danych", MessageBoxButtons.OK);
+            //    }
+            //    else { 
+            //        for (int i = 1; i <= dcName.Count() - 1; i++)
+            //        {
+            //            Lockout_Status.GetUserPasswordDetails(dcName[i]);
+
+            //        }
+            //        LS.Show();
+            //    }
+            //});
+            //thread.Start();
+            //if (Lockout_Status.GetUserAvailability(array[1]) == 1)
+            //{
+            //    MessageBox.Show(new Form() { TopMost = true }, "Podany login nie występuje w AD", "Wyszukiwanie danych", MessageBoxButtons.OK);
+            //}
+            //else
+            //{
+            //Thread th = new Thread(() => 
+            //{
+            //    foreach (string dcName in array)
+            //        Lockout_Status.GetUserPasswordDetails(dcName);
+            //});
+            //th.Start();
+
+            //Lockout_Status.AddEntry();
+            //LS.Show();
+            //}
         }
 
         private void AutoGettingLogs_Tick(object sender, EventArgs e)
@@ -1774,8 +1814,10 @@ namespace Puzzel
             ClearRichTextBox("");
             RemotePing_Tracert remotePing_Tracert = new RemotePing_Tracert();
             remotePing_Tracert.ShowDialog();
-            if (PingLicznik != null | PingRemoteHost != null)
+            if (PingRemoteHost != null)
             {
+                if (PingLicznik == null)
+                    PingLicznik = "5";
                 StreamWriter SW = new StreamWriter("remoteping.cmd");
                 SW.WriteLine("PsExec64.exe " + @"\\" + HostName() + " ping " + PingRemoteHost + " -n " + PingLicznik + " 1> " + Directory.GetCurrentDirectory() + @"\temp.log");
                 SW.Close();
@@ -2311,6 +2353,13 @@ namespace Puzzel
             log.WriteLine(e.GetType());
             log.WriteLine("");
             log.Close();
+        }
+
+        private void ZmianaHasłaDomenowegoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LockoutStatusZmianaHasla lszh = new LockoutStatusZmianaHasla();
+            lszh.ShowDialog();
+            Lockout_Status.zmianahasla();
         }
     }
 }        

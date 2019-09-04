@@ -97,6 +97,12 @@
     <Compile Include="LAPSui.Designer.cs">
       <DependentUpon>LAPSui.cs</DependentUpon>
     </Compile>
+    <Compile Include="LockoutStatusZmianaHasła.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LockoutStatusZmianaHasła.Designer.cs">
+      <DependentUpon>LockoutStatusZmianaHasła.cs</DependentUpon>
+    </Compile>
     <Compile Include="Logi.cs" />
     <Compile Include="terminalexplorerCustomSearch.cs">
       <SubType>Form</SubType>
@@ -113,6 +119,9 @@
     </Compile>
     <EmbeddedResource Include="LAPSui.resx">
       <DependentUpon>LAPSui.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LockoutStatusZmianaHasła.resx">
+      <DependentUpon>LockoutStatusZmianaHasła.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WyszukiwarkaDlaFormy.resx">
       <DependentUpon>WyszukiwarkaDlaFormy.cs</DependentUpon>

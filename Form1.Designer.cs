@@ -1270,6 +1270,13 @@
             this.PwdLclToolStripMenuItem.Text = "Hasło do "+Working[14].Remove(9);
             this.PwdLclToolStripMenuItem.Click += new System.EventHandler(this.PwdLclToolStripMenuItem_Click);
             // 
+            // zmianaHasłaDomenowegoToolStripMenuItem
+            // 
+            this.zmianaHasłaDomenowegoToolStripMenuItem.Name = "zmianaHasłaDomenowegoToolStripMenuItem";
+            this.zmianaHasłaDomenowegoToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
+            this.zmianaHasłaDomenowegoToolStripMenuItem.Text = "Zmiana hasła domenowego";
+            this.zmianaHasłaDomenowegoToolStripMenuItem.Click += new System.EventHandler(this.ZmianaHasłaDomenowegoToolStripMenuItem_Click);
+            // 
             // ladujLogiWTle
             // 
             this.ladujLogiWTle.DoWork += new System.ComponentModel.DoWorkEventHandler(this.ladujLogiWTle_DoWork);
@@ -1295,7 +1302,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(1200, 509);
             this.Name = "Form1";
-            this.Text = "Puzzel v0.93";
+            this.Text = "Puzzel v0.95";
             this.Resize += new System.EventHandler(this.Form1_Resize);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -1442,6 +1449,7 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
+        private System.Windows.Forms.ToolStripMenuItem zmianaHasłaDomenowegoToolStripMenuItem;
         public static System.Windows.Forms.RichTextBox richTextBox1;
     }
 }
