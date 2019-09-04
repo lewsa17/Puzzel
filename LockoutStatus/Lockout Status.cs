@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Windows.Forms;
 using System.DirectoryServices;
 using System.DirectoryServices.AccountManagement;
@@ -74,17 +73,17 @@ namespace Puzzel
             }
         }
 
-        public static string UserInfo()
+        public static string UserInfo(string usrname)
         {
             DirectoryEntry myLdapConnection = new DirectoryEntry("LDAP://" + domainName());
             DirectorySearcher search = new DirectorySearcher(myLdapConnection);
-            search.Filter = "(sAMAccountName=" + Username + ")";
+            search.Filter = "(sAMAccountName=" + usrname + ")";
             search.PropertiesToLoad.Add("sAMAccountName");
             string text = null;
             if (search.FindOne() != null)
                 text = search.FindOne().GetDirectoryEntry().Properties["sAMAccountName"].Value.ToString();
             else
-            MessageBox.Show(new Form() { TopMost = true }, "Podany login nie występuje w AD", "Wyszukiwanie danych", MessageBoxButtons.OK);
+            MessageBox.Show(new Form() { TopMost = true }, "Podany login nie występuje w AD", "", MessageBoxButtons.OK);
             
             return text;
         }
@@ -229,18 +228,29 @@ namespace Puzzel
             else MessageBox.Show("Nic nie zaznaczono");
         }
 
-        public static string password = null;
-        public static void zmianahasla()
+        //public static string password = null;
+
+        public static void ustawhaslo(string password, bool UnlockAccount, bool PasswordExpired)
         {
             if (password != null)
                 foreach (string dcName in DomainController())
-                    using (PrincipalContext context = new PrincipalContext(ContextType.Domain, dcName))
+                {
+                    Thread thread = new Thread(() =>
                     {
-                        UserPrincipal uP = UserPrincipal.FindByIdentity(context, IdentityType.SamAccountName, Username);
-                        uP.SetPassword(password);
-                        uP.ExpirePasswordNow();
-                        uP.Save();
-                    }
+                        using (PrincipalContext context = new PrincipalContext(ContextType.Domain, dcName))
+                        {
+                            UserPrincipal uP = UserPrincipal.FindByIdentity(context, IdentityType.SamAccountName, Username);
+                            uP.SetPassword(password);
+                            if (UnlockAccount)
+                                uP.UnlockAccount();
+                            if (PasswordExpired)
+                                uP.ExpirePasswordNow();
+                            uP.Save();
+                        }
+                    }); thread.Start();
+                    thread.Priority = ThreadPriority.Highest;
+                    thread.Join();
+                }
             MessageBox.Show("Hasło zostało zmienione");
         }
     }

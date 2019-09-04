@@ -1,25 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.DirectoryServices;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace Puzzel
 {
     public partial class LAPSui : Form
     {
-        string admPwd = null;
+        //string admPwd = null;
 		public static string HostName = null;
         public LAPSui()
         {
             InitializeComponent();
             
         }
-        public static PwdLcl(string computername)
+        public static string PwdLcl(string computername)
         {
 			string admpwd = null;
             try

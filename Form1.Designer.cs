@@ -32,6 +32,13 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.ContextMenuRich = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.wytnijMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.kopiujMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.wklejMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.zaznaczWszystkoMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.wyszukajMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -52,13 +59,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.ContextMenuRich = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.wytnijMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.kopiujMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.wklejMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.zaznaczWszystkoMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.wyszukajMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.button23 = new System.Windows.Forms.Button();
             this.button22 = new System.Windows.Forms.Button();
             this.button21 = new System.Windows.Forms.Button();
@@ -115,12 +117,12 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.plikToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.narzędziaAdministracyjneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dziennikZdarzeńToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.usługiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.harmonogramZadańToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.użytkownicyIGrupyLokalneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dHCPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.lockoutStatusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dziennikZdarzeńToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.harmonogramZadańToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.usługiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.użytkownicyIGrupyLokalneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.terminalExplorerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tCToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tCAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -149,14 +151,18 @@
             this.tVLEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tRToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ręcznaNazwaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.PwdLclToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lockoutStatusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.zmianaHasłaDomenowegoToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.ladujLogiWTle = new System.ComponentModel.BackgroundWorker();
             this.AutoGettingLogs = new System.Windows.Forms.Timer(this.components);
             this.groupBox1.SuspendLayout();
+            this.ContextMenuRich.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.ContextMenuText.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
-            this.ContextMenuRich.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.CommandContextMenu.SuspendLayout();
             this.RemoteDesktopContextMenu.SuspendLayout();
@@ -171,6 +177,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.comboBox2);
             this.groupBox1.Controls.Add(this.button5);
             this.groupBox1.Controls.Add(this.button6);
             this.groupBox1.Controls.Add(this.groupBox2);
@@ -189,6 +196,68 @@
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Informacje o użytkowniku:";
+            // 
+            // comboBox2
+            // 
+            comboBox2.ContextMenuStrip = this.ContextMenuText;
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Location = new System.Drawing.Point(6, 40);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(121, 21);
+            this.comboBox2.TabIndex = 1;
+            this.comboBox2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Keys_KeyDown);
+            // 
+            // ContextMenuRich
+            // 
+            this.ContextMenuRich.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.wytnijMenuItem,
+            this.kopiujMenuItem,
+            this.wklejMenuItem,
+            this.zaznaczWszystkoMenuItem,
+            this.wyszukajMenuItem});
+            this.ContextMenuRich.Name = "contextMenuStrip1";
+            this.ContextMenuRich.ShowImageMargin = false;
+            this.ContextMenuRich.Size = new System.Drawing.Size(190, 136);
+            // 
+            // wytnijMenuItem
+            // 
+            this.wytnijMenuItem.Name = "wytnijMenuItem";
+            this.wytnijMenuItem.ShortcutKeyDisplayString = "Ctrl + X";
+            this.wytnijMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.wytnijMenuItem.Text = "Wytnij";
+            this.wytnijMenuItem.Click += new System.EventHandler(this.wytnijMenuItem1_Click);
+            // 
+            // kopiujMenuItem
+            // 
+            this.kopiujMenuItem.Name = "kopiujMenuItem";
+            this.kopiujMenuItem.ShortcutKeyDisplayString = "Ctrl + C";
+            this.kopiujMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.kopiujMenuItem.Text = "Kopiuj";
+            this.kopiujMenuItem.Click += new System.EventHandler(this.kopiujMenuItem1_Click);
+            // 
+            // wklejMenuItem
+            // 
+            this.wklejMenuItem.Name = "wklejMenuItem";
+            this.wklejMenuItem.ShortcutKeyDisplayString = "Ctrl + V";
+            this.wklejMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.wklejMenuItem.Text = "Wklej";
+            this.wklejMenuItem.Click += new System.EventHandler(this.wklejToolStripMenuItem_Click);
+            // 
+            // zaznaczWszystkoMenuItem
+            // 
+            this.zaznaczWszystkoMenuItem.Name = "zaznaczWszystkoMenuItem";
+            this.zaznaczWszystkoMenuItem.ShortcutKeyDisplayString = "Ctrl + A";
+            this.zaznaczWszystkoMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.zaznaczWszystkoMenuItem.Text = "Zaznacz wszystko";
+            this.zaznaczWszystkoMenuItem.Click += new System.EventHandler(this.zaznaczWszystkoMenuItem3_Click);
+            // 
+            // wyszukajMenuItem
+            // 
+            this.wyszukajMenuItem.Name = "wyszukajMenuItem";
+            this.wyszukajMenuItem.ShortcutKeyDisplayString = "Ctrl + F";
+            this.wyszukajMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.wyszukajMenuItem.Text = "Wyszukaj";
+            this.wyszukajMenuItem.Click += new System.EventHandler(this.wyszukajMenuItem_Click);
             // 
             // button5
             // 
@@ -249,7 +318,7 @@
             // 
             // comboBox1
             // 
-            this.comboBox1.ContextMenuStrip = this.ContextMenuText;
+            //this.comboBox1.ContextMenuStrip = this.ContextMenuText;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.comboBox1.Location = new System.Drawing.Point(87, 16);
@@ -389,10 +458,12 @@
             // 
             this.textBox1.ContextMenuStrip = this.ContextMenuText;
             this.textBox1.Location = new System.Drawing.Point(6, 40);
+            this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ShortcutsEnabled = false;
             this.textBox1.Size = new System.Drawing.Size(124, 20);
             this.textBox1.TabIndex = 1;
+            this.textBox1.Visible = false;
             this.textBox1.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Keys_PreviewKeyDown);
             // 
             // label1
@@ -404,60 +475,9 @@
             this.label1.TabIndex = 8;
             this.label1.Text = "Login:";
             // 
-            // ContextMenuRich
-            // 
-            this.ContextMenuRich.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.wytnijMenuItem,
-            this.kopiujMenuItem,
-            this.wklejMenuItem,
-            this.zaznaczWszystkoMenuItem,
-            this.wyszukajMenuItem});
-            this.ContextMenuRich.Name = "contextMenuStrip1";
-            this.ContextMenuRich.ShowImageMargin = false;
-            this.ContextMenuRich.Size = new System.Drawing.Size(190, 114);
-            // 
-            // wytnijMenuItem
-            // 
-            this.wytnijMenuItem.Name = "wytnijMenuItem";
-            this.wytnijMenuItem.ShortcutKeyDisplayString = "Ctrl + X";
-            this.wytnijMenuItem.Size = new System.Drawing.Size(189, 22);
-            this.wytnijMenuItem.Text = "Wytnij";
-            this.wytnijMenuItem.Click += new System.EventHandler(this.wytnijMenuItem1_Click);
-            // 
-            // kopiujMenuItem
-            // 
-            this.kopiujMenuItem.Name = "kopiujMenuItem";
-            this.kopiujMenuItem.ShortcutKeyDisplayString = "Ctrl + C";
-            this.kopiujMenuItem.Size = new System.Drawing.Size(189, 22);
-            this.kopiujMenuItem.Text = "Kopiuj";
-            this.kopiujMenuItem.Click += new System.EventHandler(this.kopiujMenuItem1_Click);
-            // 
-            // wklejMenuItem
-            // 
-            this.wklejMenuItem.Name = "wklejMenuItem";
-            this.wklejMenuItem.ShortcutKeyDisplayString = "Ctrl + V";
-            this.wklejMenuItem.Size = new System.Drawing.Size(189, 22);
-            this.wklejMenuItem.Text = "Wklej";
-            this.wklejMenuItem.Click += new System.EventHandler(this.wklejToolStripMenuItem_Click);
-            // 
-            // zaznaczWszystkoMenuItem
-            // 
-            this.zaznaczWszystkoMenuItem.Name = "zaznaczWszystkoMenuItem";
-            this.zaznaczWszystkoMenuItem.ShortcutKeyDisplayString = "Ctrl + A";
-            this.zaznaczWszystkoMenuItem.Size = new System.Drawing.Size(189, 22);
-            this.zaznaczWszystkoMenuItem.Text = "Zaznacz wszystko";
-            this.zaznaczWszystkoMenuItem.Click += new System.EventHandler(this.zaznaczWszystkoMenuItem3_Click);
-            // 
-            // wyszukajMenuItem
-            // 
-            this.wyszukajMenuItem.Name = "wyszukajMenuItem";
-            this.wyszukajMenuItem.ShortcutKeyDisplayString = "Ctrl + F";
-            this.wyszukajMenuItem.Size = new System.Drawing.Size(189, 22);
-            this.wyszukajMenuItem.Text = "Wyszukaj";
-            this.wyszukajMenuItem.Click += new System.EventHandler(this.wyszukajMenuItem_Click);
-            // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.comboBox3);
             this.groupBox3.Controls.Add(this.button23);
             this.groupBox3.Controls.Add(this.button22);
             this.groupBox3.Controls.Add(this.button21);
@@ -481,6 +501,16 @@
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Informacje o komputerze:";
+            // 
+            // comboBox3
+            // 
+            comboBox3.ContextMenuStrip = this.ContextMenuText;
+            this.comboBox3.FormattingEnabled = true;
+            this.comboBox3.Location = new System.Drawing.Point(6, 35);
+            this.comboBox3.Name = "comboBox3";
+            this.comboBox3.Size = new System.Drawing.Size(121, 21);
+            this.comboBox3.TabIndex = 1;
+            this.comboBox3.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Keys_KeyDown);
             // 
             // button23
             // 
@@ -848,6 +878,7 @@
             this.textBox2.ShortcutsEnabled = false;
             this.textBox2.Size = new System.Drawing.Size(124, 20);
             this.textBox2.TabIndex = 1;
+            this.textBox2.Visible = false;
             this.textBox2.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Keys_PreviewKeyDown);
             // 
             // label3
@@ -986,45 +1017,21 @@
             // 
             this.narzędziaAdministracyjneToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.narzędziaAdministracyjneToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.dziennikZdarzeńToolStripMenuItem,
-            this.usługiToolStripMenuItem,
-            this.harmonogramZadańToolStripMenuItem,
-            this.użytkownicyIGrupyLokalneToolStripMenuItem,
             this.dHCPToolStripMenuItem,
-            this.lockoutStatusToolStripMenuItem,
+            this.dziennikZdarzeńToolStripMenuItem,
+            this.harmonogramZadańToolStripMenuItem,
+            this.usługiToolStripMenuItem,
+            this.użytkownicyIGrupyLokalneToolStripMenuItem,
+            this.toolStripSeparator3,
             this.terminalExplorerToolStripMenuItem,
+            this.toolStripSeparator1,
             this.PwdLclToolStripMenuItem});
+            this.lockoutStatusToolStripMenuItem,
+            this.zmianaHasłaDomenowegoToolStripMenuItem1,
+            this.toolStripSeparator2});
             this.narzędziaAdministracyjneToolStripMenuItem.Name = "narzędziaAdministracyjneToolStripMenuItem";
             this.narzędziaAdministracyjneToolStripMenuItem.Size = new System.Drawing.Size(157, 20);
             this.narzędziaAdministracyjneToolStripMenuItem.Text = "Narzędzia administracyjne";
-            // 
-            // dziennikZdarzeńToolStripMenuItem
-            // 
-            this.dziennikZdarzeńToolStripMenuItem.Name = "dziennikZdarzeńToolStripMenuItem";
-            this.dziennikZdarzeńToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
-            this.dziennikZdarzeńToolStripMenuItem.Text = "Dziennik zdarzeń";
-            this.dziennikZdarzeńToolStripMenuItem.Click += new System.EventHandler(this.narzedziaadministracyjne);
-            // 
-            // usługiToolStripMenuItem
-            // 
-            this.usługiToolStripMenuItem.Name = "usługiToolStripMenuItem";
-            this.usługiToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
-            this.usługiToolStripMenuItem.Text = "Usługi";
-            this.usługiToolStripMenuItem.Click += new System.EventHandler(this.narzedziaadministracyjne);
-            // 
-            // harmonogramZadańToolStripMenuItem
-            // 
-            this.harmonogramZadańToolStripMenuItem.Name = "harmonogramZadańToolStripMenuItem";
-            this.harmonogramZadańToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
-            this.harmonogramZadańToolStripMenuItem.Text = "Harmonogram zadań";
-            this.harmonogramZadańToolStripMenuItem.Click += new System.EventHandler(this.narzedziaadministracyjne);
-            // 
-            // użytkownicyIGrupyLokalneToolStripMenuItem
-            // 
-            this.użytkownicyIGrupyLokalneToolStripMenuItem.Name = "użytkownicyIGrupyLokalneToolStripMenuItem";
-            this.użytkownicyIGrupyLokalneToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
-            this.użytkownicyIGrupyLokalneToolStripMenuItem.Text = "Użytkownicy i grupy lokalne";
-            this.użytkownicyIGrupyLokalneToolStripMenuItem.Click += new System.EventHandler(this.narzedziaadministracyjne);
             // 
             // dHCPToolStripMenuItem
             // 
@@ -1033,12 +1040,38 @@
             this.dHCPToolStripMenuItem.Text = "DHCP";
             this.dHCPToolStripMenuItem.Click += new System.EventHandler(this.dHCPToolStripMenuItem_Click);
             // 
-            // lockoutStatusToolStripMenuItem
+            // dziennikZdarzeńToolStripMenuItem
             // 
-            this.lockoutStatusToolStripMenuItem.Name = "lockoutStatusToolStripMenuItem";
-            this.lockoutStatusToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
-            this.lockoutStatusToolStripMenuItem.Text = "Lockout Status";
-            this.lockoutStatusToolStripMenuItem.Click += new System.EventHandler(this.lockoutStatusToolStripMenuItem_Click);
+            this.dziennikZdarzeńToolStripMenuItem.Name = "dziennikZdarzeńToolStripMenuItem";
+            this.dziennikZdarzeńToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
+            this.dziennikZdarzeńToolStripMenuItem.Text = "Dziennik zdarzeń";
+            this.dziennikZdarzeńToolStripMenuItem.Click += new System.EventHandler(this.narzedziaadministracyjne);
+            // 
+            // harmonogramZadańToolStripMenuItem
+            // 
+            this.harmonogramZadańToolStripMenuItem.Name = "harmonogramZadańToolStripMenuItem";
+            this.harmonogramZadańToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
+            this.harmonogramZadańToolStripMenuItem.Text = "Harmonogram zadań";
+            this.harmonogramZadańToolStripMenuItem.Click += new System.EventHandler(this.narzedziaadministracyjne);
+            // 
+            // usługiToolStripMenuItem
+            // 
+            this.usługiToolStripMenuItem.Name = "usługiToolStripMenuItem";
+            this.usługiToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
+            this.usługiToolStripMenuItem.Text = "Usługi";
+            this.usługiToolStripMenuItem.Click += new System.EventHandler(this.narzedziaadministracyjne);
+            // 
+            // użytkownicyIGrupyLokalneToolStripMenuItem
+            // 
+            this.użytkownicyIGrupyLokalneToolStripMenuItem.Name = "użytkownicyIGrupyLokalneToolStripMenuItem";
+            this.użytkownicyIGrupyLokalneToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
+            this.użytkownicyIGrupyLokalneToolStripMenuItem.Text = "Użytkownicy i grupy lokalne";
+            this.użytkownicyIGrupyLokalneToolStripMenuItem.Click += new System.EventHandler(this.narzedziaadministracyjne);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(219, 6);
             // 
             // terminalExplorerToolStripMenuItem
             // 
@@ -1263,6 +1296,11 @@
             this.ręcznaNazwaToolStripMenuItem.Text = "Ręczna nazwa";
             this.ręcznaNazwaToolStripMenuItem.Click += new System.EventHandler(this.szukanieSesjiCustom);
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(219, 6);
+            // 
             // PwdLclToolStripMenuItem
             // 
             this.PwdLclToolStripMenuItem.Name = "PwdLclToolStripMenuItem";
@@ -1270,12 +1308,24 @@
             this.PwdLclToolStripMenuItem.Text = "Hasło do "+Working[14].Remove(9);
             this.PwdLclToolStripMenuItem.Click += new System.EventHandler(this.PwdLclToolStripMenuItem_Click);
             // 
-            // zmianaHasłaDomenowegoToolStripMenuItem
+            // lockoutStatusToolStripMenuItem
             // 
-            this.zmianaHasłaDomenowegoToolStripMenuItem.Name = "zmianaHasłaDomenowegoToolStripMenuItem";
-            this.zmianaHasłaDomenowegoToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
-            this.zmianaHasłaDomenowegoToolStripMenuItem.Text = "Zmiana hasła domenowego";
-            this.zmianaHasłaDomenowegoToolStripMenuItem.Click += new System.EventHandler(this.ZmianaHasłaDomenowegoToolStripMenuItem_Click);
+            this.lockoutStatusToolStripMenuItem.Name = "lockoutStatusToolStripMenuItem";
+            this.lockoutStatusToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
+            this.lockoutStatusToolStripMenuItem.Text = "Lockout Status";
+            this.lockoutStatusToolStripMenuItem.Click += new System.EventHandler(this.lockoutStatusToolStripMenuItem_Click);
+            // 
+            // zmianaHasłaDomenowegoToolStripMenuItem1
+            // 
+            this.zmianaHasłaDomenowegoToolStripMenuItem1.Name = "zmianaHasłaDomenowegoToolStripMenuItem1";
+            this.zmianaHasłaDomenowegoToolStripMenuItem1.Size = new System.Drawing.Size(222, 22);
+            this.zmianaHasłaDomenowegoToolStripMenuItem1.Text = "Zmiana hasła domenowego";
+            this.zmianaHasłaDomenowegoToolStripMenuItem1.Click += new System.EventHandler(this.zmianahasla);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(219, 6);
             // 
             // ladujLogiWTle
             // 
@@ -1302,14 +1352,14 @@
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(1200, 509);
             this.Name = "Form1";
-            this.Text = "Puzzel v0.95";
+            this.Text = "Puzzel v0.99";
             this.Resize += new System.EventHandler(this.Form1_Resize);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.ContextMenuRich.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.ContextMenuText.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
-            this.ContextMenuRich.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.CommandContextMenu.ResumeLayout(false);
@@ -1328,7 +1378,7 @@
         }
 
         #endregion
-        
+
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
@@ -1449,7 +1499,12 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
-        private System.Windows.Forms.ToolStripMenuItem zmianaHasłaDomenowegoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem zmianaHasłaDomenowegoToolStripMenuItem1;
+        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox comboBox3;
         public static System.Windows.Forms.RichTextBox richTextBox1;
     }
 }

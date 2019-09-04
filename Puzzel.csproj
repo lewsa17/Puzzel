@@ -97,11 +97,11 @@
     <Compile Include="LAPSui.Designer.cs">
       <DependentUpon>LAPSui.cs</DependentUpon>
     </Compile>
-    <Compile Include="LockoutStatusZmianaHasła.cs">
+    <Compile Include="LockoutStatus\ZmianaHasla.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LockoutStatusZmianaHasła.Designer.cs">
-      <DependentUpon>LockoutStatusZmianaHasła.cs</DependentUpon>
+    <Compile Include="LockoutStatus\ZmianaHasla.designer.cs">
+      <DependentUpon>ZmianaHasla.cs</DependentUpon>
     </Compile>
     <Compile Include="Logi.cs" />
     <Compile Include="terminalexplorerCustomSearch.cs">
@@ -120,8 +120,8 @@
     <EmbeddedResource Include="LAPSui.resx">
       <DependentUpon>LAPSui.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LockoutStatusZmianaHasła.resx">
-      <DependentUpon>LockoutStatusZmianaHasła.cs</DependentUpon>
+    <EmbeddedResource Include="LockoutStatus\ZmianaHasla.resx">
+      <DependentUpon>ZmianaHasla.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WyszukiwarkaDlaFormy.resx">
       <DependentUpon>WyszukiwarkaDlaFormy.cs</DependentUpon>
@@ -138,16 +138,16 @@
     <Compile Include="RemotePing_Tracert.Designer.cs">
       <DependentUpon>RemotePing_Tracert.cs</DependentUpon>
     </Compile>
-    <Compile Include="LockoutStatusWyborUzytkownika.cs">
+    <Compile Include="LockoutStatus\WyborUzytkownika.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LockoutStatusWyborUzytkownika.Designer.cs">
-      <DependentUpon>LockoutStatusWyborUzytkownika.cs</DependentUpon>
+    <Compile Include="LockoutStatus\WyborUzytkownika.Designer.cs">
+      <DependentUpon>WyborUzytkownika.cs</DependentUpon>
     </Compile>
-    <Compile Include="Lockout Status.cs">
+    <Compile Include="LockoutStatus\Lockout Status.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Lockout Status.Designer.cs">
+    <Compile Include="LockoutStatus\Lockout Status.Designer.cs">
       <DependentUpon>Lockout Status.cs</DependentUpon>
     </Compile>
     <None Include="DropDownMenu.cs" />
@@ -189,10 +189,10 @@
     <EmbeddedResource Include="RemotePing_Tracert.resx">
       <DependentUpon>RemotePing_Tracert.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LockoutStatusWyborUzytkownika.resx">
-      <DependentUpon>LockoutStatusWyborUzytkownika.cs</DependentUpon>
+    <EmbeddedResource Include="LockoutStatus\WyborUzytkownika.resx">
+      <DependentUpon>WyborUzytkownika.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Lockout Status.resx">
+    <EmbeddedResource Include="LockoutStatus\Lockout Status.resx">
       <DependentUpon>Lockout Status.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
