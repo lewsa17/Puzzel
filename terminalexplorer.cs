@@ -192,6 +192,15 @@ namespace Puzzel
                 UseVisualStyleBackColor = true
             };
 
+            ContextMenuStrip contextProcessMenuStrip = new ContextMenuStrip
+            {
+                Size = new System.Drawing.Size(61,4),
+                Font = new System.Drawing.Font("Tahoma", 8F),
+                ShowImageMargin = false,
+            }; 
+            ToolStripMenuItem killprocess = new ToolStripMenuItem { Text = "Zabij proces", Name = "ZabijProcess", };
+            killprocess.Click += new EventHandler(ContextMenus);
+            contextProcessMenuStrip.Items.Add(killprocess);
             DataGridView dynaDataGridView = new DataGridView
             {
                 AllowUserToAddRows = false,
@@ -277,7 +286,7 @@ namespace Puzzel
                     dynaButton1,
                     dynaDataGridView
                 });
-            dynaDataGridView.ContextMenuStrip = ContextProcessMenu;
+            dynaDataGridView.ContextMenuStrip = contextProcessMenuStrip;
             tabControl1.Controls.Add(dynaProcessTabPage);
             tabControl1.SelectedTab = dynaProcessTabPage;
         }

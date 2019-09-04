@@ -10,6 +10,7 @@ using System.DirectoryServices;
 using System.DirectoryServices.AccountManagement;
 using System.Management;
 using System.Threading;
+using System.Management.Automation;
 namespace Puzzel
 {
     public partial class Form1 : Form
@@ -907,82 +908,110 @@ namespace Puzzel
 
         private void programList_DoWork(object sender, DoWorkEventArgs e)
         {
+
             startTime();
             Puzzel.Ping.Pinging(HostName());
             ClearRichTextBox(null);
+            string text = "fast";
             if (PingStatus == 0)
-            {
-                ManagementScope scope = new ManagementScope();
-                try
+            {StartAgainIfReturnedValueIsNull:
+                switch (text)
                 {
-                    ConnectionOptions options = new ConnectionOptions
-                    {
-                        EnablePrivileges = true
-                    };
-
-                    scope = new ManagementScope(@"\\" + HostName() + @"\root\CIMV2", options);
-                    scope.Connect();
-                    //SelectQuery query = new SelectQuery("SELECT * FROM Win32_Product");
-                    ManagementObjectSearcher searcher = new ManagementObjectSearcher(new ManagementScope(@"\\" + HostName() + @"\root\CIMV2", options), new SelectQuery("SELECT * FROM Win32_Product"));
-                    int nazwa_dlugosc;
-                    using (ManagementObjectCollection queryCollection = searcher.Get())
-                    {//sprawdzenie maksymalnej wartości dla nazwa
-                        string nazwa = null;
-                        string[] nazwa1 = null;
-                        string wersja = null;
-                        string[] wersja1 = null;
-                        nazwa_dlugosc = 0;
-                        foreach (ManagementObject m in queryCollection)
-                        {   //tworzenie ciągu wszystkich nazw po przecinku
-                            nazwa += m["description"].ToString() + ",";
-                            //tworzenie ciągu wszystkich wersji po przecinku
-                            wersja += m["version"].ToString() + ",";
-                        }
-                        //rozdzielenie całego ciągu na osobne obiekty
-                        nazwa1 = nazwa.Split(',');
-                        wersja1 = wersja.Split(',');
-
-                        for (int i = nazwa1.Count() - 2; i > 0; i--)
-                        {//szukanie najdłuższego wyrazu
-                            if (nazwa1[i].Length > nazwa_dlugosc)
-                            {
-                                nazwa_dlugosc = nazwa1[i].Length;
-                            }
-                        }
-                        //dodanie pierwszej linijki informacyjnej
-                        UpdateRichTextBox("Nazwa");
-                        for (int i = 0; i < nazwa_dlugosc - 4; i++)
+                    case "fast":
                         {
-                            UpdateRichTextBox(" ");
-                        }
-                        UpdateRichTextBox("Wersja\n");
-                        //dodanie nazwy i wersji programu linijka pod linijką
-                        for (int i = nazwa1.Count() - 2; i > 0; i--)
-                        {
-                            UpdateRichTextBox(nazwa1[i].ToString());
-                            for (int j = 0; j < nazwa_dlugosc - nazwa1[i].Length + 1; j++)
+                            var ps = PowerShell.Create();
+
+                            ps.AddScript(@"Invoke-Command -ComputerName " + HostName() + @" -Command {Get-ItemProperty -Path HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\* | Select-Object DisplayName, InstallDate, DisplayVersion}");
+                            System.Collections.Generic.List<PSObject> items = ps.Invoke().ToList();
+                            foreach (PSObject item in items)
                             {
-                                UpdateRichTextBox(" ");
+                                UpdateRichTextBox(item.ToString()+"\n"); }
+                            if (ComputerInfo_TEMP == null) {
+                                text = "slow";
+                            //goto StartAgainIfReturnedValueIsNull;
                             }
-                            UpdateRichTextBox(wersja1[i].ToString() + "\n");
-                        }
-                    }
-                    stopTime();
-                }
+                            break;
+                        };
+                    case "slow":
+                        {
 
-                catch (UnauthorizedAccessException)
-                {
-                    MessageBox.Show("Nie można połączyć ponieważ dostęp jest wzbroniony na bieżacych poświadczeniach", "WMI Testing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); return;
-                }
+                            ManagementScope scope = new ManagementScope();
+                            try
+                            {
+                                ConnectionOptions options = new ConnectionOptions
+                                {
+                                    EnablePrivileges = true
+                                };
 
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Nie można połączyć z powodu błędu: " + ex.Message, "WMI Testing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); return;
+                                scope = new ManagementScope(@"\\" + HostName() + @"\root\CIMV2", options);
+                                scope.Connect();
+                                //SelectQuery query = new SelectQuery("SELECT * FROM Win32_Product");
+                                ManagementObjectSearcher searcher = new ManagementObjectSearcher(new ManagementScope(@"\\" + HostName() + @"\root\CIMV2", options), new SelectQuery("SELECT * FROM Win32_Product"));
+                                int nazwa_dlugosc;
+                                using (ManagementObjectCollection queryCollection = searcher.Get())
+                                {//sprawdzenie maksymalnej wartości dla nazwa
+                                    string nazwa = null;
+                                    string[] nazwa1 = null;
+                                    string wersja = null;
+                                    string[] wersja1 = null;
+                                    nazwa_dlugosc = 0;
+                                    foreach (ManagementObject m in queryCollection)
+                                    {   //tworzenie ciągu wszystkich nazw po przecinku
+                                        nazwa += m["description"].ToString() + ",";
+                                        //tworzenie ciągu wszystkich wersji po przecinku
+                                        wersja += m["version"].ToString() + ",";
+                                    }
+                                    //rozdzielenie całego ciągu na osobne obiekty
+                                    nazwa1 = nazwa.Split(',');
+                                    wersja1 = wersja.Split(',');
+
+                                    for (int i = nazwa1.Count() - 2; i > 0; i--)
+                                    {//szukanie najdłuższego wyrazu
+                                        if (nazwa1[i].Length > nazwa_dlugosc)
+                                        {
+                                            nazwa_dlugosc = nazwa1[i].Length;
+                                        }
+                                    }
+                                    //dodanie pierwszej linijki informacyjnej
+                                    ComputerInfo_TEMP+=("Nazwa");
+                                    for (int i = 0; i < nazwa_dlugosc - 4; i++)
+                                    {
+                                        ComputerInfo_TEMP+=(" ");
+                                    }
+                                    ComputerInfo_TEMP += ("Wersja\n");
+                                    //dodanie nazwy i wersji programu linijka pod linijką
+                                    for (int i = nazwa1.Count() - 2; i > 0; i--)
+                                    {
+                                        ComputerInfo_TEMP += (nazwa1[i].ToString());
+                                        for (int j = 0; j < nazwa_dlugosc - nazwa1[i].Length + 1; j++)
+                                        {
+                                            ComputerInfo_TEMP += (" ");
+                                        }
+                                        ComputerInfo_TEMP += (wersja1[i].ToString() + "\n");
+                                    }
+                                }
+                                stopTime();
+                            }
+
+                            catch (UnauthorizedAccessException)
+                            {
+                                MessageBox.Show("Nie można połączyć ponieważ dostęp jest wzbroniony na bieżacych poświadczeniach", "WMI Testing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); return;
+                            }
+
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("Nie można połączyć z powodu błędu: " + ex.Message, "WMI Testing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); return;
+                            }
+                            ReplaceRichTextBox(ComputerInfo_TEMP);
+                            break;
+                        };
                 }
             }
             else return;
         }
+
         Stopwatch stopWatch = new Stopwatch();
+        
         private void startTime()
         {
             stopWatch.Start();
