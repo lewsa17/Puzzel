@@ -152,6 +152,11 @@
     </Compile>
     <Compile Include="Logi.cs" />
     <Compile Include="LogsCollector.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="TermsExplorer\CustomSearch.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -245,14 +250,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <EmbeddedResource Include="TermsExplorer\TerminalExplorer.resx">
       <DependentUpon>TerminalExplorer.cs</DependentUpon>
     </EmbeddedResource>
@@ -286,8 +286,45 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="terminalexplorer.png" />
+    <None Include="ping.png" />
+    <None Include="zdalneCMD.png" />
+    <None Include="Resources\2109.png" />
+    <None Include="userlog.png" />
+    <None Include="Resources\67.ico" />
+    <None Include="msinfo\ICON\12.png" />
+    <None Include="migui\ICON\25.png" />
+    <None Include="migui\ICON\25.ico" />
+    <None Include="mstscax\4.png" />
+    <None Include="Resources\5_1.ico" />
+    <None Include="Resources\9_1.png" />
+    <None Include="2.png" />
     <Content Include="Cassia\Cassia.csproj" />
     <Content Include="Cassia\obj\Debug\Cassia.csproj.FileListAbsolute.txt" />
+    <None Include="mstscax\3.png" />
+    <None Include="mstscax\4_1.png" />
+    <None Include="mstscax\5_1.png" />
+    <None Include="Imageres\15.png" />
+    <None Include="Imageres\47.png" />
+    <None Include="Imageres\77.png" />
+    <None Include="Imageres\1924.png" />
+    <None Include="Imageres\2476.png" />
+    <None Include="Imageres\14.png" />
+    <None Include="cmp\5_1.png" />
+    <None Include="cmp\5_11.png" />
+    <None Include="cmp\5_112.png" />
+    <None Include="cmp\5_1122.png" />
+    <None Include="dsuiext\30_1.png" />
+    <None Include="Imageres\2091_1.png" />
+    <None Include="Imageres\lockout.png" />
+    <None Include="dsadmin\101_1.png" />
+    <None Include="eventvwr\ICON\12.png" />
+    <None Include="localsec\ICON\92.png" />
+    <None Include="Complog.png" />
+    <None Include="Ikon\appwiz\ICON\14.ico" />
+    <None Include="Ikon\appwiz\ICON\17.png" />
+    <None Include="Ikon\ncpa\ICON\4.png" />
+    <None Include="Imageres\1300.png" />
     <Content Include="logon_2.ico" />
   </ItemGroup>
   <ItemGroup>
