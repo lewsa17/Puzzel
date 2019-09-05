@@ -250,7 +250,7 @@
             this.toolStripMenuItem4.Text = "Zaznacz wszystko";
             this.toolStripMenuItem4.Click += new System.EventHandler(this.ZaznaczWszystkoMenuItem3_Click);
             // 
-            // button5
+            // BtnProfil_EXT
             // 
             this.BtnProfil_EXT.Image = global::Puzzel.Properties.Resources.folder;
             this.BtnProfil_EXT.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1427,7 +1427,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(1200, 509);
             this.Name = "Form1";
-            this.Text = "Puzzel v0.107";
+            this.Text = "Puzzel v0.110";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Resize += new System.EventHandler(this.Form1_Resize);
             this.groupBox1.ResumeLayout(false);

@@ -215,7 +215,6 @@ namespace Puzzel
                                     //args3 = Version
                                     if (query == queryProduct)
                                     {
-                                        Form1.ComputerInfo_TEMP += (string.Format("{0,-80}{1,-31}{2,-1}", "DisplayName", "InstallDate", "DisplayVersion" + "\n"));
                                         string nazwa = null;
                                         string wersja = null;
                                         string data = null;
@@ -875,82 +874,89 @@ namespace Puzzel
         {
             try
             {
-                var ps = PowerShell.Create();
-
-                ps.AddScript("Invoke-Command -ComputerName " + hostname + @" -Command {Get-ItemProperty -Path HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\* | Select-Object DisplayName, InstallDate, DisplayVersion}");
-                System.Collections.Generic.List<PSObject> items = ps.Invoke().ToList();
-                string[] objItem = null;
-                int firstoptimvalue = 80;
-                int secondoptimvalue = 31;
-                Form1.UpdateRichTextBox(string.Format("{0,-80}{1,-31}{2,-1}", "DisplayName", "InstallDate", "DisplayVersion" + "\n"));
-                foreach (PSObject item in items)
+                if (System.IO.Directory.Exists(System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), @"Microsoft.NET\assembly\GAC_MSIL\Microsoft.PowerShell.ConsoleHost")))
                 {
-                    objItem = item.ToString().Split(';');
-                    objItem[0] = objItem[0].Replace("@{DisplayName=", " ");
-                    objItem[1] = objItem[1].Replace("InstallDate=", "");
-                    objItem[2] = objItem[2].Replace("DisplayVersion=", "").Replace("}", "");
+                    var ps = PowerShell.Create();
+                    ps.AddScript("Invoke-Command -ComputerName " + hostname + @" -Command {Get-ItemProperty -Path HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\* | Select-Object DisplayName, InstallDate, DisplayVersion}");
+                    System.Collections.Generic.List<PSObject> items = ps.Invoke().ToList();
+                    string[] objItem = null;
+                    int firstoptimvalue = 80;
+                    int secondoptimvalue = 31;
+                    Form1.UpdateRichTextBox(string.Format("{0,-80}{1,-31}{2,-1}", "DisplayName", "InstallDate", "DisplayVersion" + "\n"));
+                    foreach (PSObject item in items)
+                    {
+                        objItem = item.ToString().Split(';');
+                        objItem[0] = objItem[0].Replace("@{DisplayName=", " ");
+                        objItem[1] = objItem[1].Replace("InstallDate=", "");
+                        objItem[2] = objItem[2].Replace("DisplayVersion=", "").Replace("}", "");
 
-                    int firstObjLength = objItem[0].Length;
-                    int secondObjLenght = objItem[1].Length;
-                    int thirdObjLenght = objItem[2].Length;
-                    int addspace = 0;
-                    if (firstObjLength > 1)
-                        if (!objItem[0].Contains("for Microsoft") && !objItem[0].Contains("(KB"))
-                        {
-                            Form1.ComputerInfo_TEMP += objItem[0];
-                            if (firstObjLength < firstoptimvalue)
+                        int firstObjLength = objItem[0].Length;
+                        int secondObjLenght = objItem[1].Length;
+                        int thirdObjLenght = objItem[2].Length;
+                        int addspace = 0;
+                        if (firstObjLength > 1)
+                            if (!objItem[0].Contains("for Microsoft") && !objItem[0].Contains("(KB"))
                             {
-                                addspace = firstoptimvalue - firstObjLength;
-                                for (int i = 0; i < addspace; i++)
-                                    Form1.ComputerInfo_TEMP += " ";
-                            }
-                            else
-                            {
-                                Form1.ComputerInfo_TEMP += "   ";
-                            }
-                            if (secondObjLenght > 1 && thirdObjLenght > 1)
-                            {
-                                Form1.ComputerInfo_TEMP += objItem[1];
-                                if (firstoptimvalue > firstObjLength)
+                                Form1.ComputerInfo_TEMP += objItem[0];
+                                if (firstObjLength < firstoptimvalue)
                                 {
-                                    addspace = secondoptimvalue - secondObjLenght;
+                                    addspace = firstoptimvalue - firstObjLength;
                                     for (int i = 0; i < addspace; i++)
                                         Form1.ComputerInfo_TEMP += " ";
                                 }
-                                if (firstoptimvalue < firstObjLength)
+                                else
                                 {
-                                    if (firstoptimvalue + secondoptimvalue > firstObjLength + secondObjLenght + 3)
+                                    Form1.ComputerInfo_TEMP += "   ";
+                                }
+                                if (secondObjLenght > 1 && thirdObjLenght > 1)
+                                {
+                                    Form1.ComputerInfo_TEMP += objItem[1];
+                                    if (firstoptimvalue > firstObjLength)
                                     {
-                                        addspace = firstoptimvalue + secondoptimvalue - firstObjLength - secondObjLenght - 3;
+                                        addspace = secondoptimvalue - secondObjLenght;
                                         for (int i = 0; i < addspace; i++)
                                             Form1.ComputerInfo_TEMP += " ";
                                     }
-                                    else Form1.ComputerInfo_TEMP += "  ";
+                                    if (firstoptimvalue < firstObjLength)
+                                    {
+                                        if (firstoptimvalue + secondoptimvalue > firstObjLength + secondObjLenght + 3)
+                                        {
+                                            addspace = firstoptimvalue + secondoptimvalue - firstObjLength - secondObjLenght - 3;
+                                            for (int i = 0; i < addspace; i++)
+                                                Form1.ComputerInfo_TEMP += " ";
+                                        }
+                                        else Form1.ComputerInfo_TEMP += "  ";
+                                    }
                                 }
+                                if (secondObjLenght < 4 && thirdObjLenght > 1)
+                                {
+                                    if (firstoptimvalue > firstObjLength)
+                                        addspace = secondoptimvalue;
+                                    else addspace = firstoptimvalue + secondoptimvalue - firstObjLength - 3;
+                                    for (int i = 0; i < addspace; i++)
+                                        Form1.ComputerInfo_TEMP += " ";
+                                }
+                                if (secondObjLenght < 1 && thirdObjLenght < 1)
+                                {
+                                    Form1.ComputerInfo_TEMP += "\n";
+                                }
+                                if (objItem[2].Length < 2)
+                                    objItem[2] = "";
+                                Form1.ComputerInfo_TEMP += objItem[2] + "\n";
                             }
-                            if (secondObjLenght < 4 && thirdObjLenght > 1)
-                            {
-                                if (firstoptimvalue > firstObjLength)
-                                    addspace = secondoptimvalue;
-                                else addspace = firstoptimvalue + secondoptimvalue - firstObjLength - 3;
-                                for (int i = 0; i < addspace; i++)
-                                    Form1.ComputerInfo_TEMP += " ";
-                            }
-                            if (secondObjLenght < 1 && thirdObjLenght < 1)
-                            {
-                                Form1.ComputerInfo_TEMP += "\n";
-                            }
-                            if (objItem[2].Length < 2)
-                                objItem[2] = "";
-                            Form1.ComputerInfo_TEMP += objItem[2] + "\n";
-                        }
-                }
-
-                if (Form1.ComputerInfo_TEMP == null)
+                    }
+                } else
                 {
                     if (Form1.richTextBox1.InvokeRequired)
                         Form1.richTextBox1.Invoke(new MethodInvoker(() => Form1.richTextBox1.Clear()));
                     else Form1.richTextBox1.Clear();
+                    Form1.ComputerInfo_TEMP = null;
+                }
+
+                if (Form1.ComputerInfo_TEMP == null)
+                {
+                    Form1.ComputerInfo_TEMP += ("Nazwa komputera: ");
+                    GetInfo(hostname,pathCIMv2, queryComputerSystem, "DNSHostName");
                     GetInfo(hostname, path, query, "Name", "InstallDate", "Version");
                 }
                 else
@@ -966,43 +972,49 @@ namespace Puzzel
             {
                 LogsCollector.Loger(ex, "szybka metoda");
             }
-
         }
 
         public void Fast2(string nazwaKomputera, string path, string query)
         {
             try
             {
-                //var ps = PowerShell.Create();
+                if (System.IO.Directory.Exists(System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), @"Microsoft.NET\assembly\GAC_MSIL\Microsoft.PowerShell.ConsoleHost")))
+                {
+                    var ps = PowerShell.Create();
 
-                //ps.AddScript("Invoke-Command -ComputerName " + nazwaKomputera + @" -Command {Get-ItemProperty -Path HKLM:\HARDWARE\DESCRIPTION\System\BIOS\ | Select-Object SystemManufacturer, BIOSVersion, BIOSReleaseDate}");
-                //string[] objItem  = ps.Invoke()[0].ToString().Split(';');
+                    ps.AddScript("Invoke-Command -ComputerName " + nazwaKomputera + @" -Command {Get-ItemProperty -Path HKLM:\HARDWARE\DESCRIPTION\System\BIOS\ | Select-Object SystemManufacturer, BIOSVersion, BIOSReleaseDate}");
+                    string[] objItem = ps.Invoke()[0].ToString().Split(';');
 
-                //objItem[0] = objItem[0].Replace("@{SystemManufacturer=", " ");
-                //objItem[1] = objItem[1].Replace("BIOSVersion=", "");
-                //objItem[2] = objItem[2].Replace("BIOSReleaseDate=", "");
+                    objItem[0] = objItem[0].Replace("@{SystemManufacturer=", " ");
+                    objItem[1] = objItem[1].Replace("BIOSVersion=", "");
+                    objItem[2] = objItem[2].Replace("BIOSReleaseDate=", "");
 
-                //Form1.ComputerInfo_TEMP += "Producent                Wersja Bios     " + "Data wydania\n";
-                //Puzzel.Form1.ComputerInfo_TEMP += objItem[0];
-                //int a = "Producent".Length + 16 - objItem[0].Length;
-                //for (int i = 0; i < a; i++)
-                //{
-                //    Form1.ComputerInfo_TEMP += (" ");
-                //}
+                    Form1.ComputerInfo_TEMP += "Producent                Wersja Bios     " + "Data wydania\n";
+                    Puzzel.Form1.ComputerInfo_TEMP += objItem[0];
+                    int a = "Producent".Length + 16 - objItem[0].Length;
+                    for (int i = 0; i < a; i++)
+                    {
+                        Form1.ComputerInfo_TEMP += (" ");
+                    }
 
-                //Puzzel.Form1.ComputerInfo_TEMP += objItem[1];
-                //a = "Wersja SMBios".Length + 3 - objItem[1].Length;
-                //for (int i = 0; i < a; i++)
-                //{
-                //    Form1.ComputerInfo_TEMP += (" ");
-                //}
-                //    Form1.ComputerInfo_TEMP += objItem[2];
-
-                if (Puzzel.Form1.ComputerInfo_TEMP == null)
+                    Puzzel.Form1.ComputerInfo_TEMP += objItem[1];
+                    a = "Wersja SMBios".Length + 3 - objItem[1].Length;
+                    for (int i = 0; i < a; i++)
+                    {
+                        Form1.ComputerInfo_TEMP += (" ");
+                    }
+                    Form1.ComputerInfo_TEMP += objItem[2];
+                }
+                else
                 {
                     if (Form1.richTextBox1.InvokeRequired)
                         Form1.richTextBox1.Invoke(new MethodInvoker(() => Form1.richTextBox1.Clear()));
                     else Form1.richTextBox1.Clear();
+                    Form1.ComputerInfo_TEMP = null;
+                }
+
+                if (Puzzel.Form1.ComputerInfo_TEMP == null)
+                {
                     GetInfo(nazwaKomputera, path, query, "Manufacturer", "BIOSVersion", "SMBIOSBIOSVersion", "ReleaseDate");
                 }
             }

@@ -177,6 +177,7 @@ namespace Puzzel
         private void SaveSettings_Click(object sender, EventArgs e)
         {
             Settings = new Properties.Settings();
+            if (lastUsedButton == null)
             SetValueSettings(lastUsedButton);
             for (int i = 0; i < 21; i++)
             {
@@ -308,7 +309,7 @@ namespace Puzzel
             {
                 case "DW":
                     {
-                        if (!string.IsNullOrEmpty(Settings.DW))
+                        if (string.IsNullOrEmpty(Settings.DW) )
                         {
                             shortcut = Settings.DW;
                         }
@@ -326,7 +327,7 @@ namespace Puzzel
                     }
                 case "ExplorerC":
                     {
-                        if (!string.IsNullOrEmpty(Settings.ExplorerC))
+                        if (string.IsNullOrEmpty(Settings.ExplorerC))
                         {
                             shortcut = Settings.ExplorerC;
                         }
@@ -344,7 +345,7 @@ namespace Puzzel
                     }
                 case "Info_z_AD":
                     {
-                        if (!string.IsNullOrEmpty(Settings.Info_z_AD))
+                        if (string.IsNullOrEmpty(Settings.Info_z_AD))
                         {
                             shortcut = Settings.Info_z_AD;
                         }
@@ -362,7 +363,7 @@ namespace Puzzel
                     }
                 case "Karty_sieciowe":
                     {
-                        if (!string.IsNullOrEmpty(Settings.Karty_sieciowe))
+                        if (string.IsNullOrEmpty(Settings.Karty_sieciowe))
                         {
                             shortcut = Settings.Karty_sieciowe;
                         }
@@ -380,7 +381,7 @@ namespace Puzzel
                     }
                 case "KomputerInfo":
                     {
-                        if (!string.IsNullOrEmpty(Settings.KomputerInfo))
+                        if (string.IsNullOrEmpty(Settings.KomputerInfo))
                         {
                             shortcut = Settings.KomputerInfo;
                         }
@@ -388,7 +389,7 @@ namespace Puzzel
                         {
                             for (int i = 0; i < 21; i++)
                             {
-                                if (settingsArray[i, 0] == ((Button)lastUsedButton).Name)
+                                if (settingsArray[i, 0] == name)
                                 {
                                     shortcut = settingsArray[i, 1];
                                 }
@@ -398,7 +399,7 @@ namespace Puzzel
                     }
                 case "KomputerLog":
                     {
-                        if (!string.IsNullOrEmpty(Settings.KomputerLog))
+                        if (string.IsNullOrEmpty(Settings.KomputerLog))
                         {
                             shortcut = Settings.KomputerLog;
                         }
@@ -416,7 +417,7 @@ namespace Puzzel
                     }
                 case "Lista_program":
                     {
-                        if (!string.IsNullOrEmpty(Settings.Lista_program))
+                        if (string.IsNullOrEmpty(Settings.Lista_program))
                         {
                             shortcut = Settings.Lista_program;
                         }
@@ -434,7 +435,7 @@ namespace Puzzel
                     }
                 case "Logoff":
                     {
-                        if (!string.IsNullOrEmpty(Settings.Logoff))
+                        if (string.IsNullOrEmpty(Settings.Logoff))
                         {
                             shortcut = Settings.Logoff;
                         }
@@ -452,7 +453,7 @@ namespace Puzzel
                     }
                 case "Ping":
                     {
-                        if (!string.IsNullOrEmpty(Settings.Ping))
+                        if (string.IsNullOrEmpty(Settings.Ping))
                         {
                             shortcut = Settings.Ping;
                         }
@@ -470,7 +471,7 @@ namespace Puzzel
                     }
                 case "Polacz":
                     {
-                        if (!string.IsNullOrEmpty(Settings.Polacz))
+                        if (string.IsNullOrEmpty(Settings.Polacz))
                         {
                             shortcut = Settings.Polacz;
                         }
@@ -488,7 +489,7 @@ namespace Puzzel
                     }
                 case "Profil_ERI":
                     {
-                        if (!string.IsNullOrEmpty(Settings.Profil_ERI))
+                        if (string.IsNullOrEmpty(Settings.Profil_ERI))
                         {
                             shortcut = Settings.Profil_ERI;
                         }
@@ -506,7 +507,7 @@ namespace Puzzel
                     }
                 case "Profil_EXT":
                     {
-                        if (!string.IsNullOrEmpty(Settings.Profil_EXT))
+                        if (string.IsNullOrEmpty(Settings.Profil_EXT))
                         {
                             shortcut = Settings.Profil_EXT;
                         }
@@ -524,7 +525,7 @@ namespace Puzzel
                     }
                 case "Profil_TS":
                     {
-                        if (!string.IsNullOrEmpty(Settings.Profil_TS))
+                        if (string.IsNullOrEmpty(Settings.Profil_TS))
                         {
                             shortcut = Settings.Profil_TS;
                         }
@@ -542,7 +543,7 @@ namespace Puzzel
                     }
                 case "Profil_VFS":
                     {
-                        if (!string.IsNullOrEmpty(Settings.Profil_VFS))
+                        if (string.IsNullOrEmpty(Settings.Profil_VFS))
                         {
                             shortcut = Settings.Profil_VFS;
                         }
@@ -560,7 +561,7 @@ namespace Puzzel
                     }
                 case "Pulpit_Zdalny":
                     {
-                        if (!string.IsNullOrEmpty(Settings.Pulpit_Zdalny))
+                        if (string.IsNullOrEmpty(Settings.Pulpit_Zdalny))
                         {
                             shortcut = Settings.Pulpit_Zdalny;
                         }
@@ -578,7 +579,7 @@ namespace Puzzel
                     }
                 case "Remote_Ping":
                     {
-                        if (!string.IsNullOrEmpty(Settings.Ping))
+                        if (string.IsNullOrEmpty(Settings.Ping))
                         {
                             shortcut = Settings.Remote_Ping;
                         }
@@ -596,7 +597,7 @@ namespace Puzzel
                     }
                 case "Remote_Tracert":
                     {
-                        if (!string.IsNullOrEmpty(Settings.Remote_Tracert))
+                        if (string.IsNullOrEmpty(Settings.Remote_Tracert))
                         {
                             shortcut = Settings.Remote_Tracert;
                         }
@@ -614,7 +615,7 @@ namespace Puzzel
                     }
                 case "Szukaj_sesji":
                     {
-                        if (!string.IsNullOrEmpty(Settings.Szukaj_sesji))
+                        if (string.IsNullOrEmpty(Settings.Szukaj_sesji))
                         {
                             shortcut = Settings.Szukaj_sesji;
                         }
@@ -632,7 +633,7 @@ namespace Puzzel
                     }
                 case "UserLog":
                     {
-                        if (!string.IsNullOrEmpty(Settings.UserLog))
+                        if (string.IsNullOrEmpty(Settings.UserLog))
                         {
                             shortcut = Settings.UserLog;
                         }
@@ -650,7 +651,7 @@ namespace Puzzel
                     }
                 case "Zarzadzanie":
                     {
-                        if (!string.IsNullOrEmpty(Settings.Zarzadzanie))
+                        if (string.IsNullOrEmpty(Settings.Zarzadzanie))
                         {
                             shortcut = Settings.Zarzadzanie;
                         }
@@ -668,7 +669,7 @@ namespace Puzzel
                     }
                 case "ZdalneCMD":
                     {
-                        if (!string.IsNullOrEmpty(Settings.ZdalneCMD))
+                        if (string.IsNullOrEmpty(Settings.ZdalneCMD))
                         {
                             shortcut = Settings.ZdalneCMD;
                         }
@@ -684,21 +685,28 @@ namespace Puzzel
                         }
                         break;
                     }
-
             }
             return shortcut;
         }
 
-        private void Object_Click(object sender, EventArgs e)
+
+        public Control[] buttons()
         {
-            if (lastUsedButton != null)
-                SetValueSettings(lastUsedButton);
-            Control[] Combo = { comboBox1, comboBox2, comboBox3 };
             Control[] button = { DW, ExplorerC, Info_z_AD,
                 Karty_sieciowe, KomputerInfo, KomputerLog, Lista_program,
                 Logoff, Ping, Polacz, Profil_ERI, Profil_EXT, Profil_TS,
                 Profil_VFS, Pulpit_Zdalny, Remote_Ping, Remote_Tracert,
                 Szukaj_sesji, UserLog, Zarzadzanie, ZdalneCMD };
+            return button;
+        }
+
+        
+        private void Object_Click(object sender, EventArgs e)
+        {
+            if (lastUsedButton != null)
+                SetValueSettings(lastUsedButton);
+            Control[] Combo = { comboBox1, comboBox2, comboBox3 };
+            var button = buttons();
             string shortcut = "BRAK+BRAK"/*+BRAK"*/;
             lastUsedButton = sender;    
             Settings = new Properties.Settings();
@@ -807,18 +815,34 @@ namespace Puzzel
         }
         private void ComboBox4_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var keys = ShortCut.GetUsedKeyCode();
-            foreach (string key in keys)
+            comboBox5.Items.Clear();
+            ShortcutKeys();
+            var button = buttons();
+            var keys = LoadSettings();
+            string[] shortcuts = { "CTRL+F", "CTRL+C", "CTRL+X","CTRL+V"};
+            string buttonWithBorderColorRed = null;
+            foreach (string shortcut in shortcuts)
+            { var shorts = shortcut.Split('+');
+                if (comboBox4.Text == shorts[0])
+                    comboBox5.Items.Remove(shorts[1]);
+            }
+            foreach (Button _button in button)
             {
-                var _key = key.Split('+');
-                if (comboBox4.Text == _key[0])
+                if (_button.FlatAppearance.BorderColor == Color.Red)
+                    buttonWithBorderColorRed = _button.Name;
+            }
+            for (int i = 0; i < 21; i++) 
+            {
+                if (keys[i, 1] != null)
                 {
-                    comboBox5.Items.Remove(_key[1]);
-                }
-                else
-                {
-                    comboBox5.Items.Clear();
-                    ShortcutKeys();
+                    if (keys[i, 0] != buttonWithBorderColorRed)
+                    {
+                        var _key = keys[i, 1].Split('+');
+                        if (comboBox4.Text == _key[0])
+                        {
+                            comboBox5.Items.Remove(_key[1]);
+                        }
+                    }
                 }
             }
         }

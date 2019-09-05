@@ -1361,6 +1361,7 @@ namespace Puzzel
 
                             if (((Button)sender).Name == "BtnLista_program")
                             {
+                                ComputerInfo_TEMP += string.Format("{0,-80}{1,-31}{2,-1}", "DisplayName", "InstallDate", "DisplayVersion" + "\n");
                                 computerInfo.Fast(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryProduct);
                             }
 
@@ -1668,7 +1669,7 @@ namespace Puzzel
             {
                 case "DW":
                     {
-                        DWButton_Click(BtnDWare, e);
+                        DWButton_Click(BtnDW, e);
                         break;
                     }
                 case "ExplorerC":
@@ -1935,25 +1936,26 @@ namespace Puzzel
                 LogsCollector.Loger(ex, sender + " " + e.KeyCode);
             }
         }
-        private void LoadingShortcuts()
-        {
-            ShortCut.SetKeyCode("CTRL+C");
-            ShortCut.SetKeyCode("CTRL+X");
-            ShortCut.SetKeyCode("CTRL+V");
-            ShortCut.SetKeyCode("CTRL+F");
+        //private void LoadingShortcuts()
+        //{
+        //    ShortCut.SetKeyCode("CTRL+C");
+        //    ShortCut.SetKeyCode("CTRL+X");
+        //    ShortCut.SetKeyCode("CTRL+V");
+        //    ShortCut.SetKeyCode("CTRL+F");
 
-            Ustawienia settings = new Ustawienia();
-            var setts = settings.LoadSettings();
-            if (setts != null)
-                for (int i = 0; i < 21; i++) 
-            {
-                ShortCut.SetKeyCode(setts[i,1]);
-            }
-        }
+        //    Ustawienia settings = new Ustawienia();
+        //    var setts = settings.LoadSettings();
+        //    if (setts != null)
+        //        for (int i = 0; i < 21; i++) 
+        //    {
+        //        ShortCut.SetKeyCode(setts[i,1]);
+        //    }
+        //}
         private void KopiujMenuItem1_Click(object sender, EventArgs e)
         {
             try
             {
+                CloseClipboard();
                 if (richTextBox1.Focused)
                     if (richTextBox1.SelectedText.Length > 0 && !string.IsNullOrEmpty(richTextBox1.SelectedText) && !string.IsNullOrWhiteSpace(richTextBox1.SelectedText))
                         Clipboard.SetText(richTextBox1.SelectedText.Trim(' '));
@@ -1988,6 +1990,7 @@ namespace Puzzel
         {
             try
             {
+                CloseClipboard();
                 if (richTextBox1.Focused)
                     if (richTextBox1.SelectedText.Length > 0 && !string.IsNullOrEmpty(richTextBox1.SelectedText) && !string.IsNullOrWhiteSpace(richTextBox1.SelectedText))
                     {
@@ -2041,6 +2044,7 @@ namespace Puzzel
         {
             try
             {
+                CloseClipboard();
                 if (richTextBox1.Focused)
                 {
                     richTextBox1.Paste();
@@ -2146,7 +2150,7 @@ namespace Puzzel
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            LoadingShortcuts();
+            //LoadingShortcuts();
         }
     }
 }        
