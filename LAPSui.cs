@@ -18,8 +18,10 @@ namespace Puzzel
             try
             {
             	DirectoryEntry myLdapConnection = new DirectoryEntry("LDAP://" + System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().DomainName);
-            	DirectorySearcher search = new DirectorySearcher(myLdapConnection);
-            	search.Filter = "(cn=" + computername + ")";
+            	DirectorySearcher search = new DirectorySearcher(myLdapConnection)
+            	{
+            		Filter = "(cn=" + computername + ")";
+            	};
             	search.PropertiesToLoad.Add(Working[13].Remove(4));
             	if (search.FindOne() == null)
            	    	admPwd = "";
@@ -31,28 +33,27 @@ namespace Puzzel
             }
             return admPwd;
         }
-        public void loadPassword(string hostname)
+        public void LoadPassword(string hostname)
         {
             textBox1.Text = hostname;
             textBox2.Text = PwdLcl(hostname);
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void Button2_Click(object sender, EventArgs e)
         {
             Close();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             textBox2.Text = PwdLcl(textBox1.Text);
-		}
-			
-		private void LAPSui_Load(object sender, EventArgs e)
-		{
-            
+        }
+
+        private void LAPSui_Load(object sender, EventArgs e)
+        {
             if (HostName != null)
             {
-                loadPassword(HostName);
+                LoadPassword(HostName);
                 //textBox2.Refresh();
                 //textBox2.Update();
             }

@@ -14,30 +14,30 @@ namespace Puzzel
         }
 
         public ITerminalServicesManager manager = new TerminalServicesManager();
-        private void zamykanieFormy(object sender, EventArgs e)
+        private void ZamykanieFormy(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void zamykaniestrony(object sender, EventArgs e)
+        private void Zamykaniestrony(object sender, EventArgs e)
         {
             tabControl1.Controls.Remove((TabPage)((Button)sender).Parent);
             tabControl1.SelectedIndex = tabControl1.TabPages.Count - 1;
         }
-        public string _hostname = null;
-        public string _username = null;
+        private string _hostname = null;
+        //private string _username = null;
         
 		string[] Working = File.ReadAllLines("DefaultValue.txt);
 		string[] termservers = Working[6].Remove(7).Splt(',');
         public object[] FindSession(string serverName, string SearchedLogin)
         {
-            int _retry = 0;
+            //int _retry = 0;
             object[] sessioninfo = null;
             try
             {
-            retry:
-                if (_retry < 5)
-                {
+            //retry:
+            //    if (_retry < 5)
+            //    {
                     if (Ping.TCPPing(serverName, 135) == Ping.TCPPingStatus.Success)
                     {
                         using (ITerminalServer server = manager.GetRemoteServer(serverName))
@@ -60,9 +60,9 @@ namespace Puzzel
                             server.Close();
                         }
                     }
-                    else { _retry++; goto retry; }
-                }
-                else MessageBox.Show(new Form() { TopMost = true, StartPosition = FormStartPosition.CenterParent },"Po kilku próbach nie udało się nawiązać połączenia","Nawiązywanie połączenia z serwerem "+serverName,MessageBoxButtons.OK,MessageBoxIcon.Exclamation);  
+                //    else { _retry++; goto retry; }
+                //}
+                //else MessageBox.Show(new Form() { TopMost = true, StartPosition = FormStartPosition.CenterParent },"Po kilku próbach nie udało się nawiązać połączenia","Nawiązywanie połączenia z serwerem "+serverName,MessageBoxButtons.OK,MessageBoxIcon.Exclamation);  
             }
             catch (Win32Exception)
             { }
@@ -73,17 +73,17 @@ namespace Puzzel
             return sessioninfo;
         }
 
-        public void szukanieSesji(string serverName)
+        public void SzukanieSesji(string serverName)
         {
-            int _retry = 0;
+            //int _retry = 0;
             _hostname = serverName;
             try
             {
                 if (dataGridView1 != null)
                     dataGridView1.Rows.Clear();
-                retry:
-                if (_retry < 5)
-                {
+                //retry:
+                //if (_retry < 5)
+                //{
                     if (Ping.TCPPing(serverName, 135) == Ping.TCPPingStatus.Success)
                     {
                         using (ITerminalServer server = manager.GetRemoteServer(serverName))
@@ -108,81 +108,22 @@ namespace Puzzel
                             sessionCount.BeginInvoke(new Action(() => sessionCount.Text = "Aktywne sesje: " + dataGridView1.Rows.Count));
                         }
                     }
-                    else { _retry++; goto retry; }
-                }
-                else MessageBox.Show(new Form() { TopMost = true, StartPosition = FormStartPosition.CenterParent }, "Po kilku próbach nie udało się nawiązać połączenia", "Nawiązywanie połączenia z serwerem " + serverName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                //    else { _retry++; goto retry; }
+                //}
+                //else MessageBox.Show(new Form() { TopMost = true, StartPosition = FormStartPosition.CenterParent }, "Po kilku próbach nie udało się nawiązać połączenia", "Nawiązywanie połączenia z serwerem " + serverName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             catch (Win32Exception)
             {
                 MessageBox.Show(new Form() { TopMost = true }, "Brak dostępu", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
-        /*
-        public void statusSesji(int selectedSessionID)
-        {
-            using (ITerminalServer server = manager.GetRemoteServer(_hostname))
-            {
-                server.Open();
-                ITerminalServicesSession session = server.GetSession(selectedSessionID);
-                if (session.UserAccount != null)
-                {
-                    IDsesjiLabel.Text = selectedSessionID.ToString();
-                    nazwauzytkownikaLabel.Text = session.UserName;
-                    nazwaklientaLabel.Text = session.ClientName;
-
-                    if (session.ClientIPAddress != null)
-                    {
-                        adresipLabel.Text = session.ClientIPAddress.ToString();
-                    }
-                    else
-                    {
-                        adresipLabel.Text = "brak danych";
-                    }
-                    katalogLabel.Text = session.ClientDirectory;
-                    produktidlabel.Text = session.ClientProductId.ToString();
-                    glebiakolorowLabel.Text = session.ClientDisplay.BitsPerPixel.ToString();
-                    sprzetidLabel.Text = session.ClientHardwareId.ToString();
-                    rozdzielczoscLabel.Text = (session.ClientDisplay.HorizontalResolution + " x " + session.ClientDisplay.VerticalResolution).ToString();
-
-                    bajtyprzychodzaceLabel.Text = session.IncomingStatistics.Bytes.ToString();
-                    ramkiprzychodzaceLabel.Text = session.IncomingStatistics.Frames.ToString();
-                    if (session.IncomingStatistics.Bytes > 0 && session.IncomingStatistics.Frames > 0)
-                        bajtyramkiprzychodzaceLabel.Text = Math.Floor(Convert.ToDecimal(session.IncomingStatistics.Bytes / session.IncomingStatistics.Frames)).ToString();
-                    else bajtyramkiwychodzace.Text = "brak danych";
-
-                    bajtywychodzaceLabel.Text = session.OutgoingStatistics.Bytes.ToString();
-                    ramkiwychodzaceLabel.Text = session.OutgoingStatistics.Frames.ToString();
-
-                    if (session.OutgoingStatistics.Bytes > 0 && session.OutgoingStatistics.Frames > 0)
-                        bajtyramkiwychodzace.Text = Math.Floor(Convert.ToDecimal(session.OutgoingStatistics.Bytes / session.OutgoingStatistics.Frames)).ToString();
-                    else bajtyramkiwychodzace.Text = "brak danych";
-                }
-                server.Close();
-            }
-            ramkiwychodzaceLabel.Refresh();
-            bajtyramkiwychodzace.Refresh();
-            bajtywychodzaceLabel.Refresh();
-            bajtyramkiprzychodzaceLabel.Refresh();
-            ramkiprzychodzaceLabel.Refresh();
-            bajtyprzychodzaceLabel.Refresh();
-            rozdzielczoscLabel.Refresh();
-            sprzetidLabel.Refresh();
-            glebiakolorowLabel.Refresh();
-            produktidlabel.Refresh();
-            katalogLabel.Refresh();
-            adresipLabel.Refresh();
-            IDsesjiLabel.Refresh();
-            nazwaklientaLabel.Refresh();
-            nazwaklientaLabel.Refresh();
-        }
-        */
-        private void button4_Click(object sender, EventArgs e)
+        private void Button4_Click(object sender, EventArgs e)
         {
             dataGridView1.Rows.Clear();
-            szukanieSesji(_hostname);
+            SzukanieSesji(_hostname);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             //if (IDsesjiLabel.Text.Length > 0)
                // statusSesji(Convert.ToInt16(IDsesjiLabel.Text));
@@ -197,7 +138,7 @@ namespace Puzzel
         Label label12;        Label label11;        Label label8;        Label label7;        Label label6;        Label label5;
         Label label4;        Label label3;        Label label2;        Label label1;        Label statusZalogowlabel;
 
-        private void odswiezStatus(object sender, EventArgs e, ITerminalServer server, ITerminalServicesSession session, int selectedSessionID)
+        private void OdswiezStatus( ITerminalServicesSession session, int selectedSessionID)
         {
             if (session.UserAccount != null)
             {
@@ -250,7 +191,7 @@ namespace Puzzel
             nazwaklientaLabel.Refresh();
             nazwaklientaLabel.Refresh();
         }
-        private void odswiezProcess(object sender, EventArgs e, ITerminalServer server, ITerminalServicesSession session, int selectedSessionID)
+        private void OdswiezProcess(object sender, ITerminalServer server, ITerminalServicesSession session, int selectedSessionID)
         {
             DataGridView dataGridView = null;
             TabPage tabPage = null;
@@ -270,8 +211,6 @@ namespace Puzzel
                 if (process.SessionId == selectedSessionID)
                     dataGridView.Rows.Add(session.Server.ServerName, session.UserName, session.WindowStationName, process.SessionId, process.ProcessId, process.ProcessName);
             ((Label)label).Text = "Lista procesów: " + dataGridView.Rows.Count;
-            //(Label)label.ToString().Text = "Lista procesów: " + dataGridView.Rows.Count;
-           // dynaProcessTab(server, session, selectedSessionID);
         }
 
         public void LogoffSession(string hostname, int sessionID)
@@ -288,11 +227,18 @@ namespace Puzzel
 
         public void ConnectToSession(string hostname, int sessionID)
         {
-            using (ITerminalServer server = manager.GetRemoteServer(hostname))
+            try
             {
-                server.Open();
-                server.GetSession(sessionID).StartRemoteControl(ConsoleKey.Multiply, RemoteControlHotkeyModifiers.Control);
-                server.Close();
+                using (ITerminalServer server = manager.GetRemoteServer(hostname))
+                {
+                    server.Open();
+                    server.GetSession(sessionID).StartRemoteControl(ConsoleKey.Multiply, RemoteControlHotkeyModifiers.Control);
+                    server.Close();
+                }
+            }
+            catch (Win32Exception e)
+            {
+                MessageBox.Show(new Form() { TopMost = true }, e.Message /*"Nie można się podłączyć ponieważ sesja jest rozłączona lub użytkownik nie jest obecnie zalogowany."*/, "Podłączanie do sesji", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -330,7 +276,7 @@ namespace Puzzel
                                 {
                                     session.Disconnect();
                                     MessageBox.Show(new Form() { TopMost = true }, "Sesja została rozłączona", "Rozłączanie sesji", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                    button4_Click(sender, e);
+                                    Button4_Click(sender, e);
                                     break;
                                 }
 
@@ -343,26 +289,26 @@ namespace Puzzel
 
                             case "zdalnaKontrolaToolStripMenu":
                                 {
-                                    server.GetSession(selectedSessionID).StartRemoteControl(ConsoleKey.Multiply, RemoteControlHotkeyModifiers.Control);
-                                    break;
+                                        server.GetSession(selectedSessionID).StartRemoteControl(ConsoleKey.Multiply, RemoteControlHotkeyModifiers.Control);
+                                        break;
                                 }
 
                             case "wylogujToolStripMenuItem":
                                 {
                                     session.Logoff();
                                     MessageBox.Show(new Form() { TopMost = true }, "Sesja została wylogowana", "Wylogowywanie sesji", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                    button4_Click(sender, e);
+                                    Button4_Click(sender, e);
                                     break;
                                 }
 
                             case "statusToolStripMenuItem":
                                 {
-                                    dynaStatusTab(server, session, selectedSessionID);
+                                    DynaStatusTab(session, selectedSessionID);
                                     break;
                                 }
                             case "procesyToolStripMenuItem":
                                 {
-                                    dynaProcessTab(server, session, selectedSessionID);
+                                    DynaProcessTab(server, session, selectedSessionID);
                                     break;
                                 }
 
@@ -373,7 +319,7 @@ namespace Puzzel
                                     var tabPage = ((TabPage)((DataGridView)((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl).Parent);
                                     var button = tabPage.Controls.Find("Refresh", true);
                                     process.Kill();
-                                    odswiezProcess(sender, e, server, session, selectedSessionID);
+                                    OdswiezProcess(sender, server, session, selectedSessionID);
                                     MessageBox.Show("Zabito aplikację");
                                     break;
                                 }
@@ -385,12 +331,12 @@ namespace Puzzel
                         {
                             case "RefreshProcess":
                                 {
-                                    odswiezProcess(sender, e, server, session, selectedSessionID);
+                                    OdswiezProcess(sender, server, session, selectedSessionID);
                                     break;
                                 }
                             case "RefreshStatus":
                                 {
-                                    odswiezStatus(sender, e, server, session, selectedSessionID);
+                                    OdswiezStatus(session, selectedSessionID);
                                     break;
                                 }
                         }
@@ -404,7 +350,7 @@ namespace Puzzel
             }
         }
 
-        private void dynaProcessTab(ITerminalServer server, ITerminalServicesSession session, int selectedSessionID)
+        private void DynaProcessTab(ITerminalServer server, ITerminalServicesSession session, int selectedSessionID)
         {
             TabPage dynaProcessTabPage = new TabPage
             {
@@ -483,7 +429,7 @@ namespace Puzzel
                 Text = "Zamknij",
                 UseVisualStyleBackColor = true,
             };
-            dynaButton.Click += new EventHandler(zamykaniestrony);
+            dynaButton.Click += new EventHandler(Zamykaniestrony);
 
             Button dynaButton1 = new Button
             {
@@ -507,7 +453,7 @@ namespace Puzzel
             tabControl1.SelectedTab = dynaProcessTabPage;
         }
 
-        private void dynaStatusTab(ITerminalServer server,ITerminalServicesSession session, int selectedSessionID)
+        private void DynaStatusTab(ITerminalServicesSession session, int selectedSessionID)
         {
             TabPage dynaStatusTabPage = new TabPage
             {
@@ -527,7 +473,7 @@ namespace Puzzel
                 Text = "Zamknij",
                 UseVisualStyleBackColor = true,
             };
-            dynaButton.Click += new EventHandler(zamykaniestrony);
+            dynaButton.Click += new EventHandler(Zamykaniestrony);
 
             Button dynaButton1 = new Button
             {

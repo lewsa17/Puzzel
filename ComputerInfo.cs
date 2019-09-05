@@ -34,7 +34,9 @@ namespace Puzzel
             UInt64 TotalCapacity = 0;
             int warunek = 0;
             int warunek1 = 0;
+#pragma warning disable IDE0059 // Wartość przypisana do symbolu nie jest nigdy używana
             ManagementScope scope = new ManagementScope();
+#pragma warning restore IDE0059 // Wartość przypisana do symbolu nie jest nigdy używana
             try
             {
                 ConnectionOptions options = new ConnectionOptions()
@@ -869,7 +871,7 @@ namespace Puzzel
             }
         }
 
-        public void fast(string hostname, string path, string query)
+        public void Fast(string hostname, string path, string query)
         {
             try
             {
@@ -967,7 +969,7 @@ namespace Puzzel
 
         }
 
-        public void fast2(string nazwaKomputera, string path, string query)
+        public void Fast2(string nazwaKomputera, string path, string query)
         {
             try
             {

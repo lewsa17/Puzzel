@@ -13,11 +13,11 @@ namespace Puzzel
             InitializeComponent();
             Username = username;
         }
-        public static string domainName() { return System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().DomainName; }
+        public static string DomainName() { return System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().DomainName; }
         public static string[] DomainController()
         {
             //DirectoryEntry myLdapConnection = new DirectoryEntry("LDAP://OU=Domain Controllers," + domainName());
-            DirectorySearcher search = new DirectorySearcher(new DirectoryEntry("LDAP://" + domainName()));
+            DirectorySearcher search = new DirectorySearcher(new DirectoryEntry("LDAP://" + DomainName()));
             //search.Filter = "(sAMAccountName=" + username + ")";
             SearchResult search1 = search.FindOne();
             //SearchResultCollection collection = search.FindAll();
@@ -29,7 +29,9 @@ namespace Puzzel
                 table += words[1].Replace("CN=", "") + ",";
             }
 
+#pragma warning disable IDE0059 // Wartość przypisana do symbolu nie jest nigdy używana
             string[] array = null;
+#pragma warning restore IDE0059 // Wartość przypisana do symbolu nie jest nigdy używana
             array = table.Split(',');
             Array.Resize(ref array, array.Length - 1);
 
@@ -56,7 +58,7 @@ namespace Puzzel
         public static void AddEntry(string Username)
         {
             string[] dcNames = DomainController();
-            int i= 0;
+            int i = 0;
             foreach (string dcName in dcNames)
             {
                 Thread thread = new Thread(() =>
@@ -71,7 +73,7 @@ namespace Puzzel
 
         public static string UserInfo(string usrname)
         {
-            DirectoryEntry myLdapConnection = new DirectoryEntry("LDAP://" + domainName());
+            DirectoryEntry myLdapConnection = new DirectoryEntry("LDAP://" + DomainName());
             DirectorySearcher search = new DirectorySearcher(myLdapConnection);
             search.Filter = "(sAMAccountName=" + usrname + ")";
             search.PropertiesToLoad.Add("sAMAccountName");
@@ -105,7 +107,6 @@ namespace Puzzel
             if (Username.Length > 1)
                 this.Text = Username;
         }
-        static string[] domainControllerName = {};
         static string _lastPasswordSet = null;
 
         public static UserPrincipal GetUserPasswordDetails(string dcName, string Username)
@@ -159,18 +160,18 @@ namespace Puzzel
             return uP;
         }
         
-        private void wyczyśćToolStripMenuItem_Click(object sender, EventArgs e)
+        private void WyczyśćToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DeleteEntryRows();
         }
 
-        private void odświerzWszystkoToolStripMenuItem_Click(object sender, EventArgs e)
+        private void OdświerzWszystkoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DeleteEntryRows();
             AddEntry(Username);
         }
 
-        private void statusHasłaToolStripMenuItem_Click(object sender, EventArgs e)
+        private void StatusHasłaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string messagebox = null;
             DateTime pwdLastSet = Convert.ToDateTime(_lastPasswordSet);
@@ -203,20 +204,21 @@ namespace Puzzel
             MessageBox.Show(messagebox, "Status hasła");
         }
 
-        private void odblokujZaznaczoneToolStripMenuItem_Click(object sender, EventArgs e)
+        private void OdblokujZaznaczoneToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
-            //int selectedRowIndex = dataGridView1.SelectedRows[0].Index;
-            //string dcName = dataGridView1.Rows[selectedRowIndex].Cells[0].Value.ToString();
-            foreach (string dcName in DomainController())
-                using (PrincipalContext context = new PrincipalContext(ContextType.Domain, dcName))
-                {
-                    UserPrincipal uP = UserPrincipal.FindByIdentity(context, IdentityType.SamAccountName, Username);
-                    uP.UnlockAccount();
-                }
+            int selectedRowIndex = dataGridView1.SelectedRows[0].Index;
+            string dcName = dataGridView1.Rows[selectedRowIndex].Cells[0].Value.ToString();
+            using (PrincipalContext context = new PrincipalContext(ContextType.Domain, dcName))
+            {
+                UserPrincipal uP = UserPrincipal.FindByIdentity(context, IdentityType.SamAccountName, Username);
+                uP.UnlockAccount();
+                uP.Save();
+            }
+            Thread.Sleep(3000);
+            MessageBox.Show("Konto zostało odblokowane");
         }
 
-        public static void ustawhaslo(string password, bool UnlockAccount, bool PasswordExpired)
+        public static void Ustawhaslo(string password, bool UnlockAccount, bool PasswordExpired)
         {
             if (password != null)
                 foreach (string dcName in DomainController())

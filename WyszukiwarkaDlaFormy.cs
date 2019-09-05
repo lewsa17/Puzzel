@@ -16,13 +16,13 @@ namespace Puzzel
         {
             InitializeComponent();
         }
-       public void lastvalue(string lastValue)
+       public void Lastvalue(string lastValue)
         {
             ostatniouzywanawartosc = lastValue;
         }
         string ostatniouzywanawartosc = null;
 
-        private void buttons_Click(object sender, EventArgs e)
+        private void Buttons_Click(object sender, EventArgs e)
         {
             string SearchWord = textBox1.Text;
             int SelectionStart = 0;
@@ -65,7 +65,7 @@ namespace Puzzel
         private void TextBox1_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
-                buttons_Click(sender,e);
+                Buttons_Click(sender,e);
         }
 
         private void Wyszukiwarka_Click(object sender, EventArgs e)

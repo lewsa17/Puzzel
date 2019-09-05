@@ -65,10 +65,6 @@
     <ApplicationIcon>logon_2.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Cassia, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\Cassia.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -91,6 +87,57 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cassia\ClientProtocolType.cs" />
+    <Compile Include="Cassia\ConnectionState.cs" />
+    <Compile Include="Cassia\IClientDisplay.cs" />
+    <Compile Include="Cassia\Impl\CACHE_STATISTICS.cs" />
+    <Compile Include="Cassia\Impl\ClientDisplay.cs" />
+    <Compile Include="Cassia\Impl\GroupLazyLoadedProperty.cs" />
+    <Compile Include="Cassia\Impl\LazyLoadedProperty.cs" />
+    <Compile Include="Cassia\Impl\LocalServerHandle.cs" />
+    <Compile Include="Cassia\Impl\NamespaceDoc.cs" />
+    <Compile Include="Cassia\Impl\NativeMethods.cs" />
+    <Compile Include="Cassia\Impl\NativeMethodsHelper.cs" />
+    <Compile Include="Cassia\Impl\PROTOCOLCOUNTERS.cs" />
+    <Compile Include="Cassia\Impl\ProtocolStatistics.cs" />
+    <Compile Include="Cassia\Impl\PROTOCOLSTATUS.cs" />
+    <Compile Include="Cassia\Impl\RemoteServerHandle.cs" />
+    <Compile Include="Cassia\Impl\SYSTEMTIME.cs" />
+    <Compile Include="Cassia\Impl\TerminalServer.cs" />
+    <Compile Include="Cassia\Impl\TerminalServicesProcess.cs" />
+    <Compile Include="Cassia\Impl\TerminalServicesSession.cs" />
+    <Compile Include="Cassia\Impl\WINSTATIONINFOCLASS.cs" />
+    <Compile Include="Cassia\Impl\WINSTATIONINFORMATIONW.cs" />
+    <Compile Include="Cassia\Impl\WINSTATIONREMOTEADDRESS.cs" />
+    <Compile Include="Cassia\Impl\WTSINFO.cs" />
+    <Compile Include="Cassia\Impl\WTSINFOEX.cs" />
+    <Compile Include="Cassia\Impl\WTSINFOEX_LEVEL1.cs" />
+    <Compile Include="Cassia\Impl\WTS_CLIENT_ADDRESS.cs" />
+    <Compile Include="Cassia\Impl\WTS_CLIENT_DISPLAY.cs" />
+    <Compile Include="Cassia\Impl\WTS_INFO_CLASS.cs" />
+    <Compile Include="Cassia\Impl\WTS_PROCESS_INFO.cs" />
+    <Compile Include="Cassia\Impl\WTS_SERVER_INFO.cs" />
+    <Compile Include="Cassia\Impl\WTS_SESSION_ADDRESS.cs" />
+    <Compile Include="Cassia\Impl\WTS_SESSION_INFO.cs" />
+    <Compile Include="Cassia\IProtocolStatistics.cs" />
+    <Compile Include="Cassia\ITerminalServer.cs" />
+    <Compile Include="Cassia\ITerminalServerHandle.cs" />
+    <Compile Include="Cassia\ITerminalServicesManager.cs" />
+    <Compile Include="Cassia\ITerminalServicesProcess.cs" />
+    <Compile Include="Cassia\ITerminalServicesSession.cs" />
+    <Compile Include="Cassia\NamespaceDoc.cs" />
+    <Compile Include="Cassia\obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="Cassia\obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="Cassia\obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    <None Include="Cassia\Properties\AssemblyInfo.cs" />
+    <Compile Include="Cassia\RemoteControlHotkeyModifiers.cs" />
+    <Compile Include="Cassia\RemoteMessageBoxButtons.cs" />
+    <Compile Include="Cassia\RemoteMessageBoxDefaultButton.cs" />
+    <Compile Include="Cassia\RemoteMessageBoxIcon.cs" />
+    <Compile Include="Cassia\RemoteMessageBoxOptions.cs" />
+    <Compile Include="Cassia\RemoteMessageBoxResult.cs" />
+    <Compile Include="Cassia\ShutdownType.cs" />
+    <Compile Include="Cassia\TerminalServicesManager.cs" />
     <Compile Include="LAPSui.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -127,6 +174,9 @@
     <EmbeddedResource Include="WyszukiwarkaDlaFormy.resx">
       <DependentUpon>WyszukiwarkaDlaFormy.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="Cassia\Cassia.nuspec" />
+    <None Include="Cassia\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="Cassia\packages.config" />
     <None Include="Progress.cs">
       <SubType>Form</SubType>
     </None>
@@ -236,7 +286,12 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Cassia\Cassia.csproj" />
+    <Content Include="Cassia\obj\Debug\Cassia.csproj.FileListAbsolute.txt" />
     <Content Include="logon_2.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Cassia\obj\Debug\TempPE\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

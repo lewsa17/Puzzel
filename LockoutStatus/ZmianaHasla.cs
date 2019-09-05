@@ -44,7 +44,7 @@ namespace Puzzel
                     else MessageBox.Show("Sprawdź poprawność hasła czy zawiera dużą lub mała literę, cyfrę lub znak specjalny");
                 }
                 else MessageBox.Show("Podane hasło ma mniej niż 8 znaków");
-                Lockout_Status.ustawhaslo(password, UnlockAccout, PasswordExpired);
+                Lockout_Status.Ustawhaslo(password, UnlockAccout, PasswordExpired);
             }
             else MessageBox.Show("Podane hasła nie są zgodne");
         }

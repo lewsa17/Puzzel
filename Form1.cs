@@ -12,6 +12,7 @@ using System.Management;
 using System.Threading;
 using System.Management.Automation;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 namespace Puzzel
 {
@@ -119,24 +120,24 @@ namespace Puzzel
             else { richTextBox1.Text = message; }
         }
 
-        private void button14_Click(object sender, EventArgs e)
+        private void Button14_Click(object sender, EventArgs e)
         {
-            startTime();
+            StartTime();
             if (HostName().Length > 0)
             {
                 if (Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
                 {
-                    ProcExec Exec = new ProcExec(ProcExec.rdp, ProcExec.rdp_args + HostName());
+                    new ProcExec(ProcExec.rdp, ProcExec.rdp_args + HostName());
                 }
                 else ReplaceRichTextBox("Niewidoczny na sieci");
             }
             else ReplaceRichTextBox("Nie podano nazwy hosta");
-            stopTime();
+            StopTime();
         }
 
-        private void button11_Click(object sender, EventArgs e)
+        private void Button11_Click(object sender, EventArgs e)
         {
-            startTime();
+            StartTime();
             ClearRichTextBox(null);
             if (HostName().Length > 0)
             {
@@ -147,7 +148,7 @@ namespace Puzzel
                 p.StartInfo.CreateNoWindow = true;
                 p.StartInfo.UseShellExecute = false;
                 p.StartInfo.RedirectStandardOutput = true;
-                p.OutputDataReceived += new DataReceivedEventHandler(pOutputHandler);
+                p.OutputDataReceived += new DataReceivedEventHandler(POutputHandler);
                 p.Start();
                 p.BeginOutputReadLine();
                 p.WaitForExit();
@@ -159,17 +160,17 @@ namespace Puzzel
                 n.StartInfo.CreateNoWindow = true;
                 n.StartInfo.UseShellExecute = false;
                 n.StartInfo.RedirectStandardOutput = true;
-                n.OutputDataReceived += new DataReceivedEventHandler(pOutputHandler);
+                n.OutputDataReceived += new DataReceivedEventHandler(POutputHandler);
                 n.Start();
                 n.BeginOutputReadLine();
                 n.WaitForExit();
             }
             else ReplaceRichTextBox("Nie podano nazwy hosta");
-            stopTime();
+            StopTime();
         }
-        private void profilsieciowy(object sender, EventArgs e)
+        private void Profilsieciowy(object sender, EventArgs e)
         {
-            startTime();
+            StartTime();
             string folder = null;
             if (((Button)sender).Name == "button4")
                 folder = ProcExec.vfs;
@@ -187,22 +188,22 @@ namespace Puzzel
             if (Directory.Exists(folder))
                 Exec.ProcExecIF(ProcExec.explorer, folder + UserName());
             else ReplaceRichTextBox("Katalog jest niedostępny");
-            stopTime();
+            StopTime();
         }
 
-        private void button17_Click(object sender, EventArgs e)
+        private void Button17_Click(object sender, EventArgs e)
         {
-            startTime();
+            StartTime();
             if (HostName().Length > 0)
             {
                 if (Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
                 {
-                    ProcExec Exec = new ProcExec(ProcExec.explorer, @"\\" + HostName() + @"\c$");
+                    new ProcExec(ProcExec.explorer, @"\\" + HostName() + @"\c$");
                 }
                 else ReplaceRichTextBox("Nie odpowiada w sieci");
             }
             else ReplaceRichTextBox("Nie podano nazwy hosta");
-            stopTime();
+            StopTime();
         }
         static int lastWidth = 0;
         static int lastHeight = 0;
@@ -244,9 +245,9 @@ namespace Puzzel
             lastHeight = this.Height;
         }
 
-        public void button8_Click(object sender, EventArgs e)
+        public void Button8_Click(object sender, EventArgs e)
         {
-            startTime();
+            StartTime();
             string[] SlowowTekscie = comboBox1.Items[comboBox1.SelectedIndex].ToString().Split(' ');
             try
             {
@@ -270,9 +271,9 @@ namespace Puzzel
             {
                 LogsCollector.Loger(ex, SlowowTekscie[1]);
             }
-            stopTime();
+            StopTime();
         }
-        void pOutputHandler(object sender, DataReceivedEventArgs e)
+        void POutputHandler(object sender, DataReceivedEventArgs e)
         {
             Trace.WriteLine(e.Data);
             this.BeginInvoke(new MethodInvoker(() =>
@@ -293,12 +294,12 @@ namespace Puzzel
 
         string combobox2_last = null;
         string combobox3_last = null;
-        private void szukajLogow(object sender, EventArgs e)
+        private void SzukajLogow(object sender, EventArgs e)
         {
             ClearRichTextBox(null);
             comboBox1.Items.Clear();
             comboBox1.Text = "";
-            startTime();
+            StartTime();
             int NameLength = 0;
             string senderZ = null;
             decimal counter = 0;
@@ -390,12 +391,13 @@ namespace Puzzel
                     }));
             }
             else ReplaceRichTextBox("Za mało danych");
-            stopTime();
+            statusBar1.Focus();
+            StopTime();
         }
 
-        private void button9_Click(object sender, EventArgs e)
+        private void Button9_Click(object sender, EventArgs e)
         {
-            startTime();
+            StartTime();
             string[] SlowowTekscie = comboBox1.Items[comboBox1.SelectedIndex].ToString().Split(' ');
             try
             {
@@ -403,12 +405,12 @@ namespace Puzzel
                 {
                     if (comboBox1.SelectedIndex >= 0)
                     {
-                        if (File.Exists(Directory.GetCurrentDirectory() + @"\Cassia.dll"))
-                        {
+                        //if (File.Exists(Directory.GetCurrentDirectory() + @"\Cassia.dll"))
+                        //{
                             TerminalExplorer Term = new TerminalExplorer();
                             Term.LogoffSession(SlowowTekscie[1], Convert.ToInt16(SlowowTekscie[0]));
-                        }
-                        else MessageBox.Show("Plik Cassia.dll nie jest dostępny.");
+                        //}
+                        //else MessageBox.Show("Plik Cassia.dll nie jest dostępny.");
                     }
                     else ReplaceRichTextBox("Nie wybrano aktywnej sesji");
                 }
@@ -423,10 +425,10 @@ namespace Puzzel
             {
                 LogsCollector.Loger(ex, SlowowTekscie[1]);
             }
-            stopTime();
+            StopTime();
         }
         public static string terminalName = null;
-        private void szukanieSesjiCustom(object sender, EventArgs e)
+        private void SzukanieSesjiCustom(object sender, EventArgs e)
         {
             PodajNazweTerminala podajNazweTerminala = new PodajNazweTerminala();
             Thread thread1 = new Thread(() =>
@@ -435,64 +437,33 @@ namespace Puzzel
             });
             thread1.Start();
             Thread thread;
-            if (File.Exists(Directory.GetCurrentDirectory() + @"\Cassia.dll"))
-            {
+            //if (File.Exists(Directory.GetCurrentDirectory() + @"\Cassia.dll"))
+            //{
                 TerminalExplorer terminalExplorer = new TerminalExplorer();
                 thread1.Join();
-                thread = new Thread(() => terminalExplorer.szukanieSesji(terminalName));
+                thread = new Thread(() => terminalExplorer.SzukanieSesji(terminalName));
                 thread.Start();
                 terminalExplorer.Show();
-            }
-            else MessageBox.Show("Plik " + Directory.GetCurrentDirectory() + @"\Cassia.dll nie jest dostępny.");
+            //}
+            //else MessageBox.Show("Plik " + Directory.GetCurrentDirectory() + @"\Cassia.dll nie jest dostępny.");
         }
-        private void wyszukiwanieSesji_TerminalExplorer(object sender, EventArgs e)
+        private void WyszukiwanieSesji_TerminalExplorer(object sender, EventArgs e)
         {
             Thread thread;
-            if (File.Exists(Directory.GetCurrentDirectory() + @"\Cassia.dll"))
-            {
+            //if (File.Exists(Directory.GetCurrentDirectory() + @"\Cassia.dll"))
+            //{
                 TerminalExplorer terminalExplorer = new TerminalExplorer();
-                thread = new Thread(() => terminalExplorer.szukanieSesji(((ToolStripMenuItem)sender).Text));
+                thread = new Thread(() => terminalExplorer.SzukanieSesji(((ToolStripMenuItem)sender).Text));
                 thread.Start();
                 terminalExplorer.Show();
-            }
-            else MessageBox.Show("Plik Cassia.dll nie jest dostępny.");
+            //}
+            //else MessageBox.Show("Plik Cassia.dll nie jest dostępny.");
         }
 
         public static string ComputerInfo_TEMP;
-        private void button13_Click(object sender, EventArgs e)
-        {
-            startTime();
-            ClearRichTextBox(null);
-            if (comboBox3.Text.Length > 0)
-            {
-                if (Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
-                {
-                    if (Ping.TCPPing(HostName(), 135) == Ping.TCPPingStatus.Success)
-                    {
-                        if (MessageBox.Show(new Form() { TopMost = true }, "Wyszukiwanie może chwile potrwać, zezwolić ?", "Wyszukiwanie danych", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                            if (!komputerInfo.IsBusy)
-                            {
-                                ClearRichTextBox(null);
-                                Puzzel.Form1.ProgressMax = 19;
-                                LoadingForm loadingForm = new LoadingForm();
-                                System.Threading.Thread progress;
-                                progress = new System.Threading.Thread(loadingForm.progress);
-                                progress.Start();
-                                progressBar = new System.Threading.Thread(komputerInfoCOMM);
-                                komputerInfo.RunWorkerAsync();
-                            }
-                    }
-                    else UpdateRichTextBox("Serwer RPC jest niedostępny dla : " + HostName());
-                }
-                else UpdateRichTextBox("Stacja: " + HostName() + " nie jest widoczna w sieci");
-            }
-            else UpdateRichTextBox("Nie podałeś nazwy hosta");
-            stopTime();
-        }
-
         private void DWButton_Click(object sender, EventArgs e)
         {
-            startTime();
+            StartTime();
             try
             {
 	            if (File.Exists(Working[9].Remove(13)))
@@ -535,7 +506,7 @@ namespace Puzzel
             {
                 LogsCollector.Loger(ex, "DWButton_Click");
             }
-            stopTime();
+            StopTime();
         }
 
         private SearchResult SearchByUserName(DirectorySearcher ds, string username)
@@ -564,9 +535,11 @@ namespace Puzzel
                 return null;
         }
 
+#pragma warning disable IDE0051 // Usuń nieużywane prywatne składowe
         private string SearchProperty(string propertyName)
+#pragma warning restore IDE0051 // Usuń nieużywane prywatne składowe
         {
-            DirectoryEntry entry = new DirectoryEntry("LDAP://" + domainName());
+            DirectoryEntry entry = new DirectoryEntry("LDAP://" + DomainName());
             DirectorySearcher searcher = new DirectorySearcher(entry);
             SearchResult searchResult = searcher.FindOne();
             ResultPropertyValueCollection valueCollection = searchResult.Properties[propertyName];
@@ -579,7 +552,9 @@ namespace Puzzel
         SearchResult GetInfo(string domain)
         {
             Cursor.Current = Cursors.WaitCursor;
+#pragma warning disable IDE0059 // Wartość przypisana do symbolu nie jest nigdy używana
             SearchResult rs = null;
+#pragma warning restore IDE0059 // Wartość przypisana do symbolu nie jest nigdy używana
             if (UserName().Trim().IndexOf("@") > 0)
                 rs = SearchByEmail(GetDirectorySearcher(domain), UserName().Trim());
             else
@@ -783,7 +758,7 @@ namespace Puzzel
             return oUserPrincipal;
         }
 
-        public ArrayList getUserGroups(string UserName)
+        public ArrayList GetUserGroups(string UserName)
         {
             ArrayList myItems = new ArrayList();
             UserPrincipal user = GetUser(UserName);
@@ -795,23 +770,23 @@ namespace Puzzel
             return myItems;
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void Button2_Click(object sender, EventArgs e)
         {
-            startTime();
+            StartTime();
             if (InfozAD.IsBusy != true)
             {
                 InfozAD.RunWorkerAsync();
             }
-            stopTime();
+            StopTime();
         }
         private void InfozAD_DoWork(object sender, DoWorkEventArgs e)
         {
-            startTime();
+            StartTime();
             ClearRichTextBox(null);
 
             if (UserName().Length != 0)
             {
-                if (GetInfo(domainName()) != null)
+                if (GetInfo(DomainName()) != null)
                 {
                     //1 linijka
                     TimeSpan temp = (pwdLastSet.AddDays(30) - DateTime.Now);
@@ -892,12 +867,12 @@ namespace Puzzel
                 }
                 else UpdateRichTextBox("Nie znaleziono użytkownika w AD");
             }
-            stopTime();
+            StopTime();
         }
 
-        private void button19_Click(object sender, EventArgs e)
+        private void Button19_Click(object sender, EventArgs e)
         {
-            startTime();
+            StartTime();
             ClearRichTextBox(null);
             Process p = new Process();
             p.StartInfo.FileName = @"ipconfig";
@@ -906,21 +881,21 @@ namespace Puzzel
             p.StartInfo.CreateNoWindow = true;
             p.StartInfo.UseShellExecute = false;
             p.StartInfo.RedirectStandardOutput = true;
-            p.OutputDataReceived += new DataReceivedEventHandler(pOutputHandler);
+            p.OutputDataReceived += new DataReceivedEventHandler(POutputHandler);
             p.Start();
             p.BeginOutputReadLine();
             p.WaitForExit();
-            stopTime();
+            StopTime();
         }
 
-        private void komputerInfo_DoWork(object sender, DoWorkEventArgs e)
+        private void KomputerInfo_DoWork(object sender, DoWorkEventArgs e)
         {
             progressBar.Start();
         }
 
-        private void komputerInfoCOMM()
+        private void KomputerInfoCOMM()
         {
-            startTime();
+            StartTime();
             ComputerInfo computerInfo = new ComputerInfo();
             ComputerInfo_TEMP += ("Nazwa komputera: ");
             ProgressBarValue = 1;
@@ -1008,19 +983,19 @@ namespace Puzzel
 
             ReplaceRichTextBox(ComputerInfo_TEMP);
             ComputerInfo_TEMP = null;
-            stopTime();
+            StopTime();
         }
 
-        Stopwatch stopWatch = new Stopwatch();
+        public readonly Stopwatch stopWatch = new Stopwatch();
 
-        private void startTime()
+        private void StartTime()
         {
             stopWatch.Start();
             UpdateStatusbp1text("Czekaj");
             //timer1.Start();
         }
 
-        private void stopTime()
+        private void StopTime()
         {
             //timer1.Stop();
             stopWatch.Stop();
@@ -1028,7 +1003,7 @@ namespace Puzzel
             UpdateStatusbp2text("Czas: " + stopWatch.Elapsed.Seconds + "s " + stopWatch.Elapsed.Milliseconds + "ms ");
             stopWatch.Reset();
         }
-        private void timer1_Tick(object sender, EventArgs e)
+        private void Timer1_Tick(object sender, EventArgs e)
         {
             Thread timer = new Thread(() =>
             {
@@ -1055,14 +1030,14 @@ namespace Puzzel
             timer.Start();
         }
 
-        private void szukanieSesji(object sender, EventArgs e)
+        private void SzukanieSesji(object sender, EventArgs e)
         {
             comboBox1.Items.Clear();
             richTextBox1.Clear();
             int aktywnesesje = 0;
             if (UserName().Length > 1)
             {
-                    startTime();
+                    StartTime();
                 foreach (string terms in termservers)
                 {
                     Thread th = new Thread(() =>
@@ -1075,7 +1050,7 @@ namespace Puzzel
                         if (combo != null)
                         {
                             aktywnesesje++;
-                            updateComboBox(combo[0] + " " + combo[1]);
+                            UpdateComboBox(combo[0] + " " + combo[1]);
                             if (comboBox1.InvokeRequired)
                             {
                                 Thread.Sleep(500);
@@ -1113,13 +1088,13 @@ namespace Puzzel
                             {
                                 _time = (time / 3600);
                                 idletime += (Math.Ceiling(_time).ToString() + ":");
-                                time = time - Convert.ToInt32(Math.Ceiling(_time)) * 3600;
+                                time -= Convert.ToInt32(Math.Ceiling(_time)) * 3600;
                             }
                             if ((time / 60) > 1)
                             {
                                 _time = (time / 60);
                                 idletime += (Math.Ceiling(_time).ToString() + ":");
-                                time = time - Convert.ToInt32(Math.Ceiling(_time)) * 60;
+                                time -= Convert.ToInt32(Math.Ceiling(_time)) * 60;
                             }
 
                             idletime += (time.ToString());
@@ -1130,25 +1105,24 @@ namespace Puzzel
                             UpdateRichTextBox(combo[6].ToString());
                             UpdateRichTextBox("\n");
                             if (aktywnesesje == 0) { ReplaceRichTextBox("Nie znaleziono sesji"); }
-
                         }
                     });
                     th.Start();
                 }
-                stopTime();
+                StopTime();
             }
         }
 
         private delegate void updateComboBoxEventHandler(string message);
-        private void updateComboBox(string message)
+        private void UpdateComboBox(string message)
         {
             if (comboBox1.InvokeRequired)
             {
-                comboBox1.Invoke(new updateComboBoxEventHandler(updateComboBox), new object[] { message });
+                comboBox1.Invoke(new updateComboBoxEventHandler(UpdateComboBox), new object[] { message });
             }
             else { comboBox1.Items.Add(message); }
         }       
-        private void button20_Click(object sender, EventArgs e)
+        private void Button20_Click(object sender, EventArgs e)
         {/*
             // domainController = null;
             //getDomainControllers();
@@ -1213,10 +1187,12 @@ namespace Puzzel
             }
         }
         */
-        private string osName(string nazwaKomputera, string path, string query)
+        private string OsName(string nazwaKomputera, string path, string query)
         {
             string osarch = null;
+#pragma warning disable IDE0059 // Wartość przypisana do symbolu nie jest nigdy używana
             ManagementScope scope = new ManagementScope();
+#pragma warning restore IDE0059 // Wartość przypisana do symbolu nie jest nigdy używana
             try
             {
                 ConnectionOptions options = new ConnectionOptions()
@@ -1246,202 +1222,209 @@ namespace Puzzel
             }
             return osarch;
         }
-        private void button21_Click(object sender, EventArgs e)
+        private void Button21_Click(object sender, EventArgs e)
         {
-            startTime();
+            StartTime();
             ClearRichTextBox(null);
             try
             {
-                if (Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
+                if (HostName().Length > 0)
                 {
-                    var OSName = osName(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryOperatingSystem);
-                    string applicationName = null;
-                    if (OSName.Contains("64-bit"))
-                        applicationName = "PsExec64.exe";
-                    else applicationName = "PsExec.exe";
-
-                    if (File.Exists(Directory.GetCurrentDirectory() + @"\" + applicationName))
+                    if (Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
                     {
-                        ProcExec Exec = new ProcExec(applicationName, @"\\" + HostName() + " cmd");
+                        var OSName = OsName(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryOperatingSystem);
+                        string applicationName = null;
+                        if (OSName.Contains("64-bit"))
+                            applicationName = "PsExec64.exe";
+                        else applicationName = "PsExec.exe";
+
+                        if (File.Exists(Directory.GetCurrentDirectory() + @"\" + applicationName))
+                        {
+                            ProcExec Exec = new ProcExec(applicationName, @"\\" + HostName() + " cmd");
+                        }
+                        else
+                        {
+                            ReplaceRichTextBox("Nie można odnaleźć określonego pliku\n");
+                            UpdateRichTextBox(Directory.GetCurrentDirectory() + @"\" + applicationName);
+                        }
                     }
                     else
-                    {
-                        ReplaceRichTextBox("Nie można odnaleźć określonego pliku\n");
-                        UpdateRichTextBox(Directory.GetCurrentDirectory() + @"\" + applicationName);
-                    }
+                        ReplaceRichTextBox("Stacja: " + HostName() + " nie jest widoczna na sieci");
                 }
-                else
-                    ReplaceRichTextBox("Stacja: " + HostName() + " nie jest widoczna na sieci");
-
+                else UpdateRichTextBox("Nie podałeś nazwy hosta");
             }
             catch (Exception ex)
             {
                 LogsCollector.Loger(ex, HostName() + "," + ComputerInfo.pathCIMv2 + "," + ComputerInfo.queryOperatingSystem);
             }
-            stopTime();
+            StopTime();
         }
 
         private void KomputerInfoMenuStrip(object sender, EventArgs e)
         {
-            startTime();
-            ClearRichTextBox(null); 
-            if (Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
+            StartTime();
+            ClearRichTextBox(null);
+            if (HostName().Length > 0)
             {
-                if (Ping.TCPPing(HostName(), 135) == Ping.TCPPingStatus.Success)
+                if (Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
                 {
-                    ComputerInfo computerInfo = new ComputerInfo();
-                    ComputerInfo_TEMP += ("Nazwa komputera: ");
-                    computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryComputerSystem, "DNSHostName");
-                    ComputerInfo_TEMP += ("----------------------------------------\n");
-                    if (sender is ToolStripMenuItem)
+                    if (Ping.TCPPing(HostName(), 135) == Ping.TCPPingStatus.Success)
                     {
-                        if (((ToolStripMenuItem)sender).Name == "uptimeToolStripMenuItem")
+                        ComputerInfo computerInfo = new ComputerInfo();
+                        ComputerInfo_TEMP += ("Nazwa komputera: ");
+                        computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryComputerSystem, "DNSHostName");
+                        ComputerInfo_TEMP += ("----------------------------------------\n");
+                        if (sender is ToolStripMenuItem)
                         {
-                            ComputerInfo_TEMP += ("Uptime: ");
-                            computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryOperatingSystem, "LastBootUpTime");
-                        }
+                            if (((ToolStripMenuItem)sender).Name == "uptimeToolStripMenuItem")
+                            {
+                                ComputerInfo_TEMP += ("Uptime: ");
+                                computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryOperatingSystem, "LastBootUpTime");
+                            }
 
-                        if (((ToolStripMenuItem)sender).Name == "nrSeryjnyINrPartiiToolStripMenuItem")
-                        {
-                            ComputerInfo_TEMP += ("SN: ");
-                            computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryComputerSystemProduct, "IdentifyingNumber");
-                            ComputerInfo_TEMP += ("PN: ");
-                            computerInfo.GetInfo(HostName(), ComputerInfo.pathWMI, ComputerInfo.querySystemInformation, "SystemSKU");
-                        }
+                            if (((ToolStripMenuItem)sender).Name == "nrSeryjnyINrPartiiToolStripMenuItem")
+                            {
+                                ComputerInfo_TEMP += ("SN: ");
+                                computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryComputerSystemProduct, "IdentifyingNumber");
+                                ComputerInfo_TEMP += ("PN: ");
+                                computerInfo.GetInfo(HostName(), ComputerInfo.pathWMI, ComputerInfo.querySystemInformation, "SystemSKU");
+                            }
 
-                        if (((ToolStripMenuItem)sender).Name == "modelToolStripMenuItem")
-                        {
-                            ComputerInfo_TEMP += ("MODEL: ");
-                            computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryComputerSystem, "Model");
-                        }
+                            if (((ToolStripMenuItem)sender).Name == "modelToolStripMenuItem")
+                            {
+                                ComputerInfo_TEMP += ("MODEL: ");
+                                computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryComputerSystem, "Model");
+                            }
 
-                        if (((ToolStripMenuItem)sender).Name == "oSToolStripMenuItem")
-                        {
-                            ComputerInfo_TEMP += ("OS: ");
-                            computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryOperatingSystem, "Caption", "CsdVersion", "OsArchitecture", "Version");
-                        }
+                            if (((ToolStripMenuItem)sender).Name == "oSToolStripMenuItem")
+                            {
+                                ComputerInfo_TEMP += ("OS: ");
+                                computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryOperatingSystem, "Caption", "CsdVersion", "OsArchitecture", "Version");
+                            }
 
-                        if (((ToolStripMenuItem)sender).Name == "pamięćRAMToolStripMenuItem")
-                        {
-                            ComputerInfo_TEMP += ("Pamięć TOTAL: \n");
-                            computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryPhysicalMemory, "Capacity");
-                            ComputerInfo_TEMP += ("\n");
-                            computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryPhysicalMemory, "DeviceLocator", "Manufacturer", "Capacity", "Speed", "PartNumber", "SerialNumber");
-                        }
+                            if (((ToolStripMenuItem)sender).Name == "pamięćRAMToolStripMenuItem")
+                            {
+                                ComputerInfo_TEMP += ("Pamięć TOTAL: \n");
+                                computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryPhysicalMemory, "Capacity");
+                                ComputerInfo_TEMP += ("\n");
+                                computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryPhysicalMemory, "DeviceLocator", "Manufacturer", "Capacity", "Speed", "PartNumber", "SerialNumber");
+                            }
 
-                        if (((ToolStripMenuItem)sender).Name == "procesorToolStripMenuItem")
-                        {
-                            ComputerInfo_TEMP += ("CPU \n");
-                            computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryProcessor, "Name");
-                            ComputerInfo_TEMP += ("Rdzenie: ");
-                            computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryProcessor, "NumberOfCores");
-                            ComputerInfo_TEMP += ("Wątki: ");
-                            computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryProcessor, "NumberOfLogicalProcessors");
-                        }
+                            if (((ToolStripMenuItem)sender).Name == "procesorToolStripMenuItem")
+                            {
+                                ComputerInfo_TEMP += ("CPU \n");
+                                computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryProcessor, "Name");
+                                ComputerInfo_TEMP += ("Rdzenie: ");
+                                computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryProcessor, "NumberOfCores");
+                                ComputerInfo_TEMP += ("Wątki: ");
+                                computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryProcessor, "NumberOfLogicalProcessors");
+                            }
 
-                        if (((ToolStripMenuItem)sender).Name == "zalogowanyUżytkownikToolStripMenuItem")
-                        {
-                            ComputerInfo_TEMP += ("Użytkownik: ");
-                            computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryComputerSystem, "UserName");
-                        }
+                            if (((ToolStripMenuItem)sender).Name == "zalogowanyUżytkownikToolStripMenuItem")
+                            {
+                                ComputerInfo_TEMP += ("Użytkownik: ");
+                                computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryComputerSystem, "UserName");
+                            }
 
-                        if (((ToolStripMenuItem)sender).Name == "profileUżytkownikówToolStripMenuItem")
-                        {
-                            ComputerInfo_TEMP += ("Profile\n");
-                            computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryDesktop, "Name");
-                        }
+                            if (((ToolStripMenuItem)sender).Name == "profileUżytkownikówToolStripMenuItem")
+                            {
+                                ComputerInfo_TEMP += ("Profile\n");
+                                computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryDesktop, "Name");
+                            }
 
-                        if (((ToolStripMenuItem)sender).Name == "dyskiToolStripMenuItem")
-                        {
-                            ComputerInfo_TEMP += ("Dyski: \n");
-                            ComputerInfo_TEMP += ("Nazwa   Opis                  System plików   Wolna przestrzeń       Rozmiar \n");
-                            computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryLogicalDisk, "Name", "Description", "FileSystem", "FreeSpace", "Size");
-                        }
+                            if (((ToolStripMenuItem)sender).Name == "dyskiToolStripMenuItem")
+                            {
+                                ComputerInfo_TEMP += ("Dyski: \n");
+                                ComputerInfo_TEMP += ("Nazwa   Opis                  System plików   Wolna przestrzeń       Rozmiar \n");
+                                computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryLogicalDisk, "Name", "Description", "FileSystem", "FreeSpace", "Size");
+                            }
 
-                        if (((ToolStripMenuItem)sender).Name == "drukarkiSiecioweToolStripMenuItem")
-                        {
-                            ComputerInfo_TEMP += ("Drukarki sieciowe\n\n");
-                            computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryPrinterConfiguration, "DeviceName");
-                        }
+                            if (((ToolStripMenuItem)sender).Name == "drukarkiSiecioweToolStripMenuItem")
+                            {
+                                ComputerInfo_TEMP += ("Drukarki sieciowe\n\n");
+                                computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryPrinterConfiguration, "DeviceName");
+                            }
 
-                        if (((ToolStripMenuItem)sender).Name == "udziałyToolStripMenuItem")
-                        {
-                            ComputerInfo_TEMP += ("Udziały\n");
-                            computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryShare, "Name", "Path", "Description");
-                        }
+                            if (((ToolStripMenuItem)sender).Name == "udziałyToolStripMenuItem")
+                            {
+                                ComputerInfo_TEMP += ("Udziały\n");
+                                computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryShare, "Name", "Path", "Description");
+                            }
 
-                        if (((ToolStripMenuItem)sender).Name == "autostartToolStripMenuItem")
-                        {
-                            ComputerInfo_TEMP += ("AutoStart\n");
-                            computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryStartupCommand, "Caption", "Command");
-                        }
+                            if (((ToolStripMenuItem)sender).Name == "autostartToolStripMenuItem")
+                            {
+                                ComputerInfo_TEMP += ("AutoStart\n");
+                                computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryStartupCommand, "Caption", "Command");
+                            }
 
-                        if (((ToolStripMenuItem)sender).Name == "pATHToolStripMenuItem")
-                        {
-                            ComputerInfo_TEMP += ("Środowisko uruchomieniowe\n");
-                            ComputerInfo_TEMP += ("Nazwa zmiennej           Wartość zmiennej\n");
-                            computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryEnvironment, "Name", "VariableValue");
-                        }
+                            if (((ToolStripMenuItem)sender).Name == "pATHToolStripMenuItem")
+                            {
+                                ComputerInfo_TEMP += ("Środowisko uruchomieniowe\n");
+                                ComputerInfo_TEMP += ("Nazwa zmiennej           Wartość zmiennej\n");
+                                computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryEnvironment, "Name", "VariableValue");
+                            }
 
-                        if (((ToolStripMenuItem)sender).Name == "zasobySiecioweToolStripMenuItem")
-                        {
-                            ComputerInfo_TEMP += ("Zasoby sieciowe\n\n");
-                            computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryNetworkConnection, "LocalName", "RemoteName");
-                        }
+                            if (((ToolStripMenuItem)sender).Name == "zasobySiecioweToolStripMenuItem")
+                            {
+                                ComputerInfo_TEMP += ("Zasoby sieciowe\n\n");
+                                computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryNetworkConnection, "LocalName", "RemoteName");
+                            }
 
-                        if (((ToolStripMenuItem)sender).Name == "ekranyPodłączoneToolStripMenuItem")
-                        {
-                            ComputerInfo_TEMP += ("Podłączone ekrany\n\n");
-                            computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryDesktopMonitor, "Caption", "DeviceID", "ScreenHeight", "ScreenWidth", "Status");
-                        }
+                            if (((ToolStripMenuItem)sender).Name == "ekranyPodłączoneToolStripMenuItem")
+                            {
+                                ComputerInfo_TEMP += ("Podłączone ekrany\n\n");
+                                computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryDesktopMonitor, "Caption", "DeviceID", "ScreenHeight", "ScreenWidth", "Status");
+                            }
 
-                        if (((ToolStripMenuItem)sender).Name == "bIOSToolStripMenuItem")
-                        {
-                            ComputerInfo_TEMP += ("BIOS\n\n");
-                            computerInfo.fast2(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryBios);
+                            if (((ToolStripMenuItem)sender).Name == "bIOSToolStripMenuItem")
+                            {
+                                ComputerInfo_TEMP += ("BIOS\n\n");
+                                computerInfo.Fast2(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryBios);
+                            }
                         }
+                        if (sender is Button)
+                        {
+                            if (((Button)sender).Name == "button18")
+                            {
+                                ComputerInfo_TEMP += ("Karty Sieciowe: ");
+                                computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryNetworkAdapterConfiguration, "IPEnabled", "Description", "DNSDomainSuffixSearchOrder", "DNSHostName", "IPAddress", "IPSubnet", "MACAddress");
+                            }
+
+                            if (((Button)sender).Name == "button16")
+                            {
+                                computerInfo.Fast(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryProduct);
+                            }
+
+                            if (((Button)sender).Name == "button13")
+                            {
+                                if (MessageBox.Show(new Form() { TopMost = true }, "Wyszukiwanie może chwile potrwać, zezwolić ?", "Wyszukiwanie danych", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                                    if (!komputerInfo.IsBusy)
+                                    {
+                                        ClearRichTextBox(null);
+                                        Puzzel.Form1.ProgressMax = 19;
+                                        LoadingForm loadingForm = new LoadingForm();
+                                        System.Threading.Thread progress;
+                                        progress = new System.Threading.Thread(loadingForm.progress);
+                                        progress.Start();
+                                        progressBar = new System.Threading.Thread(KomputerInfoCOMM);
+                                        komputerInfo.RunWorkerAsync();
+                                    }
+                            }
+                        }
+                        UpdateRichTextBox(ComputerInfo_TEMP);
+                        ComputerInfo_TEMP = null;
                     }
-                    if (sender is Button)
-                    {
-                        if (((Button)sender).Name == "button18")
-                        {
-                            ComputerInfo_TEMP += ("Karty Sieciowe: ");
-                            computerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryNetworkAdapterConfiguration, "IPEnabled", "Description", "DNSDomainSuffixSearchOrder", "DNSHostName", "IPAddress", "IPSubnet", "MACAddress");
-                        }
-                        
-                        if (((Button)sender).Name == "button16")
-                        {
-                            computerInfo.fast(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryProduct);
-                        }
-
-                        if (((Button)sender).Name == "button13")
-                        {
-                            if (MessageBox.Show(new Form() { TopMost = true }, "Wyszukiwanie może chwile potrwać, zezwolić ?", "Wyszukiwanie danych", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                                if (!komputerInfo.IsBusy)
-                                {
-                                    ClearRichTextBox(null);
-                                    Puzzel.Form1.ProgressMax = 19;
-                                    LoadingForm loadingForm = new LoadingForm();
-                                    System.Threading.Thread progress;
-                                    progress = new System.Threading.Thread(loadingForm.progress);
-                                    progress.Start();
-                                    progressBar = new System.Threading.Thread(komputerInfoCOMM);
-                                    komputerInfo.RunWorkerAsync();
-                                }
-                        }
-                    }
-                    UpdateRichTextBox(ComputerInfo_TEMP);
-                    ComputerInfo_TEMP = null;
+                    else UpdateRichTextBox("Serwer RPC jest niedostępny dla : " + HostName());
                 }
-                else UpdateRichTextBox("Serwer RPC jest niedostępny dla : " + HostName());
+                else UpdateRichTextBox("Stacja: " + HostName() + " nie jest widoczna w sieci");
             }
-            else UpdateRichTextBox("Stacja: " + HostName() + " nie jest widoczna w sieci");
-            stopTime();
+            else UpdateRichTextBox("Nie podałeś nazwy hosta");
+            StopTime();
         }
 
-        private void narzedziaadministracyjne(object sender, EventArgs e)
+        private void Narzedziaadministracyjne(object sender, EventArgs e)
         {
-            startTime();
+            StartTime();
             string arguments = null;
 
             if (sender is ToolStripMenuItem)
@@ -1464,30 +1447,31 @@ namespace Puzzel
                     arguments = "compmgmt.msc";
 
             }
-            if (Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
-            {
-                ProcExec Exec = new ProcExec("mmc.exe", arguments + @" /computer:\\" + HostName());
-            }
-            else
-            {
-                ClearRichTextBox("");
-                ProcExec Exec = new ProcExec("mmc.exe", arguments);
-            }
-            stopTime();
+            if (HostName().Length > 0)
+                if (Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
+                {
+                    new ProcExec("mmc.exe", arguments + @" /computer:\\" + HostName());
+                }
+                else
+                {
+                    ClearRichTextBox("");
+                    new ProcExec("mmc.exe", arguments);
+                }
+            StopTime();
         }
 
-        private void dHCPToolStripMenuItem_Click(object sender, EventArgs e)
+        private void DHCPToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            startTime();
+            StartTime();
             ProcExec Exec = new ProcExec();
             if (File.Exists(Directory.GetCurrentDirectory() + @"\dhcp.msc"))
                 Exec.ProcExecIF("dhcp.msc", @"/64");
             else
                 UpdateRichTextBox("Brak pliku" + Directory.GetCurrentDirectory() + @"\dhcp.msc");
-            stopTime();
+            StopTime();
         }
 
-        public string HostName()
+        private string HostName()
         {
             string _HostName = null;
             if (comboBox3.InvokeRequired)
@@ -1497,7 +1481,7 @@ namespace Puzzel
         }
         public static string hostname;
         public static string username;
-        public string UserName()
+        private string UserName()
         {
             string _UserName = null;
             if (comboBox2.InvokeRequired)
@@ -1506,7 +1490,7 @@ namespace Puzzel
             return _UserName;
         }
 
-        private void lockoutStatusToolStripMenuItem_Click(object sender, EventArgs e)
+        private void LockoutStatusToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Lockout_Status LS = new Lockout_Status(UserName());
             if (UserName().Length > 0)
@@ -1524,9 +1508,9 @@ namespace Puzzel
         public static string PingLicznik = "1";
         int licz = 0;
         public static string PingRemoteHost = null;
-        private void button22_Click(object sender, EventArgs e)
+        private void Button22_Click(object sender, EventArgs e)
         {
-            startTime();
+            StartTime();
             ClearRichTextBox("");
             RemotePing_Tracert remotePing_Tracert = new RemotePing_Tracert();
             remotePing_Tracert.ShowDialog();
@@ -1566,12 +1550,12 @@ namespace Puzzel
                 File.Delete("remoteping.cmd");
             if (File.Exists("temp.log"))
                 File.Delete("temp.log");
-            stopTime();
+            StopTime();
         }
 
-        private void button23_Click(object sender, EventArgs e)
+        private void Button23_Click(object sender, EventArgs e)
         {
-            startTime();
+            StartTime();
             ClearRichTextBox("");
             RemotePing_Tracert remotePing_Tracert = new RemotePing_Tracert();
             remotePing_Tracert.ShowDialog();
@@ -1606,50 +1590,55 @@ namespace Puzzel
                 File.Delete("remotetracert.cmd");
             if (File.Exists("temp.log"))
                 File.Delete("temp.log");
-            stopTime();
+            StopTime();
         }
 
         private void CMDMenuItem1_Click(object sender, EventArgs e)
         {
-            ProcExec Exec = new ProcExec("cmd", "/u");
+            new ProcExec("cmd", "/u");
         }
 
         private void PowershellMenuItem2_Click(object sender, EventArgs e)
         {
-            ProcExec exec = new ProcExec("powershell", "-noexit Enter-PSSession -ComputerName " + HostName());
+            new ProcExec("powershell", "-noexit Enter-PSSession -ComputerName " + HostName());
         }
 
-        private void cMDSYSTEMToolStripMenuItem_Click(object sender, EventArgs e)
+        private void CMDSYSTEMToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            startTime();
+            StartTime();
             ClearRichTextBox(null);
-            if (Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
+            if (HostName().Length > 0)
             {
-                var OSName = osName(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryOperatingSystem);
-                string applicationName = null;
-                if (OSName.Contains("64-bit"))
-                    applicationName = "PsExec64.exe";
-                else applicationName = "PsExec.exe";
+                if (Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
+                {
+                    var OSName = OsName(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryOperatingSystem);
+#pragma warning disable IDE0059 // Wartość przypisana do symbolu nie jest nigdy używana
+                    string applicationName = null;
+#pragma warning restore IDE0059 // Wartość przypisana do symbolu nie jest nigdy używana
+                    if (OSName.Contains("64-bit"))
+                        applicationName = "PsExec64.exe";
+                    else applicationName = "PsExec.exe";
 
-                if (File.Exists(Directory.GetCurrentDirectory() + @"\" + applicationName))
-                {
-                    ProcExec Exec = new ProcExec(applicationName, @"\\" + HostName() + " -s  cmd");
+                    if (File.Exists(Directory.GetCurrentDirectory() + @"\" + applicationName))
+                    {
+                        new ProcExec(applicationName, @"\\" + HostName() + " -s  cmd");
+                    }
+                    else
+                    {
+                        UpdateRichTextBox("Nie można odnaleźć określonego pliku\n");
+                        UpdateRichTextBox(Directory.GetCurrentDirectory() + @"\" + applicationName);
+                    }
                 }
-                else
-                {
-                    UpdateRichTextBox("Nie można odnaleźć określonego pliku\n");
-                    UpdateRichTextBox(Directory.GetCurrentDirectory() + @"\" + applicationName);
-                }
+                else UpdateRichTextBox("Stacja: " + HostName() + " nie jest widoczna na sieci");
             }
-            else
-                UpdateRichTextBox("Stacja: " + HostName() + " nie jest widoczna na sieci");
-            stopTime();
+            else UpdateRichTextBox("Nie podałeś nazwy hosta");
+            StopTime();
         }
-        private void rDPBezPustyContextMenu_Click(object sender, EventArgs e)
+        private void RDPBezPustyContextMenu_Click(object sender, EventArgs e)
         {
-            startTime();
-            ProcExec Exec = new ProcExec(ProcExec.rdp, "");
-            stopTime();
+            StartTime();
+            new ProcExec(ProcExec.rdp, "");
+            StopTime();
         }
         private void Keys_KeyDown(object sender, KeyEventArgs e)
         {
@@ -1658,14 +1647,14 @@ namespace Puzzel
                 if (e.KeyCode == Keys.Enter)
                 {
 
-                    szukajLogow(sender, e);
+                    SzukajLogow(sender, e);
                 }
             }
             if (sender is RichTextBox)
             {
                 if (e.Control && e.KeyCode == Keys.F)
                 {
-                    wyszukiwanieDanych();
+                    WyszukiwanieDanych();
                 }
 
                     //if (e.Control && e.KeyCode == Keys.Z)
@@ -1675,160 +1664,169 @@ namespace Puzzel
                     //    richTextBox1.Redo(); 
             }
         }
-
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern bool CloseClipboard();
         private void Keys_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
-        {  
-            if (e.KeyCode == Keys.Enter)
+        {
+            try
             {
-                if (sender is TextBox || (sender is ComboBox && ((ComboBox)sender).Name != "comboBox1"))
+                CloseClipboard();
+                if (e.KeyCode == Keys.Enter)
                 {
-                    szukajLogow(sender, e);
-                }
-            }
-            if (e.Control && e.KeyCode == Keys.C)
-            {
-                Clipboard.Clear();
-                if (richTextBox1.Focused)
-                    if (richTextBox1.SelectedText.Length > 0 && !string.IsNullOrEmpty(richTextBox1.SelectedText) && !string.IsNullOrWhiteSpace(richTextBox1.SelectedText))
-                        Clipboard.SetText(richTextBox1.SelectedText.Trim(' '));
-
-                if (textBox1.Focused)
-                    if (textBox1.SelectedText.Length > 0 && !string.IsNullOrEmpty(textBox1.SelectedText) && !string.IsNullOrWhiteSpace(textBox1.SelectedText))
-                        Clipboard.SetText(textBox1.SelectedText.Trim(' '));
-
-                if (textBox2.Focused)
-                    if (textBox2.SelectedText.Length > 0 && !string.IsNullOrEmpty(textBox2.SelectedText) && !string.IsNullOrWhiteSpace(textBox2.SelectedText))
-                        Clipboard.SetText(textBox2.SelectedText.Trim(' '));
-
-                if (comboBox1.Focused)
-                    if (comboBox1.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBox1.SelectedText) && !string.IsNullOrWhiteSpace(comboBox1.SelectedText))
+                    if (sender is TextBox || (sender is ComboBox && ((ComboBox)sender).Name != "comboBox1"))
                     {
-                        comboBox1.Text = comboBox1.Text.Trim(' ');
+                        SzukajLogow(sender, e);
+                    }
+                }
+                if (e.Control && e.KeyCode == Keys.C)
+                {
+                    Clipboard.Clear();
+                    if (richTextBox1.Focused)
+                        if (richTextBox1.SelectedText.Length > 0 && !string.IsNullOrEmpty(richTextBox1.SelectedText) && !string.IsNullOrWhiteSpace(richTextBox1.SelectedText))
+                            Clipboard.SetText(richTextBox1.SelectedText.Trim(' '));
+
+                    if (textBox1.Focused)
+                        if (textBox1.SelectedText.Length > 0 && !string.IsNullOrEmpty(textBox1.SelectedText) && !string.IsNullOrWhiteSpace(textBox1.SelectedText))
+                            Clipboard.SetText(textBox1.SelectedText.Trim(' '));
+
+                    if (textBox2.Focused)
+                        if (textBox2.SelectedText.Length > 0 && !string.IsNullOrEmpty(textBox2.SelectedText) && !string.IsNullOrWhiteSpace(textBox2.SelectedText))
+                            Clipboard.SetText(textBox2.SelectedText.Trim(' '));
+
+                    if (comboBox1.Focused)
+                        if (comboBox1.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBox1.SelectedText) && !string.IsNullOrWhiteSpace(comboBox1.SelectedText))
+                        {
+                            comboBox1.Text = comboBox1.Text.Trim(' ');
+                            comboBox1.SelectAll();
+                            //Thread.Sleep(250);
+                            Clipboard.SetText(comboBox1.SelectedText.Trim());
+                        }
+                    if (comboBox2.Focused)
+                        if (comboBox2.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBox2.SelectedText) && !string.IsNullOrWhiteSpace(comboBox2.SelectedText))
+                        {
+                            comboBox2.Text = comboBox2.Text.Trim(' ');
+                            comboBox2.SelectAll();
+                            //Thread.Sleep(250);
+                            Clipboard.SetText(comboBox2.SelectedText.Trim(' '));
+                        }
+                    if (comboBox3.Focused)
+                        if (comboBox3.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBox3.SelectedText) && !string.IsNullOrWhiteSpace(comboBox3.SelectedText))
+                        {
+                            comboBox3.Text = comboBox3.Text.Trim(' ');
+                            comboBox2.SelectAll();
+                            //Thread.Sleep(250);
+                            Clipboard.SetText(comboBox3.SelectedText.Trim(' '));
+                        }
+                }
+
+                if (e.Control && e.KeyCode == Keys.V)
+                {
+                    if (richTextBox1.Focused)
+                    {
+                        richTextBox1.Paste();
+                    }
+                    if (textBox1.Focused)
+                    {
+                        textBox1.Paste();
+                    }
+                    if (textBox2.Focused)
+                    {
+                        textBox2.Paste();
+                    }
+                    if (comboBox1.Focused)
+                    {
+                        Clipboard.GetDataObject();
+                    }
+                    if (comboBox2.Focused)
+                    {
+                        Clipboard.GetDataObject();
+                    }
+                    if (comboBox3.Focused)
+                    {
+                        Clipboard.GetDataObject();
+                    }
+                }
+
+                if (e.Control && e.KeyCode == Keys.X)
+                {
+                    Clipboard.Clear();
+                    if (richTextBox1.Focused)
+                        if (richTextBox1.SelectedText.Length > 0 && !string.IsNullOrEmpty(richTextBox1.SelectedText) && !string.IsNullOrWhiteSpace(richTextBox1.SelectedText))
+                        {
+                            richTextBox1.Cut();
+                            Clipboard.SetText(Clipboard.GetText().Trim(' '));
+                        }
+
+                    if (textBox1.Focused)
+                        if (textBox1.SelectedText.Length > 0 && !string.IsNullOrEmpty(textBox1.SelectedText) && !string.IsNullOrWhiteSpace(textBox1.SelectedText))
+                        {
+                            textBox1.Cut();
+                            Clipboard.SetText(Clipboard.GetText().Trim(' '));
+                        }
+
+                    if (textBox2.Focused)
+                        if (textBox2.SelectedText.Length > 0 && !string.IsNullOrEmpty(textBox2.SelectedText) && !string.IsNullOrWhiteSpace(textBox2.SelectedText))
+                        {
+                            textBox2.Cut();
+                            Clipboard.SetText(Clipboard.GetText().Trim(' '));
+                        }
+
+                    if (comboBox1.Focused)
+                        if (comboBox1.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBox1.SelectedText) && !string.IsNullOrWhiteSpace(comboBox1.SelectedText))
+                        {
+                            //Thread.Sleep(250);
+                            Clipboard.SetText(comboBox1.SelectedText);
+                            comboBox1.Text.Remove(comboBox1.SelectionStart, comboBox1.SelectionLength);
+                            //Clipboard.SetText(Clipboard.GetText().Trim(' '));
+                        }
+                    if (comboBox2.Focused)
+                        if (comboBox2.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBox2.SelectedText) && !string.IsNullOrWhiteSpace(comboBox2.SelectedText))
+                        {
+                            comboBox2.Text = comboBox2.Text.Trim(' ');
+                            comboBox2.SelectAll();
+                            //Thread.Sleep(250);
+                            Clipboard.SetText(comboBox2.SelectedText.Trim(' '));
+                            comboBox2.Text.Remove(comboBox2.SelectionStart, comboBox2.SelectionLength);
+                            //Clipboard.SetText(Clipboard.GetText().Trim(' '));
+                        }
+                    if (comboBox3.Focused)
+                        if (comboBox3.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBox3.SelectedText) && !string.IsNullOrWhiteSpace(comboBox3.SelectedText))
+                        {
+                            comboBox3.Text = comboBox3.Text.Trim(' ');
+                            comboBox3.SelectAll();
+                            //Thread.Sleep(250);
+                            Clipboard.SetText(comboBox3.SelectedText.Trim(' '));
+                            comboBox3.Text.Remove(comboBox3.SelectionStart, comboBox3.SelectionLength);
+                            //Clipboard.SetText(Clipboard.GetText().Trim(' '));
+                        }
+                }
+                if (e.Control && e.KeyCode == Keys.A)
+                {
+                    if (richTextBox1.Focused)
+                        richTextBox1.SelectAll();
+
+                    if (textBox1.Focused)
+                        textBox1.SelectAll();
+
+                    if (textBox2.Focused)
+                        textBox2.SelectAll();
+
+                    if (comboBox1.Focused)
                         comboBox1.SelectAll();
-                        Thread.Sleep(250);
-                        Clipboard.SetText(comboBox1.SelectedText.Trim());
-                    }
-                if (comboBox2.Focused)
-                    if (comboBox2.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBox2.SelectedText) && !string.IsNullOrWhiteSpace(comboBox2.SelectedText))
-                    {
-                        comboBox2.Text = comboBox2.Text.Trim(' ');
+
+                    if (comboBox2.Focused)
                         comboBox2.SelectAll();
-                        Thread.Sleep(250);
-                        Clipboard.SetText(comboBox2.SelectedText.Trim(' '));
-                    }
-                if (comboBox3.Focused)
-                    if (comboBox3.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBox3.SelectedText) && !string.IsNullOrWhiteSpace(comboBox3.SelectedText))
-                    {
-                        comboBox3.Text = comboBox3.Text.Trim(' ');
-                        comboBox2.SelectAll();
-                        Thread.Sleep(250);
-                        Clipboard.SetText(comboBox3.SelectedText.Trim(' '));
-                    }
-            }
 
-            if (e.Control && e.KeyCode == Keys.V)
-            {
-                if (richTextBox1.Focused)
-                {
-                    richTextBox1.Paste();
-                }
-                if (textBox1.Focused)
-                {
-                    textBox1.Paste();
-                }
-                if (textBox2.Focused)
-                {
-                    textBox2.Paste();
-                }
-                if (comboBox1.Focused)
-                {
-                    Clipboard.GetDataObject();
-                }
-                if (comboBox2.Focused)
-                {
-                    Clipboard.GetDataObject();
-                }
-                if (comboBox3.Focused)
-                {
-                    Clipboard.GetDataObject();
-                }
-            }
-
-            if (e.Control && e.KeyCode == Keys.X)
-            {
-                Clipboard.Clear();
-                if (richTextBox1.Focused)
-                    if (richTextBox1.SelectedText.Length > 0 && !string.IsNullOrEmpty(richTextBox1.SelectedText) && !string.IsNullOrWhiteSpace(richTextBox1.SelectedText))
-                    {
-                        richTextBox1.Cut();
-                        Clipboard.SetText(Clipboard.GetText().Trim(' '));
-                    }
-
-                if (textBox1.Focused)
-                    if (textBox1.SelectedText.Length > 0 && !string.IsNullOrEmpty(textBox1.SelectedText) && !string.IsNullOrWhiteSpace(textBox1.SelectedText))
-                    {
-                        textBox1.Cut();
-                        Clipboard.SetText(Clipboard.GetText().Trim(' '));
-                    }
-
-                if (textBox2.Focused)
-                    if (textBox2.SelectedText.Length > 0 && !string.IsNullOrEmpty(textBox2.SelectedText) && !string.IsNullOrWhiteSpace(textBox2.SelectedText))
-                    {
-                        textBox2.Cut();
-                        Clipboard.SetText(Clipboard.GetText().Trim(' '));
-                    }
-
-                if (comboBox1.Focused)
-                    if (comboBox1.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBox1.SelectedText) && !string.IsNullOrWhiteSpace(comboBox1.SelectedText))
-                    {
-                        Thread.Sleep(250);
-                        Clipboard.SetText(comboBox1.SelectedText);
-                        comboBox1.Text.Remove(comboBox1.SelectionStart, comboBox1.SelectionLength);
-                        //Clipboard.SetText(Clipboard.GetText().Trim(' '));
-                    }
-                if (comboBox2.Focused)
-                    if (comboBox2.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBox2.SelectedText) && !string.IsNullOrWhiteSpace(comboBox2.SelectedText))
-                    {
-                        comboBox2.Text = comboBox2.Text.Trim(' ');
-                        comboBox2.SelectAll();
-                        Thread.Sleep(250);
-                        Clipboard.SetText(comboBox2.SelectedText.Trim(' '));
-                        comboBox2.Text.Remove(comboBox2.SelectionStart, comboBox2.SelectionLength);
-                        //Clipboard.SetText(Clipboard.GetText().Trim(' '));
-                    }
-                if (comboBox3.Focused)
-                    if (comboBox3.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBox3.SelectedText) && !string.IsNullOrWhiteSpace(comboBox3.SelectedText))
-                    {
-                        comboBox3.Text = comboBox3.Text.Trim(' ');
+                    if (comboBox3.Focused)
                         comboBox3.SelectAll();
-                        Thread.Sleep(250);
-                        Clipboard.SetText(comboBox3.SelectedText.Trim(' '));
-                        comboBox3.Text.Remove(comboBox3.SelectionStart, comboBox3.SelectionLength);
-                        //Clipboard.SetText(Clipboard.GetText().Trim(' '));
-                    }
+                }
             }
-            if (e.Control && e.KeyCode == Keys.A)
+            catch (Exception ex)
             {
-                if (richTextBox1.Focused)
-                    richTextBox1.SelectAll();
-
-                if (textBox1.Focused)
-                    textBox1.SelectAll();
-
-                if (textBox2.Focused)
-                    textBox2.SelectAll();
-
-                if (comboBox1.Focused)
-                    comboBox1.SelectAll();
-
-                if (comboBox2.Focused)
-                    comboBox2.SelectAll();
-
-                if (comboBox3.Focused)
-                    comboBox3.SelectAll();
+                LogsCollector.Loger(ex, sender + " " + e.KeyCode);
             }
         }
-        private void kopiujMenuItem1_Click(object sender, EventArgs e)
+        private void KopiujMenuItem1_Click(object sender, EventArgs e)
         {
             try
             {
@@ -1862,7 +1860,7 @@ namespace Puzzel
             }
         }
 
-        private void wytnijMenuItem1_Click(object sender, EventArgs e)
+        private void WytnijMenuItem1_Click(object sender, EventArgs e)
         {
             try
             {
@@ -1915,7 +1913,7 @@ namespace Puzzel
             }
         }
 
-        private void wklejToolStripMenuItem_Click(object sender, EventArgs e)
+        private void WklejToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
@@ -1950,7 +1948,7 @@ namespace Puzzel
             }
         }
 
-        private void zaznaczWszystkoMenuItem3_Click(object sender, EventArgs e)
+        private void ZaznaczWszystkoMenuItem3_Click(object sender, EventArgs e)
         {
             try
             {
@@ -1980,16 +1978,16 @@ namespace Puzzel
 
         public static int IDrtb = 0;
         public static int statusOkna = 0;
-        private void wyszukiwanieDanych()
+        private void WyszukiwanieDanych()
         {
             richTextBox1.SelectionStart = 0;
             richTextBox1.HideSelection = false;
             WyszukiwarkaDlaFormy wyszukiwarka = new WyszukiwarkaDlaFormy();
             wyszukiwarka.Show();
         }
-        private void wyszukajMenuItem_Click(object sender, EventArgs e)
+        private void WyszukajMenuItem_Click(object sender, EventArgs e)
         {
-            wyszukiwanieDanych();
+            WyszukiwanieDanych();
         }
         private void PwdLclToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1997,7 +1995,7 @@ namespace Puzzel
             {
                 LAPSui.HostName = HostName();
                 LAPSui lAPSui = new LAPSui();
-                lAPSui.loadPassword(HostName());
+                lAPSui.LoadPassword(HostName());
                 lAPSui.Show();
             }
             else MessageBox.Show(new Form() { TopMost = true }, "Nie podano nazwy komputera");
@@ -2025,7 +2023,7 @@ namespace Puzzel
         //    log.WriteLine("");
         //    log.Close();
         //}
-        private void zmianahasla(object sender, EventArgs e)
+        private void Zmianahasla(object sender, EventArgs e)
         {
             if (UserName().Length > 0)
             {
