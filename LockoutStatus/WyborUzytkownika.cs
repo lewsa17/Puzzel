@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace Puzzel
+namespace Puzzel.LockoutStatus
 {
     public partial class LockoutStatusWyborUzytkownika : Form
     {
@@ -20,15 +20,15 @@ namespace Puzzel
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Puzzel.Lockout_Status.Username = textBox1.Text;
-            Puzzel.Lockout_Status.domainAddress = textBox2.Text;
+            Lockout_Status.userName = textBox1.Text;
+            Lockout_Status.domainAddress = textBox2.Text;
             Close();
         }
 
         private void LockoutStatusWyborUzytkownika_Load(object sender, EventArgs e)
         {
-            if (Puzzel.Lockout_Status.Username.Length > 1)
-                this.textBox1.Text = Puzzel.Lockout_Status.Username;
+            if (Lockout_Status.userName.Length > 1)
+                this.textBox1.Text =Lockout_Status.userName;
             this.textBox2.Text = domainName();
         }
 
@@ -36,8 +36,8 @@ namespace Puzzel
         {
             if (e.KeyCode == Keys.Enter)
             {
-                Puzzel.Lockout_Status.Username = textBox1.Text;
-                Puzzel.Lockout_Status.domainAddress = textBox2.Text;
+                Lockout_Status.userName = textBox1.Text;
+                Lockout_Status.domainAddress = textBox2.Text;
                 Close();
             }
         }

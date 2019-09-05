@@ -11,6 +11,7 @@ using System.DirectoryServices.AccountManagement;
 using System.Management;
 using System.Threading;
 using System.Runtime.InteropServices;
+using Puzzel.LockoutStatus;
 
 namespace Puzzel
 {
@@ -283,20 +284,20 @@ namespace Puzzel
             decimal counter = 0;
             string NameZ = null;
 
-                if (((Button)sender).Name == "BtnUserLog")
-                {
-                    folderName = "User";
-                    counter = numericUpDown1.Value;
-                    NameZ = UserName();
-                    NameLength = NameZ.Length;
-                }
-                if (((Button)sender).Name == "BtnKomputerLog")
-                {
-                    folderName = "Computer";
-                    counter = numericUpDown2.Value;
-                    NameZ = HostName();
-                    NameLength = NameZ.Length;
-                }
+            if (((Button)sender).Name == "BtnUserLog")
+            {
+                folderName = "User";
+                counter = numericUpDown1.Value;
+                NameZ = UserName();
+                NameLength = NameZ.Length;
+            }
+            if (((Button)sender).Name == "BtnKomputerLog")
+            {
+                folderName = "Computer";
+                counter = numericUpDown2.Value;
+                NameZ = HostName();
+                NameLength = NameZ.Length;
+            }
             if (NameLength > 1)
             {
                 if(sender == BtnUserLog)
@@ -319,6 +320,7 @@ namespace Puzzel
                     Logi logi = new Logi();
 
                     int invalidPathChars = 0;
+
                     foreach (char invalidPathChar in Path.GetInvalidFileNameChars())
                     {
                         if (NameZ.Contains(invalidPathChar))
@@ -386,6 +388,12 @@ namespace Puzzel
                 {
                     LogsCollector.Loger(ex, SlowowTekscie[1]);
                 }
+                finally
+                {
+                    comboBox1.Items.Clear();
+                    comboBox1.Text = "";
+                    ClearRichTextBox();
+                }
             }
             else ReplaceRichTextBox("Nie udało się rozłączyć sesji ponieważ nie została wybrana sesja");
             StopTime();
@@ -400,27 +408,19 @@ namespace Puzzel
             });
             thread1.Start();
             Thread thread;
-            //if (File.Exists(Directory.GetCurrentDirectory() + @"\Cassia.dll"))
-            //{
-                TerminalExplorer terminalExplorer = new TerminalExplorer();
-                thread1.Join();
-                thread = new Thread(() => terminalExplorer.SzukanieSesji(terminalName));
-                thread.Start();
-                terminalExplorer.Show();
-            //}
-            //else MessageBox.Show("Plik " + Directory.GetCurrentDirectory() + @"\Cassia.dll nie jest dostępny.");
+            TerminalExplorer terminalExplorer = new TerminalExplorer();
+            thread1.Join();
+            thread = new Thread(() => terminalExplorer.SzukanieSesji(terminalName));
+            thread.Start();
+            terminalExplorer.Show();
         }
         private void WyszukiwanieSesji_TerminalExplorer(object sender, EventArgs e)
         {
             Thread thread;
-            //if (File.Exists(Directory.GetCurrentDirectory() + @"\Cassia.dll"))
-            //{
-                TerminalExplorer terminalExplorer = new TerminalExplorer();
-                thread = new Thread(() => terminalExplorer.SzukanieSesji(((ToolStripMenuItem)sender).Text));
-                thread.Start();
-                terminalExplorer.Show();
-            //}
-            //else MessageBox.Show("Plik Cassia.dll nie jest dostępny.");
+            TerminalExplorer terminalExplorer = new TerminalExplorer();
+            thread = new Thread(() => terminalExplorer.SzukanieSesji(((ToolStripMenuItem)sender).Text));
+            thread.Start();
+            terminalExplorer.Show();
         }
 
         public static string ComputerInfo_TEMP;
@@ -1000,80 +1000,88 @@ namespace Puzzel
             comboBox1.Items.Clear();
             richTextBox1.Clear();
             int aktywnesesje = 0;
-            if (UserName().Length > 1)
+            try
             {
                 StartTime();
-                foreach (string terms in termservers)
+                if (UserName().Length > 1)
                 {
-                    Thread th = new Thread(() =>
+                    if (Lockout_Status.CheckUserInDomain(UserName()) != null)   
+                    foreach (string terms in termservers)
                     {
-                        TerminalExplorer ts = new TerminalExplorer();
-                        object[] combo = ts.FindSession(terms, UserName());
-                        if (combo != null)
+                        Thread.Sleep(250);
+                        Thread th = new Thread(() =>
                         {
-                            aktywnesesje++;
-                            UpdateComboBox(combo[0] + " " + combo[1]);
-                            if (comboBox1.InvokeRequired)
+                            TerminalExplorer ts = new TerminalExplorer();
+                            object[] combo = ts.FindSession(terms, UserName());
+                            if (combo != null)
                             {
-                                Thread.Sleep(500);
-                                comboBox1.Invoke(new MethodInvoker(() =>
+                                aktywnesesje++;
+                                UpdateComboBox(combo[0] + " " + combo[1]);
+                                if (comboBox1.InvokeRequired)
                                 {
-                                    if (comboBox1.Items.Count > 0)
-                                        comboBox1.SelectedIndex = 0;
-                                }));
+                                    Thread.Sleep(500);
+                                    comboBox1.Invoke(new MethodInvoker(() =>
+                                    {
+                                        if (comboBox1.Items.Count > 0)
+                                            comboBox1.SelectedIndex = 0;
+                                    }));
+                                }
+                                else comboBox1.SelectedIndex = 0;
+                                UpdateRichTextBox(combo[1] + " --------------------------------\n");
+                                UpdateRichTextBox("Nazwa użytkownika     Nazwa Sesji    Id    Status        Czas bezczynności    Czas logowania\n");
+
+                                UpdateRichTextBox(combo[2].ToString());
+                                for (int i = 0; i < "Nazwa użytkownika     ".Length - combo[2].ToString().Length; i++)
+                                    UpdateRichTextBox(" ");
+
+                                UpdateRichTextBox(combo[3].ToString());
+                                for (int i = 0; i < "Nazwa Sesji    ".Length - combo[3].ToString().Length; i++)
+                                    UpdateRichTextBox(" ");
+
+                                UpdateRichTextBox(combo[0].ToString());
+                                for (int i = 0; i < "Id    ".Length - combo[0].ToString().Length; i++)
+                                    UpdateRichTextBox(" ");
+
+                                UpdateRichTextBox(combo[4].ToString());
+                                for (int i = 0; i < "Status        ".Length - combo[4].ToString().Length; i++)
+                                    UpdateRichTextBox(" ");
+
+                                //Wyekstraktowanie całej czasu bezczynności
+                                int time = Convert.ToInt32(Math.Ceiling(((TimeSpan)combo[5]).TotalSeconds));
+                                double _time = 0;
+                                string idletime = "";
+                                if ((time / 3600) >= 1)
+                                {
+                                    _time = (time / 3600);
+                                    idletime += (Math.Ceiling(_time).ToString() + ":");
+                                    time -= Convert.ToInt32(Math.Ceiling(_time)) * 3600;
+                                }
+                                if ((time / 60) > 1)
+                                {
+                                    _time = (time / 60);
+                                    idletime += (Math.Ceiling(_time).ToString() + ":");
+                                    time -= Convert.ToInt32(Math.Ceiling(_time)) * 60;
+                                }
+
+                                idletime += (time.ToString());
+                                UpdateRichTextBox(idletime);
+                                for (int i = 0; i < "Czas bezczynności    ".Length - idletime.Length; i++)
+                                    UpdateRichTextBox(" ");
+
+                                UpdateRichTextBox(combo[6].ToString());
+                                UpdateRichTextBox("\n");
+                                if (aktywnesesje == 0) { ReplaceRichTextBox("Nie znaleziono sesji"); }
                             }
-                            else comboBox1.SelectedIndex = 0;
-                            UpdateRichTextBox(combo[1] + " --------------------------------\n");
-                            UpdateRichTextBox("Nazwa użytkownika     Nazwa Sesji    Id    Status        Czas bezczynności    Czas logowania\n");
-
-                            UpdateRichTextBox(combo[2].ToString());
-                            for (int i = 0; i < "Nazwa użytkownika     ".Length - combo[2].ToString().Length; i++)
-                                UpdateRichTextBox(" ");
-
-                            UpdateRichTextBox(combo[3].ToString());
-                            for (int i = 0; i < "Nazwa Sesji    ".Length - combo[3].ToString().Length; i++)
-                                UpdateRichTextBox(" ");
-
-                            UpdateRichTextBox(combo[0].ToString());
-                            for (int i = 0; i < "Id    ".Length - combo[0].ToString().Length; i++)
-                                UpdateRichTextBox(" ");
-
-                            UpdateRichTextBox(combo[4].ToString());
-                            for (int i = 0; i < "Status        ".Length - combo[4].ToString().Length; i++)
-                                UpdateRichTextBox(" ");
-
-                            //Wyekstraktowanie całej czasu bezczynności
-                            int time = Convert.ToInt32(Math.Ceiling(((TimeSpan)combo[5]).TotalSeconds));
-                            double _time = 0;
-                            string idletime = "";
-                            if ((time / 3600) >= 1)
-                            {
-                                _time = (time / 3600);
-                                idletime += (Math.Ceiling(_time).ToString() + ":");
-                                time -= Convert.ToInt32(Math.Ceiling(_time)) * 3600;
-                            }
-                            if ((time / 60) > 1)
-                            {
-                                _time = (time / 60);
-                                idletime += (Math.Ceiling(_time).ToString() + ":");
-                                time -= Convert.ToInt32(Math.Ceiling(_time)) * 60;
-                            }
-
-                            idletime += (time.ToString());
-                            UpdateRichTextBox(idletime);
-                            for (int i = 0; i < "Czas bezczynności    ".Length - idletime.Length; i++)
-                                UpdateRichTextBox(" ");
-
-                            UpdateRichTextBox(combo[6].ToString());
-                            UpdateRichTextBox("\n");
-                            if (aktywnesesje == 0) { ReplaceRichTextBox("Nie znaleziono sesji"); }
-                        }
-                    });
-                    th.Start();
+                        });
+                        th.Start();
+                    }
                 }
+                else ReplaceRichTextBox("Nie podano loginu");
             }
-            else ReplaceRichTextBox("Nie podano loginu");
-            StopTime();
+            finally
+            {
+                StopTime();
+            }
         }
 
         private delegate void updateComboBoxEventHandler(string message);
@@ -1470,7 +1478,7 @@ namespace Puzzel
             Lockout_Status LS = new Lockout_Status(UserName());
             if (UserName().Length > 0)
             {
-                if (Lockout_Status.UserInfo(UserName()) != null)
+                if (Lockout_Status.CheckUserInDomain(UserName()) != null)
                 {
                     Lockout_Status.AddEntry(UserName());
                     LS.Show();
@@ -2132,7 +2140,7 @@ namespace Puzzel
         {
             if (UserName().Length > 0)
             {
-                if (Lockout_Status.UserInfo(UserName()) != null)
+                if (Lockout_Status.CheckUserInDomain(UserName()) != null)
                 {
                     ZmianaHasla zh = new ZmianaHasla();
                     zh.ZmianaHasla_Load(UserName());
@@ -2146,11 +2154,6 @@ namespace Puzzel
         {
             Ustawienia ustawienia = new Ustawienia();
             ustawienia.ShowDialog();
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            //LoadingShortcuts();
         }
     }
 }        

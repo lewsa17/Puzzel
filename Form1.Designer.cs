@@ -405,7 +405,7 @@
             this.numericUpDown1.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.numericUpDown1.Location = new System.Drawing.Point(143, 40);
             this.numericUpDown1.Maximum = new decimal(new int[] {
-            1000,
+            10000,
             0,
             0,
             0});
@@ -697,6 +697,7 @@
             this.BtnDW.Text = Working[16];
             this.BtnDW.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.BtnDW.UseVisualStyleBackColor = true;
+            this.BtnDW.KeyDown += new System.Windows.Forms.KeyEventHandler(Keys_KeyDown);
             this.BtnDW.Click += new System.EventHandler(this.DWButton_Click);
             // 
             // DWContext
@@ -908,7 +909,7 @@
             this.numericUpDown2.ImeMode = System.Windows.Forms.ImeMode.Disable;
             this.numericUpDown2.Location = new System.Drawing.Point(143, 43);
             this.numericUpDown2.Maximum = new decimal(new int[] {
-            1000,
+            10000,
             0,
             0,
             0});
@@ -1427,8 +1428,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(1200, 509);
             this.Name = "Form1";
-            this.Text = "Puzzel v0.110";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Text = "Puzzel v0.112";
             this.Resize += new System.EventHandler(this.Form1_Resize);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

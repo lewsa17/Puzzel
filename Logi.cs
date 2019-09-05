@@ -122,7 +122,10 @@ namespace Puzzel
             {
                 LogsCollector.Loger(e, username);
             }
-            search.Dispose();
+            finally
+            {
+                search.Dispose();
+            }
             return text;
         }
     }

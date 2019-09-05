@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Forms;
+using System.DirectoryServices;
 using System.DirectoryServices.AccountManagement;
+using System.Threading;
 
-namespace Puzzel
+namespace Puzzel.LockoutStatus
 {
     public partial class ZmianaHasla : Form
     {
@@ -11,12 +13,37 @@ namespace Puzzel
         {
             InitializeComponent();
         }
+        public string DomainName() { return System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().DomainName; }
+        public string[] DomainControllers()
+        {
+            //DirectoryEntry myLdapConnection = new DirectoryEntry("LDAP://OU=Domain Controllers," + domainName());
+            DirectorySearcher search = new DirectorySearcher(new DirectoryEntry("LDAP://" + DomainName()));
+            //search.Filter = "(sAMAccountName=" + username + ")";
+            SearchResult search1 = search.FindOne();
+            //SearchResultCollection collection = search.FindAll();
+            object[] lines = (object[])search1.GetDirectoryEntry().Properties["msds-isdomainfor"].Value;
+            string table = null;
+            foreach (string line in lines)
+            {
+                string[] words = line.Split(',');
+                table += words[1].Replace("CN=", "") + ",";
+            }
+
+            string[] array = null;
+            array = table.Split(',');
+            Array.Resize(ref array, array.Length - 1);
+
+            return array;
+        }
+        public string userName { get; set; }
+        
         private void Button1_Click(object sender, EventArgs e)
         {
             bool UnlockAccout = checkBox1.Checked;
             bool PasswordExpired = checkBox2.Checked;
             string password = null;
             int counter = 0;
+
             if (textBox1.Text == textBox2.Text)
             {
                 if (textBox1.Text.Length >= 8)
@@ -44,7 +71,7 @@ namespace Puzzel
                     else MessageBox.Show("Sprawdź poprawność hasła czy zawiera dużą lub mała literę, cyfrę lub znak specjalny");
                 }
                 else MessageBox.Show("Podane hasło ma mniej niż 8 znaków");
-                Lockout_Status.Ustawhaslo(password, UnlockAccout, PasswordExpired);
+                UstawHaslo(password, UnlockAccout, PasswordExpired);
             }
             else MessageBox.Show("Podane hasła nie są zgodne");
         }
@@ -53,14 +80,36 @@ namespace Puzzel
         {
             this.Close();
         }
-
+        public void UstawHaslo(string password, bool unlockAccount, bool passwordExpired)
+        {
+            if (password != null)
+                foreach (string dcName in DomainControllers())
+                {
+                    Thread thread = new Thread(() =>
+                    {
+                        using (PrincipalContext context = new PrincipalContext(ContextType.Domain, dcName))
+                        {
+                            UserPrincipal uP = UserPrincipal.FindByIdentity(context, IdentityType.SamAccountName, userName);
+                            uP.SetPassword(password);
+                            if (unlockAccount)
+                                uP.UnlockAccount();
+                            if (passwordExpired)
+                                uP.ExpirePasswordNow();
+                            uP.Save();
+                        }
+                    }); thread.Start();
+                    thread.Priority = ThreadPriority.Highest;
+                    thread.Join();
+                }
+            MessageBox.Show("Hasło zostało zmienione");
+        }
         public void ZmianaHasla_Load(string UserName)
         {
             int i = 0;
             if (UserName != null)
-                foreach (string dcName in Lockout_Status.DomainController())
+                foreach (string dcName in DomainControllers())
                 {
-                    System.Threading.Thread th = new System.Threading.Thread(() => 
+                    Thread th = new Thread(() => 
                     {
                         using (PrincipalContext context = new PrincipalContext(ContextType.Domain, dcName))
                         {
@@ -73,7 +122,7 @@ namespace Puzzel
                         }
                     });
                     th.Start();
-                    th.Priority = System.Threading.ThreadPriority.Highest;
+                    th.Priority = ThreadPriority.Highest;
                     th.Join();
                 }
             if (i > 0)

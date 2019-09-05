@@ -690,9 +690,9 @@ namespace Puzzel
         }
 
 
-        public Control[] buttons()
+        public Button[] buttons()
         {
-            Control[] button = { DW, ExplorerC, Info_z_AD,
+            Button[] button = { DW, ExplorerC, Info_z_AD,
                 Karty_sieciowe, KomputerInfo, KomputerLog, Lista_program,
                 Logoff, Ping, Polacz, Profil_ERI, Profil_EXT, Profil_TS,
                 Profil_VFS, Pulpit_Zdalny, Remote_Ping, Remote_Tracert,
@@ -796,7 +796,7 @@ namespace Puzzel
                 {
                     SaveSettings_Click(sender, e);
                 }
-                else MessageBox.Show(new Form() { TopMost = true }, "Ustawienia nie zostały zapisane");
+                else MessageBox.Show(new Form() { TopMost = true }, "Ustawienia nie zostały zapisane", "Zapisywanie ustawień", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -806,8 +806,8 @@ namespace Puzzel
         }
         private void ShortcutKeys()
         {
-            object[] keys = new object[] { Keys.Control, Keys.Alt, Keys.Shift };
-            object[] letterKeys = new object[] {"A","B","C", "D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","X","Y","Z", Keys.Enter, Keys.NumPad0, Keys.NumPad1, Keys.NumPad2, Keys.NumPad3, Keys.NumPad4, Keys.NumPad5, Keys.NumPad6, Keys.NumPad7, Keys.NumPad8, Keys.NumPad9, Keys.D0, Keys.D1, Keys.D2, Keys.D3, Keys.D4, Keys.D5, Keys.D6, Keys.D7, Keys.D8, Keys.D9, Keys.F1, Keys.F2, Keys.F3, Keys.F4, Keys.F5, Keys.F6, Keys.F7, Keys.F8, Keys.F9, Keys.F10, Keys.F11, Keys.F12 };
+            //object[] keys = new object[] { Keys.Control, Keys.Alt, Keys.Shift };
+            object[] letterKeys = new object[] { Keys.A, Keys.B, Keys.C, Keys.D, Keys.E, Keys.F, Keys.G, Keys.H, Keys.I, Keys.J, Keys.K, Keys.L, Keys.M, Keys.N, Keys.O, Keys.P, Keys.Q, Keys.R, Keys.S, Keys.T, Keys.U, Keys.V, Keys.X, Keys.Y, Keys.Z, Keys.Enter, Keys.NumPad0, Keys.NumPad1, Keys.NumPad2, Keys.NumPad3, Keys.NumPad4, Keys.NumPad5, Keys.NumPad6, Keys.NumPad7, Keys.NumPad8, Keys.NumPad9, Keys.D0, Keys.D1, Keys.D2, Keys.D3, Keys.D4, Keys.D5, Keys.D6, Keys.D7, Keys.D8, Keys.D9, Keys.F1, Keys.F2, Keys.F3, Keys.F4, Keys.F5, Keys.F6, Keys.F7, Keys.F8, Keys.F9, Keys.F10, Keys.F11, Keys.F12 };
             //comboBox4.Items.AddRange(keys);
             comboBox5.Items.AddRange(/*keys*/letterKeys);
             //comboBox6.Items.AddRange(letterKeys);
@@ -819,23 +819,28 @@ namespace Puzzel
             ShortcutKeys();
             var button = buttons();
             var keys = LoadSettings();
-            string[] shortcuts = { "CTRL+F", "CTRL+C", "CTRL+X","CTRL+V"};
-            string buttonWithBorderColorRed = null;
+            string[] shortcuts = { "CTRL+C", "CTRL+X", "CTRL+V" };
+            //string buttonWithBorderColorRed = null;
+
             foreach (string shortcut in shortcuts)
             { var shorts = shortcut.Split('+');
                 if (comboBox4.Text == shorts[0])
                     comboBox5.Items.Remove(shorts[1]);
             }
-            foreach (Button _button in button)
-            {
-                if (_button.FlatAppearance.BorderColor == Color.Red)
-                    buttonWithBorderColorRed = _button.Name;
-            }
+
+            var buttonWithBorderColorRed = from _button in button
+                                           where _button.FlatAppearance.BorderColor == Color.Red
+                                           select _button.Name;
+            //foreach (Button _button in button)
+            //{
+            //    if (_button.FlatAppearance.BorderColor == Color.Red)
+            //        buttonWithBorderColorRed = _button.Name;
+            //}
             for (int i = 0; i < 21; i++) 
             {
                 if (keys[i, 1] != null)
                 {
-                    if (keys[i, 0] != buttonWithBorderColorRed)
+                    if (keys[i, 0] != buttonWithBorderColorRed.First())
                     {
                         var _key = keys[i, 1].Split('+');
                         if (comboBox4.Text == _key[0])

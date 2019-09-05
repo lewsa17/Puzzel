@@ -1,4 +1,4 @@
-﻿namespace Puzzel
+﻿namespace Puzzel.LockoutStatus
 {
     partial class Lockout_Status
     {
@@ -332,7 +332,7 @@
             this.odblokujKontoToolStripMenuItem.Name = "odblokujKontoToolStripMenuItem";
             this.odblokujKontoToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.odblokujKontoToolStripMenuItem.Text = "Odblokuj Konto";
-            this.odblokujKontoToolStripMenuItem.Click += new System.EventHandler(this.OdblokujZaznaczoneToolStripMenuItem_Click);
+            this.odblokujKontoToolStripMenuItem.Click += new System.EventHandler(this.OdblokujKonto);
             // 
             // toolStripSeparator3
             // 

@@ -3,48 +3,40 @@ using System.Windows.Forms;
 using System.DirectoryServices;
 using System.DirectoryServices.AccountManagement;
 using System.Threading;
+using System.Linq;
 
-namespace Puzzel
+namespace Puzzel.LockoutStatus
 {
-    public partial class Lockout_Status : Form
+    public partial class Lockout_Status :  Form
     {
-        public Lockout_Status(string username)
+        public static string userName { get; set; }
+        public static string _lastPasswordSet { get; set; }
+
+        public Lockout_Status(string _userName)
         {
             InitializeComponent();
-            Username = username;
+            userName = _userName;
         }
         public static string DomainName() { return System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().DomainName; }
-        public static string[] DomainController()
+        public static string[] DomainControllers()
         {
-            //DirectoryEntry myLdapConnection = new DirectoryEntry("LDAP://OU=Domain Controllers," + domainName());
             DirectorySearcher search = new DirectorySearcher(new DirectoryEntry("LDAP://" + DomainName()));
-            //search.Filter = "(sAMAccountName=" + username + ")";
             SearchResult search1 = search.FindOne();
-            //SearchResultCollection collection = search.FindAll();
-            object[] lines = (object[])search1.GetDirectoryEntry().Properties["msds-isdomainfor"].Value;
             string table = null;
-            foreach (string line in lines)
+            foreach (string line in (object[])search1.GetDirectoryEntry().Properties["msds-isdomainfor"].Value)
             {
                 string[] words = line.Split(',');
                 table += words[1].Replace("CN=", "") + ",";
             }
-
-#pragma warning disable IDE0059 // Wartość przypisana do symbolu nie jest nigdy używana
-            string[] array = null;
-#pragma warning restore IDE0059 // Wartość przypisana do symbolu nie jest nigdy używana
-            array = table.Split(',');
-            Array.Resize(ref array, array.Length - 1);
-
-            return array;
+            return table.Substring(0, table.Length - 1).Split(',');
         }
-        public static string Username;
         public static string domainAddress = null;        
         private void Lockout_Status_Load(object sender, EventArgs e)
         {
             this.Text = "Lockout Status";
-            if (Username.Length > 1)
+            if (userName.Length > 1)
             {
-                this.Text = Username;
+                this.Text = userName;
             }
         }
         private void WybierzUżytkownikaToolStripMenuItem_Click(object sender, EventArgs e)
@@ -53,11 +45,11 @@ namespace Puzzel
             LockoutStatusWyborUzytkownika lswu = new LockoutStatusWyborUzytkownika();
             lswu.ShowDialog();
             DeleteEntryRows();
-            AddEntry(Username);
+            AddEntry(userName);
         }
         public static void AddEntry(string Username)
         {
-            string[] dcNames = DomainController();
+            string[] dcNames = DomainControllers();
             int i = 0;
             foreach (string dcName in dcNames)
             {
@@ -71,11 +63,11 @@ namespace Puzzel
             }
         }
 
-        public static string UserInfo(string usrname)
+        public static string CheckUserInDomain(string userName)
         {
             DirectoryEntry myLdapConnection = new DirectoryEntry("LDAP://" + DomainName());
             DirectorySearcher search = new DirectorySearcher(myLdapConnection);
-            search.Filter = "(sAMAccountName=" + usrname + ")";
+            search.Filter = "(sAMAccountName=" + userName + ")";
             search.PropertiesToLoad.Add("sAMAccountName");
             string text = null;
             if (search.FindOne() != null)
@@ -98,16 +90,15 @@ namespace Puzzel
                 {
                     int RowIndex = dataGridView1.CurrentCell.RowIndex;
                     string dcName = dataGridView1.Rows[RowIndex].Cells[0].Value.ToString();
-                    GetUserPasswordDetails(dcName, Username);
+                    GetUserPasswordDetails(dcName, userName);
                 }
         }
 
         private void Lockout_Status_Activated(object sender, EventArgs e)
         {
-            if (Username.Length > 1)
-                this.Text = Username;
+            if (userName.Length > 1)
+                this.Text = userName;
         }
-        static string _lastPasswordSet = null;
 
         public static UserPrincipal GetUserPasswordDetails(string dcName, string Username)
         {
@@ -169,7 +160,7 @@ namespace Puzzel
         private void OdświerzWszystkoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DeleteEntryRows();
-            AddEntry(Username);
+            AddEntry(userName);
         }
 
         private void StatusHasłaToolStripMenuItem_Click(object sender, EventArgs e)
@@ -180,7 +171,7 @@ namespace Puzzel
             TimeSpan expirePwd = pwdLastSet.AddDays(30) - DateTime.Now;
 
             //pierwsza linijka
-            messagebox += "Maksymalna długość hasła dla " + Username + " wynosi 30 dni.";
+            messagebox += "Maksymalna długość hasła dla " + userName + " wynosi 30 dni.";
             //drugalinijka
             messagebox +=  "\n\n";
             //trzecia linijka
@@ -205,13 +196,13 @@ namespace Puzzel
             MessageBox.Show(messagebox, "Status hasła");
         }
 
-        private void OdblokujZaznaczoneToolStripMenuItem_Click(object sender, EventArgs e)
+        private void OdblokujKonto(object sender, EventArgs e)
         {
             int selectedRowIndex = dataGridView1.SelectedRows[0].Index;
             string dcName = dataGridView1.Rows[selectedRowIndex].Cells[0].Value.ToString();
             using (PrincipalContext context = new PrincipalContext(ContextType.Domain, dcName))
             {
-                UserPrincipal uP = UserPrincipal.FindByIdentity(context, IdentityType.SamAccountName, Username);
+                UserPrincipal uP = UserPrincipal.FindByIdentity(context, IdentityType.SamAccountName, userName);
                 uP.UnlockAccount();
                 uP.Save();
             }
@@ -219,28 +210,6 @@ namespace Puzzel
             MessageBox.Show("Konto zostało odblokowane");
         }
 
-        public static void Ustawhaslo(string password, bool UnlockAccount, bool PasswordExpired)
-        {
-            if (password != null)
-                foreach (string dcName in DomainController())
-                {
-                    Thread thread = new Thread(() =>
-                    {
-                        using (PrincipalContext context = new PrincipalContext(ContextType.Domain, dcName))
-                        {
-                            UserPrincipal uP = UserPrincipal.FindByIdentity(context, IdentityType.SamAccountName, Username);
-                            uP.SetPassword(password);
-                            if (UnlockAccount)
-                                uP.UnlockAccount();
-                            if (PasswordExpired)
-                                uP.ExpirePasswordNow();
-                            uP.Save();
-                        }
-                    }); thread.Start();
-                    thread.Priority = ThreadPriority.Highest;
-                    thread.Join();
-                }
-            MessageBox.Show("Hasło zostało zmienione");
-        }
+        
     }
 }
