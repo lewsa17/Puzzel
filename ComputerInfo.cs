@@ -858,13 +858,13 @@ namespace Puzzel
             }
             catch (UnauthorizedAccessException ex)
             {
-                Form1.Loger(ex, nazwaKomputera + "," + path + "," + query);
+                LogsCollector.Loger(ex, nazwaKomputera + "," + path + "," + query);
                 MessageBox.Show("Dostęp zabroniony na obecnych poświadczeniach", "WMI Testing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); return;
             }
 
             catch (Exception ex)
             {
-                Form1.Loger(ex, nazwaKomputera + "," + path + "," + query);
+                LogsCollector.Loger(ex, nazwaKomputera + "," + path + "," + query);
                 MessageBox.Show("Nie można się połączyć z powodu błędu: " + ex.Message, "WMI Testing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); return;
             }
         }
@@ -962,7 +962,7 @@ namespace Puzzel
             }
             catch (Exception ex)
             {
-                Form1.Loger(ex, "szybka metoda");
+                LogsCollector.Loger(ex, "szybka metoda");
             }
 
         }
@@ -971,30 +971,30 @@ namespace Puzzel
         {
             try
             {
-                var ps = PowerShell.Create();
+                //var ps = PowerShell.Create();
 
-                ps.AddScript("Invoke-Command -ComputerName " + nazwaKomputera + @" -Command {Get-ItemProperty -Path HKLM:\HARDWARE\DESCRIPTION\System\BIOS\ | Select-Object SystemManufacturer, BIOSVersion, BIOSReleaseDate}");
-                string[] objItem  = ps.Invoke()[0].ToString().Split(';');
+                //ps.AddScript("Invoke-Command -ComputerName " + nazwaKomputera + @" -Command {Get-ItemProperty -Path HKLM:\HARDWARE\DESCRIPTION\System\BIOS\ | Select-Object SystemManufacturer, BIOSVersion, BIOSReleaseDate}");
+                //string[] objItem  = ps.Invoke()[0].ToString().Split(';');
 
-                objItem[0] = objItem[0].Replace("@{SystemManufacturer=", " ");
-                objItem[1] = objItem[1].Replace("BIOSVersion=", "");
-                objItem[2] = objItem[2].Replace("BIOSReleaseDate=", "");
+                //objItem[0] = objItem[0].Replace("@{SystemManufacturer=", " ");
+                //objItem[1] = objItem[1].Replace("BIOSVersion=", "");
+                //objItem[2] = objItem[2].Replace("BIOSReleaseDate=", "");
 
-                Form1.ComputerInfo_TEMP += "Producent                Wersja Bios     " + "Data wydania\n";
-                Puzzel.Form1.ComputerInfo_TEMP += objItem[0];
-                int a = "Producent".Length + 16 - objItem[0].Length;
-                for (int i = 0; i < a; i++)
-                {
-                    Form1.ComputerInfo_TEMP += (" ");
-                }
+                //Form1.ComputerInfo_TEMP += "Producent                Wersja Bios     " + "Data wydania\n";
+                //Puzzel.Form1.ComputerInfo_TEMP += objItem[0];
+                //int a = "Producent".Length + 16 - objItem[0].Length;
+                //for (int i = 0; i < a; i++)
+                //{
+                //    Form1.ComputerInfo_TEMP += (" ");
+                //}
 
-                Puzzel.Form1.ComputerInfo_TEMP += objItem[1];
-                a = "Wersja SMBios".Length + 3 - objItem[1].Length;
-                for (int i = 0; i < a; i++)
-                {
-                    Form1.ComputerInfo_TEMP += (" ");
-                }
-                    Form1.ComputerInfo_TEMP += objItem[2];
+                //Puzzel.Form1.ComputerInfo_TEMP += objItem[1];
+                //a = "Wersja SMBios".Length + 3 - objItem[1].Length;
+                //for (int i = 0; i < a; i++)
+                //{
+                //    Form1.ComputerInfo_TEMP += (" ");
+                //}
+                //    Form1.ComputerInfo_TEMP += objItem[2];
 
                 if (Puzzel.Form1.ComputerInfo_TEMP == null)
                 {
@@ -1006,7 +1006,7 @@ namespace Puzzel
             }
             catch (Exception ex)
             {
-                Form1.Loger(ex, nazwaKomputera + ",'" + path + "," + query);
+                LogsCollector.Loger(ex, nazwaKomputera + ",'" + path + "," + query);
             }
         }
     }

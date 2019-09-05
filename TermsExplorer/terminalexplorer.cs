@@ -31,68 +31,86 @@ namespace Puzzel
 		string[] termservers = Working[6].Remove(7).Splt(',');
         public object[] FindSession(string serverName, string SearchedLogin)
         {
+            int _retry = 0;
             object[] sessioninfo = null;
             try
             {
-                using (ITerminalServer server = manager.GetRemoteServer(serverName))
+            retry:
+                if (_retry < 5)
                 {
-                    server.Open();
-                    foreach (ITerminalServicesSession session in server.GetSessions())
+                    if (Ping.TCPPing(serverName, 135) == Ping.TCPPingStatus.Success)
                     {
-                        if (session.UserName == SearchedLogin)
+                        using (ITerminalServer server = manager.GetRemoteServer(serverName))
                         {
-                            Array.Resize(ref sessioninfo, 7);
-                            sessioninfo[0] = session.Server.ServerName;
-                            sessioninfo[1] = session.UserName;
-                            sessioninfo[2] = session.WindowStationName;
-                            sessioninfo[3] = session.SessionId;
-                            sessioninfo[4] = session.ConnectionState;
-                            sessioninfo[5] = session.IdleTime;
-                            sessioninfo[6] = session.LoginTime; 
+                            server.Open();
+                            foreach (ITerminalServicesSession session in server.GetSessions())
+                            {
+                                if (session.UserName == SearchedLogin)
+                                {
+                                    Array.Resize(ref sessioninfo, 7);
+                                    sessioninfo[0] = session.SessionId;
+                                    sessioninfo[1] = session.Server.ServerName;
+                                    sessioninfo[2] = session.UserName;
+                                    sessioninfo[3] = session.WindowStationName;
+                                    sessioninfo[4] = session.ConnectionState;
+                                    sessioninfo[5] = session.IdleTime;
+                                    sessioninfo[6] = session.LoginTime;
+                                }
+                            }
+                            server.Close();
                         }
                     }
-                    server.Close();
+                    else { _retry++; goto retry; }
                 }
+                else MessageBox.Show(new Form() { TopMost = true, StartPosition = FormStartPosition.CenterParent },"Po kilku próbach nie udało się nawiązać połączenia","Nawiązywanie połączenia z serwerem "+serverName,MessageBoxButtons.OK,MessageBoxIcon.Exclamation);  
             }
+            catch (Win32Exception)
+            { }
             catch (Exception e)
             {
-                //Form1.UpdateRichTextBox("--------------------------------"+Environment.NewLine);
-                //Form1.UpdateRichTextBox("Wystąpił problem podczas nawiązywania połączenia z: " + serverName + Environment.NewLine);
-                //Form1.UpdateRichTextBox("--------------------------------" + Environment.NewLine);
-                //Form1.UpdateRichTextBox("Wystąpił błąd");
-                Form1.Loger(e,serverName);
+                LogsCollector.Loger(e, serverName);
             }
             return sessioninfo;
         }
 
-        public void szukanieSesji(string hostname)
+        public void szukanieSesji(string serverName)
         {
-            _hostname = hostname;
+            int _retry = 0;
+            _hostname = serverName;
             try
             {
                 if (dataGridView1 != null)
                     dataGridView1.Rows.Clear();
-                using (ITerminalServer server = manager.GetRemoteServer(hostname))
+                retry:
+                if (_retry < 5)
                 {
-                    server.Open();
-                    IList<ITerminalServicesSession> sessions;
-                    sessions = server.GetSessions();
-                    foreach (ITerminalServicesSession session in sessions)
+                    if (Ping.TCPPing(serverName, 135) == Ping.TCPPingStatus.Success)
                     {
-                        if (session.UserAccount != null)
-                            dataGridView1.BeginInvoke(new Action(() =>
-                            dataGridView1.Rows.Add(
-                            session.Server.ServerName,
-                            session.UserName,
-                            session.WindowStationName,
-                            session.SessionId,
-                            session.ConnectionState,
-                            session.IdleTime,
-                            session.LoginTime)));
+                        using (ITerminalServer server = manager.GetRemoteServer(serverName))
+                        {
+                            server.Open();
+                            IList<ITerminalServicesSession> sessions;
+                            sessions = server.GetSessions();
+                            foreach (ITerminalServicesSession session in sessions)
+                            {
+                                if (session.UserAccount != null)
+                                    dataGridView1.BeginInvoke(new Action(() =>
+                                    dataGridView1.Rows.Add(
+                                    session.Server.ServerName,
+                                    session.UserName,
+                                    session.WindowStationName,
+                                    session.SessionId,
+                                    session.ConnectionState,
+                                    session.IdleTime,
+                                    session.LoginTime)));
+                            }
+                            server.Close();
+                            sessionCount.BeginInvoke(new Action(() => sessionCount.Text = "Aktywne sesje: " + dataGridView1.Rows.Count));
+                        }
                     }
-                    server.Close();
-                    sessionCount.BeginInvoke(new Action(() => sessionCount.Text = "Aktywne sesje: " + dataGridView1.Rows.Count));
+                    else { _retry++; goto retry; }
                 }
+                else MessageBox.Show(new Form() { TopMost = true, StartPosition = FormStartPosition.CenterParent }, "Po kilku próbach nie udało się nawiązać połączenia", "Nawiązywanie połączenia z serwerem " + serverName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             catch (Win32Exception)
             {
@@ -382,7 +400,7 @@ namespace Puzzel
             }
             catch(Exception ex)
             {
-                Form1.Loger(ex, _hostname);
+                LogsCollector.Loger(ex, _hostname);
             }
         }
 

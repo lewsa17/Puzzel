@@ -104,11 +104,12 @@
       <DependentUpon>ZmianaHasla.cs</DependentUpon>
     </Compile>
     <Compile Include="Logi.cs" />
-    <Compile Include="terminalexplorerCustomSearch.cs">
+    <Compile Include="LogsCollector.cs" />
+    <Compile Include="TermsExplorer\CustomSearch.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="terminalexplorerCustomSearch.Designer.cs">
-      <DependentUpon>terminalexplorerCustomSearch.cs</DependentUpon>
+    <Compile Include="TermsExplorer\CustomSearch.Designer.cs">
+      <DependentUpon>CustomSearch.cs</DependentUpon>
     </Compile>
     <Compile Include="LoadingForm.cs" />
     <Compile Include="WyszukiwarkaDlaFormy.cs">
@@ -132,10 +133,10 @@
     <None Include="Progress.Designer.cs">
       <DependentUpon>Progress.cs</DependentUpon>
     </None>
-    <Compile Include="RemotePing_Tracert.cs">
+    <Compile Include="Ping_\RemotePing_Tracert.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RemotePing_Tracert.Designer.cs">
+    <Compile Include="Ping_\RemotePing_Tracert.Designer.cs">
       <DependentUpon>RemotePing_Tracert.cs</DependentUpon>
     </Compile>
     <Compile Include="LockoutStatus\WyborUzytkownika.cs">
@@ -152,23 +153,20 @@
     </Compile>
     <None Include="DropDownMenu.cs" />
     <Compile Include="ProcExec.cs" />
-    <Compile Include="ProgramsList.cs" />
     <Compile Include="ComputerInfo.cs" />
-    <Compile Include="Ping.cs" />
-    <Compile Include="terminalexplorer.cs">
+    <Compile Include="Ping_\Ping.cs" />
+    <Compile Include="TermsExplorer\TerminalExplorer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="terminalexplorer.Designer.cs">
-      <DependentUpon>terminalexplorer.cs</DependentUpon>
+    <Compile Include="TermsExplorer\TerminalExplorer.Designer.cs">
+      <DependentUpon>TerminalExplorer.cs</DependentUpon>
     </Compile>
-    <Compile Include="terminalExplorerSendMessage.cs">
+    <Compile Include="TermsExplorer\SendMessage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="terminalExplorerSendMessage.Designer.cs">
-      <DependentUpon>terminalExplorerSendMessage.cs</DependentUpon>
+    <Compile Include="TermsExplorer\SendMessage.Designer.cs">
+      <DependentUpon>SendMessage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Session.cs" />
-    <Compile Include="ShowFolder.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -180,13 +178,13 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="terminalexplorerCustomSearch.resx">
-      <DependentUpon>terminalexplorerCustomSearch.cs</DependentUpon>
+    <EmbeddedResource Include="TermsExplorer\CustomSearch.resx">
+      <DependentUpon>CustomSearch.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Progress.resx">
       <DependentUpon>Progress.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RemotePing_Tracert.resx">
+    <EmbeddedResource Include="Ping_\RemotePing_Tracert.resx">
       <DependentUpon>RemotePing_Tracert.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LockoutStatus\WyborUzytkownika.resx">
@@ -205,11 +203,11 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="terminalexplorer.resx">
-      <DependentUpon>terminalexplorer.cs</DependentUpon>
+    <EmbeddedResource Include="TermsExplorer\TerminalExplorer.resx">
+      <DependentUpon>TerminalExplorer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="terminalExplorerSendMessage.resx">
-      <DependentUpon>terminalExplorerSendMessage.cs</DependentUpon>
+    <EmbeddedResource Include="TermsExplorer\SendMessage.resx">
+      <DependentUpon>SendMessage.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">

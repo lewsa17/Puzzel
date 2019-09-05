@@ -25,7 +25,7 @@ namespace Puzzel
             }
             catch (Exception e)
             {
-                Form1.Loger(e, HostName);
+                LogsCollector.Loger(e, HostName);
             }
             return iPStatus;
         }
@@ -36,6 +36,7 @@ namespace Puzzel
             Success,
             HostUnknown
         }
+        
         public static TCPPingStatus TCPPing(string HostName, int Port)
         {
             TCPPingStatus status = TCPPingStatus.Success;

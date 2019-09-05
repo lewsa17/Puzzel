@@ -75,7 +75,7 @@ namespace Puzzel
             }
             catch (Exception ex)
             {
-                Form1.Loger(ex, pole + ',' + rodzaj + ',' + licznik);
+                LogsCollector.Loger(ex, pole + ',' + rodzaj + ',' + licznik);
             }
             return sb.ToString();
         }
@@ -120,7 +120,7 @@ namespace Puzzel
             //}
             catch (Exception e)
             {
-                Form1.Loger(e, username);
+                LogsCollector.Loger(e, username);
             }
             search.Dispose();
             return text;

@@ -6,8 +6,7 @@ namespace Puzzel
 {
     public partial class LAPSui : Form
     {
-        //string admPwd = null;
-		public static string HostName = null;
+        public static string HostName = null;
         public LAPSui()
         {
             InitializeComponent();
@@ -15,7 +14,7 @@ namespace Puzzel
         }
         public static string PwdLcl(string computername)
         {
-			string admpwd = null;
+            string admPwd = null;
             try
             {
             	DirectoryEntry myLdapConnection = new DirectoryEntry("LDAP://" + System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().DomainName);
@@ -28,14 +27,14 @@ namespace Puzzel
 			}
             catch (Exception e)
             {
-                Form1.Loger(e, computername);
+                LogsCollector.Loger(e, computername);
             }
             return admPwd;
         }
         public void loadPassword(string hostname)
         {
             textBox1.Text = hostname;
-            textBox2.Text = PwdLcl(hostname); //admPwd[0].ToString();
+            textBox2.Text = PwdLcl(hostname);
         }
 
         private void button2_Click(object sender, EventArgs e)

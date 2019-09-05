@@ -154,7 +154,7 @@ namespace Puzzel
             }
             catch (Exception e)
             {
-                Form1.Loger(e, dcName + "," + Username);
+                LogsCollector.Loger(e, dcName + "," + Username);
             }
             return uP;
         }
