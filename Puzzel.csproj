@@ -62,7 +62,7 @@
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>logon_2.ico</ApplicationIcon>
+    <ApplicationIcon>Properties\ICO\Puzzel.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -188,10 +188,10 @@
     <None Include="Progress.Designer.cs">
       <DependentUpon>Progress.cs</DependentUpon>
     </None>
-    <Compile Include="Ping_\RemotePing_Tracert.cs">
+    <Compile Include="Ping\RemotePing_Tracert.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Ping_\RemotePing_Tracert.Designer.cs">
+    <Compile Include="Ping\RemotePing_Tracert.Designer.cs">
       <DependentUpon>RemotePing_Tracert.cs</DependentUpon>
     </Compile>
     <Compile Include="LockoutStatus\WyborUzytkownika.cs">
@@ -206,10 +206,9 @@
     <Compile Include="LockoutStatus\Lockout Status.Designer.cs">
       <DependentUpon>Lockout Status.cs</DependentUpon>
     </Compile>
-    <None Include="DropDownMenu.cs" />
     <Compile Include="ProcExec.cs" />
     <Compile Include="ComputerInfo.cs" />
-    <Compile Include="Ping_\Ping.cs" />
+    <Compile Include="Ping\Ping.cs" />
     <Compile Include="TermsExplorer\TerminalExplorer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -239,7 +238,7 @@
     <EmbeddedResource Include="Progress.resx">
       <DependentUpon>Progress.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Ping_\RemotePing_Tracert.resx">
+    <EmbeddedResource Include="Ping\RemotePing_Tracert.resx">
       <DependentUpon>RemotePing_Tracert.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LockoutStatus\WyborUzytkownika.resx">
@@ -286,46 +285,14 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="terminalexplorer.png" />
-    <None Include="ping.png" />
-    <None Include="zdalneCMD.png" />
-    <None Include="Resources\2109.png" />
-    <None Include="userlog.png" />
-    <None Include="Resources\67.ico" />
-    <None Include="msinfo\ICON\12.png" />
-    <None Include="migui\ICON\25.png" />
-    <None Include="migui\ICON\25.ico" />
-    <None Include="mstscax\4.png" />
-    <None Include="Resources\5_1.ico" />
-    <None Include="Resources\9_1.png" />
-    <None Include="2.png" />
+    <None Include="Properties\PNG\reload.png" />
+    <None Include="Properties\PNG\rubish.gif" />
+    <None Include="Properties\ICO\Puzzel.ico" />
+    <None Include="Properties\PNG\Logoff.png" />
+    <None Include="Properties\PNG\komputerinfo.png" />
+    <None Include="Properties\PNG\folder.png" />
     <Content Include="Cassia\Cassia.csproj" />
     <Content Include="Cassia\obj\Debug\Cassia.csproj.FileListAbsolute.txt" />
-    <None Include="mstscax\3.png" />
-    <None Include="mstscax\4_1.png" />
-    <None Include="mstscax\5_1.png" />
-    <None Include="Imageres\15.png" />
-    <None Include="Imageres\47.png" />
-    <None Include="Imageres\77.png" />
-    <None Include="Imageres\1924.png" />
-    <None Include="Imageres\2476.png" />
-    <None Include="Imageres\14.png" />
-    <None Include="cmp\5_1.png" />
-    <None Include="cmp\5_11.png" />
-    <None Include="cmp\5_112.png" />
-    <None Include="cmp\5_1122.png" />
-    <None Include="dsuiext\30_1.png" />
-    <None Include="Imageres\2091_1.png" />
-    <None Include="Imageres\lockout.png" />
-    <None Include="dsadmin\101_1.png" />
-    <None Include="eventvwr\ICON\12.png" />
-    <None Include="localsec\ICON\92.png" />
-    <None Include="Complog.png" />
-    <None Include="Ikon\appwiz\ICON\14.ico" />
-    <None Include="Ikon\appwiz\ICON\17.png" />
-    <None Include="Ikon\ncpa\ICON\4.png" />
-    <None Include="Imageres\1300.png" />
-    <Content Include="logon_2.ico" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Cassia\obj\Debug\TempPE\" />

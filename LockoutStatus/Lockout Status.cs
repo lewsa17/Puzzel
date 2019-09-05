@@ -119,6 +119,7 @@ namespace Puzzel
             UserPrincipal uP = null;
             try
             {
+                if (dataGridView1.Columns.Count > 0)
                 using (PrincipalContext context = new PrincipalContext(ContextType.Domain, dcName))
                 {
                     uP = UserPrincipal.FindByIdentity(context, IdentityType.SamAccountName, Username);

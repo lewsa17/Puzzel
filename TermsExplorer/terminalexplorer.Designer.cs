@@ -364,7 +364,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(637, 646);
             this.Controls.Add(this.tabControl1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = global::Puzzel.Properties.Resources.Puzzel;
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(653, 685);
             this.MinimizeBox = false;

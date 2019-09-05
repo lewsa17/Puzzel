@@ -89,7 +89,7 @@
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = global::Puzzel.Properties.Resources.Puzzel;
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(341, 131);
             this.MinimizeBox = false;

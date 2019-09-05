@@ -89,7 +89,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button1);
             this.Controls.Add(richTextBox1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = global::Puzzel.Properties.Resources.Puzzel;
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(376, 300);
             this.MinimizeBox = false;

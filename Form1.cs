@@ -10,8 +10,6 @@ using System.DirectoryServices;
 using System.DirectoryServices.AccountManagement;
 using System.Management;
 using System.Threading;
-using System.Management.Automation;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace Puzzel
@@ -65,7 +63,7 @@ namespace Puzzel
         //}
         public static Thread progressBar;// = new System.Threading.Thread(InvokeProgress);
         public DirectorySearcher dirsearch = null;
-        public static string domainName() { return System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().DomainName; }
+        public static string DomainName() { return System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().DomainName; }
         public static int ProgressMax = 0;
         public static int ProgressBarValue = 0;
         //public static string[] UserLogs;
@@ -184,9 +182,8 @@ namespace Puzzel
             if (((Button)sender).Name == "button5")
                 folder = ProcExec.ext;
 
-            ProcExec Exec = new ProcExec();
             if (Directory.Exists(folder))
-                Exec.ProcExecIF(ProcExec.explorer, folder + UserName());
+                new ProcExec(ProcExec.explorer, folder + UserName());
             else ReplaceRichTextBox("Katalog jest niedostępny");
             StopTime();
         }
@@ -205,44 +202,21 @@ namespace Puzzel
             else ReplaceRichTextBox("Nie podano nazwy hosta");
             StopTime();
         }
-        static int lastWidth = 0;
-        static int lastHeight = 0;
         private void Form1_Resize(object sender, EventArgs e)
         {
-            if (WindowState != FormWindowState.Minimized)
-                try
-                {
-                    //label5.Text = "groupBox1 " + groupBox1.Width;
-                    //label6.Text = "groupBox3 " + groupBox3.Width;
-                    //label7.Text = "groupBox4 " + groupBox4.Width;
-                    //label8.Text = "richTextBox1 " + richTextBox1.Width + "x" + richTextBox1.Height;
-                    //label9.Text = "Form1 " + this.Width + "x" + this.Height;
-                    int height = this.Height;
-                    int width = this.Width;
-                    if (lastHeight != 0)
-                    {
-                        groupBox1.Width += width - lastWidth;//(width - groupBox1.Width) - (lastWidth - groupBox1.Width);
-                        groupBox3.Width += width - lastWidth;//(width - groupBox3.Width) - (lastWidth - groupBox3.Width);
-                        groupBox4.Width += width - lastWidth;//(width - groupBox4.Width) - (lastWidth - groupBox4.Width);
-                        richTextBox1.Width += width - lastWidth;//(width - richTextBox1.Width) - (lastWidth - richTextBox1.Width);
-                        richTextBox1.Height += height - lastHeight;//(height - richTextBox1.Height) - (lastHeight - richTextBox1.Height);
-                        //label5.Refresh();
-                        //label6.Refresh();
-                        //label7.Refresh();
-                        //label8.Refresh();
-                        //label9.Refresh();
-                        //groupBox1.Refresh();
-                        //groupBox3.Refresh();
-                        //groupBox4.Refresh();
-                        //richTextBox1.Refresh();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    LogsCollector.Loger(ex, WindowState.ToString());
-                }
-            lastWidth = this.Width;
-            lastHeight = this.Height;
+            try
+            {
+                richTextBox1.MaximumSize = new System.Drawing.Size(Width - 19, Height - 302);
+                richTextBox1.MinimumSize = new System.Drawing.Size(Width - 19, Height - 302);
+                richTextBox1.ClientSize = new System.Drawing.Size(Width - 19, Height - 302);
+                groupBox1.Width = Width - 19;
+                groupBox3.Width = Width - 19;
+                groupBox4.Width = Width - 19;
+            }
+            catch (Exception ex)
+            {
+                LogsCollector.Loger(ex, WindowState.ToString());
+            }
         }
 
         public void Button8_Click(object sender, EventArgs e)
@@ -725,18 +699,21 @@ namespace Puzzel
             }
             else InternetAccessEnabled = "Błąd, brak obiektu";
             
-            if ((long)rs.Properties["lastLogoff"][0] != 0)
+            if (rs.Properties.Contains("lastLogoff"))
+                if (rs.Properties["lastlogoff"][0].ToString() != "0")
             {
                 long temp = (long)rs.GetDirectoryEntry().Properties["lastLogoff"].Value;
                 lastLogoff = DateTime.FromFileTime(temp);
             }
 
-            if ((long)rs.Properties["lastLogon"][0] != 0)
+            if (rs.Properties.Contains("lastlogon"))
+            if (rs.Properties["lastLogon"][0].ToString() != "0")
             {
                 long temp = (long)rs.Properties["lastLogon"][0];
                 lastLogon = DateTime.FromFileTime(temp);
             }
 
+            if (rs.Properties.Contains("accountExpires"))
             if (rs.GetDirectoryEntry().Properties["accountExpires"] != null)
             {
                 long temp = (long)rs.Properties["accountExpires"][0];
@@ -1123,7 +1100,13 @@ namespace Puzzel
             else { comboBox1.Items.Add(message); }
         }       
         private void Button20_Click(object sender, EventArgs e)
-        {/*
+        {
+            MessageBox.Show(ClientSize.ToString()+"\n"
+                + richTextBox1.ClientSize.ToString()+"\n"
+                + Size.ToString()+"\n"
+                + richTextBox1.Size.ToString());
+            
+            /*
             // domainController = null;
             //getDomainControllers();
             DomainController();
@@ -1465,7 +1448,7 @@ namespace Puzzel
             StartTime();
             ProcExec Exec = new ProcExec();
             if (File.Exists(Directory.GetCurrentDirectory() + @"\dhcp.msc"))
-                Exec.ProcExecIF("dhcp.msc", @"/64");
+                Exec.ProcExecIF("mmc.exe", "dhcp.msc");
             else
                 UpdateRichTextBox("Brak pliku" + Directory.GetCurrentDirectory() + @"\dhcp.msc");
             StopTime();
@@ -1646,7 +1629,6 @@ namespace Puzzel
             {
                 if (e.KeyCode == Keys.Enter)
                 {
-
                     SzukajLogow(sender, e);
                 }
             }
@@ -1673,7 +1655,7 @@ namespace Puzzel
                 CloseClipboard();
                 if (e.KeyCode == Keys.Enter)
                 {
-                    if (sender is TextBox || (sender is ComboBox && ((ComboBox)sender).Name != "comboBox1"))
+                    if (sender is TextBox /*|| (sender is ComboBox && ((ComboBox)sender).Name != "comboBox1")*/)
                     {
                         SzukajLogow(sender, e);
                     }
@@ -2000,29 +1982,6 @@ namespace Puzzel
             }
             else MessageBox.Show(new Form() { TopMost = true }, "Nie podano nazwy komputera");
         }
-        //public static void LogsCollector.Loger(Exception e, string InputedValue)
-        //{
-        //    string path = Directory.GetCurrentDirectory() + @"\" + Application.ProductName + ".log";
-        //    FileStream fileStream = new FileStream(path, FileMode.Append, FileAccess.Write, FileShare.Write);
-        //    StreamWriter log = new StreamWriter(fileStream);
-        //    UpdateRichTextBox("-----------------------------------" + Environment.NewLine);
-        //    UpdateRichTextBox(DateTime.Now.ToString() + Environment.NewLine);
-        //    UpdateRichTextBox("Wystąpił błąd" + Environment.NewLine);
-        //    UpdateRichTextBox("-----------------------------------" + Environment.NewLine);
-        //    UpdateRichTextBox(Environment.NewLine);
-        //    log.WriteLine("-----------------------------------");
-        //    log.WriteLine(DateTime.Now);
-        //    log.WriteLine("-----------------------------------");
-        //    log.WriteLine("Używana wartość w funkcji " + InputedValue);
-        //    log.WriteLine(e.Message);
-        //    log.WriteLine(e.HResult);
-        //    log.WriteLine(e.InnerException);
-        //    log.WriteLine(e.StackTrace);
-        //    log.WriteLine(e.Source);
-        //    log.WriteLine(e.GetType());
-        //    log.WriteLine("");
-        //    log.Close();
-        //}
         private void Zmianahasla(object sender, EventArgs e)
         {
             if (UserName().Length > 0)

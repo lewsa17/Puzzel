@@ -38,10 +38,17 @@
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.button9 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.button7 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -56,13 +63,23 @@
             this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.button23 = new System.Windows.Forms.Button();
             this.button22 = new System.Windows.Forms.Button();
+            this.button21 = new System.Windows.Forms.Button();
             this.CommandContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cMDSYSTEMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.CMDMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.PowershellMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.button18 = new System.Windows.Forms.Button();
+            this.button16 = new System.Windows.Forms.Button();
+            this.button17 = new System.Windows.Forms.Button();
+            this.Button14 = new System.Windows.Forms.Button();
             this.RemoteDesktopContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.rDPBezPustyContextMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.button15 = new System.Windows.Forms.Button();
             this.DWContext = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.EADWMenuContext = new System.Windows.Forms.ToolStripMenuItem();
             this.DyDWContextMenu = new System.Windows.Forms.ToolStripMenuItem();
+			this.button12 = new System.Windows.Forms.Button();
+            this.button13 = new System.Windows.Forms.Button();
             this.Komputer_info = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.uptimeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nrSeryjnyINrPartiiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -80,10 +97,12 @@
             this.zasobySiecioweToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ekranyPodłączoneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bIOSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.button11 = new System.Windows.Forms.Button();
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.button10 = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.button20 = new System.Windows.Forms.Button();
             this.button19 = new System.Windows.Forms.Button();
@@ -98,6 +117,10 @@
             this.plikToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.narzędziaAdministracyjneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dHCPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dziennikZdarzeńToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.harmonogramZadańToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.usługiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.użytkownicyIGrupyLokalneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.terminalExplorerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tCToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -129,33 +152,10 @@
             this.ręcznaNazwaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.PwdLclToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.AutoGettingLogs = new System.Windows.Forms.Timer(this.components);
-            this.button21 = new System.Windows.Forms.Button();
-            this.button18 = new System.Windows.Forms.Button();
-            this.button16 = new System.Windows.Forms.Button();
-            this.button17 = new System.Windows.Forms.Button();
-            this.Button14 = new System.Windows.Forms.Button();
-            this.button15 = new System.Windows.Forms.Button();
-            this.button12 = new System.Windows.Forms.Button();
-            this.button13 = new System.Windows.Forms.Button();
-            this.button11 = new System.Windows.Forms.Button();
-            this.button10 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.dziennikZdarzeńToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.harmonogramZadańToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.usługiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.użytkownicyIGrupyLokalneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lockoutStatusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zmianaHasłaDomenowegoToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.cMDSYSTEMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.PowershellMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.AutoGettingLogs = new System.Windows.Forms.Timer(this.components);
             this.groupBox1.SuspendLayout();
             this.ContextMenuText.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -203,6 +203,7 @@
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(121, 21);
             this.comboBox2.TabIndex = 1;
+            this.comboBox2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Keys_KeyDown);
             this.comboBox2.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Keys_PreviewKeyDown);
             // 
             // ContextMenuText
@@ -248,6 +249,34 @@
             this.toolStripMenuItem4.Text = "Zaznacz wszystko";
             this.toolStripMenuItem4.Click += new System.EventHandler(this.ZaznaczWszystkoMenuItem3_Click);
             // 
+            // button5
+            // 
+            this.button5.Image = global::Puzzel.Properties.Resources.folder;
+            this.button5.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button5.Location = new System.Drawing.Point(393, 41);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(80, 30);
+            this.button5.TabIndex = 0;
+            this.button5.TabStop = false;
+            this.button5.Text = "Profil EXT";
+            this.button5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.Profilsieciowy);
+            // 
+            // button6
+            // 
+            this.button6.Image = global::Puzzel.Properties.Resources.folder;
+            this.button6.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button6.Location = new System.Drawing.Point(393, 11);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(80, 30);
+            this.button6.TabIndex = 1;
+            this.button6.TabStop = false;
+            this.button6.Text = "Profil TS";
+            this.button6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.Profilsieciowy);
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.button9);
@@ -263,12 +292,15 @@
             // 
             // button9
             // 
-            this.button9.Location = new System.Drawing.Point(353, 19);
+            this.button9.Image = global::Puzzel.Properties.Resources.Logoff;
+            this.button9.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.button9.Location = new System.Drawing.Point(342, 14);
             this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(75, 23);
+            this.button9.Size = new System.Drawing.Size(75, 35);
             this.button9.TabIndex = 0;
             this.button9.TabStop = false;
             this.button9.Text = "LogOff";
+            this.button9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button9.UseVisualStyleBackColor = true;
             this.button9.Click += new System.EventHandler(this.Button9_Click);
             // 
@@ -292,6 +324,76 @@
             this.comboBox1.Size = new System.Drawing.Size(121, 21);
             this.comboBox1.TabIndex = 3;
             this.comboBox1.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Keys_PreviewKeyDown);
+            // 
+            // button7
+            // 
+            this.button7.Image = global::Puzzel.Properties.Resources.session;
+            this.button7.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button7.Location = new System.Drawing.Point(6, 14);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(101, 36);
+            this.button7.TabIndex = 3;
+            this.button7.TabStop = false;
+            this.button7.Text = "Szukaj sesji";
+            this.button7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.SzukanieSesji);
+            // 
+            // button3
+            // 
+            this.button3.Image = global::Puzzel.Properties.Resources.folder;
+            this.button3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button3.Location = new System.Drawing.Point(316, 41);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(77, 30);
+            this.button3.TabIndex = 3;
+            this.button3.TabStop = false;
+            this.button3.Text = "Profil ERI";
+            this.button3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.Profilsieciowy);
+            // 
+            // button4
+            // 
+            this.button4.Image = global::Puzzel.Properties.Resources.folder;
+            this.button4.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button4.Location = new System.Drawing.Point(316, 11);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(77, 30);
+            this.button4.TabIndex = 4;
+            this.button4.TabStop = false;
+            this.button4.Text = "Profil VFS";
+            this.button4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.Profilsieciowy);
+            // 
+            // button2
+            // 
+            this.button2.Image = global::Puzzel.Properties.Resources.infozad;
+            this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button2.Location = new System.Drawing.Point(209, 41);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(107, 30);
+            this.button2.TabIndex = 5;
+            this.button2.TabStop = false;
+            this.button2.Text = "Info z AD";
+            this.button2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.Button2_Click);
+            // 
+            // button1
+            // 
+            this.button1.Image = global::Puzzel.Properties.Resources.userlog;
+            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button1.Location = new System.Drawing.Point(209, 11);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(107, 30);
+            this.button1.TabIndex = 6;
+            this.button1.TabStop = false;
+            this.button1.Text = "User log";
+            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.SzukajLogow);
             // 
             // numericUpDown1
             // 
@@ -418,7 +520,7 @@
             this.groupBox3.Location = new System.Drawing.Point(1, 101);
             this.groupBox3.MinimumSize = new System.Drawing.Size(1182, 61);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(1182, 82);
+            this.groupBox3.Size = new System.Drawing.Size(1182, 75);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Informacje o komputerze:";
@@ -431,11 +533,12 @@
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(121, 21);
             this.comboBox3.TabIndex = 1;
+            this.comboBox3.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Keys_KeyDown);
             this.comboBox3.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Keys_PreviewKeyDown);
             // 
             // button23
             // 
-            this.button23.Location = new System.Drawing.Point(751, 42);
+            this.button23.Location = new System.Drawing.Point(736, 40);
             this.button23.Name = "button23";
             this.button23.Size = new System.Drawing.Size(107, 30);
             this.button23.TabIndex = 0;
@@ -446,7 +549,7 @@
             // 
             // button22
             // 
-            this.button22.Location = new System.Drawing.Point(751, 10);
+            this.button22.Location = new System.Drawing.Point(736, 10);
             this.button22.Name = "button22";
             this.button22.Size = new System.Drawing.Size(107, 30);
             this.button22.TabIndex = 1;
@@ -454,6 +557,21 @@
             this.button22.Text = "Remote PING";
             this.button22.UseVisualStyleBackColor = true;
             this.button22.Click += new System.EventHandler(this.Button22_Click);
+            // 
+            // button21
+            // 
+            this.button21.ContextMenuStrip = this.CommandContextMenu;
+            this.button21.Image = global::Puzzel.Properties.Resources.zdalneCMD;
+            this.button21.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button21.Location = new System.Drawing.Point(633, 10);
+            this.button21.Name = "button21";
+            this.button21.Size = new System.Drawing.Size(103, 30);
+            this.button21.TabIndex = 2;
+            this.button21.TabStop = false;
+            this.button21.Text = "Zdalne CMD";
+            this.button21.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button21.UseVisualStyleBackColor = true;
+            this.button21.Click += new System.EventHandler(this.Button21_Click);
             // 
             // CommandContextMenu
             // 
@@ -464,12 +582,87 @@
             this.CommandContextMenu.Name = "CommandContextMenu";
             this.CommandContextMenu.Size = new System.Drawing.Size(195, 70);
             // 
+            // cMDSYSTEMToolStripMenuItem
+            // 
+            this.cMDSYSTEMToolStripMenuItem.Image = global::Puzzel.Properties.Resources.zdalnecmd_sys;
+            this.cMDSYSTEMToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cMDSYSTEMToolStripMenuItem.Name = "cMDSYSTEMToolStripMenuItem";
+            this.cMDSYSTEMToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.cMDSYSTEMToolStripMenuItem.Text = "Zdalne CMD (SYSTEM)";
+            this.cMDSYSTEMToolStripMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cMDSYSTEMToolStripMenuItem.Click += new System.EventHandler(this.CMDSYSTEMToolStripMenuItem_Click);
+            // 
             // CMDMenuItem1
             // 
             this.CMDMenuItem1.Name = "CMDMenuItem1";
             this.CMDMenuItem1.Size = new System.Drawing.Size(194, 22);
             this.CMDMenuItem1.Text = "CMD";
             this.CMDMenuItem1.Click += new System.EventHandler(this.CMDMenuItem1_Click);
+            // 
+            // PowershellMenuItem2
+            // 
+            this.PowershellMenuItem2.Image = global::Puzzel.Properties.Resources.powershell;
+            this.PowershellMenuItem2.Name = "PowershellMenuItem2";
+            this.PowershellMenuItem2.Size = new System.Drawing.Size(194, 22);
+            this.PowershellMenuItem2.Text = "Powershell";
+            this.PowershellMenuItem2.Click += new System.EventHandler(this.PowershellMenuItem2_Click);
+            // 
+            // button18
+            // 
+            this.button18.Image = global::Puzzel.Properties.Resources.netcard;
+            this.button18.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button18.Location = new System.Drawing.Point(633, 40);
+            this.button18.Name = "button18";
+            this.button18.Size = new System.Drawing.Size(103, 30);
+            this.button18.TabIndex = 3;
+            this.button18.TabStop = false;
+            this.button18.Text = "Karty sieciowe";
+            this.button18.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button18.UseVisualStyleBackColor = true;
+            this.button18.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
+            // 
+            // button16
+            // 
+            this.button16.Image = global::Puzzel.Properties.Resources.programlist;
+            this.button16.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button16.Location = new System.Drawing.Point(520, 40);
+            this.button16.Name = "button16";
+            this.button16.Size = new System.Drawing.Size(113, 30);
+            this.button16.TabIndex = 4;
+            this.button16.TabStop = false;
+            this.button16.Text = "Lista programów";
+            this.button16.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button16.UseVisualStyleBackColor = true;
+            this.button16.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
+            // 
+            // button17
+            // 
+            this.button17.Image = global::Puzzel.Properties.Resources.folder;
+            this.button17.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button17.Location = new System.Drawing.Point(520, 10);
+            this.button17.Name = "button17";
+            this.button17.Size = new System.Drawing.Size(113, 30);
+            this.button17.TabIndex = 5;
+            this.button17.TabStop = false;
+            this.button17.Text = "Explorer C$";
+            this.button17.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button17.UseVisualStyleBackColor = true;
+            this.button17.Click += new System.EventHandler(this.Button17_Click);
+            // 
+            // Button14
+            // 
+            this.Button14.ContextMenuStrip = this.RemoteDesktopContextMenu;
+            this.Button14.Image = global::Puzzel.Properties.Resources.rdp;
+            this.Button14.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.Button14.Location = new System.Drawing.Point(423, 40);
+            this.Button14.Name = "Button14";
+            this.Button14.Size = new System.Drawing.Size(97, 30);
+            this.Button14.TabIndex = 6;
+            this.Button14.TabStop = false;
+            this.Button14.Text = "Pulpit zdalny";
+            this.Button14.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.Button14.UseVisualStyleBackColor = true;
+            this.Button14.Click += new System.EventHandler(this.Button14_Click);
             // 
             // RemoteDesktopContextMenu
             // 
@@ -486,8 +679,23 @@
             this.rDPBezPustyContextMenu.Text = "RDP pusty";
             this.rDPBezPustyContextMenu.Click += new System.EventHandler(this.RDPBezPustyContextMenu_Click);
             // 
-            // DWContext
+            // button15
             // 
+            this.button15.ContextMenuStrip = this.DWMenuContext;
+            this.button15.Image = global::Puzzel.Properties.Resources.DW;
+            this.button15.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button15.Location = new System.Drawing.Point(423, 10);
+            this.button15.Name = "button15";
+            this.button15.Size = new System.Drawing.Size(97, 30);
+            this.button15.TabIndex = 7;
+            this.button15.TabStop = false;
+            this.button15.Text = Working[16];
+            this.button15.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button15.UseVisualStyleBackColor = true;
+            this.button15.Click += new System.EventHandler(this.DWButton_Click);
+            // 
+            // DWContext
+            //
             this.DWContext.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.EADWMenuContext,
             this.DyDWContextMenu});
@@ -508,6 +716,35 @@
             this.DyDWContextMenu.Size = new System.Drawing.Size(182, 22);
             this.DyDWContextMenu.Text = Working[14];
             this.DyDWContextMenu.Click += new System.EventHandler(this.DWButton_Click);
+            // 
+            // button12
+            // 
+            this.button12.Image = global::Puzzel.Properties.Resources.compmgmt;
+            this.button12.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button12.Location = new System.Drawing.Point(316, 40);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(107, 30);
+            this.button12.TabIndex = 8;
+            this.button12.TabStop = false;
+            this.button12.Text = "Zarządzanie";
+            this.button12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.Narzedziaadministracyjne);
+            // 
+            // button13
+            // 
+            this.button13.ContextMenuStrip = this.Komputer_info;
+            this.button13.Image = global::Puzzel.Properties.Resources.komputerinfo;
+            this.button13.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button13.Location = new System.Drawing.Point(316, 10);
+            this.button13.Name = "button13";
+            this.button13.Size = new System.Drawing.Size(107, 30);
+            this.button13.TabIndex = 9;
+            this.button13.TabStop = false;
+            this.button13.Text = "Komputer info";
+            this.button13.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button13.UseVisualStyleBackColor = true;
+            this.button13.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
             // Komputer_info
             // 
@@ -645,6 +882,20 @@
             this.bIOSToolStripMenuItem.Text = "BIOS";
             this.bIOSToolStripMenuItem.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
+            // button11
+            // 
+            this.button11.Image = global::Puzzel.Properties.Resources.ping;
+            this.button11.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button11.Location = new System.Drawing.Point(209, 40);
+            this.button11.Name = "button11";
+            this.button11.Size = new System.Drawing.Size(107, 30);
+            this.button11.TabIndex = 10;
+            this.button11.TabStop = false;
+            this.button11.Text = "Ping";
+            this.button11.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button11.UseVisualStyleBackColor = true;
+            this.button11.Click += new System.EventHandler(this.Button11_Click);
+            // 
             // numericUpDown2
             // 
             this.numericUpDown2.ContextMenuStrip = this.ContextMenuText;
@@ -695,14 +946,28 @@
             this.label3.TabIndex = 12;
             this.label3.Text = "Nazwa komputera:";
             // 
+            // button10
+            // 
+            this.button10.Image = global::Puzzel.Properties.Resources.Complog;
+            this.button10.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button10.Location = new System.Drawing.Point(209, 10);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(107, 30);
+            this.button10.TabIndex = 13;
+            this.button10.TabStop = false;
+            this.button10.Text = "Komputer log";
+            this.button10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.SzukajLogow);
+            // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.button20);
             this.groupBox4.Controls.Add(this.button19);
-            this.groupBox4.Location = new System.Drawing.Point(1, 189);
+            this.groupBox4.Location = new System.Drawing.Point(1, 180);
             this.groupBox4.MinimumSize = new System.Drawing.Size(1182, 45);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(1182, 45);
+            this.groupBox4.Size = new System.Drawing.Size(1182, 54);
             this.groupBox4.TabIndex = 3;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Różne narzędzia";
@@ -710,23 +975,29 @@
             // button20
             // 
             this.button20.Enabled = false;
-            this.button20.Location = new System.Drawing.Point(84, 16);
+            this.button20.Image = global::Puzzel.Properties.Resources.reload;
+            this.button20.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button20.Location = new System.Drawing.Point(101, 15);
             this.button20.Name = "button20";
-            this.button20.Size = new System.Drawing.Size(75, 23);
+            this.button20.Size = new System.Drawing.Size(97, 33);
             this.button20.TabIndex = 0;
             this.button20.TabStop = false;
             this.button20.Text = "Reload Logs";
+            this.button20.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button20.UseVisualStyleBackColor = true;
             this.button20.Click += new System.EventHandler(this.Button20_Click);
             // 
             // button19
             // 
-            this.button19.Location = new System.Drawing.Point(3, 16);
+            this.button19.Image = ((System.Drawing.Image)(resources.GetObject("button19.Image")));
+            this.button19.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button19.Location = new System.Drawing.Point(6, 15);
             this.button19.Name = "button19";
-            this.button19.Size = new System.Drawing.Size(75, 23);
+            this.button19.Size = new System.Drawing.Size(89, 36);
             this.button19.TabIndex = 1;
             this.button19.TabStop = false;
             this.button19.Text = "Flush DNS";
+            this.button19.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button19.UseVisualStyleBackColor = true;
             this.button19.Click += new System.EventHandler(this.Button19_Click);
             // 
@@ -737,12 +1008,11 @@
             richTextBox1.DetectUrls = false;
             richTextBox1.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             richTextBox1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            richTextBox1.Location = new System.Drawing.Point(1, 240);
-            richTextBox1.MinimumSize = new System.Drawing.Size(1183, 240);
+            richTextBox1.Location = new System.Drawing.Point(2, 240);
+            richTextBox1.MinimumSize = new System.Drawing.Size(1181, 294);
             richTextBox1.Name = "richTextBox1";
-            richTextBox1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
             richTextBox1.ShortcutsEnabled = false;
-            richTextBox1.Size = new System.Drawing.Size(1183, 289);
+            richTextBox1.Size = new System.Drawing.Size(1181, 294);
             richTextBox1.TabIndex = 4;
             richTextBox1.Text = "";
             richTextBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Keys_KeyDown);
@@ -824,10 +1094,43 @@
             // 
             // dHCPToolStripMenuItem
             // 
+            this.dHCPToolStripMenuItem.Image = global::Puzzel.Properties.Resources.dhcp;
             this.dHCPToolStripMenuItem.Name = "dHCPToolStripMenuItem";
             this.dHCPToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
             this.dHCPToolStripMenuItem.Text = "DHCP";
             this.dHCPToolStripMenuItem.Click += new System.EventHandler(this.DHCPToolStripMenuItem_Click);
+            // 
+            // dziennikZdarzeńToolStripMenuItem
+            // 
+            this.dziennikZdarzeńToolStripMenuItem.Image = global::Puzzel.Properties.Resources.eventvwr;
+            this.dziennikZdarzeńToolStripMenuItem.Name = "dziennikZdarzeńToolStripMenuItem";
+            this.dziennikZdarzeńToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
+            this.dziennikZdarzeńToolStripMenuItem.Text = "Dziennik zdarzeń";
+            this.dziennikZdarzeńToolStripMenuItem.Click += new System.EventHandler(this.Narzedziaadministracyjne);
+            // 
+            // harmonogramZadańToolStripMenuItem
+            // 
+            this.harmonogramZadańToolStripMenuItem.Image = global::Puzzel.Properties.Resources.tasksched;
+            this.harmonogramZadańToolStripMenuItem.Name = "harmonogramZadańToolStripMenuItem";
+            this.harmonogramZadańToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
+            this.harmonogramZadańToolStripMenuItem.Text = "Harmonogram zadań";
+            this.harmonogramZadańToolStripMenuItem.Click += new System.EventHandler(this.Narzedziaadministracyjne);
+            // 
+            // usługiToolStripMenuItem
+            // 
+            this.usługiToolStripMenuItem.Image = global::Puzzel.Properties.Resources.services;
+            this.usługiToolStripMenuItem.Name = "usługiToolStripMenuItem";
+            this.usługiToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
+            this.usługiToolStripMenuItem.Text = "Usługi";
+            this.usługiToolStripMenuItem.Click += new System.EventHandler(this.Narzedziaadministracyjne);
+            // 
+            // użytkownicyIGrupyLokalneToolStripMenuItem
+            // 
+            this.użytkownicyIGrupyLokalneToolStripMenuItem.Image = global::Puzzel.Properties.Resources.lusrmgr;
+            this.użytkownicyIGrupyLokalneToolStripMenuItem.Name = "użytkownicyIGrupyLokalneToolStripMenuItem";
+            this.użytkownicyIGrupyLokalneToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
+            this.użytkownicyIGrupyLokalneToolStripMenuItem.Text = "Użytkownicy i grupy lokalne";
+            this.użytkownicyIGrupyLokalneToolStripMenuItem.Click += new System.EventHandler(this.Narzedziaadministracyjne);
             // 
             // toolStripSeparator3
             // 
@@ -1071,289 +1374,10 @@
             this.PwdLclToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
             this.PwdLclToolStripMenuItem.Text = "Hasło do "+Working[14].Remove(9);
             this.PwdLclToolStripMenuItem.Click += new System.EventHandler(this.PwdLclToolStripMenuItem_Click);
-// 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(219, 6);
-            // 
-            // button21
-            // 
-            this.button21.ContextMenuStrip = this.CommandContextMenu;
-            this.button21.Image = ((System.Drawing.Image)(resources.GetObject("button21.Image")));
-            this.button21.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button21.Location = new System.Drawing.Point(645, 10);
-            this.button21.Name = "button21";
-            this.button21.Size = new System.Drawing.Size(100, 30);
-            this.button21.TabIndex = 2;
-            this.button21.TabStop = false;
-            this.button21.Text = "Zdalne CMD";
-            this.button21.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button21.UseVisualStyleBackColor = true;
-            this.button21.Click += new System.EventHandler(this.Button21_Click);
-            // 
-            // button18
-            // 
-            this.button18.Image = ((System.Drawing.Image)(resources.GetObject("button18.Image")));
-            this.button18.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button18.Location = new System.Drawing.Point(642, 42);
-            this.button18.Name = "button18";
-            this.button18.Size = new System.Drawing.Size(103, 30);
-            this.button18.TabIndex = 3;
-            this.button18.TabStop = false;
-            this.button18.Text = "Karty sieciowe";
-            this.button18.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button18.UseVisualStyleBackColor = true;
-            this.button18.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
-            // 
-            // button16
-            // 
-            this.button16.Image = ((System.Drawing.Image)(resources.GetObject("button16.Image")));
-            this.button16.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button16.Location = new System.Drawing.Point(526, 42);
-            this.button16.Name = "button16";
-            this.button16.Size = new System.Drawing.Size(113, 30);
-            this.button16.TabIndex = 4;
-            this.button16.TabStop = false;
-            this.button16.Text = "Lista programów";
-            this.button16.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button16.UseVisualStyleBackColor = true;
-            this.button16.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
-            // 
-            // button17
-            // 
-            this.button17.Image = global::Puzzel.Properties.Resources._14;
-            this.button17.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button17.Location = new System.Drawing.Point(526, 10);
-            this.button17.Name = "button17";
-            this.button17.Size = new System.Drawing.Size(113, 30);
-            this.button17.TabIndex = 5;
-            this.button17.TabStop = false;
-            this.button17.Text = "Explorer C$";
-            this.button17.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button17.UseVisualStyleBackColor = true;
-            this.button17.Click += new System.EventHandler(this.Button17_Click);
-            // 
-            // Button14
-            // 
-            this.Button14.ContextMenuStrip = this.RemoteDesktopContextMenu;
-            this.Button14.Image = ((System.Drawing.Image)(resources.GetObject("Button14.Image")));
-            this.Button14.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Button14.Location = new System.Drawing.Point(427, 42);
-            this.Button14.Name = "Button14";
-            this.Button14.Size = new System.Drawing.Size(97, 30);
-            this.Button14.TabIndex = 6;
-            this.Button14.TabStop = false;
-            this.Button14.Text = "Pulpit zdalny";
-            this.Button14.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.Button14.UseVisualStyleBackColor = true;
-            this.Button14.Click += new System.EventHandler(this.Button14_Click);
-            // 
-            // button15
-            // 
-			this.button15.ContextMenuStrip = this.DWeMenuContext;
-            this.button15.Image = ((System.Drawing.Image)(resources.GetObject("button15.Image")));
-			this.button15.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button15.Location = new System.Drawing.Point(427, 10);
-            this.button15.Name = "button15";
-            this.button15.Size = new System.Drawing.Size(97, 30);
-            this.button15.TabIndex = 7;
-            this.button15.TabStop = false;
-            this.button15.Text = Working[16];
-            this.button15.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button15.UseVisualStyleBackColor = true;
-            this.button15.Click += new System.EventHandler(this.DWButton_Click);
-            // 
-            // button12
-            // 
-            this.button12.Image = global::Puzzel.Properties.Resources._5_1122;
-            this.button12.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button12.Location = new System.Drawing.Point(318, 42);
-            this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(107, 30);
-            this.button12.TabIndex = 8;
-            this.button12.TabStop = false;
-            this.button12.Text = "Zarządzanie";
-            this.button12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button12.UseVisualStyleBackColor = true;
-            this.button12.Click += new System.EventHandler(this.Narzedziaadministracyjne);
-            // 
-            // button13
-            // 
-            this.button13.ContextMenuStrip = this.Komputer_info;
-            this.button13.Image = global::Puzzel.Properties.Resources._121;
-            this.button13.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button13.Location = new System.Drawing.Point(318, 10);
-            this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(107, 30);
-            this.button13.TabIndex = 9;
-            this.button13.TabStop = false;
-            this.button13.Text = "Komputer info";
-            this.button13.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button13.UseVisualStyleBackColor = true;
-            this.button13.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
-            // 
-            // button11
-            // 
-            this.button11.Image = ((System.Drawing.Image)(resources.GetObject("button11.Image")));
-            this.button11.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button11.Location = new System.Drawing.Point(209, 42);
-            this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(107, 30);
-            this.button11.TabIndex = 10;
-            this.button11.TabStop = false;
-            this.button11.Text = "Ping";
-            this.button11.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button11.UseVisualStyleBackColor = true;
-            this.button11.Click += new System.EventHandler(this.Button11_Click);
-            // 
-            // button10
-            // 
-            this.button10.Image = global::Puzzel.Properties.Resources.Complog;
-            this.button10.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button10.Location = new System.Drawing.Point(209, 10);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(107, 30);
-            this.button10.TabIndex = 13;
-            this.button10.TabStop = false;
-            this.button10.Text = "Komputer log";
-            this.button10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button10.UseVisualStyleBackColor = true;
-            this.button10.Click += new System.EventHandler(this.SzukajLogow);
-            // 
-            // button5
-            // 
-            this.button5.Image = global::Puzzel.Properties.Resources._14;
-            this.button5.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button5.Location = new System.Drawing.Point(397, 41);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(80, 30);
-            this.button5.TabIndex = 0;
-            this.button5.TabStop = false;
-            this.button5.Text = "Profil EXT";
-            this.button5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.Profilsieciowy);
-            // 
-            // button6
-            // 
-            this.button6.Image = global::Puzzel.Properties.Resources._14;
-            this.button6.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button6.Location = new System.Drawing.Point(397, 11);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(80, 30);
-            this.button6.TabIndex = 1;
-            this.button6.TabStop = false;
-            this.button6.Text = "Profil TS";
-            this.button6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.Profilsieciowy);
-            // 
-            // button7
-            // 
-            this.button7.Image = global::Puzzel.Properties.Resources._1300;
-            this.button7.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button7.Location = new System.Drawing.Point(6, 14);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(101, 36);
-            this.button7.TabIndex = 3;
-            this.button7.TabStop = false;
-            this.button7.Text = "Szukaj sesji";
-            this.button7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.SzukanieSesji);
-            // 
-            // button3
-            // 
-            this.button3.Image = global::Puzzel.Properties.Resources._14;
-            this.button3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button3.Location = new System.Drawing.Point(318, 41);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(77, 30);
-            this.button3.TabIndex = 3;
-            this.button3.TabStop = false;
-            this.button3.Text = "Profil ERI";
-            this.button3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.Profilsieciowy);
-            // 
-            // button4
-            // 
-            this.button4.Image = global::Puzzel.Properties.Resources._14;
-            this.button4.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button4.Location = new System.Drawing.Point(318, 11);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(77, 30);
-            this.button4.TabIndex = 4;
-            this.button4.TabStop = false;
-            this.button4.Text = "Profil VFS";
-            this.button4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.Profilsieciowy);
-            // 
-            // button2
-            // 
-            this.button2.Image = global::Puzzel.Properties.Resources._2109;
-            this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button2.Location = new System.Drawing.Point(209, 41);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(107, 30);
-            this.button2.TabIndex = 5;
-            this.button2.TabStop = false;
-            this.button2.Text = "Info z AD";
-            this.button2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.Button2_Click);
-            // 
-            // button1
-            // 
-            this.button1.Image = global::Puzzel.Properties.Resources.userlog1;
-            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(209, 11);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(107, 30);
-            this.button1.TabIndex = 6;
-            this.button1.TabStop = false;
-            this.button1.Text = "User log";
-            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.SzukajLogow);
-            // 
-            // dziennikZdarzeńToolStripMenuItem
-            // 
-            this.dziennikZdarzeńToolStripMenuItem.Image = global::Puzzel.Properties.Resources._12;
-            this.dziennikZdarzeńToolStripMenuItem.Name = "dziennikZdarzeńToolStripMenuItem";
-            this.dziennikZdarzeńToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
-            this.dziennikZdarzeńToolStripMenuItem.Text = "Dziennik zdarzeń";
-            this.dziennikZdarzeńToolStripMenuItem.Click += new System.EventHandler(this.Narzedziaadministracyjne);
-            // 
-            // harmonogramZadańToolStripMenuItem
-            // 
-            this.harmonogramZadańToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("harmonogramZadańToolStripMenuItem.Image")));
-            this.harmonogramZadańToolStripMenuItem.Name = "harmonogramZadańToolStripMenuItem";
-            this.harmonogramZadańToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
-            this.harmonogramZadańToolStripMenuItem.Text = "Harmonogram zadań";
-            this.harmonogramZadańToolStripMenuItem.Click += new System.EventHandler(this.Narzedziaadministracyjne);
-            // 
-            // usługiToolStripMenuItem
-            // 
-            this.usługiToolStripMenuItem.Image = global::Puzzel.Properties.Resources._30_1;
-            this.usługiToolStripMenuItem.Name = "usługiToolStripMenuItem";
-            this.usługiToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
-            this.usługiToolStripMenuItem.Text = "Usługi";
-            this.usługiToolStripMenuItem.Click += new System.EventHandler(this.Narzedziaadministracyjne);
-            // 
-            // użytkownicyIGrupyLokalneToolStripMenuItem
-            // 
-            this.użytkownicyIGrupyLokalneToolStripMenuItem.Image = global::Puzzel.Properties.Resources._92;
-            this.użytkownicyIGrupyLokalneToolStripMenuItem.Name = "użytkownicyIGrupyLokalneToolStripMenuItem";
-            this.użytkownicyIGrupyLokalneToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
-            this.użytkownicyIGrupyLokalneToolStripMenuItem.Text = "Użytkownicy i grupy lokalne";
-            this.użytkownicyIGrupyLokalneToolStripMenuItem.Click += new System.EventHandler(this.Narzedziaadministracyjne);
             // 
             // lockoutStatusToolStripMenuItem
             // 
-            this.lockoutStatusToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("lockoutStatusToolStripMenuItem.Image")));
+            this.lockoutStatusToolStripMenuItem.Image = global::Puzzel.Properties.Resources.lockout;
             this.lockoutStatusToolStripMenuItem.Name = "lockoutStatusToolStripMenuItem";
             this.lockoutStatusToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
             this.lockoutStatusToolStripMenuItem.Text = "Lockout Status";
@@ -1361,29 +1385,16 @@
             // 
             // zmianaHasłaDomenowegoToolStripMenuItem1
             // 
-            this.zmianaHasłaDomenowegoToolStripMenuItem1.Image = global::Puzzel.Properties.Resources._67;
+            this.zmianaHasłaDomenowegoToolStripMenuItem1.Image = global::Puzzel.Properties.Resources.changepass;
             this.zmianaHasłaDomenowegoToolStripMenuItem1.Name = "zmianaHasłaDomenowegoToolStripMenuItem1";
             this.zmianaHasłaDomenowegoToolStripMenuItem1.Size = new System.Drawing.Size(222, 22);
             this.zmianaHasłaDomenowegoToolStripMenuItem1.Text = "Zmiana hasła domenowego";
             this.zmianaHasłaDomenowegoToolStripMenuItem1.Click += new System.EventHandler(this.Zmianahasla);
             // 
-            // cMDSYSTEMToolStripMenuItem
+            // toolStripSeparator2
             // 
-            this.cMDSYSTEMToolStripMenuItem.Image = global::Puzzel.Properties.Resources._2091_1;
-            this.cMDSYSTEMToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cMDSYSTEMToolStripMenuItem.Name = "cMDSYSTEMToolStripMenuItem";
-            this.cMDSYSTEMToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
-            this.cMDSYSTEMToolStripMenuItem.Text = "Zdalne CMD (SYSTEM)";
-            this.cMDSYSTEMToolStripMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cMDSYSTEMToolStripMenuItem.Click += new System.EventHandler(this.CMDSYSTEMToolStripMenuItem_Click);
-            // 
-            // PowershellMenuItem2
-            // 
-            this.PowershellMenuItem2.Image = global::Puzzel.Properties.Resources._2476;
-            this.PowershellMenuItem2.Name = "PowershellMenuItem2";
-            this.PowershellMenuItem2.Size = new System.Drawing.Size(194, 22);
-            this.PowershellMenuItem2.Text = "Powershell";
-            this.PowershellMenuItem2.Click += new System.EventHandler(this.PowershellMenuItem2_Click);
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(219, 6);
             // 
             // Form1
             // 
@@ -1397,11 +1408,11 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = global::Puzzel.Properties.Resources.Puzzel;
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(1200, 509);
             this.Name = "Form1";
-            this.Text = "Puzzel v0.105";
+            this.Text = "Puzzel v0.106";
             this.Resize += new System.EventHandler(this.Form1_Resize);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
