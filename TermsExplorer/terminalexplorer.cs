@@ -84,11 +84,11 @@ namespace Puzzel
                 //retry:
                 //if (_retry < 5)
                 //{
-                    if (Ping.TCPPing(serverName, 135) == Ping.TCPPingStatus.Success)
-                    {
-                        using (ITerminalServer server = manager.GetRemoteServer(serverName))
-                        {
-                            server.Open();
+                //if (Ping.TCPPing(serverName, 135) == Ping.TCPPingStatus.Success)
+                //{
+                using (ITerminalServer server = manager.GetRemoteServer(serverName))
+                {
+                    server.Open();
                             IList<ITerminalServicesSession> sessions;
                             sessions = server.GetSessions();
                             foreach (ITerminalServicesSession session in sessions)
@@ -106,8 +106,8 @@ namespace Puzzel
                             }
                             server.Close();
                             sessionCount.BeginInvoke(new Action(() => sessionCount.Text = "Aktywne sesje: " + dataGridView1.Rows.Count));
-                        }
-                    }
+                }
+                //}
                 //    else { _retry++; goto retry; }
                 //}
                 //else MessageBox.Show(new Form() { TopMost = true, StartPosition = FormStartPosition.CenterParent }, "Po kilku próbach nie udało się nawiązać połączenia", "Nawiązywanie połączenia z serwerem " + serverName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);

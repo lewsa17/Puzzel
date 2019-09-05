@@ -138,6 +138,7 @@
     <Compile Include="Cassia\RemoteMessageBoxResult.cs" />
     <Compile Include="Cassia\ShutdownType.cs" />
     <Compile Include="Cassia\TerminalServicesManager.cs" />
+    <Compile Include="Shortcut.cs" />
     <Compile Include="LAPSui.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -157,6 +158,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Settings.cs" />
     <Compile Include="TermsExplorer\CustomSearch.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -164,6 +166,12 @@
       <DependentUpon>CustomSearch.cs</DependentUpon>
     </Compile>
     <Compile Include="LoadingForm.cs" />
+    <Compile Include="Ustawienia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ustawienia.Designer.cs">
+      <DependentUpon>Ustawienia.cs</DependentUpon>
+    </Compile>
     <Compile Include="WyszukiwarkaDlaFormy.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -175,6 +183,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="LockoutStatus\ZmianaHasla.resx">
       <DependentUpon>ZmianaHasla.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ustawienia.resx">
+      <DependentUpon>Ustawienia.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WyszukiwarkaDlaFormy.resx">
       <DependentUpon>WyszukiwarkaDlaFormy.cs</DependentUpon>
@@ -285,6 +296,8 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Properties\PNG\cmd.png" />
+    <None Include="Properties\PNG\handshake.png" />
     <None Include="Properties\PNG\reload.png" />
     <None Include="Properties\PNG\rubish.gif" />
     <None Include="Properties\ICO\Puzzel.ico" />

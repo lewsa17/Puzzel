@@ -38,17 +38,17 @@
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
+            this.BtnProfil_EXT = new System.Windows.Forms.Button();
+            this.BtnProfil_TS = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.button9 = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
+            this.BtnLogoff = new System.Windows.Forms.Button();
+            this.BtnPolacz = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.BtnSzukaj_sesji = new System.Windows.Forms.Button();
+            this.BtnProfil_ERI = new System.Windows.Forms.Button();
+            this.BtnProfil_VFS = new System.Windows.Forms.Button();
+            this.BtnInfo_z_AD = new System.Windows.Forms.Button();
+            this.BtnUserLog = new System.Windows.Forms.Button();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -61,25 +61,25 @@
             this.wyszukajMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.comboBox3 = new System.Windows.Forms.ComboBox();
-            this.button23 = new System.Windows.Forms.Button();
-            this.button22 = new System.Windows.Forms.Button();
-            this.button21 = new System.Windows.Forms.Button();
+            this.BtnRemote_Tracert = new System.Windows.Forms.Button();
+            this.BtnRemote_Ping = new System.Windows.Forms.Button();
+            this.BtnZdalneCMD = new System.Windows.Forms.Button();
             this.CommandContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.cMDSYSTEMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.CMDMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.PowershellMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.button18 = new System.Windows.Forms.Button();
-            this.button16 = new System.Windows.Forms.Button();
-            this.button17 = new System.Windows.Forms.Button();
-            this.Button14 = new System.Windows.Forms.Button();
+            this.BtnKarty_sieciowe = new System.Windows.Forms.Button();
+            this.BtnLista_program = new System.Windows.Forms.Button();
+            this.BtnExplorerC = new System.Windows.Forms.Button();
+            this.btnPulpit_Zdalny = new System.Windows.Forms.Button();
             this.RemoteDesktopContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.rDPBezPustyContextMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.button15 = new System.Windows.Forms.Button();
+            this.BtnDW = new System.Windows.Forms.Button();
             this.DWContext = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.EADWMenuContext = new System.Windows.Forms.ToolStripMenuItem();
             this.DyDWContextMenu = new System.Windows.Forms.ToolStripMenuItem();
-			this.button12 = new System.Windows.Forms.Button();
-            this.button13 = new System.Windows.Forms.Button();
+			this.BtnZarzadzanie = new System.Windows.Forms.Button();
+            this.BtnKomputerInfo = new System.Windows.Forms.Button();
             this.Komputer_info = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.uptimeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nrSeryjnyINrPartiiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -97,15 +97,15 @@
             this.zasobySiecioweToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ekranyPodłączoneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bIOSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.button11 = new System.Windows.Forms.Button();
+            this.BtnPing = new System.Windows.Forms.Button();
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.button10 = new System.Windows.Forms.Button();
+            this.BtnKomputerLog = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.button20 = new System.Windows.Forms.Button();
-            this.button19 = new System.Windows.Forms.Button();
+            this.BtnReload_Logs = new System.Windows.Forms.Button();
+            this.BtnFlush_DNS = new System.Windows.Forms.Button();
             richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.komputerInfo = new System.ComponentModel.BackgroundWorker();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
@@ -115,6 +115,7 @@
             this.InfozAD = new System.ComponentModel.BackgroundWorker();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.plikToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ustawienia = new System.Windows.Forms.ToolStripMenuItem();
             this.narzędziaAdministracyjneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dHCPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dziennikZdarzeńToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -176,13 +177,13 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.comboBox2);
-            this.groupBox1.Controls.Add(this.button5);
-            this.groupBox1.Controls.Add(this.button6);
+            this.groupBox1.Controls.Add(this.BtnProfil_EXT);
+            this.groupBox1.Controls.Add(this.BtnProfil_TS);
             this.groupBox1.Controls.Add(this.groupBox2);
-            this.groupBox1.Controls.Add(this.button3);
-            this.groupBox1.Controls.Add(this.button4);
-            this.groupBox1.Controls.Add(this.button2);
-            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Controls.Add(this.BtnProfil_ERI);
+            this.groupBox1.Controls.Add(this.BtnProfil_VFS);
+            this.groupBox1.Controls.Add(this.BtnInfo_z_AD);
+            this.groupBox1.Controls.Add(this.BtnUserLog);
             this.groupBox1.Controls.Add(this.numericUpDown1);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.textBox1);
@@ -251,38 +252,38 @@
             // 
             // button5
             // 
-            this.button5.Image = global::Puzzel.Properties.Resources.folder;
-            this.button5.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button5.Location = new System.Drawing.Point(393, 41);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(80, 30);
-            this.button5.TabIndex = 0;
-            this.button5.TabStop = false;
-            this.button5.Text = "Profil EXT";
-            this.button5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.Profilsieciowy);
+            this.BtnProfil_EXT.Image = global::Puzzel.Properties.Resources.folder;
+            this.BtnProfil_EXT.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnProfil_EXT.Location = new System.Drawing.Point(393, 41);
+            this.BtnProfil_EXT.Name = "BtnProfil_EXT";
+            this.BtnProfil_EXT.Size = new System.Drawing.Size(80, 30);
+            this.BtnProfil_EXT.TabIndex = 0;
+            this.BtnProfil_EXT.TabStop = false;
+            this.BtnProfil_EXT.Text = "Profil EXT";
+            this.BtnProfil_EXT.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.BtnProfil_EXT.UseVisualStyleBackColor = true;
+            this.BtnProfil_EXT.Click += new System.EventHandler(this.Profilsieciowy);
             // 
-            // button6
+            // BtnProfil_TS
             // 
-            this.button6.Image = global::Puzzel.Properties.Resources.folder;
-            this.button6.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button6.Location = new System.Drawing.Point(393, 11);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(80, 30);
-            this.button6.TabIndex = 1;
-            this.button6.TabStop = false;
-            this.button6.Text = "Profil TS";
-            this.button6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.Profilsieciowy);
+            this.BtnProfil_TS.Image = global::Puzzel.Properties.Resources.folder;
+            this.BtnProfil_TS.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnProfil_TS.Location = new System.Drawing.Point(393, 11);
+            this.BtnProfil_TS.Name = "BtnProfil_TS";
+            this.BtnProfil_TS.Size = new System.Drawing.Size(80, 30);
+            this.BtnProfil_TS.TabIndex = 1;
+            this.BtnProfil_TS.TabStop = false;
+            this.BtnProfil_TS.Text = "Profil TS";
+            this.BtnProfil_TS.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.BtnProfil_TS.UseVisualStyleBackColor = true;
+            this.BtnProfil_TS.Click += new System.EventHandler(this.Profilsieciowy);
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.button9);
-            this.groupBox2.Controls.Add(this.button8);
+            this.groupBox2.Controls.Add(this.BtnLogoff);
+            this.groupBox2.Controls.Add(this.BtnPolacz);
             this.groupBox2.Controls.Add(this.comboBox1);
-            this.groupBox2.Controls.Add(this.button7);
+            this.groupBox2.Controls.Add(this.BtnSzukaj_sesji);
             this.groupBox2.Location = new System.Drawing.Point(537, 11);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(434, 60);
@@ -290,30 +291,33 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "LogOff";
             // 
-            // button9
+            // BtnLogoff
             // 
-            this.button9.Image = global::Puzzel.Properties.Resources.Logoff;
-            this.button9.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
-            this.button9.Location = new System.Drawing.Point(342, 14);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(75, 35);
-            this.button9.TabIndex = 0;
-            this.button9.TabStop = false;
-            this.button9.Text = "LogOff";
-            this.button9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button9.UseVisualStyleBackColor = true;
-            this.button9.Click += new System.EventHandler(this.Button9_Click);
+            this.BtnLogoff.Image = global::Puzzel.Properties.Resources.Logoff;
+            this.BtnLogoff.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.BtnLogoff.Location = new System.Drawing.Point(351, 14);
+            this.BtnLogoff.Name = "BtnLogoff";
+            this.BtnLogoff.Size = new System.Drawing.Size(75, 36);
+            this.BtnLogoff.TabIndex = 0;
+            this.BtnLogoff.TabStop = false;
+            this.BtnLogoff.Text = "LogOff";
+            this.BtnLogoff.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.BtnLogoff.UseVisualStyleBackColor = true;
+            this.BtnLogoff.Click += new System.EventHandler(this.LogoffSession);
             // 
-            // button8
+            // BtnPolacz
             // 
-            this.button8.Location = new System.Drawing.Point(249, 19);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(75, 23);
-            this.button8.TabIndex = 1;
-            this.button8.TabStop = false;
-            this.button8.Text = "Połącz";
-            this.button8.UseVisualStyleBackColor = true;
-            this.button8.Click += new System.EventHandler(this.Button8_Click);
+            this.BtnPolacz.Image = ((System.Drawing.Image)(resources.GetObject("BtnPolacz.Image")));
+            this.BtnPolacz.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnPolacz.Location = new System.Drawing.Point(249, 14);
+            this.BtnPolacz.Name = "BtnPolacz";
+            this.BtnPolacz.Size = new System.Drawing.Size(96, 36);
+            this.BtnPolacz.TabIndex = 1;
+            this.BtnPolacz.TabStop = false;
+            this.BtnPolacz.Text = "Połącz";
+            this.BtnPolacz.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.BtnPolacz.UseVisualStyleBackColor = true;
+            this.BtnPolacz.Click += new System.EventHandler(this.ConnectSession);
             // 
             // comboBox1
             // 
@@ -325,75 +329,75 @@
             this.comboBox1.TabIndex = 3;
             this.comboBox1.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Keys_PreviewKeyDown);
             // 
-            // button7
+            // BtnSzukaj_sesji
             // 
-            this.button7.Image = global::Puzzel.Properties.Resources.session;
-            this.button7.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button7.Location = new System.Drawing.Point(6, 14);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(101, 36);
-            this.button7.TabIndex = 3;
-            this.button7.TabStop = false;
-            this.button7.Text = "Szukaj sesji";
-            this.button7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.SzukanieSesji);
+            this.BtnSzukaj_sesji.Image = global::Puzzel.Properties.Resources.session;
+            this.BtnSzukaj_sesji.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnSzukaj_sesji.Location = new System.Drawing.Point(6, 14);
+            this.BtnSzukaj_sesji.Name = "BtnSzukaj_sesji";
+            this.BtnSzukaj_sesji.Size = new System.Drawing.Size(101, 36);
+            this.BtnSzukaj_sesji.TabIndex = 3;
+            this.BtnSzukaj_sesji.TabStop = false;
+            this.BtnSzukaj_sesji.Text = "Szukaj sesji";
+            this.BtnSzukaj_sesji.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.BtnSzukaj_sesji.UseVisualStyleBackColor = true;
+            this.BtnSzukaj_sesji.Click += new System.EventHandler(this.SzukanieSesji);
             // 
-            // button3
+            // BtnProfil_ERI
             // 
-            this.button3.Image = global::Puzzel.Properties.Resources.folder;
-            this.button3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button3.Location = new System.Drawing.Point(316, 41);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(77, 30);
-            this.button3.TabIndex = 3;
-            this.button3.TabStop = false;
-            this.button3.Text = "Profil ERI";
-            this.button3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.Profilsieciowy);
+            this.BtnProfil_ERI.Image = global::Puzzel.Properties.Resources.folder;
+            this.BtnProfil_ERI.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnProfil_ERI.Location = new System.Drawing.Point(316, 41);
+            this.BtnProfil_ERI.Name = "BtnProfil_ERI";
+            this.BtnProfil_ERI.Size = new System.Drawing.Size(77, 30);
+            this.BtnProfil_ERI.TabIndex = 3;
+            this.BtnProfil_ERI.TabStop = false;
+            this.BtnProfil_ERI.Text = "Profil ERI";
+            this.BtnProfil_ERI.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.BtnProfil_ERI.UseVisualStyleBackColor = true;
+            this.BtnProfil_ERI.Click += new System.EventHandler(this.Profilsieciowy);
             // 
-            // button4
+            // BtnProfil_VFS
             // 
-            this.button4.Image = global::Puzzel.Properties.Resources.folder;
-            this.button4.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button4.Location = new System.Drawing.Point(316, 11);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(77, 30);
-            this.button4.TabIndex = 4;
-            this.button4.TabStop = false;
-            this.button4.Text = "Profil VFS";
-            this.button4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.Profilsieciowy);
+            this.BtnProfil_VFS.Image = global::Puzzel.Properties.Resources.folder;
+            this.BtnProfil_VFS.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnProfil_VFS.Location = new System.Drawing.Point(316, 11);
+            this.BtnProfil_VFS.Name = "BtnProfil_VFS";
+            this.BtnProfil_VFS.Size = new System.Drawing.Size(77, 30);
+            this.BtnProfil_VFS.TabIndex = 4;
+            this.BtnProfil_VFS.TabStop = false;
+            this.BtnProfil_VFS.Text = "Profil VFS";
+            this.BtnProfil_VFS.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.BtnProfil_VFS.UseVisualStyleBackColor = true;
+            this.BtnProfil_VFS.Click += new System.EventHandler(this.Profilsieciowy);
             // 
-            // button2
+            // BtnInfo_z_AD
             // 
-            this.button2.Image = global::Puzzel.Properties.Resources.infozad;
-            this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button2.Location = new System.Drawing.Point(209, 41);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(107, 30);
-            this.button2.TabIndex = 5;
-            this.button2.TabStop = false;
-            this.button2.Text = "Info z AD";
-            this.button2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.Button2_Click);
+            this.BtnInfo_z_AD.Image = global::Puzzel.Properties.Resources.infozad;
+            this.BtnInfo_z_AD.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnInfo_z_AD.Location = new System.Drawing.Point(209, 41);
+            this.BtnInfo_z_AD.Name = "BtnInfo_z_AD";
+            this.BtnInfo_z_AD.Size = new System.Drawing.Size(107, 30);
+            this.BtnInfo_z_AD.TabIndex = 5;
+            this.BtnInfo_z_AD.TabStop = false;
+            this.BtnInfo_z_AD.Text = "Info z AD";
+            this.BtnInfo_z_AD.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.BtnInfo_z_AD.UseVisualStyleBackColor = true;
+            this.BtnInfo_z_AD.Click += new System.EventHandler(this.Info_z_AD_Click);
             // 
-            // button1
+            // BtnUserLog
             // 
-            this.button1.Image = global::Puzzel.Properties.Resources.userlog;
-            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(209, 11);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(107, 30);
-            this.button1.TabIndex = 6;
-            this.button1.TabStop = false;
-            this.button1.Text = "User log";
-            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.SzukajLogow);
+            this.BtnUserLog.Image = global::Puzzel.Properties.Resources.userlog;
+            this.BtnUserLog.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnUserLog.Location = new System.Drawing.Point(209, 11);
+            this.BtnUserLog.Name = "BtnUserLog";
+            this.BtnUserLog.Size = new System.Drawing.Size(107, 30);
+            this.BtnUserLog.TabIndex = 6;
+            this.BtnUserLog.TabStop = false;
+            this.BtnUserLog.Text = "User log";
+            this.BtnUserLog.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.BtnUserLog.UseVisualStyleBackColor = true;
+            this.BtnUserLog.Click += new System.EventHandler(this.SzukajLogow);
             // 
             // numericUpDown1
             // 
@@ -501,22 +505,22 @@
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.comboBox3);
-            this.groupBox3.Controls.Add(this.button23);
-            this.groupBox3.Controls.Add(this.button22);
-            this.groupBox3.Controls.Add(this.button21);
-            this.groupBox3.Controls.Add(this.button18);
-            this.groupBox3.Controls.Add(this.button16);
-            this.groupBox3.Controls.Add(this.button17);
-            this.groupBox3.Controls.Add(this.Button14);
-            this.groupBox3.Controls.Add(this.button15);
-            this.groupBox3.Controls.Add(this.button12);
-            this.groupBox3.Controls.Add(this.button13);
-            this.groupBox3.Controls.Add(this.button11);
+            this.groupBox3.Controls.Add(this.BtnRemote_Tracert);
+            this.groupBox3.Controls.Add(this.BtnRemote_Ping);
+            this.groupBox3.Controls.Add(this.BtnZdalneCMD);
+            this.groupBox3.Controls.Add(this.BtnKarty_sieciowe);
+            this.groupBox3.Controls.Add(this.BtnLista_program);
+            this.groupBox3.Controls.Add(this.BtnExplorerC);
+            this.groupBox3.Controls.Add(this.btnPulpit_Zdalny);
+            this.groupBox3.Controls.Add(this.BtnDW);
+            this.groupBox3.Controls.Add(this.BtnZarzadzanie);
+            this.groupBox3.Controls.Add(this.BtnKomputerInfo);
+            this.groupBox3.Controls.Add(this.BtnPing);
             this.groupBox3.Controls.Add(this.numericUpDown2);
             this.groupBox3.Controls.Add(this.label4);
             this.groupBox3.Controls.Add(this.textBox2);
             this.groupBox3.Controls.Add(this.label3);
-            this.groupBox3.Controls.Add(this.button10);
+            this.groupBox3.Controls.Add(this.BtnKomputerLog);
             this.groupBox3.Location = new System.Drawing.Point(1, 101);
             this.groupBox3.MinimumSize = new System.Drawing.Size(1182, 61);
             this.groupBox3.Name = "groupBox3";
@@ -536,42 +540,42 @@
             this.comboBox3.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Keys_KeyDown);
             this.comboBox3.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Keys_PreviewKeyDown);
             // 
-            // button23
+            // BtnRemote_Tracert
             // 
-            this.button23.Location = new System.Drawing.Point(736, 40);
-            this.button23.Name = "button23";
-            this.button23.Size = new System.Drawing.Size(107, 30);
-            this.button23.TabIndex = 0;
-            this.button23.TabStop = false;
-            this.button23.Text = "Remote TRACERT";
-            this.button23.UseVisualStyleBackColor = true;
-            this.button23.Click += new System.EventHandler(this.Button23_Click);
+            this.BtnRemote_Tracert.Location = new System.Drawing.Point(736, 40);
+            this.BtnRemote_Tracert.Name = "BtnRemote_Tracert";
+            this.BtnRemote_Tracert.Size = new System.Drawing.Size(107, 30);
+            this.BtnRemote_Tracert.TabIndex = 0;
+            this.BtnRemote_Tracert.TabStop = false;
+            this.BtnRemote_Tracert.Text = "Remote TRACERT";
+            this.BtnRemote_Tracert.UseVisualStyleBackColor = true;
+            this.BtnRemote_Tracert.Click += new System.EventHandler(this.RemoteTracert_Click);
             // 
-            // button22
+            // BtnRemote_Ping
             // 
-            this.button22.Location = new System.Drawing.Point(736, 10);
-            this.button22.Name = "button22";
-            this.button22.Size = new System.Drawing.Size(107, 30);
-            this.button22.TabIndex = 1;
-            this.button22.TabStop = false;
-            this.button22.Text = "Remote PING";
-            this.button22.UseVisualStyleBackColor = true;
-            this.button22.Click += new System.EventHandler(this.Button22_Click);
+            this.BtnRemote_Ping.Location = new System.Drawing.Point(736, 10);
+            this.BtnRemote_Ping.Name = "BtnRemote_Ping";
+            this.BtnRemote_Ping.Size = new System.Drawing.Size(107, 30);
+            this.BtnRemote_Ping.TabIndex = 1;
+            this.BtnRemote_Ping.TabStop = false;
+            this.BtnRemote_Ping.Text = "Remote PING";
+            this.BtnRemote_Ping.UseVisualStyleBackColor = true;
+            this.BtnRemote_Ping.Click += new System.EventHandler(this.RemotePing_Click);
             // 
-            // button21
+            // BtnZdalneCMD
             // 
-            this.button21.ContextMenuStrip = this.CommandContextMenu;
-            this.button21.Image = global::Puzzel.Properties.Resources.zdalneCMD;
-            this.button21.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button21.Location = new System.Drawing.Point(633, 10);
-            this.button21.Name = "button21";
-            this.button21.Size = new System.Drawing.Size(103, 30);
-            this.button21.TabIndex = 2;
-            this.button21.TabStop = false;
-            this.button21.Text = "Zdalne CMD";
-            this.button21.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button21.UseVisualStyleBackColor = true;
-            this.button21.Click += new System.EventHandler(this.Button21_Click);
+            this.BtnZdalneCMD.ContextMenuStrip = this.CommandContextMenu;
+            this.BtnZdalneCMD.Image = global::Puzzel.Properties.Resources.zdalneCMD;
+            this.BtnZdalneCMD.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnZdalneCMD.Location = new System.Drawing.Point(633, 10);
+            this.BtnZdalneCMD.Name = "BtnZdalneCMD";
+            this.BtnZdalneCMD.Size = new System.Drawing.Size(103, 30);
+            this.BtnZdalneCMD.TabIndex = 2;
+            this.BtnZdalneCMD.TabStop = false;
+            this.BtnZdalneCMD.Text = "Zdalne CMD";
+            this.BtnZdalneCMD.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.BtnZdalneCMD.UseVisualStyleBackColor = true;
+            this.BtnZdalneCMD.Click += new System.EventHandler(this.ZdalneCMD_Click);
             // 
             // CommandContextMenu
             // 
@@ -594,6 +598,7 @@
             // 
             // CMDMenuItem1
             // 
+            this.CMDMenuItem1.Image = global::Puzzel.Properties.Resources.cmd;
             this.CMDMenuItem1.Name = "CMDMenuItem1";
             this.CMDMenuItem1.Size = new System.Drawing.Size(194, 22);
             this.CMDMenuItem1.Text = "CMD";
@@ -607,62 +612,62 @@
             this.PowershellMenuItem2.Text = "Powershell";
             this.PowershellMenuItem2.Click += new System.EventHandler(this.PowershellMenuItem2_Click);
             // 
-            // button18
+            // BtnKarty_sieciowe
             // 
-            this.button18.Image = global::Puzzel.Properties.Resources.netcard;
-            this.button18.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button18.Location = new System.Drawing.Point(633, 40);
-            this.button18.Name = "button18";
-            this.button18.Size = new System.Drawing.Size(103, 30);
-            this.button18.TabIndex = 3;
-            this.button18.TabStop = false;
-            this.button18.Text = "Karty sieciowe";
-            this.button18.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button18.UseVisualStyleBackColor = true;
-            this.button18.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
+            this.BtnKarty_sieciowe.Image = global::Puzzel.Properties.Resources.netcard;
+            this.BtnKarty_sieciowe.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnKarty_sieciowe.Location = new System.Drawing.Point(633, 40);
+            this.BtnKarty_sieciowe.Name = "BtnKarty_sieciowe";
+            this.BtnKarty_sieciowe.Size = new System.Drawing.Size(103, 30);
+            this.BtnKarty_sieciowe.TabIndex = 3;
+            this.BtnKarty_sieciowe.TabStop = false;
+            this.BtnKarty_sieciowe.Text = "Karty sieciowe";
+            this.BtnKarty_sieciowe.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.BtnKarty_sieciowe.UseVisualStyleBackColor = true;
+            this.BtnKarty_sieciowe.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
-            // button16
+            // BtnLista_program
             // 
-            this.button16.Image = global::Puzzel.Properties.Resources.programlist;
-            this.button16.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button16.Location = new System.Drawing.Point(520, 40);
-            this.button16.Name = "button16";
-            this.button16.Size = new System.Drawing.Size(113, 30);
-            this.button16.TabIndex = 4;
-            this.button16.TabStop = false;
-            this.button16.Text = "Lista programów";
-            this.button16.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button16.UseVisualStyleBackColor = true;
-            this.button16.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
+            this.BtnLista_program.Image = global::Puzzel.Properties.Resources.programlist;
+            this.BtnLista_program.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnLista_program.Location = new System.Drawing.Point(520, 40);
+            this.BtnLista_program.Name = "BtnLista_program";
+            this.BtnLista_program.Size = new System.Drawing.Size(113, 30);
+            this.BtnLista_program.TabIndex = 4;
+            this.BtnLista_program.TabStop = false;
+            this.BtnLista_program.Text = "Lista programów";
+            this.BtnLista_program.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.BtnLista_program.UseVisualStyleBackColor = true;
+            this.BtnLista_program.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
-            // button17
+            // BtnExplorerC
             // 
-            this.button17.Image = global::Puzzel.Properties.Resources.folder;
-            this.button17.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button17.Location = new System.Drawing.Point(520, 10);
-            this.button17.Name = "button17";
-            this.button17.Size = new System.Drawing.Size(113, 30);
-            this.button17.TabIndex = 5;
-            this.button17.TabStop = false;
-            this.button17.Text = "Explorer C$";
-            this.button17.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button17.UseVisualStyleBackColor = true;
-            this.button17.Click += new System.EventHandler(this.Button17_Click);
+            this.BtnExplorerC.Image = global::Puzzel.Properties.Resources.folder;
+            this.BtnExplorerC.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnExplorerC.Location = new System.Drawing.Point(520, 10);
+            this.BtnExplorerC.Name = "BtnExplorerC";
+            this.BtnExplorerC.Size = new System.Drawing.Size(113, 30);
+            this.BtnExplorerC.TabIndex = 5;
+            this.BtnExplorerC.TabStop = false;
+            this.BtnExplorerC.Text = "Explorer C$";
+            this.BtnExplorerC.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.BtnExplorerC.UseVisualStyleBackColor = true;
+            this.BtnExplorerC.Click += new System.EventHandler(this.ExplorerC_Click);
             // 
-            // Button14
+            // btnPulpit_Zdalny
             // 
-            this.Button14.ContextMenuStrip = this.RemoteDesktopContextMenu;
-            this.Button14.Image = global::Puzzel.Properties.Resources.rdp;
-            this.Button14.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Button14.Location = new System.Drawing.Point(423, 40);
-            this.Button14.Name = "Button14";
-            this.Button14.Size = new System.Drawing.Size(97, 30);
-            this.Button14.TabIndex = 6;
-            this.Button14.TabStop = false;
-            this.Button14.Text = "Pulpit zdalny";
-            this.Button14.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.Button14.UseVisualStyleBackColor = true;
-            this.Button14.Click += new System.EventHandler(this.Button14_Click);
+            this.btnPulpit_Zdalny.ContextMenuStrip = this.RemoteDesktopContextMenu;
+            this.btnPulpit_Zdalny.Image = global::Puzzel.Properties.Resources.rdp;
+            this.btnPulpit_Zdalny.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPulpit_Zdalny.Location = new System.Drawing.Point(423, 40);
+            this.btnPulpit_Zdalny.Name = "btnPulpit_Zdalny";
+            this.btnPulpit_Zdalny.Size = new System.Drawing.Size(97, 30);
+            this.btnPulpit_Zdalny.TabIndex = 6;
+            this.btnPulpit_Zdalny.TabStop = false;
+            this.btnPulpit_Zdalny.Text = "Pulpit zdalny";
+            this.btnPulpit_Zdalny.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnPulpit_Zdalny.UseVisualStyleBackColor = true;
+            this.btnPulpit_Zdalny.Click += new System.EventHandler(this.PulpitZdalny_Click);
             // 
             // RemoteDesktopContextMenu
             // 
@@ -679,20 +684,20 @@
             this.rDPBezPustyContextMenu.Text = "RDP pusty";
             this.rDPBezPustyContextMenu.Click += new System.EventHandler(this.RDPBezPustyContextMenu_Click);
             // 
-            // button15
+            // BtnDW
             // 
-            this.button15.ContextMenuStrip = this.DWMenuContext;
-            this.button15.Image = global::Puzzel.Properties.Resources.DW;
-            this.button15.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button15.Location = new System.Drawing.Point(423, 10);
-            this.button15.Name = "button15";
-            this.button15.Size = new System.Drawing.Size(97, 30);
-            this.button15.TabIndex = 7;
-            this.button15.TabStop = false;
-            this.button15.Text = Working[16];
-            this.button15.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button15.UseVisualStyleBackColor = true;
-            this.button15.Click += new System.EventHandler(this.DWButton_Click);
+            this.BtnDW.ContextMenuStrip = this.DWMenuContext;
+            this.BtnDW.Image = global::Puzzel.Properties.Resources.DW;
+            this.BtnDW.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnDW.Location = new System.Drawing.Point(423, 10);
+            this.BtnDW.Name = "BtnDW";
+            this.BtnDW.Size = new System.Drawing.Size(97, 30);
+            this.BtnDW.TabIndex = 7;
+            this.BtnDW.TabStop = false;
+            this.BtnDW.Text = Working[16];
+            this.BtnDW.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.BtnDW.UseVisualStyleBackColor = true;
+            this.BtnDW.Click += new System.EventHandler(this.DWButton_Click);
             // 
             // DWContext
             //
@@ -717,34 +722,35 @@
             this.DyDWContextMenu.Text = Working[14];
             this.DyDWContextMenu.Click += new System.EventHandler(this.DWButton_Click);
             // 
-            // button12
+            // BtnZarzadzanie
             // 
-            this.button12.Image = global::Puzzel.Properties.Resources.compmgmt;
-            this.button12.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button12.Location = new System.Drawing.Point(316, 40);
-            this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(107, 30);
-            this.button12.TabIndex = 8;
-            this.button12.TabStop = false;
-            this.button12.Text = "Zarządzanie";
-            this.button12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button12.UseVisualStyleBackColor = true;
-            this.button12.Click += new System.EventHandler(this.Narzedziaadministracyjne);
+            this.BtnZarzadzanie.Image = global::Puzzel.Properties.Resources.compmgmt;
+            this.BtnZarzadzanie.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnZarzadzanie.Location = new System.Drawing.Point(316, 40);
+            this.BtnZarzadzanie.Name = "BtnZarzadzanie";
+            this.BtnZarzadzanie.Size = new System.Drawing.Size(107, 30);
+            this.BtnZarzadzanie.TabIndex = 8;
+            this.BtnZarzadzanie.TabStop = false;
+            this.BtnZarzadzanie.Text = "Zarządzanie";
+            this.BtnZarzadzanie.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.BtnZarzadzanie.UseVisualStyleBackColor = true;
+            this.BtnZarzadzanie.Click += new System.EventHandler(this.Narzedziaadministracyjne);
             // 
-            // button13
+            // BtnKomputerInfo
             // 
-            this.button13.ContextMenuStrip = this.Komputer_info;
-            this.button13.Image = global::Puzzel.Properties.Resources.komputerinfo;
-            this.button13.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button13.Location = new System.Drawing.Point(316, 10);
-            this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(107, 30);
-            this.button13.TabIndex = 9;
-            this.button13.TabStop = false;
-            this.button13.Text = "Komputer info";
-            this.button13.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button13.UseVisualStyleBackColor = true;
-            this.button13.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
+            this.BtnKomputerInfo.ContextMenuStrip = this.Komputer_info;
+            this.BtnKomputerInfo.Image = global::Puzzel.Properties.Resources.komputerinfo;
+            this.BtnKomputerInfo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnKomputerInfo.Location = new System.Drawing.Point(316, 10);
+            this.BtnKomputerInfo.Name = "BtnKomputerInfo";
+            this.BtnKomputerInfo.Size = new System.Drawing.Size(107, 30);
+            this.BtnKomputerInfo.TabIndex = 9;
+            this.BtnKomputerInfo.TabStop = false;
+            this.BtnKomputerInfo.Text = "Komputer info";
+            this.BtnKomputerInfo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.BtnKomputerInfo.UseVisualStyleBackColor = true;
+            this.BtnKomputerInfo.KeyDown += new System.Windows.Forms.KeyEventHandler(Keys_KeyDown);
+            this.BtnKomputerInfo.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
             // Komputer_info
             // 
@@ -882,19 +888,19 @@
             this.bIOSToolStripMenuItem.Text = "BIOS";
             this.bIOSToolStripMenuItem.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
-            // button11
+            // BtnPing
             // 
-            this.button11.Image = global::Puzzel.Properties.Resources.ping;
-            this.button11.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button11.Location = new System.Drawing.Point(209, 40);
-            this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(107, 30);
-            this.button11.TabIndex = 10;
-            this.button11.TabStop = false;
-            this.button11.Text = "Ping";
-            this.button11.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button11.UseVisualStyleBackColor = true;
-            this.button11.Click += new System.EventHandler(this.Button11_Click);
+            this.BtnPing.Image = global::Puzzel.Properties.Resources.ping;
+            this.BtnPing.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnPing.Location = new System.Drawing.Point(209, 40);
+            this.BtnPing.Name = "BtnPing";
+            this.BtnPing.Size = new System.Drawing.Size(107, 30);
+            this.BtnPing.TabIndex = 10;
+            this.BtnPing.TabStop = false;
+            this.BtnPing.Text = "Ping";
+            this.BtnPing.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.BtnPing.UseVisualStyleBackColor = true;
+            this.BtnPing.Click += new System.EventHandler(this.Ping_Click);
             // 
             // numericUpDown2
             // 
@@ -946,24 +952,24 @@
             this.label3.TabIndex = 12;
             this.label3.Text = "Nazwa komputera:";
             // 
-            // button10
+            // BtnKomputerLog
             // 
-            this.button10.Image = global::Puzzel.Properties.Resources.Complog;
-            this.button10.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button10.Location = new System.Drawing.Point(209, 10);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(107, 30);
-            this.button10.TabIndex = 13;
-            this.button10.TabStop = false;
-            this.button10.Text = "Komputer log";
-            this.button10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button10.UseVisualStyleBackColor = true;
-            this.button10.Click += new System.EventHandler(this.SzukajLogow);
+            this.BtnKomputerLog.Image = global::Puzzel.Properties.Resources.Complog;
+            this.BtnKomputerLog.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnKomputerLog.Location = new System.Drawing.Point(209, 10);
+            this.BtnKomputerLog.Name = "BtnKomputerLog";
+            this.BtnKomputerLog.Size = new System.Drawing.Size(107, 30);
+            this.BtnKomputerLog.TabIndex = 13;
+            this.BtnKomputerLog.TabStop = false;
+            this.BtnKomputerLog.Text = "Komputer log";
+            this.BtnKomputerLog.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.BtnKomputerLog.UseVisualStyleBackColor = true;
+            this.BtnKomputerLog.Click += new System.EventHandler(this.SzukajLogow);
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.button20);
-            this.groupBox4.Controls.Add(this.button19);
+            this.groupBox4.Controls.Add(this.BtnReload_Logs);
+            this.groupBox4.Controls.Add(this.BtnFlush_DNS);
             this.groupBox4.Location = new System.Drawing.Point(1, 180);
             this.groupBox4.MinimumSize = new System.Drawing.Size(1182, 45);
             this.groupBox4.Name = "groupBox4";
@@ -972,34 +978,34 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Różne narzędzia";
             // 
-            // button20
+            // BtnReload_Logs
             // 
-            this.button20.Enabled = false;
-            this.button20.Image = global::Puzzel.Properties.Resources.reload;
-            this.button20.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button20.Location = new System.Drawing.Point(101, 15);
-            this.button20.Name = "button20";
-            this.button20.Size = new System.Drawing.Size(97, 33);
-            this.button20.TabIndex = 0;
-            this.button20.TabStop = false;
-            this.button20.Text = "Reload Logs";
-            this.button20.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button20.UseVisualStyleBackColor = true;
-            this.button20.Click += new System.EventHandler(this.Button20_Click);
+            this.BtnReload_Logs.Enabled = false;
+            this.BtnReload_Logs.Image = global::Puzzel.Properties.Resources.reload;
+            this.BtnReload_Logs.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnReload_Logs.Location = new System.Drawing.Point(101, 15);
+            this.BtnReload_Logs.Name = "BtnReload_Logs";
+            this.BtnReload_Logs.Size = new System.Drawing.Size(97, 33);
+            this.BtnReload_Logs.TabIndex = 0;
+            this.BtnReload_Logs.TabStop = false;
+            this.BtnReload_Logs.Text = "Reload Logs";
+            this.BtnReload_Logs.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.BtnReload_Logs.UseVisualStyleBackColor = true;
+            this.BtnReload_Logs.Click += new System.EventHandler(this.Button20_Click);
             // 
-            // button19
+            // BtnFlush_DNS
             // 
-            this.button19.Image = ((System.Drawing.Image)(resources.GetObject("button19.Image")));
-            this.button19.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button19.Location = new System.Drawing.Point(6, 15);
-            this.button19.Name = "button19";
-            this.button19.Size = new System.Drawing.Size(89, 36);
-            this.button19.TabIndex = 1;
-            this.button19.TabStop = false;
-            this.button19.Text = "Flush DNS";
-            this.button19.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button19.UseVisualStyleBackColor = true;
-            this.button19.Click += new System.EventHandler(this.Button19_Click);
+            this.BtnFlush_DNS.Image = ((System.Drawing.Image)(resources.GetObject("BtnFlush_DNS.Image")));
+            this.BtnFlush_DNS.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnFlush_DNS.Location = new System.Drawing.Point(6, 15);
+            this.BtnFlush_DNS.Name = "BtnFlush_DNS";
+            this.BtnFlush_DNS.Size = new System.Drawing.Size(89, 36);
+            this.BtnFlush_DNS.TabIndex = 1;
+            this.BtnFlush_DNS.TabStop = false;
+            this.BtnFlush_DNS.Text = "Flush DNS";
+            this.BtnFlush_DNS.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.BtnFlush_DNS.UseVisualStyleBackColor = true;
+            this.BtnFlush_DNS.Click += new System.EventHandler(this.Button19_Click);
             // 
             // richTextBox1
             // 
@@ -1057,6 +1063,7 @@
             this.menuStrip1.BackColor = System.Drawing.Color.Gainsboro;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.plikToolStripMenuItem,
+            this.ustawienia,
             this.narzędziaAdministracyjneToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -1071,6 +1078,14 @@
             this.plikToolStripMenuItem.Size = new System.Drawing.Size(38, 20);
             this.plikToolStripMenuItem.Text = "Plik";
             this.plikToolStripMenuItem.Visible = false;
+            // 
+            // ustawienia
+            // 
+            this.ustawienia.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.ustawienia.Name = "ustawienia";
+            this.ustawienia.Size = new System.Drawing.Size(76, 20);
+            this.ustawienia.Text = "Ustawienia";
+            this.ustawienia.Click += new System.EventHandler(this.Ustawienia_Click);
             // 
             // narzędziaAdministracyjneToolStripMenuItem
             // 
@@ -1412,7 +1427,8 @@
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(1200, 509);
             this.Name = "Form1";
-            this.Text = "Puzzel v0.106";
+            this.Text = "Puzzel v0.107";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.Resize += new System.EventHandler(this.Form1_Resize);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -1440,33 +1456,33 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button BtnProfil_EXT;
+        private System.Windows.Forms.Button BtnProfil_TS;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Button button9;
-        private System.Windows.Forms.Button button8;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button BtnLogoff;
+        private System.Windows.Forms.Button BtnPolacz;
+        private System.Windows.Forms.Button BtnSzukaj_sesji;
+        private System.Windows.Forms.Button BtnProfil_ERI;
+        private System.Windows.Forms.Button BtnProfil_VFS;
+        private System.Windows.Forms.Button BtnInfo_z_AD;
+        private System.Windows.Forms.Button BtnUserLog;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Button button18;
-        private System.Windows.Forms.Button button16;
-        private System.Windows.Forms.Button button17;
-        private System.Windows.Forms.Button Button14;
-        private System.Windows.Forms.Button button15;
-        private System.Windows.Forms.Button button12;
-        private System.Windows.Forms.Button button13;
-        private System.Windows.Forms.Button button11;
+        private System.Windows.Forms.Button BtnKarty_sieciowe;
+        private System.Windows.Forms.Button BtnLista_program;
+        private System.Windows.Forms.Button BtnExplorerC;
+        private System.Windows.Forms.Button btnPulpit_Zdalny;
+        private System.Windows.Forms.Button BtnDW;
+        private System.Windows.Forms.Button BtnZarzadzanie;
+        private System.Windows.Forms.Button BtnKomputerInfo;
+        private System.Windows.Forms.Button BtnPing;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.Button BtnKomputerLog;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.Button button20;
-        private System.Windows.Forms.Button button19;
+        private System.Windows.Forms.Button BtnReload_Logs;
+        private System.Windows.Forms.Button BtnFlush_DNS;
         public System.Windows.Forms.ComboBox comboBox1;
         public System.Windows.Forms.NumericUpDown numericUpDown1;
         public System.Windows.Forms.TextBox textBox1;
@@ -1478,13 +1494,13 @@
         private System.Windows.Forms.StatusBarPanel statusBP1;
         private System.Windows.Forms.StatusBarPanel statusBP2;
         private System.ComponentModel.BackgroundWorker InfozAD;
-        private System.Windows.Forms.Button button21;
+        private System.Windows.Forms.Button BtnZdalneCMD;
         private System.Windows.Forms.ContextMenuStrip ContextMenuRich;
         private System.Windows.Forms.ToolStripMenuItem wytnijMenuItem;
         private System.Windows.Forms.ToolStripMenuItem kopiujMenuItem;
         private System.Windows.Forms.ToolStripMenuItem zaznaczWszystkoMenuItem;
-        private System.Windows.Forms.Button button23;
-        private System.Windows.Forms.Button button22;
+        private System.Windows.Forms.Button BtnRemote_Tracert;
+        private System.Windows.Forms.Button BtnRemote_Ping;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ContextMenuStrip Komputer_info;
         private System.Windows.Forms.ToolStripMenuItem uptimeToolStripMenuItem;
@@ -1563,6 +1579,7 @@
         private System.Windows.Forms.ToolStripMenuItem zmianaHasłaDomenowegoToolStripMenuItem1;
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.ComboBox comboBox3;
+        private System.Windows.Forms.ToolStripMenuItem ustawienia;
         public static System.Windows.Forms.RichTextBox richTextBox1;
     }
 }
