@@ -18,6 +18,9 @@ namespace Puzzel
             InitializeComponent();
         }
 
+        private const string MessageText = "Ustawienia zostały zapisane";
+        private const string MessageCaption = "Zapisywanie ustawień";
+        private const string V = "BRAK";
         Properties.Settings Settings;
         string[,] settingsArray = new string[21, 2];
         //object activeButton = null;
@@ -178,7 +181,7 @@ namespace Puzzel
         {
             Settings = new Properties.Settings();
             if (lastUsedButton == null)
-            SetValueSettings(lastUsedButton);
+                SetValueSettings(lastUsedButton);
             for (int i = 0; i < 21; i++)
             {
                 SaveValueSettings(settingsArray[i, 0], settingsArray[i, 1]);
@@ -186,11 +189,14 @@ namespace Puzzel
             }
             Settings.Save();
             infoSettingsSaved = true;
-            MessageBox.Show(new Form() { TopMost = true }, "Ustawienia zostały zapisane", "Zapisywanie ustawień", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            using (Form owner = new Form() { TopMost = true })
+            {
+                MessageBox.Show(owner, MessageText, MessageCaption, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
-        object lastUsedButton = null;
+        object lastUsedButton { get; set; }
 
-        public string[,] LoadSettings()
+    public static string[,] LoadSettings()
         {
             string[,] shortcut = new string[21,2];
 
@@ -690,9 +696,9 @@ namespace Puzzel
         }
 
 
-        public Button[] buttons()
+        public Control[] buttons()
         {
-            Button[] button = { DW, ExplorerC, Info_z_AD,
+            Control[] button = { DW, ExplorerC, Info_z_AD,
                 Karty_sieciowe, KomputerInfo, KomputerLog, Lista_program,
                 Logoff, Ping, Polacz, Profil_ERI, Profil_EXT, Profil_TS,
                 Profil_VFS, Pulpit_Zdalny, Remote_Ping, Remote_Tracert,
@@ -717,19 +723,21 @@ namespace Puzzel
             }
             if (sender is Button)
             {
-                Button btn = (Button)sender;
-                shortcut = LoadValueSettings(btn.Name);
-               
-                foreach (Button _button in button)
+                using (Button btn = (Button)sender)
                 {
-                    _button.FlatStyle = FlatStyle.Standard;
-                    _button.FlatAppearance.BorderColor = Color.Gray;
+                    shortcut = LoadValueSettings(btn.Name);
+
+                    foreach (Button _button in button)
+                    {
+                        _button.FlatStyle = FlatStyle.Standard;
+                        _button.FlatAppearance.BorderColor = Color.Gray;
+                    }
+                    btn.FlatAppearance.BorderColor = Color.Red;
+                    btn.FlatStyle = FlatStyle.Flat;
                 }
-                btn.FlatAppearance.BorderColor = Color.Red;
-                btn.FlatStyle = FlatStyle.Flat;
                 //activeButton = btn;
                 string[] combo = shortcut.Split('+');
-                if (combo.Count() == 2/*3*/)
+                if (combo.Length == 2/*3*/)
                 {
                     comboBox4.Text = combo[0];
                     comboBox5.Text = combo[1];
@@ -737,13 +745,13 @@ namespace Puzzel
                 }
                 else
                 {
-                    comboBox4.Text = "BRAK";
-                    comboBox5.Text = "BRAK";
-                    //comboBox6.Text = "BRAK";
+                    comboBox4.Text = V;
+                    comboBox5.Text = V;
+                    //comboBox6.Text = V;
                 }
             }
         }
-        public class formSettings : ApplicationSettingsBase
+        private class formSettings : ApplicationSettingsBase
         {
             [UserScopedSetting()]
             [DefaultSettingValue(null)]
@@ -751,9 +759,9 @@ namespace Puzzel
             {
                 get
                 {
-                    return (string)this["btnshortcut"];
+                    return (string)this[nameof(btnshortcut)];
                 }
-                set { this["btnshortcut"] = (string)value; }
+                set { this[nameof(btnshortcut)] = (string)value; }
             }
         }
 
@@ -769,7 +777,7 @@ namespace Puzzel
                     System.IO.Directory.Delete(localappdata, true);
                 if (System.IO.Directory.Exists(appdata))
                     System.IO.Directory.Delete(appdata, true);
-                MessageBox.Show(new Form() { TopMost = true },"Ustawienia zostały przywrócone","Przywracanie ustawień domyślnych",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                MessageBox.Show("Ustawienia zostały przywrócone","Przywracanie ustawień domyślnych",MessageBoxButtons.OK,MessageBoxIcon.Information);
             }
         }
 
@@ -783,7 +791,7 @@ namespace Puzzel
                     Settings.Save();
                     settingsArray[i, 0] = null; 
                     settingsArray[i, 1] = null;
-                    MessageBox.Show(new Form() { TopMost = true }, "Ustawienia dla tego elementu zostały przywrócone");
+                    MessageBox.Show("Ustawienia dla tego elementu zostały przywrócone");
                 }
             }
         }
@@ -792,11 +800,18 @@ namespace Puzzel
         {
             if (infoSettingsSaved == false)
             {
-                if (MessageBox.Show(new Form() { TopMost = true }, "Czy chcesz zapisać ustawienia?", "Zapisywanie ustawień", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                using (Form owner = new Form() { TopMost = true })
                 {
-                    SaveSettings_Click(sender, e);
+                    if (MessageBox.Show(owner, "Czy chcesz zapisać ustawienia?", "Zapisywanie ustawień", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                    {
+                        SaveSettings_Click(sender, e);
+                    }
+                    else MessageBox.Show(owner, "Ustawienia nie zostały zapisane", "Zapisywanie ustawień", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                else MessageBox.Show(new Form() { TopMost = true }, "Ustawienia nie zostały zapisane", "Zapisywanie ustawień", MessageBoxButtons.OK, MessageBoxIcon.Information);
+<<<<<<< HEAD
+=======
+                else MessageBox.Show(new Form() { TopMost = true }, "Ustawienia nie zostały zapisane");
+>>>>>>> parent of fc44d59... ## version 0.112.190703
             }
         }
 
@@ -806,8 +821,8 @@ namespace Puzzel
         }
         private void ShortcutKeys()
         {
-            //object[] keys = new object[] { Keys.Control, Keys.Alt, Keys.Shift };
-            object[] letterKeys = new object[] { Keys.A, Keys.B, Keys.C, Keys.D, Keys.E, Keys.F, Keys.G, Keys.H, Keys.I, Keys.J, Keys.K, Keys.L, Keys.M, Keys.N, Keys.O, Keys.P, Keys.Q, Keys.R, Keys.S, Keys.T, Keys.U, Keys.V, Keys.X, Keys.Y, Keys.Z, Keys.Enter, Keys.NumPad0, Keys.NumPad1, Keys.NumPad2, Keys.NumPad3, Keys.NumPad4, Keys.NumPad5, Keys.NumPad6, Keys.NumPad7, Keys.NumPad8, Keys.NumPad9, Keys.D0, Keys.D1, Keys.D2, Keys.D3, Keys.D4, Keys.D5, Keys.D6, Keys.D7, Keys.D8, Keys.D9, Keys.F1, Keys.F2, Keys.F3, Keys.F4, Keys.F5, Keys.F6, Keys.F7, Keys.F8, Keys.F9, Keys.F10, Keys.F11, Keys.F12 };
+            object[] keys = new object[] { Keys.Control, Keys.Alt, Keys.Shift };
+            object[] letterKeys = new object[] {"A","B","C", "D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","X","Y","Z", Keys.Enter, Keys.NumPad0, Keys.NumPad1, Keys.NumPad2, Keys.NumPad3, Keys.NumPad4, Keys.NumPad5, Keys.NumPad6, Keys.NumPad7, Keys.NumPad8, Keys.NumPad9, Keys.D0, Keys.D1, Keys.D2, Keys.D3, Keys.D4, Keys.D5, Keys.D6, Keys.D7, Keys.D8, Keys.D9, Keys.F1, Keys.F2, Keys.F3, Keys.F4, Keys.F5, Keys.F6, Keys.F7, Keys.F8, Keys.F9, Keys.F10, Keys.F11, Keys.F12 };
             //comboBox4.Items.AddRange(keys);
             comboBox5.Items.AddRange(/*keys*/letterKeys);
             //comboBox6.Items.AddRange(letterKeys);
@@ -819,28 +834,23 @@ namespace Puzzel
             ShortcutKeys();
             var button = buttons();
             var keys = LoadSettings();
-            string[] shortcuts = { "CTRL+C", "CTRL+X", "CTRL+V" };
-            //string buttonWithBorderColorRed = null;
-
+            string[] shortcuts = { "CTRL+F", "CTRL+C", "CTRL+X","CTRL+V"};
+            string buttonWithBorderColorRed = null;
             foreach (string shortcut in shortcuts)
             { var shorts = shortcut.Split('+');
                 if (comboBox4.Text == shorts[0])
                     comboBox5.Items.Remove(shorts[1]);
             }
-
-            var buttonWithBorderColorRed = from _button in button
-                                           where _button.FlatAppearance.BorderColor == Color.Red
-                                           select _button.Name;
-            //foreach (Button _button in button)
-            //{
-            //    if (_button.FlatAppearance.BorderColor == Color.Red)
-            //        buttonWithBorderColorRed = _button.Name;
-            //}
+            foreach (Button _button in button)
+            {
+                if (_button.FlatAppearance.BorderColor == Color.Red)
+                    buttonWithBorderColorRed = _button.Name;
+            }
             for (int i = 0; i < 21; i++) 
             {
                 if (keys[i, 1] != null)
                 {
-                    if (keys[i, 0] != buttonWithBorderColorRed.First())
+                    if (keys[i, 0] != buttonWithBorderColorRed)
                     {
                         var _key = keys[i, 1].Split('+');
                         if (comboBox4.Text == _key[0])

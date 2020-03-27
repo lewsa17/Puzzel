@@ -8,7 +8,7 @@ namespace Puzzel
 {
     public static class ShortCut
     {
-        private static string[] KeyCombination = { };
+        private static string[] KeyCombination = Array.Empty<string>();
         public static void SetKeyCode(string value)
         {
             Array.Resize(ref KeyCombination, KeyCombination.Length + 1);

@@ -3,71 +3,152 @@ using System.Windows.Forms;
 using System.DirectoryServices;
 using System.DirectoryServices.AccountManagement;
 using System.Threading;
-using System.Linq;
 
-namespace Puzzel.LockoutStatus
+namespace Puzzel
 {
-    public partial class Lockout_Status :  Form
+<<<<<<< HEAD
+    public partial class LockoutStatus :  Form
     {
-        public static string userName { get; set; }
-        public static string _lastPasswordSet { get; set; }
+        public static string _userName { get; set; }
+        private static string _lastPasswordSet { get; set; }
 
-        public Lockout_Status(string _userName)
+        public LockoutStatus(string userName)
         {
             InitializeComponent();
-            userName = _userName;
+            _userName = userName;
+=======
+    public partial class Lockout_Status : Form
+    {
+        public Lockout_Status(string username)
+        {
+            InitializeComponent();
+            Username = username;
+>>>>>>> parent of fc44d59... ## version 0.112.190703
         }
         public static string DomainName() { return System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().DomainName; }
-        public static string[] DomainControllers()
+        public static string[] DomainController()
         {
+<<<<<<< HEAD
+            using (DirectorySearcher search = new DirectorySearcher(new DirectoryEntry("LDAP://" + DomainName())))
+=======
+            //DirectoryEntry myLdapConnection = new DirectoryEntry("LDAP://OU=Domain Controllers," + domainName());
             DirectorySearcher search = new DirectorySearcher(new DirectoryEntry("LDAP://" + DomainName()));
+            //search.Filter = "(sAMAccountName=" + username + ")";
             SearchResult search1 = search.FindOne();
+            //SearchResultCollection collection = search.FindAll();
+            object[] lines = (object[])search1.GetDirectoryEntry().Properties["msds-isdomainfor"].Value;
             string table = null;
-            foreach (string line in (object[])search1.GetDirectoryEntry().Properties["msds-isdomainfor"].Value)
+            foreach (string line in lines)
+>>>>>>> parent of fc44d59... ## version 0.112.190703
             {
-                string[] words = line.Split(',');
-                table += words[1].Replace("CN=", "") + ",";
+                SearchResult search1 = search.FindOne();
+                string table = null;
+                foreach (string line in (object[])search1.GetDirectoryEntry().Properties["msds-isdomainfor"].Value)
+                {
+                    string[] words = line.Split(',');
+                    table += words[1].Replace("CN=", "") + ",";
+                }
+                return table.Substring(0, table.Length - 1).Split(',');
             }
-            return table.Substring(0, table.Length - 1).Split(',');
+<<<<<<< HEAD
         }
+        public static string domainAddress { get; set; }
+        private void Lockout_Status_Load(object sender, EventArgs e)
+        {
+            this.Text = "Lockout Status";
+            if (_userName.Length > 1)
+            {
+                this.Text = _userName;
+=======
+
+#pragma warning disable IDE0059 // Wartość przypisana do symbolu nie jest nigdy używana
+            string[] array = null;
+#pragma warning restore IDE0059 // Wartość przypisana do symbolu nie jest nigdy używana
+            array = table.Split(',');
+            Array.Resize(ref array, array.Length - 1);
+
+            return array;
+        }
+        public static string Username;
         public static string domainAddress = null;        
         private void Lockout_Status_Load(object sender, EventArgs e)
         {
             this.Text = "Lockout Status";
-            if (userName.Length > 1)
+            if (Username.Length > 1)
             {
-                this.Text = userName;
+                this.Text = Username;
+>>>>>>> parent of fc44d59... ## version 0.112.190703
             }
         }
         private void WybierzUżytkownikaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Text = "Lockout Status";
-            LockoutStatusWyborUzytkownika lswu = new LockoutStatusWyborUzytkownika();
-            lswu.ShowDialog();
+            using (LockoutStatusWyborUzytkownika lswu = new LockoutStatusWyborUzytkownika())
+                lswu.ShowDialog();
             DeleteEntryRows();
-            AddEntry(userName);
+<<<<<<< HEAD
+            AddEntry(_userName);
         }
         public static void AddEntry(string Username)
         {
-            string[] dcNames = DomainControllers();
+            try
+=======
+            AddEntry(Username);
+        }
+        public static void AddEntry(string Username)
+        {
+            string[] dcNames = DomainController();
             int i = 0;
             foreach (string dcName in dcNames)
+>>>>>>> parent of fc44d59... ## version 0.112.190703
             {
-                Thread thread = new Thread(() =>
-                    {
-                        if (GetUserPasswordDetails(dcName, Username) == null)
-                            i++;
-                    });
-                thread.Priority = ThreadPriority.Highest;
-                thread.Start();
+                string[] dcNames = DomainControllers();
+                int i = 0;
+                foreach (string dcName in dcNames)
+                {
+                    Thread thread = new Thread(() =>
+                                {
+                                    if (GetUserPasswordDetails(dcName, Username) == null)
+                                        i++;
+                                });
+                    thread.Priority = ThreadPriority.Highest;
+                    thread.Start();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
         }
 
-        public static string CheckUserInDomain(string userName)
+        public static string UserInfo(string usrname)
         {
+<<<<<<< HEAD
+            using (DirectoryEntry myLdapConnection = new DirectoryEntry("LDAP://" + DomainName()))
+            {
+                using (DirectorySearcher search = new DirectorySearcher(myLdapConnection))
+                {
+                    search.Filter = "(sAMAccountName=" + userName + ")";
+                    search.PropertiesToLoad.Add("sAMAccountName");
+                    string text = null;
+                    if (search.FindOne() != null)
+                        text = search.FindOne().GetDirectoryEntry().Properties["sAMAccountName"].Value.ToString();
+                    else
+                    {
+                        using (Form owner = new Form() { TopMost = true })
+                        {
+                            MessageBox.Show(owner, "Podany login nie występuje w AD", "", MessageBoxButtons.OK);
+                        }
+                    }
+
+                    return text;
+                }
+            }
+=======
             DirectoryEntry myLdapConnection = new DirectoryEntry("LDAP://" + DomainName());
             DirectorySearcher search = new DirectorySearcher(myLdapConnection);
-            search.Filter = "(sAMAccountName=" + userName + ")";
+            search.Filter = "(sAMAccountName=" + usrname + ")";
             search.PropertiesToLoad.Add("sAMAccountName");
             string text = null;
             if (search.FindOne() != null)
@@ -75,6 +156,7 @@ namespace Puzzel.LockoutStatus
             else
                 MessageBox.Show(new Form() { TopMost = true }, "Podany login nie występuje w AD", "", MessageBoxButtons.OK);            
             return text;
+>>>>>>> parent of fc44d59... ## version 0.112.190703
         }
 
         private void DeleteEntryRows()
@@ -90,15 +172,25 @@ namespace Puzzel.LockoutStatus
                 {
                     int RowIndex = dataGridView1.CurrentCell.RowIndex;
                     string dcName = dataGridView1.Rows[RowIndex].Cells[0].Value.ToString();
-                    GetUserPasswordDetails(dcName, userName);
+<<<<<<< HEAD
+                    GetUserPasswordDetails(dcName, _userName);
+=======
+                    GetUserPasswordDetails(dcName, Username);
+>>>>>>> parent of fc44d59... ## version 0.112.190703
                 }
         }
 
         private void Lockout_Status_Activated(object sender, EventArgs e)
         {
-            if (userName.Length > 1)
-                this.Text = userName;
+<<<<<<< HEAD
+            if (_userName.Length > 1)
+                this.Text = _userName;
+=======
+            if (Username.Length > 1)
+                this.Text = Username;
+>>>>>>> parent of fc44d59... ## version 0.112.190703
         }
+        static string _lastPasswordSet = null;
 
         public static UserPrincipal GetUserPasswordDetails(string dcName, string Username)
         {
@@ -109,8 +201,8 @@ namespace Puzzel.LockoutStatus
             //if (dataGridView1.Columns != null)
             UserPrincipal uP = null;
             try
-            {
-                if (dataGridView1.Columns.Count > 0)
+            {   
+                if (dataGridView1.ColumnCount > 0)
                 using (PrincipalContext context = new PrincipalContext(ContextType.Domain, dcName))
                 {
                     uP = UserPrincipal.FindByIdentity(context, IdentityType.SamAccountName, Username);
@@ -123,8 +215,9 @@ namespace Puzzel.LockoutStatus
                         if (uP.LastBadPasswordAttempt != null)
                             _lastBadPasswordAttempt = DateTime.FromFileTime(uP.LastBadPasswordAttempt.Value.ToFileTime()).ToString();
 
-                        if (uP.LastPasswordSet != null)
-                            _lastPasswordSet = DateTime.FromFileTime(uP.LastPasswordSet.Value.ToFileTime()).ToString();
+                            if (uP.LastPasswordSet != null)
+                                _lastPasswordSet = DateTime.FromFileTime(uP.LastPasswordSet.Value.ToFileTime()).ToString();
+                            else _lastPasswordSet = "Zmień hasło";
 
                         if (uP.AccountLockoutTime != null)
                         {
@@ -134,7 +227,7 @@ namespace Puzzel.LockoutStatus
                         else
                         {
                             useraccaountLocked = "Odblokowane";
-                            _accountLockoutTime = "0";
+                            _accountLockoutTime = "Niedostępne";
                         }
 
                         if (dataGridView1.InvokeRequired)
@@ -147,7 +240,7 @@ namespace Puzzel.LockoutStatus
             }
             catch (Exception e)
             {
-                LogsCollector.Loger(e, dcName + "," + Username);
+                //LogsCollector.Loger(e, dcName + "," + Username);
             }
             return uP;
         }
@@ -160,7 +253,11 @@ namespace Puzzel.LockoutStatus
         private void OdświerzWszystkoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DeleteEntryRows();
-            AddEntry(userName);
+<<<<<<< HEAD
+            AddEntry(_userName);
+=======
+            AddEntry(Username);
+>>>>>>> parent of fc44d59... ## version 0.112.190703
         }
 
         private void StatusHasłaToolStripMenuItem_Click(object sender, EventArgs e)
@@ -171,7 +268,11 @@ namespace Puzzel.LockoutStatus
             TimeSpan expirePwd = pwdLastSet.AddDays(30) - DateTime.Now;
 
             //pierwsza linijka
-            messagebox += "Maksymalna długość hasła dla " + userName + " wynosi 30 dni.";
+<<<<<<< HEAD
+            messagebox += "Maksymalna długość hasła dla " + _userName + " wynosi 30 dni.";
+=======
+            messagebox += "Maksymalna długość hasła dla " + Username + " wynosi 30 dni.";
+>>>>>>> parent of fc44d59... ## version 0.112.190703
             //drugalinijka
             messagebox +=  "\n\n";
             //trzecia linijka
@@ -196,13 +297,17 @@ namespace Puzzel.LockoutStatus
             MessageBox.Show(messagebox, "Status hasła");
         }
 
-        private void OdblokujKonto(object sender, EventArgs e)
+        private void OdblokujZaznaczoneToolStripMenuItem_Click(object sender, EventArgs e)
         {
             int selectedRowIndex = dataGridView1.SelectedRows[0].Index;
             string dcName = dataGridView1.Rows[selectedRowIndex].Cells[0].Value.ToString();
             using (PrincipalContext context = new PrincipalContext(ContextType.Domain, dcName))
             {
-                UserPrincipal uP = UserPrincipal.FindByIdentity(context, IdentityType.SamAccountName, userName);
+<<<<<<< HEAD
+                UserPrincipal uP = UserPrincipal.FindByIdentity(context, IdentityType.SamAccountName, _userName);
+=======
+                UserPrincipal uP = UserPrincipal.FindByIdentity(context, IdentityType.SamAccountName, Username);
+>>>>>>> parent of fc44d59... ## version 0.112.190703
                 uP.UnlockAccount();
                 uP.Save();
             }
@@ -210,6 +315,28 @@ namespace Puzzel.LockoutStatus
             MessageBox.Show("Konto zostało odblokowane");
         }
 
-        
+        public static void Ustawhaslo(string password, bool UnlockAccount, bool PasswordExpired)
+        {
+            if (password != null)
+                foreach (string dcName in DomainController())
+                {
+                    Thread thread = new Thread(() =>
+                    {
+                        using (PrincipalContext context = new PrincipalContext(ContextType.Domain, dcName))
+                        {
+                            UserPrincipal uP = UserPrincipal.FindByIdentity(context, IdentityType.SamAccountName, Username);
+                            uP.SetPassword(password);
+                            if (UnlockAccount)
+                                uP.UnlockAccount();
+                            if (PasswordExpired)
+                                uP.ExpirePasswordNow();
+                            uP.Save();
+                        }
+                    }); thread.Start();
+                    thread.Priority = ThreadPriority.Highest;
+                    thread.Join();
+                }
+            MessageBox.Show("Hasło zostało zmienione");
+        }
     }
 }

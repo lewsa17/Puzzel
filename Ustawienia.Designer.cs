@@ -198,7 +198,7 @@
             this.comboBox4.Name = "comboBox4";
             this.comboBox4.Size = new System.Drawing.Size(120, 21);
             this.comboBox4.TabIndex = 0;
-            this.comboBox4.SelectedIndexChanged += new System.EventHandler(this.ComboBox4_SelectedIndexChanged);
+            this.comboBox4.Text = "BRAK";
             // 
             // groupBox4
             // 
@@ -393,14 +393,14 @@
             // DW
             // 
             this.DW.ContextMenuStrip = this.contextMenuStrip1;
-            this.DW.Image = global::Puzzel.Properties.Resources.DW;
+            this.DW.Image = global::Puzzel.Properties.Resources.dw;
             this.DW.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.DW.Location = new System.Drawing.Point(423, 10);
-            this.DW.Name = "DW";
+            this.DW.Name = ExternalResources.dw;
             this.DW.Size = new System.Drawing.Size(97, 30);
             this.DW.TabIndex = 7;
             this.DW.TabStop = false;
-            this.DW.Text = "DW";
+            this.DW.Text = ExternalResources.dw;
             this.DW.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.DW.UseVisualStyleBackColor = true;
             this.DW.Click += new System.EventHandler(this.Object_Click);

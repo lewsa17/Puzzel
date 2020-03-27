@@ -1,5 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.7\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props" Condition="Exists('..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.7\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props')" />
+  <Import Project="..\packages\Microsoft.NetFramework.Analyzers.2.9.7\build\Microsoft.NetFramework.Analyzers.props" Condition="Exists('..\packages\Microsoft.NetFramework.Analyzers.2.9.7\build\Microsoft.NetFramework.Analyzers.props')" />
+  <Import Project="..\packages\Microsoft.NetCore.Analyzers.2.9.7\build\Microsoft.NetCore.Analyzers.props" Condition="Exists('..\packages\Microsoft.NetCore.Analyzers.2.9.7\build\Microsoft.NetCore.Analyzers.props')" />
+  <Import Project="..\packages\Microsoft.CodeQuality.Analyzers.2.9.7\build\Microsoft.CodeQuality.Analyzers.props" Condition="Exists('..\packages\Microsoft.CodeQuality.Analyzers.2.9.7\build\Microsoft.CodeQuality.Analyzers.props')" />
+  <Import Project="..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.7\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.props" Condition="Exists('..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.7\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -27,9 +32,11 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -41,6 +48,7 @@
     </DocumentationFile>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -95,7 +103,6 @@
     <Compile Include="Cassia\Impl\GroupLazyLoadedProperty.cs" />
     <Compile Include="Cassia\Impl\LazyLoadedProperty.cs" />
     <Compile Include="Cassia\Impl\LocalServerHandle.cs" />
-    <Compile Include="Cassia\Impl\NamespaceDoc.cs" />
     <Compile Include="Cassia\Impl\NativeMethods.cs" />
     <Compile Include="Cassia\Impl\NativeMethodsHelper.cs" />
     <Compile Include="Cassia\Impl\PROTOCOLCOUNTERS.cs" />
@@ -125,7 +132,6 @@
     <Compile Include="Cassia\ITerminalServicesManager.cs" />
     <Compile Include="Cassia\ITerminalServicesProcess.cs" />
     <Compile Include="Cassia\ITerminalServicesSession.cs" />
-    <Compile Include="Cassia\NamespaceDoc.cs" />
     <Compile Include="Cassia\obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="Cassia\obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
     <Compile Include="Cassia\obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
@@ -138,6 +144,32 @@
     <Compile Include="Cassia\RemoteMessageBoxResult.cs" />
     <Compile Include="Cassia\ShutdownType.cs" />
     <Compile Include="Cassia\TerminalServicesManager.cs" />
+    <Compile Include="ExternalResources.cs" />
+    <None Include="GlobalSuppressions.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="QuickFix\DeleteUsers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="QuickFix\DeleteUsers.Designer.cs">
+      <DependentUpon>DeleteUsers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="QuickFix\Environment_Variable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="QuickFix\Environment_Variable.Designer.cs">
+      <DependentUpon>Environment_Variable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="QuickFix\IEHosting.cs" />
+    <Compile Include="Registry\IEnum.cs" />
+    <Compile Include="Registry\IErase.cs" />
+    <Compile Include="Registry\RegEnum.cs" />
+    <Compile Include="Registry\RegErase.cs" />
+    <Compile Include="Registry\RegOpen.cs" />
+    <Compile Include="Registry\RegQuery.cs" />
     <Compile Include="Shortcut.cs" />
     <Compile Include="LAPSui.cs">
       <SubType>Form</SubType>
@@ -153,16 +185,11 @@
     </Compile>
     <Compile Include="Logi.cs" />
     <Compile Include="LogsCollector.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Settings.cs" />
-    <Compile Include="TermsExplorer\CustomSearch.cs">
+    <Compile Include="Explorer\CustomSearch.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TermsExplorer\CustomSearch.Designer.cs">
+    <Compile Include="Explorer\CustomSearch.Designer.cs">
       <DependentUpon>CustomSearch.cs</DependentUpon>
     </Compile>
     <Compile Include="LoadingForm.cs" />
@@ -184,6 +211,12 @@
     <EmbeddedResource Include="LockoutStatus\ZmianaHasla.resx">
       <DependentUpon>ZmianaHasla.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="QuickFix\DeleteUsers.resx">
+      <DependentUpon>DeleteUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="QuickFix\Environment_Variable.resx">
+      <DependentUpon>Environment_Variable.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Ustawienia.resx">
       <DependentUpon>Ustawienia.cs</DependentUpon>
     </EmbeddedResource>
@@ -193,6 +226,7 @@
     <None Include="Cassia\Cassia.nuspec" />
     <None Include="Cassia\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
     <None Include="Cassia\packages.config" />
+    <None Include="packages.config" />
     <None Include="Progress.cs">
       <SubType>Form</SubType>
     </None>
@@ -220,16 +254,16 @@
     <Compile Include="ProcExec.cs" />
     <Compile Include="ComputerInfo.cs" />
     <Compile Include="Ping\Ping.cs" />
-    <Compile Include="TermsExplorer\TerminalExplorer.cs">
+    <Compile Include="Explorer\Explorer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TermsExplorer\TerminalExplorer.Designer.cs">
-      <DependentUpon>TerminalExplorer.cs</DependentUpon>
+    <Compile Include="Explorer\Explorer.Designer.cs">
+      <DependentUpon>Explorer.cs</DependentUpon>
     </Compile>
-    <Compile Include="TermsExplorer\SendMessage.cs">
+    <Compile Include="Explorer\SendMessage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TermsExplorer\SendMessage.Designer.cs">
+    <Compile Include="Explorer\SendMessage.Designer.cs">
       <DependentUpon>SendMessage.cs</DependentUpon>
     </Compile>
     <Compile Include="Form1.cs">
@@ -242,8 +276,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="TermsExplorer\CustomSearch.resx">
+    <EmbeddedResource Include="Explorer\CustomSearch.resx">
       <DependentUpon>CustomSearch.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Progress.resx">
@@ -259,14 +294,14 @@
       <DependentUpon>Lockout Status.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="TermsExplorer\TerminalExplorer.resx">
-      <DependentUpon>TerminalExplorer.cs</DependentUpon>
+    <EmbeddedResource Include="Explorer\Explorer.resx">
+      <DependentUpon>Explorer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TermsExplorer\SendMessage.resx">
+    <EmbeddedResource Include="Explorer\SendMessage.resx">
       <DependentUpon>SendMessage.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\app.manifest" />
@@ -296,6 +331,11 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Properties\PNG\process.png" />
+    <None Include="Properties\PNG\password.png" />
+    <None Include="Properties\PNG\deactiveSession.png" />
+    <None Include="Properties\PNG\activeSession.png" />
+    <None Include="Properties\PNG\ComputerExplorer.png" />
     <None Include="Properties\PNG\cmd.png" />
     <None Include="Properties\PNG\handshake.png" />
     <None Include="Properties\PNG\reload.png" />
@@ -310,5 +350,26 @@
   <ItemGroup>
     <Folder Include="Cassia\obj\Debug\TempPE\" />
   </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.7\analyzers\dotnet\cs\Microsoft.CodeAnalysis.VersionCheckAnalyzer.resources.dll" />
+    <Analyzer Include="..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.7\analyzers\dotnet\Microsoft.CodeAnalysis.VersionCheckAnalyzer.dll" />
+    <Analyzer Include="..\packages\Microsoft.CodeQuality.Analyzers.2.9.7\analyzers\dotnet\cs\Humanizer.dll" />
+    <Analyzer Include="..\packages\Microsoft.CodeQuality.Analyzers.2.9.7\analyzers\dotnet\cs\Microsoft.CodeQuality.Analyzers.dll" />
+    <Analyzer Include="..\packages\Microsoft.CodeQuality.Analyzers.2.9.7\analyzers\dotnet\cs\Microsoft.CodeQuality.CSharp.Analyzers.dll" />
+    <Analyzer Include="..\packages\Microsoft.NetCore.Analyzers.2.9.7\analyzers\dotnet\cs\Microsoft.NetCore.Analyzers.dll" />
+    <Analyzer Include="..\packages\Microsoft.NetCore.Analyzers.2.9.7\analyzers\dotnet\cs\Microsoft.NetCore.CSharp.Analyzers.dll" />
+    <Analyzer Include="..\packages\Microsoft.NetFramework.Analyzers.2.9.7\analyzers\dotnet\cs\Microsoft.NetFramework.Analyzers.dll" />
+    <Analyzer Include="..\packages\Microsoft.NetFramework.Analyzers.2.9.7\analyzers\dotnet\cs\Microsoft.NetFramework.CSharp.Analyzers.dll" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Ten projekt zawiera odwołania do pakietów NuGet, których nie ma na tym komputerze. Użyj przywracania pakietów NuGet, aby je pobrać. Aby uzyskać więcej informacji, zobacz http://go.microsoft.com/fwlink/?LinkID=322105. Brakujący plik: {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.7\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.7\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeQuality.Analyzers.2.9.7\build\Microsoft.CodeQuality.Analyzers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeQuality.Analyzers.2.9.7\build\Microsoft.CodeQuality.Analyzers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.NetCore.Analyzers.2.9.7\build\Microsoft.NetCore.Analyzers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.NetCore.Analyzers.2.9.7\build\Microsoft.NetCore.Analyzers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.NetFramework.Analyzers.2.9.7\build\Microsoft.NetFramework.Analyzers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.NetFramework.Analyzers.2.9.7\build\Microsoft.NetFramework.Analyzers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.7\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.7\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props'))" />
+  </Target>
 </Project>

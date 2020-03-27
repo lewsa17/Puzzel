@@ -22,7 +22,7 @@ namespace Puzzel.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Puzzel.Properties {
         /// Zwraca buforowane wystąpienie ResourceManager używane przez tę klasę.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Puzzel.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace Puzzel.Properties {
         ///   przypadków przeszukiwania zasobów za pomocą tej klasy zasobów wymagającej zdefiniowania typu.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,17 @@ namespace Puzzel.Properties {
         /// <summary>
         ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap changepass {
+        public static System.Drawing.Bitmap activeSession {
+            get {
+                object obj = ResourceManager.GetObject("activeSession", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap changepass {
             get {
                 object obj = ResourceManager.GetObject("changepass", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -73,7 +83,7 @@ namespace Puzzel.Properties {
         /// <summary>
         ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap cmd {
+        public static System.Drawing.Bitmap cmd {
             get {
                 object obj = ResourceManager.GetObject("cmd", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -83,7 +93,7 @@ namespace Puzzel.Properties {
         /// <summary>
         ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Complog {
+        public static System.Drawing.Bitmap Complog {
             get {
                 object obj = ResourceManager.GetObject("Complog", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -93,7 +103,7 @@ namespace Puzzel.Properties {
         /// <summary>
         ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap compmgmt {
+        public static System.Drawing.Bitmap compmgmt {
             get {
                 object obj = ResourceManager.GetObject("compmgmt", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -103,9 +113,9 @@ namespace Puzzel.Properties {
         /// <summary>
         ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap dw {
+        public static System.Drawing.Bitmap ComputerExplorer {
             get {
-                object obj = ResourceManager.GetObject("dw", resourceCulture);
+                object obj = ResourceManager.GetObject("ComputerExplorer", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -113,7 +123,17 @@ namespace Puzzel.Properties {
         /// <summary>
         ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap dhcp {
+        public static System.Drawing.Bitmap deactiveSession {
+            get {
+                object obj = ResourceManager.GetObject("deactiveSession", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap dhcp {
             get {
                 object obj = ResourceManager.GetObject("dhcp", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -123,7 +143,17 @@ namespace Puzzel.Properties {
         /// <summary>
         ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap eventvwr {
+        public static System.Drawing.Bitmap dw {
+            get {
+                object obj = ResourceManager.GetObject("dw", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap eventvwr {
             get {
                 object obj = ResourceManager.GetObject("eventvwr", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -133,7 +163,7 @@ namespace Puzzel.Properties {
         /// <summary>
         ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap folder {
+        public static System.Drawing.Bitmap folder {
             get {
                 object obj = ResourceManager.GetObject("folder", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -143,7 +173,7 @@ namespace Puzzel.Properties {
         /// <summary>
         ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap handshake {
+        public static System.Drawing.Bitmap handshake {
             get {
                 object obj = ResourceManager.GetObject("handshake", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -153,7 +183,7 @@ namespace Puzzel.Properties {
         /// <summary>
         ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap infozad {
+        public static System.Drawing.Bitmap infozad {
             get {
                 object obj = ResourceManager.GetObject("infozad", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -163,7 +193,7 @@ namespace Puzzel.Properties {
         /// <summary>
         ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap komputerinfo {
+        public static System.Drawing.Bitmap komputerinfo {
             get {
                 object obj = ResourceManager.GetObject("komputerinfo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -173,7 +203,7 @@ namespace Puzzel.Properties {
         /// <summary>
         ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap lockout {
+        public static System.Drawing.Bitmap lockout {
             get {
                 object obj = ResourceManager.GetObject("lockout", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -183,7 +213,7 @@ namespace Puzzel.Properties {
         /// <summary>
         ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Logoff {
+        public static System.Drawing.Bitmap Logoff {
             get {
                 object obj = ResourceManager.GetObject("Logoff", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -193,7 +223,7 @@ namespace Puzzel.Properties {
         /// <summary>
         ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap lusrmgr {
+        public static System.Drawing.Bitmap lusrmgr {
             get {
                 object obj = ResourceManager.GetObject("lusrmgr", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -203,7 +233,7 @@ namespace Puzzel.Properties {
         /// <summary>
         ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap netcard {
+        public static System.Drawing.Bitmap netcard {
             get {
                 object obj = ResourceManager.GetObject("netcard", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -213,7 +243,17 @@ namespace Puzzel.Properties {
         /// <summary>
         ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ping {
+        public static System.Drawing.Bitmap password {
+            get {
+                object obj = ResourceManager.GetObject("password", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap ping {
             get {
                 object obj = ResourceManager.GetObject("ping", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -223,7 +263,7 @@ namespace Puzzel.Properties {
         /// <summary>
         ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap powershell {
+        public static System.Drawing.Bitmap powershell {
             get {
                 object obj = ResourceManager.GetObject("powershell", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -233,7 +273,17 @@ namespace Puzzel.Properties {
         /// <summary>
         ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap programlist {
+        public static System.Drawing.Bitmap process {
+            get {
+                object obj = ResourceManager.GetObject("process", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap programlist {
             get {
                 object obj = ResourceManager.GetObject("programlist", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -243,7 +293,7 @@ namespace Puzzel.Properties {
         /// <summary>
         ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Icon podobny do zasobu (Ikona).
         /// </summary>
-        internal static System.Drawing.Icon Puzzel {
+        public static System.Drawing.Icon Puzzel {
             get {
                 object obj = ResourceManager.GetObject("Puzzel", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
@@ -253,7 +303,7 @@ namespace Puzzel.Properties {
         /// <summary>
         ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap rdp {
+        public static System.Drawing.Bitmap rdp {
             get {
                 object obj = ResourceManager.GetObject("rdp", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -263,7 +313,7 @@ namespace Puzzel.Properties {
         /// <summary>
         ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap reload {
+        public static System.Drawing.Bitmap reload {
             get {
                 object obj = ResourceManager.GetObject("reload", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -273,7 +323,7 @@ namespace Puzzel.Properties {
         /// <summary>
         ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap rubish {
+        public static System.Drawing.Bitmap rubish {
             get {
                 object obj = ResourceManager.GetObject("rubish", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -283,7 +333,7 @@ namespace Puzzel.Properties {
         /// <summary>
         ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap services {
+        public static System.Drawing.Bitmap services {
             get {
                 object obj = ResourceManager.GetObject("services", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -293,7 +343,7 @@ namespace Puzzel.Properties {
         /// <summary>
         ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap session {
+        public static System.Drawing.Bitmap session {
             get {
                 object obj = ResourceManager.GetObject("session", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -303,7 +353,7 @@ namespace Puzzel.Properties {
         /// <summary>
         ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap tasksched {
+        public static System.Drawing.Bitmap tasksched {
             get {
                 object obj = ResourceManager.GetObject("tasksched", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -313,7 +363,7 @@ namespace Puzzel.Properties {
         /// <summary>
         ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap terminalexplorer {
+        public static System.Drawing.Bitmap terminalexplorer {
             get {
                 object obj = ResourceManager.GetObject("terminalexplorer", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -323,7 +373,7 @@ namespace Puzzel.Properties {
         /// <summary>
         ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap userlog {
+        public static System.Drawing.Bitmap userlog {
             get {
                 object obj = ResourceManager.GetObject("userlog", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -333,7 +383,7 @@ namespace Puzzel.Properties {
         /// <summary>
         ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap zdalneCMD {
+        public static System.Drawing.Bitmap zdalneCMD {
             get {
                 object obj = ResourceManager.GetObject("zdalneCMD", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -343,7 +393,7 @@ namespace Puzzel.Properties {
         /// <summary>
         ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap zdalnecmd_sys {
+        public static System.Drawing.Bitmap zdalnecmd_sys {
             get {
                 object obj = ResourceManager.GetObject("zdalnecmd_sys", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));

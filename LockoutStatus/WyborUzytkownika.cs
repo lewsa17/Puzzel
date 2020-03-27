@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace Puzzel.LockoutStatus
+namespace Puzzel
 {
     public partial class LockoutStatusWyborUzytkownika : Form
     {
@@ -16,19 +16,29 @@ namespace Puzzel.LockoutStatus
             Close();
         }
 
-        public string domainName() { return System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().DomainName; }
+        public static string domainName() => System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().DomainName; 
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Lockout_Status.userName = textBox1.Text;
-            Lockout_Status.domainAddress = textBox2.Text;
+<<<<<<< HEAD
+            LockoutStatus._userName = textBox1.Text;
+            LockoutStatus.domainAddress = textBox2.Text;
+=======
+            Puzzel.Lockout_Status.Username = textBox1.Text;
+            Puzzel.Lockout_Status.domainAddress = textBox2.Text;
+>>>>>>> parent of fc44d59... ## version 0.112.190703
             Close();
         }
 
         private void LockoutStatusWyborUzytkownika_Load(object sender, EventArgs e)
         {
-            if (Lockout_Status.userName.Length > 1)
-                this.textBox1.Text =Lockout_Status.userName;
+<<<<<<< HEAD
+            if (LockoutStatus._userName.Length > 1)
+                this.textBox1.Text =LockoutStatus._userName;
+=======
+            if (Puzzel.Lockout_Status.Username.Length > 1)
+                this.textBox1.Text = Puzzel.Lockout_Status.Username;
+>>>>>>> parent of fc44d59... ## version 0.112.190703
             this.textBox2.Text = domainName();
         }
 
@@ -36,8 +46,13 @@ namespace Puzzel.LockoutStatus
         {
             if (e.KeyCode == Keys.Enter)
             {
-                Lockout_Status.userName = textBox1.Text;
-                Lockout_Status.domainAddress = textBox2.Text;
+<<<<<<< HEAD
+                LockoutStatus._userName = textBox1.Text;
+                LockoutStatus.domainAddress = textBox2.Text;
+=======
+                Puzzel.Lockout_Status.Username = textBox1.Text;
+                Puzzel.Lockout_Status.domainAddress = textBox2.Text;
+>>>>>>> parent of fc44d59... ## version 0.112.190703
                 Close();
             }
         }

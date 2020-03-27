@@ -6,3 +6,12 @@
 /.vs/VSWorkspaceState.json
 /obj
 *.json
+/bin/Debug
+/Cassia
+/dhcp.msc
+/concept.txt
+/Changelog.txt
+/bugs.txt
+/packages.config
+/GlobalSuppressions.cs
+/ExternalResources.cs

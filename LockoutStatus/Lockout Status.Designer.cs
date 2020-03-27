@@ -1,6 +1,6 @@
-﻿namespace Puzzel.LockoutStatus
+﻿namespace Puzzel
 {
-    partial class Lockout_Status
+    partial class LockoutStatus
     {
         /// <summary>
         /// Required designer variable.
@@ -39,7 +39,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Lockout_Status));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LockoutStatus));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.plikToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.wybierzUżytkownikaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -332,7 +332,7 @@
             this.odblokujKontoToolStripMenuItem.Name = "odblokujKontoToolStripMenuItem";
             this.odblokujKontoToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.odblokujKontoToolStripMenuItem.Text = "Odblokuj Konto";
-            this.odblokujKontoToolStripMenuItem.Click += new System.EventHandler(this.OdblokujKonto);
+            this.odblokujKontoToolStripMenuItem.Click += new System.EventHandler(this.OdblokujZaznaczoneToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 

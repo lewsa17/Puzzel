@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Windows.Forms;
 using Cassia;
 
@@ -26,11 +27,7 @@ namespace Puzzel
         }
         private string _hostname = null;
         //private string _username = null;
-        
-		string[] Working = File.ReadAllLines("DefaultValue.txt);
-		string[] termservers = Working[6].Remove(7).Splt(',');
         public object[] FindSession(string serverName, string SearchedLogin)
-		 public object[] FindSession(string serverName, string SearchedLogin)
         {
             //int _retry = 0;
             object[] sessioninfo = null;
@@ -58,6 +55,7 @@ namespace Puzzel
                                     sessioninfo[6] = session.LoginTime;
                                 }
                             }
+                            server.Close();
                         }
                     }
                 //    else { _retry++; goto retry; }
@@ -70,7 +68,7 @@ namespace Puzzel
             {
                 LogsCollector.Loger(e, serverName);
             }
-           return sessioninfo;
+            return sessioninfo;
         }
 
         public void SzukanieSesji(string serverName)

@@ -13,9 +13,12 @@ namespace Puzzel
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            using (Form1 mainForm = new Form1())
+            {
+                Application.Run(mainForm);
+            }
         }
-       // public static AutoCompleteStringCollection ComputerCollection = new AutoCompleteStringCollection();
-       // public static AutoCompleteStringCollection UserCollection = new AutoCompleteStringCollection();
+        // public static AutoCompleteStringCollection ComputerCollection = new AutoCompleteStringCollection();
+        // public static AutoCompleteStringCollection UserCollection = new AutoCompleteStringCollection();
     }
 }

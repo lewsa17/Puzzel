@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Forms;
-using System.DirectoryServices;
 using System.DirectoryServices.AccountManagement;
-using System.Threading;
 
-namespace Puzzel.LockoutStatus
+namespace Puzzel
 {
     public partial class ZmianaHasla : Form
     {
@@ -13,37 +11,41 @@ namespace Puzzel.LockoutStatus
         {
             InitializeComponent();
         }
-        public string DomainName() { return System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().DomainName; }
-        public string[] DomainControllers()
+<<<<<<< HEAD
+        public static string DomainName() => System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().DomainName; 
+        public static string[] DomainControllers()
         {
             //DirectoryEntry myLdapConnection = new DirectoryEntry("LDAP://OU=Domain Controllers," + domainName());
-            DirectorySearcher search = new DirectorySearcher(new DirectoryEntry("LDAP://" + DomainName()));
-            //search.Filter = "(sAMAccountName=" + username + ")";
-            SearchResult search1 = search.FindOne();
-            //SearchResultCollection collection = search.FindAll();
-            object[] lines = (object[])search1.GetDirectoryEntry().Properties["msds-isdomainfor"].Value;
-            string table = null;
-            foreach (string line in lines)
+            using (DirectorySearcher search = new DirectorySearcher(new DirectoryEntry("LDAP://" + DomainName())))
             {
-                string[] words = line.Split(',');
-                table += words[1].Replace("CN=", "") + ",";
+                //search.Filter = "(sAMAccountName=" + username + ")";
+                SearchResult search1 = search.FindOne();
+                //SearchResultCollection collection = search.FindAll();
+                object[] lines = (object[])search1.GetDirectoryEntry().Properties["msds-isdomainfor"].Value;
+                string table = null;
+                foreach (string line in lines)
+                {
+                    string[] words = line.Split(',');
+                    table += words[1].Replace("CN=", "") + ",";
+                }
+
+                string[] array;
+                array = table.Split(',');
+                Array.Resize(ref array, array.Length - 1);
+
+                return array;
             }
-
-            string[] array = null;
-            array = table.Split(',');
-            Array.Resize(ref array, array.Length - 1);
-
-            return array;
         }
         public string userName { get; set; }
         
+=======
+>>>>>>> parent of fc44d59... ## version 0.112.190703
         private void Button1_Click(object sender, EventArgs e)
         {
             bool UnlockAccout = checkBox1.Checked;
             bool PasswordExpired = checkBox2.Checked;
             string password = null;
             int counter = 0;
-
             if (textBox1.Text == textBox2.Text)
             {
                 if (textBox1.Text.Length >= 8)
@@ -71,7 +73,7 @@ namespace Puzzel.LockoutStatus
                     else MessageBox.Show("Sprawdź poprawność hasła czy zawiera dużą lub mała literę, cyfrę lub znak specjalny");
                 }
                 else MessageBox.Show("Podane hasło ma mniej niż 8 znaków");
-                UstawHaslo(password, UnlockAccout, PasswordExpired);
+                Lockout_Status.Ustawhaslo(password, UnlockAccout, PasswordExpired);
             }
             else MessageBox.Show("Podane hasła nie są zgodne");
         }
@@ -80,6 +82,7 @@ namespace Puzzel.LockoutStatus
         {
             this.Close();
         }
+<<<<<<< HEAD
         public void UstawHaslo(string password, bool unlockAccount, bool passwordExpired)
         {
             if (password != null)
@@ -103,13 +106,17 @@ namespace Puzzel.LockoutStatus
                 }
             MessageBox.Show("Hasło zostało zmienione");
         }
+        public void ZmianaHaslaLoadForm(string UserName)
+=======
+
         public void ZmianaHasla_Load(string UserName)
+>>>>>>> parent of fc44d59... ## version 0.112.190703
         {
             int i = 0;
             if (UserName != null)
-                foreach (string dcName in DomainControllers())
+                foreach (string dcName in Lockout_Status.DomainController())
                 {
-                    Thread th = new Thread(() => 
+                    System.Threading.Thread th = new System.Threading.Thread(() => 
                     {
                         using (PrincipalContext context = new PrincipalContext(ContextType.Domain, dcName))
                         {
@@ -122,7 +129,7 @@ namespace Puzzel.LockoutStatus
                         }
                     });
                     th.Start();
-                    th.Priority = ThreadPriority.Highest;
+                    th.Priority = System.Threading.ThreadPriority.Highest;
                     th.Join();
                 }
             if (i > 0)

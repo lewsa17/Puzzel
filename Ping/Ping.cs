@@ -2,6 +2,7 @@
 using System.Text;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
+using System.ComponentModel;
 
 namespace Puzzel
 {
@@ -21,6 +22,7 @@ namespace Puzzel
             }
             catch (System.Net.Sockets.SocketException socex)
             {
+                Form1.ReplaceRichTextBox("");
                 Form1.UpdateRichTextBox("Wystąpił błąd podczas wykonywania żądania Ping\n" + socex.Message + ": " + HostName+"\n");
             }
             catch (Exception e)
@@ -30,11 +32,12 @@ namespace Puzzel
             return iPStatus;
         }
 
-        public enum TCPPingStatus
+        public enum TCPPingStatus : int
         {
-            Unknown,
-            Success,
-            HostUnknown
+            Unknown = 3,
+            HostUnknown = 2,
+            UnAvailableRPC = 1,
+            Success = 0
         }
         
         public static TCPPingStatus TCPPing(string HostName, int Port)
@@ -42,13 +45,20 @@ namespace Puzzel
             TCPPingStatus status = TCPPingStatus.Success;
             try
             {
-                TcpClient tcpClient = new TcpClient(HostName, Port);
+                using (TcpClient tcpClient = new TcpClient(HostName, Port))
+                {
+                    tcpClient.ReceiveTimeout = 1000;
+                }
             }
             catch (SocketException)
             {
                 status = TCPPingStatus.HostUnknown;
             }
-            catch(Exception)
+            catch (Win32Exception)
+            {
+                status = TCPPingStatus.UnAvailableRPC;
+            }
+            catch (Exception)
             {
                 status = TCPPingStatus.Unknown;
             }

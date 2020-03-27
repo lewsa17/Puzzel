@@ -3,9 +3,9 @@ using System.Windows.Forms;
 
 namespace Puzzel
 {
-    public partial class RemotePing_Tracert : Form
+    public partial class RemotePingTracert : Form
     {
-        public RemotePing_Tracert()
+        public RemotePingTracert()
         {
             InitializeComponent();
         }
