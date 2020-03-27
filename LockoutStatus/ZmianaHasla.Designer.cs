@@ -1,4 +1,4 @@
-﻿namespace Puzzel
+﻿namespace Puzzel.LockoutStatus
 {
     partial class ZmianaHasla
     {

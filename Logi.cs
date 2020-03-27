@@ -88,7 +88,6 @@ namespace Puzzel
         {
             using (DirectoryEntry myLdapConnection = new DirectoryEntry("LDAP://" + domainName()))
             {
-<<<<<<< HEAD
                 myLdapConnection.UsePropertyCache = true;
                 using (DirectorySearcher search = new DirectorySearcher(myLdapConnection))
                 {
@@ -115,12 +114,6 @@ namespace Puzzel
                     return text;
                 }
             }
-=======
-                LogsCollector.Loger(e, username);
-            }
-            search.Dispose();
-            return text;
->>>>>>> parent of fc44d59... ## version 0.112.190703
         }
     }
 }

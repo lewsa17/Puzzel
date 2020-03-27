@@ -923,7 +923,7 @@
             this.numericUpDown2.ImeMode = System.Windows.Forms.ImeMode.Disable;
             this.numericUpDown2.Location = new System.Drawing.Point(143, 43);
             this.numericUpDown2.Maximum = new decimal(new int[] {
-            1000,
+            10000,
             0,
             0,
             0});
@@ -1367,7 +1367,8 @@
             this.tLToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tLAToolStripMenuItem,
             this.tLBToolStripMenuItem,
-            this.tLCToolStripMenuItem});
+            this.tLCToolStripMenuItem,
+            this.tLDToolStripMenuItem});
             this.tLToolStripMenuItem.Name = "tLToolStripMenuItem";
             this.tLToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.tLToolStripMenuItem.Text = ExternalResources.tsl;
@@ -1393,13 +1394,12 @@
             this.tLCToolStripMenuItem.Text = ExternalResources.tslc;
             this.tLCToolStripMenuItem.Click += new System.EventHandler(this.WyszukiwanieSesji_TerminalExplorer);
             // 
-            // 
             // tLDToolStripMenuItem
             // 
-            this.tLCToolStripMenuItem.Name = "tLDToolStripMenuItem";
-            this.tLCToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
-            this.tLCToolStripMenuItem.Text = ExternalResources.tsld;
-            this.tLCToolStripMenuItem.Click += new System.EventHandler(this.WyszukiwanieSesji_TerminalExplorer);
+            this.tLDToolStripMenuItem.Name = "tLDToolStripMenuItem";
+            this.tLDToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.tLDToolStripMenuItem.Text = ExternalResources.tsld;
+            this.tLDToolStripMenuItem.Click += new System.EventHandler(this.WyszukiwanieSesji_TerminalExplorer);
             // 
             // tVLToolStripMenuItem
             // 
@@ -1581,12 +1581,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(1200, 509);
             this.Name = "Form1";
-<<<<<<< HEAD
             this.Text = "Puzzel v0.126";
-=======
-            this.Text = "Puzzel v0.110";
-            this.Load += new System.EventHandler(this.Form1_Load);
->>>>>>> parent of fc44d59... ## version 0.112.190703
             this.Resize += new System.EventHandler(this.Form1_Resize);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -1709,6 +1704,7 @@
         private System.Windows.Forms.ToolStripMenuItem tLAToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tLBToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tLCToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tLDToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tVLToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tVLAToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tVLBToolStripMenuItem;

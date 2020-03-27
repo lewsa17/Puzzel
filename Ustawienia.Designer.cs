@@ -198,7 +198,7 @@
             this.comboBox4.Name = "comboBox4";
             this.comboBox4.Size = new System.Drawing.Size(120, 21);
             this.comboBox4.TabIndex = 0;
-            this.comboBox4.Text = "BRAK";
+            this.comboBox4.SelectedIndexChanged += new System.EventHandler(this.ComboBox4_SelectedIndexChanged);
             // 
             // groupBox4
             // 

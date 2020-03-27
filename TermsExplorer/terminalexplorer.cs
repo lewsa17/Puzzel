@@ -55,7 +55,6 @@ namespace Puzzel
                                     sessioninfo[6] = session.LoginTime;
                                 }
                             }
-                            server.Close();
                         }
                     }
                 //    else { _retry++; goto retry; }
@@ -68,7 +67,7 @@ namespace Puzzel
             {
                 LogsCollector.Loger(e, serverName);
             }
-            return sessioninfo;
+           return sessioninfo;
         }
 
         public void SzukanieSesji(string serverName)
