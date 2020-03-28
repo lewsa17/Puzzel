@@ -147,6 +147,7 @@
             this.tLAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tLBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tLCToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tLDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tVLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tVLAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tVLBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -1368,7 +1369,8 @@
             this.tLAToolStripMenuItem,
             this.tLBToolStripMenuItem,
             this.tLCToolStripMenuItem,
-            this.tLDToolStripMenuItem});
+            this.tLDToolStripMenuItem
+            });
             this.tLToolStripMenuItem.Name = "tLToolStripMenuItem";
             this.tLToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.tLToolStripMenuItem.Text = ExternalResources.tsl;
