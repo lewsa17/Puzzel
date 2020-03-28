@@ -331,6 +331,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Properties\PNG\firewall.png" />
     <None Include="Properties\PNG\process.png" />
     <None Include="Properties\PNG\password.png" />
     <None Include="Properties\PNG\deactiveSession.png" />

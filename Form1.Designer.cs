@@ -124,6 +124,7 @@ namespace Puzzel
             this.plikToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ustawienia = new System.Windows.Forms.ToolStripMenuItem();
             this.narzędziaAdministracyjneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.zaawansowanaZaporaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dHCPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dziennikZdarzeńToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.harmonogramZadańToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -1148,6 +1149,7 @@ namespace Puzzel
             this.harmonogramZadańToolStripMenuItem,
             this.usługiToolStripMenuItem,
             this.użytkownicyIGrupyLokalneToolStripMenuItem,
+            this.zaawansowanaZaporaToolStripMenuItem,
             this.toolStripSeparator3,
             this.terminalExplorerToolStripMenuItem,
             this.ComputerExplorerToolStripMenuItem,
@@ -1159,7 +1161,15 @@ namespace Puzzel
             this.narzędziaAdministracyjneToolStripMenuItem.Name = "narzędziaAdministracyjneToolStripMenuItem";
             this.narzędziaAdministracyjneToolStripMenuItem.Size = new System.Drawing.Size(157, 20);
             this.narzędziaAdministracyjneToolStripMenuItem.Text = "Narzędzia administracyjne";
-            // 
+            //
+            // zaawansowanazaporaToolStripMenuItem
+            //
+            this.zaawansowanaZaporaToolStripMenuItem.Image = global::Puzzel.Properties.Resources.firewall;
+            this.zaawansowanaZaporaToolStripMenuItem.Name = "zaawansowanaZaporaToolStripMenuItem";
+            this.zaawansowanaZaporaToolStripMenuItem.Text = "Zaawansowana Zapora Windows";
+            this.zaawansowanaZaporaToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
+            this.zaawansowanaZaporaToolStripMenuItem.Click += new System.EventHandler(this.Narzedziaadministracyjne);
+            //
             // dHCPToolStripMenuItem
             // 
             this.dHCPToolStripMenuItem.Image = global::Puzzel.Properties.Resources.dhcp;
@@ -1462,6 +1472,7 @@ namespace Puzzel
         private System.Windows.Forms.ToolStripMenuItem zasobySiecioweToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem plikToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem narzędziaAdministracyjneToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem zaawansowanaZaporaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dziennikZdarzeńToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem usługiToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem harmonogramZadańToolStripMenuItem;

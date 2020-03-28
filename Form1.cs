@@ -1326,6 +1326,16 @@ namespace Puzzel
 
                 if (((ToolStripMenuItem)sender).Name == "dziennikZdarzeńToolStripMenuItem")
                     arguments = "eventvwr.msc";
+                if (((ToolStripMenuItem)sender).Name == "zaawansowanaZaporaToolStripMenuItem")
+                {
+                    ComputerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryOperatingSystem, "Caption");
+                    if (ComputerInfo_TEMP.Contains("Windows 7"))
+                    {
+                        Process.Start("netsh", "-r " + HostName() + " firewall set service RemoteAdmin enable").WaitForExit();
+                    }
+                    else { Process.Start("netsh", "-r " + HostName() + "set rule name = \"Windows Defender Firewall Remote Management (RPC)\" new enable= yes").WaitForExit(); }
+                    arguments = "wf.msc";
+                }
             }
             if (sender is Button)
             {

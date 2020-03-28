@@ -143,6 +143,7 @@ namespace Puzzel
                                 {
                                     //bootTime
                                     //args0 = lastbootuptime
+                                    if (args[0].ToString() == "LastBootUpTime")
                                     if (query == queryOperatingSystem)
                                     {
                                         BootTime(args, m);
