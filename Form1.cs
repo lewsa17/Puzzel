@@ -2182,8 +2182,8 @@ namespace Puzzel
         {
             this.BtnDW.Text = ExternalResources.dw;
             this.DWMenuContext.Text = ExternalResources.dw;
-            this.EAdminDWMenuContext.Text = ExternalResources.dw + "(EAdmin)";
-            this.LAPSDWContextMenu.Text = ExternalResources.dw + "(LAPS)";
+            this.EAdminDWMenuContext.Text = ExternalResources.dw + "(" + ExternalResources.eadm + ")";
+            this.LAPSDWContextMenu.Text = ExternalResources.dw + "(" + ExternalResources.lapslogn + ")";
         }
     }
 }
