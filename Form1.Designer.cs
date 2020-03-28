@@ -1,4 +1,7 @@
-﻿namespace Puzzel
+﻿using System.IO;
+using System.Text;
+
+namespace Puzzel
 {
     partial class Form1
     {
@@ -128,33 +131,6 @@
             this.użytkownicyIGrupyLokalneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.terminalExplorerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tCToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tCAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tCBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tCCToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tCDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tCNToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tCNAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tCNBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tCN2AToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tCN2BToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tEAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tEBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tE2AToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tE2BToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tLAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tLBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tLCToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tLDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tVLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tVLAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tVLBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tVLCToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tVLDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tVLEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tRToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ręcznaNazwaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ComputerExplorerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ActiveSessionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -1231,238 +1207,41 @@
             // 
             // terminalExplorerToolStripMenuItem
             // 
-            this.terminalExplorerToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tCToolStripMenuItem,
-            this.tCNToolStripMenuItem,
-            this.tEToolStripMenuItem,
-            this.tLToolStripMenuItem,
-            this.tVLToolStripMenuItem,
-            this.tRToolStripMenuItem,
-            this.ręcznaNazwaToolStripMenuItem});
+            //
+            this.terminalExplorerToolStripMenuItem.DropDownItems.Add(this.ręcznaNazwaToolStripMenuItem);
             this.terminalExplorerToolStripMenuItem.Image = global::Puzzel.Properties.Resources.terminalexplorer;
             this.terminalExplorerToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.terminalExplorerToolStripMenuItem.Name = "terminalExplorerToolStripMenuItem";
             this.terminalExplorerToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
             this.terminalExplorerToolStripMenuItem.Text = "Terminal Explorer";
             this.terminalExplorerToolStripMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // tCToolStripMenuItem
-            // 
-            this.tCToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tCAToolStripMenuItem,
-            this.tCBToolStripMenuItem,
-            this.tCCToolStripMenuItem,
-            this.tCDToolStripMenuItem});
-            this.tCToolStripMenuItem.Name = "tCToolStripMenuItem";
-            this.tCToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
-            this.tCToolStripMenuItem.Text = ExternalResources.tsc;
-            // 
-            // tCAToolStripMenuItem
-            // 
-            this.tCAToolStripMenuItem.Name = "tCAToolStripMenuItem";
-            this.tCAToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
-            this.tCAToolStripMenuItem.Text =ExternalResources.tsca;
-            this.tCAToolStripMenuItem.Click += new System.EventHandler(this.WyszukiwanieSesji_TerminalExplorer);
-            // 
-            // tCBToolStripMenuItem
-            // 
-            this.tCBToolStripMenuItem.Name = "tCBToolStripMenuItem";
-            this.tCBToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
-            this.tCBToolStripMenuItem.Text = ExternalResources.tscb;
-            this.tCBToolStripMenuItem.Click += new System.EventHandler(this.WyszukiwanieSesji_TerminalExplorer);
-            // 
-            // tCCAToolStripMenuItem
-            // 
-            this.tCCToolStripMenuItem.Name = "tCCToolStripMenuItem";
-            this.tCCToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
-            this.tCCToolStripMenuItem.Text = ExternalResources.tscc;
-            this.tCCToolStripMenuItem.Click += new System.EventHandler(this.WyszukiwanieSesji_TerminalExplorer);
-            // 
-            // tCDToolStripMenuItem
-            // 
-            this.tCDToolStripMenuItem.Name = "tCDToolStripMenuItem";
-            this.tCDToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
-            this.tCDToolStripMenuItem.Text = ExternalResources.tscd;
-            this.tCDToolStripMenuItem.Click += new System.EventHandler(this.WyszukiwanieSesji_TerminalExplorer);
-            // 
-            // tCNToolStripMenuItem
-            // 
-            this.tCNToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tCNAToolStripMenuItem,
-            this.tCNBToolStripMenuItem,
-            this.tCN2AToolStripMenuItem,
-            this.tCN2BToolStripMenuItem});
-            this.tCNToolStripMenuItem.Name = "tCNToolStripMenuItem";
-            this.tCNToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
-            this.tCNToolStripMenuItem.Text = ExternalResources.tscn;
-            // 
-            // tCNAToolStripMenuItem
-            // 
-            this.tCNAToolStripMenuItem.Name = "tCNAToolStripMenuItem";
-            this.tCNAToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
-            this.tCNAToolStripMenuItem.Text = ExternalResources.tscna;
-            this.tCNAToolStripMenuItem.Click += new System.EventHandler(this.WyszukiwanieSesji_TerminalExplorer);
-            // 
-            // tCNBToolStripMenuItem
-            // 
-            this.tCNBToolStripMenuItem.Name = "tCNBToolStripMenuItem";
-            this.tCNBToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
-            this.tCNBToolStripMenuItem.Text = ExternalResources.tscnb;
-            this.tCNBToolStripMenuItem.Click += new System.EventHandler(this.WyszukiwanieSesji_TerminalExplorer);
-            // 
-            // tCN2AToolStripMenuItem
-            // 
-            this.tCN2AToolStripMenuItem.Name = "tCN2AToolStripMenuItem";
-            this.tCN2AToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
-            this.tCN2AToolStripMenuItem.Text = ExternalResources.tscn2a;
-            this.tCN2AToolStripMenuItem.Click += new System.EventHandler(this.WyszukiwanieSesji_TerminalExplorer);
-            // 
-            // tCN2BToolStripMenuItem
-            // 
-            this.tCN2BToolStripMenuItem.Name = "tCN2BToolStripMenuItem";
-            this.tCN2BToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
-            this.tCN2BToolStripMenuItem.Text =ExternalResources.tscn2b;
-            this.tCN2BToolStripMenuItem.Click += new System.EventHandler(this.WyszukiwanieSesji_TerminalExplorer);
-            // 
-            // tEToolStripMenuItem
-            // 
-            this.tEToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tEAToolStripMenuItem,
-            this.tEBToolStripMenuItem,
-            this.tE2AToolStripMenuItem,
-            this.tE2BToolStripMenuItem});
-            this.tEToolStripMenuItem.Name = "tEToolStripMenuItem";
-            this.tEToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
-            this.tEToolStripMenuItem.Text =ExternalResources.tse;
-            // 
-            // tSERIAToolStripMenuItem
-            // 
-            this.tEAToolStripMenuItem.Name = "tSERIAToolStripMenuItem";
-            this.tEAToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
-            this.tEAToolStripMenuItem.Text = ExternalResources.tsea;
-            this.tEAToolStripMenuItem.Click += new System.EventHandler(this.WyszukiwanieSesji_TerminalExplorer);
-            // 
-            // tEBToolStripMenuItem
-            // 
-            this.tEBToolStripMenuItem.Name = "tEBToolStripMenuItem";
-            this.tEBToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
-            this.tEBToolStripMenuItem.Text = ExternalResources.tseb;
-            this.tEBToolStripMenuItem.Click += new System.EventHandler(this.WyszukiwanieSesji_TerminalExplorer);
-            // 
-            // tE2AToolStripMenuItem
-            // 
-            this.tE2AToolStripMenuItem.Name = "tE2AToolStripMenuItem";
-            this.tE2AToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
-            this.tE2AToolStripMenuItem.Text = ExternalResources.tse2a;
-            this.tE2AToolStripMenuItem.Click += new System.EventHandler(this.WyszukiwanieSesji_TerminalExplorer);
-            // 
-            // tE2BToolStripMenuItem
-            // 
-            this.tE2BToolStripMenuItem.Name = "tE2BToolStripMenuItem";
-            this.tE2BToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
-            this.tE2BToolStripMenuItem.Text = ExternalResources.tse2b;
-            this.tE2BToolStripMenuItem.Click += new System.EventHandler(this.WyszukiwanieSesji_TerminalExplorer);
-            // 
-            // tLToolStripMenuItem
-            // 
-            this.tLToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tLAToolStripMenuItem,
-            this.tLBToolStripMenuItem,
-            this.tLCToolStripMenuItem,
-            this.tLDToolStripMenuItem
-            });
-            this.tLToolStripMenuItem.Name = "tLToolStripMenuItem";
-            this.tLToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
-            this.tLToolStripMenuItem.Text = ExternalResources.tsl;
-            // 
-            // tLAToolStripMenuItem
-            // 
-            this.tLAToolStripMenuItem.Name = "tLAToolStripMenuItem";
-            this.tLAToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
-            this.tLAToolStripMenuItem.Text = ExternalResources.tsla;
-            this.tLAToolStripMenuItem.Click += new System.EventHandler(this.WyszukiwanieSesji_TerminalExplorer);
-            // 
-            // tLBToolStripMenuItem
-            // 
-            this.tLBToolStripMenuItem.Name = "tLBToolStripMenuItem";
-            this.tLBToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
-            this.tLBToolStripMenuItem.Text = ExternalResources.tslb;
-            this.tLBToolStripMenuItem.Click += new System.EventHandler(this.WyszukiwanieSesji_TerminalExplorer);
-            // 
-            // tLCToolStripMenuItem
-            // 
-            this.tLCToolStripMenuItem.Name = "tLCToolStripMenuItem";
-            this.tLCToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
-            this.tLCToolStripMenuItem.Text = ExternalResources.tslc;
-            this.tLCToolStripMenuItem.Click += new System.EventHandler(this.WyszukiwanieSesji_TerminalExplorer);
-            // 
-            // tLDToolStripMenuItem
-            // 
-            this.tLDToolStripMenuItem.Name = "tLDToolStripMenuItem";
-            this.tLDToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
-            this.tLDToolStripMenuItem.Text = ExternalResources.tsld;
-            this.tLDToolStripMenuItem.Click += new System.EventHandler(this.WyszukiwanieSesji_TerminalExplorer);
-            // 
-            // tVLToolStripMenuItem
-            // 
-            this.tVLToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tVLAToolStripMenuItem,
-            this.tVLBToolStripMenuItem,
-            this.tVLCToolStripMenuItem,
-            this.tVLDToolStripMenuItem,
-            this.tVLEToolStripMenuItem});
-            this.tVLToolStripMenuItem.Name = "tVLToolStripMenuItem";
-            this.tVLToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
-            this.tVLToolStripMenuItem.Text = ExternalResources.tsvl;
-            // 
-            // tVLAToolStripMenuItem
-            // 
-            this.tVLAToolStripMenuItem.Name = "tVLAToolStripMenuItem";
-            this.tVLAToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
-            this.tVLAToolStripMenuItem.Text = ExternalResources.tsvla;
-            this.tVLAToolStripMenuItem.Click += new System.EventHandler(this.WyszukiwanieSesji_TerminalExplorer);
-            // 
-            // tVLBToolStripMenuItem
-            // 
-            this.tVLBToolStripMenuItem.Name = "tVLBToolStripMenuItem";
-            this.tVLBToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
-            this.tVLBToolStripMenuItem.Text = ExternalResources.tsvlb;
-            this.tVLBToolStripMenuItem.Click += new System.EventHandler(this.WyszukiwanieSesji_TerminalExplorer);
-            // 
-            // tVLCToolStripMenuItem
-            // 
-            this.tVLCToolStripMenuItem.Name = "tVLCToolStripMenuItem";
-            this.tVLCToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
-            this.tVLCToolStripMenuItem.Text = ExternalResources.tsvlc;
-            this.tVLCToolStripMenuItem.Click += new System.EventHandler(this.WyszukiwanieSesji_TerminalExplorer);
-            // 
-            // tVLDToolStripMenuItem
-            // 
-            this.tVLDToolStripMenuItem.Name = "tVLDToolStripMenuItem";
-            this.tVLDToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
-            this.tVLDToolStripMenuItem.Text = ExternalResources.tsvld;
-            this.tVLDToolStripMenuItem.Click += new System.EventHandler(this.WyszukiwanieSesji_TerminalExplorer);
-            // 
-            // tVLEToolStripMenuItem
-            // 
-            this.tVLEToolStripMenuItem.Name = "tVLEToolStripMenuItem";
-            this.tVLEToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
-            this.tVLEToolStripMenuItem.Text = ExternalResources.tsvle;
-            this.tVLEToolStripMenuItem.Click += new System.EventHandler(this.WyszukiwanieSesji_TerminalExplorer);
-            // 
-            // tRToolStripMenuItem
-            // 
-            this.tRToolStripMenuItem.Name = "tRToolStripMenuItem";
-            this.tRToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
-            this.tRToolStripMenuItem.Text = ExternalResources.tsr;
-            this.tRToolStripMenuItem.Click += new System.EventHandler(this.WyszukiwanieSesji_TerminalExplorer);
+            //
+            // TeminalUniversalToolStripMenuItem
+            //
+            System.Collections.Generic.List<string> terms = new System.Collections.Generic.List<string>();
+            terms.AddRange(termservers());
+            terms.Sort();
+            foreach (string t in terms)
+            {
+                TerminalUniversalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+                TerminalUniversalToolStripMenuItem.Name = t;
+                TerminalUniversalToolStripMenuItem.Text = t;
+                TerminalUniversalToolStripMenuItem.Click += new System.EventHandler(WyszukiwanieSesji_TerminalExplorer);
+                if (terminalExplorerToolStripMenuItem.DropDownItems[terminalExplorerToolStripMenuItem.DropDownItems.Count - 1].Name.Contains(t.Remove(t.Length-2)))
+                terminalExplorerToolStripMenuItem.DropDownItems.Add(TerminalUniversalToolStripMenuItem);
+                else
+                {
+                    terminalExplorerToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] 
+                    { new System.Windows.Forms.ToolStripSeparator(), TerminalUniversalToolStripMenuItem });
+                }
+            }
             // 
             // ręcznaNazwaToolStripMenuItem
             // 
             this.ręcznaNazwaToolStripMenuItem.Name = "ręcznaNazwaToolStripMenuItem";
             this.ręcznaNazwaToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.ręcznaNazwaToolStripMenuItem.Text = "Ręczna nazwa";
-            this.ręcznaNazwaToolStripMenuItem.Click += new System.EventHandler(this.SzukanieSesjiCustom);
+            this.ręcznaNazwaToolStripMenuItem.Click += new System.EventHandler(WyszukiwanieSesji_TerminalExplorer);
             // 
             // ComputerExplorerToolStripMenuItem
             // 
@@ -1611,6 +1390,11 @@
 
         }
 
+        private void TerminalUniversalToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
+
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
@@ -1661,6 +1445,7 @@
         private System.Windows.Forms.Button BtnRemote_Ping;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ContextMenuStrip Komputer_info;
+        private System.Windows.Forms.ToolStripMenuItem TerminalUniversalToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem uptimeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem nrSeryjnyINrPartiiToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem modelToolStripMenuItem;
@@ -1687,33 +1472,6 @@
         private System.Windows.Forms.Timer AutoGettingLogs;
         private System.Windows.Forms.ToolStripMenuItem terminalExplorerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ComputerExplorerToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tCToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tCAToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tCBToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tCCToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tCDToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tCNToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tCNAToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tCNBToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tCN2AToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tCN2BToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tEToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tEAToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tEBToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tE2AToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tE2BToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tLToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tLAToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tLBToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tLCToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tLDToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tVLToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tVLAToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tVLBToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tVLCToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tVLDToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tVLEToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tRToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ręcznaNazwaToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip CommandContextMenu;
         private System.Windows.Forms.ToolStripMenuItem CMDMenuItem1;

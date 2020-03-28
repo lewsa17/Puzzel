@@ -375,31 +375,19 @@ namespace Puzzel
             StopTime();
         }
         public static string terminalName = null;
-        private void SzukanieSesjiCustom(object sender, EventArgs e)
-        {
-            PodajNazweTerminala podajNazweTerminala = new PodajNazweTerminala();
-
-            //Thread thread1 = new Thread(() =>
-            //{
-                podajNazweTerminala.ShowDialog();
-            //});
-            //thread1.Start();
-            System.Threading.Tasks.Task thread;
-            Explorer terminalExplorer = new Explorer("Terminal Explorer");
-            //thread1.Join();
-            thread = new System.Threading.Tasks.Task(() => terminalExplorer.SzukanieSesji(terminalName));
-            thread.Start();
-            terminalExplorer.Show();
-        }
         private void WyszukiwanieSesji_TerminalExplorer(object sender, EventArgs e)
         {
+            terminalName = ((ToolStripMenuItem)sender).Text;
+            if (terminalName == "Ręczna nazwa")
+            {
+                PodajNazweTerminala podajNazweTerminala = new PodajNazweTerminala();
+                podajNazweTerminala.ShowDialog();
+            }
             Thread thread;
             Explorer terminalExplorer = new Explorer("Terminal Explorer");
-            
-                thread = new Thread(() => terminalExplorer.SzukanieSesji(((ToolStripMenuItem)sender).Text));
-                thread.Start();
-                terminalExplorer.Show();
-            
+            thread = new Thread(() => terminalExplorer.SzukanieSesji(((ToolStripMenuItem)sender).Text));
+            thread.Start();
+            terminalExplorer.Show();
         }
 
         public static string ComputerInfo_TEMP { get; set; }
@@ -2124,6 +2112,7 @@ namespace Puzzel
 
         private void processComputer(object sender, EventArgs e)
         {
+            ReplaceRichTextBox(null);
             Explorer.processComputer(sender, e, HostName());
         }
         private void ActiveSession(object sender, EventArgs e)
@@ -2132,13 +2121,16 @@ namespace Puzzel
             using (Explorer CE = new Explorer())
             {
                 ComputerInfo_TEMP = null;
-                CE.UnlockRemoteRPC(HostName(), RegistryHive.LocalMachine, @"SYSTEM\CurrentControlSet\Control\Terminal Server");
-                UpdateRichTextBox(string.Format("{0,-13}{1,-17}{2,-14}{3,-4}{4,-10}{5,-24}{6,-12}", "UŻYTKOWNIK", "KOMPUTER", "NAZWA SESJI", "ID", "STATUS", "CZAS BEZCZYNNOŚCI", "CZAS LOGOWANIA"));
-                UpdateRichTextBox(Environment.NewLine);
-                foreach (var session in CE.ActiveUserInfo(HostName()))
-                    ComputerInfo_TEMP +=(string.Format(" {0,-13}{1,-17}{2,-14}{3,-4}{4,-10}{5,-24}{6,-13}",
-                        session.UserName, session.Server.ServerName, session.WindowStationName, session.SessionId, session.ConnectionState, session.IdleTime, session.ConnectTime));
-                UpdateRichTextBox(ComputerInfo_TEMP);
+                if (CE.UnlockRemoteRPC(HostName(), RegistryHive.LocalMachine, @"SYSTEM\CurrentControlSet\Control\Terminal Server"))
+                {
+                    UpdateRichTextBox(string.Format("{0,-13}{1,-17}{2,-14}{3,-4}{4,-10}{5,-24}{6,-12}", "UŻYTKOWNIK", "KOMPUTER", "NAZWA SESJI", "ID", "STATUS", "CZAS BEZCZYNNOŚCI", "CZAS LOGOWANIA"));
+                    UpdateRichTextBox(Environment.NewLine);
+                    foreach (var session in CE.ActiveUserInfo(HostName()))
+                        ComputerInfo_TEMP += (string.Format(" {0,-13}{1,-17}{2,-14}{3,-4}{4,-10}{5,-24}{6,-13}",
+                            session.UserName, session.Server.ServerName, session.WindowStationName, session.SessionId, session.ConnectionState, session.IdleTime, session.ConnectTime));
+                    UpdateRichTextBox(ComputerInfo_TEMP);
+                }
+                else { UpdateRichTextBox("Nie posiadasz uprawnień aby odblokować RPC"); }
                 ComputerInfo_TEMP = null;
             }
         }

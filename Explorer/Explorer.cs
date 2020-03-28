@@ -29,11 +29,13 @@ namespace Puzzel
             Explorer terminalExplorer = new Explorer("Computer Explorer");
             if (Ping.TCPPing(HostName, 135) == Ping.TCPPingStatus.Success)
             {
-                terminalExplorer.UnlockRemoteRPC(HostName, RegistryHive.LocalMachine, @"SYSTEM\CurrentControlSet\Control\Terminal Server");
-                thread = new Thread(() => terminalExplorer.SzukanieSesji(HostName));
-                thread.Start();
-                terminalExplorer.Show();
-                terminalExplorer.GetRemoteServer(HostName);
+                if (terminalExplorer.UnlockRemoteRPC(HostName, RegistryHive.LocalMachine, @"SYSTEM\CurrentControlSet\Control\Terminal Server"))
+                {
+                    thread = new Thread(() => terminalExplorer.SzukanieSesji(HostName));
+                    thread.Start();
+                    terminalExplorer.Show();
+                    terminalExplorer.GetRemoteServer(HostName);
+                } else { Form1.UpdateRichTextBox("Nie posiadasz uprawnień aby odblokować RPC"); }
             }
         }
 
@@ -43,13 +45,17 @@ namespace Puzzel
             return terminalServicesManager.GetRemoteServer(hostName);
         }
 
-        public void UnlockRemoteRPC(string HostName, RegistryHive mainCatalog, string subKey)
+        public bool UnlockRemoteRPC(string HostName, RegistryHive mainCatalog, string subKey)
         {
-            if (new Registry.RegEnum().RegOpenRemoteSubKey(HostName, mainCatalog, subKey).GetValueNames().Contains("AllowRemoteRPC"))
+            var temp = new Registry.RegEnum().RegOpenRemoteSubKey(HostName, mainCatalog, subKey);
+            if (temp != null) 
+            if (temp.GetValueNames().Contains("AllowRemoteRPC"))
             {
                 if (Convert.ToInt32(new Registry.RegEnum().RegOpenRemoteSubKey(HostName, mainCatalog, subKey).GetValue("AllowRemoteRPC")) == 0)
                     new Registry.RegQuery().QueryKey(HostName, mainCatalog, subKey, "AllowRemoteRPC", "1", RegistryValueKind.DWord);
+                    return true;
             }
+            return false;
         }
         private IEnumerable<ITerminalServicesSession> GetRemoteComputerSession(string hostName)
         {

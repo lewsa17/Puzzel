@@ -22,10 +22,19 @@ namespace Puzzel.Registry
         /// <returns>Zwraca otwarty podklucz na którym można operować</returns>
         public RegistryKey RegOpenRemoteSubKey(string HostName, RegistryHive mainCatalog, string subKey)
         {
-            using (RegistryKey subkey = RegOpenRemoteBaseKey(mainCatalog, HostName))
+            RegistryKey registryKey = null;
+            try
             {
-                return subkey.OpenSubKey(subKey, true);
+                using (RegistryKey subkey = RegOpenRemoteBaseKey(mainCatalog, HostName))
+                {
+                    registryKey = subkey.OpenSubKey(subKey, true);
+                }
             }
+            catch (System.Security.SecurityException)
+            {
+                System.Windows.Forms.MessageBox.Show("Brak uprawnień do " + subKey + " na " + HostName);
+            }
+            return registryKey;
         }
     }
 }
