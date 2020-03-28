@@ -1380,7 +1380,7 @@ namespace Puzzel
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(1200, 509);
             this.Name = "Form1";
-            this.Text = "Puzzel v0.126";
+            this.Text = "Puzzel v0.127";
             this.Resize += new System.EventHandler(this.Form1_Resize);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
