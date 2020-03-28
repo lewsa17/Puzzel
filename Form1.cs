@@ -2195,5 +2195,12 @@ namespace Puzzel
             this.EAdminDWMenuContext.Text = ExternalResources.dw + "(" + ExternalResources.eadm + ")";
             this.LAPSDWContextMenu.Text = ExternalResources.dw + "(" + ExternalResources.lapslogn + ")";
         }
+        private void ActivateOffice(object sender, EventArgs e)
+        {
+            if (HostName().Length > 2)
+                if (Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
+                    QuickFix.ActivateOffice2016.Active(HostName());
+                else UpdateRichTextBox("Za krótka nazwa komputera");
+        }
     }
 }

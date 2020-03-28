@@ -151,6 +151,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="QuickFix\ActivateOffice2016.cs" />
     <Compile Include="QuickFix\DeleteUsers.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -142,6 +142,7 @@ namespace Puzzel
             this.zmianaHasłaDomenowegoToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.QuickFixToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ActivateOffice2016 = new System.Windows.Forms.ToolStripMenuItem();
             this.EnableIEHosting = new System.Windows.Forms.ToolStripMenuItem();
             this.zmiennaŚrodowiskowaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DeleteUsersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -1319,15 +1320,22 @@ namespace Puzzel
             // 
             this.QuickFixToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.QuickFixToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ActivateOffice2016,
+            this.DeleteUsersToolStripMenuItem,
             this.EnableIEHosting,
             this.zmiennaŚrodowiskowaToolStripMenuItem,
-            this.DeleteUsersToolStripMenuItem,
             this.testToolStripMenuItem});
             this.QuickFixToolStripMenuItem.Name = "QuickFixToolStripMenuItem";
             this.QuickFixToolStripMenuItem.Size = new System.Drawing.Size(122, 20);
             this.QuickFixToolStripMenuItem.Text = "Szybkie rozwiązanie";
+            //
+            // ActivateOffice2016
             // 
-            // naprawaNICEToolStripMenuItem
+            this.ActivateOffice2016.Name = "Aktywacja Office 2016";
+            this.ActivateOffice2016.Text = "Aktywacja Office 2016";
+            this.Click += new System.EventHandler(ActivateOffice);
+            // 
+            // naprawaIEHostingToolStripMenuItem
             // 
             this.EnableIEHosting.Name = "EnableIEHostingToolStripMenuItem";
             this.EnableIEHosting.Size = new System.Drawing.Size(204, 22);
@@ -1510,6 +1518,7 @@ namespace Puzzel
         private System.Windows.Forms.ComboBox comboBox3;
         private System.Windows.Forms.ToolStripMenuItem ustawienia;
         private System.Windows.Forms.ToolStripMenuItem QuickFixToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ActivateOffice2016;
         private System.Windows.Forms.ToolStripMenuItem EnableIEHosting;
         private System.Windows.Forms.ToolStripMenuItem zmiennaŚrodowiskowaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem DeleteUsersToolStripMenuItem;
