@@ -1227,7 +1227,7 @@ namespace Puzzel
                 TerminalUniversalToolStripMenuItem.Name = t;
                 TerminalUniversalToolStripMenuItem.Text = t;
                 TerminalUniversalToolStripMenuItem.Click += new System.EventHandler(WyszukiwanieSesji_TerminalExplorer);
-                if (terminalExplorerToolStripMenuItem.DropDownItems[terminalExplorerToolStripMenuItem.DropDownItems.Count - 1].Name.Contains(t.Remove(t.Length-2)))
+                if (terminalExplorerToolStripMenuItem.DropDownItems[terminalExplorerToolStripMenuItem.DropDownItems.Count - 1].Name.Contains(t.Remove(t.Length-1)))
                 terminalExplorerToolStripMenuItem.DropDownItems.Add(TerminalUniversalToolStripMenuItem);
                 else
                 {
