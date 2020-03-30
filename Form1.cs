@@ -2055,10 +2055,8 @@ namespace Puzzel
         {
             richTextBox1.SelectionStart = 0;
             richTextBox1.HideSelection = false;
-            using (WyszukiwarkaDlaFormy wyszukiwarka = new WyszukiwarkaDlaFormy())
-            {
-                wyszukiwarka.Show();
-            }
+            WyszukiwarkaDlaFormy wyszukiwarka = new WyszukiwarkaDlaFormy();
+            wyszukiwarka.Show();
         }
         private void WyszukajMenuItem_Click(object sender, EventArgs e)
         {
