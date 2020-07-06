@@ -3,3 +3,14 @@
 ################################################################################
 
 /.vs/Puzzel/DesignTimeBuild/.dtbcache.v2
+/.vs/Puzzel/v16/.suo
+/PuzzelLibrary/obj
+/PuzzelLibrary/GlobalSuppressions.cs
+/PuzzelLibrary/ExternalResources.cs
+/PuzzelLibrary/Cassia
+/PuzzelLibrary/bin/
+/Forms/Obj
+/PuzzleLibrary
+/Puzzel/.gitignore
+/Puzzel/.vs/slnx.sqlite
+/packages

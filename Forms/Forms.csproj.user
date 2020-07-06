@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup />
+  <ItemGroup>
+    <Compile Update="Additional\Progress.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Additional\WyszukiwarkaDlaFormy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="DeleteUsers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Environment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Environment_Variable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="External\LAPSui.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="External\LockoutStatus\Lockout Status.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="External\LockoutStatus\WyborUzytkownika.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="External\LockoutStatus\ZmianaHasla.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="External\QuickFix\DeleteUsers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="External\QuickFix\Environment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="External\QuickFix\Environment_Variable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="External\TermsExplorer\CustomSearch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="External\TermsExplorer\SendMessage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="External\TermsExplorer\TerminalExplorer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="External\Ustawienia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="LAPSui.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="LockoutStatus\Lockout Status.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="LockoutStatus\WyborUzytkownika.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="LockoutStatus\ZmianaHasla.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Progress.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="TermsExplorer\CustomSearch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="TermsExplorer\SendMessage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="TermsExplorer\TerminalExplorer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Ustawienia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="WyszukiwarkaDlaFormy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+</Project>

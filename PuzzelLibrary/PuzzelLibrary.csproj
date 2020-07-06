@@ -1,0 +1,44 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Cassia\Properties\AssemblyInfo.cs" />
+    <Compile Remove="LogonData\CompUserLog.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Cassia\obj\Debug\Cassia.csproj.FileListAbsolute.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Cassia\Cassia.csproj" />
+    <Content Include="Cassia\obj\Debug\Cassia.csproj.FileListAbsolute.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="AD\" />
+    <Folder Include="Cassia\obj\Debug\TempPE\" />
+    <Folder Include="Debug\" />
+    <Folder Include="LAPS\" />
+    <Folder Include="NetDiag\" />
+    <Folder Include="Settings\" />
+    <Folder Include="Terminal\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Cassia\Properties\AssemblyInfo.cs" />
+    <None Include="LogonData\CompUserLog.cs">
+      <SubType>Form</SubType>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Win32.Registry" Version="4.7.0" />
+    <PackageReference Include="System.Management" Version="4.7.0" />
+    <PackageReference Include="System.Management.Automation" Version="7.0.2" />
+  </ItemGroup>
+
+</Project>
