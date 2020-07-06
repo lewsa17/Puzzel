@@ -2,16 +2,4 @@
 # Ten plik .gitignore został utworzony automatycznie przez Microsoft(R) Visual Studio.
 ################################################################################
 
-/.vs/Puzzel/v16
-/.vs/VSWorkspaceState.json
-/obj
-*.json
-/bin/Debug
-/Cassia
-/dhcp.msc
-/concept.txt
-/Changelog.txt
-/bugs.txt
-/packages.config
-/GlobalSuppressions.cs
-/ExternalResources.cs
+/.vs/Puzzel/DesignTimeBuild/.dtbcache.v2
