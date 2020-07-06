@@ -14,6 +14,7 @@ using System.Runtime.InteropServices;
 using Puzzel.LockoutStatus;
 using System.Management.Automation;
 using Microsoft.Win32;
+using PuzzleLibrary.ProcessExecutable;
 using Puzzel.QuickFix;
 using System.Collections.Generic;
 
