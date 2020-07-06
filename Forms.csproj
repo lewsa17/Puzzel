@@ -145,15 +145,160 @@
     <Compile Include="Cassia\RemoteMessageBoxResult.cs" />
     <Compile Include="Cassia\ShutdownType.cs" />
     <Compile Include="Cassia\TerminalServicesManager.cs" />
+    <Compile Include="Forms\DeleteUsers.cs" />
+    <Compile Include="Forms\DeleteUsers.Designer.cs">
+      <DependentUpon>DeleteUsers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Environment.cs" />
+    <Compile Include="Forms\Environment.Designer.cs">
+      <DependentUpon>Environment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Environment_Variable.cs" />
+    <Compile Include="Forms\Environment_Variable.Designer.cs">
+      <DependentUpon>Environment_Variable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Form1.cs" />
+    <Compile Include="Forms\Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\LAPSui.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\LAPSui.Designer.cs">
+      <DependentUpon>LAPSui.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\LoadingForm.cs" />
+    <Compile Include="Forms\LockoutStatus\WyborUzytkownika.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\LockoutStatus\WyborUzytkownika.Designer.cs">
+      <DependentUpon>WyborUzytkownika.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\LockoutStatus\ZmianaHasla.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\LockoutStatus\ZmianaHasla.Designer.cs">
+      <DependentUpon>ZmianaHasla.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Progress.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Progress.Designer.cs">
+      <DependentUpon>Progress.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\TermsExplorer\CustomSearch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\TermsExplorer\CustomSearch.Designer.cs">
+      <DependentUpon>CustomSearch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\TermsExplorer\SendMessage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\TermsExplorer\SendMessage.Designer.cs">
+      <DependentUpon>SendMessage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\TermsExplorer\TerminalExplorer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\TermsExplorer\terminalexplorer.Designer.cs">
+      <DependentUpon>TerminalExplorer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Ustawienia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Ustawienia.Designer.cs">
+      <DependentUpon>Ustawienia.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\WyszukiwarkaDlaFormy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\WyszukiwarkaDlaFormy.Designer.cs">
+      <DependentUpon>WyszukiwarkaDlaFormy.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="PuzzleLibrary\LogonData\CompUserLog.cs">
+      <SubType>Form</SubType>
+    </None>
+    <Compile Include="PuzzleLibrary\LogonData\Logi.cs" />
+    <Compile Include="PuzzleLibrary\ProcessExecutable\ProcExec.cs" />
+    <Compile Include="PuzzleLibrary\QuickFix\ActivateOffice2016.cs" />
+    <Compile Include="PuzzleLibrary\QuickFix\IEHosting.cs" />
+    <Compile Include="PuzzleLibrary\QuickFix\Registry\IEnum.cs" />
+    <Compile Include="PuzzleLibrary\QuickFix\Registry\IErase.cs" />
+    <Compile Include="PuzzleLibrary\QuickFix\Registry\RegEnum.cs" />
+    <Compile Include="PuzzleLibrary\QuickFix\Registry\RegErase.cs" />
+    <Compile Include="PuzzleLibrary\QuickFix\Registry\RegOpen.cs" />
+    <Compile Include="PuzzleLibrary\QuickFix\Registry\RegQuery.cs" />
+    <Compile Include="PuzzleLibrary\WMI\ComputerInfo.cs" />
+    <Compile Include="Forms\LockoutStatus\ZmianaHasla.designer.cs">
+      <DependentUpon>ZmianaHasla.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Forms\DeleteUsers.resx">
+      <DependentUpon>DeleteUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Environment.resx">
+      <DependentUpon>Environment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Environment_Variable.resx">
+      <DependentUpon>Environment_Variable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\LAPSui.resx">
+      <DependentUpon>LAPSui.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\LockoutStatus\WyborUzytkownika.resx">
+      <DependentUpon>WyborUzytkownika.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Progress.resx">
+      <DependentUpon>Progress.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\TermsExplorer\CustomSearch.resx">
+      <DependentUpon>CustomSearch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\TermsExplorer\SendMessage.resx">
+      <DependentUpon>SendMessage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\TermsExplorer\terminalexplorer.resx">
+      <DependentUpon>TerminalExplorer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Ustawienia.resx">
+      <DependentUpon>Ustawienia.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\WyszukiwarkaDlaFormy.resx">
+      <DependentUpon>WyszukiwarkaDlaFormy.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Cassia\Cassia.nuspec" />
     <None Include="Cassia\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
     <None Include="Cassia\packages.config" />
+    <None Include="packages.config" />
+    <Compile Include="PuzzleLibrary\Ping\RemotePing_Tracert.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PuzzleLibrary\Ping\RemotePing_Tracert.Designer.cs">
+      <DependentUpon>RemotePing_Tracert.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\LockoutStatus\Lockout Status.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\LockoutStatus\Lockout Status.Designer.cs">
+      <DependentUpon>Lockout Status.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PuzzleLibrary\Ping\Ping.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="PuzzleLibrary\Ping\RemotePing_Tracert.resx">
+      <DependentUpon>RemotePing_Tracert.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\LockoutStatus\Lockout Status.resx">
+      <DependentUpon>Lockout Status.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
@@ -169,6 +314,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="PuzzleLibrary\PuzzleLibrary.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
@@ -202,6 +351,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Cassia\obj\Debug\TempPE\" />
+    <Folder Include="PuzzleLibrary\AD\" />
+    <Folder Include="PuzzleLibrary\Debug\" />
+    <Folder Include="PuzzleLibrary\LAPS\" />
+    <Folder Include="PuzzleLibrary\NetDiag\" />
+    <Folder Include="PuzzleLibrary\Settings\" />
+    <Folder Include="PuzzleLibrary\Terminal\" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.2.9.8\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
@@ -217,12 +372,6 @@
     <Analyzer Include="..\packages\Microsoft.NetFramework.Analyzers.2.9.8\analyzers\dotnet\cs\Microsoft.NetFramework.CSharp.Analyzers.dll" />
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\PuzzelLibrary\PuzzelLibrary.csproj">
-      <Project>{d20fc7e2-4e9f-412b-9af1-af08899d3cd4}</Project>
-      <Name>PuzzelLibrary</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
