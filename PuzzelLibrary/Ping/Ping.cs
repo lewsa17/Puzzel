@@ -4,7 +4,7 @@ using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.ComponentModel;
 
-namespace PuzzelLibrary.LogonData
+namespace PuzzelLibrary.Ping
 {
     public static class Ping
     {
@@ -22,12 +22,12 @@ namespace PuzzelLibrary.LogonData
             }
             catch (System.Net.Sockets.SocketException socex)
             {
-                Form1.ReplaceRichTextBox("");
-                Form1.UpdateRichTextBox("Wystąpił błąd podczas wykonywania żądania Ping\n" + socex.Message + ": " + HostName+"\n");
+                //Form1.ReplaceRichTextBox("");
+                //Form1.UpdateRichTextBox("Wystąpił błąd podczas wykonywania żądania Ping\n" + socex.Message + ": " + HostName+"\n");
             }
             catch (Exception e)
             {
-                LogsCollector.Loger(e, HostName);
+                //LogsCollector.Loger(e, HostName);
             }
             return iPStatus;
         }

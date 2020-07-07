@@ -3,12 +3,14 @@ using System.Linq;
 using System.Management;
 using System.Net.Sockets;
 using System.Management.Automation;
+using System.Security.Cryptography.X509Certificates;
 using System.Windows.Forms;
 
 namespace PuzzelLibrary.WMI
 {
     public static class ComputerInfo
     {
+        public static int ProgressBarValue = 0;
         public const string pathCIMv2 = @"\root\CIMV2";
         public const string pathWMI = @"\root\wmi";
         public const string queryComputerSystem = "Win32_ComputerSystem";
@@ -29,97 +31,100 @@ namespace PuzzelLibrary.WMI
         public const string queryDesktopMonitor = "Win32_DesktopMonitor";
         public const string queryProduct = "Win32_Product";
 
-        public static void AllComputerInfo(string HostName)
+        public static string AllComputerInfo(string HostName)
         {
-            Form1.ComputerInfo_TEMP += ("Nazwa komputera: ");
-            Form1.ProgressBarValue = 1;
+            string Data = null;
+            Data += ("Nazwa komputera: ");
+            ProgressBarValue = 1;
             GetInfo(HostName, pathCIMv2, queryComputerSystem, "DNSHostName");
-            Form1.ComputerInfo_TEMP += ("----------------------------------------\n");
-            Form1.ComputerInfo_TEMP += ("Domena: ");
-            Form1.ProgressBarValue = 2;
+            Data += ("----------------------------------------\n");
+            Data += ("Domena: ");
+            ProgressBarValue = 2;
             GetInfo(HostName, pathCIMv2, queryComputerSystem, "Domain");
-            Form1.ComputerInfo_TEMP += ("----------------------------------------\n");
-            Form1.ComputerInfo_TEMP += ("Uptime: ");
-            Form1.ProgressBarValue = 3;
+            Data += ("----------------------------------------\n");
+            Data += ("Uptime: ");
+            ProgressBarValue = 3;
             GetInfo(HostName, pathCIMv2, queryOperatingSystem, "LastBootUpTime");
-            Form1.ComputerInfo_TEMP += ("----------------------------------------\n");
-            Form1.ComputerInfo_TEMP += ("SN: ");
-            Form1.ProgressBarValue = 4;
+            Data += ("----------------------------------------\n");
+            Data += ("SN: ");
+            ProgressBarValue = 4;
             GetInfo(HostName, pathCIMv2, queryComputerSystemProduct, "IdentifyingNumber");
-            Form1.ComputerInfo_TEMP += ("PN: ");
-            Form1.ProgressBarValue = 5;
+            Data += ("PN: ");
+            ProgressBarValue = 5;
             GetInfo(HostName, pathWMI, querySystemInformation, "SystemSKU");
-            Form1.ComputerInfo_TEMP += ("----------------------------------------\n");
-            Form1.ComputerInfo_TEMP += ("Model: ");
-            Form1.ProgressBarValue = 6;
+            Data += ("----------------------------------------\n");
+            Data += ("Model: ");
+            ProgressBarValue = 6;
             GetInfo(HostName, pathCIMv2, queryComputerSystem, "Model");
-            Form1.ComputerInfo_TEMP += ("----------------------------------------\n");
-            Form1.ComputerInfo_TEMP += ("OS: ");
-            Form1.ProgressBarValue = 7;
+            Data += ("----------------------------------------\n");
+            Data += ("OS: ");
+            ProgressBarValue = 7;
             GetInfo(HostName, pathCIMv2, queryOperatingSystem, "Caption", "CsdVersion", "OsArchitecture", "Version");
-            Form1.ComputerInfo_TEMP += ("----------------------------------------\n");
+            Data += ("----------------------------------------\n");
             //TotalCapacity
-            Form1.ComputerInfo_TEMP += ("Pamięć TOTAL: \n");
-            Form1.ProgressBarValue = 8;
+            Data += ("Pamięć TOTAL: \n");
+            ProgressBarValue = 8;
             GetInfo(HostName, pathCIMv2, queryPhysicalMemory, "Capacity");
-            Form1.ComputerInfo_TEMP += ("\n");
+            Data += ("\n");
             GetInfo(HostName, pathCIMv2, queryPhysicalMemory, "DeviceLocator", "Manufacturer", "Capacity", "Speed", "PartNumber", "SerialNumber");
-            Form1.ComputerInfo_TEMP += ("----------------------------------------\n");
-            Form1.ComputerInfo_TEMP += ("CPU \n");
-            Form1.ProgressBarValue = 9;
+            Data += ("----------------------------------------\n");
+            Data += ("CPU \n");
+            ProgressBarValue = 9;
             GetInfo(HostName, pathCIMv2, queryProcessor, "Name");
-            Form1.ComputerInfo_TEMP += ("Rdzenie: ");
-            Form1.ProgressBarValue = 10;
+            Data += ("Rdzenie: ");
+            ProgressBarValue = 10;
             GetInfo(HostName, pathCIMv2, queryProcessor, "NumberOfCores");
-            Form1.ComputerInfo_TEMP += ("Wątki: ");
-            Form1.ProgressBarValue = 11;
+            Data += ("Wątki: ");
+            ProgressBarValue = 11;
             GetInfo(HostName, pathCIMv2, queryProcessor, "NumberOfLogicalProcessors");
-            Form1.ComputerInfo_TEMP += ("----------------------------------------\n");
-            Form1.ComputerInfo_TEMP += ("Użytkownik: ");
-            Form1.ProgressBarValue = 12;
+            Data += ("----------------------------------------\n");
+            Data += ("Użytkownik: ");
+            ProgressBarValue = 12;
             GetInfo(HostName, pathCIMv2, queryComputerSystem, "UserName");
-            Form1.ComputerInfo_TEMP += ("----------------------------------------\n");
-            Form1.ComputerInfo_TEMP += ("Profile\n");
-            Form1.ProgressBarValue = 13;
+            Data += ("----------------------------------------\n");
+            Data += ("Profile\n");
+            ProgressBarValue = 13;
             GetInfo(HostName, pathCIMv2, queryDesktop, "Name");
-            Form1.ComputerInfo_TEMP += ("----------------------------------------\n");
-            Form1.ComputerInfo_TEMP += ("Dyski: \n");
-            Form1.ProgressBarValue = 14;
-            Form1.ComputerInfo_TEMP += ("Nazwa   Opis                  System plików   Wolna przestrzeń       Rozmiar \n");
+            Data += ("----------------------------------------\n");
+            Data += ("Dyski: \n");
+            ProgressBarValue = 14;
+            Data += ("Nazwa   Opis                  System plików   Wolna przestrzeń       Rozmiar \n");
             GetInfo(HostName, pathCIMv2, queryLogicalDisk, "Name", "Description", "FileSystem", "FreeSpace", "Size");
-            Form1.ComputerInfo_TEMP += ("----------------------------------------\n");
-            Form1.ComputerInfo_TEMP += ("Zasoby sieciowe\n\n");
-            Form1.ProgressBarValue = 15;
+            Data += ("----------------------------------------\n");
+            Data += ("Zasoby sieciowe\n\n");
+            ProgressBarValue = 15;
             GetInfo(HostName, pathCIMv2, queryNetworkConnection, "LocalName", "RemoteName");
-            Form1.ComputerInfo_TEMP += ("----------------------------------------\n");
-            Form1.ComputerInfo_TEMP += ("Drukarki sieciowe\n\n");
-            Form1.ProgressBarValue = 16;
+            Data += ("----------------------------------------\n");
+            Data += ("Drukarki sieciowe\n\n");
+            ProgressBarValue = 16;
             GetInfo(HostName, pathCIMv2, queryPrinterConfiguration, "DeviceName");
-            Form1.ComputerInfo_TEMP += ("----------------------------------------\n");
-            Form1.ComputerInfo_TEMP += ("Udziały\n");
-            Form1.ProgressBarValue = 17;
+            Data += ("----------------------------------------\n");
+            Data += ("Udziały\n");
+            ProgressBarValue = 17;
             GetInfo(HostName, pathCIMv2, queryShare, "Name", "Path", "Description");
-            Form1.ComputerInfo_TEMP += ("----------------------------------------\n");
-            Form1.ComputerInfo_TEMP += ("AutoStart\n");
-            Form1.ProgressBarValue = 18;
+            Data += ("----------------------------------------\n");
+            Data += ("AutoStart\n");
+            ProgressBarValue = 18;
             GetInfo(HostName, pathCIMv2, queryStartupCommand, "Caption", "Command");
-            Form1.ComputerInfo_TEMP += ("----------------------------------------\n");
-            Form1.ComputerInfo_TEMP += ("Środowisko uruchomieniowe\n");
-            Form1.ProgressBarValue = 19;
-            Form1.ComputerInfo_TEMP += ("Nazwa zmiennej           Wartość zmiennej\n");
+            Data += ("----------------------------------------\n");
+            Data += ("Środowisko uruchomieniowe\n");
+            ProgressBarValue = 19;
+            Data += ("Nazwa zmiennej           Wartość zmiennej\n");
             GetInfo(HostName, pathCIMv2, queryEnvironment, "Name", "VariableValue");
-            Form1.ComputerInfo_TEMP += ("----------------------------------------\n");
-            Form1.ComputerInfo_TEMP += ("Podłączone ekrany\n");
+            Data += ("----------------------------------------\n");
+            Data += ("Podłączone ekrany\n");
             GetInfo(HostName, pathCIMv2, queryDesktopMonitor, "Caption", "DeviceID", "ScreenHeight", "ScreenWidth", "Status");
-            Form1.ComputerInfo_TEMP += ("----------------------------------------\n");
-            Form1.ComputerInfo_TEMP += ("BIOS\n");
+            Data += ("----------------------------------------\n");
+            Data += ("BIOS\n");
             GetInfo(HostName, pathCIMv2, queryBios, "Manufacturer", "BIOSVersion", "SMBIOSBIOSVersion", "ReleaseDate");
+            return Data;
         }
-        public static void GetInfo(string nazwaKomputera, string path, string query, params object[] args)
+        public static string GetInfo(string nazwaKomputera, string path, string query, params object[] args)
         {
             UInt64 TotalCapacity = 0;
             int warunek = 0;
             int warunek1 = 0;
+            string Data = null;
             ManagementScope scope = new ManagementScope();
             try
             {
@@ -158,7 +163,7 @@ namespace PuzzelLibrary.WMI
                                         break;
                                     }
                                     if (m[args[0].ToString()] != null)
-                                        Forms.Form1.ComputerInfo_TEMP += (m[args[0].ToString()] + "\n");
+                                        Data += (m[args[0].ToString()] + "\n");
                                     break;
                                 }
                             case 2:
@@ -181,7 +186,7 @@ namespace PuzzelLibrary.WMI
                                         break;
                                     }
                                     if (m[args[0].ToString()] != null)
-                                        Forms.Form1.ComputerInfo_TEMP += (m[args[0].ToString()] + "     " + m[args[1].ToString()] + "\n");
+                                        Data += (m[args[0].ToString()] + "     " + m[args[1].ToString()] + "\n");
                                     break;
                                 }
                             case 3:
@@ -252,7 +257,7 @@ namespace PuzzelLibrary.WMI
                                     {
                                         DesktopMonitor(args, m);
                                     }
-                                    Forms.Form1.ComputerInfo_TEMP += "\n";
+                                    Data += "\n";
                                     break;
                                 }
                             case 6:
@@ -265,7 +270,7 @@ namespace PuzzelLibrary.WMI
                                     //args4 = partnumber
                                     //args5 = serialnumber
                                     warunek = Memory(args, warunek, m);
-                                    Forms.Form1.ComputerInfo_TEMP += ("\n");
+                                    Data += ("\n");
                                     break;
                                 }
                             case 7:
@@ -284,23 +289,25 @@ namespace PuzzelLibrary.WMI
                         }
                     }
                 }
+                    return Data;
             }
             catch (UnauthorizedAccessException ex)
             {
-                LogsCollector.Loger(ex, nazwaKomputera + "," + path + "," + query);
-                MessageBox.Show("Dostęp zabroniony na obecnych poświadczeniach", "WMI Testing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); return;
+                //LogsCollector.Loger(ex, nazwaKomputera + "," + path + "," + query);
+                MessageBox.Show("Dostęp zabroniony na obecnych poświadczeniach", "WMI Testing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); return string.Empty;
             }
 
             catch (Exception ex)
             {
-                LogsCollector.Loger(ex, nazwaKomputera + "," + path + "," + query);
-                MessageBox.Show("Nie można się połączyć z powodu błędu: " + ex.Message, "WMI Testing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); return;
+                //LogsCollector.Loger(ex, nazwaKomputera + "," + path + "," + query);
+                MessageBox.Show("Nie można się połączyć z powodu błędu: " + ex.Message, "WMI Testing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); return string.Empty;
             }
             
         }
 
         private static int Memory(object[] args, int warunek, ManagementObject m)
         {
+            string Data = null;
             string _capacity = null;
             string devicelocator = null;
             string manufacturer = null;
@@ -346,62 +353,62 @@ namespace PuzzelLibrary.WMI
             warunek++;
             if (warunek == 1)
             {
-                Forms.Form1.ComputerInfo_TEMP += ("Rozmiar");
+                Data += ("Rozmiar");
                 for (int i = 0; i < capacitySize; i++)
-                    Forms.Form1.ComputerInfo_TEMP += (" ");
+                    Data += (" ");
 
-                Forms.Form1.ComputerInfo_TEMP += ("Speed");
+                Data += ("Speed");
                 for (int i = 0; i < speedSize; i++)
-                    Forms.Form1.ComputerInfo_TEMP += (" ");
+                    Data += (" ");
 
-                Forms.Form1.ComputerInfo_TEMP += ("Slot");
+                Data += ("Slot");
                 for (int i = 0; i < devicelocatorSize; i++)
-                    Forms.Form1.ComputerInfo_TEMP += (" ");
+                    Data += (" ");
 
-                Forms.Form1.ComputerInfo_TEMP += ("Producent");
+                Data += ("Producent");
                 for (int i = 0; i < manufacturerSize; i++)
-                    Forms.Form1.ComputerInfo_TEMP += (" ");
+                    Data += (" ");
 
-                Forms.Form1.ComputerInfo_TEMP += ("Nr Partii");
+                Data += ("Nr Partii");
                 for (int i = 0; i < partnumberSize; i++)
-                    Forms.Form1.ComputerInfo_TEMP += (" ");
-                Forms.Form1.ComputerInfo_TEMP += ("Nr Seryjny");
-                Forms.Form1.ComputerInfo_TEMP += ("\n");
+                    Data += (" ");
+                Data += ("Nr Seryjny");
+                Data += ("\n");
             }
             //wyrzucanie wartości
             if (m[args[2].ToString()] != null)
             {
                 _capacity = m[args[2].ToString()].ToString();
-                Forms.Form1.ComputerInfo_TEMP += _capacity;
+                Data += _capacity;
                 int a = 13 - _capacity.Length;
                 for (int i = 0; i < a; i++)
                 {
-                    Forms.Form1.ComputerInfo_TEMP += (" ");
+                    Data += (" ");
                 }
             }
 
             if (m[args[3].ToString()] != null)
             {
                 speed = m[args[3].ToString()].ToString();
-                Forms.Form1.ComputerInfo_TEMP += (speed);
+                Data += (speed);
                 int a = 7 - speed.Length;
                 for (int i = 0; i < a; i++)
                 {
-                    Forms.Form1.ComputerInfo_TEMP += (" ");
+                    Data += (" ");
                 }
             }
 
             if (m[args[0].ToString()] != null)
             {
                 devicelocator = m[args[0].ToString()].ToString();
-                Forms.Form1.ComputerInfo_TEMP += (devicelocator);
+                Data += (devicelocator);
 
                 if (devicelocator.Length > 7)
                 {
                     int a = 22 - devicelocator.Length;
                     for (int i = 0; i < a; i++)
                     {
-                        Forms.Form1.ComputerInfo_TEMP += (" ");
+                        Data += (" ");
                     }
                 }
                 else if (devicelocator.Length < 7)
@@ -409,7 +416,7 @@ namespace PuzzelLibrary.WMI
                     int a = 7 - devicelocator.Length;
                     for (int i = 0; i < a; i++)
                     {
-                        Forms.Form1.ComputerInfo_TEMP += (" ");
+                        Data += (" ");
                     }
                 }
             }
@@ -417,36 +424,37 @@ namespace PuzzelLibrary.WMI
             if (m[args[1].ToString()] != null)
             {
                 manufacturer = m[args[1].ToString()].ToString();
-                Forms.Form1.ComputerInfo_TEMP += (manufacturer);
+                Data += (manufacturer);
                 int a = 14 - manufacturer.Length;
                 for (int i = 0; i < a; i++)
                 {
-                    Forms.Form1.ComputerInfo_TEMP += (" ");
+                    Data += (" ");
                 }
             }
 
             if (m[args[4].ToString()] != null)
             {
                 partnumber = m[args[4].ToString()].ToString();
-                Forms.Form1.ComputerInfo_TEMP += (partnumber);
+                Data += (partnumber);
                 int a = 20 - partnumber.Length;
                 for (int i = 0; i < a; i++)
                 {
-                    Forms.Form1.ComputerInfo_TEMP += (" ");
+                    Data += (" ");
                 }
             }
 
             if (m[args[5].ToString()] != null)
             {
                 serialnumber = m[args[5].ToString()].ToString();
-                Forms.Form1.ComputerInfo_TEMP += (serialnumber);
+                Data += (serialnumber);
             }
 
             return warunek;
         }
 
-        private static void NetworkAdapter(object[] args, ManagementObject m)
+        private static string NetworkAdapter(object[] args, ManagementObject m)
         {
+            string Data = null;
             string[] Suffix = null;
             string[] Ipaddress = null;
             string[] IPSubnet = null;
@@ -460,35 +468,37 @@ namespace PuzzelLibrary.WMI
                 if (m[args[5].ToString()] != null)
                     IPSubnet = (string[])m[args[5].ToString()];
 
-                Forms.Form1.ComputerInfo_TEMP += ("\nNazwa karty sieciowej   " + m[args[1].ToString()].ToString() + "\n");
-                Forms.Form1.ComputerInfo_TEMP += ("IP Włączone             " + m[args[0].ToString()].ToString() + "\n");
+                Data += ("\nNazwa karty sieciowej   " + m[args[1].ToString()].ToString() + "\n");
+                Data += ("IP Włączone             " + m[args[0].ToString()].ToString() + "\n");
 
                 if (m[args[0].ToString()].ToString() == "True")
                 {
-                    Forms.Form1.ComputerInfo_TEMP += ("DNS Suffix              ");
+                    Data += ("DNS Suffix              ");
                     if (Suffix != null)
                         for (int i = 0; i < Suffix.Length; i++)
-                            Forms.Form1.ComputerInfo_TEMP += (Suffix[i] + "; ");
-                    Forms.Form1.ComputerInfo_TEMP += ("\n");
+                            Data += (Suffix[i] + "; ");
+                    Data += ("\n");
                     if (m[args[3].ToString()] != null)
-                        Forms.Form1.ComputerInfo_TEMP += ("Nazwa hosta DNS         " + m[args[3].ToString()].ToString() + "\n");
-                    Forms.Form1.ComputerInfo_TEMP += ("Adres IP                ");
+                        Data += ("Nazwa hosta DNS         " + m[args[3].ToString()].ToString() + "\n");
+                    Data += ("Adres IP                ");
                     if (Ipaddress != null)
                         for (int i = 0; i < Ipaddress.Length; i++)
-                            Forms.Form1.ComputerInfo_TEMP += (Ipaddress[i] + "; ");
-                    Forms.Form1.ComputerInfo_TEMP += ("\n");
-                    Forms.Form1.ComputerInfo_TEMP += ("Maska podsieci          ");
+                            Data += (Ipaddress[i] + "; ");
+                    Data += ("\n");
+                    Data += ("Maska podsieci          ");
                     if (IPSubnet != null)
                         for (int i = 0; i < IPSubnet.Length; i++)
-                            Forms.Form1.ComputerInfo_TEMP += (IPSubnet[i] + "; ");
-                    Forms.Form1.ComputerInfo_TEMP += ("\n");
-                    Forms.Form1.ComputerInfo_TEMP += ("Adres MAC               " + m[args[6].ToString()].ToString() + ";\n");
+                            Data += (IPSubnet[i] + "; ");
+                    Data += ("\n");
+                    Data += ("Adres MAC               " + m[args[6].ToString()].ToString() + ";\n");
                 }
             }
+            return Data;
         }
 
-        private static void DesktopMonitor(object[] args, ManagementObject m)
+        private static string DesktopMonitor(object[] args, ManagementObject m)
         {
+            string Data = null;
             string caption = null;
             string deviceID = null;
             string screenHeight = null;
@@ -497,56 +507,58 @@ namespace PuzzelLibrary.WMI
             if (m[args[0].ToString()] != null)
             {
                 caption = m[args[0].ToString()].ToString();
-                Forms.Form1.ComputerInfo_TEMP += (caption);
+                Data += (caption);
                 int a = 25 - caption.Length;
                 for (int i = 0; i < a; i++)
                 {
-                    Forms.Form1.ComputerInfo_TEMP += (" ");
+                    Data += (" ");
                 }
             }
 
             if (m[args[1].ToString()] != null)
             {
                 deviceID = m[args[1].ToString()].ToString();
-                Forms.Form1.ComputerInfo_TEMP += (deviceID);
+                Data += (deviceID);
                 int a = 25 - deviceID.Length;
                 for (int i = 0; i < a; i++)
                 {
-                    Forms.Form1.ComputerInfo_TEMP += (" ");
+                    Data += (" ");
                 }
             }
 
             if (m[args[2].ToString()] != null)
             {
                 screenHeight = m[args[2].ToString()].ToString();
-                Forms.Form1.ComputerInfo_TEMP += (screenHeight);
+                Data += (screenHeight);
                 int a = 6 - screenHeight.Length;
                 for (int i = 0; i < a; i++)
                 {
-                    Forms.Form1.ComputerInfo_TEMP += (" ");
+                    Data += (" ");
                 }
             }
 
             if (m[args[3].ToString()] != null)
             {
                 screenWidth = m[args[3].ToString()].ToString();
-                Forms.Form1.ComputerInfo_TEMP += (screenWidth);
+                Data += (screenWidth);
                 int a = 6 - screenWidth.Length;
                 for (int i = 0; i < a; i++)
                 {
-                    Forms.Form1.ComputerInfo_TEMP += (" ");
+                    Data += (" ");
                 }
             }
 
             if (m[args[4].ToString()] != null)
             {
                 status = m[args[4].ToString()].ToString();
-                Forms.Form1.ComputerInfo_TEMP += (status);
+                Data += (status);
             }
+            return Data;
         }
 
-        private static void Disk(object[] args, ManagementObject m)
+        private static string Disk(object[] args, ManagementObject m)
         {
+            string Data = null;
             string name = null;
             string description = null;
             string filesystem = null;
@@ -556,52 +568,52 @@ namespace PuzzelLibrary.WMI
             if (m[args[0].ToString()] != null)
             {
                 name = m[args[0].ToString()].ToString();
-                Forms.Form1.ComputerInfo_TEMP += (name);
+                Data += (name);
                 int a = 8 - name.Length;
                 for (int i = 0; i < a; i++)
                 {
-                    Forms.Form1.ComputerInfo_TEMP += (" ");
+                    Data += (" ");
                 }
             }
 
             if (m[args[1].ToString()] != null)
             {
                 description = m[args[1].ToString()].ToString();
-                Forms.Form1.ComputerInfo_TEMP += (description);
+                Data += (description);
                 if (description.Length != 22)
                 {
                     int a = 22 - description.Length;
                     for (int i = 0; i < a; i++)
-                        Forms.Form1.ComputerInfo_TEMP += (" ");
+                        Data += (" ");
                 }
             }
             else
             {
                 description = "-";
-                Forms.Form1.ComputerInfo_TEMP += (description);
+                Data += (description);
                 int a = 22 - description.Length;
                 for (int i = 0; i < a; i++)
-                    Forms.Form1.ComputerInfo_TEMP += (" ");
+                    Data += (" ");
             }
 
             if (m[args[2].ToString()] != null)
             {
                 filesystem = m[args[2].ToString()].ToString();
-                Forms.Form1.ComputerInfo_TEMP += (filesystem);
+                Data += (filesystem);
                 if (filesystem.Length != 16)
                 {
                     int a = 16 - filesystem.Length;
                     for (int i = 0; i < a; i++)
-                        Forms.Form1.ComputerInfo_TEMP += (" ");
+                        Data += (" ");
                 }
             }
             else
             {
                 filesystem = "-";
-                Forms.Form1.ComputerInfo_TEMP += (filesystem);
+                Data += (filesystem);
                 int a = 16 - filesystem.Length;
                 for (int i = 0; i < a; i++)
-                    Forms.Form1.ComputerInfo_TEMP += (" ");
+                    Data += (" ");
             }
 
             if (m[args[3].ToString()] != null)
@@ -609,21 +621,21 @@ namespace PuzzelLibrary.WMI
                 freespace = m[args[3].ToString()].ToString();
                 UInt64 b = ((UInt64)m[args[3].ToString()]) / 1024 / 1024 / 1024;
                 freespace += " (" + b.ToString() + "GB)";
-                Forms.Form1.ComputerInfo_TEMP += (freespace);
+                Data += (freespace);
                 if (freespace.Length < 23)
                 {
                     int a = 23 - freespace.Length;
                     for (int i = 0; i < a; i++)
-                        Forms.Form1.ComputerInfo_TEMP += (" ");
+                        Data += (" ");
                 }
 
             }
             else
             {
-                freespace = "-"; Forms.Form1.ComputerInfo_TEMP += (freespace);
+                freespace = "-"; Data += (freespace);
                 int a = 23 - freespace.Length;
                 for (int i = 0; i < a; i++)
-                    Forms.Form1.ComputerInfo_TEMP += (" ");
+                    Data += (" ");
             }
 
             if (m["size"] != null)
@@ -631,34 +643,36 @@ namespace PuzzelLibrary.WMI
                 size = m["size"].ToString();
                 UInt64 b = ((UInt64)m["size"]) / 1024 / 1024 / 1024;
                 size += " (" + b.ToString() + "GB)";
-                Forms.Form1.ComputerInfo_TEMP += (size);
+                Data += (size);
             }
-            else { size = "-"; Forms.Form1.ComputerInfo_TEMP += (size); }
+            else { size = "-"; Data += (size); }
 
-            Forms.Form1.ComputerInfo_TEMP += ("\n");
+            Data += ("\n");
+            return Data;
         }
 
-        private static void BiosInfo(object[] args, ManagementObject m)
+        private static string BiosInfo(object[] args, ManagementObject m)
         {
+            string Data = null;
             string manufacturer = null;
             //string[] biosVersion = null;
             string smbiosVersion = null;
             string releaseDate = null;
 
 
-            Forms.Form1.ComputerInfo_TEMP += "Producent                Wersja Bios     " +
+            Data += "Producent                Wersja Bios     " +
                 // "Wersja SMBios   " +
                 "Data wydania\n";
 
             if (m[args[0].ToString()] != null)
             {
                 manufacturer = m[args[0].ToString()].ToString();
-                Forms.Form1.ComputerInfo_TEMP += (manufacturer);
+                Data += (manufacturer);
                 int a = "Producent".Length + 16 - manufacturer.Length;
                 //17 - manufacturer.Length;
                 for (int i = 0; i < a; i++)
                 {
-                    Forms.Form1.ComputerInfo_TEMP += (" ");
+                    Data += (" ");
                 }
             }
 
@@ -677,23 +691,25 @@ namespace PuzzelLibrary.WMI
             if (m[args[1].ToString()] != null)
             {
                 smbiosVersion = m[args[2].ToString()].ToString();
-                Forms.Form1.ComputerInfo_TEMP += (smbiosVersion);
+                Data += (smbiosVersion);
                 int a = "Wersja SMBios".Length + 3 - smbiosVersion.Length;//12 - smbiosVersion.Length;
                 for (int i = 0; i < a; i++)
                 {
-                    Forms.Form1.ComputerInfo_TEMP += (" ");
+                    Data += (" ");
                 }
             }
 
             if (m[args[2].ToString()] != null)
             {
                 releaseDate = m[args[3].ToString()].ToString();
-                Forms.Form1.ComputerInfo_TEMP += (releaseDate.Remove(8, releaseDate.Length - 8));
+                Data += (releaseDate.Remove(8, releaseDate.Length - 8));
             }
+            return Data;
         }
 
-        private static void osInfo(object[] args, ManagementObject m)
+        private static string osInfo(object[] args, ManagementObject m)
         {
+            string Data = null;
             string caption = null;
             string csdversion = null;
             string osarchitecture = null;
@@ -702,81 +718,83 @@ namespace PuzzelLibrary.WMI
             if (m[args[0].ToString()] != null)
             {
                 caption = m[args[0].ToString()].ToString();
-                Forms.Form1.ComputerInfo_TEMP += (caption);
+                Data += (caption);
                 int a = 44 - caption.Length;
                 for (int i = 0; i < a; i++)
                 {
-                    Forms.Form1.ComputerInfo_TEMP += (" ");
+                    Data += (" ");
                 }
             }
 
             if (m[args[1].ToString()] != null)
             {
                 csdversion = m[args[1].ToString()].ToString();
-                Forms.Form1.ComputerInfo_TEMP += (csdversion);
+                Data += (csdversion);
                 if (csdversion.Length != 22)
                 {
                     //int a = 15 - csdversion.Length;
                     //for (int i = 0; i < a; i++)
-                    Forms.Form1.ComputerInfo_TEMP += ("  ");
+                    Data += ("  ");
                 }
             }
             else
             {
                 csdversion = "-";
-                Forms.Form1.ComputerInfo_TEMP += (csdversion);
+                Data += (csdversion);
                 //int a = 15 - csdversion.Length;
                 //for (int i = 0; i < a; i++)
-                Forms.Form1.ComputerInfo_TEMP += ("  ");
+                Data += ("  ");
             }
 
             if (m[args[2].ToString()] != null)
             {
                 osarchitecture = m[args[2].ToString()].ToString();
-                Forms.Form1.ComputerInfo_TEMP += (osarchitecture);
+                Data += (osarchitecture);
                 if (osarchitecture.Length != 16)
                 {
                     //int a = 14 - osarchitecture.Length;
                     //for (int i = 0; i < a; i++)
-                    Forms.Form1.ComputerInfo_TEMP += ("  ");
+                    Data += ("  ");
                 }
             }
 
             if (m[args[3].ToString()] != null)
             {
                 version = m[args[3].ToString()].ToString();
-                Forms.Form1.ComputerInfo_TEMP += (version);
+                Data += (version);
                 if (version.Length < 23)
                 {
-                    Forms.Form1.ComputerInfo_TEMP += (" ");
+                    Data += (" ");
                 }
             }
-            Forms.Form1.ComputerInfo_TEMP += ("\n");
+            Data += ("\n");
+            return Data;
         }
 
-        private static void NetworkResources(object[] args, ManagementObject m)
+        private static string NetworkResources(object[] args, ManagementObject m)
         {
+            string Data = null;
             string name;
             if (m[args[0].ToString()] != null)
             {
                 name = m[args[0].ToString()].ToString();
-                Forms.Form1.ComputerInfo_TEMP += (name);
+                Data += (name);
                 if (name.Length <= 9)
                 {
                     int a = 9 - name.Length;
                     for (int i = 0; i < a; i++)
-                        Forms.Form1.ComputerInfo_TEMP += (" ");
+                        Data += (" ");
                 }
             }
             else
             {
                 name = "-";
-                Forms.Form1.ComputerInfo_TEMP += (name);
+                Data += (name);
                 if (name.Length <= 9)
                 {
                     int a = 9 - name.Length;
                     for (int i = 0; i < a; i++)
-                        Forms.Form1.ComputerInfo_TEMP += (" ");
+                        Data += (" ");
                 }
             }
 
@@ -784,23 +802,23 @@ namespace PuzzelLibrary.WMI
             if (m[args[1].ToString()] != null)
             {
                 Path = m[args[1].ToString()].ToString();
-                Forms.Form1.ComputerInfo_TEMP += (Path);
+                Data += (Path);
                 if (Path.Length != 13)
                 {
                     int a = 13 - Path.Length;
                     for (int i = 0; i < a; i++)
-                        Forms.Form1.ComputerInfo_TEMP += (" ");
+                        Data += (" ");
                 }
             }
             else
             {
                 Path = "-";
-                Forms.Form1.ComputerInfo_TEMP += (Path);
+                Data += (Path);
                 if (Path.Length != 13)
                 {
                     int a = 13 - Path.Length;
                     for (int i = 0; i < a; i++)
-                        Forms.Form1.ComputerInfo_TEMP += (" ");
+                        Data += (" ");
                 }
             }
 
@@ -808,18 +826,20 @@ namespace PuzzelLibrary.WMI
             if (m[args[2].ToString()] != null)
             {
                 description = m[args[2].ToString()].ToString();
-                Forms.Form1.ComputerInfo_TEMP += (description);
+                Data += (description);
             }
             else
             {
                 description = "-";
-                Forms.Form1.ComputerInfo_TEMP += (description);
+                Data += (description);
             }
-            Forms.Form1.ComputerInfo_TEMP += ("\n");
+            Data += ("\n");
+            return Data;
         }
 
-        private static void InstalledPrograms(ManagementObject m)
+        private static string InstalledPrograms(ManagementObject m)
         {
+            string Data = null;
             string nazwa = null;
             string wersja = null;
             string data = null;
@@ -837,25 +857,25 @@ namespace PuzzelLibrary.WMI
             if (firstObjLength > 1)
                 if (!nazwa.Contains("for Microsoft") && !nazwa.Contains("(KB"))
                 {
-                    Form1.ComputerInfo_TEMP += nazwa + " ";
+                    Data += nazwa + " ";
                     if (firstObjLength < firstoptimvalue)
                     {
                         addspace = firstoptimvalue - firstObjLength;
                         for (int i = 0; i < addspace; i++)
-                            Form1.ComputerInfo_TEMP += " ";
+                            Data += " ";
                     }
                     else
                     {
-                        Form1.ComputerInfo_TEMP += "   ";
+                        Data += "   ";
                     }
                     if (secondObjLenght > 1 && thirdObjLenght > 1)
                     {
-                        Form1.ComputerInfo_TEMP += data + " ";
+                        Data += data + " ";
                         if (firstoptimvalue > firstObjLength)
                         {
                             addspace = secondoptimvalue - secondObjLenght;
                             for (int i = 0; i < addspace; i++)
-                                Form1.ComputerInfo_TEMP += " ";
+                                Data += " ";
                         }
                         if (firstoptimvalue < firstObjLength)
                         {
@@ -863,9 +883,9 @@ namespace PuzzelLibrary.WMI
                             {
                                 addspace = firstoptimvalue + secondoptimvalue - firstObjLength - secondObjLenght - 3;
                                 for (int i = 0; i < addspace; i++)
-                                    Form1.ComputerInfo_TEMP += " ";
+                                    Data += " ";
                             }
-                            else Form1.ComputerInfo_TEMP += "  ";
+                            else Data += "  ";
                         }
                     }
                     if (secondObjLenght < 4 && thirdObjLenght > 1)
@@ -874,66 +894,70 @@ namespace PuzzelLibrary.WMI
                             addspace = secondoptimvalue;
                         else addspace = firstoptimvalue + secondoptimvalue - firstObjLength - 3;
                         for (int i = 0; i < addspace; i++)
-                            Form1.ComputerInfo_TEMP += " ";
+                            Data += " ";
                     }
                     if (secondObjLenght < 1 && thirdObjLenght < 1)
                     {
-                        Form1.ComputerInfo_TEMP += "\n";
+                        Data += "\n";
                     }
                     if (wersja.Length < 2)
                         wersja = "";
-                    Form1.ComputerInfo_TEMP += wersja + " " + "\n";
+                    Data += wersja + " " + "\n";
                 }
+            return Data;
         }
 
-        private static void EnvironmentPath(object[] args, ManagementObject m)
+        private static string EnvironmentPath(object[] args, ManagementObject m)
         {
+            string Data = null;
             string name;
             string variablevalue;
             if (m[args[0].ToString()] != null)
             {
                 name = m[args[0].ToString()].ToString();
-                Forms.Form1.ComputerInfo_TEMP += (name);
+                Data += (name);
                 if (name.Length <= 25)
                 {
                     int a = 25 - name.Length;
                     for (int i = 0; i < a; i++)
-                        Forms.Form1.ComputerInfo_TEMP += (" ");
+                        Data += (" ");
                 }
             }
 
             if (m[args[1].ToString()] != null)
             {
                 variablevalue = m[args[1].ToString()].ToString();
-                Forms.Form1.ComputerInfo_TEMP += (variablevalue);
+                Data += (variablevalue);
 
             }
-            Forms.Form1.ComputerInfo_TEMP += ("\n");
+            Data += ("\n");
+            return Data;
         }
 
-        private static void AutoStart(object[] args, ManagementObject m)
+        private static string AutoStart(object[] args, ManagementObject m)
         {
+            string Data = null;
             string caption = null;
             if (m[args[0].ToString()] != null)
             {
                 caption = m[args[0].ToString()].ToString();
-                Forms.Form1.ComputerInfo_TEMP += (caption);
+                Data += (caption);
                 if (caption.Length <= 25)
                 {
                     int a = 25 - caption.Length;
                     for (int i = 0; i < a; i++)
-                        Forms.Form1.ComputerInfo_TEMP += (" ");
+                        Data += (" ");
                 }
             }
             else
             {
                 caption = "-";
-                Forms.Form1.ComputerInfo_TEMP += (caption);
+                Data += (caption);
                 if (caption.Length <= 25)
                 {
                     int a = 25 - caption.Length;
                     for (int i = 0; i < a; i++)
-                        Forms.Form1.ComputerInfo_TEMP += (" ");
+                        Data += (" ");
                 }
             }
 
@@ -941,22 +965,25 @@ namespace PuzzelLibrary.WMI
             if (m[args[1].ToString()] != null)
             {
                 command = m[args[1].ToString()].ToString();
-                Forms.Form1.ComputerInfo_TEMP += (command);
+                Data += (command);
             }
-            else { command = "-"; Forms.Form1.ComputerInfo_TEMP += (command); }
-            Forms.Form1.ComputerInfo_TEMP += ("\n");
+            else { command = "-"; Data += (command); }
+            Data += ("\n");
+            return Data;
         }
 
         private static void MemoryTotal(object[] args, ref ulong TotalCapacity, ref int warunek1, ManagementObjectCollection queryCollection, ManagementObject m)
         {
+            string Data = null;
             warunek1++;
             TotalCapacity += (UInt64)(m[args[0].ToString()]) / 1024 / 1024 / 1024;
             if (queryCollection.Count == warunek1)
-                Forms.Form1.ComputerInfo_TEMP += TotalCapacity + " GB";
+                Data += TotalCapacity + " GB";
         }
 
-        private static void BootTime(object[] args, ManagementObject m)
+        private static string BootTime(object[] args, ManagementObject m)
         {
+            string Data = null;
             string boottime = null;
             //string[] date = null;
             boottime = m[args[0].ToString()].ToString();
@@ -987,35 +1014,37 @@ namespace PuzzelLibrary.WMI
             string[] minuta1 = { " minuta ", " minuty ", " minut " };
             string[] sekunda1 = { " sekunda ", "sekundy", " sekund" };
             if (czasbootowania.Days == 1)
-                Forms.Form1.ComputerInfo_TEMP += (czasbootowania.Days + " " + dzien1[0] + ",");
+                Data += (czasbootowania.Days + " " + dzien1[0] + ",");
             if (czasbootowania.Days == 0 | czasbootowania.Days > 1)
-                Forms.Form1.ComputerInfo_TEMP += (czasbootowania.Days + " " + dzien1[1] + ",");
+                Data += (czasbootowania.Days + " " + dzien1[1] + ",");
 
             if (czasbootowania.Hours == 0 | czasbootowania.Hours > 4)
-                Forms.Form1.ComputerInfo_TEMP += (czasbootowania.Hours + " " + godzina1[2] + ",");
+                Data += (czasbootowania.Hours + " " + godzina1[2] + ",");
             if (czasbootowania.Hours == 1)
-                Forms.Form1.ComputerInfo_TEMP += (czasbootowania.Hours + " " + godzina1[0] + ",");
+                Data += (czasbootowania.Hours + " " + godzina1[0] + ",");
             if (czasbootowania.Hours > 1 && czasbootowania.Hours < 5)
-                Forms.Form1.ComputerInfo_TEMP += (czasbootowania.Hours + " " + godzina1[1] + ",");
+                Data += (czasbootowania.Hours + " " + godzina1[1] + ",");
 
             if (czasbootowania.Minutes == 0 | czasbootowania.Minutes > 4)
-                Forms.Form1.ComputerInfo_TEMP += (czasbootowania.Minutes + " " + minuta1[2] + ",");
+                Data += (czasbootowania.Minutes + " " + minuta1[2] + ",");
             if (czasbootowania.Minutes == 1)
-                Forms.Form1.ComputerInfo_TEMP += (czasbootowania.Minutes + " " + minuta1[0] + ",");
+                Data += (czasbootowania.Minutes + " " + minuta1[0] + ",");
             if (czasbootowania.Minutes > 1 && czasbootowania.Minutes < 5)
-                Forms.Form1.ComputerInfo_TEMP += (czasbootowania.Minutes + " " + minuta1[1] + ",");
+                Data += (czasbootowania.Minutes + " " + minuta1[1] + ",");
 
             if (czasbootowania.Seconds == 0 | czasbootowania.Seconds > 4)
-                Forms.Form1.ComputerInfo_TEMP += (czasbootowania.Seconds + " " + sekunda1[2]);
+                Data += (czasbootowania.Seconds + " " + sekunda1[2]);
             if (czasbootowania.Seconds == 1)
-                Forms.Form1.ComputerInfo_TEMP += (czasbootowania.Seconds + " " + sekunda1[0]);
+                Data += (czasbootowania.Seconds + " " + sekunda1[0]);
             if (czasbootowania.Seconds > 1 && czasbootowania.Seconds < 5)
-                Forms.Form1.ComputerInfo_TEMP += (czasbootowania.Seconds + " " + sekunda1[1]);
-            Forms.Form1.ComputerInfo_TEMP += ("\n");
+                Data += (czasbootowania.Seconds + " " + sekunda1[1]);
+            Data += ("\n");
+            return Data;
         }
 
-        public static void Fast(string hostname, string path, string query)
+        public static string Fast(string hostname, string path, string query)
         {
+            string Data = null;
             try
             {
                 if (System.IO.Directory.Exists(System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), @"Microsoft.NET\assembly\GAC_MSIL\Microsoft.PowerShell.ConsoleHost")))
@@ -1027,7 +1056,7 @@ namespace PuzzelLibrary.WMI
                         string[] objItem = null;
                         int firstoptimvalue = 80;
                         int secondoptimvalue = 31;
-                        Form1.ComputerInfo_TEMP += (string.Format("{0,-80}{1,-31}{2,-1}", "DisplayName", "InstallDate", "DisplayVersion" + "\n"));
+                        Data += (string.Format("{0,-80}{1,-31}{2,-1}", "DisplayName", "InstallDate", "DisplayVersion" + "\n"));
                         foreach (PSObject item in items)
                         {
                             objItem = item.ToString().Split(';');
@@ -1042,25 +1071,25 @@ namespace PuzzelLibrary.WMI
                             if (firstObjLength > 1)
                                 if (!objItem[0].Contains("for Microsoft") && !objItem[0].Contains("(KB"))
                                 {
-                                    Form1.ComputerInfo_TEMP += objItem[0];
+                                    Data += objItem[0];
                                     if (firstObjLength < firstoptimvalue)
                                     {
                                         addspace = firstoptimvalue - firstObjLength;
                                         for (int i = 0; i < addspace; i++)
-                                            Form1.ComputerInfo_TEMP += " ";
+                                            Data += " ";
                                     }
                                     else
                                     {
-                                        Form1.ComputerInfo_TEMP += "   ";
+                                        Data += "   ";
                                     }
                                     if (secondObjLenght > 1 && thirdObjLenght > 1)
                                     {
-                                        Form1.ComputerInfo_TEMP += objItem[1];
+                                        Data += objItem[1];
                                         if (firstoptimvalue > firstObjLength)
                                         {
                                             addspace = secondoptimvalue - secondObjLenght;
                                             for (int i = 0; i < addspace; i++)
-                                                Form1.ComputerInfo_TEMP += " ";
+                                                Data += " ";
                                         }
                                         if (firstoptimvalue < firstObjLength)
                                         {
@@ -1068,9 +1097,9 @@ namespace PuzzelLibrary.WMI
                                             {
                                                 addspace = firstoptimvalue + secondoptimvalue - firstObjLength - secondObjLenght - 3;
                                                 for (int i = 0; i < addspace; i++)
-                                                    Form1.ComputerInfo_TEMP += " ";
+                                                    Data += " ";
                                             }
-                                            else Form1.ComputerInfo_TEMP += "  ";
+                                            else Data += "  ";
                                         }
                                     }
                                     if (secondObjLenght < 4 && thirdObjLenght > 1)
@@ -1079,35 +1108,26 @@ namespace PuzzelLibrary.WMI
                                             addspace = secondoptimvalue;
                                         else addspace = firstoptimvalue + secondoptimvalue - firstObjLength - 3;
                                         for (int i = 0; i < addspace; i++)
-                                            Form1.ComputerInfo_TEMP += " ";
+                                            Data += " ";
                                     }
                                     if (secondObjLenght < 1 && thirdObjLenght < 1)
                                     {
-                                        Form1.ComputerInfo_TEMP += "\n";
+                                        Data += "\n";
                                     }
                                     if (objItem[2].Length < 2)
                                         objItem[2] = "";
-                                    Form1.ComputerInfo_TEMP += objItem[2] + "\n";
+                                    Data += objItem[2] + "\n";
                                 }
                         }
                         //ps.Dispose();
                     }
                 }
-                else
+                if (Data == null)
                 {
-                    if (Form1.richTextBox1.InvokeRequired)
-                        Form1.richTextBox1.Invoke(new MethodInvoker(() => Form1.richTextBox1.Clear()));
-                    else Form1.richTextBox1.Clear();
-                    Form1.ComputerInfo_TEMP = null;
+                    Data += ("Nazwa komputera: ");
+                    Data += GetInfo(hostname,pathCIMv2, queryComputerSystem, "DNSHostName");
+                    Data += GetInfo(hostname, path, query, "Name", "InstallDate", "Version");
                 }
-
-                if (Form1.ComputerInfo_TEMP == null)
-                {
-                    Form1.ComputerInfo_TEMP += ("Nazwa komputera: ");
-                    GetInfo(hostname,pathCIMv2, queryComputerSystem, "DNSHostName");
-                    GetInfo(hostname, path, query, "Name", "InstallDate", "Version");
-                }
-                
                 //else
                 //{
                 //    System.Collections.Generic.List<string> trind = Form1.ComputerInfo_TEMP.Split('\n').ToList();
@@ -1119,12 +1139,14 @@ namespace PuzzelLibrary.WMI
             }
             catch (Exception ex)
             {
-                LogsCollector.Loger(ex, "szybka metoda");
+                //LogsCollector.Loger(ex, "szybka metoda");
             }
+            return Data;
         }
 
-        public static void Fast2(string nazwaKomputera, string path, string query)
+        public static string Fast2(string nazwaKomputera, string path, string query)
         {
+            string Data = null;
             try
             {
                 if (System.IO.Directory.Exists(System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), @"Microsoft.NET\assembly\GAC_MSIL\Microsoft.PowerShell.ConsoleHost")))
@@ -1138,40 +1160,34 @@ namespace PuzzelLibrary.WMI
                         objItem[1] = objItem[1].Replace("BIOSVersion=", "");
                         objItem[2] = objItem[2].Replace("BIOSReleaseDate=", "");
 
-                        Form1.ComputerInfo_TEMP += "Producent                Wersja Bios     " + "Data wydania\n";
-                        Forms.Form1.ComputerInfo_TEMP += objItem[0];
+                        Data += "Producent                Wersja Bios     " + "Data wydania\n";
+                        Data += objItem[0];
                         int a = "Producent".Length + 16 - objItem[0].Length;
                         for (int i = 0; i < a; i++)
                         {
-                            Form1.ComputerInfo_TEMP += (" ");
+                            Data += (" ");
                         }
 
-                        Forms.Form1.ComputerInfo_TEMP += objItem[1];
+                        Data += objItem[1];
                         a = "Wersja SMBios".Length + 3 - objItem[1].Length;
                         for (int i = 0; i < a; i++)
                         {
-                            Form1.ComputerInfo_TEMP += (" ");
+                            Data += (" ");
                         }
-                        Form1.ComputerInfo_TEMP += objItem[2];
+                        Data += objItem[2];
                     }
                 }
-                else
-                {
-                    if (Form1.richTextBox1.InvokeRequired)
-                        Form1.richTextBox1.Invoke(new MethodInvoker(() => Form1.richTextBox1.Clear()));
-                    else Form1.richTextBox1.Clear();
-                    Form1.ComputerInfo_TEMP = null;
-                }
 
-                if (Forms.Form1.ComputerInfo_TEMP == null)
+                if (Data == null)
                 {
-                    GetInfo(nazwaKomputera, path, query, "Manufacturer", "BIOSVersion", "SMBIOSBIOSVersion", "ReleaseDate");
+                    Data += GetInfo(nazwaKomputera, path, query, "Manufacturer", "BIOSVersion", "SMBIOSBIOSVersion", "ReleaseDate");
                 }
             }
             catch (Exception ex)
             {
-                LogsCollector.Loger(ex, nazwaKomputera + ",'" + path + "," + query);
+                //LogsCollector.Loger(ex, nazwaKomputera + ",'" + path + "," + query);
             }
+            return Data;
         }
     }
 }

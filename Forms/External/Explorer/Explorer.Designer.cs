@@ -1,6 +1,6 @@
-﻿namespace Forms.External.TermsExplorer
+﻿namespace Forms.External.Explorer
 {
-    partial class TerminalExplorer
+    partial class Explorer
     {
         /// <summary>
         /// Required designer variable.
@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TerminalExplorer));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Explorer));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.sesjeTab = new System.Windows.Forms.TabPage();
             this.sessionCount = new System.Windows.Forms.Label();

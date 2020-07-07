@@ -7,7 +7,7 @@ using System.DirectoryServices;
 
 namespace PuzzelLibrary.LogonData
 {
-    class Logi
+    public class Logi
     {
         private static string domainName() => System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().DomainName; 
         public static async void loGi(string pole, string rodzaj, decimal licznik)
@@ -59,11 +59,11 @@ namespace PuzzelLibrary.LogonData
                         }
                     }
                 }
-                Form1.UpdateRichTextBox(sb.ToString());
+                //Form1.UpdateRichTextBox(sb.ToString());
             }
             catch (Exception ex)
             {
-                LogsCollector.Loger(ex, pole + ',' + rodzaj + ',' + licznik);
+                //LogsCollector.Loger(ex, pole + ',' + rodzaj + ',' + licznik);
             }
         }
         private static string[] LogsNames = null;
@@ -105,7 +105,7 @@ namespace PuzzelLibrary.LogonData
                     }
                     catch (Exception e)
                     {
-                        LogsCollector.Loger(e, username);
+                        //LogsCollector.Loger(e, username);
                     }
                     finally
                     {

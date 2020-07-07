@@ -7,7 +7,7 @@ using Microsoft.Win32;
 
 namespace PuzzelLibrary.Registry
 {
-    class RegQuery : RegOpen
+    public class RegQuery : RegOpen
     {
         public void QueryKey(string HostName, RegistryHive mainCatalog, string subKey, string valueName, string value, RegistryValueKind valueKind)
         {
@@ -17,11 +17,11 @@ namespace PuzzelLibrary.Registry
             }
             catch (Exception e)
             {
-                LogsCollector.Loger(e, value);
+                //LogsCollector.Loger(e, value);
             }
             finally
             {
-                if (valueName == "AllowRemoteRPC") { Form1.UpdateRichTextBox("Zezwalaj na zdalne Zdalne RPC - włączone"+Environment.NewLine); }
+                if (valueName == "AllowRemoteRPC") { /*UpdateRichTextBox("Zezwalaj na zdalne Zdalne RPC - włączone"+Environment.NewLine); */}
                 else
                 {
                     var names = RegOpenRemoteSubKey(HostName, mainCatalog, subKey).GetValueNames();

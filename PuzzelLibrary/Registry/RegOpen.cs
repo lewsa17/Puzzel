@@ -7,7 +7,7 @@ using Microsoft.Win32;
 
 namespace PuzzelLibrary.Registry
 {
-    class RegOpen
+    public class RegOpen
     {
         private static RegistryKey RegOpenRemoteBaseKey(RegistryHive mainCatalog, string HostName)
         {

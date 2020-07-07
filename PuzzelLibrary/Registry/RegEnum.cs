@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PuzzelLibrary.Registry
 {
-    class RegEnum : RegOpen, IEnum
+   public class RegEnum : RegOpen, IEnum
     {
         public RegEnum()
         {

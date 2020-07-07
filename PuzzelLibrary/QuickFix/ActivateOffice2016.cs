@@ -1,11 +1,12 @@
 ﻿using System.IO;
 using System.Management.Automation;
+using System.Windows.Forms;
 
-namespace Forms.QuickFix
+namespace PuzzelLibrary.QuickFix
 {
     public class ActivateOffice2016
     {
-        public static void Active(string HostName)
+        public static string Active(string HostName)
         {
             using (PowerShell ps = PowerShell.Create())
             {
@@ -15,9 +16,9 @@ namespace Forms.QuickFix
                 {
                     ps.AddScript("Invoke-Command -ComputerName " + HostName + " {cmd /c \"C:" + pathCScript + " \"C:" + OfficeExist + "\" /act} "); ;
                     ps.Invoke();
-                    Form1.UpdateRichTextBox("Zlecono aktywacje Office, należy uruchomić ponownie w celu zakończenia zmian");
+                    return ("Zlecono aktywacje Office, należy uruchomić ponownie w celu zakończenia zmian");
                 }
-                else Form1.UpdateRichTextBox("Nie znaleziono Office");
+                else return ("Nie znaleziono Office");
             }
         }
         private static string CheckOfficeExist(string HostName)

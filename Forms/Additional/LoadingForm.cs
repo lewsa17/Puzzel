@@ -39,16 +39,16 @@ namespace Forms.Additional
             Location = new System.Drawing.Point(22, 12),
             Size = new System.Drawing.Size(170, 22),
             Minimum = 0,
-            Maximum = Forms.Form1.ProgressMax
+            Maximum = Forms.MainForm.ProgressMax
         };
         public void progress()
         {
-            while (Forms.Form1.ProgressBarValue != Forms.Form1.ProgressMax )
+            while (Forms.MainForm.ProgressBarValue != Forms.MainForm.ProgressMax )
             {
                 if (progressBar.InvokeRequired)
                     progressBar.Invoke(new MethodInvoker(() =>
                     {
-                        progressBar.Value = Forms.Form1.ProgressBarValue;
+                        progressBar.Value = Forms.MainForm.ProgressBarValue;
                         progressBar.Refresh();
                         System.Threading.Thread.Sleep(200);
                     }));

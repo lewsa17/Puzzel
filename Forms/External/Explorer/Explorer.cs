@@ -4,17 +4,80 @@ using System.ComponentModel;
 using System.IO;
 using System.Windows.Forms;
 using Cassia;
+using System.Linq;
+using Microsoft.Win32;
+using System.Threading;
 
-namespace Forms.External.TermsExplorer
+namespace Forms.External.Explorer
 {
-    public partial class TerminalExplorer : Form
+    public partial class Explorer : Form
     {
-        public TerminalExplorer()
+        public Explorer(string name)
         {
             InitializeComponent();
+            this.Text = name;
         }
 
-        public ITerminalServicesManager manager = new TerminalServicesManager();
+        public Explorer()
+        {
+
+        }
+
+        public static void processComputer(object sender, EventArgs e, string HostName)
+        {
+            Thread thread;
+            Explorer terminalExplorer = new Explorer("Computer Explorer");
+            if (PuzzelLibrary.Ping.Ping.TCPPing(HostName, 135) == PuzzelLibrary.Ping.Ping.TCPPingStatus.Success)
+            {
+                terminalExplorer.UnlockRemoteRPC(HostName, RegistryHive.LocalMachine, @"SYSTEM\CurrentControlSet\Control\Terminal Server");
+                thread = new Thread(() => terminalExplorer.SzukanieSesji(HostName));
+                thread.Start();
+                terminalExplorer.Show();
+                terminalExplorer.GetRemoteServer(HostName);
+            }
+        }
+
+        public ITerminalServer GetRemoteServer(string hostName)
+        {
+            TerminalServicesManager terminalServicesManager = new TerminalServicesManager();
+            return terminalServicesManager.GetRemoteServer(hostName);
+        }
+
+        public bool isUnlockRemoteRPC(string HostName, RegistryHive mainCatalog, string subKey)
+        {
+            if (new PuzzelLibrary.Registry.RegEnum().RegOpenRemoteSubKey(HostName, mainCatalog, subKey).GetValueNames().Contains("AllowRemoteRPC"))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public void UnlockRemoteRPC(string HostName, RegistryHive mainCatalog, string subKey)
+        {
+            if (isUnlockRemoteRPC(HostName, mainCatalog, subKey))
+                if (Convert.ToInt32(new PuzzelLibrary.Registry.RegEnum().RegOpenRemoteSubKey(HostName, mainCatalog, subKey).GetValue("AllowRemoteRPC")) == 0)
+                    new PuzzelLibrary.Registry.RegQuery().QueryKey(HostName, mainCatalog, subKey, "AllowRemoteRPC", "1", RegistryValueKind.DWord);
+        }
+        private IEnumerable<ITerminalServicesSession> GetRemoteComputerSession(string hostName)
+        {
+            using (ITerminalServer server = GetRemoteServer(hostName))
+            {
+                server.Open();
+                var sessions = server.GetSessions();
+
+                var sesion = from x in sessions
+                             where !string.IsNullOrEmpty(x.UserName)
+                             select x;
+                return sesion;
+            }
+        }
+
+        public IEnumerable<ITerminalServicesSession> ActiveUserInfo(string hostName)
+        {
+            return GetRemoteComputerSession(hostName);
+        }
+
+        //public ITerminalServicesManager manager = new TerminalServicesManager();
         private void ZamykanieFormy(object sender, EventArgs e)
         {
             this.Close();
@@ -33,30 +96,30 @@ namespace Forms.External.TermsExplorer
             object[] sessioninfo = null;
             try
             {
-            //retry:
-            //    if (_retry < 5)
-            //    {
-                    if (PuzzelLibrary.Ping.Ping.TCPPing(serverName, 135) == PuzzelLibrary.Ping.Ping.TCPPingStatus.Success)
+                //retry:
+                //    if (_retry < 5)
+                //    {
+                if (PuzzelLibrary.Ping.Ping.TCPPing(serverName, 135) == PuzzelLibrary.Ping.Ping.TCPPingStatus.Success)
+                {
+                    using (ITerminalServer server = GetRemoteServer(serverName))
                     {
-                        using (ITerminalServer server = manager.GetRemoteServer(serverName))
+                        server.Open();
+                        foreach (ITerminalServicesSession session in server.GetSessions())
                         {
-                            server.Open();
-                            foreach (ITerminalServicesSession session in server.GetSessions())
+                            if (string.Equals(session.UserName, SearchedLogin, StringComparison.OrdinalIgnoreCase))
                             {
-                                if (session.UserName == SearchedLogin)
-                                {
-                                    Array.Resize(ref sessioninfo, 7);
-                                    sessioninfo[0] = session.SessionId;
-                                    sessioninfo[1] = session.Server.ServerName;
-                                    sessioninfo[2] = session.UserName;
-                                    sessioninfo[3] = session.WindowStationName;
-                                    sessioninfo[4] = session.ConnectionState;
-                                    sessioninfo[5] = session.IdleTime;
-                                    sessioninfo[6] = session.LoginTime;
-                                }
+                                Array.Resize(ref sessioninfo, 7);
+                                sessioninfo[0] = session.SessionId;
+                                sessioninfo[1] = session.Server.ServerName;
+                                sessioninfo[2] = session.UserName;
+                                sessioninfo[3] = session.WindowStationName;
+                                sessioninfo[4] = session.ConnectionState;
+                                sessioninfo[5] = session.IdleTime;
+                                sessioninfo[6] = session.LoginTime;
                             }
                         }
                     }
+                }
                 //    else { _retry++; goto retry; }
                 //}
                 //else MessageBox.Show(new Form() { TopMost = true, StartPosition = FormStartPosition.CenterParent },"Po kilku próbach nie udało się nawiązać połączenia","Nawiązywanie połączenia z serwerem "+serverName,MessageBoxButtons.OK,MessageBoxIcon.Exclamation);  
@@ -67,7 +130,7 @@ namespace Forms.External.TermsExplorer
             {
                 //LogsCollector.Loger(e, serverName);
             }
-           return sessioninfo;
+            return sessioninfo;
         }
 
         public void SzukanieSesji(string serverName)
@@ -83,26 +146,26 @@ namespace Forms.External.TermsExplorer
                 //{
                 //if (Ping.TCPPing(serverName, 135) == Ping.TCPPingStatus.Success)
                 //{
-                using (ITerminalServer server = manager.GetRemoteServer(serverName))
+                using (ITerminalServer server = GetRemoteServer(serverName))
                 {
                     server.Open();
-                            IList<ITerminalServicesSession> sessions;
-                            sessions = server.GetSessions();
-                            foreach (ITerminalServicesSession session in sessions)
-                            {
-                                if (session.UserAccount != null)
-                                    dataGridView1.BeginInvoke(new Action(() =>
-                                    dataGridView1.Rows.Add(
-                                    session.Server.ServerName,
-                                    session.UserName,
-                                    session.WindowStationName,
-                                    session.SessionId,
-                                    session.ConnectionState,
-                                    session.IdleTime,
-                                    session.LoginTime)));
-                            }
-                            server.Close();
-                            sessionCount.BeginInvoke(new Action(() => sessionCount.Text = "Aktywne sesje: " + dataGridView1.Rows.Count));
+                    IList<ITerminalServicesSession> sessions;
+                    sessions = server.GetSessions();
+                    foreach (ITerminalServicesSession session in sessions)
+                    {
+                        if (session.UserAccount != null)
+                            dataGridView1.BeginInvoke(new Action(() =>
+                            dataGridView1.Rows.Add(
+                            session.Server.ServerName,
+                            session.UserName,
+                            session.WindowStationName,
+                            session.SessionId,
+                            session.ConnectionState,
+                            session.IdleTime,
+                            session.LoginTime)));
+                    }
+                    server.Close();
+                    sessionCount.BeginInvoke(new Action(() => sessionCount.Text = "Aktywne sesje: " + dataGridView1.Rows.Count));
                 }
                 //}
                 //    else { _retry++; goto retry; }
@@ -123,19 +186,19 @@ namespace Forms.External.TermsExplorer
         private void Button1_Click(object sender, EventArgs e)
         {
             //if (IDsesjiLabel.Text.Length > 0)
-               // statusSesji(Convert.ToInt16(IDsesjiLabel.Text));
+            // statusSesji(Convert.ToInt16(IDsesjiLabel.Text));
         }
 
-        Label IDsesjiLabel;         Label rozdzielczoscLabel;         Label sprzetidLabel;         Label poziomszyfrowaniaLabel;
-        Label glebiakolorowLabel;         Label produktidlabel;        Label katalogLabel;        Label adresipLabel;
-        Label nazwaklientaLabel;        Label kartasieciowaLabel;        Label nazwauzytkownikaLabel;        Label label10;
-        Label label9;        Label bajtyramkiwychodzace;        Label ramkiwychodzaceLabel;        Label bajtywychodzaceLabel;
-        Label stopienkompresjiLabel;        Label bajtyramkiprzychodzaceLabel;        Label ramkiprzychodzaceLabel;
-        Label bajtyprzychodzaceLabel;        Label label16;        Label label15;        Label label14;        Label label13;
-        Label label12;        Label label11;        Label label8;        Label label7;        Label label6;        Label label5;
-        Label label4;        Label label3;        Label label2;        Label label1;        Label statusZalogowlabel;
+        Label IDsesjiLabel; Label rozdzielczoscLabel; Label sprzetidLabel; Label poziomszyfrowaniaLabel;
+        Label glebiakolorowLabel; Label produktidlabel; Label katalogLabel; Label adresipLabel;
+        Label nazwaklientaLabel; Label kartasieciowaLabel; Label nazwauzytkownikaLabel; Label label10;
+        Label label9; Label bajtyramkiwychodzace; Label ramkiwychodzaceLabel; Label bajtywychodzaceLabel;
+        Label stopienkompresjiLabel; Label bajtyramkiprzychodzaceLabel; Label ramkiprzychodzaceLabel;
+        Label bajtyprzychodzaceLabel; Label label16; Label label15; Label label14; Label label13;
+        Label label12; Label label11; Label label8; Label label7; Label label6; Label label5;
+        Label label4; Label label3; Label label2; Label label1; Label statusZalogowlabel;
 
-        private void OdswiezStatus( ITerminalServicesSession session, int selectedSessionID)
+        private void OdswiezStatus(ITerminalServicesSession session, int selectedSessionID)
         {
             if (session.UserAccount != null)
             {
@@ -200,7 +263,7 @@ namespace Forms.External.TermsExplorer
             if (sender is Button)
             {
                 tabPage = (TabPage)((Button)sender).Parent;
-                dataGridView = (DataGridView)tabPage.Controls.Find("dataGridView2",true)[0];
+                dataGridView = (DataGridView)tabPage.Controls.Find("dataGridView2", true)[0];
             }
             var label = tabPage.Controls.Find("processCount", true)[0];
             dataGridView.Rows.Clear();
@@ -212,21 +275,21 @@ namespace Forms.External.TermsExplorer
 
         public void LogoffSession(string hostname, int sessionID)
         {
-           using (ITerminalServer server = manager.GetRemoteServer(hostname))
-           {
+            using (ITerminalServer server = GetRemoteServer(hostname))
+            {
                 server.Open();
                 ITerminalServicesSession session = server.GetSession(sessionID);
                 session.Logoff();
                 server.Close();
                 MessageBox.Show(new Form() { TopMost = true }, "Sesja została rozłączona", "Rozłączanie sesji", MessageBoxButtons.OK, MessageBoxIcon.Information);
-           }
+            }
         }
 
         public void ConnectToSession(string hostname, int sessionID)
         {
             try
             {
-                using (ITerminalServer server = manager.GetRemoteServer(hostname))
+                using (ITerminalServer server = GetRemoteServer(hostname))
                 {
                     server.Open();
                     server.GetSession(sessionID).StartRemoteControl(ConsoleKey.Multiply, RemoteControlHotkeyModifiers.Control);
@@ -261,7 +324,7 @@ namespace Forms.External.TermsExplorer
             }
             try
             {
-                using (ITerminalServer server = manager.GetRemoteServer(_hostname))
+                using (ITerminalServer server = GetRemoteServer(_hostname))
                 {
                     server.Open();
                     ITerminalServicesSession session = server.GetSession(selectedSessionID);
@@ -279,15 +342,18 @@ namespace Forms.External.TermsExplorer
 
                             case "wyslijWiadomoscToolStripMenuItem":
                                 {
-                                    new terminalExplorerSendMessage(_hostname, selectedSessionID).ShowDialog();
-                                    MessageBox.Show("Wiadomość wysłano", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    using (var terms = new terminalExplorerSendMessage(_hostname, selectedSessionID))
+                                    {
+                                        terms.ShowDialog();
+                                        MessageBox.Show("Wiadomość wysłano", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    }
                                     break;
                                 }
 
                             case "zdalnaKontrolaToolStripMenu":
                                 {
-                                        server.GetSession(selectedSessionID).StartRemoteControl(ConsoleKey.Multiply, RemoteControlHotkeyModifiers.Control);
-                                        break;
+                                    server.GetSession(selectedSessionID).StartRemoteControl(ConsoleKey.Multiply, RemoteControlHotkeyModifiers.Control);
+                                    break;
                                 }
 
                             case "wylogujToolStripMenuItem":
@@ -341,7 +407,7 @@ namespace Forms.External.TermsExplorer
                     server.Close();
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 //LogsCollector.Loger(ex, _hostname);
             }
@@ -360,10 +426,10 @@ namespace Forms.External.TermsExplorer
 
             ContextMenuStrip contextProcessMenuStrip = new ContextMenuStrip
             {
-                Size = new System.Drawing.Size(61,4),
+                Size = new System.Drawing.Size(61, 4),
                 Font = new System.Drawing.Font("Tahoma", 8F),
                 ShowImageMargin = false,
-            }; 
+            };
             ToolStripMenuItem killprocess = new ToolStripMenuItem { Text = "Zabij proces", Name = "ZabijProcess", };
             killprocess.Click += new EventHandler(ContextMenus);
             contextProcessMenuStrip.Items.Add(killprocess);
@@ -460,7 +526,7 @@ namespace Forms.External.TermsExplorer
                 Text = "Status",
                 UseVisualStyleBackColor = true,
                 Padding = new System.Windows.Forms.Padding(3)
-        };
+            };
 
             //dynaStatusTabPage.Text += " (" + dynaDataGridView.Rows[0].Cells[1].Value.ToString() + ")";
             Button dynaButton = new Button
@@ -479,7 +545,7 @@ namespace Forms.External.TermsExplorer
                 Text = "Odśwież teraz",
                 Name = "RefreshStatus"
             };
-            
+
 
             IDsesjiLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(151, 3), Size = new System.Drawing.Size(0, 13), };
             rozdzielczoscLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(287, 365), Size = new System.Drawing.Size(66, 13), Text = "brak danych" };
@@ -489,9 +555,9 @@ namespace Forms.External.TermsExplorer
             produktidlabel = new Label { AutoSize = true, Location = new System.Drawing.Point(287, 225), Size = new System.Drawing.Size(66, 13), Text = "brak danych" };
             katalogLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(287, 190), Size = new System.Drawing.Size(66, 13), Text = "brak danych" };
             adresipLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(287, 155), Size = new System.Drawing.Size(66, 13), Text = "brak danych" };
-            nazwaklientaLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(287,120), Size = new System.Drawing.Size(66, 13), Text = "brak danych" };
+            nazwaklientaLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(287, 120), Size = new System.Drawing.Size(66, 13), Text = "brak danych" };
             kartasieciowaLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(287, 85), Size = new System.Drawing.Size(66, 13), Text = "brak danych" };
-            nazwauzytkownikaLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(287,50), Size = new System.Drawing.Size(66, 13), Text = "brak danych" };
+            nazwauzytkownikaLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(287, 50), Size = new System.Drawing.Size(66, 13), Text = "brak danych" };
 
             label10 = new Label { AutoSize = true, Location = new System.Drawing.Point(8, 365), Size = new System.Drawing.Size(75, 13), Text = "Rozdzielczość" };
             label9 = new Label { AutoSize = true, Location = new System.Drawing.Point(8, 330), Size = new System.Drawing.Size(51, 31), Text = "Sprzęt ID" };
@@ -565,43 +631,45 @@ namespace Forms.External.TermsExplorer
             dynaStatusTabPage.Controls.Add(label2);
             dynaStatusTabPage.Controls.Add(label1);
             dynaStatusTabPage.Controls.Add(statusZalogowlabel);
-            
-                if (session.UserAccount != null)
+
+            if (session.UserAccount != null)
+            {
+                IDsesjiLabel.Text = selectedSessionID.ToString();
+                nazwauzytkownikaLabel.Text = session.UserName;
+                nazwaklientaLabel.Text = session.ClientName;
+
+                if (session.ClientIPAddress != null)
                 {
-                    IDsesjiLabel.Text = selectedSessionID.ToString();
-                    nazwauzytkownikaLabel.Text = session.UserName;
-                    nazwaklientaLabel.Text = session.ClientName;
-
-                    if (session.ClientIPAddress != null)
-                    {
-                        adresipLabel.Text = session.ClientIPAddress.ToString();
-                    }
-                    else
-                    {
-                        adresipLabel.Text = "brak danych";
-                    }
-                    katalogLabel.Text = session.ClientDirectory;
-                    produktidlabel.Text = session.ClientProductId.ToString();
-                    glebiakolorowLabel.Text = session.ClientDisplay.BitsPerPixel.ToString();
-                    sprzetidLabel.Text = session.ClientHardwareId.ToString();
-                    rozdzielczoscLabel.Text = (session.ClientDisplay.HorizontalResolution + " x " + session.ClientDisplay.VerticalResolution).ToString();
-
-                    bajtyprzychodzaceLabel.Text = session.IncomingStatistics.Bytes.ToString();
-                    ramkiprzychodzaceLabel.Text = session.IncomingStatistics.Frames.ToString();
-                    if (session.IncomingStatistics.Bytes > 0 && session.IncomingStatistics.Frames > 0)
-                        bajtyramkiprzychodzaceLabel.Text = Math.Floor(Convert.ToDecimal(session.IncomingStatistics.Bytes / session.IncomingStatistics.Frames)).ToString();
-                    else bajtyramkiwychodzace.Text = "brak danych";
-
-                    bajtywychodzaceLabel.Text = session.OutgoingStatistics.Bytes.ToString();
-                    ramkiwychodzaceLabel.Text = session.OutgoingStatistics.Frames.ToString();
-
-                    if (session.OutgoingStatistics.Bytes > 0 && session.OutgoingStatistics.Frames > 0)
-                        bajtyramkiwychodzace.Text = Math.Floor(Convert.ToDecimal(session.OutgoingStatistics.Bytes / session.OutgoingStatistics.Frames)).ToString();
-                    else bajtyramkiwychodzace.Text = "brak danych";
+                    adresipLabel.Text = session.ClientIPAddress.ToString();
                 }
+                else
+                {
+                    adresipLabel.Text = "brak danych";
+                }
+                katalogLabel.Text = session.ClientDirectory;
+                produktidlabel.Text = session.ClientProductId.ToString();
+                glebiakolorowLabel.Text = session.ClientDisplay.BitsPerPixel.ToString();
+                sprzetidLabel.Text = session.ClientHardwareId.ToString();
+                rozdzielczoscLabel.Text = (session.ClientDisplay.HorizontalResolution + " x " + session.ClientDisplay.VerticalResolution).ToString();
+
+                bajtyprzychodzaceLabel.Text = session.IncomingStatistics.Bytes.ToString();
+                ramkiprzychodzaceLabel.Text = session.IncomingStatistics.Frames.ToString();
+                if (session.IncomingStatistics.Bytes > 0 && session.IncomingStatistics.Frames > 0)
+                    bajtyramkiprzychodzaceLabel.Text = Math.Floor(Convert.ToDecimal(session.IncomingStatistics.Bytes / session.IncomingStatistics.Frames)).ToString();
+                else bajtyramkiwychodzace.Text = "brak danych";
+
+                bajtywychodzaceLabel.Text = session.OutgoingStatistics.Bytes.ToString();
+                ramkiwychodzaceLabel.Text = session.OutgoingStatistics.Frames.ToString();
+
+                if (session.OutgoingStatistics.Bytes > 0 && session.OutgoingStatistics.Frames > 0)
+                    bajtyramkiwychodzace.Text = Math.Floor(Convert.ToDecimal(session.OutgoingStatistics.Bytes / session.OutgoingStatistics.Frames)).ToString();
+                else bajtyramkiwychodzace.Text = "brak danych";
+            }
             tabControl1.Controls.Add(dynaStatusTabPage);
             tabControl1.SelectedTab = dynaStatusTabPage;
         }
+
+        
     }
 }
 
