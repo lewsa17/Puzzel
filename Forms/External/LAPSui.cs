@@ -49,7 +49,7 @@ namespace Forms
         {
             string path = string.Empty; // należy pobrać pełną nazwę ścieżkę
             DirectoryEntry de = new DirectoryEntry("LDAP://" + GetLocationPath(HostName));
-            DirectoryEntry nde = new DirectoryEntry(ExternalResources.ldapcatalog);
+            DirectoryEntry nde = new DirectoryEntry(PuzzelLibrary.ExternalResources.ldapcatalog);
             de.MoveTo(nde);
             nde.CommitChanges();
         }
@@ -61,11 +61,11 @@ namespace Forms
             try
             {
                 DirectorySearcher search = OpenAccess(HostName);
-                search.PropertiesToLoad.Add(ExternalResources.ldapProperties);
+                search.PropertiesToLoad.Add(PuzzelLibrary.ExternalResources.ldapProperties);
                 //search.PropertiesToLoad.Add("ms-Mcs-AdmPwdExpirationTime");
                 if (search.FindOne() == null)
                     admpwd = "";
-                else admpwd = search.FindOne().GetDirectoryEntry().Properties[ExternalResources.ldapProperties].Value.ToString();
+                else admpwd = search.FindOne().GetDirectoryEntry().Properties[PuzzelLibrary.ExternalResources.ldapProperties].Value.ToString();
                 //var time = search.FindOne().GetDirectoryEntry().Properties[ExternalResources.ldapProperties1][0];
                 search.Dispose();
 
@@ -77,7 +77,7 @@ namespace Forms
             }
             catch (Exception e)
             {
-                LogsCollector.Loger(e, HostName);
+                //LogsCollector.Loger(e, HostName);
             }
             return admpwd;
         }

@@ -8,7 +8,7 @@ using Microsoft.Win32;
 namespace PuzzelLibrary.Registry
 {
     //do poprawy
-    class RegErase : RegOpen, IErase
+   public class RegErase : RegOpen, IErase
     {
         public RegErase()
         {

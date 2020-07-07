@@ -23,7 +23,7 @@ namespace Forms.External.QuickFix
         string _HostName { get; set; }
         public void LoadInfo(string HostName)
         {
-            var UsersNames = new Registry.RegEnum().GetSubKeyNames(HostName, Microsoft.Win32.RegistryHive.LocalMachine, @"SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList");
+            var UsersNames = new PuzzelLibrary.Registry.RegEnum().GetSubKeyNames(HostName, Microsoft.Win32.RegistryHive.LocalMachine, @"SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList");
             foreach (string user in UsersNames)
             {
                 var objSID = new SecurityIdentifier(user);
@@ -33,7 +33,7 @@ namespace Forms.External.QuickFix
                     try { objUser = objSID.Translate(typeof(NTAccount)); }
                     catch (IdentityNotMappedException)
                     {
-                        var userName = new Registry.RegEnum().GetValue(HostName, Microsoft.Win32.RegistryHive.LocalMachine, @"SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList\" + user, "ProfileImagePath");
+                        var userName = new PuzzelLibrary.Registry.RegEnum().GetValue(HostName, Microsoft.Win32.RegistryHive.LocalMachine, @"SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList\" + user, "ProfileImagePath");
                         comboBox1.Items.Add(userName.ToString().Replace("C:\\Users", HostName));
                     }
                     if (objUser != null)
@@ -44,15 +44,15 @@ namespace Forms.External.QuickFix
 
         private void saveDeleteUserData(string UserObj, bool saveFolder)
         {
-            var UsersNames = new Registry.RegEnum().GetSubKeyNames(_HostName, Microsoft.Win32.RegistryHive.LocalMachine, @"SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList");
+            var UsersNames = new PuzzelLibrary.Registry.RegEnum().GetSubKeyNames(_HostName, Microsoft.Win32.RegistryHive.LocalMachine, @"SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList");
             foreach (var user in UsersNames)
             {
-                var users = new Registry.RegEnum().GetValue(_HostName, Microsoft.Win32.RegistryHive.LocalMachine, @"SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList\" + user, "ProfileImagePath");
+                var users = new PuzzelLibrary.Registry.RegEnum().GetValue(_HostName, Microsoft.Win32.RegistryHive.LocalMachine, @"SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList\" + user, "ProfileImagePath");
                 var count = UserObj.IndexOf("\\");
                 var _userObj = UserObj.Remove(0, count+1);
                 if (users.ToString().Contains(_userObj))
                 {
-                    new Registry.RegErase().SubKeyRecursive(_HostName, Microsoft.Win32.RegistryHive.LocalMachine, @"SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList", user);
+                    new PuzzelLibrary.Registry.RegErase().SubKeyRecursive(_HostName, Microsoft.Win32.RegistryHive.LocalMachine, @"SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList", user);
                     if (saveFolder)
                         RenameUserFolder(users.ToString());
                     else

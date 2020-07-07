@@ -45,7 +45,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.progressBar1);
-            this.Icon = global::Forms.Properties.Resources.Puzzel;
+            this.Icon = global::Forms.Resources.Resources.Puzzel;
             this.Name = "Progress";
             this.Text = "Progress";
             this.ResumeLayout(false);

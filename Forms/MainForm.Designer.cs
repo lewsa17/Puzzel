@@ -245,7 +245,7 @@ namespace Forms
             // 
             // BtnProfil_EXT
             // 
-            this.BtnProfil_EXT.Image = global::Forms.Properties.Resources.folder;
+            this.BtnProfil_EXT.Image = global::Forms.Resources.Resources.folder;
             this.BtnProfil_EXT.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.BtnProfil_EXT.Location = new System.Drawing.Point(393, 41);
             this.BtnProfil_EXT.Name = "BtnProfil_EXT";
@@ -259,7 +259,7 @@ namespace Forms
             // 
             // BtnProfil_TS
             // 
-            this.BtnProfil_TS.Image = global::Forms.Properties.Resources.folder;
+            this.BtnProfil_TS.Image = global::Forms.Resources.Resources.folder;
             this.BtnProfil_TS.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.BtnProfil_TS.Location = new System.Drawing.Point(393, 11);
             this.BtnProfil_TS.Name = "BtnProfil_TS";
@@ -286,7 +286,7 @@ namespace Forms
             // 
             // BtnLogoff
             // 
-            this.BtnLogoff.Image = global::Forms.Properties.Resources.Logoff;
+            this.BtnLogoff.Image = global::Forms.Resources.Resources.Logoff;
             this.BtnLogoff.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
             this.BtnLogoff.Location = new System.Drawing.Point(351, 14);
             this.BtnLogoff.Name = "BtnLogoff";
@@ -324,7 +324,7 @@ namespace Forms
             // 
             // BtnSzukaj_sesji
             // 
-            this.BtnSzukaj_sesji.Image = global::Forms.Properties.Resources.session;
+            this.BtnSzukaj_sesji.Image = global::Forms.Resources.Resources.session;
             this.BtnSzukaj_sesji.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.BtnSzukaj_sesji.Location = new System.Drawing.Point(6, 14);
             this.BtnSzukaj_sesji.Name = "BtnSzukaj_sesji";
@@ -338,7 +338,7 @@ namespace Forms
             // 
             // BtnProfil_ERI
             // 
-            this.BtnProfil_ERI.Image = global::Forms.Properties.Resources.folder;
+            this.BtnProfil_ERI.Image = global::Forms.Resources.Resources.folder;
             this.BtnProfil_ERI.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.BtnProfil_ERI.Location = new System.Drawing.Point(316, 41);
             this.BtnProfil_ERI.Name = "BtnProfil_ERI";
@@ -352,7 +352,7 @@ namespace Forms
             // 
             // BtnProfil_VFS
             // 
-            this.BtnProfil_VFS.Image = global::Forms.Properties.Resources.folder;
+            this.BtnProfil_VFS.Image = global::Forms.Resources.Resources.folder;
             this.BtnProfil_VFS.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.BtnProfil_VFS.Location = new System.Drawing.Point(316, 11);
             this.BtnProfil_VFS.Name = "BtnProfil_VFS";
@@ -366,7 +366,7 @@ namespace Forms
             // 
             // BtnInfo_z_AD
             // 
-            this.BtnInfo_z_AD.Image = global::Forms.Properties.Resources.infozad;
+            this.BtnInfo_z_AD.Image = global::Forms.Resources.Resources.infozad;
             this.BtnInfo_z_AD.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.BtnInfo_z_AD.Location = new System.Drawing.Point(209, 41);
             this.BtnInfo_z_AD.Name = "BtnInfo_z_AD";
@@ -380,7 +380,7 @@ namespace Forms
             // 
             // BtnUserLog
             // 
-            this.BtnUserLog.Image = global::Forms.Properties.Resources.userlog;
+            this.BtnUserLog.Image = global::Forms.Resources.Resources.userlog;
             this.BtnUserLog.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.BtnUserLog.Location = new System.Drawing.Point(209, 11);
             this.BtnUserLog.Name = "BtnUserLog";
@@ -558,7 +558,7 @@ namespace Forms
             // BtnZdalneCMD
             // 
             this.BtnZdalneCMD.ContextMenuStrip = this.CommandContextMenu;
-            this.BtnZdalneCMD.Image = global::Forms.Properties.Resources.zdalneCMD;
+            this.BtnZdalneCMD.Image = global::Forms.Resources.Resources.zdalneCMD;
             this.BtnZdalneCMD.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.BtnZdalneCMD.Location = new System.Drawing.Point(633, 10);
             this.BtnZdalneCMD.Name = "BtnZdalneCMD";
@@ -581,7 +581,7 @@ namespace Forms
             // 
             // cMDSYSTEMToolStripMenuItem
             // 
-            this.cMDSYSTEMToolStripMenuItem.Image = global::Forms.Properties.Resources.zdalnecmd_sys;
+            this.cMDSYSTEMToolStripMenuItem.Image = global::Forms.Resources.Resources.zdalneCMD;
             this.cMDSYSTEMToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.cMDSYSTEMToolStripMenuItem.Name = "cMDSYSTEMToolStripMenuItem";
             this.cMDSYSTEMToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
@@ -591,7 +591,7 @@ namespace Forms
             // 
             // CMDMenuItem1
             // 
-            this.CMDMenuItem1.Image = global::Forms.Properties.Resources.cmd;
+            this.CMDMenuItem1.Image = global::Forms.Resources.Resources.cmd;
             this.CMDMenuItem1.Name = "CMDMenuItem1";
             this.CMDMenuItem1.Size = new System.Drawing.Size(193, 22);
             this.CMDMenuItem1.Text = "CMD";
@@ -599,7 +599,7 @@ namespace Forms
             // 
             // PowershellMenuItem2
             // 
-            this.PowershellMenuItem2.Image = global::Forms.Properties.Resources.powershell;
+            this.PowershellMenuItem2.Image = global::Forms.Resources.Resources.powershell;
             this.PowershellMenuItem2.Name = "PowershellMenuItem2";
             this.PowershellMenuItem2.Size = new System.Drawing.Size(193, 22);
             this.PowershellMenuItem2.Text = "Powershell";
@@ -607,7 +607,7 @@ namespace Forms
             // 
             // BtnKarty_sieciowe
             // 
-            this.BtnKarty_sieciowe.Image = global::Forms.Properties.Resources.netcard;
+            this.BtnKarty_sieciowe.Image = global::Forms.Resources.Resources.netcard;
             this.BtnKarty_sieciowe.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.BtnKarty_sieciowe.Location = new System.Drawing.Point(633, 40);
             this.BtnKarty_sieciowe.Name = "BtnKarty_sieciowe";
@@ -621,7 +621,7 @@ namespace Forms
             // 
             // BtnLista_program
             // 
-            this.BtnLista_program.Image = global::Forms.Properties.Resources.programlist;
+            this.BtnLista_program.Image = global::Forms.Resources.Resources.programlist;
             this.BtnLista_program.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.BtnLista_program.Location = new System.Drawing.Point(520, 40);
             this.BtnLista_program.Name = "BtnLista_program";
@@ -635,7 +635,7 @@ namespace Forms
             // 
             // BtnExplorerC
             // 
-            this.BtnExplorerC.Image = global::Forms.Properties.Resources.folder;
+            this.BtnExplorerC.Image = global::Forms.Resources.Resources.folder;
             this.BtnExplorerC.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.BtnExplorerC.Location = new System.Drawing.Point(520, 10);
             this.BtnExplorerC.Name = "BtnExplorerC";
@@ -650,7 +650,7 @@ namespace Forms
             // btnPulpit_Zdalny
             // 
             this.btnPulpit_Zdalny.ContextMenuStrip = this.RemoteDesktopContextMenu;
-            this.btnPulpit_Zdalny.Image = global::Forms.Properties.Resources.rdp;
+            this.btnPulpit_Zdalny.Image = global::Forms.Resources.Resources.rdp;
             this.btnPulpit_Zdalny.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnPulpit_Zdalny.Location = new System.Drawing.Point(423, 40);
             this.btnPulpit_Zdalny.Name = "btnPulpit_Zdalny";
@@ -680,7 +680,7 @@ namespace Forms
             // BtnDW
             // 
             this.BtnDW.ContextMenuStrip = this.DWMenuContext;
-            this.BtnDW.Image = global::Forms.Properties.Resources.dw;
+            this.BtnDW.Image = global::Forms.Resources.Resources.DW;
             this.BtnDW.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.BtnDW.Location = new System.Drawing.Point(423, 10);
             this.BtnDW.Name = "BtnDW";
@@ -718,7 +718,7 @@ namespace Forms
             // 
             // BtnZarzadzanie
             // 
-            this.BtnZarzadzanie.Image = global::Forms.Properties.Resources.compmgmt;
+            this.BtnZarzadzanie.Image = global::Forms.Resources.Resources.compmgmt;
             this.BtnZarzadzanie.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.BtnZarzadzanie.Location = new System.Drawing.Point(316, 40);
             this.BtnZarzadzanie.Name = "BtnZarzadzanie";
@@ -733,7 +733,7 @@ namespace Forms
             // BtnKomputerInfo
             // 
             this.BtnKomputerInfo.ContextMenuStrip = this.Komputer_info;
-            this.BtnKomputerInfo.Image = global::Forms.Properties.Resources.komputerinfo;
+            this.BtnKomputerInfo.Image = global::Forms.Resources.Resources.komputerinfo;
             this.BtnKomputerInfo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.BtnKomputerInfo.Location = new System.Drawing.Point(316, 10);
             this.BtnKomputerInfo.Name = "BtnKomputerInfo";
@@ -884,7 +884,7 @@ namespace Forms
             // 
             // BtnPing
             // 
-            this.BtnPing.Image = global::Forms.Properties.Resources.ping;
+            this.BtnPing.Image = global::Forms.Resources.Resources.ping;
             this.BtnPing.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.BtnPing.Location = new System.Drawing.Point(209, 40);
             this.BtnPing.Name = "BtnPing";
@@ -948,7 +948,7 @@ namespace Forms
             // 
             // BtnKomputerLog
             // 
-            this.BtnKomputerLog.Image = global::Forms.Properties.Resources.Complog;
+            this.BtnKomputerLog.Image = global::Forms.Resources.Resources.Complog;
             this.BtnKomputerLog.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.BtnKomputerLog.Location = new System.Drawing.Point(209, 10);
             this.BtnKomputerLog.Name = "BtnKomputerLog";
@@ -1033,7 +1033,7 @@ namespace Forms
             // BtnReload_Logs
             // 
             this.BtnReload_Logs.Enabled = false;
-            this.BtnReload_Logs.Image = global::Forms.Properties.Resources.reload;
+            this.BtnReload_Logs.Image = global::Forms.Resources.Resources.reload;
             this.BtnReload_Logs.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.BtnReload_Logs.Location = new System.Drawing.Point(101, 15);
             this.BtnReload_Logs.Name = "BtnReload_Logs";
@@ -1134,12 +1134,12 @@ namespace Forms
             // 
             // ustawienia
             // 
-            this.ustawienia.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.ustawienia.Name = "ustawienia";
-            this.ustawienia.Size = new System.Drawing.Size(76, 20);
-            this.ustawienia.Text = "Ustawienia";
-            this.ustawienia.Visible = false;
-            this.ustawienia.Click += new System.EventHandler(this.Ustawienia_Click);
+            //this.ustawienia.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            //this.ustawienia.Name = "ustawienia";
+            //this.ustawienia.Size = new System.Drawing.Size(76, 20);
+            //this.ustawienia.Text = "Ustawienia";
+            //this.ustawienia.Visible = false;
+            //this.ustawienia.Click += new System.EventHandler(this.Ustawienia_Click);
             // 
             // narzędziaAdministracyjneToolStripMenuItem
             // 
@@ -1165,7 +1165,7 @@ namespace Forms
             //
             // zaawansowanazaporaToolStripMenuItem
             //
-            this.zaawansowanaZaporaToolStripMenuItem.Image = global::Forms.Properties.Resources.firewall;
+            this.zaawansowanaZaporaToolStripMenuItem.Image = global::Forms.Resources.Resources.firewall;
             this.zaawansowanaZaporaToolStripMenuItem.Name = "zaawansowanaZaporaToolStripMenuItem";
             this.zaawansowanaZaporaToolStripMenuItem.Text = "Zaawansowana Zapora Windows";
             this.zaawansowanaZaporaToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
@@ -1173,7 +1173,7 @@ namespace Forms
             //
             // dHCPToolStripMenuItem
             // 
-            this.dHCPToolStripMenuItem.Image = global::Forms.Properties.Resources.dhcp;
+            this.dHCPToolStripMenuItem.Image = global::Forms.Resources.Resources.dhcp;
             this.dHCPToolStripMenuItem.Name = "dHCPToolStripMenuItem";
             this.dHCPToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
             this.dHCPToolStripMenuItem.Text = "DHCP";
@@ -1181,7 +1181,7 @@ namespace Forms
             // 
             // dziennikZdarzeńToolStripMenuItem
             // 
-            this.dziennikZdarzeńToolStripMenuItem.Image = global::Forms.Properties.Resources.eventvwr;
+            this.dziennikZdarzeńToolStripMenuItem.Image = global::Forms.Resources.Resources.eventvwr;
             this.dziennikZdarzeńToolStripMenuItem.Name = "dziennikZdarzeńToolStripMenuItem";
             this.dziennikZdarzeńToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
             this.dziennikZdarzeńToolStripMenuItem.Text = "Dziennik zdarzeń";
@@ -1189,7 +1189,7 @@ namespace Forms
             // 
             // harmonogramZadańToolStripMenuItem
             // 
-            this.harmonogramZadańToolStripMenuItem.Image = global::Forms.Properties.Resources.tasksched;
+            this.harmonogramZadańToolStripMenuItem.Image = global::Forms.Resources.Resources.tasksched;
             this.harmonogramZadańToolStripMenuItem.Name = "harmonogramZadańToolStripMenuItem";
             this.harmonogramZadańToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
             this.harmonogramZadańToolStripMenuItem.Text = "Harmonogram zadań";
@@ -1197,7 +1197,7 @@ namespace Forms
             // 
             // usługiToolStripMenuItem
             // 
-            this.usługiToolStripMenuItem.Image = global::Forms.Properties.Resources.services;
+            this.usługiToolStripMenuItem.Image = global::Forms.Resources.Resources.services;
             this.usługiToolStripMenuItem.Name = "usługiToolStripMenuItem";
             this.usługiToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
             this.usługiToolStripMenuItem.Text = "Usługi";
@@ -1205,7 +1205,7 @@ namespace Forms
             // 
             // użytkownicyIGrupyLokalneToolStripMenuItem
             // 
-            this.użytkownicyIGrupyLokalneToolStripMenuItem.Image = global::Forms.Properties.Resources.lusrmgr;
+            this.użytkownicyIGrupyLokalneToolStripMenuItem.Image = global::Forms.Resources.Resources.lusrmgr;
             this.użytkownicyIGrupyLokalneToolStripMenuItem.Name = "użytkownicyIGrupyLokalneToolStripMenuItem";
             this.użytkownicyIGrupyLokalneToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
             this.użytkownicyIGrupyLokalneToolStripMenuItem.Text = "Użytkownicy i grupy lokalne";
@@ -1220,7 +1220,7 @@ namespace Forms
             // 
             //
             this.terminalExplorerToolStripMenuItem.DropDownItems.Add(this.ręcznaNazwaToolStripMenuItem);
-            this.terminalExplorerToolStripMenuItem.Image = global::Forms.Properties.Resources.terminalexplorer;
+            this.terminalExplorerToolStripMenuItem.Image = global::Forms.Resources.Resources.terminalexplorer;
             this.terminalExplorerToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.terminalExplorerToolStripMenuItem.Name = "terminalExplorerToolStripMenuItem";
             this.terminalExplorerToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
@@ -1259,7 +1259,7 @@ namespace Forms
             this.ComputerExplorerToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ActiveSessionToolStripMenuItem,
             this.procesyToolStripMenuItem});
-            this.ComputerExplorerToolStripMenuItem.Image = global::Forms.Properties.Resources.ComputerExplorer;
+            this.ComputerExplorerToolStripMenuItem.Image = global::Forms.Resources.Resources.ComputerExplorer;
             this.ComputerExplorerToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.ComputerExplorerToolStripMenuItem.Name = "ComputerExplorerToolStripMenuItem";
             this.ComputerExplorerToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
@@ -1268,7 +1268,7 @@ namespace Forms
             // 
             // ActiveSessionToolStripMenuItem
             // 
-            this.ActiveSessionToolStripMenuItem.Image = global::Forms.Properties.Resources.deactiveSession;
+            this.ActiveSessionToolStripMenuItem.Image = global::Forms.Resources.Resources.deactiveSession;
             this.ActiveSessionToolStripMenuItem.Name = "ActiveSessionToolStripMenuItem";
             this.ActiveSessionToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.ActiveSessionToolStripMenuItem.Text = "Aktywne Sesje";
@@ -1276,7 +1276,7 @@ namespace Forms
             // 
             // procesyToolStripMenuItem
             // 
-            this.procesyToolStripMenuItem.Image = global::Forms.Properties.Resources.process;
+            this.procesyToolStripMenuItem.Image = global::Forms.Resources.Resources.process;
             this.procesyToolStripMenuItem.Name = "procesyToolStripMenuItem";
             this.procesyToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.procesyToolStripMenuItem.Text = "Procesy";
@@ -1289,7 +1289,7 @@ namespace Forms
             // 
             // HaslozLapsaToolStripMenuItem
             // 
-            this.HaslozLapsaToolStripMenuItem.Image = global::Forms.Properties.Resources.password;
+            this.HaslozLapsaToolStripMenuItem.Image = global::Forms.Resources.Resources.password;
             this.HaslozLapsaToolStripMenuItem.Name = "HaslozLapsaToolStripMenuItem";
             this.HaslozLapsaToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
             this.HaslozLapsaToolStripMenuItem.Text = "Hasło z LAPS-a";
@@ -1297,7 +1297,7 @@ namespace Forms
             // 
             // lockoutStatusToolStripMenuItem
             // 
-            this.lockoutStatusToolStripMenuItem.Image = global::Forms.Properties.Resources.lockout;
+            this.lockoutStatusToolStripMenuItem.Image = global::Forms.Resources.Resources.lockout;
             this.lockoutStatusToolStripMenuItem.Name = "lockoutStatusToolStripMenuItem";
             this.lockoutStatusToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
             this.lockoutStatusToolStripMenuItem.Text = "Lockout Status";
@@ -1305,7 +1305,7 @@ namespace Forms
             // 
             // zmianaHasłaDomenowegoToolStripMenuItem1
             // 
-            this.zmianaHasłaDomenowegoToolStripMenuItem1.Image = global::Forms.Properties.Resources.changepass;
+            this.zmianaHasłaDomenowegoToolStripMenuItem1.Image = global::Forms.Resources.Resources.changepass.ToBitmap();
             this.zmianaHasłaDomenowegoToolStripMenuItem1.Name = "zmianaHasłaDomenowegoToolStripMenuItem1";
             this.zmianaHasłaDomenowegoToolStripMenuItem1.Size = new System.Drawing.Size(222, 22);
             this.zmianaHasłaDomenowegoToolStripMenuItem1.Text = "Zmiana hasła domenowego";
@@ -1376,7 +1376,7 @@ namespace Forms
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.Icon = global::Forms.Properties.Resources.Puzzel;
+            this.Icon = global::Forms.Resources.Resources.Puzzel;
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(1200, 509);
             this.Name = "Form1";

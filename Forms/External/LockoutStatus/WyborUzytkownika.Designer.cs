@@ -103,7 +103,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Icon = global::Forms.Properties.Resources.Puzzel;
+            this.Icon = global::Forms.Resources.Resources.Puzzel;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "LockoutStatusWyborUzytkownika";

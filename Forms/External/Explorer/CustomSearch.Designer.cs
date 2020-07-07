@@ -1,4 +1,4 @@
-﻿namespace Puzzel
+﻿namespace Forms.External.Explorer
 {
     partial class PodajNazweTerminala
     {
@@ -59,7 +59,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = global::Puzzel.Properties.Resources.Puzzel;
+            this.Icon = global::Forms.Resources.Resources.Puzzel;
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(223, 139);
             this.MinimizeBox = false;

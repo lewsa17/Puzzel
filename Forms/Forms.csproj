@@ -7,6 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="External\Ustawienia.cs" />
+    <Compile Remove="External\Ustawienia.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="External\Ustawienia.cs" />
+    <None Include="External\Ustawienia.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="System.Management" Version="4.7.0" />
     <PackageReference Include="System.Management.Automation" Version="7.0.2" />
   </ItemGroup>
@@ -16,15 +26,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="Cassia">
+      <HintPath>..\Cassia.dll</HintPath>
+    </Reference>
     <Reference Include="System.DirectoryServices.AccountManagement">
       <HintPath>..\..\..\..\..\..\Windows\Microsoft.NET\assembly\GAC_MSIL\System.DirectoryServices.AccountManagement\v4.0_4.0.0.0__b77a5c561934e089\System.DirectoryServices.AccountManagement.dll</HintPath>
     </Reference>
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Additional\RemotePing_Tracert.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Update="Additional\RemotePing_Tracert.cs" />
     <Compile Update="Additional\RemotePing_Tracert.Designer.cs">
       <DependentUpon>RemotePing_Tracert.cs</DependentUpon>
     </Compile>

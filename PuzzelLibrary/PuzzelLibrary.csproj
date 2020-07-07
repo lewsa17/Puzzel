@@ -5,22 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Cassia\Properties\AssemblyInfo.cs" />
     <Compile Remove="LogonData\CompUserLog.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Cassia\obj\Debug\Cassia.csproj.FileListAbsolute.txt" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Cassia\Cassia.csproj" />
-    <Content Include="Cassia\obj\Debug\Cassia.csproj.FileListAbsolute.txt" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="AD\" />
-    <Folder Include="Cassia\obj\Debug\TempPE\" />
     <Folder Include="Debug\" />
     <Folder Include="LAPS\" />
     <Folder Include="NetDiag\" />
@@ -29,7 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Cassia\Properties\AssemblyInfo.cs" />
     <None Include="LogonData\CompUserLog.cs">
       <SubType>Form</SubType>
     </None>
@@ -42,6 +30,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="Cassia">
+      <HintPath>..\Cassia.dll</HintPath>
+    </Reference>
     <Reference Include="System.Windows.Forms">
       <HintPath>..\..\..\..\..\..\Program Files (x86)\dotnet\shared\Microsoft.WindowsDesktop.App\3.1.5\System.Windows.Forms.dll</HintPath>
     </Reference>

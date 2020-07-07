@@ -12,7 +12,7 @@ namespace Forms
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Forms.Form1.terminalName = textBox1.Text;
+            Forms.MainForm.terminalName = textBox1.Text;
             this.Close();
         }
 
@@ -20,7 +20,7 @@ namespace Forms
         {
             if (e.KeyCode == Keys.Enter)
             {
-                Forms.Form1.terminalName = textBox1.Text;
+                Forms.MainForm.terminalName = textBox1.Text;
                 this.Close();
             }
         }

@@ -26,12 +26,12 @@ namespace Forms.External.QuickFix
 
             if (variableName.Length > 0)
             {
-                if (new Registry.RegEnum().GetValueNames(_hostName, Microsoft.Win32.RegistryHive.LocalMachine, @"SYSTEM\CurrentControlSet\Control\Session Manager\Environment").Contains(variableName))
+                if (new PuzzelLibrary.Registry.RegEnum().GetValueNames(_hostName, Microsoft.Win32.RegistryHive.LocalMachine, @"SYSTEM\CurrentControlSet\Control\Session Manager\Environment").Contains(variableName))
                 {
                     if (MessageBox.Show(new Form { }, "Wartość zmienna istnieje już w systemie, czy chcesz zastąpić?", "Wprowadzanie zmiennej", MessageBoxButtons.OKCancel) == DialogResult.OK)
-                        new Registry.RegQuery().QueryKey(_hostName, Microsoft.Win32.RegistryHive.LocalMachine, @"SYSTEM\CurrentControlSet\Control\Session Manager\Environment", variableName, variableData, Microsoft.Win32.RegistryValueKind.String);
+                        new PuzzelLibrary.Registry.RegQuery().QueryKey(_hostName, Microsoft.Win32.RegistryHive.LocalMachine, @"SYSTEM\CurrentControlSet\Control\Session Manager\Environment", variableName, variableData, Microsoft.Win32.RegistryValueKind.String);
                 }
-                else new Registry.RegQuery().QueryKey(_hostName, Microsoft.Win32.RegistryHive.LocalMachine, @"SYSTEM\CurrentControlSet\Control\Session Manager\Environment", variableName, variableData, Microsoft.Win32.RegistryValueKind.String);
+                else new PuzzelLibrary.Registry.RegQuery().QueryKey(_hostName, Microsoft.Win32.RegistryHive.LocalMachine, @"SYSTEM\CurrentControlSet\Control\Session Manager\Environment", variableName, variableData, Microsoft.Win32.RegistryValueKind.String);
             }
             Close();
         }

@@ -8,7 +8,7 @@ namespace Forms.Additional
         {
             InitializeComponent();
             //Loading.RunWorkerAsync();
-            this.progressBar1.Maximum = Forms.Form1.ProgressMax;
+            this.progressBar1.Maximum = Forms.MainForm.ProgressMax;
 
             Thread thread = new Thread(StartLoading);
             thread.Start();

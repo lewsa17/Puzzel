@@ -5,6 +5,9 @@
     <Compile Update="Additional\Progress.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Additional\RemotePing_Tracert.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Additional\WyszukiwarkaDlaFormy.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -47,11 +50,11 @@
     <Compile Update="External\TermsExplorer\TerminalExplorer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="External\Ustawienia.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <None Update="External\Ustawienia.cs">
+      <SubType>Form</SubType>
+    </None>
   </ItemGroup>
 </Project>

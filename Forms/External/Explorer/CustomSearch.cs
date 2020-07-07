@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace Puzzel
+namespace Forms.External.Explorer
 {
     public partial class PodajNazweTerminala : Form
     {
@@ -12,7 +12,7 @@ namespace Puzzel
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Puzzel.Form1.terminalName = textBox1.Text;
+            Forms.MainForm.terminalName = textBox1.Text;
             this.Close();
         }
 
@@ -20,7 +20,7 @@ namespace Puzzel
         {
             if (e.KeyCode == Keys.Enter)
             {
-                Puzzel.Form1.terminalName = textBox1.Text;
+                Forms.MainForm.terminalName = textBox1.Text;
                 this.Close();
             }
         }

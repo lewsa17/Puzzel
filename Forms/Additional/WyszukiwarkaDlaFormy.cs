@@ -32,27 +32,27 @@ namespace Forms.Additional
                 {
                     if (((Button)sender) == button1 | ((Button)sender) == button4)
                     {
-                        if (Form1.richTextBox1.SelectionStart > 1)
-                            SelectionStart = Form1.richTextBox1.Text.IndexOf(SearchWord, Form1.richTextBox1.SelectionStart + SearchWord.Length, StringComparison.CurrentCultureIgnoreCase);
-                        else SelectionStart = Form1.richTextBox1.Text.IndexOf(SearchWord, Form1.richTextBox1.SelectionStart, StringComparison.CurrentCultureIgnoreCase);
+                        if (MainForm.richTextBox1.SelectionStart > 1)
+                            SelectionStart = MainForm.richTextBox1.Text.IndexOf(SearchWord, MainForm.richTextBox1.SelectionStart + SearchWord.Length, StringComparison.CurrentCultureIgnoreCase);
+                        else SelectionStart = MainForm.richTextBox1.Text.IndexOf(SearchWord, MainForm.richTextBox1.SelectionStart, StringComparison.CurrentCultureIgnoreCase);
                     }
 
                     if (((Button)sender) == button3)
-                        SelectionStart = Form1.richTextBox1.Find(SearchWord, 0, Form1.richTextBox1.SelectionStart, RichTextBoxFinds.Reverse);
+                        SelectionStart = MainForm.richTextBox1.Find(SearchWord, 0, MainForm.richTextBox1.SelectionStart, RichTextBoxFinds.Reverse);
                 }
             }
 
             if (sender is TextBox)
             {
-                if (Form1.richTextBox1.SelectionStart > 1)
-                    SelectionStart = Form1.richTextBox1.Text.IndexOf(SearchWord, Form1.richTextBox1.SelectionStart + SearchWord.Length, StringComparison.CurrentCultureIgnoreCase);
-                else SelectionStart = Form1.richTextBox1.Text.IndexOf(SearchWord, Form1.richTextBox1.SelectionStart, StringComparison.CurrentCultureIgnoreCase);
+                if (MainForm.richTextBox1.SelectionStart > 1)
+                    SelectionStart = MainForm.richTextBox1.Text.IndexOf(SearchWord, MainForm.richTextBox1.SelectionStart + SearchWord.Length, StringComparison.CurrentCultureIgnoreCase);
+                else SelectionStart = MainForm.richTextBox1.Text.IndexOf(SearchWord, MainForm.richTextBox1.SelectionStart, StringComparison.CurrentCultureIgnoreCase);
             }
             if (SelectionStart != -1)
-                Form1.richTextBox1.SelectionStart = SelectionStart;
+                MainForm.richTextBox1.SelectionStart = SelectionStart;
             else
                 MessageBox.Show("Nie znaleziono wartości: " + SearchWord);
-            Form1.richTextBox1.SelectionLength = SearchWord.Length;   
+            MainForm.richTextBox1.SelectionLength = SearchWord.Length;   
         }
 
         private void WyszukiwarkaDlaFormy_Load(object sender, EventArgs e)
@@ -91,7 +91,7 @@ namespace Forms.Additional
 
         private void WyszukiwarkaDlaFormy_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Form1.richTextBox1.HideSelection = true;
+            MainForm.richTextBox1.HideSelection = true;
         }
     }
 }

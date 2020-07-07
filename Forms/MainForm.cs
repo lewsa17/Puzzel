@@ -1600,8 +1600,8 @@ namespace Forms
                 firstKey = "ALT";
             string Name = null;
 
-            
-            string[,] settings = Ustawienia.LoadSettings();
+
+            string[,] settings = null;// Ustawienia.LoadSettings();
             for (int i = 0; i < 21; i++)
             {
                 TypeConverter converter = TypeDescriptor.GetConverter(typeof(Keys));
@@ -2088,13 +2088,13 @@ namespace Forms
             else UpdateRichTextBox("Nie podano loginu");
         }
 
-        private void Ustawienia_Click(object sender, EventArgs e)
-        {
-            using (Ustawienia ustawienia = new Ustawienia())
-            {
-                ustawienia.ShowDialog();
-            }
-        }
+        //private void Ustawienia_Click(object sender, EventArgs e)
+        //{
+        //    using (Ustawienia ustawienia = new Ustawienia())
+        //    {
+        //        ustawienia.ShowDialog();
+        //    }
+        //}
 
         private void EnableDotNET4CompatibilityToolStripMenuItem_Click(object sender, EventArgs e)
         {

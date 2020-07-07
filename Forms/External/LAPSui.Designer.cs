@@ -122,7 +122,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
-            this.Icon = global::Forms.Properties.Resources.Puzzel;
+            this.Icon = global::Forms.Resources.Resources.Puzzel;
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(350, 235);
             this.MinimizeBox = false;
