@@ -10,7 +10,7 @@ namespace PuzzelLibrary.LogonData
     public class Logi
     {
         private static string domainName() => System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().DomainName; 
-        public static async void loGi(string pole, string rodzaj, decimal licznik)
+        public static void loGi(string pole, string rodzaj, decimal licznik)
         {
             StringBuilder sb = new StringBuilder();
             try
