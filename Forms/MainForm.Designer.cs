@@ -99,7 +99,7 @@ namespace Forms
             this.zasobySiecioweToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ekranyPodłączoneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bIOSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.BtnPing = new System.Windows.Forms.Button();
+            this.btnPing = new System.Windows.Forms.Button();
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
@@ -508,7 +508,7 @@ namespace Forms
             this.groupBox3.Controls.Add(this.BtnDW);
             this.groupBox3.Controls.Add(this.BtnZarzadzanie);
             this.groupBox3.Controls.Add(this.BtnKomputerInfo);
-            this.groupBox3.Controls.Add(this.BtnPing);
+            this.groupBox3.Controls.Add(this.btnPing);
             this.groupBox3.Controls.Add(this.numericUpDown2);
             this.groupBox3.Controls.Add(this.label4);
             this.groupBox3.Controls.Add(this.textBox2);
@@ -882,19 +882,19 @@ namespace Forms
             this.bIOSToolStripMenuItem.Text = "BIOS";
             this.bIOSToolStripMenuItem.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
-            // BtnPing
+            // btnPing
             // 
-            this.BtnPing.Image = global::Forms.Resources.Resources.ping;
-            this.BtnPing.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnPing.Location = new System.Drawing.Point(209, 40);
-            this.BtnPing.Name = "BtnPing";
-            this.BtnPing.Size = new System.Drawing.Size(107, 30);
-            this.BtnPing.TabIndex = 10;
-            this.BtnPing.TabStop = false;
-            this.BtnPing.Text = "Ping";
-            this.BtnPing.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.BtnPing.UseVisualStyleBackColor = true;
-            this.BtnPing.Click += new System.EventHandler(this.Ping_Click);
+            this.btnPing.Image = global::Forms.Resources.Resources.ping;
+            this.btnPing.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPing.Location = new System.Drawing.Point(209, 40);
+            this.btnPing.Name = "btnPing";
+            this.btnPing.Size = new System.Drawing.Size(107, 30);
+            this.btnPing.TabIndex = 10;
+            this.btnPing.TabStop = false;
+            this.btnPing.Text = "Ping";
+            this.btnPing.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnPing.UseVisualStyleBackColor = true;
+            this.btnPing.Click += new System.EventHandler(this.btnPing_Click);
             // 
             // numericUpDown2
             // 
@@ -1436,7 +1436,7 @@ namespace Forms
         private System.Windows.Forms.Button BtnDW;
         private System.Windows.Forms.Button BtnZarzadzanie;
         private System.Windows.Forms.Button BtnKomputerInfo;
-        private System.Windows.Forms.Button BtnPing;
+        private System.Windows.Forms.Button btnPing;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button BtnKomputerLog;

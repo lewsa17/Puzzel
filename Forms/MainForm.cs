@@ -98,46 +98,20 @@ namespace Forms
             StopTime();
         }
 
-        private void Ping_Click(object sender, EventArgs e)
+        private void btnPing_Click(object sender, EventArgs e)
         {
             StartTime();
-            ClearRichTextBox();
-            if (HostName().Length > 0)
+            ClearRichTextBox(); if (HostName().Length > 0)
             {
-                using (Process p = new Process())
-                {
-                    p.StartInfo.FileName = @"ping";
-                    p.StartInfo.Arguments = "-n 2 " + HostName();
-                    p.StartInfo.StandardOutputEncoding = Encoding.GetEncoding(852);
-                    p.StartInfo.CreateNoWindow = true;
-                    p.StartInfo.UseShellExecute = false;
-                    p.StartInfo.RedirectStandardOutput = true;
-                    p.OutputDataReceived += new DataReceivedEventHandler(POutputHandler);
-                    p.Start();
-                    p.BeginOutputReadLine();
-                    p.WaitForExit();
-                    p.Dispose();
-                }
-                using (Process n = new Process())
-                {
-                    if (File.Exists(@"C:\Windows\sysnative\nbtstat.exe"))
-                        n.StartInfo.FileName = @"C:\Windows\sysnative\nbtstat.exe";
-                    else
-                        n.StartInfo.FileName = @"C:\Windows\system32\nbtstat.exe";
-                    n.StartInfo.Arguments = @"-a " + HostName() + " -c";
-                    n.StartInfo.StandardOutputEncoding = Encoding.GetEncoding(852);
-                    n.StartInfo.CreateNoWindow = true;
-                    n.StartInfo.UseShellExecute = false;
-                    n.StartInfo.RedirectStandardOutput = true;
-                    n.OutputDataReceived += new DataReceivedEventHandler(POutputHandler);
-                    n.Start();
-                    n.BeginOutputReadLine();
-                    n.WaitForExit();
-                    n.Dispose();
-                }
+                StartWinSysApplication("ping.exe", "-n 2 " + HostName());
+                StartWinSysApplication("nbtstat.exe", "-a " + HostName() + " -c");
             }
             else ReplaceRichTextBox("Nie podano nazwy hosta");
             StopTime();
+        }
+        private void StartWinSysApplication(string FileName, string Arguments)
+        {
+            UpdateRichTextBox(PuzzelLibrary.ProcessExecutable.ProcExec.StartExtendedProcess(FileName, Arguments));
         }
         private void Profilsieciowy(object sender, EventArgs e)
         {
@@ -1654,7 +1628,7 @@ namespace Forms
                     }
                 case "Ping":
                     {
-                        Ping_Click(BtnPing, e);
+                        btnPing_Click(btnPing, e);
                         break;
                     }
                 case "Polacz":
