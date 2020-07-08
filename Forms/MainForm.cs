@@ -188,7 +188,7 @@ namespace Forms
             }
             catch (Exception ex)
             {
-                //LogsCollector.Loger(ex, WindowState.ToString());
+                PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, WindowState.ToString());
             }
         }
 
@@ -219,7 +219,7 @@ namespace Forms
                 }
                 catch (Win32Exception ex)
                 {
-                    //LogsCollector.Loger(ex, SlowowTekscie[1]);
+                    PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, SlowowTekscie[1]);
                 }
             }
             else ReplaceRichTextBox("Nie można się połączyć ponieważ nie została wybrana sesja");
@@ -362,7 +362,7 @@ namespace Forms
                 }
                 catch (Win32Exception ex)
                 {
-                    //LogsCollector.Loger(ex, SlowowTekscie[1]);
+                    PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, SlowowTekscie[1]);
                 }
                 finally
                 {
@@ -435,7 +435,7 @@ namespace Forms
             }
             catch (Exception ex)
             {
-                //LogsCollector.Loger(ex, "DWButton_Click");
+                PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, "DWButton_Click");
             }
             StopTime();
         }
@@ -1089,13 +1089,13 @@ namespace Forms
             }
             catch (UnauthorizedAccessException ex)
             {
-                //LogsCollector.Loger(ex, nazwaKomputera + "," + path + "," + query);
+                PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, nazwaKomputera + "," + path + "," + query);
                 MessageBox.Show("Dostęp zabroniony na obecnych poświadczeniach", "Łączenie z WMI", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
 
             catch (Exception ex)
             {
-                //LogsCollector.Loger(ex, nazwaKomputera + "," + path + "," + query);
+                PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, nazwaKomputera + "," + path + "," + query);
                 MessageBox.Show("Nie można się połączyć z powodu błędu: " + ex.Message, "Łączenie z WMI", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             return osarch;
@@ -1133,7 +1133,7 @@ namespace Forms
             }
             catch (Exception ex)
             {
-                //LogsCollector.Loger(ex, HostName() + "," + PuzzelLibrary.WMI.ComputerInfo.pathCIMv2 + "," + PuzzelLibrary.WMI.ComputerInfo.queryOperatingSystem);
+                PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, HostName() + "," + PuzzelLibrary.WMI.ComputerInfo.pathCIMv2 + "," + PuzzelLibrary.WMI.ComputerInfo.queryOperatingSystem);
             }
             StopTime();
         }
@@ -1881,7 +1881,7 @@ namespace Forms
             }
             catch (Exception ex)
             {
-                //LogsCollector.Loger(ex, sender + " " + e.KeyCode);
+                PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, sender + " " + e.KeyCode);
             }
         }
         //private void LoadingShortcuts()
@@ -1930,7 +1930,7 @@ namespace Forms
             }
             catch (Exception ex)
             {
-                //LogsCollector.Loger(ex, "Kopiowanie_ContextMenuText");
+                PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, "Kopiowanie_ContextMenuText");
             }
         }
 
@@ -1984,7 +1984,7 @@ namespace Forms
             }
             catch (Exception ex)
             {
-                //LogsCollector.Loger(ex, "Wycinanie_ContextMenuText");
+                PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, "Wycinanie_ContextMenuText");
             }
         }
         private void WklejToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2019,7 +2019,7 @@ namespace Forms
             }
             catch (Exception ex)
             {
-                //LogsCollector.Loger(ex, "Wklej_ContextMenuText");
+                PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, "Wklej_ContextMenuText");
             }
         }
         private void ZaznaczWszystkoMenuItem3_Click(object sender, EventArgs e)
@@ -2046,7 +2046,7 @@ namespace Forms
             }
             catch (Exception ex)
             {
-                //LogsCollector.Loger(ex, "zaznaczWszystko_ConcetxtMenuText");
+                PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, "zaznaczWszystko_ConcetxtMenuText");
             }
         }
 

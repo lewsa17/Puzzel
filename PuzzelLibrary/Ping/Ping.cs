@@ -27,7 +27,7 @@ namespace PuzzelLibrary.Ping
             }
             catch (Exception e)
             {
-                //LogsCollector.Loger(e, HostName);
+                PuzzelLibrary.Debug.LogsCollector.GetLogs(e, HostName);
             }
             return iPStatus;
         }

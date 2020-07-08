@@ -128,7 +128,7 @@ namespace Forms.External.Explorer
             { }
             catch (Exception e)
             {
-                //LogsCollector.Loger(e, serverName);
+                PuzzelLibrary.Debug.LogsCollector.GetLogs(e, serverName);
             }
             return sessioninfo;
         }
@@ -409,7 +409,7 @@ namespace Forms.External.Explorer
             }
             catch (Exception ex)
             {
-                //LogsCollector.Loger(ex, _hostname);
+                PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, _hostname);
             }
         }
 

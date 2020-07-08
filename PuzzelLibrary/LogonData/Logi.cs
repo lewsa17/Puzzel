@@ -63,7 +63,7 @@ namespace PuzzelLibrary.LogonData
             }
             catch (Exception ex)
             {
-                //LogsCollector.Loger(ex, pole + ',' + rodzaj + ',' + licznik);
+                PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, pole + ',' + rodzaj + ',' + licznik);
             }
         }
         private static string[] LogsNames = null;
@@ -105,7 +105,7 @@ namespace PuzzelLibrary.LogonData
                     }
                     catch (Exception e)
                     {
-                        //LogsCollector.Loger(e, username);
+                        PuzzelLibrary.Debug.LogsCollector.GetLogs(e, username);
                     }
                     finally
                     {

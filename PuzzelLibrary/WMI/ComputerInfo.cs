@@ -293,13 +293,13 @@ namespace PuzzelLibrary.WMI
             }
             catch (UnauthorizedAccessException ex)
             {
-                //LogsCollector.Loger(ex, nazwaKomputera + "," + path + "," + query);
+                PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, nazwaKomputera + "," + path + "," + query);
                 MessageBox.Show("Dostęp zabroniony na obecnych poświadczeniach", "WMI Testing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); return string.Empty;
             }
 
             catch (Exception ex)
             {
-                //LogsCollector.Loger(ex, nazwaKomputera + "," + path + "," + query);
+                PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, nazwaKomputera + "," + path + "," + query);
                 MessageBox.Show("Nie można się połączyć z powodu błędu: " + ex.Message, "WMI Testing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); return string.Empty;
             }
             
@@ -1139,7 +1139,7 @@ namespace PuzzelLibrary.WMI
             }
             catch (Exception ex)
             {
-                //LogsCollector.Loger(ex, "szybka metoda");
+                PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, "szybka metoda");
             }
             return Data;
         }
@@ -1185,7 +1185,7 @@ namespace PuzzelLibrary.WMI
             }
             catch (Exception ex)
             {
-                //LogsCollector.Loger(ex, nazwaKomputera + ",'" + path + "," + query);
+                PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, nazwaKomputera + ",'" + path + "," + query);
             }
             return Data;
         }

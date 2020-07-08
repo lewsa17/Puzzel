@@ -17,7 +17,7 @@ namespace PuzzelLibrary.Registry
             }
             catch (Exception e)
             {
-                //LogsCollector.Loger(e, value);
+                PuzzelLibrary.Debug.LogsCollector.GetLogs(e, value);
             }
             finally
             {

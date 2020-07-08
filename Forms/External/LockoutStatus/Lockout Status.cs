@@ -168,7 +168,7 @@ namespace Forms.External.LockoutStatus
             }
             catch (Exception e)
             {
-                //LogsCollector.Loger(e, dcName + "," + Username);
+                PuzzelLibrary.Debug.LogsCollector.GetLogs(e, dcName + "," + Username);
             }
             return uP;
         }
