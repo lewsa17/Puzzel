@@ -1,31 +1,32 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Runtime.CompilerServices;
 
 namespace PuzzelLibrary.Debug
 {
     public static class LogsCollector
     {
-        public static string GetLogs(Exception e, string InputedValue)
+        public static string Result { get; set; }
+
+        private static void ClearResult() { Result = ""; }
+
+        private static void UpdateResult(string message)
         {
-            string Data = null;
-            //Data+=(Environment.NewLine);
-            Data += ("-----------------------------------" + Environment.NewLine);
-            Data += (DateTime.Now.ToString() + Environment.NewLine);
-            Data += ("Wystąpił błąd" + Environment.NewLine);
-            Data += ("-----------------------------------" + Environment.NewLine);
-            //Data+=(Environment.NewLine);
+            Result += message + Environment.NewLine;
+        }
+        public static void GetLogs(Exception e, string InputedValue)
+        {
+            ClearResult();
+            //UpdateResult("");
+            UpdateResult("-----------------------------------");
+            UpdateResult(DateTime.Now.ToString());
+            UpdateResult("Wystąpił błąd");
+            UpdateResult("-----------------------------------");
+            //UpdateResult("");
             SaveLogs(e, InputedValue);
-            return Data;
         }
         private static void SaveLogs(Exception e, string InputedValue) 
         { 
-            string path = Directory.GetCurrentDirectory() + @"\" + Application.ProductName + ".log";
+            string path = Directory.GetCurrentDirectory() + @"\" + System.Windows.Forms.Application.ProductName + ".log";
             FileStream fileStream = new FileStream(path, FileMode.Append, FileAccess.Write, FileShare.Write);
             StreamWriter log = new StreamWriter(fileStream);
             log.WriteLine("-----------------------------------");
