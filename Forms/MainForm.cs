@@ -2096,22 +2096,24 @@ namespace Forms
             thread.Start();
             explorer.Show();
         }
-        private void TCPPing_Click(object sender, EventArgs e)
+        private void BtnCollapseTCP(object sender, EventArgs e)
         {
             if (panel1.Width == 351)
             {
-                CollapseTCP.Text = "Rozwiń";
+                btnCollapseTCP.Text = "Rozwiń";
                 panel1.Width = 63;
             }
             else
             {
-                CollapseTCP.Text = "Zwiń";
+                btnCollapseTCP.Text = "Zwiń";
                 panel1.Width = 351;
             }
         }
 
-        private void _TCPPing_Click(object sender, EventArgs e)
+        private void BtnTestTCP_Click(object sender, EventArgs e)
         {
+            StartTime();
+            ReplaceRichTextBox(null);
             if (HostName().Length > 2)
                 if (PuzzelLibrary.NetDiag.Ping.TCPPing(HostName(), (int)numericUpDown3.Value) == PuzzelLibrary.NetDiag.Ping.TCPPingStatus.Success)
                 {
@@ -2119,6 +2121,7 @@ namespace Forms
                 }
                 else UpdateRichTextBox("Badanie " + HostName() + " ukończone porażką. Port " + numericUpDown3.Value.ToString() + " prawdopoodobnie jest zamknięty.");
             else UpdateRichTextBox("Za krótka nazwa komputera");
+            StopTime();
         }
         private void DeleteUsers_Click(object sender, EventArgs e)
         {

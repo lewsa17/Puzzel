@@ -109,8 +109,8 @@ namespace Forms
             this.panel1 = new System.Windows.Forms.Panel();
             this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
-            this.CollapseTCP = new System.Windows.Forms.Button();
+            this.btnTestTCP = new System.Windows.Forms.Button();
+            this.btnCollapseTCP = new System.Windows.Forms.Button();
             this.BtnReload_Logs = new System.Windows.Forms.Button();
             this.btnFlushDNS = new System.Windows.Forms.Button();
             richTextBox1 = new System.Windows.Forms.RichTextBox();
@@ -977,8 +977,8 @@ namespace Forms
             // 
             this.panel1.Controls.Add(this.numericUpDown3);
             this.panel1.Controls.Add(this.label5);
-            this.panel1.Controls.Add(this.button2);
-            this.panel1.Controls.Add(this.CollapseTCP);
+            this.panel1.Controls.Add(this.btnTestTCP);
+            this.panel1.Controls.Add(this.btnCollapseTCP);
             this.panel1.Location = new System.Drawing.Point(202, 16);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(63, 32);
@@ -1010,25 +1010,25 @@ namespace Forms
             this.label5.TabIndex = 2;
             this.label5.Text = "Podaj Port dla badania:";
             // 
-            // button2
+            // btnTestTCP
             // 
-            this.button2.Location = new System.Drawing.Point(245, 2);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(104, 28);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Wykonaj badanie";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this._TCPPing_Click);
+            this.btnTestTCP.Location = new System.Drawing.Point(245, 2);
+            this.btnTestTCP.Name = "BtnTestTCP_Click";
+            this.btnTestTCP.Size = new System.Drawing.Size(104, 28);
+            this.btnTestTCP.TabIndex = 1;
+            this.btnTestTCP.Text = "Wykonaj badanie";
+            this.btnTestTCP.UseVisualStyleBackColor = true;
+            this.btnTestTCP.Click += new System.EventHandler(this.BtnTestTCP_Click);
             // 
-            // CollapseTCP
+            // btnCollapseTCP
             // 
-            this.CollapseTCP.Location = new System.Drawing.Point(2, 2);
-            this.CollapseTCP.Name = "CollapseTCP";
-            this.CollapseTCP.Size = new System.Drawing.Size(59, 28);
-            this.CollapseTCP.TabIndex = 0;
-            this.CollapseTCP.Text = "TCPPing";
-            this.CollapseTCP.UseVisualStyleBackColor = true;
-            this.CollapseTCP.Click += new System.EventHandler(this.TCPPing_Click);
+            this.btnCollapseTCP.Location = new System.Drawing.Point(2, 2);
+            this.btnCollapseTCP.Name = "btnCollapseTCP";
+            this.btnCollapseTCP.Size = new System.Drawing.Size(59, 28);
+            this.btnCollapseTCP.TabIndex = 0;
+            this.btnCollapseTCP.Text = "TCPPing";
+            this.btnCollapseTCP.UseVisualStyleBackColor = true;
+            this.btnCollapseTCP.Click += new System.EventHandler(this.BtnCollapseTCP);
             // 
             // BtnReload_Logs
             // 
@@ -1527,8 +1527,8 @@ namespace Forms
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.NumericUpDown numericUpDown3;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button CollapseTCP;
+        private System.Windows.Forms.Button btnTestTCP;
+        private System.Windows.Forms.Button btnCollapseTCP;
         private System.Windows.Forms.ToolStripMenuItem testToolStripMenuItem;
         public static System.Windows.Forms.RichTextBox richTextBox1;
     }
