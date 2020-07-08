@@ -1,6 +1,6 @@
-﻿namespace Puzzel
+﻿namespace Forms.External.Explorer
 {
-    partial class terminalExplorerSendMessage
+    partial class ExplorerFormSendMessage
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(terminalExplorerSendMessage));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExplorerFormSendMessage));
             richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -52,7 +52,7 @@
             this.button1.TabIndex = 1;
             this.button1.Text = "Wyślij wiadomość";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.SendMessage);
             // 
             // label1
             // 

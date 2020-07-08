@@ -77,6 +77,7 @@
             // 
             this.tabControl1.Controls.Add(this.sesjeTab);
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(637, 649);
@@ -113,7 +114,7 @@
             this.button3.TabIndex = 26;
             this.button3.Text = "Zamknij";
             this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.ZamykanieFormy);
+            this.button3.Click += new System.EventHandler(this.CloseForm);
             // 
             // button4
             // 
@@ -123,7 +124,7 @@
             this.button4.TabIndex = 25;
             this.button4.Text = "Odśwież teraz";
             this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.Button4_Click);
+            this.button4.Click += new System.EventHandler(this.RefreshRows);
             // 
             // dataGridView1
             // 
@@ -153,6 +154,7 @@
             this.dataGridView1.ContextMenuStrip = this.ContextSessionMenu;
             this.dataGridView1.GridColor = System.Drawing.Color.DarkGray;
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
@@ -358,7 +360,7 @@
             this.ZabijProcess.Name = "ZabijProcess";
             this.ZabijProcess.Size = new System.Drawing.Size(32, 19);
             // 
-            // TerminalExplorer
+            // ExplorerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -369,7 +371,7 @@
             this.MaximumSize = new System.Drawing.Size(653, 685);
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(653, 685);
-            this.Name = "TerminalExplorer";
+            this.Name = "ExplorerForm";
             this.Text = "Terminal Explorer";
             this.tabControl1.ResumeLayout(false);
             this.sesjeTab.ResumeLayout(false);

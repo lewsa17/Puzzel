@@ -1,29 +1,29 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
 using System.Windows.Forms;
-using Cassia;
 
-namespace Puzzel
+namespace Forms.External.Explorer
 {
-    public partial class terminalExplorerSendMessage : Form
+    public partial class ExplorerFormSendMessage : Form
     {
-        public terminalExplorerSendMessage(string hostname, int sessionID)
+        private string hostName;
+        private int selectedSessionID;
+        public ExplorerFormSendMessage(string _hostName, int _selectedSessionID)
         {
-            _sessionID = sessionID;
-            _hostname = hostname;
+            hostName = _hostName;
+            selectedSessionID = _selectedSessionID;
             InitializeComponent();
         }
-        string _hostname = null;
-        int _sessionID = 0;
-        private void button1_Click(object sender, EventArgs e)
+        private void SendMessage(object sender, EventArgs e)
         {
-         ITerminalServicesManager manager = new TerminalServicesManager();
-            using (ITerminalServer server = manager.GetRemoteServer(_hostname))
-            {
-                server.Open();
-                ITerminalServicesSession session = server.GetSession(_sessionID);
+            var session = new PuzzelLibrary.Terminal.Explorer().FindSession(new PuzzelLibrary.Terminal.Explorer().GetRemoteServer(hostName), selectedSessionID);
                 session.MessageBox(richTextBox1.Text, textBox1.Text);
                 this.Close();
-            }
+            
         }
     }
 }

@@ -1,18 +1,23 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
 using System.Windows.Forms;
 
 namespace Forms.External.Explorer
 {
-    public partial class PodajNazweTerminala : Form
+    public partial class ExplorerFormCustomSearch : Form
     {
-        public PodajNazweTerminala()
+        public ExplorerFormCustomSearch()
         {
             InitializeComponent();
         }
-
+        public static string TerminalName { get; set; }
         private void button1_Click(object sender, EventArgs e)
         {
-            Forms.MainForm.terminalName = textBox1.Text;
+            TerminalName = textBox1.Text;
             this.Close();
         }
 
@@ -20,7 +25,7 @@ namespace Forms.External.Explorer
         {
             if (e.KeyCode == Keys.Enter)
             {
-                Forms.MainForm.terminalName = textBox1.Text;
+                TerminalName = textBox1.Text;
                 this.Close();
             }
         }

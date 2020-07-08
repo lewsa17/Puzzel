@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
+using System.Data;
+using System.Drawing;
+using System.Text;
 using System.Windows.Forms;
 using Cassia;
-using System.Linq;
-using Microsoft.Win32;
-using System.Threading;
 
 namespace Forms.External.Explorer
 {
@@ -15,142 +14,44 @@ namespace Forms.External.Explorer
         public ExplorerForm(string name)
         {
             InitializeComponent();
-            this.Text = name;
+            this.Name = name;
         }
+        public string HostName { get; set; }
 
-        public ExplorerForm()
-        {
-
-        }
-
-        public static void processComputer(object sender, EventArgs e, string HostName)
-        {
-            Thread thread;
-            ExplorerForm terminalExplorer = new ExplorerForm("Computer Explorer");
-            if (PuzzelLibrary.Ping.Ping.TCPPing(HostName, 135) == PuzzelLibrary.Ping.Ping.TCPPingStatus.Success)
-            {
-                terminalExplorer.UnlockRemoteRPC(HostName, RegistryHive.LocalMachine, @"SYSTEM\CurrentControlSet\Control\Terminal Server");
-                thread = new Thread(() => terminalExplorer.SzukanieSesji(HostName));
-                thread.Start();
-                terminalExplorer.Show();
-                terminalExplorer.GetRemoteServer(HostName);
-            }
-        }
-
-        public ITerminalServer GetRemoteServer(string hostName)
-        {
-            TerminalServicesManager terminalServicesManager = new TerminalServicesManager();
-            return terminalServicesManager.GetRemoteServer(hostName);
-        }
-
-        public bool isUnlockRemoteRPC(string HostName, RegistryHive mainCatalog, string subKey)
-        {
-            if (new PuzzelLibrary.Registry.RegEnum().RegOpenRemoteSubKey(HostName, mainCatalog, subKey).GetValueNames().Contains("AllowRemoteRPC"))
-            {
-                return true;
-            }
-            return false;
-        }
-
-        public void UnlockRemoteRPC(string HostName, RegistryHive mainCatalog, string subKey)
-        {
-            if (isUnlockRemoteRPC(HostName, mainCatalog, subKey))
-                if (Convert.ToInt32(new PuzzelLibrary.Registry.RegEnum().RegOpenRemoteSubKey(HostName, mainCatalog, subKey).GetValue("AllowRemoteRPC")) == 0)
-                    new PuzzelLibrary.Registry.RegQuery().QueryKey(HostName, mainCatalog, subKey, "AllowRemoteRPC", "1", RegistryValueKind.DWord);
-        }
-        private IEnumerable<ITerminalServicesSession> GetRemoteComputerSession(string hostName)
-        {
-            using (ITerminalServer server = GetRemoteServer(hostName))
-            {
-                server.Open();
-                var sessions = server.GetSessions();
-
-                var sesion = from x in sessions
-                             where !string.IsNullOrEmpty(x.UserName)
-                             select x;
-                return sesion;
-            }
-        }
-
-        public IEnumerable<ITerminalServicesSession> ActiveUserInfo(string hostName)
-        {
-            return GetRemoteComputerSession(hostName);
-        }
-
-        //public ITerminalServicesManager manager = new TerminalServicesManager();
-        private void ZamykanieFormy(object sender, EventArgs e)
+        private void CloseForm(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void Zamykaniestrony(object sender, EventArgs e)
+        private void CloseTabPage(object sender, EventArgs e)
         {
             tabControl1.Controls.Remove((TabPage)((Button)sender).Parent);
             tabControl1.SelectedIndex = tabControl1.TabPages.Count - 1;
         }
-        private string _hostname = null;
-        //private string _username = null;
-        public object[] FindSession(string serverName, string SearchedLogin)
+
+        Label IDsesjiLabel; Label rozdzielczoscLabel; Label sprzetidLabel; Label poziomszyfrowaniaLabel;
+        Label glebiakolorowLabel; Label produktidlabel; Label katalogLabel; Label adresipLabel;
+        Label nazwaklientaLabel; Label kartasieciowaLabel; Label nazwauzytkownikaLabel; Label label10;
+        Label label9; Label bajtyramkiwychodzace; Label ramkiwychodzaceLabel; Label bajtywychodzaceLabel;
+        Label stopienkompresjiLabel; Label bajtyramkiprzychodzaceLabel; Label ramkiprzychodzaceLabel;
+        Label bajtyprzychodzaceLabel; Label label16; Label label15; Label label14; Label label13;
+        Label label12; Label label11; Label label8; Label label7; Label label6; Label label5;
+        Label label4; Label label3; Label label2; Label label1; Label statusZalogowlabel;
+        private void RefreshRows(object sender, EventArgs e)
         {
-            //int _retry = 0;
-            object[] sessioninfo = null;
-            try
-            {
-                //retry:
-                //    if (_retry < 5)
-                //    {
-                if (PuzzelLibrary.Ping.Ping.TCPPing(serverName, 135) == PuzzelLibrary.Ping.Ping.TCPPingStatus.Success)
-                {
-                    using (ITerminalServer server = GetRemoteServer(serverName))
-                    {
-                        server.Open();
-                        foreach (ITerminalServicesSession session in server.GetSessions())
-                        {
-                            if (string.Equals(session.UserName, SearchedLogin, StringComparison.OrdinalIgnoreCase))
-                            {
-                                Array.Resize(ref sessioninfo, 7);
-                                sessioninfo[0] = session.SessionId;
-                                sessioninfo[1] = session.Server.ServerName;
-                                sessioninfo[2] = session.UserName;
-                                sessioninfo[3] = session.WindowStationName;
-                                sessioninfo[4] = session.ConnectionState;
-                                sessioninfo[5] = session.IdleTime;
-                                sessioninfo[6] = session.LoginTime;
-                            }
-                        }
-                    }
-                }
-                //    else { _retry++; goto retry; }
-                //}
-                //else MessageBox.Show(new Form() { TopMost = true, StartPosition = FormStartPosition.CenterParent },"Po kilku próbach nie udało się nawiązać połączenia","Nawiązywanie połączenia z serwerem "+serverName,MessageBoxButtons.OK,MessageBoxIcon.Exclamation);  
-            }
-            catch (Win32Exception)
-            { }
-            catch (Exception e)
-            {
-                PuzzelLibrary.Debug.LogsCollector.GetLogs(e, serverName);
-            }
-            return sessioninfo;
+            dataGridView1.Rows.Clear();
+            GetSessionsToDataGridView();
         }
 
-        public void SzukanieSesji(string serverName)
+        public void GetSessionsToDataGridView()
         {
-            //int _retry = 0;
-            _hostname = serverName;
             try
             {
                 if (dataGridView1 != null)
                     dataGridView1.Rows.Clear();
-                //retry:
-                //if (_retry < 5)
-                //{
-                //if (Ping.TCPPing(serverName, 135) == Ping.TCPPingStatus.Success)
-                //{
-                using (ITerminalServer server = GetRemoteServer(serverName))
-                {
-                    server.Open();
-                    IList<ITerminalServicesSession> sessions;
-                    sessions = server.GetSessions();
+
+                var Server = new PuzzelLibrary.Terminal.Explorer().GetRemoteServer(HostName);
+                var sessions = new PuzzelLibrary.Terminal.Explorer().FindSessions(Server);
                     foreach (ITerminalServicesSession session in sessions)
                     {
                         if (session.UserAccount != null)
@@ -164,41 +65,14 @@ namespace Forms.External.Explorer
                             session.IdleTime,
                             session.LoginTime)));
                     }
-                    server.Close();
-                    sessionCount.BeginInvoke(new Action(() => sessionCount.Text = "Aktywne sesje: " + dataGridView1.Rows.Count));
-                }
-                //}
-                //    else { _retry++; goto retry; }
-                //}
-                //else MessageBox.Show(new Form() { TopMost = true, StartPosition = FormStartPosition.CenterParent }, "Po kilku próbach nie udało się nawiązać połączenia", "Nawiązywanie połączenia z serwerem " + serverName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    sessionCount.BeginInvoke(new Action(() => sessionCount.Text = "Aktywne sesje: " + /*dataGridView1.Rows.Count*/sessions.Count));    
             }
             catch (Win32Exception)
             {
                 MessageBox.Show(new Form() { TopMost = true }, "Brak dostępu", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
-        private void Button4_Click(object sender, EventArgs e)
-        {
-            dataGridView1.Rows.Clear();
-            SzukanieSesji(_hostname);
-        }
-
-        private void Button1_Click(object sender, EventArgs e)
-        {
-            //if (IDsesjiLabel.Text.Length > 0)
-            // statusSesji(Convert.ToInt16(IDsesjiLabel.Text));
-        }
-
-        Label IDsesjiLabel; Label rozdzielczoscLabel; Label sprzetidLabel; Label poziomszyfrowaniaLabel;
-        Label glebiakolorowLabel; Label produktidlabel; Label katalogLabel; Label adresipLabel;
-        Label nazwaklientaLabel; Label kartasieciowaLabel; Label nazwauzytkownikaLabel; Label label10;
-        Label label9; Label bajtyramkiwychodzace; Label ramkiwychodzaceLabel; Label bajtywychodzaceLabel;
-        Label stopienkompresjiLabel; Label bajtyramkiprzychodzaceLabel; Label ramkiprzychodzaceLabel;
-        Label bajtyprzychodzaceLabel; Label label16; Label label15; Label label14; Label label13;
-        Label label12; Label label11; Label label8; Label label7; Label label6; Label label5;
-        Label label4; Label label3; Label label2; Label label1; Label statusZalogowlabel;
-
-        private void OdswiezStatus(ITerminalServicesSession session, int selectedSessionID)
+        private void RefreshStatus(ITerminalServicesSession session, int selectedSessionID)
         {
             if (session.UserAccount != null)
             {
@@ -234,7 +108,6 @@ namespace Forms.External.Explorer
                     bajtyramkiwychodzace.Text = Math.Floor(Convert.ToDecimal(session.OutgoingStatistics.Bytes / session.OutgoingStatistics.Frames)).ToString();
                 else bajtyramkiwychodzace.Text = "brak danych";
             }
-
             ramkiwychodzaceLabel.Refresh();
             bajtyramkiwychodzace.Refresh();
             bajtywychodzaceLabel.Refresh();
@@ -251,7 +124,7 @@ namespace Forms.External.Explorer
             nazwaklientaLabel.Refresh();
             nazwaklientaLabel.Refresh();
         }
-        private void OdswiezProcess(object sender, ITerminalServer server, ITerminalServicesSession session, int selectedSessionID)
+        private void RefreshProcesses(object sender, ITerminalServer server, ITerminalServicesSession session, int selectedSessionID)
         {
             DataGridView dataGridView = null;
             TabPage tabPage = null;
@@ -267,40 +140,12 @@ namespace Forms.External.Explorer
             }
             var label = tabPage.Controls.Find("processCount", true)[0];
             dataGridView.Rows.Clear();
-            foreach (ITerminalServicesProcess process in server.GetProcesses())
+            foreach (ITerminalServicesProcess process in new PuzzelLibrary.Terminal.Explorer().GetExplorerProcess(server))
                 if (process.SessionId == selectedSessionID)
                     dataGridView.Rows.Add(session.Server.ServerName, session.UserName, session.WindowStationName, process.SessionId, process.ProcessId, process.ProcessName);
             ((Label)label).Text = "Lista procesów: " + dataGridView.Rows.Count;
         }
 
-        public void LogoffSession(string hostname, int sessionID)
-        {
-            using (ITerminalServer server = GetRemoteServer(hostname))
-            {
-                server.Open();
-                ITerminalServicesSession session = server.GetSession(sessionID);
-                session.Logoff();
-                server.Close();
-                MessageBox.Show(new Form() { TopMost = true }, "Sesja została rozłączona", "Rozłączanie sesji", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-        }
-
-        public void ConnectToSession(string hostname, int sessionID)
-        {
-            try
-            {
-                using (ITerminalServer server = GetRemoteServer(hostname))
-                {
-                    server.Open();
-                    server.GetSession(sessionID).StartRemoteControl(ConsoleKey.Multiply, RemoteControlHotkeyModifiers.Control);
-                    server.Close();
-                }
-            }
-            catch (Win32Exception e)
-            {
-                MessageBox.Show(new Form() { TopMost = true }, e.Message /*"Nie można się podłączyć ponieważ sesja jest rozłączona lub użytkownik nie jest obecnie zalogowany."*/, "Podłączanie do sesji", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-        }
 
         private void ContextMenus(object sender, EventArgs e)
         {
@@ -324,7 +169,7 @@ namespace Forms.External.Explorer
             }
             try
             {
-                using (ITerminalServer server = GetRemoteServer(_hostname))
+                using (ITerminalServer server = new PuzzelLibrary.Terminal.Explorer().GetRemoteServer(HostName))
                 {
                     server.Open();
                     ITerminalServicesSession session = server.GetSession(selectedSessionID);
@@ -336,13 +181,13 @@ namespace Forms.External.Explorer
                                 {
                                     session.Disconnect();
                                     MessageBox.Show(new Form() { TopMost = true }, "Sesja została rozłączona", "Rozłączanie sesji", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                    Button4_Click(sender, e);
+                                    RefreshRows(sender, e);
                                     break;
                                 }
 
                             case "wyslijWiadomoscToolStripMenuItem":
                                 {
-                                    using (var terms = new terminalExplorerSendMessage(_hostname, selectedSessionID))
+                                    using (var terms = new ExplorerFormSendMessage(HostName, selectedSessionID))
                                     {
                                         terms.ShowDialog();
                                         MessageBox.Show("Wiadomość wysłano", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -360,7 +205,7 @@ namespace Forms.External.Explorer
                                 {
                                     session.Logoff();
                                     MessageBox.Show(new Form() { TopMost = true }, "Sesja została wylogowana", "Wylogowywanie sesji", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                    Button4_Click(sender, e);
+                                    RefreshRows(sender, e);
                                     break;
                                 }
 
@@ -382,7 +227,7 @@ namespace Forms.External.Explorer
                                     var tabPage = ((TabPage)((DataGridView)((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl).Parent);
                                     var button = tabPage.Controls.Find("Refresh", true);
                                     process.Kill();
-                                    OdswiezProcess(sender, server, session, selectedSessionID);
+                                    RefreshProcesses(sender, server, session, selectedSessionID);
                                     MessageBox.Show("Zabito aplikację");
                                     break;
                                 }
@@ -394,12 +239,12 @@ namespace Forms.External.Explorer
                         {
                             case "RefreshProcess":
                                 {
-                                    OdswiezProcess(sender, server, session, selectedSessionID);
+                                    RefreshProcesses(sender, server, session, selectedSessionID);
                                     break;
                                 }
                             case "RefreshStatus":
                                 {
-                                    OdswiezStatus(session, selectedSessionID);
+                                    RefreshStatus(session, selectedSessionID);
                                     break;
                                 }
                         }
@@ -409,7 +254,7 @@ namespace Forms.External.Explorer
             }
             catch (Exception ex)
             {
-                PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, _hostname);
+                PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, HostName);
             }
         }
 
@@ -492,7 +337,7 @@ namespace Forms.External.Explorer
                 Text = "Zamknij",
                 UseVisualStyleBackColor = true,
             };
-            dynaButton.Click += new EventHandler(Zamykaniestrony);
+            dynaButton.Click += new EventHandler(CloseTabPage);
 
             Button dynaButton1 = new Button
             {
@@ -536,7 +381,7 @@ namespace Forms.External.Explorer
                 Text = "Zamknij",
                 UseVisualStyleBackColor = true,
             };
-            dynaButton.Click += new EventHandler(Zamykaniestrony);
+            dynaButton.Click += new EventHandler(CloseTabPage);
 
             Button dynaButton1 = new Button
             {
@@ -672,4 +517,3 @@ namespace Forms.External.Explorer
         
     }
 }
-
