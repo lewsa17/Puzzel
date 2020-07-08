@@ -9,7 +9,7 @@ using System.Runtime.CompilerServices;
 
 namespace PuzzelLibrary.Debug
 {
-    static class LogsCollector
+    public static class LogsCollector
     {
         public static string GetLogs(Exception e, string InputedValue)
         {
