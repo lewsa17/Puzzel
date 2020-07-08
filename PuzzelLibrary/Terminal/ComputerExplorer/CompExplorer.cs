@@ -22,6 +22,7 @@ namespace PuzzelLibrary.Terminal.ComputerExplorer
         public string ActiveSession(string HostName)
         {
             string data = string.Empty;
+            //brakujący wpis
             if (QuickFix.Unlock.UnlockRemoteRPC(HostName, Microsoft.Win32.RegistryHive.LocalMachine, @"SYSTEM\CurrentControlSet\Control\Terminal Server"))
             {
                 data += (HostName+ " --------------------------------\n");
