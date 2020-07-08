@@ -72,7 +72,7 @@ namespace Forms
             this.PowershellMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.BtnKarty_sieciowe = new System.Windows.Forms.Button();
             this.BtnLista_program = new System.Windows.Forms.Button();
-            this.BtnExplorerC = new System.Windows.Forms.Button();
+            this.btnExplorer = new System.Windows.Forms.Button();
             this.btnPulpit_Zdalny = new System.Windows.Forms.Button();
             this.RemoteDesktopContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.rDPBezPustyContextMenu = new System.Windows.Forms.ToolStripMenuItem();
@@ -503,7 +503,7 @@ namespace Forms
             this.groupBox3.Controls.Add(this.BtnZdalneCMD);
             this.groupBox3.Controls.Add(this.BtnKarty_sieciowe);
             this.groupBox3.Controls.Add(this.BtnLista_program);
-            this.groupBox3.Controls.Add(this.BtnExplorerC);
+            this.groupBox3.Controls.Add(this.btnExplorer);
             this.groupBox3.Controls.Add(this.btnPulpit_Zdalny);
             this.groupBox3.Controls.Add(this.BtnDW);
             this.groupBox3.Controls.Add(this.BtnZarzadzanie);
@@ -633,19 +633,19 @@ namespace Forms
             this.BtnLista_program.UseVisualStyleBackColor = true;
             this.BtnLista_program.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
-            // BtnExplorerC
+            // btnExplorer
             // 
-            this.BtnExplorerC.Image = global::Forms.Resources.Resources.folder;
-            this.BtnExplorerC.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnExplorerC.Location = new System.Drawing.Point(520, 10);
-            this.BtnExplorerC.Name = "BtnExplorerC";
-            this.BtnExplorerC.Size = new System.Drawing.Size(113, 30);
-            this.BtnExplorerC.TabIndex = 5;
-            this.BtnExplorerC.TabStop = false;
-            this.BtnExplorerC.Text = "Explorer C$";
-            this.BtnExplorerC.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.BtnExplorerC.UseVisualStyleBackColor = true;
-            this.BtnExplorerC.Click += new System.EventHandler(this.ExplorerC_Click);
+            this.btnExplorer.Image = global::Forms.Resources.Resources.folder;
+            this.btnExplorer.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnExplorer.Location = new System.Drawing.Point(520, 10);
+            this.btnExplorer.Name = "btnExplorer";
+            this.btnExplorer.Size = new System.Drawing.Size(113, 30);
+            this.btnExplorer.TabIndex = 5;
+            this.btnExplorer.TabStop = false;
+            this.btnExplorer.Text = "Explorer C$";
+            this.btnExplorer.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnExplorer.UseVisualStyleBackColor = true;
+            this.btnExplorer.Click += new System.EventHandler(this.btnExplorer_Click);
             // 
             // btnPulpit_Zdalny
             // 
@@ -1431,7 +1431,7 @@ namespace Forms
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button BtnKarty_sieciowe;
         private System.Windows.Forms.Button BtnLista_program;
-        private System.Windows.Forms.Button BtnExplorerC;
+        private System.Windows.Forms.Button btnExplorer;
         private System.Windows.Forms.Button btnPulpit_Zdalny;
         private System.Windows.Forms.Button BtnDW;
         private System.Windows.Forms.Button BtnZarzadzanie;

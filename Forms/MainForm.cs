@@ -135,7 +135,7 @@ namespace Forms
             StopTime();
         }
 
-        private void ExplorerC_Click(object sender, EventArgs e)
+        private void btnExplorer_Click(object sender, EventArgs e)
         {
             StartTime();
             if (HostName().Length > 0)
@@ -1593,7 +1593,7 @@ namespace Forms
                     }
                 case "ExplorerC":
                     {
-                        ExplorerC_Click(BtnExplorerC, e);
+                        btnExplorer_Click(btnExplorer, e);
                         break;
                     }
                 case "Info_z_AD":
