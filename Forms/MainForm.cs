@@ -2119,29 +2119,19 @@ namespace Forms
             else UpdateRichTextBox("Za krótka nazwa komputera");
         }
 
-        private void processComputer(object sender, EventArgs e)
+        private void ActiveSession(object sender, EventArgs e)
         {
             ReplaceRichTextBox(null);
             UpdateRichTextBox(new PuzzelLibrary.Terminal.ComputerExplorer.CompExplorer().ActiveSession(HostName()));
         }
-        private void ActiveSession(object sender, EventArgs e)
+        private void processComputer(object sender, EventArgs e)
         {
-            ReplaceRichTextBox(null);
-            using (External.Explorer.ExplorerForm CE = new External.Explorer.ExplorerForm())
-            {
-                ComputerInfo_TEMP = null;
-                if (CE.isUnlockRemoteRPC(HostName(), RegistryHive.LocalMachine, @"SYSTEM\CurrentControlSet\Control\Terminal Server"))
-                {
-                    UpdateRichTextBox(string.Format("{0,-13}{1,-17}{2,-14}{3,-4}{4,-10}{5,-24}{6,-12}", "UŻYTKOWNIK", "KOMPUTER", "NAZWA SESJI", "ID", "STATUS", "CZAS BEZCZYNNOŚCI", "CZAS LOGOWANIA"));
-                    UpdateRichTextBox(System.Environment.NewLine);
-                    foreach (var session in CE.ActiveUserInfo(HostName()))
-                        ComputerInfo_TEMP += (string.Format(" {0,-13}{1,-17}{2,-14}{3,-4}{4,-10}{5,-24}{6,-13}",
-                            session.UserName, session.Server.ServerName, session.WindowStationName, session.SessionId, session.ConnectionState, session.IdleTime, session.ConnectTime));
-                    UpdateRichTextBox(ComputerInfo_TEMP);
-                }
-                else { UpdateRichTextBox("Nie posiadasz uprawnień aby odblokować RPC"); }
-                ComputerInfo_TEMP = null;
-            }
+            Thread thread;
+            External.Explorer.ExplorerForm explorer = new External.Explorer.ExplorerForm(((ToolStripMenuItem)sender).Text);
+            explorer.HostName = HostName();
+            thread = new Thread(() => explorer.GetSessionsToDataGridView());
+            thread.Start();
+            explorer.Show();
         }
         private void TCPPing_Click(object sender, EventArgs e)
         {
