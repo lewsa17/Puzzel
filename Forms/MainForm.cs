@@ -88,7 +88,7 @@ namespace Forms
             StartTime();
             if (HostName().Length > 0)
             {
-                if (PuzzelLibrary.Ping.Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
+                if (PuzzelLibrary.NetDiag.Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
                 {
                     PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess(PuzzelLibrary.ExternalResources.rdp, PuzzelLibrary.ExternalResources.rdpargs + HostName());
                 }
@@ -166,7 +166,7 @@ namespace Forms
             StartTime();
             if (HostName().Length > 0)
             {
-                if (PuzzelLibrary.Ping.Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
+                if (PuzzelLibrary.NetDiag.Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
                 {
                     PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess(PuzzelLibrary.ProcessExecutable.ProcExec.explorer, @"\\" + HostName() + @"\c$");
                 }
@@ -1108,7 +1108,7 @@ namespace Forms
             {
                 if (HostName().Length > 0)
                 {
-                    if (PuzzelLibrary.Ping.Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
+                    if (PuzzelLibrary.NetDiag.Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
                     {
                         var OSName = OsName(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, PuzzelLibrary.WMI.ComputerInfo.queryOperatingSystem);
                         string applicationName = null;
@@ -1144,9 +1144,9 @@ namespace Forms
             ClearRichTextBox();
             if (HostName().Length > 0)
             {
-                if (PuzzelLibrary.Ping.Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
+                if (PuzzelLibrary.NetDiag.Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
                 {
-                    if (PuzzelLibrary.Ping.Ping.TCPPing(HostName(), 135) == PuzzelLibrary.Ping.Ping.TCPPingStatus.Success)
+                    if (PuzzelLibrary.NetDiag.Ping.TCPPing(HostName(), 135) == PuzzelLibrary.NetDiag.Ping.TCPPingStatus.Success)
                     {
                         ComputerInfo_TEMP += ("Nazwa komputera: ");
                         PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, PuzzelLibrary.WMI.ComputerInfo.queryComputerSystem, "DNSHostName");
@@ -1345,7 +1345,7 @@ namespace Forms
 
             }
             if (HostName().Length > 0)
-                if (PuzzelLibrary.Ping.Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
+                if (PuzzelLibrary.NetDiag.Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
                 {
                     Process.Start("mmc.exe", arguments + @" /computer:\\" + HostName());
                 }
@@ -1531,7 +1531,7 @@ namespace Forms
             ClearRichTextBox();
             if (HostName().Length > 0)
             {
-                if (PuzzelLibrary.Ping.Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
+                if (PuzzelLibrary.NetDiag.Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
                 {
                     var OSName = OsName(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, PuzzelLibrary.WMI.ComputerInfo.queryOperatingSystem);
                     string applicationName = null;
@@ -2099,7 +2099,7 @@ namespace Forms
         private void EnableDotNET4CompatibilityToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (HostName().Length > 2)
-                if (PuzzelLibrary.Ping.Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
+                if (PuzzelLibrary.NetDiag.Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
                     PuzzelLibrary.QuickFix.IEHosting.EnableCompatibilityFramework4inIE(HostName());
                 else UpdateRichTextBox("Za krótka nazwa komputera");
         }
@@ -2108,7 +2108,7 @@ namespace Forms
         {
             if (HostName().Length > 2)
             {
-                if (PuzzelLibrary.Ping.Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
+                if (PuzzelLibrary.NetDiag.Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
                 {
                     using (EnvironmentVariable env = new EnvironmentVariable(HostName()))
                     {
@@ -2127,7 +2127,7 @@ namespace Forms
         private void ActiveSession(object sender, EventArgs e)
         {
             ReplaceRichTextBox(null);
-            using (External.Explorer.ExplorerForm CE = new External.Explorer.ExplorerForm())
+            using (External.Explorer.ExplorerForm CE = new External.Explorer.ExplorerForm.())
             {
                 ComputerInfo_TEMP = null;
                 if (CE.isUnlockRemoteRPC(HostName(), RegistryHive.LocalMachine, @"SYSTEM\CurrentControlSet\Control\Terminal Server"))
@@ -2160,7 +2160,7 @@ namespace Forms
         private void _TCPPing_Click(object sender, EventArgs e)
         {
             if (HostName().Length > 2)
-                if (PuzzelLibrary.Ping.Ping.TCPPing(HostName(), (int)numericUpDown3.Value) == PuzzelLibrary.Ping.Ping.TCPPingStatus.Success)
+                if (PuzzelLibrary.NetDiag.Ping.TCPPing(HostName(), (int)numericUpDown3.Value) == PuzzelLibrary.NetDiag.Ping.TCPPingStatus.Success)
                 {
                     UpdateRichTextBox("Badanie " + HostName() + " ukończone sukcesem. Port " + numericUpDown3.Value.ToString() + " jest otwarty.");
                 }
@@ -2171,7 +2171,7 @@ namespace Forms
         {
             if (HostName().Length > 2)
             {
-                if (PuzzelLibrary.Ping.Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
+                if (PuzzelLibrary.NetDiag.Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
                 {
                     using (DeleteUsers deleteUsers = new DeleteUsers(HostName()))
                     {
@@ -2197,7 +2197,7 @@ namespace Forms
         private void ActivateOffice(object sender, EventArgs e)
         {
             if (HostName().Length > 2)
-                if (PuzzelLibrary.Ping.Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
+                if (PuzzelLibrary.NetDiag.Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
                     PuzzelLibrary.QuickFix.ActivateOffice2016.Active(HostName());
                 else UpdateRichTextBox("Za krótka nazwa komputera");
         }

@@ -36,7 +36,7 @@ namespace Forms.External.TermsExplorer
             //retry:
             //    if (_retry < 5)
             //    {
-                    if (PuzzelLibrary.Ping.Ping.TCPPing(serverName, 135) == PuzzelLibrary.Ping.Ping.TCPPingStatus.Success)
+                    if (PuzzelLibrary.NetDiag.Ping.TCPPing(serverName, 135) == PuzzelLibrary.NetDiag.Ping.TCPPingStatus.Success)
                     {
                         using (ITerminalServer server = manager.GetRemoteServer(serverName))
                         {
