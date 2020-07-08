@@ -4,7 +4,7 @@ using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.ComponentModel;
 
-namespace PuzzelLibrary.Ping
+namespace PuzzelLibrary.NetDiag
 {
     public static class Ping
     {
@@ -15,19 +15,17 @@ namespace PuzzelLibrary.Ping
             {
                 if (System.Net.Dns.GetHostAddresses(HostName) != null)
                 {
-
-                PingReply reply = new System.Net.NetworkInformation.Ping().Send(HostName, 120, Encoding.ASCII.GetBytes("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"), new PingOptions(64, true));
+                    PingReply reply = new System.Net.NetworkInformation.Ping().Send(HostName, 120, Encoding.ASCII.GetBytes("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"), new PingOptions(64, true));
                     iPStatus = reply.Status;
                 }
             }
-            catch (System.Net.Sockets.SocketException socex)
+            catch (SocketException SockEx)
             {
-                //Form1.ReplaceRichTextBox("");
-                //Form1.UpdateRichTextBox("Wystąpił błąd podczas wykonywania żądania Ping\n" + socex.Message + ": " + HostName+"\n");
+                Debug.LogsCollector.GetLogs(SockEx, HostName);
             }
             catch (Exception e)
             {
-                PuzzelLibrary.Debug.LogsCollector.GetLogs(e, HostName);
+                Debug.LogsCollector.GetLogs(e, HostName);
             }
             return iPStatus;
         }
