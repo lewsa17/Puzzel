@@ -44,15 +44,6 @@
     <Compile Update="External\QuickFix\Environment_Variable.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="External\TermsExplorer\CustomSearch.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="External\TermsExplorer\SendMessage.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="External\TermsExplorer\TerminalExplorer.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

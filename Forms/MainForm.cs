@@ -205,7 +205,7 @@ namespace Forms
                         if (comboBox1.SelectedIndex >= 0)
                         {
                             SlowowTekscie = comboBox1.Items[comboBox1.SelectedIndex].ToString().Split(' ');
-                            External.TermsExplorer.TerminalExplorer Term = new External.TermsExplorer.TerminalExplorer();
+                            PuzzelLibrary.Terminal.TerminalExplorer Term = new PuzzelLibrary.Terminal.TerminalExplorer();
                             Term.ConnectToSession(SlowowTekscie[1], Convert.ToInt16(SlowowTekscie[0]));
                         }
                         else ReplaceRichTextBox("Nie wybrano aktywnej sesji");
@@ -346,8 +346,7 @@ namespace Forms
                         {
                             //if (File.Exists(Directory.GetCurrentDirectory() + @"\Cassia.dll"))
                             //{
-                            using (External.TermsExplorer.TerminalExplorer Term = new External.TermsExplorer.TerminalExplorer())
-                                Term.LogoffSession(SlowowTekscie[1], Convert.ToInt16(SlowowTekscie[0]));
+                                PuzzelLibrary.Terminal.Explorer.LogOffSession(new PuzzelLibrary.Terminal.Explorer().GetRemoteServer(SlowowTekscie[1]), Convert.ToInt16(SlowowTekscie[0]));
                             //}
                             //else MessageBox.Show("Plik Cassia.dll nie jest dostępny.");
                         }
@@ -380,16 +379,17 @@ namespace Forms
             terminalName = ((ToolStripMenuItem)sender).Text;
             if (terminalName == "Ręczna nazwa")
             {
-                PodajNazweTerminala podajNazweTerminala = new PodajNazweTerminala();
+                External.Explorer.ExplorerFormCustomSearch podajNazweTerminala = new External.Explorer.ExplorerFormCustomSearch();
                 podajNazweTerminala.ShowDialog();
             }
             Thread thread;
-            // Tutaj musi sie zmieniać nazwa paska Tytulu
-            External.TermsExplorer.TerminalExplorer terminalExplorer = new External.TermsExplorer.TerminalExplorer(/*nazwa paska tytułu*/);
-            thread = new Thread(() => terminalExplorer.SzukanieSesji(((ToolStripMenuItem)sender).Text));
+            External.Explorer.ExplorerForm explorer = new External.Explorer.ExplorerForm(((ToolStripMenuItem)sender).Text);
+            explorer.HostName = HostName();
+            thread = new Thread(() => explorer.GetSessionsToDataGridView());
             thread.Start();
-            terminalExplorer.Show();
+            explorer.Show();
         }
+    
 
         public static string ComputerInfo_TEMP { get; set; }
         private void DWButton_Click(object sender, EventArgs e)
@@ -911,8 +911,8 @@ namespace Forms
                             //Thread.Sleep(250);
                             Thread th = new Thread(() =>
                             {
-                                External.TermsExplorer.TerminalExplorer ts = new External.TermsExplorer.TerminalExplorer();
-                                object[] combo = ts.FindSession(terms, UserName());
+                                PuzzelLibrary.Terminal.Explorer   ts = new PuzzelLibrary.Terminal.Explorer();
+                                object[] combo = ts.FindSession(new PuzzelLibrary.Terminal.Explorer().GetRemoteServer(terms), UserName()).ToArray();
                                 if (combo != null)
                                 {
                                     Debug.WriteLine("Znaleziono aktywną sesję");
@@ -2122,12 +2122,12 @@ namespace Forms
         private void processComputer(object sender, EventArgs e)
         {
             ReplaceRichTextBox(null);
-            External.Explorer.ExplorerForm.processComputer(sender, e, HostName());
+            UpdateRichTextBox(new PuzzelLibrary.Terminal.ComputerExplorer.CompExplorer().ActiveSession(HostName()));
         }
         private void ActiveSession(object sender, EventArgs e)
         {
             ReplaceRichTextBox(null);
-            using (External.Explorer.ExplorerForm CE = new External.Explorer.ExplorerForm.())
+            using (External.Explorer.ExplorerForm CE = new External.Explorer.ExplorerForm())
             {
                 ComputerInfo_TEMP = null;
                 if (CE.isUnlockRemoteRPC(HostName(), RegistryHive.LocalMachine, @"SYSTEM\CurrentControlSet\Control\Terminal Server"))

@@ -41,7 +41,7 @@ namespace PuzzelLibrary.Terminal
             for (int i = 0; i < "Status        ".Length - session.ConnectionState.ToString().Length; i++)
                 data += (" ");
 
-            //Wyekstraktowanie całej czasu bezczynności
+            //Wyekstraktowanie całego czasu bezczynności
             int time = Convert.ToInt32(Math.Ceiling(((TimeSpan)session.IdleTime).TotalSeconds));
             double _time = 0;
             string idletime = "";
@@ -95,7 +95,7 @@ namespace PuzzelLibrary.Terminal
             { }
             catch (Exception e)
             {
-                PuzzleLibrary.Debug.Logs.CatchLogs(e, server.ServerName);
+                PuzzelLibrary.Debug.LogsCollector.GetLogs(e, server.ServerName);
             }
             return session;
         }
