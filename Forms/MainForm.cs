@@ -778,22 +778,11 @@ namespace Forms
             StopTime();
         }
 
-        private void Button19_Click(object sender, EventArgs e)
+        private void btnFlushDNS_Click(object sender, EventArgs e)
         {
             StartTime();
             ClearRichTextBox();
-            Process p = new Process();
-            p.StartInfo.FileName = @"ipconfig";
-            p.StartInfo.Arguments = @"/flushdns";
-            p.StartInfo.StandardOutputEncoding = Encoding.GetEncoding(852);
-            p.StartInfo.CreateNoWindow = true;
-            p.StartInfo.UseShellExecute = false;
-            p.StartInfo.RedirectStandardOutput = true;
-            p.OutputDataReceived += new DataReceivedEventHandler(POutputHandler);
-            p.Start();
-            p.BeginOutputReadLine();
-            p.WaitForExit();
-            p.Dispose();
+            StartWinSysApplication("ipconfig.exe", "/flushdns");
             StopTime();
         }
 

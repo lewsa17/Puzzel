@@ -112,7 +112,7 @@ namespace Forms
             this.button2 = new System.Windows.Forms.Button();
             this.CollapseTCP = new System.Windows.Forms.Button();
             this.BtnReload_Logs = new System.Windows.Forms.Button();
-            this.BtnFlush_DNS = new System.Windows.Forms.Button();
+            this.btnFlushDNS = new System.Windows.Forms.Button();
             richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.komputerInfo = new System.ComponentModel.BackgroundWorker();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
@@ -964,7 +964,7 @@ namespace Forms
             // 
             this.groupBox4.Controls.Add(this.panel1);
             this.groupBox4.Controls.Add(this.BtnReload_Logs);
-            this.groupBox4.Controls.Add(this.BtnFlush_DNS);
+            this.groupBox4.Controls.Add(this.btnFlushDNS);
             this.groupBox4.Location = new System.Drawing.Point(1, 180);
             this.groupBox4.MinimumSize = new System.Drawing.Size(1182, 45);
             this.groupBox4.Name = "groupBox4";
@@ -1045,19 +1045,19 @@ namespace Forms
             this.BtnReload_Logs.UseVisualStyleBackColor = true;
             this.BtnReload_Logs.Click += new System.EventHandler(this.Button20_Click);
             // 
-            // BtnFlush_DNS
+            // btnFlushDNS
             // 
-            this.BtnFlush_DNS.Image = ((System.Drawing.Image)(resources.GetObject("BtnFlush_DNS.Image")));
-            this.BtnFlush_DNS.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnFlush_DNS.Location = new System.Drawing.Point(6, 15);
-            this.BtnFlush_DNS.Name = "BtnFlush_DNS";
-            this.BtnFlush_DNS.Size = new System.Drawing.Size(89, 36);
-            this.BtnFlush_DNS.TabIndex = 1;
-            this.BtnFlush_DNS.TabStop = false;
-            this.BtnFlush_DNS.Text = "Flush DNS";
-            this.BtnFlush_DNS.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.BtnFlush_DNS.UseVisualStyleBackColor = true;
-            this.BtnFlush_DNS.Click += new System.EventHandler(this.Button19_Click);
+            this.btnFlushDNS.Image = ((System.Drawing.Image)(resources.GetObject("BtnFlush_DNS.Image")));
+            this.btnFlushDNS.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnFlushDNS.Location = new System.Drawing.Point(6, 15);
+            this.btnFlushDNS.Name = "btnFlushDNS";
+            this.btnFlushDNS.Size = new System.Drawing.Size(89, 36);
+            this.btnFlushDNS.TabIndex = 1;
+            this.btnFlushDNS.TabStop = false;
+            this.btnFlushDNS.Text = "Flush DNS";
+            this.btnFlushDNS.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnFlushDNS.UseVisualStyleBackColor = true;
+            this.btnFlushDNS.Click += new System.EventHandler(this.btnFlushDNS_Click);
             // 
             // richTextBox1
             // 
@@ -1442,7 +1442,7 @@ namespace Forms
         private System.Windows.Forms.Button BtnKomputerLog;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Button BtnReload_Logs;
-        private System.Windows.Forms.Button BtnFlush_DNS;
+        private System.Windows.Forms.Button btnFlushDNS;
         public System.Windows.Forms.ComboBox comboBox1;
         public System.Windows.Forms.NumericUpDown numericUpDown1;
         public System.Windows.Forms.TextBox textBox1;
