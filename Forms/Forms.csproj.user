@@ -5,10 +5,10 @@
     <Compile Update="Additional\Progress.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Additional\RemotePing_Tracert.cs">
+    <Compile Update="Additional\RemotePingTracert.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Additional\WyszukiwarkaDlaFormy.cs">
+    <Compile Update="Additional\SearchingMainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="External\Explorer\CustomSearch.cs">

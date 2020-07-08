@@ -29,179 +29,179 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SearchingMainForm));
-            this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.Wyszukiwarka = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.label3 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.Wyszukiwarka.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
+            this.labelSearchedText = new System.Windows.Forms.Label();
+            this.btnSearch = new System.Windows.Forms.Button();
+            this.textBoxSearchedText = new System.Windows.Forms.TextBox();
+            this.btnPreviousWord = new System.Windows.Forms.Button();
+            this.btnNextWord = new System.Windows.Forms.Button();
+            this.Form = new System.Windows.Forms.TabControl();
+            this.TabFind = new System.Windows.Forms.TabPage();
+            this.DualDirectionbox = new System.Windows.Forms.CheckBox();
+            this.TabChange = new System.Windows.Forms.TabPage();
+            this.labelChangeWord = new System.Windows.Forms.Label();
+            this.textboxChangeWord = new System.Windows.Forms.TextBox();
+            this.labelSearchedText1 = new System.Windows.Forms.Label();
+            this.btnReplace = new System.Windows.Forms.Button();
+            this.textboxReplaceWord = new System.Windows.Forms.TextBox();
+            this.Form.SuspendLayout();
+            this.TabFind.SuspendLayout();
+            this.TabChange.SuspendLayout();
             this.SuspendLayout();
             // 
-            // label1
+            // labelSearchedText
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 12);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(74, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Szukany tekst";
+            this.labelSearchedText.AutoSize = true;
+            this.labelSearchedText.Location = new System.Drawing.Point(6, 12);
+            this.labelSearchedText.Name = "labelSearchedText";
+            this.labelSearchedText.Size = new System.Drawing.Size(74, 13);
+            this.labelSearchedText.TabIndex = 0;
+            this.labelSearchedText.Text = "Szukany tekst";
             // 
-            // button1
+            // btnSearch
             // 
-            this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.button1.Location = new System.Drawing.Point(9, 54);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(313, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Wyszukaj";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.Buttons_Click);
+            this.btnSearch.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.btnSearch.Location = new System.Drawing.Point(9, 54);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(313, 23);
+            this.btnSearch.TabIndex = 2;
+            this.btnSearch.Text = "Wyszukaj";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.Buttons_Click);
             // 
-            // textBox1
+            // textBoxSearchedText
             // 
-            this.textBox1.Location = new System.Drawing.Point(9, 28);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(313, 20);
-            this.textBox1.TabIndex = 1;
-            this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBox1_KeyDown);
+            this.textBoxSearchedText.Location = new System.Drawing.Point(9, 28);
+            this.textBoxSearchedText.Name = "textBoxSearchedText";
+            this.textBoxSearchedText.Size = new System.Drawing.Size(313, 20);
+            this.textBoxSearchedText.TabIndex = 1;
+            this.textBoxSearchedText.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBox1_KeyDown);
             // 
-            // button3
+            // btnPreviousWord
             // 
-            this.button3.Location = new System.Drawing.Point(9, 83);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(155, 23);
-            this.button3.TabIndex = 3;
-            this.button3.Text = "< = Poprzednie";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Visible = false;
-            this.button3.Click += new System.EventHandler(this.Buttons_Click);
+            this.btnPreviousWord.Location = new System.Drawing.Point(9, 83);
+            this.btnPreviousWord.Name = "btnPreviousWord";
+            this.btnPreviousWord.Size = new System.Drawing.Size(155, 23);
+            this.btnPreviousWord.TabIndex = 3;
+            this.btnPreviousWord.Text = "< = Poprzednie";
+            this.btnPreviousWord.UseVisualStyleBackColor = true;
+            this.btnPreviousWord.Visible = false;
+            this.btnPreviousWord.Click += new System.EventHandler(this.Buttons_Click);
             // 
-            // button4
+            // btnNextWord
             // 
-            this.button4.DialogResult = System.Windows.Forms.DialogResult.Retry;
-            this.button4.Location = new System.Drawing.Point(167, 83);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(155, 23);
-            this.button4.TabIndex = 4;
-            this.button4.Text = "Następne =>";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Visible = false;
-            this.button4.Click += new System.EventHandler(this.Buttons_Click);
+            this.btnNextWord.DialogResult = System.Windows.Forms.DialogResult.Retry;
+            this.btnNextWord.Location = new System.Drawing.Point(167, 83);
+            this.btnNextWord.Name = "btnNextWord";
+            this.btnNextWord.Size = new System.Drawing.Size(155, 23);
+            this.btnNextWord.TabIndex = 4;
+            this.btnNextWord.Text = "Następne =>";
+            this.btnNextWord.UseVisualStyleBackColor = true;
+            this.btnNextWord.Visible = false;
+            this.btnNextWord.Click += new System.EventHandler(this.Buttons_Click);
             // 
-            // Wyszukiwarka
+            // Form
             // 
-            this.Wyszukiwarka.Controls.Add(this.tabPage1);
-            this.Wyszukiwarka.Controls.Add(this.tabPage2);
-            this.Wyszukiwarka.Location = new System.Drawing.Point(1, 4);
-            this.Wyszukiwarka.Name = "Wyszukiwarka";
-            this.Wyszukiwarka.SelectedIndex = 0;
-            this.Wyszukiwarka.Size = new System.Drawing.Size(341, 154);
-            this.Wyszukiwarka.TabIndex = 5;
-            this.Wyszukiwarka.SelectedIndexChanged += new System.EventHandler(this.Wyszukiwarka_Click);
+            this.Form.Controls.Add(this.TabFind);
+            this.Form.Controls.Add(this.TabChange);
+            this.Form.Location = new System.Drawing.Point(1, 4);
+            this.Form.Name = "Wyszukiwarka";
+            this.Form.SelectedIndex = 0;
+            this.Form.Size = new System.Drawing.Size(341, 154);
+            this.Form.TabIndex = 5;
+            this.Form.SelectedIndexChanged += new System.EventHandler(this.Wyszukiwarka_Click);
             // 
-            // tabPage1
+            // TabFind
             // 
-            this.tabPage1.Controls.Add(this.checkBox1);
-            this.tabPage1.Controls.Add(this.textBox1);
-            this.tabPage1.Controls.Add(this.label1);
-            this.tabPage1.Controls.Add(this.button4);
-            this.tabPage1.Controls.Add(this.button1);
-            this.tabPage1.Controls.Add(this.button3);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(333, 128);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Szukaj";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.TabFind.Controls.Add(this.DualDirectionbox);
+            this.TabFind.Controls.Add(this.textBoxSearchedText);
+            this.TabFind.Controls.Add(this.labelSearchedText);
+            this.TabFind.Controls.Add(this.btnNextWord);
+            this.TabFind.Controls.Add(this.btnSearch);
+            this.TabFind.Controls.Add(this.btnPreviousWord);
+            this.TabFind.Location = new System.Drawing.Point(4, 22);
+            this.TabFind.Name = "TabFind";
+            this.TabFind.Padding = new System.Windows.Forms.Padding(3);
+            this.TabFind.Size = new System.Drawing.Size(333, 128);
+            this.TabFind.TabIndex = 0;
+            this.TabFind.Text = "Szukaj";
+            this.TabFind.UseVisualStyleBackColor = true;
             // 
-            // checkBox1
+            // DualDirectionbox
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.checkBox1.Location = new System.Drawing.Point(176, 6);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(145, 17);
-            this.checkBox1.TabIndex = 5;
-            this.checkBox1.Text = "Szukanie dwukierunkowe";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.CheckBox1_CheckedChanged);
+            this.DualDirectionbox.AutoSize = true;
+            this.DualDirectionbox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.DualDirectionbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.DualDirectionbox.Location = new System.Drawing.Point(176, 6);
+            this.DualDirectionbox.Name = "DualDirectionbox";
+            this.DualDirectionbox.Size = new System.Drawing.Size(145, 17);
+            this.DualDirectionbox.TabIndex = 5;
+            this.DualDirectionbox.Text = "Szukanie dwukierunkowe";
+            this.DualDirectionbox.UseVisualStyleBackColor = true;
+            this.DualDirectionbox.CheckedChanged += new System.EventHandler(this.CheckBox1_CheckedChanged);
             // 
-            // tabPage2
+            // TabChange
             // 
-            this.tabPage2.Controls.Add(this.label3);
-            this.tabPage2.Controls.Add(this.textBox3);
-            this.tabPage2.Controls.Add(this.label2);
-            this.tabPage2.Controls.Add(this.button2);
-            this.tabPage2.Controls.Add(this.textBox2);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(333, 128);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Zamień";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.TabChange.Controls.Add(this.labelChangeWord);
+            this.TabChange.Controls.Add(this.textboxChangeWord);
+            this.TabChange.Controls.Add(this.labelSearchedText1);
+            this.TabChange.Controls.Add(this.btnReplace);
+            this.TabChange.Controls.Add(this.textboxReplaceWord);
+            this.TabChange.Location = new System.Drawing.Point(4, 22);
+            this.TabChange.Name = "TabChange";
+            this.TabChange.Padding = new System.Windows.Forms.Padding(3);
+            this.TabChange.Size = new System.Drawing.Size(333, 128);
+            this.TabChange.TabIndex = 1;
+            this.TabChange.Text = "Zamień";
+            this.TabChange.UseVisualStyleBackColor = true;
             // 
-            // label3
+            // labelChangeWord
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 57);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(60, 13);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "Zamień na:";
+            this.labelChangeWord.AutoSize = true;
+            this.labelChangeWord.Location = new System.Drawing.Point(6, 57);
+            this.labelChangeWord.Name = "labelChangeWord";
+            this.labelChangeWord.Size = new System.Drawing.Size(60, 13);
+            this.labelChangeWord.TabIndex = 6;
+            this.labelChangeWord.Text = "Zamień na:";
             // 
-            // textBox3
+            // textboxChangeWord
             // 
-            this.textBox3.Location = new System.Drawing.Point(9, 73);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(318, 20);
-            this.textBox3.TabIndex = 1;
+            this.textboxChangeWord.Location = new System.Drawing.Point(9, 73);
+            this.textboxChangeWord.Name = "textboxChangeWord";
+            this.textboxChangeWord.Size = new System.Drawing.Size(318, 20);
+            this.textboxChangeWord.TabIndex = 1;
             // 
-            // label2
+            // labelSearchedText1
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 12);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(77, 13);
-            this.label2.TabIndex = 7;
-            this.label2.Text = "Szukany tekst;";
+            this.labelSearchedText1.AutoSize = true;
+            this.labelSearchedText1.Location = new System.Drawing.Point(6, 12);
+            this.labelSearchedText1.Name = "labelSearchedText1";
+            this.labelSearchedText1.Size = new System.Drawing.Size(77, 13);
+            this.labelSearchedText1.TabIndex = 7;
+            this.labelSearchedText1.Text = "Szukany tekst;";
             // 
-            // button2
+            // btnReplace
             // 
-            this.button2.Location = new System.Drawing.Point(9, 99);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(318, 23);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Zamień";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.Buttons_Click);
+            this.btnReplace.Location = new System.Drawing.Point(9, 99);
+            this.btnReplace.Name = "btnReplace";
+            this.btnReplace.Size = new System.Drawing.Size(318, 23);
+            this.btnReplace.TabIndex = 2;
+            this.btnReplace.Text = "Zamień";
+            this.btnReplace.UseVisualStyleBackColor = true;
+            this.btnReplace.Click += new System.EventHandler(this.Buttons_Click);
             // 
-            // textBox2
+            // textboxReplaceWord
             // 
-            this.textBox2.Location = new System.Drawing.Point(9, 28);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(318, 20);
-            this.textBox2.TabIndex = 0;
+            this.textboxReplaceWord.Location = new System.Drawing.Point(9, 28);
+            this.textboxReplaceWord.Name = "textboxReplaceWord";
+            this.textboxReplaceWord.Size = new System.Drawing.Size(318, 20);
+            this.textboxReplaceWord.TabIndex = 0;
             // 
             // WyszukiwarkaDlaFormy
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(344, 161);
-            this.Controls.Add(this.Wyszukiwarka);
+            this.Controls.Add(this.Form);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = global::Forms.Resources.Resources.Puzzel;
             this.MaximizeBox = false;
@@ -213,30 +213,30 @@
             this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.WyszukiwarkaDlaFormy_FormClosing);
             this.Load += new System.EventHandler(this.WyszukiwarkaDlaFormy_Load);
-            this.Wyszukiwarka.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
+            this.Form.ResumeLayout(false);
+            this.TabFind.ResumeLayout(false);
+            this.TabFind.PerformLayout();
+            this.TabChange.ResumeLayout(false);
+            this.TabChange.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.TabControl Wyszukiwarka;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox3;
-        public System.Windows.Forms.Button button1;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Label labelSearchedText;
+        private System.Windows.Forms.TextBox textBoxSearchedText;
+        private System.Windows.Forms.Button btnPreviousWord;
+        private System.Windows.Forms.Button btnNextWord;
+        private System.Windows.Forms.TabControl Form;
+        private System.Windows.Forms.TabPage TabFind;
+        private System.Windows.Forms.TabPage TabChange;
+        private System.Windows.Forms.Label labelSearchedText1;
+        private System.Windows.Forms.Button btnReplace;
+        private System.Windows.Forms.TextBox textboxReplaceWord;
+        private System.Windows.Forms.Label labelChangeWord;
+        private System.Windows.Forms.TextBox textboxChangeWord;
+        public System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.CheckBox DualDirectionbox;
     }
 }

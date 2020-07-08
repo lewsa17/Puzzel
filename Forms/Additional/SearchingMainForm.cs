@@ -16,7 +16,7 @@ namespace Forms.Additional
         {
             InitializeComponent();
         }
-       public void Lastvalue(string lastValue)
+        public void Lastvalue(string lastValue)
         {
             ostatniouzywanawartosc = lastValue;
         }
@@ -24,20 +24,20 @@ namespace Forms.Additional
 
         private void Buttons_Click(object sender, EventArgs e)
         {
-            string SearchWord = textBox1.Text;
+            string SearchWord = textBoxSearchedText.Text;
             int SelectionStart = 0;
             if (sender is Button)
             {
-                if (Wyszukiwarka.SelectedTab == tabPage1)
+                if (Form.SelectedTab == TabFind)
                 {
-                    if (((Button)sender) == button1 | ((Button)sender) == button4)
+                    if (((Button)sender) == btnSearch | ((Button)sender) == btnNextWord)
                     {
                         if (MainForm.richTextBox1.SelectionStart > 1)
                             SelectionStart = MainForm.richTextBox1.Text.IndexOf(SearchWord, MainForm.richTextBox1.SelectionStart + SearchWord.Length, StringComparison.CurrentCultureIgnoreCase);
                         else SelectionStart = MainForm.richTextBox1.Text.IndexOf(SearchWord, MainForm.richTextBox1.SelectionStart, StringComparison.CurrentCultureIgnoreCase);
                     }
 
-                    if (((Button)sender) == button3)
+                    if (((Button)sender) == btnPreviousWord)
                         SelectionStart = MainForm.richTextBox1.Find(SearchWord, 0, MainForm.richTextBox1.SelectionStart, RichTextBoxFinds.Reverse);
                 }
             }
@@ -52,40 +52,40 @@ namespace Forms.Additional
                 MainForm.richTextBox1.SelectionStart = SelectionStart;
             else
                 MessageBox.Show("Nie znaleziono wartości: " + SearchWord);
-            MainForm.richTextBox1.SelectionLength = SearchWord.Length;   
+            MainForm.richTextBox1.SelectionLength = SearchWord.Length;
         }
 
         private void WyszukiwarkaDlaFormy_Load(object sender, EventArgs e)
         {
-            textBox1.Text = ostatniouzywanawartosc;
-            button3.Location = new Point(9, 54);
-            button4.Location = new Point(167, 54);
+            textBoxSearchedText.Text = ostatniouzywanawartosc;
+            btnPreviousWord.Location = new Point(9, 54);
+            btnNextWord.Location = new Point(167, 54);
         }
 
         private void TextBox1_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
-                Buttons_Click(sender,e);
+                Buttons_Click(sender, e);
         }
 
         private void Wyszukiwarka_Click(object sender, EventArgs e)
         {
-            this.Text = Wyszukiwarka.SelectedTab.Text;
+            this.Text = Form.SelectedTab.Text;
         }
 
         private void CheckBox1_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox1.Checked)
+            if (DualDirectionbox.Checked)
             {
-                button3.Visible = true;
-                button4.Visible = true;
-                button1.Visible = false;
+                btnPreviousWord.Visible = true;
+                btnNextWord.Visible = true;
+                btnSearch.Visible = false;
             }
             else
             {
-                button3.Visible = false;
-                button4.Visible = false;
-                button1.Visible = true;
+                btnPreviousWord.Visible = false;
+                btnNextWord.Visible = false;
+                btnSearch.Visible = true;
             }
         }
 
