@@ -10,15 +10,15 @@ using System.Threading;
 
 namespace Forms.External.Explorer
 {
-    public partial class Explorer : Form
+    public partial class ExplorerForm : Form
     {
-        public Explorer(string name)
+        public ExplorerForm(string name)
         {
             InitializeComponent();
             this.Text = name;
         }
 
-        public Explorer()
+        public ExplorerForm()
         {
 
         }
@@ -26,7 +26,7 @@ namespace Forms.External.Explorer
         public static void processComputer(object sender, EventArgs e, string HostName)
         {
             Thread thread;
-            Explorer terminalExplorer = new Explorer("Computer Explorer");
+            ExplorerForm terminalExplorer = new ExplorerForm("Computer Explorer");
             if (PuzzelLibrary.Ping.Ping.TCPPing(HostName, 135) == PuzzelLibrary.Ping.Ping.TCPPingStatus.Success)
             {
                 terminalExplorer.UnlockRemoteRPC(HostName, RegistryHive.LocalMachine, @"SYSTEM\CurrentControlSet\Control\Terminal Server");

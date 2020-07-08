@@ -2122,12 +2122,12 @@ namespace Forms
         private void processComputer(object sender, EventArgs e)
         {
             ReplaceRichTextBox(null);
-            External.Explorer.Explorer.processComputer(sender, e, HostName());
+            External.Explorer.ExplorerForm.processComputer(sender, e, HostName());
         }
         private void ActiveSession(object sender, EventArgs e)
         {
             ReplaceRichTextBox(null);
-            using (External.Explorer.Explorer CE = new External.Explorer.Explorer())
+            using (External.Explorer.ExplorerForm CE = new External.Explorer.ExplorerForm())
             {
                 ComputerInfo_TEMP = null;
                 if (CE.isUnlockRemoteRPC(HostName(), RegistryHive.LocalMachine, @"SYSTEM\CurrentControlSet\Control\Terminal Server"))
