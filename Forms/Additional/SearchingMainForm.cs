@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Forms.Additional
 {
-    public partial class WyszukiwarkaDlaFormy : Form
+    public partial class SearchingMainForm : Form
     {
-        public WyszukiwarkaDlaFormy()
+        public SearchingMainForm()
         {
             InitializeComponent();
         }

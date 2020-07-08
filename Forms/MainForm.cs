@@ -2056,7 +2056,7 @@ namespace Forms
         {
             richTextBox1.SelectionStart = 0;
             richTextBox1.HideSelection = false;
-            Additional.WyszukiwarkaDlaFormy wyszukiwarka = new Additional.WyszukiwarkaDlaFormy();
+            Additional.SearchingMainForm wyszukiwarka = new Additional.SearchingMainForm();
             wyszukiwarka.Show();
         }
         private void WyszukajMenuItem_Click(object sender, EventArgs e)
