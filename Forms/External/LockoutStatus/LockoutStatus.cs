@@ -16,7 +16,7 @@ namespace Forms.External
         public static string Username;
         public static string domainAddress = null;
 
-        private void Lockout_Status_Load(object sender, EventArgs e)
+        private void LockoutStatus_Load(object sender, EventArgs e)
         {
             this.Text = "Lockout Status";
             if (Username.Length > 1)
@@ -25,7 +25,7 @@ namespace Forms.External
                 //AddEntry();
             }
         }
-        private void WybierzUżytkownikaToolStripMenuItem_Click(object sender, EventArgs e)
+        private void menuItemSelectUser_Click(object sender, EventArgs e)
         {
             this.Text = "Lockout Status";
             LockoutStatusCustom custom = new LockoutStatusCustom();
@@ -46,22 +46,22 @@ namespace Forms.External
 
         private void DeleteEntryRows()
         {
-            if (dataGridView1.Rows.Count > 1)
-                dataGridView1.Rows.Clear();
+            if (dataGridView.Rows.Count > 1)
+                dataGridView.Rows.Clear();
         }
 
-        private void OdświeżZaznaczoneToolStripMenuItem_Click(object sender, EventArgs e)
+        private void menuItemRefreshSelected_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.CurrentCell != null)
-                if (dataGridView1.CurrentCell.RowIndex != 0)
+            if (dataGridView.CurrentCell != null)
+                if (dataGridView.CurrentCell.RowIndex != 0)
                 {
-                    int RowIndex = dataGridView1.CurrentCell.RowIndex;
-                    string dcName = dataGridView1.Rows[RowIndex].Cells[0].Value.ToString();
+                    int RowIndex = dataGridView.CurrentCell.RowIndex;
+                    string dcName = dataGridView.Rows[RowIndex].Cells[0].Value.ToString();
                     GetUserPasswordDetails(dcName);
                 }
         }
 
-        private void Lockout_Status_Activated(object sender, EventArgs e)
+        private void LockoutStatus_Activated(object sender, EventArgs e)
         {
             if (Username.Length > 1)
                 this.Text = Username;
@@ -69,15 +69,15 @@ namespace Forms.External
 
         public static void GetUserPasswordDetails(string dcName)
         {
-            if (dataGridView1.Columns != null)
+            if (dataGridView.Columns != null)
                 try
                 {
                     var pd = new PuzzelLibrary.AD.User.Information.Information.PasswordDetails();
-                            if (dataGridView1.InvokeRequired)
+                            if (dataGridView.InvokeRequired)
                             {
-                                dataGridView1.Invoke(new MethodInvoker(() => dataGridView1.Rows.Add(dcName, pd.userAccountLocked, pd.badLogonCount, pd.lastBadPasswordAttempt, pd.lastPasswordSet, pd.userLockoutTime)));
+                                dataGridView.Invoke(new MethodInvoker(() => dataGridView.Rows.Add(dcName, pd.userAccountLocked, pd.badLogonCount, pd.lastBadPasswordAttempt, pd.lastPasswordSet, pd.userLockoutTime)));
                             }
-                            else dataGridView1.Rows.Add(dcName, pd.userAccountLocked, pd.badLogonCount, pd.lastBadPasswordAttempt, pd.lastPasswordSet, pd.userLockoutTime);
+                            else dataGridView.Rows.Add(dcName, pd.userAccountLocked, pd.badLogonCount, pd.lastBadPasswordAttempt, pd.lastPasswordSet, pd.userLockoutTime);
 
                         
                         //else
@@ -91,18 +91,18 @@ namespace Forms.External
         }
 
 
-        private void ClearButtoonEntry(object sender, EventArgs e)
+        private void menuItemClearAll_Click(object sender, EventArgs e)
         {
             DeleteEntryRows();
         }
 
-        private void RefreshAllToolStripMenuItem_Click(object sender, EventArgs e)
+        private void menuItemRefreshAll_Click(object sender, EventArgs e)
         {
             DeleteEntryRows();
             AddEntry();
         }
 
-        private void PasswordStatusToolStripMenuItem_Click(object sender, EventArgs e)
+        private void menuItemPasswordStatus_Click(object sender, EventArgs e)
         {
             var pd = new PuzzelLibrary.AD.User.Information.Information.PasswordDetails();
             string messagebox = null;
@@ -136,12 +136,12 @@ namespace Forms.External
             MessageBox.Show(messagebox, "Status hasła");
         }
 
-        private void UnlockAllToolStripMenuItem_Click(object sender, EventArgs e)
+        private void UnlockAll_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.SelectedRows.Count != 0)
+            if (dataGridView.SelectedRows.Count != 0)
             {
-                int selectedRowIndex = dataGridView1.SelectedRows[0].Index;
-                string dcName = dataGridView1.Rows[selectedRowIndex].Cells[0].Value.ToString();
+                int selectedRowIndex = dataGridView.SelectedRows[0].Index;
+                string dcName = dataGridView.Rows[selectedRowIndex].Cells[0].Value.ToString();
 
                 if (PuzzelLibrary.AD.User.Operations.UnlockAccount(Username, dcName))
                        MessageBox.Show("Konto zostało odblokowane");

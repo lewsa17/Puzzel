@@ -21,7 +21,7 @@ namespace Forms.External.Explorer
         private void SendMessage(object sender, EventArgs e)
         {
             var session = new PuzzelLibrary.Terminal.Explorer().FindSession(new PuzzelLibrary.Terminal.Explorer().GetRemoteServer(hostName), selectedSessionID);
-                session.MessageBox(richTextBox1.Text, textBox1.Text);
+                session.MessageBox(richTextBoxContents.Text, textBoxTitleValue.Text);
                 this.Close();
             
         }

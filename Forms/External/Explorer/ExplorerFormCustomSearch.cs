@@ -15,17 +15,17 @@ namespace Forms.External.Explorer
             InitializeComponent();
         }
         public static string TerminalName { get; set; }
-        private void button1_Click(object sender, EventArgs e)
+        private void btnInput_Click(object sender, EventArgs e)
         {
-            TerminalName = textBox1.Text;
+            TerminalName = textBoxInput.Text;
             this.Close();
         }
 
-        private void textBox1_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        private void textBoxInput_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                TerminalName = textBox1.Text;
+                TerminalName = textBoxInput.Text;
                 this.Close();
             }
         }
