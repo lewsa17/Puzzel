@@ -310,7 +310,7 @@ namespace Forms
             this.BtnPolacz.Text = "Połącz";
             this.BtnPolacz.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.BtnPolacz.UseVisualStyleBackColor = true;
-            this.BtnPolacz.Click += new System.EventHandler(this.ConnectSession);
+            this.BtnPolacz.Click += new System.EventHandler(this.ConnectToSession);
             // 
             // comboBox1
             // 

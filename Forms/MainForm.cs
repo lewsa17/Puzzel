@@ -166,21 +166,21 @@ namespace Forms
             }
         }
 
-        public void ConnectSession(object sender, EventArgs e)
+        private void ConnectToSession(object sender, EventArgs e)
         {
             StartTime();
-            if (comboBoxFindedSessions.Text.Length > 0)
+            if (comboBoxFindedSessions.Text.Length > 1)
             {
-                string[] SlowowTekscie = null;
+                string[] IDSessionServerName = null;
                 try
                 {
                     if (comboBoxFindedSessions.Items.Count > 0)
                     {
                         if (comboBoxFindedSessions.SelectedIndex >= 0)
                         {
-                            SlowowTekscie = comboBoxFindedSessions.Items[comboBoxFindedSessions.SelectedIndex].ToString().Split(' ');
+                            IDSessionServerName = comboBoxFindedSessions.Items[comboBoxFindedSessions.SelectedIndex].ToString().Split(' ');
                             PuzzelLibrary.Terminal.TerminalExplorer Term = new PuzzelLibrary.Terminal.TerminalExplorer();
-                            Term.ConnectToSession(SlowowTekscie[1], Convert.ToInt16(SlowowTekscie[0]));
+                            Term.ConnectToSession(IDSessionServerName[1], Convert.ToInt16(IDSessionServerName[0]));
                         }
                         else ReplaceRichTextBox("Nie wybrano aktywnej sesji");
                     }
@@ -193,7 +193,7 @@ namespace Forms
                 }
                 catch (Win32Exception ex)
                 {
-                    PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, SlowowTekscie[1]);
+                    PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, IDSessionServerName[1]);
                 }
             }
             else ReplaceRichTextBox("Nie można się połączyć ponieważ nie została wybrana sesja");
@@ -1355,7 +1355,7 @@ namespace Forms
                     }
                 case "Polacz":
                     {
-                        ConnectSession(BtnPolacz, e);
+                        ConnectToSession(BtnPolacz, e);
                         break;
                     }
                 case "Profil_ERI":
