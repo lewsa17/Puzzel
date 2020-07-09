@@ -1,4 +1,4 @@
-﻿namespace Forms
+﻿namespace Forms.External
 {
     partial class Ustawienia
     {

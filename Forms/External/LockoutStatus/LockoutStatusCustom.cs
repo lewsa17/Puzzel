@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace Forms.External.LockoutStatus
+namespace Forms.External
 {
     public partial class LockoutStatusCustom : Form
     {

@@ -9,7 +9,7 @@ using System.Configuration;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Forms
+namespace Forms.External
 {
     public partial class Ustawienia : Form
     {

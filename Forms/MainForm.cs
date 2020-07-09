@@ -11,10 +11,9 @@ using System.DirectoryServices.AccountManagement;
 using System.Management;
 using System.Threading;
 using System.Runtime.InteropServices;
-using Forms.External.LockoutStatus;
+using Forms.External.QuickFix;
 using System.Management.Automation;
 using Microsoft.Win32;
-using Forms.External.QuickFix;
 using System.Collections.Generic;
 
 namespace Forms
@@ -1080,7 +1079,7 @@ namespace Forms
         {
             if (PuzzelLibrary.AD.User.Information.Information.IsUserAvailable(UserName()))
             {
-                External.LockoutStatus.LockoutStatus LS = new External.LockoutStatus.LockoutStatus(UserName());
+                External.LockoutStatus LS = new External.LockoutStatus(UserName());
                 if (UserName().Length > 0)
                 {
                     LS.AddEntry();
@@ -1773,7 +1772,7 @@ namespace Forms
             {
                 if (PuzzelLibrary.AD.User.Information.Information.IsUserAvailable(UserName()))
                 {
-                    ZmianaHasla zh = new ZmianaHasla();
+                    External.ZmianaHasla zh = new External.ZmianaHasla();
                     zh.ZmianaHaslaLoadForm(UserName());
                     zh.Show();
                 }

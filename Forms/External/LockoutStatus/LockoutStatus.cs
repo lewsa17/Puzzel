@@ -3,7 +3,7 @@ using System.Windows.Forms;
 using System.Threading;
 using System.Linq;
 
-namespace Forms.External.LockoutStatus
+namespace Forms.External
 {
     public partial class LockoutStatus :  Form
     {

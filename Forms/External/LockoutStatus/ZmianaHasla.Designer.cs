@@ -1,4 +1,4 @@
-﻿namespace Forms.External.LockoutStatus
+﻿namespace Forms.External
 {
     partial class ZmianaHasla
     {

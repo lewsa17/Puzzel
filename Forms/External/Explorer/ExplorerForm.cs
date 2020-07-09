@@ -25,8 +25,8 @@ namespace Forms.External.Explorer
 
         private void CloseTabPage(object sender, EventArgs e)
         {
-            tabControl1.Controls.Remove((TabPage)((Button)sender).Parent);
-            tabControl1.SelectedIndex = tabControl1.TabPages.Count - 1;
+            tabControl.Controls.Remove((TabPage)((Button)sender).Parent);
+            tabControl.SelectedIndex = tabControl.TabPages.Count - 1;
         }
 
         Label IDsesjiLabel; Label rozdzielczoscLabel; Label sprzetidLabel; Label poziomszyfrowaniaLabel;
@@ -39,7 +39,7 @@ namespace Forms.External.Explorer
         Label label4; Label label3; Label label2; Label label1; Label statusZalogowlabel;
         private void RefreshRows(object sender, EventArgs e)
         {
-            dataGridView1.Rows.Clear();
+            DataGridView.Rows.Clear();
             GetSessionsToDataGridView();
         }
 
@@ -47,16 +47,16 @@ namespace Forms.External.Explorer
         {
             try
             {
-                if (dataGridView1 != null)
-                    dataGridView1.Rows.Clear();
+                if (DataGridView != null)
+                    DataGridView.Rows.Clear();
 
                 var Server = new PuzzelLibrary.Terminal.Explorer().GetRemoteServer(HostName);
                 var sessions = new PuzzelLibrary.Terminal.Explorer().FindSessions(Server);
                     foreach (ITerminalServicesSession session in sessions)
                     {
                         if (session.UserAccount != null)
-                            dataGridView1.BeginInvoke(new Action(() =>
-                            dataGridView1.Rows.Add(
+                            DataGridView.BeginInvoke(new Action(() =>
+                            DataGridView.Rows.Add(
                             session.Server.ServerName,
                             session.UserName,
                             session.WindowStationName,
@@ -65,7 +65,7 @@ namespace Forms.External.Explorer
                             session.IdleTime,
                             session.LoginTime)));
                     }
-                    sessionCount.BeginInvoke(new Action(() => sessionCount.Text = "Aktywne sesje: " + /*dataGridView1.Rows.Count*/sessions.Count));    
+                    labelSessionCount.BeginInvoke(new Action(() => labelSessionCount.Text = "Aktywne sesje: " + /*dataGridView1.Rows.Count*/sessions.Count));    
             }
             catch (Win32Exception)
             {
@@ -177,7 +177,7 @@ namespace Forms.External.Explorer
                     {
                         switch (((ToolStripMenuItem)sender).Name)
                         {
-                            case "rozlaczToolStripMenuItem":
+                            case "menuItemSessionDisconnect":
                                 {
                                     session.Disconnect();
                                     MessageBox.Show(new Form() { TopMost = true }, "Sesja została rozłączona", "Rozłączanie sesji", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -185,7 +185,7 @@ namespace Forms.External.Explorer
                                     break;
                                 }
 
-                            case "wyslijWiadomoscToolStripMenuItem":
+                            case "menuItemSessionSendMessage":
                                 {
                                     using (var terms = new ExplorerFormSendMessage(HostName, selectedSessionID))
                                     {
@@ -195,13 +195,13 @@ namespace Forms.External.Explorer
                                     break;
                                 }
 
-                            case "zdalnaKontrolaToolStripMenu":
+                            case "menuItemSessionRemoteControl":
                                 {
                                     server.GetSession(selectedSessionID).StartRemoteControl(ConsoleKey.Multiply, RemoteControlHotkeyModifiers.Control);
                                     break;
                                 }
 
-                            case "wylogujToolStripMenuItem":
+                            case "menuItemSessionLogoff":
                                 {
                                     session.Logoff();
                                     MessageBox.Show(new Form() { TopMost = true }, "Sesja została wylogowana", "Wylogowywanie sesji", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -209,18 +209,18 @@ namespace Forms.External.Explorer
                                     break;
                                 }
 
-                            case "statusToolStripMenuItem":
+                            case "menuItemSessionStatus":
                                 {
                                     DynaStatusTab(session, selectedSessionID);
                                     break;
                                 }
-                            case "procesyToolStripMenuItem":
+                            case "menuItemSessionProcesses":
                                 {
                                     DynaProcessTab(server, session, selectedSessionID);
                                     break;
                                 }
 
-                            case "ZabijProcess":
+                            case "menuItemProcessKill":
                                 {
                                     var processId = Convert.ToInt16(((DataGridView)((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl).Rows[selectedRowIndex].Cells[4].Value);
                                     var process = server.GetProcess(processId);
@@ -237,7 +237,7 @@ namespace Forms.External.Explorer
                     else
                         switch (((Button)sender).Name)
                         {
-                            case "RefreshProcess":
+                            case "btnRefreshNow":
                                 {
                                     RefreshProcesses(sender, server, session, selectedSessionID);
                                     break;
@@ -357,8 +357,8 @@ namespace Forms.External.Explorer
                     dynaDataGridView
                 });
             dynaDataGridView.ContextMenuStrip = contextProcessMenuStrip;
-            tabControl1.Controls.Add(dynaProcessTabPage);
-            tabControl1.SelectedTab = dynaProcessTabPage;
+            tabControl.Controls.Add(dynaProcessTabPage);
+            tabControl.SelectedTab = dynaProcessTabPage;
         }
 
         private void DynaStatusTab(ITerminalServicesSession session, int selectedSessionID)
@@ -510,8 +510,8 @@ namespace Forms.External.Explorer
                     bajtyramkiwychodzace.Text = Math.Floor(Convert.ToDecimal(session.OutgoingStatistics.Bytes / session.OutgoingStatistics.Frames)).ToString();
                 else bajtyramkiwychodzace.Text = "brak danych";
             }
-            tabControl1.Controls.Add(dynaStatusTabPage);
-            tabControl1.SelectedTab = dynaStatusTabPage;
+            tabControl.Controls.Add(dynaStatusTabPage);
+            tabControl.SelectedTab = dynaStatusTabPage;
         }
 
         

@@ -5,7 +5,7 @@ using System.DirectoryServices;
 using System.DirectoryServices.AccountManagement;
 using System.Threading;
 
-namespace Forms.External.LockoutStatus
+namespace Forms.External
 {
     public partial class ZmianaHasla : Form
     {
