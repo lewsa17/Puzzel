@@ -169,16 +169,16 @@ namespace Forms
         public void ConnectSession(object sender, EventArgs e)
         {
             StartTime();
-            if (comboBox1.Text.Length > 0)
+            if (comboBoxFindedSessions.Text.Length > 0)
             {
                 string[] SlowowTekscie = null;
                 try
                 {
-                    if (comboBox1.Items.Count > 0)
+                    if (comboBoxFindedSessions.Items.Count > 0)
                     {
-                        if (comboBox1.SelectedIndex >= 0)
+                        if (comboBoxFindedSessions.SelectedIndex >= 0)
                         {
-                            SlowowTekscie = comboBox1.Items[comboBox1.SelectedIndex].ToString().Split(' ');
+                            SlowowTekscie = comboBoxFindedSessions.Items[comboBoxFindedSessions.SelectedIndex].ToString().Split(' ');
                             PuzzelLibrary.Terminal.TerminalExplorer Term = new PuzzelLibrary.Terminal.TerminalExplorer();
                             Term.ConnectToSession(SlowowTekscie[1], Convert.ToInt16(SlowowTekscie[0]));
                         }
@@ -224,8 +224,8 @@ namespace Forms
         {
             System.Threading.Tasks.Task thread = null;
             ClearRichTextBox();
-            comboBox1.Items.Clear();
-            comboBox1.Text = "";
+            comboBoxFindedSessions.Items.Clear();
+            comboBoxFindedSessions.Text = "";
             StartTime();
             int NameLength = 0;
             string folderName = null;
@@ -290,11 +290,11 @@ namespace Forms
                 }
                 else MessageBox.Show("Brak dostępu do zasobu");
 
-                if (comboBox1.InvokeRequired)
-                    comboBox1.Invoke(new MethodInvoker(() =>
+                if (comboBoxFindedSessions.InvokeRequired)
+                    comboBoxFindedSessions.Invoke(new MethodInvoker(() =>
                     {
-                        comboBox1.Text = "";
-                        comboBox1.Items.Clear();
+                        comboBoxFindedSessions.Text = "";
+                        comboBoxFindedSessions.Items.Clear();
                     }));
             }
             else ReplaceRichTextBox("Za mało danych");
@@ -309,20 +309,18 @@ namespace Forms
         private void LogoffSession(object sender, EventArgs e)
         {
             StartTime();
-            if (comboBox1.Text.Length > 0)
+            if (comboBoxFindedSessions.Text.Length > 1)
             {
-                string[] SlowowTekscie = comboBox1.Items[comboBox1.SelectedIndex].ToString().Split(' ');
+                string[] IDSessionServerName = null;
                 try
                 {
-                    if (comboBox1.Items.Count > 0)
+                    if (comboBoxFindedSessions.Items.Count > 0)
                     {
-                        if (comboBox1.SelectedIndex >= 0)
+                        if (comboBoxFindedSessions.SelectedIndex >= 0)
                         {
-                            //if (File.Exists(Directory.GetCurrentDirectory() + @"\Cassia.dll"))
-                            //{
-                                PuzzelLibrary.Terminal.Explorer.LogOffSession(new PuzzelLibrary.Terminal.Explorer().GetRemoteServer(SlowowTekscie[1]), Convert.ToInt16(SlowowTekscie[0]));
-                            //}
-                            //else MessageBox.Show("Plik Cassia.dll nie jest dostępny.");
+                            IDSessionServerName = comboBoxFindedSessions.Items[comboBoxFindedSessions.SelectedIndex].ToString().Split(' ');
+                            PuzzelLibrary.Terminal.Explorer.LogOffSession(new PuzzelLibrary.Terminal.Explorer().GetRemoteServer(IDSessionServerName[1]), Convert.ToInt16(IDSessionServerName[0]));
+
                         }
                         else ReplaceRichTextBox("Nie wybrano aktywnej sesji");
                     }
@@ -335,16 +333,11 @@ namespace Forms
                 }
                 catch (Win32Exception ex)
                 {
-                    PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, SlowowTekscie[1]);
-                }
-                finally
-                {
-                    comboBox1.Items.Clear();
-                    comboBox1.Text = "";
-                    ClearRichTextBox();
+                    PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, IDSessionServerName[1]);
                 }
             }
-            else ReplaceRichTextBox("Nie udało się rozłączyć sesji ponieważ nie została wybrana sesja");
+            else ReplaceRichTextBox("Nie można wylogować ponieważ nie została wybrana sesja");
+
             StopTime();
         }
         public static string terminalName = null;
@@ -599,7 +592,7 @@ namespace Forms
 
         private void SzukanieSesji(object sender, EventArgs e)
         {
-            comboBox1.Items.Clear();
+            comboBoxFindedSessions.Items.Clear();
             richTextBox1.Clear();
             int aktywnesesje = 0;
             try
@@ -620,16 +613,16 @@ namespace Forms
                                     Debug.WriteLine("Znaleziono aktywną sesję");
                                     aktywnesesje++;
                                     UpdateComboBox(combo[0] + " " + combo[1]);
-                                    if (comboBox1.InvokeRequired)
+                                    if (comboBoxFindedSessions.InvokeRequired)
                                     {
                                         Thread.Sleep(500);
-                                        comboBox1.Invoke(new MethodInvoker(() =>
+                                        comboBoxFindedSessions.Invoke(new MethodInvoker(() =>
                                         {
-                                            if (comboBox1.Items.Count > 0)
-                                                comboBox1.SelectedIndex = 0;
+                                            if (comboBoxFindedSessions.Items.Count > 0)
+                                                comboBoxFindedSessions.SelectedIndex = 0;
                                         }));
                                     }
-                                    else comboBox1.SelectedIndex = 0;
+                                    else comboBoxFindedSessions.SelectedIndex = 0;
                                     UpdateRichTextBox(combo[1] + " --------------------------------\n");
                                     UpdateRichTextBox("Nazwa użytkownika     Nazwa Sesji    Id    Status        Czas bezczynności    Czas logowania\n");
 
@@ -690,11 +683,11 @@ namespace Forms
         private delegate void updateComboBoxEventHandler(string message);
         private void UpdateComboBox(string message)
         {
-            if (comboBox1.InvokeRequired)
+            if (comboBoxFindedSessions.InvokeRequired)
             {
-                comboBox1.Invoke(new updateComboBoxEventHandler(UpdateComboBox), new object[] { message });
+                comboBoxFindedSessions.Invoke(new updateComboBoxEventHandler(UpdateComboBox), new object[] { message });
             }
-            else { comboBox1.Items.Add(message); }
+            else { comboBoxFindedSessions.Items.Add(message); }
         }
         private void Button20_Click(object sender, EventArgs e)
         {
@@ -1454,13 +1447,13 @@ namespace Forms
                         if (textBox2.SelectedText.Length > 0 && !string.IsNullOrEmpty(textBox2.SelectedText) && !string.IsNullOrWhiteSpace(textBox2.SelectedText))
                             Clipboard.SetText(textBox2.SelectedText.Trim(' '));
 
-                    if (comboBox1.Focused)
-                        if (comboBox1.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBox1.SelectedText) && !string.IsNullOrWhiteSpace(comboBox1.SelectedText))
+                    if (comboBoxFindedSessions.Focused)
+                        if (comboBoxFindedSessions.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBoxFindedSessions.SelectedText) && !string.IsNullOrWhiteSpace(comboBoxFindedSessions.SelectedText))
                         {
-                            comboBox1.Text = comboBox1.Text.Trim(' ');
-                            comboBox1.SelectAll();
+                            comboBoxFindedSessions.Text = comboBoxFindedSessions.Text.Trim(' ');
+                            comboBoxFindedSessions.SelectAll();
                             //Thread.Sleep(250);
-                            Clipboard.SetText(comboBox1.SelectedText.Trim());
+                            Clipboard.SetText(comboBoxFindedSessions.SelectedText.Trim());
                         }
                     if (comboBox2.Focused)
                         if (comboBox2.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBox2.SelectedText) && !string.IsNullOrWhiteSpace(comboBox2.SelectedText))
@@ -1494,7 +1487,7 @@ namespace Forms
                     {
                         textBox2.Paste();
                     }
-                    if (comboBox1.Focused)
+                    if (comboBoxFindedSessions.Focused)
                     {
                         Clipboard.GetDataObject();
                     }
@@ -1532,12 +1525,12 @@ namespace Forms
                             Clipboard.SetText(Clipboard.GetText().Trim(' '));
                         }
 
-                    if (comboBox1.Focused)
-                        if (comboBox1.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBox1.SelectedText) && !string.IsNullOrWhiteSpace(comboBox1.SelectedText))
+                    if (comboBoxFindedSessions.Focused)
+                        if (comboBoxFindedSessions.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBoxFindedSessions.SelectedText) && !string.IsNullOrWhiteSpace(comboBoxFindedSessions.SelectedText))
                         {
                             //Thread.Sleep(250);
-                            Clipboard.SetText(comboBox1.SelectedText);
-                            comboBox1.Text.Remove(comboBox1.SelectionStart, comboBox1.SelectionLength);
+                            Clipboard.SetText(comboBoxFindedSessions.SelectedText);
+                            comboBoxFindedSessions.Text.Remove(comboBoxFindedSessions.SelectionStart, comboBoxFindedSessions.SelectionLength);
                             //Clipboard.SetText(Clipboard.GetText().Trim(' '));
                         }
                     if (comboBox2.Focused)
@@ -1572,8 +1565,8 @@ namespace Forms
                     if (textBox2.Focused)
                         textBox2.SelectAll();
 
-                    if (comboBox1.Focused)
-                        comboBox1.SelectAll();
+                    if (comboBoxFindedSessions.Focused)
+                        comboBoxFindedSessions.SelectAll();
 
                     if (comboBox2.Focused)
                         comboBox2.SelectAll();
@@ -1619,9 +1612,9 @@ namespace Forms
                     if (textBox2.SelectedText.Length > 0 && !string.IsNullOrEmpty(textBox2.SelectedText) && !string.IsNullOrWhiteSpace(textBox2.SelectedText))
                         Clipboard.SetText(textBox2.SelectedText.Trim(' '));
 
-                if (comboBox1.Focused)
-                    if (comboBox1.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBox1.SelectedText) && !string.IsNullOrWhiteSpace(comboBox1.SelectedText))
-                        Clipboard.SetText(comboBox1.SelectedText.Trim(' '));
+                if (comboBoxFindedSessions.Focused)
+                    if (comboBoxFindedSessions.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBoxFindedSessions.SelectedText) && !string.IsNullOrWhiteSpace(comboBoxFindedSessions.SelectedText))
+                        Clipboard.SetText(comboBoxFindedSessions.SelectedText.Trim(' '));
 
                 if (comboBox2.Focused)
                     if (comboBox2.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBox2.SelectedText) && !string.IsNullOrWhiteSpace(comboBox2.SelectedText))
@@ -1663,11 +1656,11 @@ namespace Forms
                         Clipboard.SetText(Clipboard.GetText().Trim(' '));
                     }
 
-                if (comboBox1.Focused)
-                    if (comboBox1.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBox1.SelectedText) && !string.IsNullOrWhiteSpace(comboBox1.SelectedText))
+                if (comboBoxFindedSessions.Focused)
+                    if (comboBoxFindedSessions.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBoxFindedSessions.SelectedText) && !string.IsNullOrWhiteSpace(comboBoxFindedSessions.SelectedText))
                     {
-                        Clipboard.SetText(comboBox1.SelectedText);
-                        comboBox1.Text = comboBox1.Text.Remove(comboBox1.SelectionStart, comboBox1.SelectionLength);
+                        Clipboard.SetText(comboBoxFindedSessions.SelectedText);
+                        comboBoxFindedSessions.Text = comboBoxFindedSessions.Text.Remove(comboBoxFindedSessions.SelectionStart, comboBoxFindedSessions.SelectionLength);
                         Clipboard.SetText(Clipboard.GetText().Trim(' '));
                     }
                 if (comboBox2.Focused)
@@ -1707,9 +1700,9 @@ namespace Forms
                 {
                     textBox2.Paste();
                 }
-                if (comboBox1.Focused)
+                if (comboBoxFindedSessions.Focused)
                 {
-                    comboBox1.Text = Clipboard.GetText(TextDataFormat.UnicodeText);
+                    comboBoxFindedSessions.Text = Clipboard.GetText(TextDataFormat.UnicodeText);
                 }
                 if (comboBox2.Focused)
                 {
@@ -1738,8 +1731,8 @@ namespace Forms
                 if (textBox2.Focused)
                     textBox2.SelectAll();
 
-                if (comboBox1.Focused)
-                    comboBox1.SelectAll();
+                if (comboBoxFindedSessions.Focused)
+                    comboBoxFindedSessions.SelectAll();
 
                 if (comboBox2.Focused)
                     comboBox2.SelectAll();

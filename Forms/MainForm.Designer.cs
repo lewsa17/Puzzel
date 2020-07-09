@@ -45,7 +45,7 @@ namespace Forms
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.BtnLogoff = new System.Windows.Forms.Button();
             this.BtnPolacz = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.comboBoxFindedSessions = new System.Windows.Forms.ComboBox();
             this.BtnSzukaj_sesji = new System.Windows.Forms.Button();
             this.BtnProfil_ERI = new System.Windows.Forms.Button();
             this.BtnProfil_VFS = new System.Windows.Forms.Button();
@@ -275,7 +275,7 @@ namespace Forms
             // 
             this.groupBox2.Controls.Add(this.BtnLogoff);
             this.groupBox2.Controls.Add(this.BtnPolacz);
-            this.groupBox2.Controls.Add(this.comboBox1);
+            this.groupBox2.Controls.Add(this.comboBoxFindedSessions);
             this.groupBox2.Controls.Add(this.BtnSzukaj_sesji);
             this.groupBox2.Location = new System.Drawing.Point(537, 11);
             this.groupBox2.Name = "groupBox2";
@@ -314,13 +314,13 @@ namespace Forms
             // 
             // comboBox1
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.ImeMode = System.Windows.Forms.ImeMode.Off;
-            this.comboBox1.Location = new System.Drawing.Point(122, 19);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 3;
-            this.comboBox1.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Keys_PreviewKeyDown);
+            this.comboBoxFindedSessions.FormattingEnabled = true;
+            this.comboBoxFindedSessions.ImeMode = System.Windows.Forms.ImeMode.Off;
+            this.comboBoxFindedSessions.Location = new System.Drawing.Point(122, 19);
+            this.comboBoxFindedSessions.Name = "comboBox1";
+            this.comboBoxFindedSessions.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxFindedSessions.TabIndex = 3;
+            this.comboBoxFindedSessions.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Keys_PreviewKeyDown);
             // 
             // BtnSzukaj_sesji
             // 
@@ -1443,7 +1443,7 @@ namespace Forms
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Button BtnReload_Logs;
         private System.Windows.Forms.Button btnFlushDNS;
-        public System.Windows.Forms.ComboBox comboBox1;
+        public System.Windows.Forms.ComboBox comboBoxFindedSessions;
         public System.Windows.Forms.NumericUpDown numericUpDown1;
         public System.Windows.Forms.TextBox textBox1;
         public System.Windows.Forms.NumericUpDown numericUpDown2;
