@@ -12,7 +12,7 @@ namespace PuzzelLibrary.AD.Connection
         private static bool ConnectionCredential => CheckCredentials;
         private static bool CheckCredentials 
         {
-            get => true;//new Settings.GetSettings().CredentialsAvailable;
+            get => new Settings.GetSettings().CredentialsAvailable;
         }
         public static DirectorySearcher GetDirectorySearcher()
         {

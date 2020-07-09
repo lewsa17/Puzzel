@@ -456,7 +456,7 @@ namespace Forms
                         UpdateRichTextBox("\n");
                         //12 linijka
                         UpdateRichTextBox("Konto wygasa:\t\t\t\t" + user.accountExpires + "\n");  //działa ale jest zła strefa czasowa
-                                                                                                  //13 linijka                                                                     //12 linijka
+                        //13 linijka\
                         if (user.pwdLastSet < user.lockoutTime)
                             UpdateRichTextBox("Konto zablokowane:\t\t\t" + user.lockoutTime + "\n");
                         else UpdateRichTextBox("Konto zablokowane:\t\t\t" + "0" + "\n");
@@ -466,7 +466,7 @@ namespace Forms
                         else UpdateRichTextBox("Ostatnie błędne logowanie:\t\t" + 0 + "\n");
                         //15 linijka
                         UpdateRichTextBox("Ilość błędnych prób logowania:\t" + user.badPwdCount + "\n"); //działa serwerów są 4
-                                                                                                         //16 linijka                                                                            
+                        //16 linijka                                                                            
                         UpdateRichTextBox("Dostęp do internetu:\t\t\t" + user.InternetAccessEnabled + "\n");
                         //17 linijka
                         UpdateRichTextBox("Hasło ostatnio ustawiono:\t\t" + user.pwdLastSet + "\n");
@@ -510,7 +510,7 @@ namespace Forms
                 StopTime();
             }
 
-            private void btnFlushDNS_Click(object sender, EventArgs e)
+        private void btnFlushDNS_Click(object sender, EventArgs e)
         {
             StartTime();
             ClearRichTextBox();
@@ -527,13 +527,10 @@ namespace Forms
         {
             StartTime();
             PuzzelLibrary.WMI.ComputerInfo.AllComputerInfo(HostName());
-
             ReplaceRichTextBox(ComputerInfo_TEMP);
             ComputerInfo_TEMP = null;
             StopTime();
         }
-
-        
 
         public readonly Stopwatch stopWatch = new Stopwatch();
 
@@ -590,7 +587,7 @@ namespace Forms
             }
         }
 
-        private void SzukanieSesji(object sender, EventArgs e)
+        private void FindSessionBtn_Click(object sender, EventArgs e)
         {
             comboBoxFindedSessions.Items.Clear();
             richTextBox1.Clear();
@@ -1395,7 +1392,7 @@ namespace Forms
                     }
                 case "Szukaj_sesji":
                     {
-                        SzukanieSesji(BtnSzukaj_sesji, e);
+                        FindSessionBtn_Click(BtnFindSession, e);
                         break;
                     }
                 case "UserLog":

@@ -24,7 +24,7 @@ namespace PuzzelLibrary.Terminal
                 MessageBox.Show(new Form() { TopMost = true }, e.Message /*"Nie można się podłączyć ponieważ sesja jest rozłączona lub użytkownik nie jest obecnie zalogowany."*/, "Podłączanie do sesji", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
-        //public static string GetTerminalServers => Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "Terminal");
+        public static string GetTerminalServers => Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "Terminal");
 
         public static IList<ITerminalServicesSession> SessionIDServer;
         public string ActiveSession(string TermServerName, string SearchedLogin)

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-//using PuzzelLibrary.Settings;
+using PuzzelLibrary.Settings;
 
 namespace PuzzelLibrary.AD.Connection.Credential
 {
@@ -19,16 +19,16 @@ namespace PuzzelLibrary.AD.Connection.Credential
         }
         public void GetCredential()
         {
-            //var get = new GetSettings();
-            //this._UserName = get.UserName; 
-            //this._Password = get.Password;
+            var get = new GetSettings();
+            this._UserName = get.UserName;
+            this._Password = get.Password;
         }        
         public void SetCredential(string userName, string passWord)
         {
-            //var set = new SetSettings();
-            //set.UserName = userName;
-            //set.Password = passWord;
-            //set.Save();
+            var set = new SetSettings();
+            set.UserName = userName;
+            set.Password = passWord;
+            set.Save();
         }
     }
 }

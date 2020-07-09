@@ -46,7 +46,7 @@ namespace Forms
             this.BtnLogoff = new System.Windows.Forms.Button();
             this.BtnPolacz = new System.Windows.Forms.Button();
             this.comboBoxFindedSessions = new System.Windows.Forms.ComboBox();
-            this.BtnSzukaj_sesji = new System.Windows.Forms.Button();
+            this.BtnFindSession = new System.Windows.Forms.Button();
             this.BtnProfil_ERI = new System.Windows.Forms.Button();
             this.BtnProfil_VFS = new System.Windows.Forms.Button();
             this.BtnInfo_z_AD = new System.Windows.Forms.Button();
@@ -276,7 +276,7 @@ namespace Forms
             this.groupBox2.Controls.Add(this.BtnLogoff);
             this.groupBox2.Controls.Add(this.BtnPolacz);
             this.groupBox2.Controls.Add(this.comboBoxFindedSessions);
-            this.groupBox2.Controls.Add(this.BtnSzukaj_sesji);
+            this.groupBox2.Controls.Add(this.BtnFindSession);
             this.groupBox2.Location = new System.Drawing.Point(537, 11);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(434, 60);
@@ -317,24 +317,24 @@ namespace Forms
             this.comboBoxFindedSessions.FormattingEnabled = true;
             this.comboBoxFindedSessions.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.comboBoxFindedSessions.Location = new System.Drawing.Point(122, 19);
-            this.comboBoxFindedSessions.Name = "comboBox1";
+            this.comboBoxFindedSessions.Name = "comboBoxFindedSessions";
             this.comboBoxFindedSessions.Size = new System.Drawing.Size(121, 21);
             this.comboBoxFindedSessions.TabIndex = 3;
             this.comboBoxFindedSessions.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Keys_PreviewKeyDown);
             // 
-            // BtnSzukaj_sesji
+            // BtnFindSession
             // 
-            this.BtnSzukaj_sesji.Image = global::Forms.Resources.Resources.session;
-            this.BtnSzukaj_sesji.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnSzukaj_sesji.Location = new System.Drawing.Point(6, 14);
-            this.BtnSzukaj_sesji.Name = "BtnSzukaj_sesji";
-            this.BtnSzukaj_sesji.Size = new System.Drawing.Size(101, 36);
-            this.BtnSzukaj_sesji.TabIndex = 3;
-            this.BtnSzukaj_sesji.TabStop = false;
-            this.BtnSzukaj_sesji.Text = "Szukaj sesji";
-            this.BtnSzukaj_sesji.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.BtnSzukaj_sesji.UseVisualStyleBackColor = true;
-            this.BtnSzukaj_sesji.Click += new System.EventHandler(this.SzukanieSesji);
+            this.BtnFindSession.Image = global::Forms.Resources.Resources.session;
+            this.BtnFindSession.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnFindSession.Location = new System.Drawing.Point(6, 14);
+            this.BtnFindSession.Name = "BtnFindSession";
+            this.BtnFindSession.Size = new System.Drawing.Size(101, 36);
+            this.BtnFindSession.TabIndex = 3;
+            this.BtnFindSession.TabStop = false;
+            this.BtnFindSession.Text = "Szukaj sesji";
+            this.BtnFindSession.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.BtnFindSession.UseVisualStyleBackColor = true;
+            this.BtnFindSession.Click += new System.EventHandler(this.FindSessionBtn_Click);
             // 
             // BtnProfil_ERI
             // 
@@ -1421,7 +1421,7 @@ namespace Forms
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button BtnLogoff;
         private System.Windows.Forms.Button BtnPolacz;
-        private System.Windows.Forms.Button BtnSzukaj_sesji;
+        private System.Windows.Forms.Button BtnFindSession;
         private System.Windows.Forms.Button BtnProfil_ERI;
         private System.Windows.Forms.Button BtnProfil_VFS;
         private System.Windows.Forms.Button BtnInfo_z_AD;
