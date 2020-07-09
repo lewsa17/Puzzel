@@ -29,19 +29,19 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DeleteUsers));
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.ComboBoxUsers = new System.Windows.Forms.ComboBox();
             this.DeleteUserLabel = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.BtnDeleteUsers = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // comboBox1
+            // ComboBoxUsers
             // 
-            this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(71, 48);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(128, 21);
-            this.comboBox1.TabIndex = 0;
+            this.ComboBoxUsers.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.ComboBoxUsers.FormattingEnabled = true;
+            this.ComboBoxUsers.Location = new System.Drawing.Point(71, 48);
+            this.ComboBoxUsers.Name = "ComboBoxUsers";
+            this.ComboBoxUsers.Size = new System.Drawing.Size(128, 21);
+            this.ComboBoxUsers.TabIndex = 0;
             // 
             // DeleteUserLabel
             // 
@@ -52,31 +52,31 @@
             this.DeleteUserLabel.TabIndex = 1;
             this.DeleteUserLabel.Text = "Wybierz użytkownika z listy którego chcesz usunąć";
             // 
-            // button1
+            // BtnDeleteUsers
             // 
-            this.button1.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.button1.Location = new System.Drawing.Point(71, 75);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(128, 24);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Usuń użytkownika";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.BtnDeleteUsers.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.BtnDeleteUsers.Location = new System.Drawing.Point(71, 75);
+            this.BtnDeleteUsers.Name = "BtnDeleteUsers";
+            this.BtnDeleteUsers.Size = new System.Drawing.Size(128, 24);
+            this.BtnDeleteUsers.TabIndex = 2;
+            this.BtnDeleteUsers.Text = "Usuń użytkownika";
+            this.BtnDeleteUsers.UseVisualStyleBackColor = true;
+            this.BtnDeleteUsers.Click += new System.EventHandler(this.BtnDeleteUsers_Click);
             // 
-            // DeleteUsers
+            // DeleteUsersForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(273, 103);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.BtnDeleteUsers);
             this.Controls.Add(this.DeleteUserLabel);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.ComboBoxUsers);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(289, 142);
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(289, 142);
-            this.Name = "DeleteUsers";
+            this.Name = "DeleteUsersForm";
             this.Text = "Usuwanie użytkowników";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -85,8 +85,8 @@
 
         #endregion
 
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox ComboBoxUsers;
         private System.Windows.Forms.Label DeleteUserLabel;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button BtnDeleteUsers;
     }
 }
