@@ -9,11 +9,6 @@ namespace PuzzelLibrary.ProcessExecutable
 {
     public class ProcExec
     {
-        public static string vfs = null;
-        public static string eri = null;
-        public static string ext = null;
-        public static string net = null;
-        public static string explorer = null;
         public static void StartSimpleProcess(string FileName, string Arguments)
         {
             try

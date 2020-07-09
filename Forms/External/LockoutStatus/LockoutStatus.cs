@@ -72,7 +72,7 @@ namespace Forms.External
             if (dataGridView.Columns != null)
                 try
                 {
-                    var pd = new PuzzelLibrary.AD.User.Information.Information.PasswordDetails();
+                    var pd = new PuzzelLibrary.AD.User.Information.PasswordDetails();
                             if (dataGridView.InvokeRequired)
                             {
                                 dataGridView.Invoke(new MethodInvoker(() => dataGridView.Rows.Add(dcName, pd.userAccountLocked, pd.badLogonCount, pd.lastBadPasswordAttempt, pd.lastPasswordSet, pd.userLockoutTime)));
@@ -104,7 +104,7 @@ namespace Forms.External
 
         private void menuItemPasswordStatus_Click(object sender, EventArgs e)
         {
-            var pd = new PuzzelLibrary.AD.User.Information.Information.PasswordDetails();
+            var pd = new PuzzelLibrary.AD.User.Information.PasswordDetails();
             string messagebox = null;
             DateTime pwdLastSet = Convert.ToDateTime(pd.lastPasswordSet);
             TimeSpan pwdAge = DateTime.Now - pwdLastSet.AddHours(1);

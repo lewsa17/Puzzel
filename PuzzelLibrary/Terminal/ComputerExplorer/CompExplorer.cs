@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace PuzzelLibrary.Terminal.ComputerExplorer
+namespace PuzzelLibrary.Terminal
 {
     public class CompExplorer
     {

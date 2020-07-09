@@ -6,7 +6,7 @@ using System.DirectoryServices;
 using System.DirectoryServices.AccountManagement;
 using System.Text;
 
-namespace PuzzelLibrary.AD.User.Information
+namespace PuzzelLibrary.AD.User
 {
     public class Information : SearchInformation.Search, IInformation
     {

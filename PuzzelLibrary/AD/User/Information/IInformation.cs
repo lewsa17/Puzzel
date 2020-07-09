@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.DirectoryServices;
 
-namespace PuzzelLibrary.AD.User.Information
+namespace PuzzelLibrary.AD.User
 {
     interface IInformation
     {
