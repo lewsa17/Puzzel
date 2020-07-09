@@ -35,7 +35,7 @@ namespace Forms
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.groupBoxUserInfo = new System.Windows.Forms.GroupBox();
             this.comboBoxLogin = new System.Windows.Forms.ComboBox();
-            this.ContextMenuText = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.contextMenuOperationTextBox = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextMenuItemCut = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuItemCopy = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuItemPaste = new System.Windows.Forms.ToolStripMenuItem();
@@ -147,7 +147,7 @@ namespace Forms
             this.AutoGettingLogs = new System.Windows.Forms.Timer(this.components);
             this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBoxUserInfo.SuspendLayout();
-            this.ContextMenuText.SuspendLayout();
+            this.contextMenuOperationTextBox.SuspendLayout();
             this.groupBoxLogoff.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericLogin)).BeginInit();
             this.contextMenuOperationRichTextBox.SuspendLayout();
@@ -188,7 +188,7 @@ namespace Forms
             // 
             // comboBoxLogin
             // 
-            this.comboBoxLogin.ContextMenuStrip = this.ContextMenuText;
+            this.comboBoxLogin.ContextMenuStrip = this.contextMenuOperationTextBox;
             this.comboBoxLogin.FormattingEnabled = true;
             this.comboBoxLogin.Location = new System.Drawing.Point(6, 40);
             this.comboBoxLogin.Name = "comboBoxLogin";
@@ -197,16 +197,16 @@ namespace Forms
             this.comboBoxLogin.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Keys_KeyDown);
             this.comboBoxLogin.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Keys_PreviewKeyDown);
             // 
-            // ContextMenuText
+            // contextMenuOperationTextBox
             // 
-            this.ContextMenuText.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.contextMenuOperationTextBox.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.contextMenuItemCut,
             this.contextMenuItemCopy,
             this.contextMenuItemPaste,
             this.contextMenuItemSelectAll});
-            this.ContextMenuText.Name = "ContextMenuText";
-            this.ContextMenuText.ShowImageMargin = false;
-            this.ContextMenuText.Size = new System.Drawing.Size(190, 92);
+            this.contextMenuOperationTextBox.Name = "contextMenuOperationTextBox";
+            this.contextMenuOperationTextBox.ShowImageMargin = false;
+            this.contextMenuOperationTextBox.Size = new System.Drawing.Size(190, 92);
             // 
             // contextMenuItemCut
             // 
@@ -391,7 +391,7 @@ namespace Forms
             // 
             // numericLogin
             // 
-            this.numericLogin.ContextMenuStrip = this.ContextMenuText;
+            this.numericLogin.ContextMenuStrip = this.contextMenuOperationTextBox;
             this.numericLogin.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.numericLogin.Location = new System.Drawing.Point(143, 40);
             this.numericLogin.Maximum = new decimal(new int[] {
@@ -509,7 +509,7 @@ namespace Forms
             // 
             // comboBoxComputer
             // 
-            this.comboBoxComputer.ContextMenuStrip = this.ContextMenuText;
+            this.comboBoxComputer.ContextMenuStrip = this.contextMenuOperationTextBox;
             this.comboBoxComputer.FormattingEnabled = true;
             this.comboBoxComputer.Location = new System.Drawing.Point(6, 43);
             this.comboBoxComputer.Name = "comboBoxComputer";
@@ -883,7 +883,7 @@ namespace Forms
             // 
             // numericComputer
             // 
-            this.numericComputer.ContextMenuStrip = this.ContextMenuText;
+            this.numericComputer.ContextMenuStrip = this.contextMenuOperationTextBox;
             this.numericComputer.ImeMode = System.Windows.Forms.ImeMode.Disable;
             this.numericComputer.Location = new System.Drawing.Point(143, 43);
             this.numericComputer.Maximum = new decimal(new int[] {
@@ -1359,7 +1359,7 @@ namespace Forms
             this.Resize += new System.EventHandler(this.Form1_Resize);
             this.groupBoxUserInfo.ResumeLayout(false);
             this.groupBoxUserInfo.PerformLayout();
-            this.ContextMenuText.ResumeLayout(false);
+            this.contextMenuOperationTextBox.ResumeLayout(false);
             this.groupBoxLogoff.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericLogin)).EndInit();
             this.contextMenuOperationRichTextBox.ResumeLayout(false);
@@ -1478,7 +1478,7 @@ namespace Forms
         private System.Windows.Forms.ToolStripMenuItem menuItemLAPSpwd;
         private System.Windows.Forms.ToolStripMenuItem menuItemComputerInfoDisplay;
         private System.Windows.Forms.ToolStripMenuItem menuItemComputerInfoBios;
-        private System.Windows.Forms.ContextMenuStrip ContextMenuText;
+        private System.Windows.Forms.ContextMenuStrip contextMenuOperationTextBox;
         private System.Windows.Forms.ToolStripMenuItem contextMenuItemCut;
         private System.Windows.Forms.ToolStripMenuItem contextMenuItemCopy;
         private System.Windows.Forms.ToolStripMenuItem contextMenuItemPaste;
