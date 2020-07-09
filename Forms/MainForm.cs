@@ -414,268 +414,6 @@ namespace Forms
             StopTime();
         }
 
-        private static SearchResult SearchByUserName(DirectorySearcher ds, string username)
-        {
-            ds.Filter = "(&((&(objectCategory=Person)(objectClass=User)))(sAMAccountName=" + username + "))";
-            ds.SearchScope = SearchScope.Subtree;
-            ds.ServerTimeLimit = TimeSpan.FromSeconds(90);
-            SearchResult userObject = ds.FindOne();
-
-            if (userObject != null)
-                return userObject;
-            else
-                return null;
-        }
-
-        private static SearchResult SearchByEmail(DirectorySearcher ds, string email)
-        {
-            ds.Filter = "(&((&(objectCategory=Person)(objectClass=User)))(mail=" + email + "))";
-            ds.SearchScope = SearchScope.Subtree;
-            ds.ServerTimeLimit = TimeSpan.FromSeconds(90);
-            SearchResult userObject = ds.FindOne();
-
-            if (userObject != null)
-                return userObject;
-            else
-                return null;
-        }
-
-#pragma warning disable IDE0051 // Usuń nieużywane prywatne składowe
-        private string SearchProperty(string propertyName)
-#pragma warning restore IDE0051 // Usuń nieużywane prywatne składowe
-        {
-            using (DirectoryEntry entry = new DirectoryEntry("LDAP://" + DomainName()))
-            {
-                using (DirectorySearcher searcher = new DirectorySearcher(entry))
-                {
-                    SearchResult searchResult = searcher.FindOne();
-                    ResultPropertyValueCollection valueCollection = searchResult.Properties[propertyName];
-                    string temp = null;
-                    if (valueCollection != null)
-                        temp = valueCollection.ToString();
-                    return temp;
-                }
-            }
-        }
-
-        SearchResult GetInfo(string domain)
-        {
-            Cursor.Current = Cursors.WaitCursor;
-#pragma warning disable IDE0059 // Wartość przypisana do symbolu nie jest nigdy używana
-            SearchResult rs = UserName().Trim().IndexOf("@") > 0
-                ? SearchByEmail(GetDirectorySearcher(domain), UserName().Trim())
-                : SearchByUserName(GetDirectorySearcher(domain), UserName().Trim());
-            if (rs != null)
-                ShowUserInformation(rs);
-            else
-            {
-                MessageBox.Show("User not found!", "Search Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            return rs;
-        }
-
-        private DirectorySearcher GetDirectorySearcher(string domain)
-        {
-            DirectorySearcher dirsearch = null;
-            if (dirsearch == null)
-            {
-                try
-                {
-                    dirsearch = new DirectorySearcher(new DirectoryEntry("LDAP://" + domain));
-                }
-                catch (DirectoryServicesCOMException e)
-                {
-                    MessageBox.Show("connection credential is wrong, please check", "error info", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    e.Message.ToString();
-                }
-                return dirsearch;
-            }
-            else return dirsearch;
-        }
-
-        public string loginName { get; set; }
-        public string displayName { get; set; }
-        public string title { get; set; }
-        public string company { get; set; }
-        public string department { get; set; }
-        public string mail { get; set; }
-        public string userEnabled { get; set; }
-        public DateTime accountExpires { get; set; }
-        public DateTime lockoutTime { get; set; }
-        public DateTime badPasswordTime { get; set; }
-        public int badPwdCount { get; set; }
-        public string InternetAccessEnabled { get; set; }
-        public DateTime pwdLastSet { get; set; }
-        public DateTime lastBadPwdAttempt { get; set; }
-        public DateTime lastLogon { get; set; }
-        public DateTime lastLogoff { get; set; }
-        public string scriptPath { get; set; }
-        public string homeDirectory { get; set; }
-        public string homeDrive { get; set; }
-        public string userCannotChangePassword { get; set; }
-        public string passwordNotRequired { get; set; }
-        string permittedWorkstation { get; set; }
-        string SkypeLogin { get; set; }
-        string Groups { get; set; }
-        private void ShowUserInformation(SearchResult rs)
-        {
-            if (rs.GetDirectoryEntry().Properties["sAMAccountName"].Value != null)
-                loginName = rs.GetDirectoryEntry().Properties["sAMAccountName"].Value.ToString();
-
-            if (rs.GetDirectoryEntry().Properties["displayName"].Value != null)
-                displayName = rs.GetDirectoryEntry().Properties["displayName"].Value.ToString();
-
-            if (rs.GetDirectoryEntry().Properties["title"].Value != null)
-                title = rs.GetDirectoryEntry().Properties["title"].Value.ToString();
-
-            if (rs.GetDirectoryEntry().Properties["company"].Value != null)
-                company = rs.GetDirectoryEntry().Properties["company"].Value.ToString();
-
-            if (rs.GetDirectoryEntry().Properties["department"].Value != null)
-                department = rs.GetDirectoryEntry().Properties["department"].Value.ToString();
-
-            if (rs.GetDirectoryEntry().Properties["mail"].Value != null)
-                mail = (string)rs.GetDirectoryEntry().Properties["mail"].Value;
-
-            if (rs.GetDirectoryEntry().Properties["homeDirectory"].Value != null)
-                homeDirectory = rs.GetDirectoryEntry().Properties["homeDirectory"].Value.ToString();
-
-            using (PrincipalContext context = new PrincipalContext(ContextType.Domain))
-            {
-                UserPrincipal user = UserPrincipal.FindByIdentity(context, IdentityType.SamAccountName, UserName());
-                //? - to mark DateTime type as nullable
-
-                if (user.Enabled != null)
-                {
-                    if (user.Enabled == true) userEnabled = "TAK";
-                    if (user.Enabled == false) userEnabled = "NIE";
-                }
-                else userEnabled = "błąd";
-
-                if (user.BadLogonCount >= 0)
-                    badPwdCount = (int)user.BadLogonCount;
-
-                if (user.HomeDirectory != null)
-                    homeDirectory = user.HomeDirectory;
-
-                if (user.PermittedWorkstations.Count > 0)
-                {
-                    foreach (var permiWorks in user.PermittedWorkstations)
-                    {
-                        permittedWorkstation += permiWorks.ToString() + "\n\t\t\t\t\t\t";
-                    }
-                }
-                else permittedWorkstation = "Wszystkie";
-
-                if (user.LastPasswordSet != null)
-                {
-                    pwdLastSet = DateTime.FromFileTime(user.LastPasswordSet.Value.ToFileTime());
-                }
-                //if (user.PermittedLogonTimes != null)
-                //{
-                //    var zone = TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time");
-                //    var time = new LogonTime(DayOfWeek.Monday,
-                //         new DateTime(2011, 1, 1, 8, 0, 0),
-                //         new DateTime(2011, 1, 1, 10, 0, 0), zone);
-                //    var times = new List<LogonTime>();
-                //    times.add(time);
-                //    var mask = PermittedLogonTimes.GetByteMask(times);
-
-                //    var times = PermittedLogonTimes.GetLogonTimes(mask);
-                //}
-                //    permittedLogonTime = user.PermittedLogonTimes;
-
-                if (user.GetGroups() != null)
-                    foreach (var groups in user.GetGroups())
-                        Groups += groups.SamAccountName + "\n\t\t\t\t\t\t";
-                if (user.LastBadPasswordAttempt != null)
-                {
-                    lastBadPwdAttempt = DateTime.FromFileTime(user.LastBadPasswordAttempt.Value.ToFileTime());
-                }
-                if (user.HomeDrive != null)
-                    homeDrive = (string)user.HomeDrive;
-
-                if (user.ScriptPath != null)
-                    scriptPath = (string)user.ScriptPath;
-
-                //if (user.PasswordNotRequired)
-                //{
-                if (user.PasswordNotRequired == true) passwordNotRequired = "NIE";
-                else if (user.PasswordNotRequired == false) passwordNotRequired = "TAK";
-                //}
-                //else passwordNotRequired = "Błąd";
-
-                //if (user.UserCannotChangePassword)
-                //{
-                if (user.UserCannotChangePassword == true) userCannotChangePassword = "NIE";
-                else if (user.UserCannotChangePassword == false) userCannotChangePassword = "TAK";
-                //}
-                //else userCannotChangePassword = "Błąd";
-            }
-
-            if (rs.GetDirectoryEntry().Properties["msRTCSIP-PrimaryUserAddress"].Value != null)
-            {
-                SkypeLogin = rs.GetDirectoryEntry().Properties["msRTCSIP-PrimaryUserAddress"].Value.ToString();
-            }
-            else SkypeLogin = "Brak loginu";
-            if (rs.GetDirectoryEntry().Properties["msRTCSIP-InternetAccessEnabled"].Value != null)
-            {
-                if (rs.GetDirectoryEntry().Properties["msRTCSIP-InternetAccessEnabled"].Value.ToString() == "True")
-                    InternetAccessEnabled = "TAK";
-                if (rs.GetDirectoryEntry().Properties["msRTCSIP-InternetAccessEnabled"].Value.ToString() == "False")
-                    InternetAccessEnabled = "NIE";
-            }
-            else InternetAccessEnabled = "Błąd, brak obiektu";
-
-            if (rs.Properties.Contains("lastLogoff"))
-                if (rs.Properties["lastlogoff"][0].ToString() != "0")
-                {
-                    long temp = (long)rs.GetDirectoryEntry().Properties["lastLogoff"].Value;
-                    lastLogoff = DateTime.FromFileTime(temp);
-                }
-
-            if (rs.Properties.Contains("lastlogon"))
-                if (rs.Properties["lastLogon"][0].ToString() != "0")
-                {
-                    long temp = (long)rs.Properties["lastLogon"][0];
-                    lastLogon = DateTime.FromFileTime(temp);
-                }
-
-            if (rs.Properties.Contains("accountExpires"))
-                if (rs.GetDirectoryEntry().Properties["accountExpires"] != null)
-                {
-                    long temp = (long)rs.Properties["accountExpires"][0];
-                    accountExpires = DateTime.FromFileTime(temp);
-                }
-
-            if (rs.GetDirectoryEntry().Properties.Contains("lockoutTime"))
-            {
-                long temp = (long)rs.Properties["lockoutTime"][0];
-                lockoutTime = DateTime.FromFileTime(temp);
-            }
-        }
-
-        public static UserPrincipal GetUser(string UserName)
-        {
-            using (PrincipalContext oPrincipalContext = new PrincipalContext(ContextType.Domain))
-            {
-                UserPrincipal oUserPrincipal = UserPrincipal.FindByIdentity(oPrincipalContext, UserName);
-                return oUserPrincipal;
-            }
-        }
-
-        public ArrayList GetUserGroups(string UserName)
-        {
-            ArrayList myItems = new ArrayList();
-            UserPrincipal user = GetUser(UserName);
-            PrincipalSearchResult<Principal> oPrincipalSearcherResult = user.GetGroups();
-            foreach (Principal oResult in oPrincipalSearcherResult)
-            {
-                myItems.Add(oResult.Name);
-            }
-            return myItems;
-        }
-
         private void Info_z_AD_Click(object sender, EventArgs e)
         {
             StartTime();
@@ -689,96 +427,96 @@ namespace Forms
         {
             StartTime();
             ClearRichTextBox();
-
-            if (UserName().Length != 0)
-            {
-                if (GetInfo(DomainName()) != null)
+                if (UserName().Length != 0)
                 {
-                    //1 linijka
-                    TimeSpan temp = (pwdLastSet.AddDays(30) - DateTime.Now);
-                    if (temp > (DateTime.Now.AddDays(2) - DateTime.Now))
+                    var user = new PuzzelLibrary.AD.User.Information.Information(UserName());
+                    if (user != null)
                     {
-                        UpdateRichTextBox(temp.ToString("'Hasło wygasa za: 'dd' dni 'hh'g'mm'm'ss's'") + "\n");
+                        //1 linijka
+                        TimeSpan temp = (user.pwdLastSet.AddDays(30) - DateTime.Now);
+                        if (temp > (DateTime.Now.AddDays(2) - DateTime.Now))
+                        {
+                            UpdateRichTextBox(temp.ToString("'Hasło wygasa za: 'dd' dni 'hh'g'mm'm'ss's'") + "\n");
+                        }
+                        else if (temp < (DateTime.Now.AddDays(1) - DateTime.Now))
+                            UpdateRichTextBox(temp.ToString("'Hasło wygasa za: 'dd' dzień 'hh'g'mm'm'ss's'") + "\n");
+                        //2 linijka
+                        UpdateRichTextBox("\n");
+                        //3 linijka
+                        UpdateRichTextBox("---------------------------------" + "\n");
+                        //4 linijka
+                        UpdateRichTextBox("Nazwa użytkownika:\t\t\t" + user.loginName + "\n");
+                        //5 linijka
+                        UpdateRichTextBox("Pełna nazwa:\t\t\t\t" + user.displayName + "\n");
+                        //6 linijka
+                        UpdateRichTextBox("Komentarz:\t\t\t\t\t" + user.title + "\n");
+                        //7 linijka
+                        UpdateRichTextBox("Firma zatrudniająca:\t\t\t" + user.company + "\n");
+                        //8 linijka
+                        UpdateRichTextBox("Mail:\t\t\t\t\t\t" + user.mail + "\n");
+                        //9 linijka
+                        UpdateRichTextBox("Adres logowania Skype: \t\t\t" + user.SkypeLogin.Replace("sip:", "") + "\n");
+                        //10 linijka
+                        UpdateRichTextBox("Konto jest aktywne:\t\t\t" + user.userEnabled + "\n");
+                        //11 linijka
+                        UpdateRichTextBox("\n");
+                        //12 linijka
+                        UpdateRichTextBox("Konto wygasa:\t\t\t\t" + user.accountExpires + "\n");  //działa ale jest zła strefa czasowa
+                                                                                                  //13 linijka                                                                     //12 linijka
+                        if (user.pwdLastSet < user.lockoutTime)
+                            UpdateRichTextBox("Konto zablokowane:\t\t\t" + user.lockoutTime + "\n");
+                        else UpdateRichTextBox("Konto zablokowane:\t\t\t" + "0" + "\n");
+                        //14 linijka
+                        if (user.lastBadPwdAttempt.Year != 1)
+                            UpdateRichTextBox("Ostatnie błędne logowanie:\t\t" + user.lastBadPwdAttempt + "\n"); //działa ale potrzebna jest deklaracja serwera
+                        else UpdateRichTextBox("Ostatnie błędne logowanie:\t\t" + 0 + "\n");
+                        //15 linijka
+                        UpdateRichTextBox("Ilość błędnych prób logowania:\t" + user.badPwdCount + "\n"); //działa serwerów są 4
+                                                                                                         //16 linijka                                                                            
+                        UpdateRichTextBox("Dostęp do internetu:\t\t\t" + user.InternetAccessEnabled + "\n");
+                        //17 linijka
+                        UpdateRichTextBox("Hasło ostatnio ustawiono:\t\t" + user.pwdLastSet + "\n");
+                        //18 linijka
+                        UpdateRichTextBox("Hasło wygasa:\t\t\t\t" + user.pwdLastSet.AddDays(30) + "\n");
+                        //19 linijka
+                        UpdateRichTextBox("Hasło może być zmienione:\t\t" + user.pwdLastSet.AddDays(1) + "\n");
+                        //20 linijka
+                        UpdateRichTextBox("\n");
+                        //21 linijka
+                        UpdateRichTextBox("Ostatnie logowanie:\t\t\t" + user.lastLogon + "\n");
+                        //22 linijka
+                        if (user.lastLogoff > user.lastLogon)
+                            UpdateRichTextBox("Ostatnie wylogowanie:\t\t\t\t" + user.lastLogoff + "\n");
+                        else UpdateRichTextBox("Ostatnie wylogowanie:\t\t\t" + "0" + "\n");
+                        //23 linijka
+                        UpdateRichTextBox("\n");
+                        //24 linijka
+                        UpdateRichTextBox("Czy hasło jest wymagane? \t\t" + user.passwordNotRequired + "\n");
+                        //25 linijka
+                        UpdateRichTextBox("Użytkownik nie może zmienić hasła \t" + user.userCannotChangePassword + "\n");
+                        //26 linijka
+                        UpdateRichTextBox(/*Allowed_workstions() */"Dozwolone stacje robocze:\t\t" + user.permittedWorkstation + "\n");
+                        //27 linijka
+                        UpdateRichTextBox("Skrypt logowania:\t\t\t\t" + user.scriptPath + "\n");
+                        //28 linijka
+                        UpdateRichTextBox("Katalog macierzysty:\t\t\t" + user.homeDirectory + "\n");
+                        //29 linijka
+                        UpdateRichTextBox("Dysk macierzysty:\t\t\t\t" + user.homeDrive + "\n");
+                        //30 linijka
+                        UpdateRichTextBox("\n");
+                        //31 linijka
+                        //UpdateRichTextBox(/*Allowed_Hours()*/ permittedLogonTime.ToString());
+                        UpdateRichTextBox("\n");
+                        //32 linijka
+                        UpdateRichTextBox(/*MembersOf()*/"Członkostwa grup:\t\t\t\t" + user.Groups.ToString());
                     }
-                    else if (temp < (DateTime.Now.AddDays(1) - DateTime.Now))
-                        UpdateRichTextBox(temp.ToString("'Hasło wygasa za: 'dd' dzień 'hh'g'mm'm'ss's'") + "\n");
-
-                    //2 linijka
-                    UpdateRichTextBox("\n");
-                    //3 linijka
-                    UpdateRichTextBox("---------------------------------" + "\n");
-                    //4 linijka
-                    UpdateRichTextBox("Nazwa użytkownika:\t\t\t" + loginName + "\n");
-                    //5 linijka
-                    UpdateRichTextBox("Pełna nazwa:\t\t\t\t" + displayName + "\n");
-                    //6 linijka
-                    UpdateRichTextBox("Komentarz:\t\t\t\t\t" + title + "\n");
-                    //7 linijka
-                    UpdateRichTextBox("Firma zatrudniająca:\t\t\t" + company + "\n");
-                    //8 linijka
-                    UpdateRichTextBox("Mail:\t\t\t\t\t\t" + mail + "\n");
-                    //9 linijka
-                    UpdateRichTextBox("Adres logowania Skype: \t\t\t" + SkypeLogin.Replace("sip:", "") + "\n");
-                    //10 linijka
-                    UpdateRichTextBox("Konto jest aktywne:\t\t\t" + userEnabled + "\n");
-                    //11 linijka
-                    UpdateRichTextBox("\n");
-                    //12 linijka
-                    UpdateRichTextBox("Konto wygasa:\t\t\t\t" + accountExpires + "\n");  //działa ale jest zła strefa czasowa
-                    //13 linijka                                                                     //12 linijka
-                    if (pwdLastSet < lockoutTime)
-                        UpdateRichTextBox("Konto zablokowane:\t\t\t" + lockoutTime + "\n");
-                    else UpdateRichTextBox("Konto zablokowane:\t\t\t" + "0" + "\n");
-                    //14 linijka
-                    if (lastBadPwdAttempt.Year != 1)
-                        UpdateRichTextBox("Ostatnie błędne logowanie:\t\t" + lastBadPwdAttempt + "\n"); //działa ale potrzebna jest deklaracja serwera
-                    else UpdateRichTextBox("Ostatnie błędne logowanie:\t\t" + 0 + "\n");
-                    //15 linijka
-                    UpdateRichTextBox("Ilość błędnych prób logowania:\t" + badPwdCount + "\n"); //działa serwerów są 4
-                    //16 linijka                                                                            
-                    UpdateRichTextBox("Dostęp do internetu:\t\t\t" + InternetAccessEnabled + "\n");
-                    //17 linijka
-                    UpdateRichTextBox("Hasło ostatnio ustawiono:\t\t" + pwdLastSet + "\n");
-                    //18 linijka
-                    UpdateRichTextBox("Hasło wygasa:\t\t\t\t" + pwdLastSet.AddDays(30) + "\n");
-                    //19 linijka
-                    UpdateRichTextBox("Hasło może być zmienione:\t\t" + pwdLastSet.AddDays(1) + "\n");
-                    //20 linijka
-                    UpdateRichTextBox("\n");
-                    //21 linijka
-                    UpdateRichTextBox("Ostatnie logowanie:\t\t\t" + lastLogon + "\n");
-                    //22 linijka
-                    if (lastLogoff > lastLogon)
-                        UpdateRichTextBox("Ostatnie wylogowanie:\t\t\t\t" + lastLogoff + "\n");
-                    else UpdateRichTextBox("Ostatnie wylogowanie:\t\t\t" + "0" + "\n");
-                    //23 linijka
-                    UpdateRichTextBox("\n");
-                    //24 linijka
-                    UpdateRichTextBox("Czy hasło jest wymagane? \t\t" + passwordNotRequired + "\n");
-                    //25 linijka
-                    UpdateRichTextBox("Użytkownik nie może zmienić hasła \t" + userCannotChangePassword + "\n");
-                    //26 linijka
-                    UpdateRichTextBox(/*Allowed_workstions() */"Dozwolone stacje robocze:\t\t" + permittedWorkstation + "\n");
-                    //27 linijka
-                    UpdateRichTextBox("Skrypt logowania:\t\t\t\t" + scriptPath + "\n");
-                    //28 linijka
-                    UpdateRichTextBox("Katalog macierzysty:\t\t\t" + homeDirectory + "\n");
-                    //29 linijka
-                    UpdateRichTextBox("Dysk macierzysty:\t\t\t\t" + homeDrive + "\n");
-                    //30 linijka
-                    UpdateRichTextBox("\n");
-                    //31 linijka
-                    //UpdateRichTextBox(/*Allowed_Hours()*/ permittedLogonTime.ToString());
-                    UpdateRichTextBox("\n");
-                    //32 linijka
-                    UpdateRichTextBox(/*MembersOf()*/"Członkostwa grup:\t\t\t\t" + Groups.ToString());
+                    else UpdateRichTextBox("Nie znaleziono użytkownika w AD");
                 }
-                else UpdateRichTextBox("Nie znaleziono użytkownika w AD");
+                else UpdateRichTextBox("Nie podano nazwy użytkownika");
+                StopTime();
             }
-            StopTime();
-        }
 
-        private void btnFlushDNS_Click(object sender, EventArgs e)
+            private void btnFlushDNS_Click(object sender, EventArgs e)
         {
             StartTime();
             ClearRichTextBox();
