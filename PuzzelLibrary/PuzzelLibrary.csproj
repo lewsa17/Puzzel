@@ -36,6 +36,8 @@
     <Reference Include="System.Windows.Forms">
       <HintPath>..\..\..\..\..\..\Program Files (x86)\dotnet\shared\Microsoft.WindowsDesktop.App\3.1.5\System.Windows.Forms.dll</HintPath>
     </Reference>
+	<Reference Include="System.DirectoryServices.AccountManagement">      <HintPath>..\..\..\..\..\..\Windows\Microsoft.NET\assembly\GAC_MSIL\System.DirectoryServices.AccountManagement\v4.0_4.0.0.0__b77a5c561934e089\System.DirectoryServices.AccountManagement.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
