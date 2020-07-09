@@ -29,88 +29,88 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EnvironmentVariable));
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.TextBoxNameVar = new System.Windows.Forms.TextBox();
+            this.TextBoxValueVar = new System.Windows.Forms.TextBox();
+            this.LabelTitleEnv = new System.Windows.Forms.Label();
+            this.LabelNameVar = new System.Windows.Forms.Label();
+            this.LabelValueVar = new System.Windows.Forms.Label();
+            this.BtnInputVar = new System.Windows.Forms.Button();
+            this.BtnCancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // textBox1
+            // TextBoxNameVar
             // 
-            this.textBox1.Location = new System.Drawing.Point(108, 34);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(184, 20);
-            this.textBox1.TabIndex = 0;
+            this.TextBoxNameVar.Location = new System.Drawing.Point(108, 34);
+            this.TextBoxNameVar.Name = "TextBoxNameVar";
+            this.TextBoxNameVar.Size = new System.Drawing.Size(184, 20);
+            this.TextBoxNameVar.TabIndex = 0;
             // 
-            // textBox2
+            // TextBoxValueVar
             // 
-            this.textBox2.Location = new System.Drawing.Point(108, 60);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(184, 20);
-            this.textBox2.TabIndex = 1;
+            this.TextBoxValueVar.Location = new System.Drawing.Point(108, 60);
+            this.TextBoxValueVar.Name = "TextBoxValueVar";
+            this.TextBoxValueVar.Size = new System.Drawing.Size(184, 20);
+            this.TextBoxValueVar.TabIndex = 1;
             // 
-            // label1
+            // LabelTitleEnv
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(290, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Podaj nazwę zmiennej środowiskowej którą chcesz ustawić:";
+            this.LabelTitleEnv.AutoSize = true;
+            this.LabelTitleEnv.Location = new System.Drawing.Point(12, 9);
+            this.LabelTitleEnv.Name = "LabelTitleEnv";
+            this.LabelTitleEnv.Size = new System.Drawing.Size(290, 13);
+            this.LabelTitleEnv.TabIndex = 2;
+            this.LabelTitleEnv.Text = "Podaj nazwę zmiennej środowiskowej którą chcesz ustawić:";
             // 
-            // label2
+            // LabelNameVar
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(18, 37);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(90, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Nazwa zmiennej: ";
+            this.LabelNameVar.AutoSize = true;
+            this.LabelNameVar.Location = new System.Drawing.Point(18, 37);
+            this.LabelNameVar.Name = "LabelNameVar";
+            this.LabelNameVar.Size = new System.Drawing.Size(90, 13);
+            this.LabelNameVar.TabIndex = 3;
+            this.LabelNameVar.Text = "Nazwa zmiennej: ";
             // 
-            // label3
+            // LabelValueVar
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(11, 63);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(97, 13);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Wartość zmiennej: ";
+            this.LabelValueVar.AutoSize = true;
+            this.LabelValueVar.Location = new System.Drawing.Point(11, 63);
+            this.LabelValueVar.Name = "LabelValueVar";
+            this.LabelValueVar.Size = new System.Drawing.Size(97, 13);
+            this.LabelValueVar.TabIndex = 4;
+            this.LabelValueVar.Text = "Wartość zmiennej: ";
             // 
-            // button1
+            // BtnInputVar
             // 
-            this.button1.Location = new System.Drawing.Point(86, 89);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Wprowadź";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.BtnInputVar.Location = new System.Drawing.Point(86, 89);
+            this.BtnInputVar.Name = "BtnInputVar";
+            this.BtnInputVar.Size = new System.Drawing.Size(75, 23);
+            this.BtnInputVar.TabIndex = 5;
+            this.BtnInputVar.Text = "Wprowadź";
+            this.BtnInputVar.UseVisualStyleBackColor = true;
+            this.BtnInputVar.Click += new System.EventHandler(this.BtnInputVar_Click);
             // 
-            // button2
+            // BtnCancel
             // 
-            this.button2.Location = new System.Drawing.Point(167, 89);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 6;
-            this.button2.Text = "Anuluj";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.BtnCancel.Location = new System.Drawing.Point(167, 89);
+            this.BtnCancel.Name = "BtnCancel";
+            this.BtnCancel.Size = new System.Drawing.Size(75, 23);
+            this.BtnCancel.TabIndex = 6;
+            this.BtnCancel.Text = "Anuluj";
+            this.BtnCancel.UseVisualStyleBackColor = true;
+            this.BtnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
             // 
             // Environment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(311, 124);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.BtnCancel);
+            this.Controls.Add(this.BtnInputVar);
+            this.Controls.Add(this.LabelValueVar);
+            this.Controls.Add(this.LabelNameVar);
+            this.Controls.Add(this.LabelTitleEnv);
+            this.Controls.Add(this.TextBoxValueVar);
+            this.Controls.Add(this.TextBoxNameVar);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(327, 163);
@@ -125,12 +125,12 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.TextBox TextBoxNameVar;
+        private System.Windows.Forms.TextBox TextBoxValueVar;
+        private System.Windows.Forms.Label LabelTitleEnv;
+        private System.Windows.Forms.Label LabelNameVar;
+        private System.Windows.Forms.Label LabelValueVar;
+        private System.Windows.Forms.Button BtnInputVar;
+        private System.Windows.Forms.Button BtnCancel;
     }
 }
