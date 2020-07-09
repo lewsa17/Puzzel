@@ -115,22 +115,26 @@ namespace Forms
         private void Profilsieciowy(object sender, EventArgs e)
         {
             StartTime();
-            string folder = null;
-            if (((Button)sender).Name == "BtnProfil_VFS")
-                folder = PuzzelLibrary.ProcessExecutable.ProcExec.vfs;
+            if (UserName().Length > 1)
+            {
+                string folder = null;
+                if (((Button)sender).Name == "btnProfil_VFS")
+                    folder = PuzzelLibrary.Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "VFS");
 
-            if (((Button)sender).Name == "BtnProfil_ERI")
-                folder = PuzzelLibrary.ProcessExecutable.ProcExec.eri;
+                if (((Button)sender).Name == "btnProfil_ERI")
+                    folder = PuzzelLibrary.Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "ERI");
 
-            if (((Button)sender).Name == "BtnProfil_TS")
-                folder = PuzzelLibrary.ProcessExecutable.ProcExec.net;
+                if (((Button)sender).Name == "btnProfil_TS")
+                    folder = PuzzelLibrary.Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "NET");
 
-            if (((Button)sender).Name == "BtnProfil_EXT")
-                folder = PuzzelLibrary.ProcessExecutable.ProcExec.ext;
-
-            if (Directory.Exists(folder))
-                PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess(PuzzelLibrary.ProcessExecutable.ProcExec.explorer, folder + UserName());
-            else ReplaceRichTextBox("Katalog jest niedostępny");
+                if (((Button)sender).Name == "btnProfil_EXT")
+                    folder = PuzzelLibrary.Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "EXT");
+                if (!string.IsNullOrEmpty(folder))
+                    if (Directory.Exists(Path.Combine(folder, UserName())))
+                        PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess("explorer.exe", folder + UserName());
+                    else ReplaceRichTextBox("Katalog jest niedostępny");
+            }
+            else ReplaceRichTextBox("Nie podano nazwy użytkownika");
             StopTime();
         }
 
@@ -141,7 +145,7 @@ namespace Forms
             {
                 if (PuzzelLibrary.NetDiag.Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
                 {
-                    PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess(PuzzelLibrary.ProcessExecutable.ProcExec.explorer, @"\\" + HostName() + @"\c$");
+                    PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess("explorer.exe", @"\\" + HostName() + @"\c$");
                 }
                 else ReplaceRichTextBox("Nie odpowiada w sieci");
             }
@@ -422,7 +426,7 @@ namespace Forms
             ClearRichTextBox();
                 if (UserName().Length != 0)
                 {
-                    var user = new PuzzelLibrary.AD.User.Information.Information(UserName());
+                    var user = new PuzzelLibrary.AD.User.Information(UserName());
                     if (user != null)
                     {
                         //1 linijka
@@ -596,7 +600,7 @@ namespace Forms
                 StartTime();
                 if (UserName().Length > 1)
                 {
-                    if (PuzzelLibrary.AD.User.Information.Information.IsUserAvailable(UserName()))
+                    if (PuzzelLibrary.AD.User.Information.IsUserAvailable(UserName()))
                         foreach (string terms in termservers())
                         {
                             //Thread.Sleep(250);
@@ -1077,7 +1081,7 @@ namespace Forms
 
         private void LockoutStatusToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (PuzzelLibrary.AD.User.Information.Information.IsUserAvailable(UserName()))
+            if (PuzzelLibrary.AD.User.Information.IsUserAvailable(UserName()))
             {
                 External.LockoutStatus LS = new External.LockoutStatus(UserName());
                 if (UserName().Length > 0)
@@ -1770,7 +1774,7 @@ namespace Forms
         {
             if (UserName().Length > 0)
             {
-                if (PuzzelLibrary.AD.User.Information.Information.IsUserAvailable(UserName()))
+                if (PuzzelLibrary.AD.User.Information.IsUserAvailable(UserName()))
                 {
                     External.ZmianaHasla zh = new External.ZmianaHasla();
                     zh.ZmianaHaslaLoadForm(UserName());
@@ -1814,7 +1818,7 @@ namespace Forms
         private void ActiveSession(object sender, EventArgs e)
         {
             ReplaceRichTextBox(null);
-            UpdateRichTextBox(new PuzzelLibrary.Terminal.ComputerExplorer.CompExplorer().ActiveSession(HostName()));
+            UpdateRichTextBox(new PuzzelLibrary.Terminal.CompExplorer().ActiveSession(HostName()));
         }
         private void processComputer(object sender, EventArgs e)
         {
