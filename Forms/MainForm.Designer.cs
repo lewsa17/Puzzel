@@ -145,7 +145,6 @@ namespace Forms
             this.menuItemWinEnvironment = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemDeleteUsers = new System.Windows.Forms.ToolStripMenuItem();
             this.AutoGettingLogs = new System.Windows.Forms.Timer(this.components);
-            this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBoxUserInfo.SuspendLayout();
             this.contextMenuOperationTextBox.SuspendLayout();
             this.groupBoxLogoff.SuspendLayout();
@@ -1298,8 +1297,7 @@ namespace Forms
             this.menuItemActivateOffice,
             this.menuItemDeleteUsers,
             this.menuItemEnableIEHosting,
-            this.menuItemWinEnvironment,
-            this.testToolStripMenuItem});
+            this.menuItemWinEnvironment});
             this.menuItemQuickFix.Name = "menuItemQuickFix";
             this.menuItemQuickFix.Size = new System.Drawing.Size(122, 20);
             this.menuItemQuickFix.Text = "Szybkie rozwiązanie";
@@ -1330,14 +1328,6 @@ namespace Forms
             this.menuItemDeleteUsers.Size = new System.Drawing.Size(204, 22);
             this.menuItemDeleteUsers.Text = "Usuwanie użytkowników";
             this.menuItemDeleteUsers.Click += new System.EventHandler(this.DeleteUsers_Click);
-            // 
-            // testToolStripMenuItem
-            // 
-            this.testToolStripMenuItem.Name = "testToolStripMenuItem";
-            this.testToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
-            this.testToolStripMenuItem.Text = "test";
-            this.testToolStripMenuItem.Visible = false;
-            this.testToolStripMenuItem.Click += new System.EventHandler(this.testToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -1502,7 +1492,6 @@ namespace Forms
         private System.Windows.Forms.Label labelTCP;
         private System.Windows.Forms.Button btnTestTCP;
         private System.Windows.Forms.Button btnCollapseTCP;
-        private System.Windows.Forms.ToolStripMenuItem testToolStripMenuItem;
         public static System.Windows.Forms.RichTextBox richTextBox1;
     }
 }

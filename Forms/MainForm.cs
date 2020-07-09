@@ -1637,11 +1637,6 @@ namespace Forms
             else UpdateRichTextBox("Za krótka nazwa komputera");
         }
 
-        private void testToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            
-        }
-
         private void InitializeNames()
         {
             this.btnDW.Text = PuzzelLibrary.ExternalResources.dw;
