@@ -371,11 +371,12 @@ namespace Forms
             StartTime();
             try
             {
-                if (File.Exists(PuzzelLibrary.ExternalResources.dW))
+                string FilePath = PuzzelLibrary.Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "DW");
+                if (File.Exists(FilePath))
                 {
                     if (sender is Button)
                     {
-                        Process.Start(PuzzelLibrary.ExternalResources.dW, "-m:" + HostName() + " -x -a:1");
+                        PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess(FilePath, "-m:" + HostName() + " -x -a:1");
                     }
                     else
                     {
@@ -385,17 +386,17 @@ namespace Forms
                         {
                             if (((ToolStripMenuItem)sender).Text.Contains("LAPS"))
                             {
-                                login = PuzzelLibrary.ExternalResources.lapslogn;
-                                pwd = LAPSui.LAPSpwd(HostName());
+                                login = PuzzelLibrary.Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "LAPSLOGIN");
+                                pwd = PuzzelLibrary.LAPS.CompPWD.GetPWD(HostName());
                             }
                             else
                             {
-                                login = PuzzelLibrary.ExternalResources.eadm;
-                                pwd = PuzzelLibrary.ExternalResources.eadmpwd;
+                                login = PuzzelLibrary.Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "ELOGIN");
+                                pwd = PuzzelLibrary.Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "eadmpwd");
                             }
                             if (pwd.Length > 1)
                             {
-                                Process.Start(PuzzelLibrary.ExternalResources.dW, "-m:" + HostName() + " -x -a:2 -u:" + login + " -p:" + pwd + " -d:");
+                                PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess(FilePath, "-m:" + HostName() + " -x -a:2 -u:" + login + " -p:" + pwd + " -d:");
                             }
                             else MessageBox.Show("Brak hasła");
                         }
@@ -403,8 +404,8 @@ namespace Forms
                 }
                 else
                 {
-                    UpdateRichTextBox("Nie można odnaleźć określonego pliku\n");
-                    UpdateRichTextBox(PuzzelLibrary.ExternalResources.dW);
+                    ReplaceRichTextBox("Nie można odnaleźć określonego pliku\n");
+                    UpdateRichTextBox(FilePath);
                 }
             }
             catch (Exception ex)
@@ -1765,13 +1766,13 @@ namespace Forms
         {
             WyszukiwanieDanych();
         }
-        private void HaslozLAPSaToolStripMenuItem_Click(object sender, EventArgs e)
+        private void pwdLAPS(object sender, EventArgs e)
         {
             if (HostName().Length > 0)
             {
-                LAPSui lAPSui = new LAPSui();
-                LAPSui.HostName = HostName();
-                lAPSui.LoadPassword(HostName());
+                External.LAPSui lAPSui = new External.LAPSui();
+                lAPSui.HostName = HostName();
+                lAPSui.LoadPassword();
                 lAPSui.Show();
             }
             else MessageBox.Show("Nie podano nazwy komputera");

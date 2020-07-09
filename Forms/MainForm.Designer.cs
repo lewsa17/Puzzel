@@ -1293,7 +1293,7 @@ namespace Forms
             this.HaslozLapsaToolStripMenuItem.Name = "HaslozLapsaToolStripMenuItem";
             this.HaslozLapsaToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
             this.HaslozLapsaToolStripMenuItem.Text = "Hasło z LAPS-a";
-            this.HaslozLapsaToolStripMenuItem.Click += new System.EventHandler(this.HaslozLAPSaToolStripMenuItem_Click);
+            this.HaslozLapsaToolStripMenuItem.Click += new System.EventHandler(this.pwdLAPS);
             // 
             // lockoutStatusToolStripMenuItem
             // 
