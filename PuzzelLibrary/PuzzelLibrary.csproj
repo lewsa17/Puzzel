@@ -5,22 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="LogonData\CompUserLog.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="AD\" />
     <Folder Include="Debug\" />
     <Folder Include="LAPS\" />
+    <Folder Include="LogonData\" />
     <Folder Include="NetDiag\" />
     <Folder Include="Settings\" />
     <Folder Include="Terminal\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="LogonData\CompUserLog.cs">
-      <SubType>Form</SubType>
-    </None>
   </ItemGroup>
 
   <ItemGroup>

@@ -387,7 +387,7 @@ namespace Forms
             this.btnUserLog.Text = "User log";
             this.btnUserLog.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnUserLog.UseVisualStyleBackColor = true;
-            this.btnUserLog.Click += new System.EventHandler(this.SzukajLogow);
+            this.btnUserLog.Click += new System.EventHandler(this.btnLoginCompLog_Click);
             // 
             // numericLogin
             // 
@@ -933,7 +933,7 @@ namespace Forms
             this.btnCompLog.Text = "Komputer log";
             this.btnCompLog.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnCompLog.UseVisualStyleBackColor = true;
-            this.btnCompLog.Click += new System.EventHandler(this.SzukajLogow);
+            this.btnCompLog.Click += new System.EventHandler(this.btnLoginCompLog_Click);
             // 
             // groupBoxOtherTools
             // 

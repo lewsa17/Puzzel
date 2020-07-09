@@ -220,95 +220,95 @@ namespace Forms
             }
             else richTextBox1.Clear();
         }
-
-        string combobox2_last = null;
-        string combobox3_last = null;
-        private void SzukajLogow(object sender, EventArgs e)
+        private string comboBoxLoginLast;
+        private string comboBoxCompLast;
+        private void btnLoginCompLog_Click(object sender, EventArgs e)
         {
-            System.Threading.Tasks.Task thread = null;
-            ClearRichTextBox();
+            StartTime();
+            ReplaceRichTextBox(null);
             comboBoxFindedSessions.Items.Clear();
             comboBoxFindedSessions.Text = "";
-            StartTime();
-            int NameLength = 0;
-            string folderName = null;
-            decimal counter = 0;
-            string NameZ = null;
+            if (sender == btnUserLog)
+            {
+                SearchLogs(btnUserLog, e, numericLogin.Value, UserName(), "User");
+            }
+            if (sender == btnCompLog)
+            {
+                SearchLogs(btnCompLog, e, numericComputer.Value, HostName(), "Computer");
+            }
+            statusBar1.Focus();
+            StopTime();
+        }
 
-            if (((Button)sender).Name == "BtnUserLog")
-            {
-                folderName = "User";
-                counter = numericLogin.Value;
-                NameZ = UserName();
-                NameLength = NameZ.Length;
-            }
-            if (((Button)sender).Name == "BtnKomputerLog")
-            {
-                folderName = "Computer";
-                counter = numericComputer.Value;
-                NameZ = HostName();
-                NameLength = NameZ.Length;
-            }
+        private void SearchLogs(object sender, EventArgs e, decimal counter, string pole, string rodzaj)
+        {
+            int NameLength = pole.Length;
+
             if (NameLength > 1)
             {
                 if (sender == btnUserLog)
-                    if (comboBoxLogin.Text.Length > 0)
-                        if (comboBoxLogin.Text != combobox2_last)
+                    if (pole.Length > 0)
+                        if (pole != comboBoxLoginLast)
                         {
-                            combobox2_last = comboBoxLogin.Text;
-                            comboBoxLogin.Items.Add(combobox2_last);
+                            comboBoxLoginLast = pole;
+                            comboBoxLogin.Items.Add(comboBoxLoginLast);
                         }
                 if (sender == btnCompLog)
-                    if (comboBoxComputer.Text.Length > 0)
-                        if (comboBoxComputer.Text != combobox3_last)
+                    if (pole.Length > 0)
+                        if (pole != comboBoxCompLast)
                         {
-                            combobox3_last = comboBoxComputer.Text;
-                            comboBoxComputer.Items.Add(combobox3_last);
+                            comboBoxCompLast = pole;
+                            comboBoxComputer.Items.Add(comboBoxCompLast);
                         }
+                UpdateRichTextBox(PuzzelLibrary.LogonData.Captcher.SearchLogs(sender, e, Name, counter, pole, rodzaj));
 
-                if (Directory.Exists(PuzzelLibrary.ExternalResources.logsDirectory))
-                {
-                    int invalidPathChars = 0;
-
-                    foreach (char invalidPathChar in Path.GetInvalidFileNameChars())
-                    {
-                        if (NameZ.Contains(invalidPathChar))
-                            invalidPathChars++;
-                    }
-                    if (invalidPathChars == 0)
-                    {
-                        PuzzelLibrary.LogonData.Logi.contains(NameZ, folderName);
-                        if (PuzzelLibrary.LogonData.Logi.LogNames().Length > 0)
-                        {
-                            foreach (string LogsName in PuzzelLibrary.LogonData.Logi.LogNames())
-                            {
-                                thread = new System.Threading.Tasks.Task(() =>
-                                PuzzelLibrary.LogonData.Logi.loGi(LogsName, folderName, counter));
-                                thread.RunSynchronously();
-                            }
-                        }
-                        else ReplaceRichTextBox("Brak w logach");
-                    }
-                    else ReplaceRichTextBox("Użyto niedozwolonych znaków w loginie lub nazwie komputera");
-                }
-                else MessageBox.Show("Brak dostępu do zasobu");
-
-                if (comboBoxFindedSessions.InvokeRequired)
-                    comboBoxFindedSessions.Invoke(new MethodInvoker(() =>
-                    {
-                        comboBoxFindedSessions.Text = "";
-                        comboBoxFindedSessions.Items.Clear();
-                    }));
+                //if (comboBoxLogin.InvokeRequired)
+                //    comboBoxLogin.Invoke(new MethodInvoker(() =>
+                //    {
+                //        comboBoxLogin.Text = "";
+                //        comboBoxLogin.Items.Clear();
+                //    }));
             }
-            else ReplaceRichTextBox("Za mało danych");
-
-            if (thread == null || thread.IsCompleted)
+            else ReplaceRichTextBox("Nie podano nazwy użytkownika");
+        }
+        private void Keys_KeyDown(object sender, KeyEventArgs e)
+        {
+            if ((sender is ComboBox && ((ComboBox)sender) != comboBoxFindedSessions) || (sender is Button && (((Button)sender).Name == "btnCompInfo" || ((Button)sender).Name == "btnCompLog")))
             {
-                statusBar1.Focus();
-                StopTime();
+                if (e.KeyCode == Keys.Enter)
+                {
+                    if (sender == comboBoxLogin)
+                    {
+                        SearchLogs(btnUserLog, e, numericLogin.Value, UserName(), "User");
+                    }
+                    if (sender == comboBoxComputer)
+                    {
+                        SearchLogs(btnCompLog, e, numericComputer.Value, HostName(), "Computer");
+                    }
+                }
+            }
+
+            if (sender is RichTextBox)
+            {
+                if (e.Control && e.KeyCode == Keys.F)
+                {
+                    SearchData();
+                }
+
+                //if (e.Control && e.KeyCode == Keys.Z)
+                //    richTextBox1.Undo();
+
+                //if (e.Control && e.KeyCode == Keys.Y)
+                //    richTextBox1.Redo(); 
             }
         }
-
+        private void SearchData()
+        {
+            richTextBox1.SelectionStart = 0;
+            richTextBox1.HideSelection = false;
+            Additional.SearchingMainForm wyszukiwarka = new Additional.SearchingMainForm();
+            wyszukiwarka.Show();
+        }
         private void LogoffSession(object sender, EventArgs e)
         {
             StartTime();
@@ -1257,167 +1257,6 @@ namespace Forms
             StopTime();
         }
 
-        private void Keys_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (sender is ComboBox && ((ComboBox)sender).Name != "comboBox1")
-            {
-                if (e.KeyCode == Keys.Enter)
-                {
-                    if (sender == comboBoxLogin)
-                    {
-                        SzukajLogow(btnUserLog, e);
-                    }
-                    if (sender == comboBoxComputer)
-                    {
-                        SzukajLogow(btnCompLog, e);
-                    }
-                }
-            }
-            if (sender is RichTextBox)
-            {
-                if (e.Control && e.KeyCode == Keys.F)
-                {
-                    WyszukiwanieDanych();
-                }
-
-                //if (e.Control && e.KeyCode == Keys.Z)
-                //    richTextBox1.Undo();
-
-                //if (e.Control && e.KeyCode == Keys.Y)
-                //    richTextBox1.Redo(); 
-            }
-            //if (sender is Button)
-            //{
-            string firstKey = null;
-            //string secondKey = null;
-            if (e.Control)
-                firstKey = "CTRL";
-            if (e.Alt)
-                firstKey = "ALT";
-            string Name = null;
-
-
-            string[,] settings = null;// Ustawienia.LoadSettings();
-            for (int i = 0; i < 21; i++)
-            {
-                TypeConverter converter = TypeDescriptor.GetConverter(typeof(Keys));
-
-                string[] splittedShortcut = settings[i, 1].Split('+');
-                if (firstKey == splittedShortcut[0] && e.KeyCode == (Keys)converter.ConvertFromString(splittedShortcut[1]))
-                    Name = settings[i, 0];
-            }
-            switch (Name)
-            {
-                case "DW":
-                    {
-                        btnDW_Click(btnDW, e);
-                        break;
-                    }
-                case "ExplorerC":
-                    {
-                        btnExplorer_Click(btnExplorer, e);
-                        break;
-                    }
-                case "Info_z_AD":
-                    {
-                        Info_z_AD_Click(btnInfoZAd, e);
-                        break;
-                    }
-                case "Karty_sieciowe":
-                    {
-                        KomputerInfoMenuStrip(btnNetworkInterfaces, e);
-                        break;
-                    }
-                case "KomputerInfo":
-                    {
-                        KomputerInfoMenuStrip(btnCompLog, e);
-                        break;
-                    }
-                case "KomputerLog":
-                    {
-                        SzukajLogow(btnCompLog, e);
-                        break;
-                    }
-                case "Lista_program":
-                    {
-                        KomputerInfoMenuStrip(btnProgramList, e);
-                        break;
-                    }
-                case "Logoff":
-                    {
-                        LogoffSession(btnLogoffSession, e);
-                        break;
-                    }
-                case "Ping":
-                    {
-                        btnPing_Click(btnPing, e);
-                        break;
-                    }
-                case "Polacz":
-                    {
-                        ConnectToSession(btnConnectSession, e);
-                        break;
-                    }
-                case "Profil_ERI":
-                    {
-                        Profilsieciowy(btnProfilERI, e);
-                        break;
-                    }
-                case "Profil_EXT":
-                    {
-                        Profilsieciowy(btnProfilEXT, e);
-                        break;
-                    }
-                case "Profil_TS":
-                    {
-                        Profilsieciowy(btnProfilTS, e);
-                        break;
-                    }
-                case "Profil_VFS":
-                    {
-                        Profilsieciowy(btnProfilVFS, e);
-                        break;
-                    }
-                case "Pulpit_Zdalny":
-                    {
-                        btnRDP_Click(btnRDP, e);
-                        break;
-                    }
-                case "Remote_Ping":
-                    {
-                        RemotePing_Click(btnRemotePing, e);
-                        break;
-                    }
-                case "Remote_Tracert":
-                    {
-                        RemoteTracert_Click(btnRemoteTracert, e);
-                        break;
-                    }
-                case "Szukaj_sesji":
-                    {
-                        FindSessionBtn_Click(BtnFindSession, e);
-                        break;
-                    }
-                case "UserLog":
-                    {
-                        SzukajLogow(btnUserLog, e);
-                        break;
-                    }
-                case "Zarzadzanie":
-                    {
-                        Narzedziaadministracyjne(btnManagement, e);
-                        break;
-                    }
-                case "ZdalneCMD":
-                    {
-                        RemoteCMD_Click(btnRemoteCMD, e);
-                        break;
-                    }
-            }
-            //} 
-        }
-
-        //Properties.Settings settings = new Properties.Settings();
         [DllImport("user32.dll", SetLastError = true)]
         static extern bool CloseClipboard();
         private void Keys_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
