@@ -26,10 +26,10 @@
     <Compile Update="External\LAPSui.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="External\LockoutStatus\Lockout Status.cs">
+    <Compile Update="External\LockoutStatus\LockoutStatus.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="External\LockoutStatus\WyborUzytkownika.cs">
+    <Compile Update="External\LockoutStatus\LockoutStatusCustom.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="External\LockoutStatus\ZmianaHasla.cs">

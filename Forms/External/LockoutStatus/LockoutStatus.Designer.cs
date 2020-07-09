@@ -114,7 +114,7 @@
             this.wyczyśćToolStripMenuItem.Name = "wyczyśćToolStripMenuItem";
             this.wyczyśćToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.wyczyśćToolStripMenuItem.Text = "Wyczyść";
-            this.wyczyśćToolStripMenuItem.Click += new System.EventHandler(this.WyczyśćToolStripMenuItem_Click);
+            this.wyczyśćToolStripMenuItem.Click += new System.EventHandler(this.ClearButtoonEntry);
             // 
             // toolStripSeparator1
             // 
@@ -126,7 +126,7 @@
             this.statusHasToolStripMenuItem.Name = "statusHasToolStripMenuItem";
             this.statusHasToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.statusHasToolStripMenuItem.Text = "Status hasła";
-            this.statusHasToolStripMenuItem.Click += new System.EventHandler(this.StatusHasłaToolStripMenuItem_Click);
+            this.statusHasToolStripMenuItem.Click += new System.EventHandler(this.PasswordStatusToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
@@ -145,14 +145,14 @@
             this.odświeżWszystkoToolStripMenuItem.Name = "odświeżWszystkoToolStripMenuItem";
             this.odświeżWszystkoToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.odświeżWszystkoToolStripMenuItem.Text = "Odśwież wszystko";
-            this.odświeżWszystkoToolStripMenuItem.Click += new System.EventHandler(this.OdświerzWszystkoToolStripMenuItem_Click);
+            this.odświeżWszystkoToolStripMenuItem.Click += new System.EventHandler(this.RefreshAllToolStripMenuItem_Click);
             // 
             // statusHasłaToolStripMenuItem
             // 
             this.statusHasłaToolStripMenuItem.Name = "statusHasłaToolStripMenuItem";
             this.statusHasłaToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.statusHasłaToolStripMenuItem.Text = "Status hasła";
-            this.statusHasłaToolStripMenuItem.Click += new System.EventHandler(this.StatusHasłaToolStripMenuItem_Click);
+            this.statusHasłaToolStripMenuItem.Click += new System.EventHandler(this.PasswordStatusToolStripMenuItem_Click);
             // 
             // odświeżZaznaczoneToolStripMenuItem
             // 
@@ -166,7 +166,7 @@
             this.odświerzWszystkoToolStripMenuItem.Name = "odświerzWszystkoToolStripMenuItem";
             this.odświerzWszystkoToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.odświerzWszystkoToolStripMenuItem.Text = "Odśwież wszystko";
-            this.odświerzWszystkoToolStripMenuItem.Click += new System.EventHandler(this.OdświerzWszystkoToolStripMenuItem_Click);
+            this.odświerzWszystkoToolStripMenuItem.Click += new System.EventHandler(this.RefreshAllToolStripMenuItem_Click);
             // 
             // dataGridView1
             // 
@@ -332,7 +332,7 @@
             this.odblokujKontoToolStripMenuItem.Name = "odblokujKontoToolStripMenuItem";
             this.odblokujKontoToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.odblokujKontoToolStripMenuItem.Text = "Odblokuj Konto";
-            this.odblokujKontoToolStripMenuItem.Click += new System.EventHandler(this.OdblokujKonto);
+            this.odblokujKontoToolStripMenuItem.Click += new System.EventHandler(this.UnlockAllToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
@@ -344,7 +344,7 @@
             this.wyczyśćToolStripMenuItem1.Name = "wyczyśćToolStripMenuItem1";
             this.wyczyśćToolStripMenuItem1.Size = new System.Drawing.Size(181, 22);
             this.wyczyśćToolStripMenuItem1.Text = "Wyczyść";
-            this.wyczyśćToolStripMenuItem1.Click += new System.EventHandler(this.WyczyśćToolStripMenuItem_Click);
+            this.wyczyśćToolStripMenuItem1.Click += new System.EventHandler(this.ClearButtoonEntry);
             // 
             // toolStripSeparator4
             // 

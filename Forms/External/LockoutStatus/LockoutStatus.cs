@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Windows.Forms;
-using System.DirectoryServices;
-using System.DirectoryServices.AccountManagement;
 using System.Threading;
 using System.Linq;
 
@@ -9,91 +7,40 @@ namespace Forms.External.LockoutStatus
 {
     public partial class LockoutStatus :  Form
     {
-        public static string _userName { get; set; }
-        private static string _lastPasswordSet { get; set; }
-
-        public LockoutStatus(string userName)
+        public LockoutStatus(string username)
         {
             InitializeComponent();
-            _userName = userName;
+            Username = username;
         }
-        public static string DomainName() { return System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().DomainName; }
-        public static string[] DomainControllers()
-        {
-            using (DirectorySearcher search = new DirectorySearcher(new DirectoryEntry("LDAP://" + DomainName())))
-            {
-                SearchResult search1 = search.FindOne();
-                string table = null;
-                foreach (string line in (object[])search1.GetDirectoryEntry().Properties["msds-isdomainfor"].Value)
-                {
-                    string[] words = line.Split(',');
-                    table += words[1].Replace("CN=", "") + ",";
-                }
-                return table.Substring(0, table.Length - 1).Split(',');
-            }
-        }
-        public static string domainAddress { get; set; }
+        
+        public static string Username;
+        public static string domainAddress = null;
+
         private void Lockout_Status_Load(object sender, EventArgs e)
         {
             this.Text = "Lockout Status";
-            if (_userName.Length > 1)
+            if (Username.Length > 1)
             {
-                this.Text = _userName;
+                this.Text = Username;
+                //AddEntry();
             }
         }
         private void WybierzUżytkownikaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Text = "Lockout Status";
-            using (LockoutStatusWyborUzytkownika lswu = new LockoutStatusWyborUzytkownika())
-                lswu.ShowDialog();
+            LockoutStatusCustom custom = new LockoutStatusCustom();
+            custom.ShowDialog();
             DeleteEntryRows();
-            AddEntry(_userName);
-        }
-        public static void AddEntry(string Username)
-        {
-            try
-            {
-                string[] dcNames = DomainControllers();
-                int i = 0;
-                foreach (string dcName in dcNames)
-                {
-                    Thread thread = new Thread(() =>
-                                {
-                                    if (GetUserPasswordDetails(dcName, Username) == null)
-                                        i++;
-                                });
-                    thread.Priority = ThreadPriority.Highest;
-                    thread.Start();
-                }
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
+            AddEntry();
         }
 
-        public static string CheckUserInDomain(string userName)
-        {
-            using (DirectoryEntry myLdapConnection = new DirectoryEntry("LDAP://" + DomainName()))
-            {
-                using (DirectorySearcher search = new DirectorySearcher(myLdapConnection))
-                {
-                    search.Filter = "(sAMAccountName=" + userName + ")";
-                    search.PropertiesToLoad.Add("sAMAccountName");
-                    string text = null;
-                    if (search.FindOne() != null)
-                        text = search.FindOne().GetDirectoryEntry().Properties["sAMAccountName"].Value.ToString();
-                    else
-                    {
-                        using (Form owner = new Form() { TopMost = true })
-                        {
-                            MessageBox.Show(owner, "Podany login nie występuje w AD", "", MessageBoxButtons.OK);
-                        }
-                    }
 
-                    return text;
-                }
+        public void AddEntry()
+        {
+            foreach(string dcName in PuzzelLibrary.AD.Other.Domain.GetDomainControllers())
+            {
+                Thread thread = new Thread(() => GetUserPasswordDetails(dcName));
+                thread.Start();
             }
         }
 
@@ -110,89 +57,61 @@ namespace Forms.External.LockoutStatus
                 {
                     int RowIndex = dataGridView1.CurrentCell.RowIndex;
                     string dcName = dataGridView1.Rows[RowIndex].Cells[0].Value.ToString();
-                    GetUserPasswordDetails(dcName, _userName);
+                    GetUserPasswordDetails(dcName);
                 }
         }
 
         private void Lockout_Status_Activated(object sender, EventArgs e)
         {
-            if (_userName.Length > 1)
-                this.Text = _userName;
+            if (Username.Length > 1)
+                this.Text = Username;
         }
 
-        public static UserPrincipal GetUserPasswordDetails(string dcName, string Username)
+        public static void GetUserPasswordDetails(string dcName)
         {
-            string useraccaountLocked = null;
-            string _badLogonCount = null;
-            string _lastBadPasswordAttempt = null;
-            string _accountLockoutTime = null;
-            //if (dataGridView1.Columns != null)
-            UserPrincipal uP = null;
-            try
-            {   
-                if (dataGridView1.ColumnCount > 0)
-                using (PrincipalContext context = new PrincipalContext(ContextType.Domain, dcName))
+            if (dataGridView1.Columns != null)
+                try
                 {
-                    uP = UserPrincipal.FindByIdentity(context, IdentityType.SamAccountName, Username);
-                    if (uP != null)
-                    {
-                        if (uP.BadLogonCount > 0)
-                            _badLogonCount = uP.BadLogonCount.ToString();
-                        else _badLogonCount = "0";
+                    var pd = new PuzzelLibrary.AD.User.Information.Information.PasswordDetails();
+                            if (dataGridView1.InvokeRequired)
+                            {
+                                dataGridView1.Invoke(new MethodInvoker(() => dataGridView1.Rows.Add(dcName, pd.userAccountLocked, pd.badLogonCount, pd.lastBadPasswordAttempt, pd.lastPasswordSet, pd.userLockoutTime)));
+                            }
+                            else dataGridView1.Rows.Add(dcName, pd.userAccountLocked, pd.badLogonCount, pd.lastBadPasswordAttempt, pd.lastPasswordSet, pd.userLockoutTime);
 
-                        if (uP.LastBadPasswordAttempt != null)
-                            _lastBadPasswordAttempt = DateTime.FromFileTime(uP.LastBadPasswordAttempt.Value.ToFileTime()).ToString();
-
-                            if (uP.LastPasswordSet != null)
-                                _lastPasswordSet = DateTime.FromFileTime(uP.LastPasswordSet.Value.ToFileTime()).ToString();
-                            else _lastPasswordSet = "Zmień hasło";
-
-                        if (uP.AccountLockoutTime != null)
-                        {
-                            useraccaountLocked = "Zablokowane";
-                            _accountLockoutTime = DateTime.FromFileTime(uP.AccountLockoutTime.Value.ToFileTime()).ToString();
-                        }
-                        else
-                        {
-                            useraccaountLocked = "Odblokowane";
-                            _accountLockoutTime = "Niedostępne";
-                        }
-
-                        if (dataGridView1.InvokeRequired)
-                        {
-                            dataGridView1.Invoke(new MethodInvoker(() => dataGridView1.Rows.Add(dcName, useraccaountLocked, _badLogonCount, _lastBadPasswordAttempt, _lastPasswordSet, _accountLockoutTime)));
-                        }
-                        else dataGridView1.Rows.Add(dcName, useraccaountLocked, _badLogonCount, _lastBadPasswordAttempt, _lastPasswordSet, _accountLockoutTime);
-                    }
+                        
+                        //else
+                        //    dataGridView1.ClearSelection();
+                    
                 }
-            }
-            catch (Exception e)
-            {
-                PuzzelLibrary.Debug.LogsCollector.GetLogs(e, dcName + "," + Username);
-            }
-            return uP;
+                catch (Exception e)
+                {
+                    PuzzelLibrary.Debug.LogsCollector.GetLogs(e, dcName + "," + Username);
+                }
         }
-        
-        private void WyczyśćToolStripMenuItem_Click(object sender, EventArgs e)
+
+
+        private void ClearButtoonEntry(object sender, EventArgs e)
         {
             DeleteEntryRows();
         }
 
-        private void OdświerzWszystkoToolStripMenuItem_Click(object sender, EventArgs e)
+        private void RefreshAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DeleteEntryRows();
-            AddEntry(_userName);
+            AddEntry();
         }
 
-        private void StatusHasłaToolStripMenuItem_Click(object sender, EventArgs e)
+        private void PasswordStatusToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            var pd = new PuzzelLibrary.AD.User.Information.Information.PasswordDetails();
             string messagebox = null;
-            DateTime pwdLastSet = Convert.ToDateTime(_lastPasswordSet);
+            DateTime pwdLastSet = Convert.ToDateTime(pd.lastPasswordSet);
             TimeSpan pwdAge = DateTime.Now - pwdLastSet.AddHours(1);
             TimeSpan expirePwd = pwdLastSet.AddDays(30) - DateTime.Now;
 
             //pierwsza linijka
-            messagebox += "Maksymalna długość hasła dla " + _userName + " wynosi 30 dni.";
+            messagebox += "Maksymalna długość hasła dla " + Username + " wynosi 30 dni.";
             //drugalinijka
             messagebox +=  "\n\n";
             //trzecia linijka
@@ -217,20 +136,23 @@ namespace Forms.External.LockoutStatus
             MessageBox.Show(messagebox, "Status hasła");
         }
 
-        private void OdblokujKonto(object sender, EventArgs e)
+        private void UnlockAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int selectedRowIndex = dataGridView1.SelectedRows[0].Index;
-            string dcName = dataGridView1.Rows[selectedRowIndex].Cells[0].Value.ToString();
-            using (PrincipalContext context = new PrincipalContext(ContextType.Domain, dcName))
+            if (dataGridView1.SelectedRows.Count != 0)
             {
-                UserPrincipal uP = UserPrincipal.FindByIdentity(context, IdentityType.SamAccountName, _userName);
-                uP.UnlockAccount();
-                uP.Save();
-            }
-            Thread.Sleep(3000);
+                int selectedRowIndex = dataGridView1.SelectedRows[0].Index;
+                string dcName = dataGridView1.Rows[selectedRowIndex].Cells[0].Value.ToString();
+
+                if (PuzzelLibrary.AD.User.Operations.UnlockAccount(Username, dcName))
+                       MessageBox.Show("Konto zostało odblokowane");
+                else MessageBox.Show("Nie można odblokować konta z powodu błędu");
+
+            Thread.Sleep(1000);
             MessageBox.Show("Konto zostało odblokowane");
+            }
+            else MessageBox.Show("Nic nie zaznaczono");
         }
 
-        
+
     }
 }

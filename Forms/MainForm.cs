@@ -606,7 +606,7 @@ namespace Forms
                 StartTime();
                 if (UserName().Length > 1)
                 {
-                    if (LockoutStatus.CheckUserInDomain(UserName()) != null)
+                    if (PuzzelLibrary.AD.User.Information.Information.IsUserAvailable(UserName()))
                         foreach (string terms in termservers())
                         {
                             //Thread.Sleep(250);
@@ -1087,17 +1087,18 @@ namespace Forms
 
         private void LockoutStatusToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            External.LockoutStatus.LockoutStatus LS = new External.LockoutStatus.LockoutStatus(UserName());
-            if (UserName().Length > 0)
+            if (PuzzelLibrary.AD.User.Information.Information.IsUserAvailable(UserName()))
             {
-                if (External.LockoutStatus.LockoutStatus.CheckUserInDomain(UserName()) != null)
+                External.LockoutStatus.LockoutStatus LS = new External.LockoutStatus.LockoutStatus(UserName());
+                if (UserName().Length > 0)
                 {
-                    External.LockoutStatus.LockoutStatus.AddEntry(UserName());
+                    LS.AddEntry();
                     LS.Show();
                 }
+                else
+                    LS.Show();
             }
-            else
-                LS.Show();
+            else MessageBox.Show("Brak użytkownika w AD");
         }
 
         public static string PingLicznik = "1";
@@ -1779,7 +1780,7 @@ namespace Forms
         {
             if (UserName().Length > 0)
             {
-                if (External.LockoutStatus.LockoutStatus.CheckUserInDomain(UserName()) != null)
+                if (PuzzelLibrary.AD.User.Information.Information.IsUserAvailable(UserName()))
                 {
                     ZmianaHasla zh = new ZmianaHasla();
                     zh.ZmianaHaslaLoadForm(UserName());
