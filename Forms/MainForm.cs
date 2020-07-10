@@ -579,84 +579,42 @@ namespace Forms
         private void FindSessionBtn_Click(object sender, EventArgs e)
         {
             comboBoxFindedSessions.Items.Clear();
-            richTextBox1.Clear();
-            int aktywnesesje = 0;
+            ReplaceRichTextBox(null);
             try
             {
                 StartTime();
                 if (UserName().Length > 1)
                 {
-                    if (PuzzelLibrary.AD.User.Information.IsUserAvailable(UserName()))
-                        foreach (string terms in termservers())
+                    string data = string.Empty;
+                    if (new PuzzelLibrary.AD.User.SearchInformation.Search().ByUserName(UserName()) != null)
+                    {
+                        var termServers = PuzzelLibrary.Terminal.TerminalExplorer.GetTerminalServers.Split(",");
+                        foreach (string server in termServers)
                         {
                             //Thread.Sleep(250);
                             Thread th = new Thread(() =>
                             {
-                                PuzzelLibrary.Terminal.Explorer   ts = new PuzzelLibrary.Terminal.Explorer();
-                                object[] combo = ts.FindSession(new PuzzelLibrary.Terminal.Explorer().GetRemoteServer(terms), UserName()).ToArray();
-                                if (combo != null)
+                                data += new PuzzelLibrary.Terminal.TerminalExplorer().ActiveSession(server, UserName());
+                                if (comboBoxFindedSessions.InvokeRequired)
                                 {
-                                    Debug.WriteLine("Znaleziono aktywną sesję");
-                                    aktywnesesje++;
-                                    UpdateComboBox(combo[0] + " " + combo[1]);
-                                    if (comboBoxFindedSessions.InvokeRequired)
+                                    Thread.Sleep(500);
+                                    comboBoxFindedSessions.Invoke(new MethodInvoker(() =>
                                     {
-                                        Thread.Sleep(500);
-                                        comboBoxFindedSessions.Invoke(new MethodInvoker(() =>
-                                        {
-                                            if (comboBoxFindedSessions.Items.Count > 0)
-                                                comboBoxFindedSessions.SelectedIndex = 0;
-                                        }));
-                                    }
-                                    else comboBoxFindedSessions.SelectedIndex = 0;
-                                    UpdateRichTextBox(combo[1] + " --------------------------------\n");
-                                    UpdateRichTextBox("Nazwa użytkownika     Nazwa Sesji    Id    Status        Czas bezczynności    Czas logowania\n");
-
-                                    UpdateRichTextBox(combo[2].ToString());
-                                    for (int i = 0; i < "Nazwa użytkownika     ".Length - combo[2].ToString().Length; i++)
-                                        UpdateRichTextBox(" ");
-
-                                    UpdateRichTextBox(combo[3].ToString());
-                                    for (int i = 0; i < "Nazwa Sesji    ".Length - combo[3].ToString().Length; i++)
-                                        UpdateRichTextBox(" ");
-
-                                    UpdateRichTextBox(combo[0].ToString());
-                                    for (int i = 0; i < "Id    ".Length - combo[0].ToString().Length; i++)
-                                        UpdateRichTextBox(" ");
-
-                                    UpdateRichTextBox(combo[4].ToString());
-                                    for (int i = 0; i < "Status        ".Length - combo[4].ToString().Length; i++)
-                                        UpdateRichTextBox(" ");
-
-                                    //Wyekstraktowanie całej czasu bezczynności
-                                    int time = Convert.ToInt32(Math.Ceiling(((TimeSpan)combo[5]).TotalSeconds));
-                                    double _time = 0;
-                                    string idletime = "";
-                                    if ((time / 3600) >= 1)
-                                    {
-                                        _time = (time / 3600);
-                                        idletime += (Math.Ceiling(_time).ToString() + ":");
-                                        time -= Convert.ToInt32(Math.Ceiling(_time)) * 3600;
-                                    }
-                                    if ((time / 60) > 1)
-                                    {
-                                        _time = (time / 60);
-                                        idletime += (Math.Ceiling(_time).ToString() + ":");
-                                        time -= Convert.ToInt32(Math.Ceiling(_time)) * 60;
-                                    }
-
-                                    idletime += (time.ToString());
-                                    UpdateRichTextBox(idletime);
-                                    for (int i = 0; i < "Czas bezczynności    ".Length - idletime.Length; i++)
-                                        UpdateRichTextBox(" ");
-
-                                    UpdateRichTextBox(combo[6].ToString());
-                                    UpdateRichTextBox("\n");
-                                    if (aktywnesesje == 0) { ReplaceRichTextBox("Nie znaleziono sesji"); }
+                                        if (comboBoxFindedSessions.Items.Count > 0)
+                                            comboBoxFindedSessions.SelectedIndex = 0;
+                                    }));
                                 }
+                                else comboBoxFindedSessions.SelectedIndex = 0;
                             });
                             th.Start();
+                            foreach (var session in PuzzelLibrary.Terminal.TerminalExplorer.SessionIDServer)
+                            {
+                                comboBoxFindedSessions.Items.Add(session.SessionId + " " + session.Server.ServerName);
+                            }
                         }
+                        UpdateRichTextBox(data);
+                    }
+                    else ReplaceRichTextBox("Nie znaleziono użytkownika w AD");
                 }
                 else ReplaceRichTextBox("Nie podano loginu");
             }
