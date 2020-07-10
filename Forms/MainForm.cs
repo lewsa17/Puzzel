@@ -525,6 +525,7 @@ namespace Forms
         private void StartTime()
         {
             stopWatch.Start();
+            UpdateStatusbp2text("Obliczam");
             UpdateStatusbp1text("Czekaj");
             //timer1.Start();
         }
