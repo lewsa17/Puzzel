@@ -22,7 +22,7 @@ namespace PuzzelLibrary.AD.Connection.Credential
             var get = new GetSettings();
             this._UserName = get.UserName;
             this._Password = get.Password;
-        }        
+        }
         public void SetCredential(string userName, string passWord)
         {
             var set = new SetSettings();

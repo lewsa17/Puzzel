@@ -9,7 +9,7 @@ namespace PuzzelLibrary.AD.Connection
     {
        
 
-        private static bool ConnectionCredential => CheckCredentials;
+        private static bool isConnectionCredential => CheckCredentials;
         private static bool CheckCredentials 
         {
             get => new Settings.GetSettings().CredentialsAvailable;
@@ -21,7 +21,7 @@ namespace PuzzelLibrary.AD.Connection
 
                 try
                 {
-                    if (ConnectionCredential)
+                    if (isConnectionCredential)
                     {
                         Credential.Username credentials = new Credential.Username();
                         credentials.GetCredential();

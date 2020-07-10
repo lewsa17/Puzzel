@@ -13,18 +13,28 @@ namespace PuzzelLibrary.Settings
         public string Password { get => DecryptPassword(GetValuesFromXml("Settings.xml", "Password")); }
         public string Version { get => ""; set { } }
         public string CustomLogon { get; set; }
+        public bool isFileSettingsAvailable
+        {
+            get
+            {
+                if (File.Exists("Settings.xml"))
+                    return true;
+                return false;
+            }
+        }
         public bool CredentialsAvailable 
-        { 
-            get 
-            { 
-                if (UserName != null && UserName != string.Empty) 
-                    return true; 
-                return false; 
+        {
+            get
+            {
+                if (isFileSettingsAvailable)
+                    if (UserName != null && UserName != string.Empty)
+                        return true;
+                return false;
             } 
         }
         public GetSettings()
         {
-
+            
         }
 
         private string DecryptPassword(string source)
