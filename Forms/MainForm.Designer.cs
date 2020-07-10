@@ -712,7 +712,7 @@ namespace Forms
             this.btnManagement.Text = "Zarządzanie";
             this.btnManagement.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnManagement.UseVisualStyleBackColor = true;
-            this.btnManagement.Click += new System.EventHandler(this.Narzedziaadministracyjne);
+            this.btnManagement.Click += new System.EventHandler(this.AdmTools);
             // 
             // btnCompInfo
             // 
@@ -1096,7 +1096,7 @@ namespace Forms
             this.mainMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.mainMenu.Size = new System.Drawing.Size(1184, 24);
             this.mainMenu.TabIndex = 0;
-            this.mainMenu.Text = "menuStrip1";
+            this.mainMenu.Text = "mainMenu";
             // 
             // menuItemFile
             // 
@@ -1132,7 +1132,7 @@ namespace Forms
             this.menuItemLockoutStatus,
             this.menuItemChangeDomainPassword,
             this.SeparatorAdmTools2});
-            this.menuItemAdmTools.Name = "narzędziaAdministracyjneToolStripMenuItem";
+            this.menuItemAdmTools.Name = "menuItemAdmTools";
             this.menuItemAdmTools.Size = new System.Drawing.Size(157, 20);
             this.menuItemAdmTools.Text = "Narzędzia administracyjne";
             //
@@ -1142,7 +1142,7 @@ namespace Forms
             this.menuItemWindowsFirewall.Name = "menuItemWindowsFirewall";
             this.menuItemWindowsFirewall.Text = "Zaawansowana Zapora Windows";
             this.menuItemWindowsFirewall.Size = new System.Drawing.Size(222, 22);
-            this.menuItemWindowsFirewall.Click += new System.EventHandler(this.Narzedziaadministracyjne);
+            this.menuItemWindowsFirewall.Click += new System.EventHandler(this.AdmTools);
             //
             // menuItemDHCP
             // 
@@ -1158,7 +1158,7 @@ namespace Forms
             this.menuItemEventViewer.Name = "menuItemEventViewer";
             this.menuItemEventViewer.Size = new System.Drawing.Size(222, 22);
             this.menuItemEventViewer.Text = "Dziennik zdarzeń";
-            this.menuItemEventViewer.Click += new System.EventHandler(this.Narzedziaadministracyjne);
+            this.menuItemEventViewer.Click += new System.EventHandler(this.AdmTools);
             // 
             // menuItemTaskshedule
             // 
@@ -1166,7 +1166,7 @@ namespace Forms
             this.menuItemTaskshedule.Name = "menuItemTaskshedule";
             this.menuItemTaskshedule.Size = new System.Drawing.Size(222, 22);
             this.menuItemTaskshedule.Text = "Harmonogram zadań";
-            this.menuItemTaskshedule.Click += new System.EventHandler(this.Narzedziaadministracyjne);
+            this.menuItemTaskshedule.Click += new System.EventHandler(this.AdmTools);
             // 
             // menuItemServices
             // 
@@ -1174,7 +1174,7 @@ namespace Forms
             this.menuItemServices.Name = "menuItemServices";
             this.menuItemServices.Size = new System.Drawing.Size(222, 22);
             this.menuItemServices.Text = "Usługi";
-            this.menuItemServices.Click += new System.EventHandler(this.Narzedziaadministracyjne);
+            this.menuItemServices.Click += new System.EventHandler(this.AdmTools);
             // 
             // menuItemLusrmgr
             // 
@@ -1182,7 +1182,7 @@ namespace Forms
             this.menuItemLusrmgr.Name = "menuItemLusrmgr";
             this.menuItemLusrmgr.Size = new System.Drawing.Size(222, 22);
             this.menuItemLusrmgr.Text = "Użytkownicy i grupy lokalne";
-            this.menuItemLusrmgr.Click += new System.EventHandler(this.Narzedziaadministracyjne);
+            this.menuItemLusrmgr.Click += new System.EventHandler(this.AdmTools);
             // 
             // SeparatorAdmTools
             // 
@@ -1253,7 +1253,7 @@ namespace Forms
             this.menuItemSessions.Name = "menuItemSessions";
             this.menuItemSessions.Size = new System.Drawing.Size(149, 22);
             this.menuItemSessions.Text = "Eksplorator Sesji";
-            this.menuItemSessions.Click += new System.EventHandler(this.processComputer);
+            this.menuItemSessions.Click += new System.EventHandler(this.ComputerSessions);
             // 
             // SeparatorAdmTools1
             // 
@@ -1274,7 +1274,7 @@ namespace Forms
             this.menuItemLockoutStatus.Name = "menuItemLockoutStatus";
             this.menuItemLockoutStatus.Size = new System.Drawing.Size(222, 22);
             this.menuItemLockoutStatus.Text = "Lockout Status";
-            this.menuItemLockoutStatus.Click += new System.EventHandler(this.LockoutStatusToolStripMenuItem_Click);
+            this.menuItemLockoutStatus.Click += new System.EventHandler(this.menuItemLockoutStatus_Click);
             // 
             // menuItemChangeDomainPassword
             // 
@@ -1282,7 +1282,7 @@ namespace Forms
             this.menuItemChangeDomainPassword.Name = "menuItemChangeDomainPassword";
             this.menuItemChangeDomainPassword.Size = new System.Drawing.Size(222, 22);
             this.menuItemChangeDomainPassword.Text = "Zmiana hasła domenowego";
-            this.menuItemChangeDomainPassword.Click += new System.EventHandler(this.Zmianahasla);
+            this.menuItemChangeDomainPassword.Click += new System.EventHandler(this.ChangePassword);
             // 
             // SeparatorAdmTools2
             // 
@@ -1345,7 +1345,7 @@ namespace Forms
             this.MinimumSize = new System.Drawing.Size(1200, 509);
             this.Name = "MainForm";
             this.Text = "Puzzel";
-            this.Resize += new System.EventHandler(this.Form1_Resize);
+            this.Resize += new System.EventHandler(this.MainForm_Resize);
             this.groupBoxUserInfo.ResumeLayout(false);
             this.groupBoxUserInfo.PerformLayout();
             this.contextMenuOperationTextBox.ResumeLayout(false);

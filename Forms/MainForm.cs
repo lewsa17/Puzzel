@@ -149,7 +149,7 @@ namespace Forms
             else ReplaceRichTextBox("Nie podano nazwy hosta");
             StopTime();
         }
-        private void Form1_Resize(object sender, EventArgs e)
+        private void MainForm_Resize(object sender, EventArgs e)
         {
             try
             {
@@ -877,7 +877,7 @@ namespace Forms
             }
         }
 
-        private void Narzedziaadministracyjne(object sender, EventArgs e)
+        private void AdmTools(object sender, EventArgs e)
         {
             StartTime();
             string arguments = null;
@@ -952,7 +952,7 @@ namespace Forms
             return _UserName;
         }
 
-        private void LockoutStatusToolStripMenuItem_Click(object sender, EventArgs e)
+        private void menuItemLockoutStatus_Click(object sender, EventArgs e)
         {
             if (PuzzelLibrary.AD.User.Information.IsUserAvailable(UserName()))
             {
@@ -1307,7 +1307,7 @@ namespace Forms
             }
             else MessageBox.Show("Nie podano nazwy komputera");
         }
-        private void Zmianahasla(object sender, EventArgs e)
+        private void ChangePassword(object sender, EventArgs e)
         {
             if (UserName().Length > 0)
             {
@@ -1357,7 +1357,7 @@ namespace Forms
             ReplaceRichTextBox(null);
             UpdateRichTextBox(new PuzzelLibrary.Terminal.CompExplorer().ActiveSession(HostName()));
         }
-        private void processComputer(object sender, EventArgs e)
+        private void ComputerSessions(object sender, EventArgs e)
         {
             Thread thread;
             External.Explorer.ExplorerForm explorer = new External.Explorer.ExplorerForm(((ToolStripMenuItem)sender).Text);
