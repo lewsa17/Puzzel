@@ -1017,7 +1017,6 @@ namespace Forms
             this.btnReloadLogs.Text = "Reload Logs";
             this.btnReloadLogs.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnReloadLogs.UseVisualStyleBackColor = true;
-            this.btnReloadLogs.Click += new System.EventHandler(this.Button20_Click);
             // 
             // btnFlushDNS
             // 
@@ -1372,12 +1371,6 @@ namespace Forms
             this.PerformLayout();
 
         }
-
-        private void TerminalUniversalToolStripMenuItem_Click(object sender, System.EventArgs e)
-        {
-            throw new System.NotImplementedException();
-        }
-
         #endregion
 
         private System.Windows.Forms.GroupBox groupBoxUserInfo;

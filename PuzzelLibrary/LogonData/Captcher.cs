@@ -134,7 +134,7 @@ namespace PuzzelLibrary.LogonData
         }
         private static string SAMAccountName(string username)
         {
-            var Result = new AD.User.SearchInformation.Search().ByUserName(username);
+            var Result = new PuzzelLibrary.AD.User.SearchInformation.Search().ByUserName(username);
             object NameOfUser = Result.GetDirectoryEntry().Properties["displayName"].Value;
 
             try

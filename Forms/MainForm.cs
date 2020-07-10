@@ -25,13 +25,9 @@ namespace Forms
             InitializeComponent();
             InitializeNames();
         }
-        private static Thread progressBar;// = new System.Threading.Thread(InvokeProgress);
-        //public DirectorySearcher dirsearch = null;
-        public static string DomainName() => System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().DomainName;
+        private static Thread progressBar;
         public static int ProgressMax = 0;
         public static int ProgressBarValue = 0;
-        //public static string[] UserLogs;
-        //public static string[] ComputerLogs;
         private delegate void UpdateRichTextBoxEventHandler(string message);
         public static void UpdateRichTextBox(string message)
         {
@@ -202,16 +198,6 @@ namespace Forms
             else ReplaceRichTextBox("Nie można się połączyć ponieważ nie została wybrana sesja");
             StopTime();
         }
-        void POutputHandler(object sender, DataReceivedEventArgs e)
-        {
-            Trace.WriteLine(e.Data);
-            this.BeginInvoke(new MethodInvoker(() =>
-            {
-                UpdateRichTextBox(((e.Data) ?? string.Empty) + "\n");
-            }));
-        }
-
-        //private delegate void ClearRichTextBoxEventHandler(string sign);
         private static void ClearRichTextBox(/*string sign*/)
         {
             if (richTextBox1.InvokeRequired)
@@ -343,11 +329,9 @@ namespace Forms
 
             StopTime();
         }
-        public static string terminalName = null;
         private void WyszukiwanieSesji_TerminalExplorer(object sender, EventArgs e)
         {
-            terminalName = ((ToolStripMenuItem)sender).Text;
-            if (terminalName == "Ręczna nazwa")
+            if (((ToolStripMenuItem)sender).Text == "Ręczna nazwa")
             {
                 External.Explorer.ExplorerFormCustomSearch podajNazweTerminala = new External.Explorer.ExplorerFormCustomSearch();
                 podajNazweTerminala.ShowDialog();
@@ -689,77 +673,6 @@ namespace Forms
             }
             else { comboBoxFindedSessions.Items.Add(message); }
         }
-        private void Button20_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show(ClientSize.ToString() + "\n"
-                + richTextBox1.ClientSize.ToString() + "\n"
-                + Size.ToString() + "\n"
-                + richTextBox1.Size.ToString());
-
-            /*
-            // domainController = null;
-            //getDomainControllers();
-            DomainController();
-            //if(!ladujLogiWTle.IsBusy)
-            //ladujLogiWTle.RunWorkerAsync();
-
-            if (domainController != null && domainController.Length > 1)
-            {
-                MessageBox.Show(domainController[1]);
-            }
-            */
-        }
-        /*
-        static AutoCompleteStringCollection ComputerCollection = new AutoCompleteStringCollection();
-        static AutoCompleteStringCollection UserCollection = new AutoCompleteStringCollection();
-
-        
-           private void AutoComplete(object sender, EventArgs e)
-        {
-            //string[] log =null;
-            string name = null;
-            AutoCompleteStringCollection autocompl = null;
-            if (((TextBox)sender).Name == "textBox1")
-            {
-                //log = UserLogs;
-                name = UserName();
-                autocompl = Program.UserCollection;
-            }
-            if (((TextBox)sender).Name == "textBox2")
-            {
-                //log = ComputerLogs;
-                name = HostName();
-                autocompl = Program.ComputerCollection;
-            }
-            try
-            {
-                if (!ladujLogiWTle.IsBusy)
-                    //if (log.Count() > 0 && log !=null)
-                    if (autocompl != null && autocompl.Count > 0)
-                        if //((name != null) && 
-                        (name.Length > 3)//)
-                        {
-                            //autocompl.AddRange(log);
-                            ((TextBox)sender).AutoCompleteCustomSource = autocompl;
-                            ((TextBox)sender).AutoCompleteMode = AutoCompleteMode.Suggest;
-                            ((TextBox)sender).AutoCompleteSource = AutoCompleteSource.CustomSource;
-                        }
-                        else
-                        {
-                            ((TextBox)sender).AutoCompleteSource = AutoCompleteSource.None;
-                            ((TextBox)sender).AutoCompleteMode = AutoCompleteMode.None;
-                        }
-                    else
-                    {
-                        ladujLogiWTle.RunWorkerAsync();
-                    }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-        */
         private string OsName(string nazwaKomputera, string path, string query)
         {
             string osarch = null;
