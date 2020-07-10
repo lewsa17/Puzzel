@@ -16,6 +16,8 @@ namespace Forms.External
         public Ustawienia()
         {
             InitializeComponent();
+            DW.Name = GetSettings.GetValuesFromXml("ExternalResources.xml", "DW");
+            DW.Text = GetSettings.GetValuesFromXml("ExternalResources.xml", "DW");
         }
 
         private const string MessageText = "Ustawienia zostały zapisane";

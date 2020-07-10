@@ -86,7 +86,7 @@ namespace Forms
             {
                 if (PuzzelLibrary.NetDiag.Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
                 {
-                    PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess(PuzzelLibrary.ExternalResources.rdp, PuzzelLibrary.ExternalResources.rdpargs + HostName());
+                    PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess("mstsc.exe", "/v " + HostName());
                 }
                 else ReplaceRichTextBox("Niewidoczny na sieci");
             }
@@ -352,7 +352,7 @@ namespace Forms
             StartTime();
             try
             {
-                string FilePath = PuzzelLibrary.Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "DW");
+                string FilePath = PuzzelLibrary.Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "DWPath");
                 if (File.Exists(FilePath))
                 {
                     if (sender is Button)
@@ -367,13 +367,13 @@ namespace Forms
                         {
                             if (((ToolStripMenuItem)sender).Text.Contains("LAPS"))
                             {
-                                login = PuzzelLibrary.Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "LAPSLOGIN");
+                                login = PuzzelLibrary.Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "LAPSLogin");
                                 pwd = PuzzelLibrary.LAPS.CompPWD.GetPWD(HostName());
                             }
                             else
                             {
-                                login = PuzzelLibrary.Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "ELOGIN");
-                                pwd = PuzzelLibrary.Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "eadmpwd");
+                                login = PuzzelLibrary.Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "ELogin");
+                                pwd = PuzzelLibrary.Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "ELoginPWD");
                             }
                             if (pwd.Length > 1)
                             {
@@ -1067,7 +1067,7 @@ namespace Forms
         private void menuItemRDPOpen_Click(object sender, EventArgs e)
         {
             StartTime();
-            PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess(PuzzelLibrary.ExternalResources.rdp, "");
+            PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess("mstsc.exe", "");
             StopTime();
         }
 
@@ -1451,10 +1451,13 @@ namespace Forms
 
         private void InitializeNames()
         {
-            this.btnDW.Text = PuzzelLibrary.ExternalResources.dw;
-            this.DWMenuContext.Text = PuzzelLibrary.ExternalResources.dw;
-            this.menuItemDWEadm.Text = PuzzelLibrary.ExternalResources.dw + "(" + PuzzelLibrary.ExternalResources.eadm + ")";
-            this.menuItemDWLAPS.Text = PuzzelLibrary.ExternalResources.dw + "(" + PuzzelLibrary.ExternalResources.lapslogn + ")";
+            string dw = PuzzelLibrary.Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "DW");
+            string eadm = PuzzelLibrary.Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "ELogin");
+            string lapslogn = PuzzelLibrary.Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "LAPSLogin");
+            this.btnDW.Text = dw;
+            this.DWMenuContext.Text = dw;
+            this.menuItemDWEadm.Text = dw + "(" + eadm + ")";
+            this.menuItemDWLAPS.Text = dw + "(" + lapslogn + ")";
         }
         private void ActivateOffice(object sender, EventArgs e)
         {
