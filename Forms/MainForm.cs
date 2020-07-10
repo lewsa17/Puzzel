@@ -115,23 +115,23 @@ namespace Forms
             if (UserName().Length > 1)
             {
                 string folder = null;
-                if (((Button)sender).Name == "btnProfil_VFS")
+                if (((Button)sender) == btnProfilVFS)
                     folder = PuzzelLibrary.Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "VFS");
 
-                if (((Button)sender).Name == "btnProfil_ERI")
+                if (((Button)sender) == btnProfilERI)
                     folder = PuzzelLibrary.Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "ERI");
 
-                if (((Button)sender).Name == "btnProfil_TS")
+                if (((Button)sender) == btnProfilTS)
                     folder = PuzzelLibrary.Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "NET");
 
-                if (((Button)sender).Name == "btnProfil_EXT")
+                if (((Button)sender) == btnProfilEXT)
                     folder = PuzzelLibrary.Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "EXT");
                 if (!string.IsNullOrEmpty(folder))
                     if (Directory.Exists(Path.Combine(folder, UserName())))
                         PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess("explorer.exe", folder + UserName());
-                    else ReplaceRichTextBox("Katalog jest niedostępny");
+                    else MessageBox.Show("Brak dostępu do zasobu");
             }
-            else ReplaceRichTextBox("Nie podano nazwy użytkownika");
+            else MessageBox.Show("Nie podano nazwy użytkownika");
             StopTime();
         }
 
