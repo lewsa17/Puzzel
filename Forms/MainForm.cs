@@ -24,6 +24,7 @@ namespace Forms
         {
             InitializeComponent();
             InitializeNames();
+            this.Text += " " + PuzzelLibrary.Version.GetVersion();
         }
         private static Thread progressBar;
         public static int ProgressMax = 0;
@@ -1007,8 +1008,6 @@ namespace Forms
             }
             else MessageBox.Show("Brak użytkownika w AD");
         }
-        int licz = 0;
-
         private void RemotePingTracert(object sender, EventArgs e)
         {
             using (Additional.RemotePingTracert PingTracert = new Additional.RemotePingTracert())
@@ -1327,8 +1326,6 @@ namespace Forms
             }
         }
 
-        public static int IDrtb = 0;
-        public static int statusOkna = 0;
         private void WyszukiwanieDanych()
         {
             richTextBox1.SelectionStart = 0;

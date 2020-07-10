@@ -1344,7 +1344,7 @@ namespace Forms
             this.MainMenuStrip = this.mainMenu;
             this.MinimumSize = new System.Drawing.Size(1200, 509);
             this.Name = "MainForm";
-            this.Text = "Puzzel v0.127";
+            this.Text = "Puzzel";
             this.Resize += new System.EventHandler(this.Form1_Resize);
             this.groupBoxUserInfo.ResumeLayout(false);
             this.groupBoxUserInfo.PerformLayout();
