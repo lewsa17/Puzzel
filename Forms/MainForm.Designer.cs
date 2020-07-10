@@ -526,7 +526,7 @@ namespace Forms
             this.btnRemoteTracert.TabStop = false;
             this.btnRemoteTracert.Text = "Remote TRACERT";
             this.btnRemoteTracert.UseVisualStyleBackColor = true;
-            this.btnRemoteTracert.Click += new System.EventHandler(this.RemoteTracert_Click);
+            this.btnRemoteTracert.Click += new System.EventHandler(this.RemotePingTracert);
             // 
             // btnRemotePing
             // 
@@ -537,7 +537,7 @@ namespace Forms
             this.btnRemotePing.TabStop = false;
             this.btnRemotePing.Text = "Remote PING";
             this.btnRemotePing.UseVisualStyleBackColor = true;
-            this.btnRemotePing.Click += new System.EventHandler(this.RemotePing_Click);
+            this.btnRemotePing.Click += new System.EventHandler(this.RemotePingTracert);
             // 
             // btnRemoteCMD
             // 

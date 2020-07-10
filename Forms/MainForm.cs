@@ -1007,123 +1007,25 @@ namespace Forms
             }
             else MessageBox.Show("Brak użytkownika w AD");
         }
-
-        public static string PingLicznik = "1";
         int licz = 0;
-        public static string PingRemoteHost = null;
-        private void RemotePing_Click(object sender, EventArgs e)
+
+        private void RemotePingTracert(object sender, EventArgs e)
         {
-            StartTime();
-            ClearRichTextBox();
-            using (Additional.RemotePingTracert remotePing_Tracert = new Additional.RemotePingTracert())
+            using (Additional.RemotePingTracert PingTracert = new Additional.RemotePingTracert())
             {
-                remotePing_Tracert.ShowDialog();
+                PingTracert.ShowDialog();
+                if (sender == btnRemotePing)
+                {
+                    PuzzelLibrary.NetDiag.RemotePing ping = new PuzzelLibrary.NetDiag.RemotePing(HostName());
+                    UpdateRichTextBox(ping.StartRemotePing(PingTracert.GetHost, PingTracert.GetCounter));
+                }
+                else
+                {
+                    PuzzelLibrary.NetDiag.RemoteTracert tracert = new PuzzelLibrary.NetDiag.RemoteTracert(HostName());
+                    UpdateRichTextBox(tracert.StartRemoteTracert(PingTracert.GetHost));
+                }
             }
-
-            if (PingRemoteHost != null)
-            {
-                if (PingLicznik == null)
-                    PingLicznik = "5";
-                using (StreamWriter SW = new StreamWriter("remoteping.cmd"))
-                {
-                    SW.WriteLine("PsExec64.exe " + @"\\" + HostName() + " ping " + PingRemoteHost + " -n " + PingLicznik + " 1> " + Directory.GetCurrentDirectory() + @"\temp.log");
-                    SW.Close();
-                }
-
-                using (Process p = new Process())
-                {
-                    p.StartInfo.FileName = "cmd.exe";
-                    p.StartInfo.Arguments = "/c remoteping.cmd";
-                    p.Start();
-                    p.WaitForExit();
-                }
-
-                if (File.Exists(Directory.GetCurrentDirectory() + @"\temp.log"))
-                {
-                    using (StreamReader sr = new StreamReader(Directory.GetCurrentDirectory() + @"\temp.log"))
-                    {
-                        PingRemoteHost = (sr.ReadToEnd());
-                        sr.Close();
-                    }
-                }
-
-                if (PingRemoteHost.Contains("Odpowied"))
-                {
-                    licz = PingRemoteHost.IndexOf("Odpowied");
-                    PingRemoteHost = PingRemoteHost.Replace(PingRemoteHost[licz + 8], 'ź');
-                    PingRemoteHost = PingRemoteHost.Replace("bźźdzenia", "błądzenia");
-                    PingRemoteHost = PingRemoteHost.Replace("bajtźw", "bajtów");
-                    PingRemoteHost = PingRemoteHost.Replace("wysźane", "wysłane");
-                    PingRemoteHost = PingRemoteHost.Replace("pakietźw", "pakietów");
-                    PingRemoteHost = PingRemoteHost.Replace("Wysźane", "Wysłane");
-                    PingRemoteHost = PingRemoteHost.Replace("źredni", "średni");
-                }
-                UpdateRichTextBox(PingRemoteHost);
-                PingRemoteHost = null;
-                PingLicznik = null;
-                licz = 0;
-
-            }
-            if (File.Exists("remoteping.cmd"))
-                File.Delete("remoteping.cmd");
-            if (File.Exists("temp.log"))
-                File.Delete("temp.log");
-            StopTime();
         }
-
-        private void RemoteTracert_Click(object sender, EventArgs e)
-        {
-            StartTime();
-            ClearRichTextBox();
-            using (Additional.RemotePingTracert remotePing_Tracert = new Additional.RemotePingTracert())
-            {
-                remotePing_Tracert.ShowDialog();
-            }
-            if (PingRemoteHost != null)
-            {
-                using (StreamWriter SW = new StreamWriter("remotetracert.cmd"))
-                {
-                    SW.WriteLine("PsExec64.exe " + @"\\" + HostName() + " tracert " + PingRemoteHost + " 1> " + Directory.GetCurrentDirectory() + @"\temp.log");
-                    SW.Close();
-                }
-
-                using (Process p = new Process())
-                {
-                    p.StartInfo.FileName = "CMD";
-                    p.StartInfo.Arguments = "/c remotetracert.cmd";
-                    p.Start();
-                    p.WaitForExit();
-                }
-
-                if (File.Exists(Directory.GetCurrentDirectory() + @"\temp.log"))
-                {
-                    using (StreamReader sr = new StreamReader(Directory.GetCurrentDirectory() + @"\temp.log"))
-                    {
-                        PingRemoteHost = (sr.ReadToEnd());
-                        sr.Close();
-                    }
-                }
-                if (PingRemoteHost.Contains("ledzenie"))
-                {
-                    licz = PingRemoteHost.IndexOf("ledzenie");
-                    PingRemoteHost = PingRemoteHost.Replace(PingRemoteHost[licz - 1], 'ź');
-                    PingRemoteHost = PingRemoteHost.Replace("źledzenie", "Śledzenie");
-                    PingRemoteHost = PingRemoteHost.Replace("maksymalnź", "maksymalną");
-                    PingRemoteHost = PingRemoteHost.Replace("liczbź", "liczbą");
-                    PingRemoteHost = PingRemoteHost.Replace("przeskokźw", "przeskoków");
-                    PingRemoteHost = PingRemoteHost.Replace("zakoźczone", "zakończone");
-                }
-                UpdateRichTextBox(PingRemoteHost);
-                PingRemoteHost = null;
-                licz = 0;
-            }
-            if (File.Exists("remotetracert.cmd"))
-                File.Delete("remotetracert.cmd");
-            if (File.Exists("temp.log"))
-                File.Delete("temp.log");
-            StopTime();
-        }
-
         private void CMDMenuItem1_Click(object sender, EventArgs e)
         {
             Process.Start("cmd", "/u");
