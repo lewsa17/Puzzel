@@ -20,8 +20,8 @@ namespace Forms.External.QuickFix
         private string _hostName = null;
         private void button1_Click(object sender, EventArgs e)
         {
-            string variableName = textBox1.Text;
-            string variableData = textBox2.Text;
+            string variableName = textNameOfVariable.Text;
+            string variableData = textValueOfVariable.Text;
 
 
             if (variableName.Length > 0)
