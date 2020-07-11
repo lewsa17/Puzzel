@@ -29,87 +29,87 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LockoutStatusCustom));
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.labelUserName = new System.Windows.Forms.Label();
+            this.labelDomainName = new System.Windows.Forms.Label();
+            this.textUserName = new System.Windows.Forms.TextBox();
+            this.textDomainName = new System.Windows.Forms.TextBox();
+            this.btnOk = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // label1
+            // labelUserName
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(29, 15);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(133, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Podaj nazwę użytkownika:";
+            this.labelUserName.AutoSize = true;
+            this.labelUserName.Location = new System.Drawing.Point(29, 15);
+            this.labelUserName.Name = "labelUserName";
+            this.labelUserName.Size = new System.Drawing.Size(133, 13);
+            this.labelUserName.TabIndex = 0;
+            this.labelUserName.Text = "Podaj nazwę użytkownika:";
             // 
-            // label2
+            // labelDomainName
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(51, 37);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(111, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Podaj nazwę domeny:";
+            this.labelDomainName.AutoSize = true;
+            this.labelDomainName.Location = new System.Drawing.Point(51, 37);
+            this.labelDomainName.Name = "labelDomainName";
+            this.labelDomainName.Size = new System.Drawing.Size(111, 13);
+            this.labelDomainName.TabIndex = 1;
+            this.labelDomainName.Text = "Podaj nazwę domeny:";
             // 
-            // textBox1
+            // textUserName
             // 
-            this.textBox1.Location = new System.Drawing.Point(168, 12);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(165, 20);
-            this.textBox1.TabIndex = 2;
-            this.textBox1.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.EnterPreviewKeyDown);
+            this.textUserName.Location = new System.Drawing.Point(168, 12);
+            this.textUserName.Name = "textUserName";
+            this.textUserName.Size = new System.Drawing.Size(165, 20);
+            this.textUserName.TabIndex = 2;
+            this.textUserName.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.EnterKeyDown);
             // 
-            // textBox2
+            // textDomainName
             // 
-            this.textBox2.Location = new System.Drawing.Point(168, 34);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(165, 20);
-            this.textBox2.TabIndex = 3;
-            this.textBox2.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.EnterPreviewKeyDown);
+            this.textDomainName.Location = new System.Drawing.Point(168, 34);
+            this.textDomainName.Name = "textDomainName";
+            this.textDomainName.Size = new System.Drawing.Size(165, 20);
+            this.textDomainName.TabIndex = 3;
+            this.textDomainName.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.EnterKeyDown);
             // 
-            // button1
+            // btnOk
             // 
-            this.button1.Location = new System.Drawing.Point(96, 60);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "OK";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnOk.Location = new System.Drawing.Point(96, 60);
+            this.btnOk.Name = "btnOk";
+            this.btnOk.Size = new System.Drawing.Size(75, 23);
+            this.btnOk.TabIndex = 4;
+            this.btnOk.Text = "OK";
+            this.btnOk.UseVisualStyleBackColor = true;
+            this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
-            // button2
+            // btnCancel
             // 
-            this.button2.Location = new System.Drawing.Point(177, 60);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "Anuluj";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btnCancel.Location = new System.Drawing.Point(177, 60);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 5;
+            this.btnCancel.Text = "Anuluj";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // LockoutStatusWyborUzytkownika
+            // LockoutStatusCustom
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(354, 99);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.btnCancel);
+            this.Controls.Add(this.btnOk);
+            this.Controls.Add(this.textDomainName);
+            this.Controls.Add(this.textUserName);
+            this.Controls.Add(this.labelDomainName);
+            this.Controls.Add(this.labelUserName);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = global::Forms.Resources.Resources.Puzzel;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "LockoutStatusWyborUzytkownika";
+            this.Name = "LockoutStatusCustom";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Wybierz użytkownika";
-            this.Load += new System.EventHandler(this.LockoutStatusWyborUzytkownika_Load);
+            this.Load += new System.EventHandler(this.LockoutStatusCustoma_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -117,11 +117,11 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label labelUserName;
+        private System.Windows.Forms.Label labelDomainName;
+        private System.Windows.Forms.TextBox textUserName;
+        private System.Windows.Forms.TextBox textDomainName;
+        private System.Windows.Forms.Button btnOk;
+        private System.Windows.Forms.Button btnCancel;
     }
 }
