@@ -32,13 +32,10 @@
     <Compile Update="External\LockoutStatus\LockoutStatusCustom.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="External\LockoutStatus\ZmianaHasla.cs">
+    <Compile Update="External\LockoutStatus\ChangePasswordForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="External\QuickFix\DeleteUsers.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="External\QuickFix\Environment.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="External\QuickFix\Environment_Variable.cs">

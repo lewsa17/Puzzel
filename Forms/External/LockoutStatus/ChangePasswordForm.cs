@@ -7,82 +7,61 @@ using System.Threading;
 
 namespace Forms.External
 {
-    public partial class ZmianaHasla : Form
+    public partial class ChangePasswordForm : Form
     {
-        public ZmianaHasla()
+        public ChangePasswordForm()
         {
             InitializeComponent();
         }
-        public static string DomainName() => System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().DomainName; 
         public static string[] DomainControllers()
         {
-            //DirectoryEntry myLdapConnection = new DirectoryEntry("LDAP://OU=Domain Controllers," + domainName());
-            using (DirectorySearcher search = new DirectorySearcher(new DirectoryEntry("LDAP://" + DomainName())))
-            {
-                //search.Filter = "(sAMAccountName=" + username + ")";
-                SearchResult search1 = search.FindOne();
-                //SearchResultCollection collection = search.FindAll();
-                object[] lines = (object[])search1.GetDirectoryEntry().Properties["msds-isdomainfor"].Value;
-                string table = null;
-                foreach (string line in lines)
-                {
-                    string[] words = line.Split(',');
-                    table += words[1].Replace("CN=", "") + ",";
-                }
-
-                string[] array;
-                array = table.Split(',');
-                Array.Resize(ref array, array.Length - 1);
-
-                return array;
-            }
+            return PuzzelLibrary.AD.Other.Domain.GetDomainControllers();
         }
         public string userName { get; set; }
         
-        private void Button1_Click(object sender, EventArgs e)
+        private void btnChangePassword_Click(object sender, EventArgs e)
         {
-            bool UnlockAccout = checkBox1.Checked;
-            bool PasswordExpired = checkBox2.Checked;
+            bool UnlockAccout = checkPaswordMustBeChanged.Checked;
+            bool PasswordExpired = checkUnlockAccount.Checked;
             string password = null;
             int counter = 0;
 
-            if (textBox1.Text == textBox2.Text)
+            if (textNewPassword.Text == textConfirmPassword.Text)
             {
-                if (textBox1.Text.Length >= 8)
+                if (textNewPassword.Text.Length >= 8)
                 { 
-                    if (textBox1.Text.Any(char.IsUpper))
+                    if (textNewPassword.Text.Any(char.IsUpper))
                     {
                         counter++;
                     }
-                    if (textBox1.Text.Any(char.IsLower))
+                    if (textNewPassword.Text.Any(char.IsLower))
                     {
                         counter++;
                     }
-                    if (textBox1.Text.Any(char.IsDigit))
+                    if (textNewPassword.Text.Any(char.IsDigit))
                     {
                         counter++;
                     }
-                    if (!textBox1.Text.Any(char.IsLetterOrDigit))
+                    if (!textNewPassword.Text.Any(char.IsLetterOrDigit))
                     {
                         counter++;
                     }
                     if (counter >= 3)
                     {
-                        password = textBox1.Text;
+                        password = textNewPassword.Text;
                     }
                     else MessageBox.Show("Sprawdź poprawność hasła czy zawiera dużą lub mała literę, cyfrę lub znak specjalny");
                 }
                 else MessageBox.Show("Podane hasło ma mniej niż 8 znaków");
-                UstawHaslo(password, UnlockAccout, PasswordExpired);
+                ConfirmPassword(password, UnlockAccout, PasswordExpired);
             }
             else MessageBox.Show("Podane hasła nie są zgodne");
         }
-
-        private void Button2_Click(object sender, EventArgs e)
+        private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-        public void UstawHaslo(string password, bool unlockAccount, bool passwordExpired)
+        public void ConfirmPassword(string password, bool unlockAccount, bool passwordExpired)
         {
             if (password != null)
                 foreach (string dcName in DomainControllers())
@@ -105,7 +84,7 @@ namespace Forms.External
                 }
             MessageBox.Show("Hasło zostało zmienione");
         }
-        public void ZmianaHaslaLoadForm(string UserName)
+        public void CheckIfAccountIsLocked(string UserName)
         {
             int i = 0;
             if (UserName != null)
@@ -128,8 +107,8 @@ namespace Forms.External
                     th.Join();
                 }
             if (i > 0)
-                this.label4.Text = "Stan blokady konta w domenie: Zablokowane";
-            else this.label4.Text = "Stan blokady konta w domenie: Odblokowane";
+                this.labelAccountIsLocked.Text = "Stan blokady konta w domenie: Zablokowane";
+            else this.labelAccountIsLocked.Text = "Stan blokady konta w domenie: Odblokowane";
         }
     }
 }

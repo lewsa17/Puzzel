@@ -1313,8 +1313,8 @@ namespace Forms
             {
                 if (PuzzelLibrary.AD.User.Information.IsUserAvailable(UserName()))
                 {
-                    External.ZmianaHasla zh = new External.ZmianaHasla();
-                    zh.ZmianaHaslaLoadForm(UserName());
+                    External.ChangePasswordForm zh = new External.ChangePasswordForm();
+                    zh.CheckIfAccountIsLocked(UserName());
                     zh.Show();
                 }
             }
