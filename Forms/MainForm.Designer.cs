@@ -1199,26 +1199,6 @@ namespace Forms
             this.menuItemTermimalExplorer.Size = new System.Drawing.Size(222, 22);
             this.menuItemTermimalExplorer.Text = "Terminal Explorer";
             this.menuItemTermimalExplorer.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            //
-            // TeminalUniversalToolStripMenuItem
-            //
-            System.Collections.Generic.List<string> terms = new System.Collections.Generic.List<string>();
-            terms.AddRange(termservers());
-            terms.Sort();
-            foreach (string t in terms)
-            {
-                TerminalUniversalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-                TerminalUniversalToolStripMenuItem.Name = t;
-                TerminalUniversalToolStripMenuItem.Text = t;
-                TerminalUniversalToolStripMenuItem.Click += new System.EventHandler(WyszukiwanieSesji_TerminalExplorer);
-                if (menuItemTermimalExplorer.DropDownItems[menuItemTermimalExplorer.DropDownItems.Count - 1].Name.Contains(t.Remove(t.Length-1)))
-                menuItemTermimalExplorer.DropDownItems.Add(TerminalUniversalToolStripMenuItem);
-                else
-                {
-                    menuItemTermimalExplorer.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] 
-                    { new System.Windows.Forms.ToolStripSeparator(), TerminalUniversalToolStripMenuItem });
-                }
-            }
             // 
             // menuItemCustomName
             // 

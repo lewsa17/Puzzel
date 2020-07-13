@@ -23,6 +23,7 @@ namespace Forms
         public MainForm()
         {
             InitializeComponent();
+            InitializeAdditionals();
             InitializeNames();
             this.Text += " " + PuzzelLibrary.Version.GetVersion();
         }
@@ -30,6 +31,26 @@ namespace Forms
         public static int ProgressMax = 0;
         public static int ProgressBarValue = 0;
         private delegate void UpdateRichTextBoxEventHandler(string message);
+
+        private void InitializeAdditionals()
+        {
+            var termservers = PuzzelLibrary.Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "Terminals").Split(",");
+            List<string> terms = new List<string>();
+            terms.AddRange(termservers);
+            terms.Sort();
+            foreach (string t in terms)
+            {
+                TerminalUniversalToolStripMenuItem = new ToolStripMenuItem() { Name = t, Text = t };
+                TerminalUniversalToolStripMenuItem.Click += new EventHandler(WyszukiwanieSesji_TerminalExplorer);
+                if (menuItemTermimalExplorer.DropDownItems[menuItemTermimalExplorer.DropDownItems.Count - 1].Name.Contains(t.Remove(t.Length - 1)))
+                    menuItemTermimalExplorer.DropDownItems.Add(TerminalUniversalToolStripMenuItem);
+                else
+                {
+                    menuItemTermimalExplorer.DropDownItems.AddRange(new ToolStripItem[]
+                    { new ToolStripSeparator(), TerminalUniversalToolStripMenuItem });
+                }
+            }
+        }
         public static void UpdateRichTextBox(string message)
         {
             if (richTextBox1.InvokeRequired)
@@ -564,18 +585,6 @@ namespace Forms
             });
             timer.Start();
         }
-
-        private string[] termservers()
-        {
-            using (FileStream fileStream = new FileStream(Directory.GetCurrentDirectory() + @"\Terms.lst", FileMode.Open, FileAccess.Read, FileShare.Read))
-            {
-                using (StreamReader sr = new StreamReader(fileStream))
-                {
-                    return sr.ReadToEnd().Split(new string[] { System.Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                }
-            }
-        }
-
         private void FindSessionBtn_Click(object sender, EventArgs e)
         {
             comboBoxFindedSessions.Items.Clear();
