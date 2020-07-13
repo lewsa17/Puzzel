@@ -917,7 +917,7 @@ namespace Forms
             }
             if (sender is Button)
             {
-                if (((Button)sender).Name == btnManagement)
+                if (((Button)sender) == btnManagement)
                     arguments = "compmgmt.msc";
 
             }
@@ -1046,13 +1046,7 @@ namespace Forms
             try
             {
                 CloseClipboard();
-                //if (e.KeyCode == Keys.Enter)
-                //{
-                //    if (sender is TextBox /*|| (sender is ComboBox && ((ComboBox)sender).Name != "comboBox1")*/)
-                //    {
-                //        SzukajLogow(sender, e);
-                //    }
-                //}
+
                 if (e.Control && e.KeyCode == Keys.C)
                 {
                     Clipboard.Clear();
@@ -1065,7 +1059,6 @@ namespace Forms
                         {
                             comboBoxFindedSessions.Text = comboBoxFindedSessions.Text.Trim(' ');
                             comboBoxFindedSessions.SelectAll();
-                            //Thread.Sleep(250);
                             Clipboard.SetText(comboBoxFindedSessions.SelectedText.Trim());
                         }
                     if (comboBoxLogin.Focused)
@@ -1073,7 +1066,6 @@ namespace Forms
                         {
                             comboBoxLogin.Text = comboBoxLogin.Text.Trim(' ');
                             comboBoxLogin.SelectAll();
-                            //Thread.Sleep(250);
                             Clipboard.SetText(comboBoxLogin.SelectedText.Trim(' '));
                         }
                     if (comboBoxComputer.Focused)
@@ -1081,7 +1073,6 @@ namespace Forms
                         {
                             comboBoxComputer.Text = comboBoxComputer.Text.Trim(' ');
                             comboBoxLogin.SelectAll();
-                            //Thread.Sleep(250);
                             Clipboard.SetText(comboBoxComputer.SelectedText.Trim(' '));
                         }
                 }
@@ -1118,30 +1109,24 @@ namespace Forms
                     if (comboBoxFindedSessions.Focused)
                         if (comboBoxFindedSessions.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBoxFindedSessions.SelectedText) && !string.IsNullOrWhiteSpace(comboBoxFindedSessions.SelectedText))
                         {
-                            //Thread.Sleep(250);
                             Clipboard.SetText(comboBoxFindedSessions.SelectedText);
                             comboBoxFindedSessions.Text.Remove(comboBoxFindedSessions.SelectionStart, comboBoxFindedSessions.SelectionLength);
-                            //Clipboard.SetText(Clipboard.GetText().Trim(' '));
                         }
                     if (comboBoxLogin.Focused)
                         if (comboBoxLogin.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBoxLogin.SelectedText) && !string.IsNullOrWhiteSpace(comboBoxLogin.SelectedText))
                         {
                             comboBoxLogin.Text = comboBoxLogin.Text.Trim(' ');
                             comboBoxLogin.SelectAll();
-                            //Thread.Sleep(250);
                             Clipboard.SetText(comboBoxLogin.SelectedText.Trim(' '));
                             comboBoxLogin.Text.Remove(comboBoxLogin.SelectionStart, comboBoxLogin.SelectionLength);
-                            //Clipboard.SetText(Clipboard.GetText().Trim(' '));
                         }
                     if (comboBoxComputer.Focused)
                         if (comboBoxComputer.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBoxComputer.SelectedText) && !string.IsNullOrWhiteSpace(comboBoxComputer.SelectedText))
                         {
                             comboBoxComputer.Text = comboBoxComputer.Text.Trim(' ');
                             comboBoxComputer.SelectAll();
-                            //Thread.Sleep(250);
                             Clipboard.SetText(comboBoxComputer.SelectedText.Trim(' '));
                             comboBoxComputer.Text.Remove(comboBoxComputer.SelectionStart, comboBoxComputer.SelectionLength);
-                            //Clipboard.SetText(Clipboard.GetText().Trim(' '));
                         }
                 }
                 if (e.Control && e.KeyCode == Keys.A)
@@ -1164,21 +1149,6 @@ namespace Forms
                 PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, sender + " " + e.KeyCode);
             }
         }
-        //private void LoadingShortcuts()
-        //{
-        //    ShortCut.SetKeyCode("CTRL+C");
-        //    ShortCut.SetKeyCode("CTRL+X");
-        //    ShortCut.SetKeyCode("CTRL+V");
-        //    ShortCut.SetKeyCode("CTRL+F");
-
-        //    Ustawienia settings = new Ustawienia();
-        //    var setts = settings.LoadSettings();
-        //    if (setts != null)
-        //        for (int i = 0; i < 21; i++) 
-        //    {
-        //        ShortCut.SetKeyCode(setts[i,1]);
-        //    }
-        //}
         private void contextMenuItemCopy_Click(object sender, EventArgs e)
         {
             try
@@ -1202,7 +1172,7 @@ namespace Forms
             }
             catch (Exception ex)
             {
-                PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, "Kopiowanie_ContextMenuText");
+                PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, "contextMenuItemCopy_Click");
             }
         }
 
@@ -1242,7 +1212,7 @@ namespace Forms
             }
             catch (Exception ex)
             {
-                PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, "Wycinanie_ContextMenuText");
+                PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, "contextMenuItemCut_Click");
             }
         }
         private void contextMenuItemPaste_Click(object sender, EventArgs e)
@@ -1269,7 +1239,7 @@ namespace Forms
             }
             catch (Exception ex)
             {
-                PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, "Wklej_ContextMenuText");
+                PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, "contextMenuItemPaste_Click");
             }
         }
         private void contextMenuItemSelectAll_Click(object sender, EventArgs e)
@@ -1290,7 +1260,7 @@ namespace Forms
             }
             catch (Exception ex)
             {
-                PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, "zaznaczWszystko_ConcetxtMenuText");
+                PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, "contextMenuItemSelectAll_Click");
             }
         }
 
@@ -1329,14 +1299,6 @@ namespace Forms
             }
             else UpdateRichTextBox("Nie podano loginu");
         }
-
-        //private void Ustawienia_Click(object sender, EventArgs e)
-        //{
-        //    using (Ustawienia ustawienia = new Ustawienia())
-        //    {
-        //        ustawienia.ShowDialog();
-        //    }
-        //}
 
         private void EnableIEHosting_Click(object sender, EventArgs e)
         {
