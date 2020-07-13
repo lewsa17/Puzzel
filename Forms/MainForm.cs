@@ -41,7 +41,7 @@ namespace Forms
             foreach (string t in terms)
             {
                 TerminalUniversalToolStripMenuItem = new ToolStripMenuItem() { Name = t, Text = t };
-                TerminalUniversalToolStripMenuItem.Click += new EventHandler(WyszukiwanieSesji_TerminalExplorer);
+                TerminalUniversalToolStripMenuItem.Click += new EventHandler(FindSessionsCustomTerminalServerName);
                 if (menuItemTermimalExplorer.DropDownItems[menuItemTermimalExplorer.DropDownItems.Count - 1].Name.Contains(t.Remove(t.Length - 1)))
                     menuItemTermimalExplorer.DropDownItems.Add(TerminalUniversalToolStripMenuItem);
                 else
@@ -351,12 +351,12 @@ namespace Forms
 
             StopTime();
         }
-        private void WyszukiwanieSesji_TerminalExplorer(object sender, EventArgs e)
+        private void FindSessionsCustomTerminalServerName(object sender, EventArgs e)
         {
             if (((ToolStripMenuItem)sender).Text == "Ręczna nazwa")
             {
-                External.Explorer.ExplorerFormCustomSearch podajNazweTerminala = new External.Explorer.ExplorerFormCustomSearch();
-                podajNazweTerminala.ShowDialog();
+                External.Explorer.ExplorerFormCustomSearch CustomTermsNameForms = new External.Explorer.ExplorerFormCustomSearch();
+                CustomTermsNameForms.ShowDialog();
             }
             Thread thread;
             External.Explorer.ExplorerForm explorer = new External.Explorer.ExplorerForm(((ToolStripMenuItem)sender).Text);
@@ -893,18 +893,18 @@ namespace Forms
 
             if (sender is ToolStripMenuItem)
             {
-                if (((ToolStripMenuItem)sender).Name == "użytkownicyIGrupyLokalneToolStripMenuItem")
+                if (((ToolStripMenuItem)sender) == menuItemLusrmgr)
                     arguments = "lusrmgr.msc";
 
-                if (((ToolStripMenuItem)sender).Name == "harmonogramZadańToolStripMenuItem")
+                if (((ToolStripMenuItem)sender) == menuItemTaskshedule)
                     arguments = "taskschd.msc";
 
-                if (((ToolStripMenuItem)sender).Name == "usługiToolStripMenuItem")
+                if (((ToolStripMenuItem)sender) == menuItemServices)
                     arguments = "services.msc";
 
-                if (((ToolStripMenuItem)sender).Name == "dziennikZdarzeńToolStripMenuItem")
+                if (((ToolStripMenuItem)sender) == menuItemEventViewer)
                     arguments = "eventvwr.msc";
-                if (((ToolStripMenuItem)sender).Name == "zaawansowanaZaporaToolStripMenuItem")
+                if (((ToolStripMenuItem)sender) == menuItemWindowsFirewall)
                 {
                     PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, PuzzelLibrary.WMI.ComputerInfo.queryOperatingSystem, "Caption");
                     if (ComputerInfo_TEMP.Contains("Windows 7"))
@@ -917,7 +917,7 @@ namespace Forms
             }
             if (sender is Button)
             {
-                if (((Button)sender).Name == "BtnZarzadzanie")
+                if (((Button)sender).Name == btnManagement)
                     arguments = "compmgmt.msc";
 
             }

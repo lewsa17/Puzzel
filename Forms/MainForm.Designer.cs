@@ -1205,7 +1205,7 @@ namespace Forms
             this.menuItemCustomName.Name = "menuItemCustomName";
             this.menuItemCustomName.Size = new System.Drawing.Size(147, 22);
             this.menuItemCustomName.Text = "Ręczna nazwa";
-            this.menuItemCustomName.Click += new System.EventHandler(WyszukiwanieSesji_TerminalExplorer);
+            this.menuItemCustomName.Click += new System.EventHandler(FindSessionsCustomTerminalServerName);
             // 
             // menuItemComputerExplorer
             // 
