@@ -1358,9 +1358,9 @@ namespace Forms
             if (HostName().Length > 2)
                 if (PuzzelLibrary.NetDiag.Ping.TCPPing(HostName(), (int)numericTCP.Value) == PuzzelLibrary.NetDiag.Ping.TCPPingStatus.Success)
                 {
-                    UpdateRichTextBox("Badanie " + HostName() + " ukończone sukcesem. Port " + numericTCP.Value.ToString() + " jest otwarty.");
+                    UpdateRichTextBox("Badanie " + HostName() + " zakończone sukcesem. Port " + numericTCP.Value.ToString() + " jest otwarty.");
                 }
-                else UpdateRichTextBox("Badanie " + HostName() + " ukończone porażką. Port " + numericTCP.Value.ToString() + " prawdopoodobnie jest zamknięty.");
+                else UpdateRichTextBox("Badanie " + HostName() + " zakończone porażką. Port " + numericTCP.Value.ToString() + " prawdopoodobnie jest zamknięty.");
             else UpdateRichTextBox("Za krótka nazwa komputera");
             StopTime();
         }
@@ -1393,7 +1393,7 @@ namespace Forms
         {
             if (HostName().Length > 2)
                 if (PuzzelLibrary.NetDiag.Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
-                    PuzzelLibrary.QuickFix.ActivateOffice2016.Active(HostName());
+                    PuzzelLibrary.QuickFix.ActivateOffice.Activate(HostName());
                 else UpdateRichTextBox("Za krótka nazwa komputera");
         }
     }
