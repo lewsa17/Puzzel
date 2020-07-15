@@ -29,31 +29,48 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Progress));
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
+            this.label = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // progressBar1
+            // progressBar
             // 
-            this.progressBar1.Location = new System.Drawing.Point(0, 0);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(100, 23);
-            this.progressBar1.TabIndex = 0;
+            this.progressBar.Location = new System.Drawing.Point(22, 12);
+            this.progressBar.Size = new System.Drawing.Size(170, 22);
+            this.progressBar.Minimum = 0;
+            this.progressBar.Maximum = ProgressMax;
+            //
+            // label
+            //
+            this.label.Location = new System.Drawing.Point(56, 43);
+            this.label.Text = "Ładowanie danych";
+            this.label.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left);
             // 
             // Progress
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.progressBar1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.MinimizeBox = false;
+            this.MaximizeBox = false;
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
+            this.TopMost = true;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Width = 222;
+            this.Height = 100;
+            this.Controls.Add(this.progressBar);
             this.Icon = global::Forms.Resources.Resources.Puzzel;
             this.Name = "Progress";
             this.Text = "Progress";
-            this.ResumeLayout(false);
-
+            this.PerformLayout();
+            this.Controls.Add(label);
+            this.Controls.Add(progressBar);
+            this.SuspendLayout();
+            progressBar.PerformLayout();
+            progressBar.SuspendLayout();
         }
 
         #endregion
-
-        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.ProgressBar progressBar;
+        private System.Windows.Forms.Label label;
     }
 }

@@ -1,33 +1,48 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
 using System.Threading;
+
+
 namespace Forms.Additional
 {
     public partial class Progress : Form
     {
+        public static int ProgressValue => PuzzelLibrary.WMI.ComputerInfo.getProgressValue;
+        public static int ProgressMax { get; set; }
         public Progress()
         {
             InitializeComponent();
             //Loading.RunWorkerAsync();
-            this.progressBar1.Maximum = Forms.MainForm.ProgressMax;
-
-            Thread thread = new Thread(StartLoading);
-            thread.Start();
+            this.progressBar.Maximum = ProgressMax;
+            this.Show();
 
         }
 
-        public void StartLoading()
-        {/*StartLoading:
-            if (Puzzel.Form1.progressBar.IsAlive)
+        public void progress()
+        {
+            while (progressBar.Value != ProgressMax)
             {
-                if (progressBar1.InvokeRequired)
-                    progressBar1.Invoke(new MethodInvoker(() =>
+                if (progressBar.InvokeRequired)
+                    progressBar.Invoke(new MethodInvoker(() =>
                     {
-                        progressBar1.Value = Puzzel.Form1.ProgressBarValue;
-                        progressBar1.Refresh();
+                        progressBar.Value = ProgressValue;
+                        progressBar.Refresh();
+                        System.Threading.Thread.Sleep(200);
                     }));
             }
-            else { Thread.Sleep(500); goto StartLoading; }
-        */}
-        
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new MethodInvoker(() =>
+                {
+                    this.Close();
+                }));
+            }
+        }
+
     }
 }

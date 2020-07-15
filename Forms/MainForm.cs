@@ -868,20 +868,22 @@ namespace Forms
         }
 
         private void KomputerInfoMethod()
-        { 
-                if (MessageBox.Show(new Form() { TopMost = true }, "Wyszukiwanie może chwile potrwać, zezwolić ?", "Wyszukiwanie danych", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                    if (!komputerInfo.IsBusy)
+        {
+            using (Form owner = new Form() { TopMost = true })
+            {
+                if (MessageBox.Show(owner, "Wyszukiwanie może chwile potrwać, zezwolić ?", "Wyszukiwanie danych", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    if (!backgroundWorkerComputerInfo.IsBusy)
                     {
-                        ClearRichTextBox();
-                        ProgressMax = 19;
-                        Additional.LoadingForm loadingForm = new Additional.LoadingForm();
-                        Thread progress;
-                        progress = new Thread(loadingForm.progress);
+                        ReplaceRichTextBox(null);
+                        Forms.Additional.Progress.ProgressMax = 19;
+                        Forms.Additional.Progress loadingForm = new Additional.Progress();
+                        System.Threading.Thread progress;
+                        progress = new System.Threading.Thread(loadingForm.progress);
                         progress.Start();
-                        progressBar = new Thread(KomputerInfoCOMM);
-                        komputerInfo.RunWorkerAsync();
+                        progressBar = new System.Threading.Thread(KomputerInfoCOMM);
+                        backgroundWorkerComputerInfo.RunWorkerAsync();
                     }
-            
+            }
         }
 
         private void AdmTools(object sender, EventArgs e)

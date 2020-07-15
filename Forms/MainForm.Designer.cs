@@ -112,7 +112,7 @@ namespace Forms
             this.btnReloadLogs = new System.Windows.Forms.Button();
             this.btnFlushDNS = new System.Windows.Forms.Button();
             richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.komputerInfo = new System.ComponentModel.BackgroundWorker();
+            this.backgroundWorkerComputerInfo = new System.ComponentModel.BackgroundWorker();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.statusBar1 = new System.Windows.Forms.StatusBar();
             this.statusBP1 = new System.Windows.Forms.StatusBarPanel();
@@ -1049,9 +1049,9 @@ namespace Forms
             richTextBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Keys_KeyDown);
             richTextBox1.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Keys_PreviewKeyDown);
             // 
-            // komputerInfo
+            // backgroundWorkerComputerInfo
             // 
-            this.komputerInfo.DoWork += new System.ComponentModel.DoWorkEventHandler(this.KomputerInfo_DoWork);
+            this.backgroundWorkerComputerInfo.DoWork += new System.ComponentModel.DoWorkEventHandler(this.KomputerInfo_DoWork);
             // 
             // timer1
             // 
@@ -1384,7 +1384,7 @@ namespace Forms
         public System.Windows.Forms.ComboBox comboBoxFindedSessions;
         public System.Windows.Forms.NumericUpDown numericLogin;
         public System.Windows.Forms.NumericUpDown numericComputer;
-        private System.ComponentModel.BackgroundWorker komputerInfo;
+        private System.ComponentModel.BackgroundWorker backgroundWorkerComputerInfo;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.StatusBar statusBar1;
         private System.Windows.Forms.StatusBarPanel statusBP1;
