@@ -873,8 +873,7 @@ namespace Forms
                     if (!backgroundWorkerComputerInfo.IsBusy)
                     {
                         ReplaceRichTextBox(null);
-                        Additional.Progress.ProgressMax = 19;
-                        Additional.Progress loadingForm = new Additional.Progress();
+                        Additional.Progress loadingForm = new Additional.Progress(19);
                         Thread progress;
                         progress = new Thread(loadingForm.progress);
                         progress.Start();

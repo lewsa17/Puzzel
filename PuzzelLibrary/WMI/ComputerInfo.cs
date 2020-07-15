@@ -5,6 +5,7 @@ using System.Net.Sockets;
 using System.Management.Automation;
 using System.Security.Cryptography.X509Certificates;
 using System.Windows.Forms;
+using System.Runtime.CompilerServices;
 
 namespace PuzzelLibrary.WMI
 {
@@ -30,7 +31,7 @@ namespace PuzzelLibrary.WMI
         public const string queryDesktopMonitor = "Win32_DesktopMonitor";
         public const string queryProduct = "Win32_Product";
         private static int progressBarValue;
-        public static int getProgressValue { get => progressBarValue; }
+        public static int getProgressValue { get => progressBarValue; set => progressBarValue = value; }
 
         public static string AllComputerInfo(string HostName)
         {

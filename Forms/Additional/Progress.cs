@@ -12,12 +12,13 @@ namespace Forms.Additional
 {
     public partial class Progress : Form
     {
-        public static int ProgressValue => PuzzelLibrary.WMI.ComputerInfo.getProgressValue;
-        public static int ProgressMax { get; set; }
-        public Progress()
-        {
+        public int ProgressValue { get => PuzzelLibrary.WMI.ComputerInfo.getProgressValue; }
+        private int _ProgressMax { get; }
+        public Progress(int ProgressMax)
+    {
             InitializeComponent();
             //Loading.RunWorkerAsync();
+            _ProgressMax = ProgressMax;
             this.progressBar.Maximum = ProgressMax;
             this.Show();
 
@@ -25,7 +26,7 @@ namespace Forms.Additional
 
         public void progress()
         {
-            while (progressBar.Value != ProgressMax)
+            while (progressBar.Value != progressBar.Maximum)
             {
                 if (progressBar.InvokeRequired)
                     progressBar.Invoke(new MethodInvoker(() =>
@@ -41,6 +42,7 @@ namespace Forms.Additional
                 {
                     this.Close();
                 }));
+                PuzzelLibrary.WMI.ComputerInfo.getProgressValue = 0;
             }
         }
 

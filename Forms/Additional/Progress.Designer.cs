@@ -38,7 +38,7 @@
             this.progressBar.Location = new System.Drawing.Point(22, 12);
             this.progressBar.Size = new System.Drawing.Size(170, 22);
             this.progressBar.Minimum = 0;
-            this.progressBar.Maximum = ProgressMax;
+            this.progressBar.Maximum = _ProgressMax;
             //
             // label
             //
