@@ -534,10 +534,8 @@ namespace Forms
 
         private void KomputerInfoCOMM()
         {
-            StartTime();
-            PuzzelLibrary.WMI.ComputerInfo.AllComputerInfo(HostName());
-            ReplaceRichTextBox(ComputerInfo_TEMP);
-            ComputerInfo_TEMP = null;
+            StartTime(); 
+            ReplaceRichTextBox(PuzzelLibrary.WMI.ComputerInfo.AllComputerInfo(HostName()));
             StopTime();
         }
 
@@ -875,12 +873,12 @@ namespace Forms
                     if (!backgroundWorkerComputerInfo.IsBusy)
                     {
                         ReplaceRichTextBox(null);
-                        Forms.Additional.Progress.ProgressMax = 19;
-                        Forms.Additional.Progress loadingForm = new Additional.Progress();
-                        System.Threading.Thread progress;
-                        progress = new System.Threading.Thread(loadingForm.progress);
+                        Additional.Progress.ProgressMax = 19;
+                        Additional.Progress loadingForm = new Additional.Progress();
+                        Thread progress;
+                        progress = new Thread(loadingForm.progress);
                         progress.Start();
-                        progressBar = new System.Threading.Thread(KomputerInfoCOMM);
+                        progressBar = new Thread(KomputerInfoCOMM);
                         backgroundWorkerComputerInfo.RunWorkerAsync();
                     }
             }
