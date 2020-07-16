@@ -676,7 +676,6 @@ namespace Forms
             this.btnDW.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnDW.UseVisualStyleBackColor = true;
             this.btnDW.Click += new System.EventHandler(this.btnDW_Click);
-            this.btnDW.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Keys_KeyDown);
             // 
             // DWMenuContext
             // 
@@ -729,7 +728,6 @@ namespace Forms
             this.btnCompInfo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnCompInfo.UseVisualStyleBackColor = true;
             this.btnCompInfo.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
-            this.btnCompInfo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Keys_KeyDown);
             // 
             // contextMenuComputerInfo
             // 
