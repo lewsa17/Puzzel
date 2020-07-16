@@ -42,7 +42,6 @@ namespace PuzzelLibrary.LogonData
                     Array.Resize(ref LogCompLogs, LogCompLogs.Length - 1);
                     string LastSearchedLogin = null;
                     int maxLines = LogCompLogs.Length;
-                    decimal a = licznik;
                     string[] word;
                     string[] words;
                     word = LogCompLogs[0].Split(';');
@@ -50,16 +49,15 @@ namespace PuzzelLibrary.LogonData
                     LastSearchedLogin = SAMAccountName(word[2]);
                     sb.Append(string.Format("{0,-13}{1,-16}{2,-30}{3,-12}{4,-28}{5,-10}", "LOGOWANIE", "KOMPUTER", "NAZWA", "UŻYTKOWNIK", "DATA", "WERSJA SYSTEMU" + "\n"));
                     int count = 0;
-                    if (a > maxLines)
+                    if (licznik > maxLines)
                         count = maxLines;
                     else
-                        count = (int)a;
+                        count = (int)licznik;
 
                     for (int i = 0; i < count; i++)
                     {
                         words = LogCompLogs[i].Split(';');
                         if (words[2] != lastWords)
-
                             sb.Append(string.Format("{0,-13}{1,-17}{2,-30}{3,-11}{4,-28}{5,-10}", " " + words[0], words[1], SAMAccountName(words[2]), words[2].Replace(" ", ""), words[3], words[word.Length - 2]) + "\n");
                         else
                         {
@@ -75,28 +73,24 @@ namespace PuzzelLibrary.LogonData
             }
             return sb.ToString();
         }
-        public static string SearchLogs(object sender, EventArgs e, string Name, decimal counter, string pole, string rodzaj)
+        public static string SearchLogs(decimal counter, string pole, string rodzaj)
         {
             string logs = string.Empty;
             System.Threading.Tasks.Task thread = null;
             if (Directory.Exists(logsDirectory))
             {
                 string[] returnedValues = keyWordsReturned(pole, rodzaj);
-                int invalidPathChars = CheckInvalidChar(Name);
-                if (invalidPathChars == 0)
+                if (CheckInvalidChar(pole))
                 {
                     if (returnedValues.Length > 0)
-                    {
                         foreach (string LogName in returnedValues)
                         {
                             thread = new System.Threading.Tasks.Task(() =>
                            logs += getUserComputerLog(LogName, rodzaj, counter));
                             thread.RunSynchronously();
                         }
-                    }
                     else return ("Brak w logach");
                 }
-                else return ("Użyto niedozwolonych znaków w loginie lub nazwie komputera");
             }
             else MessageBox.Show("Brak dostępu do zasobu");
             if (thread != null)
@@ -106,16 +100,16 @@ namespace PuzzelLibrary.LogonData
         }
 
 
-        private static int CheckInvalidChar(string path)
+        private static bool CheckInvalidChar(string path)
         {
-            int invalidPathChars = 0;
 
             foreach (char invalidPathChar in Path.GetInvalidFileNameChars())
             {
                 if (path.Contains(invalidPathChar))
-                    invalidPathChars++;
+                    return true;
             }
-            return invalidPathChars;
+            MessageBox.Show("Użyto niedozwolonych znaków w nazwie");
+            return false;
         }
         private static string[] keyWordsReturned(string pole, string rodzaj)
         {
