@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
+﻿using System.ComponentModel;
+using System;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
-using System.DirectoryServices;
-using System.DirectoryServices.AccountManagement;
 using System.Management;
 using System.Threading;
 using System.Runtime.InteropServices;
 using Forms.External.QuickFix;
-using System.Management.Automation;
-using Microsoft.Win32;
 using System.Collections.Generic;
 
 namespace Forms
@@ -27,30 +20,39 @@ namespace Forms
             InitializeNames();
             this.Text += " " + PuzzelLibrary.Version.GetVersion();
         }
-        private static Thread progressBar;
-        public static int ProgressMax = 0;
         public static int ProgressBarValue = 0;
+
+        public static int ProgressMax = 0;
+
+        public readonly Stopwatch stopWatch = new Stopwatch();
+
+        private static Thread progressBar;
+
+        private string comboBoxCompLast;
+
+        private string comboBoxLoginLast;
+
+        delegate void ReplaceRichTextBoxEventHandler(string message);
+
+        private delegate void Statusbp1TextEventHandler(string text);
+
+        private delegate void Statusbp2TextEventHandler(string text);
+
+        private delegate void updateComboBoxEventHandler(string message);
+
         private delegate void UpdateRichTextBoxEventHandler(string message);
 
-        private void InitializeAdditionals()
+        public static string ComputerInfo_TEMP { get; set; }
+
+        public static void ReplaceRichTextBox(string message)
         {
-            var termservers = PuzzelLibrary.Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "Terminals").Split(",");
-            List<string> terms = new List<string>();
-            terms.AddRange(termservers);
-            terms.Sort();
-            foreach (string t in terms)
+            if (richTextBox1.InvokeRequired)
             {
-                TerminalUniversalToolStripMenuItem = new ToolStripMenuItem() { Name = t, Text = t };
-                TerminalUniversalToolStripMenuItem.Click += new EventHandler(FindSessionsCustomTerminalServerName);
-                if (menuItemTermimalExplorer.DropDownItems[menuItemTermimalExplorer.DropDownItems.Count - 1].Name.Contains(t.Remove(t.Length - 1)))
-                    menuItemTermimalExplorer.DropDownItems.Add(TerminalUniversalToolStripMenuItem);
-                else
-                {
-                    menuItemTermimalExplorer.DropDownItems.AddRange(new ToolStripItem[]
-                    { new ToolStripSeparator(), TerminalUniversalToolStripMenuItem });
-                }
+                richTextBox1.Invoke(new ReplaceRichTextBoxEventHandler(ReplaceRichTextBox), new object[] { message });
             }
+            else { richTextBox1.Text = message; }
         }
+
         public static void UpdateRichTextBox(string message)
         {
             if (richTextBox1.InvokeRequired)
@@ -60,15 +62,78 @@ namespace Forms
             else { richTextBox1.AppendText(message); }
         }
 
-        private delegate void Statusbp1TextEventHandler(string text);
-
-        private void UpdateStatusbp1text(string text)
+        private static void ClearRichTextBox(/*string sign*/)
         {
-            if (statusBar1.InvokeRequired)
+            if (richTextBox1.InvokeRequired)
             {
-                statusBar1.Invoke(new Statusbp1TextEventHandler(UpdateStatusbp1text), new object[] { text });
+                richTextBox1.Invoke(new MethodInvoker(() => { richTextBox1.Clear(); }));
             }
-            else statusBP1.Text = text;
+            else richTextBox1.Clear();
+        }
+
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern bool CloseClipboard();
+
+        private void ActivateOffice(object sender, EventArgs e)
+        {
+            if (HostName().Length > 2)
+                if (PuzzelLibrary.NetDiag.Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
+                    PuzzelLibrary.QuickFix.ActivateOffice.Activate(HostName());
+                else UpdateRichTextBox("Za krótka nazwa komputera");
+        }
+
+        private void ActiveSession(object sender, EventArgs e)
+        {
+            ReplaceRichTextBox(null);
+            UpdateRichTextBox(new PuzzelLibrary.Terminal.CompExplorer().ActiveSession(HostName()));
+        }
+
+        private void AdmTools(object sender, EventArgs e)
+        {
+            StartTime();
+            string arguments = null;
+
+            if (sender is ToolStripMenuItem)
+            {
+                if (((ToolStripMenuItem)sender) == menuItemLusrmgr)
+                    arguments = "lusrmgr.msc";
+
+                if (((ToolStripMenuItem)sender) == menuItemTaskshedule)
+                    arguments = "taskschd.msc";
+
+                if (((ToolStripMenuItem)sender) == menuItemServices)
+                    arguments = "services.msc";
+
+                if (((ToolStripMenuItem)sender) == menuItemEventViewer)
+                    arguments = "eventvwr.msc";
+                if (((ToolStripMenuItem)sender) == menuItemWindowsFirewall)
+                {
+                    PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, PuzzelLibrary.WMI.ComputerInfo.queryOperatingSystem, "Caption");
+                    if (ComputerInfo_TEMP.Contains("Windows 7"))
+                    {
+                        PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcessWithWaitingForExit("netsh", "-r " + HostName() + " firewall set service RemoteAdmin enable");
+                    }
+                    else { PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcessWithWaitingForExit("netsh", "-r " + HostName() + "set rule name = \"Windows Defender Firewall Remote Management (RPC)\" new enable= yes"); }
+                    arguments = "wf.msc";
+                }
+            }
+            if (sender is Button)
+            {
+                if (((Button)sender) == btnManagement)
+                    arguments = "compmgmt.msc";
+
+            }
+            if (HostName().Length > 0)
+                if (PuzzelLibrary.NetDiag.Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
+                {
+                    PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess("mmc.exe", arguments + @" /computer:\\" + HostName());
+                }
+                else
+                {
+                    ClearRichTextBox();
+                    PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess("mmc.exe", arguments);
+                }
+            StopTime();
         }
 
         private void AppendStatusbp1text(string text)
@@ -80,294 +145,20 @@ namespace Forms
             else statusBP1.Text += text;
         }
 
-        private delegate void Statusbp2TextEventHandler(string text);
-        private void UpdateStatusbp2text(string text)
+        private void BtnCollapseTCP(object sender, EventArgs e)
         {
-            if (statusBar1.InvokeRequired)
+            if (panelTCP.Width == 351)
             {
-                statusBar1.Invoke(new Statusbp1TextEventHandler(UpdateStatusbp2text), new object[] { text });
+                btnCollapseTCP.Text = "Rozwiń";
+                panelTCP.Width = 63;
             }
-            else statusBP2.Text = text;
-        }
-
-        private delegate void ReplaceRichTextBoxEventHandler(string message);
-        public static void ReplaceRichTextBox(string message)
-        {
-            if (richTextBox1.InvokeRequired)
+            else
             {
-                richTextBox1.Invoke(new ReplaceRichTextBoxEventHandler(ReplaceRichTextBox), new object[] { message });
-            }
-            else { richTextBox1.Text = message; }
-        }
-
-        private void btnRDP_Click(object sender, EventArgs e)
-        {
-            StartTime();
-            if (HostName().Length > 0)
-            {
-                if (PuzzelLibrary.NetDiag.Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
-                {
-                    PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess("mstsc.exe", "/v " + HostName());
-                }
-                else ReplaceRichTextBox("Niewidoczny na sieci");
-            }
-            else ReplaceRichTextBox("Nie podano nazwy hosta");
-            StopTime();
-        }
-
-        private void btnPing_Click(object sender, EventArgs e)
-        {
-            StartTime();
-            ClearRichTextBox(); if (HostName().Length > 0)
-            {
-                StartWinSysApplication("ping.exe", "-n 2 " + HostName());
-                StartWinSysApplication("nbtstat.exe", "-a " + HostName() + " -c");
-            }
-            else ReplaceRichTextBox("Nie podano nazwy hosta");
-            StopTime();
-        }
-        private void StartWinSysApplication(string FileName, string Arguments)
-        {
-            UpdateRichTextBox(PuzzelLibrary.ProcessExecutable.ProcExec.StartExtendedProcess(FileName, Arguments));
-        }
-        private void Profilsieciowy(object sender, EventArgs e)
-        {
-            StartTime();
-            if (UserName().Length > 1)
-            {
-                string folder = null;
-                if (((Button)sender) == btnProfilVFS)
-                    folder = PuzzelLibrary.Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "VFS");
-
-                if (((Button)sender) == btnProfilERI)
-                    folder = PuzzelLibrary.Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "ERI");
-
-                if (((Button)sender) == btnProfilTS)
-                    folder = PuzzelLibrary.Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "NET");
-
-                if (((Button)sender) == btnProfilEXT)
-                    folder = PuzzelLibrary.Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "EXT");
-                if (!string.IsNullOrEmpty(folder))
-                    if (Directory.Exists(Path.Combine(folder, UserName())))
-                        PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess("explorer.exe", folder + UserName());
-                    else MessageBox.Show("Brak dostępu do zasobu");
-            }
-            else MessageBox.Show("Nie podano nazwy użytkownika");
-            StopTime();
-        }
-
-        private void btnExplorer_Click(object sender, EventArgs e)
-        {
-            StartTime();
-            if (HostName().Length > 0)
-            {
-                if (PuzzelLibrary.NetDiag.Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
-                {
-                    PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess("explorer.exe", @"\\" + HostName() + @"\c$");
-                }
-                else ReplaceRichTextBox("Nie odpowiada w sieci");
-            }
-            else ReplaceRichTextBox("Nie podano nazwy hosta");
-            StopTime();
-        }
-        private void MainForm_Resize(object sender, EventArgs e)
-        {
-            try
-            {
-                richTextBox1.MaximumSize = new System.Drawing.Size(Width - 19, Height - 302);
-                richTextBox1.MinimumSize = new System.Drawing.Size(Width - 19, Height - 302);
-                richTextBox1.ClientSize = new System.Drawing.Size(Width - 19, Height - 302);
-                groupBoxUserInfo.Width = Width - 19;
-                groupBoxComputerInfo.Width = Width - 19;
-                groupBoxOtherTools.Width = Width - 19;
-            }
-            catch (Exception ex)
-            {
-                PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, WindowState.ToString());
+                btnCollapseTCP.Text = "Zwiń";
+                panelTCP.Width = 351;
             }
         }
 
-        private void ConnectToSession(object sender, EventArgs e)
-        {
-            StartTime();
-            if (comboBoxFindedSessions.Text.Length > 1)
-            {
-                string[] IDSessionServerName = null;
-                try
-                {
-                    if (comboBoxFindedSessions.Items.Count > 0)
-                    {
-                        if (comboBoxFindedSessions.SelectedIndex >= 0)
-                        {
-                            IDSessionServerName = comboBoxFindedSessions.Items[comboBoxFindedSessions.SelectedIndex].ToString().Split(' ');
-                            PuzzelLibrary.Terminal.TerminalExplorer Term = new PuzzelLibrary.Terminal.TerminalExplorer();
-                            Term.ConnectToSession(IDSessionServerName[1], Convert.ToInt16(IDSessionServerName[0]));
-                        }
-                        else ReplaceRichTextBox("Nie wybrano aktywnej sesji");
-                    }
-                    else ReplaceRichTextBox("Nie ma żadnej aktywnej sesji");
-                }
-                catch (ArgumentOutOfRangeException)
-                {
-                    ReplaceRichTextBox("Nie wybrano żadnego terminala lub nie znalazł żadnej sesji\n");
-                    MessageBox.Show("Nie wybrano żadnego terminala lub nie znalazł żadnej sesji", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                catch (Win32Exception ex)
-                {
-                    PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, IDSessionServerName[1]);
-                }
-            }
-            else ReplaceRichTextBox("Nie można się połączyć ponieważ nie została wybrana sesja");
-            StopTime();
-        }
-        private static void ClearRichTextBox(/*string sign*/)
-        {
-            if (richTextBox1.InvokeRequired)
-            {
-                richTextBox1.Invoke(new MethodInvoker(() => { richTextBox1.Clear(); }));
-            }
-            else richTextBox1.Clear();
-        }
-        private string comboBoxLoginLast;
-        private string comboBoxCompLast;
-        private void btnLoginCompLog_Click(object sender, EventArgs e)
-        {
-            StartTime();
-            ReplaceRichTextBox(null);
-            comboBoxFindedSessions.Items.Clear();
-            comboBoxFindedSessions.Text = "";
-            if (sender == btnUserLog)
-            {
-                SearchLogs(btnUserLog, e, numericLogin.Value, UserName(), "User");
-            }
-            if (sender == btnCompLog)
-            {
-                SearchLogs(btnCompLog, e, numericComputer.Value, HostName(), "Computer");
-            }
-            statusBar1.Focus();
-            StopTime();
-        }
-
-        private void SearchLogs(object sender, EventArgs e, decimal counter, string pole, string rodzaj)
-        {
-            int NameLength = pole.Length;
-
-            if (NameLength > 1)
-            {
-                if (sender == btnUserLog)
-                    if (pole.Length > 0)
-                        if (pole != comboBoxLoginLast)
-                        {
-                            comboBoxLoginLast = pole;
-                            comboBoxLogin.Items.Add(comboBoxLoginLast);
-                        }
-                if (sender == btnCompLog)
-                    if (pole.Length > 0)
-                        if (pole != comboBoxCompLast)
-                        {
-                            comboBoxCompLast = pole;
-                            comboBoxComputer.Items.Add(comboBoxCompLast);
-                        }
-                UpdateRichTextBox(PuzzelLibrary.LogonData.Captcher.SearchLogs(sender, e, Name, counter, pole, rodzaj));
-
-                //if (comboBoxLogin.InvokeRequired)
-                //    comboBoxLogin.Invoke(new MethodInvoker(() =>
-                //    {
-                //        comboBoxLogin.Text = "";
-                //        comboBoxLogin.Items.Clear();
-                //    }));
-            }
-            else ReplaceRichTextBox("Nie podano nazwy użytkownika");
-        }
-        private void Keys_KeyDown(object sender, KeyEventArgs e)
-        {
-            if ((sender is ComboBox && ((ComboBox)sender) != comboBoxFindedSessions) || (sender is Button && (((Button)sender).Name == "btnCompInfo" || ((Button)sender).Name == "btnCompLog")))
-            {
-                if (e.KeyCode == Keys.Enter)
-                {
-                    if (sender == comboBoxLogin)
-                    {
-                        SearchLogs(btnUserLog, e, numericLogin.Value, UserName(), "User");
-                    }
-                    if (sender == comboBoxComputer)
-                    {
-                        SearchLogs(btnCompLog, e, numericComputer.Value, HostName(), "Computer");
-                    }
-                }
-            }
-
-            if (sender is RichTextBox)
-            {
-                if (e.Control && e.KeyCode == Keys.F)
-                {
-                    SearchData();
-                }
-
-                //if (e.Control && e.KeyCode == Keys.Z)
-                //    richTextBox1.Undo();
-
-                //if (e.Control && e.KeyCode == Keys.Y)
-                //    richTextBox1.Redo(); 
-            }
-        }
-        private void SearchData()
-        {
-            richTextBox1.SelectionStart = 0;
-            richTextBox1.HideSelection = false;
-            Additional.SearchingMainForm wyszukiwarka = new Additional.SearchingMainForm();
-            wyszukiwarka.Show();
-        }
-        private void LogoffSession(object sender, EventArgs e)
-        {
-            StartTime();
-            if (comboBoxFindedSessions.Text.Length > 1)
-            {
-                string[] IDSessionServerName = null;
-                try
-                {
-                    if (comboBoxFindedSessions.Items.Count > 0)
-                    {
-                        if (comboBoxFindedSessions.SelectedIndex >= 0)
-                        {
-                            IDSessionServerName = comboBoxFindedSessions.Items[comboBoxFindedSessions.SelectedIndex].ToString().Split(' ');
-                            PuzzelLibrary.Terminal.Explorer.LogOffSession(new PuzzelLibrary.Terminal.Explorer().GetRemoteServer(IDSessionServerName[1]), Convert.ToInt16(IDSessionServerName[0]));
-
-                        }
-                        else ReplaceRichTextBox("Nie wybrano aktywnej sesji");
-                    }
-                    else ReplaceRichTextBox("Nie ma żadnej aktywnej sesji");
-                }
-                catch (ArgumentOutOfRangeException)
-                {
-                    ReplaceRichTextBox("Nie wybrano żadnego terminala lub nie znalazł żadnej sesji\n");
-                    MessageBox.Show("Nie wybrano żadnego terminala lub nie znalazł żadnej sesji", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                catch (Win32Exception ex)
-                {
-                    PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, IDSessionServerName[1]);
-                }
-            }
-            else ReplaceRichTextBox("Nie można wylogować ponieważ nie została wybrana sesja");
-
-            StopTime();
-        }
-        private void FindSessionsCustomTerminalServerName(object sender, EventArgs e)
-        {
-            if (((ToolStripMenuItem)sender).Text == "Ręczna nazwa")
-            {
-                External.Explorer.ExplorerFormCustomSearch CustomTermsNameForms = new External.Explorer.ExplorerFormCustomSearch();
-                CustomTermsNameForms.ShowDialog();
-            }
-            Thread thread;
-            External.Explorer.ExplorerForm explorer = new External.Explorer.ExplorerForm(((ToolStripMenuItem)sender).Text);
-            explorer.HostName = HostName();
-            thread = new Thread(() => explorer.GetSessionsToDataGridView());
-            thread.Start();
-            explorer.Show();
-        }
-    
-
-        public static string ComputerInfo_TEMP { get; set; }
         private void btnDW_Click(object sender, EventArgs e)
         {
             StartTime();
@@ -417,107 +208,20 @@ namespace Forms
             StopTime();
         }
 
-        private void Info_z_AD_Click(object sender, EventArgs e)
+        private void btnExplorer_Click(object sender, EventArgs e)
         {
             StartTime();
-            if (InfozAD.IsBusy != true)
+            if (HostName().Length > 0)
             {
-                InfozAD.RunWorkerAsync();
+                if (PuzzelLibrary.NetDiag.Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
+                {
+                    PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess("explorer.exe", @"\\" + HostName() + @"\c$");
+                }
+                else ReplaceRichTextBox("Nie odpowiada w sieci");
             }
+            else ReplaceRichTextBox("Nie podano nazwy hosta");
             StopTime();
         }
-        private void InfozAD_DoWork(object sender, DoWorkEventArgs e)
-        {
-            StartTime();
-            ClearRichTextBox();
-                if (UserName().Length != 0)
-                {
-                    var user = new PuzzelLibrary.AD.User.Information(UserName());
-                    if (user != null)
-                    {
-                        //1 linijka
-                        TimeSpan temp = (user.pwdLastSet.AddDays(30) - DateTime.Now);
-                        if (temp > (DateTime.Now.AddDays(2) - DateTime.Now))
-                        {
-                            UpdateRichTextBox(temp.ToString("'Hasło wygasa za: 'dd' dni 'hh'g'mm'm'ss's'") + "\n");
-                        }
-                        else if (temp < (DateTime.Now.AddDays(1) - DateTime.Now))
-                            UpdateRichTextBox(temp.ToString("'Hasło wygasa za: 'dd' dzień 'hh'g'mm'm'ss's'") + "\n");
-                        //2 linijka
-                        UpdateRichTextBox("\n");
-                        //3 linijka
-                        UpdateRichTextBox("---------------------------------" + "\n");
-                        //4 linijka
-                        UpdateRichTextBox("Nazwa użytkownika:\t\t\t" + user.loginName + "\n");
-                        //5 linijka
-                        UpdateRichTextBox("Pełna nazwa:\t\t\t\t" + user.displayName + "\n");
-                        //6 linijka
-                        UpdateRichTextBox("Komentarz:\t\t\t\t\t" + user.title + "\n");
-                        //7 linijka
-                        UpdateRichTextBox("Firma zatrudniająca:\t\t\t" + user.company + "\n");
-                        //8 linijka
-                        UpdateRichTextBox("Mail:\t\t\t\t\t\t" + user.mail + "\n");
-                        //9 linijka
-                        UpdateRichTextBox("Adres logowania Skype: \t\t\t" + user.SkypeLogin.Replace("sip:", "") + "\n");
-                        //10 linijka
-                        UpdateRichTextBox("Konto jest aktywne:\t\t\t" + user.userEnabled + "\n");
-                        //11 linijka
-                        UpdateRichTextBox("\n");
-                        //12 linijka
-                        UpdateRichTextBox("Konto wygasa:\t\t\t\t" + user.accountExpires + "\n");  //działa ale jest zła strefa czasowa
-                        //13 linijka\
-                        if (user.pwdLastSet < user.lockoutTime)
-                            UpdateRichTextBox("Konto zablokowane:\t\t\t" + user.lockoutTime + "\n");
-                        else UpdateRichTextBox("Konto zablokowane:\t\t\t" + "0" + "\n");
-                        //14 linijka
-                        if (user.lastBadPwdAttempt.Year != 1)
-                            UpdateRichTextBox("Ostatnie błędne logowanie:\t\t" + user.lastBadPwdAttempt + "\n"); //działa ale potrzebna jest deklaracja serwera
-                        else UpdateRichTextBox("Ostatnie błędne logowanie:\t\t" + 0 + "\n");
-                        //15 linijka
-                        UpdateRichTextBox("Ilość błędnych prób logowania:\t" + user.badPwdCount + "\n"); //działa serwerów są 4
-                        //16 linijka                                                                            
-                        UpdateRichTextBox("Dostęp do internetu:\t\t\t" + user.InternetAccessEnabled + "\n");
-                        //17 linijka
-                        UpdateRichTextBox("Hasło ostatnio ustawiono:\t\t" + user.pwdLastSet + "\n");
-                        //18 linijka
-                        UpdateRichTextBox("Hasło wygasa:\t\t\t\t" + user.pwdLastSet.AddDays(30) + "\n");
-                        //19 linijka
-                        UpdateRichTextBox("Hasło może być zmienione:\t\t" + user.pwdLastSet.AddDays(1) + "\n");
-                        //20 linijka
-                        UpdateRichTextBox("\n");
-                        //21 linijka
-                        UpdateRichTextBox("Ostatnie logowanie:\t\t\t" + user.lastLogon + "\n");
-                        //22 linijka
-                        if (user.lastLogoff > user.lastLogon)
-                            UpdateRichTextBox("Ostatnie wylogowanie:\t\t\t\t" + user.lastLogoff + "\n");
-                        else UpdateRichTextBox("Ostatnie wylogowanie:\t\t\t" + "0" + "\n");
-                        //23 linijka
-                        UpdateRichTextBox("\n");
-                        //24 linijka
-                        UpdateRichTextBox("Czy hasło jest wymagane? \t\t" + user.passwordNotRequired + "\n");
-                        //25 linijka
-                        UpdateRichTextBox("Użytkownik nie może zmienić hasła \t" + user.userCannotChangePassword + "\n");
-                        //26 linijka
-                        UpdateRichTextBox(/*Allowed_workstions() */"Dozwolone stacje robocze:\t\t" + user.permittedWorkstation + "\n");
-                        //27 linijka
-                        UpdateRichTextBox("Skrypt logowania:\t\t\t\t" + user.scriptPath + "\n");
-                        //28 linijka
-                        UpdateRichTextBox("Katalog macierzysty:\t\t\t" + user.homeDirectory + "\n");
-                        //29 linijka
-                        UpdateRichTextBox("Dysk macierzysty:\t\t\t\t" + user.homeDrive + "\n");
-                        //30 linijka
-                        UpdateRichTextBox("\n");
-                        //31 linijka
-                        //UpdateRichTextBox(/*Allowed_Hours()*/ permittedLogonTime.ToString());
-                        UpdateRichTextBox("\n");
-                        //32 linijka
-                        UpdateRichTextBox(/*MembersOf()*/"Członkostwa grup:\t\t\t\t" + user.Groups.ToString());
-                    }
-                    else UpdateRichTextBox("Nie znaleziono użytkownika w AD");
-                }
-                else UpdateRichTextBox("Nie podano nazwy użytkownika");
-                StopTime();
-            }
 
         private void btnFlushDNS_Click(object sender, EventArgs e)
         {
@@ -527,62 +231,313 @@ namespace Forms
             StopTime();
         }
 
-        private void KomputerInfo_DoWork(object sender, DoWorkEventArgs e)
+        private void btnLoginCompLog_Click(object sender, EventArgs e)
         {
-            progressBar.Start();
-        }
-
-        private void KomputerInfoCOMM()
-        {
-            StartTime(); 
-            ReplaceRichTextBox(PuzzelLibrary.WMI.ComputerInfo.AllComputerInfo(HostName()));
+            StartTime();
+            ReplaceRichTextBox(null);
+            comboBoxFindedSessions.Items.Clear();
+            comboBoxFindedSessions.Text = "";
+            if (sender == btnUserLog)
+            {
+                SearchLogs(btnUserLog, e, numericLogin.Value, UserName(), "User");
+            }
+            if (sender == btnCompLog)
+            {
+                SearchLogs(btnCompLog, e, numericComputer.Value, HostName(), "Computer");
+            }
+            statusBar1.Focus();
             StopTime();
         }
 
-        public readonly Stopwatch stopWatch = new Stopwatch();
-
-        private void StartTime()
+        private void btnPing_Click(object sender, EventArgs e)
         {
-            stopWatch.Start();
-            UpdateStatusbp2text("Obliczam");
-            UpdateStatusbp1text("Czekaj");
-            //timer1.Start();
-        }
-
-        private void StopTime()
-        {
-            //timer1.Stop();
-            stopWatch.Stop();
-            UpdateStatusbp1text("Gotowe");
-            UpdateStatusbp2text("Czas: " + stopWatch.Elapsed.Seconds + "s " + stopWatch.Elapsed.Milliseconds + "ms ");
-            stopWatch.Reset();
-        }
-        private void Timer1_Tick(object sender, EventArgs e)
-        {
-            Thread timer = new Thread(() =>
+            StartTime();
+            ClearRichTextBox(); if (HostName().Length > 0)
             {
-                Thread.Sleep(100);
-                while (stopWatch.IsRunning)
-                    if (statusBar1.InvokeRequired)
-                        statusBar1.Invoke(new MethodInvoker(() =>
-                        {
-                            AppendStatusbp1text("*");
-                            if (statusBP1.Text.Length == 16)
-                            {
-                                UpdateStatusbp1text("Czekaj");
-                            }
-                        }));
+                StartWinSysApplication("ping.exe", "-n 2 " + HostName());
+                StartWinSysApplication("nbtstat.exe", "-a " + HostName() + " -c");
+            }
+            else ReplaceRichTextBox("Nie podano nazwy hosta");
+            StopTime();
+        }
+
+        private void btnRDP_Click(object sender, EventArgs e)
+        {
+            StartTime();
+            if (HostName().Length > 0)
+            {
+                if (PuzzelLibrary.NetDiag.Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
+                {
+                    PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess("mstsc.exe", "/v " + HostName());
+                }
+                else ReplaceRichTextBox("Niewidoczny na sieci");
+            }
+            else ReplaceRichTextBox("Nie podano nazwy hosta");
+            StopTime();
+        }
+
+        private void BtnTestTCP_Click(object sender, EventArgs e)
+        {
+            StartTime();
+            ReplaceRichTextBox(null);
+            if (HostName().Length > 2)
+                if (PuzzelLibrary.NetDiag.Ping.TCPPing(HostName(), (int)numericTCP.Value) == PuzzelLibrary.NetDiag.Ping.TCPPingStatus.Success)
+                {
+                    UpdateRichTextBox("Badanie " + HostName() + " zakończone sukcesem. Port " + numericTCP.Value.ToString() + " jest otwarty.");
+                }
+                else UpdateRichTextBox("Badanie " + HostName() + " zakończone porażką. Port " + numericTCP.Value.ToString() + " prawdopoodobnie jest zamknięty.");
+            else UpdateRichTextBox("Za krótka nazwa komputera");
+            StopTime();
+        }
+
+        private void ChangePassword(object sender, EventArgs e)
+        {
+            if (UserName().Length > 0)
+            {
+                if (PuzzelLibrary.AD.User.Information.IsUserAvailable(UserName()))
+                {
+                    External.ChangePasswordForm zh = new External.ChangePasswordForm();
+                    zh.CheckIfAccountIsLocked(UserName());
+                    zh.Show();
+                }
+            }
+            else UpdateRichTextBox("Nie podano loginu");
+        }
+
+        private void CMDMenuItem1_Click(object sender, EventArgs e)
+        {
+            PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess("cmd", "/u");
+        }
+
+        private void CMDSYSTEMToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            StartTime();
+            ClearRichTextBox();
+            if (HostName().Length > 0)
+            {
+                if (PuzzelLibrary.NetDiag.Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
+                {
+                    var OSName = OsName(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, PuzzelLibrary.WMI.ComputerInfo.queryOperatingSystem);
+                    string applicationName = null;
+                    if (OSName.Contains("64-bit"))
+                        applicationName = "PsExec64.exe";
+                    else applicationName = "PsExec.exe";
+
+                    if (File.Exists(Directory.GetCurrentDirectory() + @"\" + applicationName))
+                    {
+                        PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess(applicationName, @"\\" + HostName() + " -s  cmd");
+                    }
                     else
                     {
-                        AppendStatusbp1text("*");
-                        if (statusBP1.Text.Length == 16)
-                        {
-                            UpdateStatusbp1text("Czekaj");
-                        }
+                        UpdateRichTextBox("Nie można odnaleźć określonego pliku\n");
+                        UpdateRichTextBox(Directory.GetCurrentDirectory() + @"\" + applicationName);
                     }
-            });
-            timer.Start();
+                }
+                else UpdateRichTextBox("Stacja: " + HostName() + " nie jest widoczna na sieci");
+            }
+            else UpdateRichTextBox("Nie podałeś nazwy hosta");
+            StopTime();
         }
+
+        private void ComputerSessions(object sender, EventArgs e)
+        {
+            Thread thread;
+            External.Explorer.ExplorerForm explorer = new External.Explorer.ExplorerForm(((ToolStripMenuItem)sender).Text);
+            explorer.HostName = HostName();
+            thread = new Thread(() => explorer.GetSessionsToDataGridView());
+            thread.Start();
+            explorer.Show();
+        }
+
+        private void ConnectToSession(object sender, EventArgs e)
+        {
+            StartTime();
+            if (comboBoxFindedSessions.Text.Length > 1)
+            {
+                string[] IDSessionServerName = null;
+                try
+                {
+                    if (comboBoxFindedSessions.Items.Count > 0)
+                    {
+                        if (comboBoxFindedSessions.SelectedIndex >= 0)
+                        {
+                            IDSessionServerName = comboBoxFindedSessions.Items[comboBoxFindedSessions.SelectedIndex].ToString().Split(' ');
+                            PuzzelLibrary.Terminal.TerminalExplorer Term = new PuzzelLibrary.Terminal.TerminalExplorer();
+                            Term.ConnectToSession(IDSessionServerName[1], Convert.ToInt16(IDSessionServerName[0]));
+                        }
+                        else ReplaceRichTextBox("Nie wybrano aktywnej sesji");
+                    }
+                    else ReplaceRichTextBox("Nie ma żadnej aktywnej sesji");
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    ReplaceRichTextBox("Nie wybrano żadnego terminala lub nie znalazł żadnej sesji\n");
+                    MessageBox.Show("Nie wybrano żadnego terminala lub nie znalazł żadnej sesji", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Win32Exception ex)
+                {
+                    PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, IDSessionServerName[1]);
+                }
+            }
+            else ReplaceRichTextBox("Nie można się połączyć ponieważ nie została wybrana sesja");
+            StopTime();
+        }
+
+        private void contextMenuItemCopy_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                CloseClipboard();
+                if (richTextBox1.Focused)
+                    if (richTextBox1.SelectedText.Length > 0 && !string.IsNullOrEmpty(richTextBox1.SelectedText) && !string.IsNullOrWhiteSpace(richTextBox1.SelectedText))
+                        Clipboard.SetText(richTextBox1.SelectedText.Trim(' '));
+
+                if (comboBoxFindedSessions.Focused)
+                    if (comboBoxFindedSessions.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBoxFindedSessions.SelectedText) && !string.IsNullOrWhiteSpace(comboBoxFindedSessions.SelectedText))
+                        Clipboard.SetText(comboBoxFindedSessions.SelectedText.Trim(' '));
+
+                if (comboBoxLogin.Focused)
+                    if (comboBoxLogin.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBoxLogin.SelectedText) && !string.IsNullOrWhiteSpace(comboBoxLogin.SelectedText))
+                        Clipboard.SetText(comboBoxLogin.SelectedText.Trim(' '));
+
+                if (comboBoxComputer.Focused)
+                    if (comboBoxComputer.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBoxComputer.SelectedText) && !string.IsNullOrWhiteSpace(comboBoxComputer.SelectedText))
+                        Clipboard.SetText(comboBoxComputer.SelectedText.Trim(' '));
+            }
+            catch (Exception ex)
+            {
+                PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, "contextMenuItemCopy_Click");
+            }
+        }
+
+        private void contextMenuItemCut_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                CloseClipboard();
+                if (richTextBox1.Focused)
+                    if (richTextBox1.SelectedText.Length > 0 && !string.IsNullOrEmpty(richTextBox1.SelectedText) && !string.IsNullOrWhiteSpace(richTextBox1.SelectedText))
+                    {
+                        richTextBox1.Cut();
+                        Clipboard.SetText(Clipboard.GetText().Trim(' '));
+                    }
+
+                if (comboBoxFindedSessions.Focused)
+                    if (comboBoxFindedSessions.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBoxFindedSessions.SelectedText) && !string.IsNullOrWhiteSpace(comboBoxFindedSessions.SelectedText))
+                    {
+                        Clipboard.SetText(comboBoxFindedSessions.SelectedText);
+                        comboBoxFindedSessions.Text = comboBoxFindedSessions.Text.Remove(comboBoxFindedSessions.SelectionStart, comboBoxFindedSessions.SelectionLength);
+                        Clipboard.SetText(Clipboard.GetText().Trim(' '));
+                    }
+                if (comboBoxLogin.Focused)
+                    if (comboBoxLogin.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBoxLogin.SelectedText) && !string.IsNullOrWhiteSpace(comboBoxLogin.SelectedText))
+                    {
+                        Clipboard.SetText(comboBoxLogin.SelectedText.Trim(' '));
+                        comboBoxLogin.Text = comboBoxLogin.Text.Remove(comboBoxLogin.SelectionStart, comboBoxLogin.SelectionLength);
+                        // Clipboard.SetText(Clipboard.GetText());
+                    }
+                if (comboBoxComputer.Focused)
+                    if (comboBoxComputer.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBoxComputer.SelectedText) && !string.IsNullOrWhiteSpace(comboBoxComputer.SelectedText))
+                    {
+                        Clipboard.SetText(comboBoxComputer.SelectedText.Trim(' '));
+                        comboBoxComputer.Text = comboBoxComputer.Text.Remove(comboBoxComputer.SelectionStart, comboBoxComputer.SelectionLength);
+                        // Clipboard.SetText(Clipboard.GetText());
+                    }
+            }
+            catch (Exception ex)
+            {
+                PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, "contextMenuItemCut_Click");
+            }
+        }
+
+        private void contextMenuItemPaste_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                CloseClipboard();
+                if (richTextBox1.Focused)
+                {
+                    richTextBox1.Paste();
+                }
+                if (comboBoxFindedSessions.Focused)
+                {
+                    comboBoxFindedSessions.Text = Clipboard.GetText(TextDataFormat.UnicodeText);
+                }
+                if (comboBoxLogin.Focused)
+                {
+                    comboBoxLogin.Text = Clipboard.GetText(TextDataFormat.UnicodeText);
+                }
+                if (comboBoxComputer.Focused)
+                {
+                    comboBoxComputer.Text = Clipboard.GetText(TextDataFormat.UnicodeText);
+                }
+            }
+            catch (Exception ex)
+            {
+                PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, "contextMenuItemPaste_Click");
+            }
+        }
+
+        private void contextMenuItemSearch_Click(object sender, EventArgs e)
+        {
+            WyszukiwanieDanych();
+        }
+
+        private void contextMenuItemSelectAll_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (richTextBox1.Focused)
+                    richTextBox1.SelectAll();
+
+                if (comboBoxFindedSessions.Focused)
+                    comboBoxFindedSessions.SelectAll();
+
+                if (comboBoxLogin.Focused)
+                    comboBoxLogin.SelectAll();
+
+                if (comboBoxComputer.Focused)
+                    comboBoxComputer.SelectAll();
+            }
+            catch (Exception ex)
+            {
+                PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, "contextMenuItemSelectAll_Click");
+            }
+        }
+
+        private void DeleteUsers_Click(object sender, EventArgs e)
+        {
+            if (HostName().Length > 2)
+            {
+                if (PuzzelLibrary.NetDiag.Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
+                {
+                    using (DeleteUsers deleteUsers = new DeleteUsers(HostName()))
+                    {
+                        deleteUsers.ShowDialog();
+                    }
+                }
+            }
+            else UpdateRichTextBox("Za krótka nazwa komputera");
+        }
+
+        private void DHCPToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            StartTime();
+            if (File.Exists(Directory.GetCurrentDirectory() + @"\dhcp.msc"))
+                PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess("mmc.exe", "dhcp.msc");
+            else
+                UpdateRichTextBox("Brak pliku" + Directory.GetCurrentDirectory() + @"\dhcp.msc");
+            StopTime();
+        }
+
+        private void EnableIEHosting_Click(object sender, EventArgs e)
+        {
+            if (HostName().Length > 2)
+                if (PuzzelLibrary.NetDiag.Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
+                    PuzzelLibrary.QuickFix.IEHosting.EnableCompatibilityFramework4inIE(HostName());
+                else UpdateRichTextBox("Za krótka nazwa komputera");
+        }
+
         private void FindSessionBtn_Click(object sender, EventArgs e)
         {
             comboBoxFindedSessions.Items.Clear();
@@ -631,85 +586,313 @@ namespace Forms
             }
         }
 
-        private delegate void updateComboBoxEventHandler(string message);
-        private void UpdateComboBox(string message)
+        private void FindSessionsCustomTerminalServerName(object sender, EventArgs e)
         {
-            if (comboBoxFindedSessions.InvokeRequired)
+            if (((ToolStripMenuItem)sender).Text == "Ręczna nazwa")
             {
-                comboBoxFindedSessions.Invoke(new updateComboBoxEventHandler(UpdateComboBox), new object[] { message });
+                External.Explorer.ExplorerFormCustomSearch CustomTermsNameForms = new External.Explorer.ExplorerFormCustomSearch();
+                CustomTermsNameForms.ShowDialog();
             }
-            else { comboBoxFindedSessions.Items.Add(message); }
+            Thread thread;
+            External.Explorer.ExplorerForm explorer = new External.Explorer.ExplorerForm(((ToolStripMenuItem)sender).Text);
+            explorer.HostName = HostName();
+            thread = new Thread(() => explorer.GetSessionsToDataGridView());
+            thread.Start();
+            explorer.Show();
         }
-        private string OsName(string nazwaKomputera, string path, string query)
-        {
-            string osarch = null;
-            ManagementScope scope = new ManagementScope();
-            try
-            {
-                ConnectionOptions options = new ConnectionOptions()
-                {
-                    EnablePrivileges = true
-                };
-                scope = new ManagementScope(@"\\" + nazwaKomputera + path, options);
-                scope.Connect();
-                using (ManagementObjectSearcher searcher = new ManagementObjectSearcher(scope, new SelectQuery(query)))
-                {
-                    using (ManagementObjectCollection queryCollection = searcher.Get())
-                        foreach (ManagementObject m in queryCollection)
-                        {
-                            //osname = m["caption"].ToString();
-                            osarch = m["osarchitecture"].ToString();
-                        }
-                }
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, nazwaKomputera + "," + path + "," + query);
-                MessageBox.Show("Dostęp zabroniony na obecnych poświadczeniach", "Łączenie z WMI", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
 
-            catch (Exception ex)
-            {
-                PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, nazwaKomputera + "," + path + "," + query);
-                MessageBox.Show("Nie można się połączyć z powodu błędu: " + ex.Message, "Łączenie z WMI", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-            return osarch;
+        private string HostName()
+        {
+            string _HostName = null;
+            if (comboBoxComputer.InvokeRequired)
+                comboBoxComputer.Invoke(new MethodInvoker(() => _HostName = comboBoxComputer.Text.ToUpper()));
+            else _HostName = comboBoxComputer.Text.ToUpper();
+            return _HostName;
         }
-        private void RemoteCMD_Click(object sender, EventArgs e)
+
+        private void Info_z_AD_Click(object sender, EventArgs e)
+        {
+            StartTime();
+            if (InfozAD.IsBusy != true)
+            {
+                InfozAD.RunWorkerAsync();
+            }
+            StopTime();
+        }
+
+        private void InfozAD_DoWork(object sender, DoWorkEventArgs e)
         {
             StartTime();
             ClearRichTextBox();
+            if (UserName().Length != 0)
+            {
+                var user = new PuzzelLibrary.AD.User.Information(UserName());
+                if (user != null)
+                {
+                    //1 linijka
+                    TimeSpan temp = (user.pwdLastSet.AddDays(30) - DateTime.Now);
+                    if (temp > (DateTime.Now.AddDays(2) - DateTime.Now))
+                    {
+                        UpdateRichTextBox(temp.ToString("'Hasło wygasa za: 'dd' dni 'hh'g'mm'm'ss's'") + "\n");
+                    }
+                    else if (temp < (DateTime.Now.AddDays(1) - DateTime.Now))
+                        UpdateRichTextBox(temp.ToString("'Hasło wygasa za: 'dd' dzień 'hh'g'mm'm'ss's'") + "\n");
+                    //2 linijka
+                    UpdateRichTextBox("\n");
+                    //3 linijka
+                    UpdateRichTextBox("---------------------------------" + "\n");
+                    //4 linijka
+                    UpdateRichTextBox("Nazwa użytkownika:\t\t\t" + user.loginName + "\n");
+                    //5 linijka
+                    UpdateRichTextBox("Pełna nazwa:\t\t\t\t" + user.displayName + "\n");
+                    //6 linijka
+                    UpdateRichTextBox("Komentarz:\t\t\t\t\t" + user.title + "\n");
+                    //7 linijka
+                    UpdateRichTextBox("Firma zatrudniająca:\t\t\t" + user.company + "\n");
+                    //8 linijka
+                    UpdateRichTextBox("Mail:\t\t\t\t\t\t" + user.mail + "\n");
+                    //9 linijka
+                    UpdateRichTextBox("Adres logowania Skype: \t\t\t" + user.SkypeLogin.Replace("sip:", "") + "\n");
+                    //10 linijka
+                    UpdateRichTextBox("Konto jest aktywne:\t\t\t" + user.userEnabled + "\n");
+                    //11 linijka
+                    UpdateRichTextBox("\n");
+                    //12 linijka
+                    UpdateRichTextBox("Konto wygasa:\t\t\t\t" + user.accountExpires + "\n");  //działa ale jest zła strefa czasowa
+                                                                                              //13 linijka\
+                    if (user.pwdLastSet < user.lockoutTime)
+                        UpdateRichTextBox("Konto zablokowane:\t\t\t" + user.lockoutTime + "\n");
+                    else UpdateRichTextBox("Konto zablokowane:\t\t\t" + "0" + "\n");
+                    //14 linijka
+                    if (user.lastBadPwdAttempt.Year != 1)
+                        UpdateRichTextBox("Ostatnie błędne logowanie:\t\t" + user.lastBadPwdAttempt + "\n"); //działa ale potrzebna jest deklaracja serwera
+                    else UpdateRichTextBox("Ostatnie błędne logowanie:\t\t" + 0 + "\n");
+                    //15 linijka
+                    UpdateRichTextBox("Ilość błędnych prób logowania:\t" + user.badPwdCount + "\n"); //działa serwerów są 4
+                                                                                                     //16 linijka                                                                            
+                    UpdateRichTextBox("Dostęp do internetu:\t\t\t" + user.InternetAccessEnabled + "\n");
+                    //17 linijka
+                    UpdateRichTextBox("Hasło ostatnio ustawiono:\t\t" + user.pwdLastSet + "\n");
+                    //18 linijka
+                    UpdateRichTextBox("Hasło wygasa:\t\t\t\t" + user.pwdLastSet.AddDays(30) + "\n");
+                    //19 linijka
+                    UpdateRichTextBox("Hasło może być zmienione:\t\t" + user.pwdLastSet.AddDays(1) + "\n");
+                    //20 linijka
+                    UpdateRichTextBox("\n");
+                    //21 linijka
+                    UpdateRichTextBox("Ostatnie logowanie:\t\t\t" + user.lastLogon + "\n");
+                    //22 linijka
+                    if (user.lastLogoff > user.lastLogon)
+                        UpdateRichTextBox("Ostatnie wylogowanie:\t\t\t\t" + user.lastLogoff + "\n");
+                    else UpdateRichTextBox("Ostatnie wylogowanie:\t\t\t" + "0" + "\n");
+                    //23 linijka
+                    UpdateRichTextBox("\n");
+                    //24 linijka
+                    UpdateRichTextBox("Czy hasło jest wymagane? \t\t" + user.passwordNotRequired + "\n");
+                    //25 linijka
+                    UpdateRichTextBox("Użytkownik nie może zmienić hasła \t" + user.userCannotChangePassword + "\n");
+                    //26 linijka
+                    UpdateRichTextBox(/*Allowed_workstions() */"Dozwolone stacje robocze:\t\t" + user.permittedWorkstation + "\n");
+                    //27 linijka
+                    UpdateRichTextBox("Skrypt logowania:\t\t\t\t" + user.scriptPath + "\n");
+                    //28 linijka
+                    UpdateRichTextBox("Katalog macierzysty:\t\t\t" + user.homeDirectory + "\n");
+                    //29 linijka
+                    UpdateRichTextBox("Dysk macierzysty:\t\t\t\t" + user.homeDrive + "\n");
+                    //30 linijka
+                    UpdateRichTextBox("\n");
+                    //31 linijka
+                    //UpdateRichTextBox(/*Allowed_Hours()*/ permittedLogonTime.ToString());
+                    UpdateRichTextBox("\n");
+                    //32 linijka
+                    UpdateRichTextBox(/*MembersOf()*/"Członkostwa grup:\t\t\t\t" + user.Groups.ToString());
+                }
+                else UpdateRichTextBox("Nie znaleziono użytkownika w AD");
+            }
+            else UpdateRichTextBox("Nie podano nazwy użytkownika");
+            StopTime();
+        }
+
+        private void InitializeAdditionals()
+        {
+            var termservers = PuzzelLibrary.Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "Terminals").Split(",");
+            List<string> terms = new List<string>();
+            terms.AddRange(termservers);
+            terms.Sort();
+            foreach (string t in terms)
+            {
+                TerminalUniversalToolStripMenuItem = new ToolStripMenuItem() { Name = t, Text = t };
+                TerminalUniversalToolStripMenuItem.Click += new EventHandler(FindSessionsCustomTerminalServerName);
+                if (menuItemTermimalExplorer.DropDownItems[menuItemTermimalExplorer.DropDownItems.Count - 1].Name.Contains(t.Remove(t.Length - 1)))
+                    menuItemTermimalExplorer.DropDownItems.Add(TerminalUniversalToolStripMenuItem);
+                else
+                {
+                    menuItemTermimalExplorer.DropDownItems.AddRange(new ToolStripItem[]
+                    { new ToolStripSeparator(), TerminalUniversalToolStripMenuItem });
+                }
+            }
+        }
+        private void InitializeNames()
+        {
+            string dw = PuzzelLibrary.Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "DW");
+            string eadm = PuzzelLibrary.Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "ELogin");
+            string lapslogn = PuzzelLibrary.Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "LAPSLogin");
+            this.btnDW.Text = dw;
+            this.DWMenuContext.Text = dw;
+            this.menuItemDWEadm.Text = dw + "(" + eadm + ")";
+            this.menuItemDWLAPS.Text = dw + "(" + lapslogn + ")";
+        }
+
+        private void Keys_KeyDown(object sender, KeyEventArgs e)
+        {
+            if ((sender is ComboBox && ((ComboBox)sender) != comboBoxFindedSessions) || (sender is Button && (((Button)sender).Name == "btnCompInfo" || ((Button)sender).Name == "btnCompLog")))
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    if (sender == comboBoxLogin)
+                    {
+                        SearchLogs(btnUserLog, e, numericLogin.Value, UserName(), "User");
+                    }
+                    if (sender == comboBoxComputer)
+                    {
+                        SearchLogs(btnCompLog, e, numericComputer.Value, HostName(), "Computer");
+                    }
+                }
+            }
+
+            if (sender is RichTextBox)
+            {
+                if (e.Control && e.KeyCode == Keys.F)
+                {
+                    SearchData();
+                }
+
+                //if (e.Control && e.KeyCode == Keys.Z)
+                //    richTextBox1.Undo();
+
+                //if (e.Control && e.KeyCode == Keys.Y)
+                //    richTextBox1.Redo(); 
+            }
+        }
+
+        private void Keys_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
             try
             {
-                if (HostName().Length > 0)
-                {
-                    if (PuzzelLibrary.NetDiag.Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
-                    {
-                        var OSName = OsName(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, PuzzelLibrary.WMI.ComputerInfo.queryOperatingSystem);
-                        string applicationName = null;
-                        if (OSName.Contains("64-bit"))
-                            applicationName = "PsExec64.exe";
-                        else applicationName = "PsExec.exe";
+                CloseClipboard();
 
-                        if (File.Exists(Directory.GetCurrentDirectory() + @"\" + applicationName))
+                if (e.Control && e.KeyCode == Keys.C)
+                {
+                    Clipboard.Clear();
+                    if (richTextBox1.Focused)
+                        if (richTextBox1.SelectedText.Length > 0 && !string.IsNullOrEmpty(richTextBox1.SelectedText) && !string.IsNullOrWhiteSpace(richTextBox1.SelectedText))
+                            Clipboard.SetText(richTextBox1.SelectedText.Trim(' '));
+
+                    if (comboBoxFindedSessions.Focused)
+                        if (comboBoxFindedSessions.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBoxFindedSessions.SelectedText) && !string.IsNullOrWhiteSpace(comboBoxFindedSessions.SelectedText))
                         {
-                            Process.Start(applicationName, @"\\" + HostName() +" -user "+System.Environment.UserDomainName+@"\"+System.Environment.UserName + " cmd");
+                            comboBoxFindedSessions.Text = comboBoxFindedSessions.Text.Trim(' ');
+                            comboBoxFindedSessions.SelectAll();
+                            Clipboard.SetText(comboBoxFindedSessions.SelectedText.Trim());
                         }
-                        else
+                    if (comboBoxLogin.Focused)
+                        if (comboBoxLogin.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBoxLogin.SelectedText) && !string.IsNullOrWhiteSpace(comboBoxLogin.SelectedText))
                         {
-                            ReplaceRichTextBox("Nie można odnaleźć określonego pliku\n");
-                            UpdateRichTextBox(Directory.GetCurrentDirectory() + @"\" + applicationName);
+                            comboBoxLogin.Text = comboBoxLogin.Text.Trim(' ');
+                            comboBoxLogin.SelectAll();
+                            Clipboard.SetText(comboBoxLogin.SelectedText.Trim(' '));
                         }
-                    }
-                    else
-                        ReplaceRichTextBox("Stacja: " + HostName() + " nie jest widoczna na sieci");
+                    if (comboBoxComputer.Focused)
+                        if (comboBoxComputer.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBoxComputer.SelectedText) && !string.IsNullOrWhiteSpace(comboBoxComputer.SelectedText))
+                        {
+                            comboBoxComputer.Text = comboBoxComputer.Text.Trim(' ');
+                            comboBoxLogin.SelectAll();
+                            Clipboard.SetText(comboBoxComputer.SelectedText.Trim(' '));
+                        }
                 }
-                else UpdateRichTextBox("Nie podałeś nazwy hosta");
+
+                if (e.Control && e.KeyCode == Keys.V)
+                {
+                    if (richTextBox1.Focused)
+                    {
+                        richTextBox1.Paste();
+                    }
+                    if (comboBoxFindedSessions.Focused)
+                    {
+                        Clipboard.GetDataObject();
+                    }
+                    if (comboBoxLogin.Focused)
+                    {
+                        Clipboard.GetDataObject();
+                    }
+                    if (comboBoxComputer.Focused)
+                    {
+                        Clipboard.GetDataObject();
+                    }
+                }
+
+                if (e.Control && e.KeyCode == Keys.X)
+                {
+                    Clipboard.Clear();
+                    if (richTextBox1.Focused)
+                        if (richTextBox1.SelectedText.Length > 0 && !string.IsNullOrEmpty(richTextBox1.SelectedText) && !string.IsNullOrWhiteSpace(richTextBox1.SelectedText))
+                        {
+                            richTextBox1.Cut();
+                            Clipboard.SetText(Clipboard.GetText().Trim(' '));
+                        }
+                    if (comboBoxFindedSessions.Focused)
+                        if (comboBoxFindedSessions.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBoxFindedSessions.SelectedText) && !string.IsNullOrWhiteSpace(comboBoxFindedSessions.SelectedText))
+                        {
+                            Clipboard.SetText(comboBoxFindedSessions.SelectedText);
+                            comboBoxFindedSessions.Text.Remove(comboBoxFindedSessions.SelectionStart, comboBoxFindedSessions.SelectionLength);
+                        }
+                    if (comboBoxLogin.Focused)
+                        if (comboBoxLogin.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBoxLogin.SelectedText) && !string.IsNullOrWhiteSpace(comboBoxLogin.SelectedText))
+                        {
+                            comboBoxLogin.Text = comboBoxLogin.Text.Trim(' ');
+                            comboBoxLogin.SelectAll();
+                            Clipboard.SetText(comboBoxLogin.SelectedText.Trim(' '));
+                            comboBoxLogin.Text.Remove(comboBoxLogin.SelectionStart, comboBoxLogin.SelectionLength);
+                        }
+                    if (comboBoxComputer.Focused)
+                        if (comboBoxComputer.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBoxComputer.SelectedText) && !string.IsNullOrWhiteSpace(comboBoxComputer.SelectedText))
+                        {
+                            comboBoxComputer.Text = comboBoxComputer.Text.Trim(' ');
+                            comboBoxComputer.SelectAll();
+                            Clipboard.SetText(comboBoxComputer.SelectedText.Trim(' '));
+                            comboBoxComputer.Text.Remove(comboBoxComputer.SelectionStart, comboBoxComputer.SelectionLength);
+                        }
+                }
+                if (e.Control && e.KeyCode == Keys.A)
+                {
+                    if (richTextBox1.Focused)
+                        richTextBox1.SelectAll();
+
+                    if (comboBoxFindedSessions.Focused)
+                        comboBoxFindedSessions.SelectAll();
+
+                    if (comboBoxLogin.Focused)
+                        comboBoxLogin.SelectAll();
+
+                    if (comboBoxComputer.Focused)
+                        comboBoxComputer.SelectAll();
+                }
             }
             catch (Exception ex)
             {
-                PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, HostName() + "," + PuzzelLibrary.WMI.ComputerInfo.pathCIMv2 + "," + PuzzelLibrary.WMI.ComputerInfo.queryOperatingSystem);
+                PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, sender + " " + e.KeyCode);
             }
+        }
+
+        private void KomputerInfo_DoWork(object sender, DoWorkEventArgs e)
+        {
+            progressBar.Start();
+        }
+
+        private void KomputerInfoCOMM()
+        {
+            StartTime();
+            ReplaceRichTextBox(PuzzelLibrary.WMI.ComputerInfo.AllComputerInfo(HostName()));
             StopTime();
         }
 
@@ -728,7 +911,7 @@ namespace Forms
                         ComputerInfo_TEMP += ("----------------------------------------\n");
                         if (sender is ToolStripMenuItem)
                         {
-                            if (((ToolStripMenuItem)sender)== menuItemComputerInfoUptime)
+                            if (((ToolStripMenuItem)sender) == menuItemComputerInfoUptime)
                             {
                                 ComputerInfo_TEMP += ("Uptime: ");
                                 PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, PuzzelLibrary.WMI.ComputerInfo.queryOperatingSystem, "LastBootUpTime");
@@ -762,7 +945,7 @@ namespace Forms
                                 PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, PuzzelLibrary.WMI.ComputerInfo.queryPhysicalMemory, "DeviceLocator", "Manufacturer", "Capacity", "Speed", "PartNumber", "SerialNumber");
                             }
 
-                            if (((ToolStripMenuItem)sender)== menuItemComputerInfoProcessor)
+                            if (((ToolStripMenuItem)sender) == menuItemComputerInfoProcessor)
                             {
                                 ComputerInfo_TEMP += ("CPU \n");
                                 PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, PuzzelLibrary.WMI.ComputerInfo.queryProcessor, "Name");
@@ -772,7 +955,7 @@ namespace Forms
                                 PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, PuzzelLibrary.WMI.ComputerInfo.queryProcessor, "NumberOfLogicalProcessors");
                             }
 
-                            if (((ToolStripMenuItem)sender)== menuItemComputerInfoLoggedUser)
+                            if (((ToolStripMenuItem)sender) == menuItemComputerInfoLoggedUser)
                             {
                                 //ComputerInfo_TEMP += ("Użytkownik: ");
                                 //ComputerInfo.GetInfo(HostName(), ComputerInfo.pathCIMv2, ComputerInfo.queryComputerSystem, "UserName");
@@ -883,79 +1066,56 @@ namespace Forms
             }
         }
 
-        private void AdmTools(object sender, EventArgs e)
+        private void LogoffSession(object sender, EventArgs e)
         {
             StartTime();
-            string arguments = null;
-
-            if (sender is ToolStripMenuItem)
+            if (comboBoxFindedSessions.Text.Length > 1)
             {
-                if (((ToolStripMenuItem)sender) == menuItemLusrmgr)
-                    arguments = "lusrmgr.msc";
-
-                if (((ToolStripMenuItem)sender) == menuItemTaskshedule)
-                    arguments = "taskschd.msc";
-
-                if (((ToolStripMenuItem)sender) == menuItemServices)
-                    arguments = "services.msc";
-
-                if (((ToolStripMenuItem)sender) == menuItemEventViewer)
-                    arguments = "eventvwr.msc";
-                if (((ToolStripMenuItem)sender) == menuItemWindowsFirewall)
+                string[] IDSessionServerName = null;
+                try
                 {
-                    PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, PuzzelLibrary.WMI.ComputerInfo.queryOperatingSystem, "Caption");
-                    if (ComputerInfo_TEMP.Contains("Windows 7"))
+                    if (comboBoxFindedSessions.Items.Count > 0)
                     {
-                        Process.Start("netsh", "-r " + HostName() + " firewall set service RemoteAdmin enable").WaitForExit();
+                        if (comboBoxFindedSessions.SelectedIndex >= 0)
+                        {
+                            IDSessionServerName = comboBoxFindedSessions.Items[comboBoxFindedSessions.SelectedIndex].ToString().Split(' ');
+                            PuzzelLibrary.Terminal.Explorer.LogOffSession(new PuzzelLibrary.Terminal.Explorer().GetRemoteServer(IDSessionServerName[1]), Convert.ToInt16(IDSessionServerName[0]));
+
+                        }
+                        else ReplaceRichTextBox("Nie wybrano aktywnej sesji");
                     }
-                    else { Process.Start("netsh", "-r " + HostName() + "set rule name = \"Windows Defender Firewall Remote Management (RPC)\" new enable= yes").WaitForExit(); }
-                    arguments = "wf.msc";
+                    else ReplaceRichTextBox("Nie ma żadnej aktywnej sesji");
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    ReplaceRichTextBox("Nie wybrano żadnego terminala lub nie znalazł żadnej sesji\n");
+                    MessageBox.Show("Nie wybrano żadnego terminala lub nie znalazł żadnej sesji", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Win32Exception ex)
+                {
+                    PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, IDSessionServerName[1]);
                 }
             }
-            if (sender is Button)
+            else ReplaceRichTextBox("Nie można wylogować ponieważ nie została wybrana sesja");
+
+            StopTime();
+        }
+
+        private void MainForm_Resize(object sender, EventArgs e)
+        {
+            try
             {
-                if (((Button)sender) == btnManagement)
-                    arguments = "compmgmt.msc";
-
+                richTextBox1.MaximumSize = new System.Drawing.Size(Width - 19, Height - 302);
+                richTextBox1.MinimumSize = new System.Drawing.Size(Width - 19, Height - 302);
+                richTextBox1.ClientSize = new System.Drawing.Size(Width - 19, Height - 302);
+                groupBoxUserInfo.Width = Width - 19;
+                groupBoxComputerInfo.Width = Width - 19;
+                groupBoxOtherTools.Width = Width - 19;
             }
-            if (HostName().Length > 0)
-                if (PuzzelLibrary.NetDiag.Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
-                {
-                    Process.Start("mmc.exe", arguments + @" /computer:\\" + HostName());
-                }
-                else
-                {
-                    ClearRichTextBox();
-                    Process.Start("mmc.exe", arguments);
-                }
-            StopTime();
-        }
-
-        private void DHCPToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            StartTime();
-            if (File.Exists(Directory.GetCurrentDirectory() + @"\dhcp.msc"))
-                Process.Start("mmc.exe", "dhcp.msc");
-            else
-                UpdateRichTextBox("Brak pliku" + Directory.GetCurrentDirectory() + @"\dhcp.msc");
-            StopTime();
-        }
-
-        private string HostName()
-        {
-            string _HostName = null;
-            if (comboBoxComputer.InvokeRequired)
-                comboBoxComputer.Invoke(new MethodInvoker(() => _HostName = comboBoxComputer.Text.ToUpper()));
-            else _HostName = comboBoxComputer.Text.ToUpper();
-            return _HostName;
-        }
-        private string UserName()
-        {
-            string _UserName = null;
-            if (comboBoxLogin.InvokeRequired)
-                comboBoxLogin.Invoke(new MethodInvoker(() => _UserName = comboBoxLogin.Text));
-            else _UserName = comboBoxLogin.Text;
-            return _UserName;
+            catch (Exception ex)
+            {
+                PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, WindowState.ToString());
+            }
         }
 
         private void menuItemLockoutStatus_Click(object sender, EventArgs e)
@@ -973,6 +1133,131 @@ namespace Forms
             }
             else MessageBox.Show("Brak użytkownika w AD");
         }
+
+        private void menuItemRDPOpen_Click(object sender, EventArgs e)
+        {
+            StartTime();
+            PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess("mstsc.exe", "");
+            StopTime();
+        }
+
+        private string OsName(string nazwaKomputera, string path, string query)
+        {
+            string osarch = null;
+            ManagementScope scope = new ManagementScope();
+            try
+            {
+                ConnectionOptions options = new ConnectionOptions()
+                {
+                    EnablePrivileges = true
+                };
+                scope = new ManagementScope(@"\\" + nazwaKomputera + path, options);
+                scope.Connect();
+                using (ManagementObjectSearcher searcher = new ManagementObjectSearcher(scope, new SelectQuery(query)))
+                {
+                    using (ManagementObjectCollection queryCollection = searcher.Get())
+                        foreach (ManagementObject m in queryCollection)
+                        {
+                            //osname = m["caption"].ToString();
+                            osarch = m["osarchitecture"].ToString();
+                        }
+                }
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, nazwaKomputera + "," + path + "," + query);
+                MessageBox.Show("Dostęp zabroniony na obecnych poświadczeniach", "Łączenie z WMI", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+
+            catch (Exception ex)
+            {
+                PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, nazwaKomputera + "," + path + "," + query);
+                MessageBox.Show("Nie można się połączyć z powodu błędu: " + ex.Message, "Łączenie z WMI", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            return osarch;
+        }
+
+        private void PowershellMenuItem2_Click(object sender, EventArgs e)
+        {
+            PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess("powershell", "-noexit Enter-PSSession -ComputerName " + HostName());
+        }
+
+        private void Profilsieciowy(object sender, EventArgs e)
+        {
+            StartTime();
+            if (UserName().Length > 1)
+            {
+                string folder = null;
+                if (((Button)sender) == btnProfilVFS)
+                    folder = PuzzelLibrary.Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "VFS");
+
+                if (((Button)sender) == btnProfilERI)
+                    folder = PuzzelLibrary.Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "ERI");
+
+                if (((Button)sender) == btnProfilTS)
+                    folder = PuzzelLibrary.Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "NET");
+
+                if (((Button)sender) == btnProfilEXT)
+                    folder = PuzzelLibrary.Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "EXT");
+                if (!string.IsNullOrEmpty(folder))
+                    if (Directory.Exists(Path.Combine(folder, UserName())))
+                        PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess("explorer.exe", folder + UserName());
+                    else MessageBox.Show("Brak dostępu do zasobu");
+            }
+            else MessageBox.Show("Nie podano nazwy użytkownika");
+            StopTime();
+        }
+
+        private void pwdLAPS(object sender, EventArgs e)
+        {
+            if (HostName().Length > 0)
+            {
+                External.LAPSui lAPSui = new External.LAPSui();
+                lAPSui.HostName = HostName();
+                lAPSui.LoadPassword();
+                lAPSui.Show();
+            }
+            else MessageBox.Show("Nie podano nazwy komputera");
+        }
+
+        private void RemoteCMD_Click(object sender, EventArgs e)
+        {
+            StartTime();
+            ClearRichTextBox();
+            try
+            {
+                if (HostName().Length > 0)
+                {
+                    if (PuzzelLibrary.NetDiag.Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
+                    {
+                        var OSName = OsName(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, PuzzelLibrary.WMI.ComputerInfo.queryOperatingSystem);
+                        string applicationName = null;
+                        if (OSName.Contains("64-bit"))
+                            applicationName = "PsExec64.exe";
+                        else applicationName = "PsExec.exe";
+
+                        if (File.Exists(Directory.GetCurrentDirectory() + @"\" + applicationName))
+                        {
+                            PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess(applicationName, @"\\" + HostName() + " -user " + System.Environment.UserDomainName + @"\" + System.Environment.UserName + " cmd");
+                        }
+                        else
+                        {
+                            ReplaceRichTextBox("Nie można odnaleźć określonego pliku\n");
+                            UpdateRichTextBox(Directory.GetCurrentDirectory() + @"\" + applicationName);
+                        }
+                    }
+                    else
+                        ReplaceRichTextBox("Stacja: " + HostName() + " nie jest widoczna na sieci");
+                }
+                else UpdateRichTextBox("Nie podałeś nazwy hosta");
+            }
+            catch (Exception ex)
+            {
+                PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, HostName() + "," + PuzzelLibrary.WMI.ComputerInfo.pathCIMv2 + "," + PuzzelLibrary.WMI.ComputerInfo.queryOperatingSystem);
+            }
+            StopTime();
+        }
+
         private void RemotePingTracert(object sender, EventArgs e)
         {
             using (Additional.RemotePingTracert PingTracert = new Additional.RemotePingTracert())
@@ -990,321 +1275,129 @@ namespace Forms
                 }
             }
         }
-        private void CMDMenuItem1_Click(object sender, EventArgs e)
-        {
-            Process.Start("cmd", "/u");
-        }
 
-        private void PowershellMenuItem2_Click(object sender, EventArgs e)
-        {
-            Process.Start("powershell", "-noexit Enter-PSSession -ComputerName " + HostName());
-        }
-
-        private void CMDSYSTEMToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            StartTime();
-            ClearRichTextBox();
-            if (HostName().Length > 0)
-            {
-                if (PuzzelLibrary.NetDiag.Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
-                {
-                    var OSName = OsName(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, PuzzelLibrary.WMI.ComputerInfo.queryOperatingSystem);
-                    string applicationName = null;
-                    if (OSName.Contains("64-bit"))
-                        applicationName = "PsExec64.exe";
-                    else applicationName = "PsExec.exe";
-
-                    if (File.Exists(Directory.GetCurrentDirectory() + @"\" + applicationName))
-                    {
-                        Process.Start(applicationName, @"\\" + HostName() + " -s  cmd");
-                    }
-                    else
-                    {
-                        UpdateRichTextBox("Nie można odnaleźć określonego pliku\n");
-                        UpdateRichTextBox(Directory.GetCurrentDirectory() + @"\" + applicationName);
-                    }
-                }
-                else UpdateRichTextBox("Stacja: " + HostName() + " nie jest widoczna na sieci");
-            }
-            else UpdateRichTextBox("Nie podałeś nazwy hosta");
-            StopTime();
-        }
-        private void menuItemRDPOpen_Click(object sender, EventArgs e)
-        {
-            StartTime();
-            PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess("mstsc.exe", "");
-            StopTime();
-        }
-
-        [DllImport("user32.dll", SetLastError = true)]
-        static extern bool CloseClipboard();
-        private void Keys_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
-        {
-            try
-            {
-                CloseClipboard();
-
-                if (e.Control && e.KeyCode == Keys.C)
-                {
-                    Clipboard.Clear();
-                    if (richTextBox1.Focused)
-                        if (richTextBox1.SelectedText.Length > 0 && !string.IsNullOrEmpty(richTextBox1.SelectedText) && !string.IsNullOrWhiteSpace(richTextBox1.SelectedText))
-                            Clipboard.SetText(richTextBox1.SelectedText.Trim(' '));
-
-                    if (comboBoxFindedSessions.Focused)
-                        if (comboBoxFindedSessions.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBoxFindedSessions.SelectedText) && !string.IsNullOrWhiteSpace(comboBoxFindedSessions.SelectedText))
-                        {
-                            comboBoxFindedSessions.Text = comboBoxFindedSessions.Text.Trim(' ');
-                            comboBoxFindedSessions.SelectAll();
-                            Clipboard.SetText(comboBoxFindedSessions.SelectedText.Trim());
-                        }
-                    if (comboBoxLogin.Focused)
-                        if (comboBoxLogin.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBoxLogin.SelectedText) && !string.IsNullOrWhiteSpace(comboBoxLogin.SelectedText))
-                        {
-                            comboBoxLogin.Text = comboBoxLogin.Text.Trim(' ');
-                            comboBoxLogin.SelectAll();
-                            Clipboard.SetText(comboBoxLogin.SelectedText.Trim(' '));
-                        }
-                    if (comboBoxComputer.Focused)
-                        if (comboBoxComputer.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBoxComputer.SelectedText) && !string.IsNullOrWhiteSpace(comboBoxComputer.SelectedText))
-                        {
-                            comboBoxComputer.Text = comboBoxComputer.Text.Trim(' ');
-                            comboBoxLogin.SelectAll();
-                            Clipboard.SetText(comboBoxComputer.SelectedText.Trim(' '));
-                        }
-                }
-
-                if (e.Control && e.KeyCode == Keys.V)
-                {
-                    if (richTextBox1.Focused)
-                    {
-                        richTextBox1.Paste();
-                    }
-                    if (comboBoxFindedSessions.Focused)
-                    {
-                        Clipboard.GetDataObject();
-                    }
-                    if (comboBoxLogin.Focused)
-                    {
-                        Clipboard.GetDataObject();
-                    }
-                    if (comboBoxComputer.Focused)
-                    {
-                        Clipboard.GetDataObject();
-                    }
-                }
-
-                if (e.Control && e.KeyCode == Keys.X)
-                {
-                    Clipboard.Clear();
-                    if (richTextBox1.Focused)
-                        if (richTextBox1.SelectedText.Length > 0 && !string.IsNullOrEmpty(richTextBox1.SelectedText) && !string.IsNullOrWhiteSpace(richTextBox1.SelectedText))
-                        {
-                            richTextBox1.Cut();
-                            Clipboard.SetText(Clipboard.GetText().Trim(' '));
-                        }
-                    if (comboBoxFindedSessions.Focused)
-                        if (comboBoxFindedSessions.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBoxFindedSessions.SelectedText) && !string.IsNullOrWhiteSpace(comboBoxFindedSessions.SelectedText))
-                        {
-                            Clipboard.SetText(comboBoxFindedSessions.SelectedText);
-                            comboBoxFindedSessions.Text.Remove(comboBoxFindedSessions.SelectionStart, comboBoxFindedSessions.SelectionLength);
-                        }
-                    if (comboBoxLogin.Focused)
-                        if (comboBoxLogin.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBoxLogin.SelectedText) && !string.IsNullOrWhiteSpace(comboBoxLogin.SelectedText))
-                        {
-                            comboBoxLogin.Text = comboBoxLogin.Text.Trim(' ');
-                            comboBoxLogin.SelectAll();
-                            Clipboard.SetText(comboBoxLogin.SelectedText.Trim(' '));
-                            comboBoxLogin.Text.Remove(comboBoxLogin.SelectionStart, comboBoxLogin.SelectionLength);
-                        }
-                    if (comboBoxComputer.Focused)
-                        if (comboBoxComputer.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBoxComputer.SelectedText) && !string.IsNullOrWhiteSpace(comboBoxComputer.SelectedText))
-                        {
-                            comboBoxComputer.Text = comboBoxComputer.Text.Trim(' ');
-                            comboBoxComputer.SelectAll();
-                            Clipboard.SetText(comboBoxComputer.SelectedText.Trim(' '));
-                            comboBoxComputer.Text.Remove(comboBoxComputer.SelectionStart, comboBoxComputer.SelectionLength);
-                        }
-                }
-                if (e.Control && e.KeyCode == Keys.A)
-                {
-                    if (richTextBox1.Focused)
-                        richTextBox1.SelectAll();
-
-                    if (comboBoxFindedSessions.Focused)
-                        comboBoxFindedSessions.SelectAll();
-
-                    if (comboBoxLogin.Focused)
-                        comboBoxLogin.SelectAll();
-
-                    if (comboBoxComputer.Focused)
-                        comboBoxComputer.SelectAll();
-                }
-            }
-            catch (Exception ex)
-            {
-                PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, sender + " " + e.KeyCode);
-            }
-        }
-        private void contextMenuItemCopy_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                CloseClipboard();
-                if (richTextBox1.Focused)
-                    if (richTextBox1.SelectedText.Length > 0 && !string.IsNullOrEmpty(richTextBox1.SelectedText) && !string.IsNullOrWhiteSpace(richTextBox1.SelectedText))
-                        Clipboard.SetText(richTextBox1.SelectedText.Trim(' '));
-
-                if (comboBoxFindedSessions.Focused)
-                    if (comboBoxFindedSessions.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBoxFindedSessions.SelectedText) && !string.IsNullOrWhiteSpace(comboBoxFindedSessions.SelectedText))
-                        Clipboard.SetText(comboBoxFindedSessions.SelectedText.Trim(' '));
-
-                if (comboBoxLogin.Focused)
-                    if (comboBoxLogin.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBoxLogin.SelectedText) && !string.IsNullOrWhiteSpace(comboBoxLogin.SelectedText))
-                        Clipboard.SetText(comboBoxLogin.SelectedText.Trim(' '));
-
-                if (comboBoxComputer.Focused)
-                    if (comboBoxComputer.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBoxComputer.SelectedText) && !string.IsNullOrWhiteSpace(comboBoxComputer.SelectedText))
-                        Clipboard.SetText(comboBoxComputer.SelectedText.Trim(' '));
-            }
-            catch (Exception ex)
-            {
-                PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, "contextMenuItemCopy_Click");
-            }
-        }
-
-        private void contextMenuItemCut_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                CloseClipboard();
-                if (richTextBox1.Focused)
-                    if (richTextBox1.SelectedText.Length > 0 && !string.IsNullOrEmpty(richTextBox1.SelectedText) && !string.IsNullOrWhiteSpace(richTextBox1.SelectedText))
-                    {
-                        richTextBox1.Cut();
-                        Clipboard.SetText(Clipboard.GetText().Trim(' '));
-                    }
-
-                if (comboBoxFindedSessions.Focused)
-                    if (comboBoxFindedSessions.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBoxFindedSessions.SelectedText) && !string.IsNullOrWhiteSpace(comboBoxFindedSessions.SelectedText))
-                    {
-                        Clipboard.SetText(comboBoxFindedSessions.SelectedText);
-                        comboBoxFindedSessions.Text = comboBoxFindedSessions.Text.Remove(comboBoxFindedSessions.SelectionStart, comboBoxFindedSessions.SelectionLength);
-                        Clipboard.SetText(Clipboard.GetText().Trim(' '));
-                    }
-                if (comboBoxLogin.Focused)
-                    if (comboBoxLogin.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBoxLogin.SelectedText) && !string.IsNullOrWhiteSpace(comboBoxLogin.SelectedText))
-                    {
-                        Clipboard.SetText(comboBoxLogin.SelectedText.Trim(' '));
-                        comboBoxLogin.Text = comboBoxLogin.Text.Remove(comboBoxLogin.SelectionStart, comboBoxLogin.SelectionLength);
-                        // Clipboard.SetText(Clipboard.GetText());
-                    }
-                if (comboBoxComputer.Focused)
-                    if (comboBoxComputer.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBoxComputer.SelectedText) && !string.IsNullOrWhiteSpace(comboBoxComputer.SelectedText))
-                    {
-                        Clipboard.SetText(comboBoxComputer.SelectedText.Trim(' '));
-                        comboBoxComputer.Text = comboBoxComputer.Text.Remove(comboBoxComputer.SelectionStart, comboBoxComputer.SelectionLength);
-                        // Clipboard.SetText(Clipboard.GetText());
-                    }
-            }
-            catch (Exception ex)
-            {
-                PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, "contextMenuItemCut_Click");
-            }
-        }
-        private void contextMenuItemPaste_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                CloseClipboard();
-                if (richTextBox1.Focused)
-                {
-                    richTextBox1.Paste();
-                }
-                if (comboBoxFindedSessions.Focused)
-                {
-                    comboBoxFindedSessions.Text = Clipboard.GetText(TextDataFormat.UnicodeText);
-                }
-                if (comboBoxLogin.Focused)
-                {
-                    comboBoxLogin.Text = Clipboard.GetText(TextDataFormat.UnicodeText);
-                }
-                if (comboBoxComputer.Focused)
-                {
-                    comboBoxComputer.Text = Clipboard.GetText(TextDataFormat.UnicodeText);
-                }
-            }
-            catch (Exception ex)
-            {
-                PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, "contextMenuItemPaste_Click");
-            }
-        }
-        private void contextMenuItemSelectAll_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (richTextBox1.Focused)
-                    richTextBox1.SelectAll();
-
-                if (comboBoxFindedSessions.Focused)
-                    comboBoxFindedSessions.SelectAll();
-
-                if (comboBoxLogin.Focused)
-                    comboBoxLogin.SelectAll();
-
-                if (comboBoxComputer.Focused)
-                    comboBoxComputer.SelectAll();
-            }
-            catch (Exception ex)
-            {
-                PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, "contextMenuItemSelectAll_Click");
-            }
-        }
-
-        private void WyszukiwanieDanych()
+        private void SearchData()
         {
             richTextBox1.SelectionStart = 0;
             richTextBox1.HideSelection = false;
             Additional.SearchingMainForm wyszukiwarka = new Additional.SearchingMainForm();
             wyszukiwarka.Show();
         }
-        private void contextMenuItemSearch_Click(object sender, EventArgs e)
+
+        private void SearchLogs(object sender, EventArgs e, decimal counter, string pole, string rodzaj)
         {
-            WyszukiwanieDanych();
-        }
-        private void pwdLAPS(object sender, EventArgs e)
-        {
-            if (HostName().Length > 0)
+            int NameLength = pole.Length;
+
+            if (NameLength > 1)
             {
-                External.LAPSui lAPSui = new External.LAPSui();
-                lAPSui.HostName = HostName();
-                lAPSui.LoadPassword();
-                lAPSui.Show();
+                if (sender == btnUserLog)
+                    if (pole.Length > 0)
+                        if (pole != comboBoxLoginLast)
+                        {
+                            comboBoxLoginLast = pole;
+                            comboBoxLogin.Items.Add(comboBoxLoginLast);
+                        }
+                if (sender == btnCompLog)
+                    if (pole.Length > 0)
+                        if (pole != comboBoxCompLast)
+                        {
+                            comboBoxCompLast = pole;
+                            comboBoxComputer.Items.Add(comboBoxCompLast);
+                        }
+                UpdateRichTextBox(PuzzelLibrary.LogonData.Captcher.SearchLogs(sender, e, Name, counter, pole, rodzaj));
+
+                //if (comboBoxLogin.InvokeRequired)
+                //    comboBoxLogin.Invoke(new MethodInvoker(() =>
+                //    {
+                //        comboBoxLogin.Text = "";
+                //        comboBoxLogin.Items.Clear();
+                //    }));
             }
-            else MessageBox.Show("Nie podano nazwy komputera");
-        }
-        private void ChangePassword(object sender, EventArgs e)
-        {
-            if (UserName().Length > 0)
-            {
-                if (PuzzelLibrary.AD.User.Information.IsUserAvailable(UserName()))
-                {
-                    External.ChangePasswordForm zh = new External.ChangePasswordForm();
-                    zh.CheckIfAccountIsLocked(UserName());
-                    zh.Show();
-                }
-            }
-            else UpdateRichTextBox("Nie podano loginu");
+            else ReplaceRichTextBox("Nie podano nazwy użytkownika");
         }
 
-        private void EnableIEHosting_Click(object sender, EventArgs e)
+        private void StartTime()
         {
-            if (HostName().Length > 2)
-                if (PuzzelLibrary.NetDiag.Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
-                    PuzzelLibrary.QuickFix.IEHosting.EnableCompatibilityFramework4inIE(HostName());
-                else UpdateRichTextBox("Za krótka nazwa komputera");
+            stopWatch.Start();
+            UpdateStatusbp2text("Obliczam");
+            UpdateStatusbp1text("Czekaj");
+            //timer1.Start();
         }
 
+        private void StartWinSysApplication(string FileName, string Arguments)
+        {
+            UpdateRichTextBox(PuzzelLibrary.ProcessExecutable.ProcExec.StartExtendedProcess(FileName, Arguments));
+        }
+
+        private void StopTime()
+        {
+            //timer1.Stop();
+            stopWatch.Stop();
+            UpdateStatusbp1text("Gotowe");
+            UpdateStatusbp2text("Czas: " + stopWatch.Elapsed.Seconds + "s " + stopWatch.Elapsed.Milliseconds + "ms ");
+            stopWatch.Reset();
+        }
+
+        private void Timer1_Tick(object sender, EventArgs e)
+        {
+            Thread timer = new Thread(() =>
+            {
+                Thread.Sleep(100);
+                while (stopWatch.IsRunning)
+                    if (statusBar1.InvokeRequired)
+                        statusBar1.Invoke(new MethodInvoker(() =>
+                        {
+                            AppendStatusbp1text("*");
+                            if (statusBP1.Text.Length == 16)
+                            {
+                                UpdateStatusbp1text("Czekaj");
+                            }
+                        }));
+                    else
+                    {
+                        AppendStatusbp1text("*");
+                        if (statusBP1.Text.Length == 16)
+                        {
+                            UpdateStatusbp1text("Czekaj");
+                        }
+                    }
+            });
+            timer.Start();
+        }
+
+        private void UpdateComboBox(string message)
+        {
+            if (comboBoxFindedSessions.InvokeRequired)
+            {
+                comboBoxFindedSessions.Invoke(new updateComboBoxEventHandler(UpdateComboBox), new object[] { message });
+            }
+            else { comboBoxFindedSessions.Items.Add(message); }
+        }
+
+        private void UpdateStatusbp1text(string text)
+        {
+            if (statusBar1.InvokeRequired)
+            {
+                statusBar1.Invoke(new Statusbp1TextEventHandler(UpdateStatusbp1text), new object[] { text });
+            }
+            else statusBP1.Text = text;
+        }
+        private void UpdateStatusbp2text(string text)
+        {
+            if (statusBar1.InvokeRequired)
+            {
+                statusBar1.Invoke(new Statusbp1TextEventHandler(UpdateStatusbp2text), new object[] { text });
+            }
+            else statusBP2.Text = text;
+        }
+        private string UserName()
+        {
+            string _UserName = null;
+            if (comboBoxLogin.InvokeRequired)
+                comboBoxLogin.Invoke(new MethodInvoker(() => _UserName = comboBoxLogin.Text));
+            else _UserName = comboBoxLogin.Text;
+            return _UserName;
+        }
         private void WinEnvironment_Click(object sender, EventArgs e)
         {
             if (HostName().Length > 2)
@@ -1320,78 +1413,12 @@ namespace Forms
             else UpdateRichTextBox("Za krótka nazwa komputera");
         }
 
-        private void ActiveSession(object sender, EventArgs e)
+        private void WyszukiwanieDanych()
         {
-            ReplaceRichTextBox(null);
-            UpdateRichTextBox(new PuzzelLibrary.Terminal.CompExplorer().ActiveSession(HostName()));
-        }
-        private void ComputerSessions(object sender, EventArgs e)
-        {
-            Thread thread;
-            External.Explorer.ExplorerForm explorer = new External.Explorer.ExplorerForm(((ToolStripMenuItem)sender).Text);
-            explorer.HostName = HostName();
-            thread = new Thread(() => explorer.GetSessionsToDataGridView());
-            thread.Start();
-            explorer.Show();
-        }
-        private void BtnCollapseTCP(object sender, EventArgs e)
-        {
-            if (panelTCP.Width == 351)
-            {
-                btnCollapseTCP.Text = "Rozwiń";
-                panelTCP.Width = 63;
-            }
-            else
-            {
-                btnCollapseTCP.Text = "Zwiń";
-                panelTCP.Width = 351;
-            }
-        }
-
-        private void BtnTestTCP_Click(object sender, EventArgs e)
-        {
-            StartTime();
-            ReplaceRichTextBox(null);
-            if (HostName().Length > 2)
-                if (PuzzelLibrary.NetDiag.Ping.TCPPing(HostName(), (int)numericTCP.Value) == PuzzelLibrary.NetDiag.Ping.TCPPingStatus.Success)
-                {
-                    UpdateRichTextBox("Badanie " + HostName() + " zakończone sukcesem. Port " + numericTCP.Value.ToString() + " jest otwarty.");
-                }
-                else UpdateRichTextBox("Badanie " + HostName() + " zakończone porażką. Port " + numericTCP.Value.ToString() + " prawdopoodobnie jest zamknięty.");
-            else UpdateRichTextBox("Za krótka nazwa komputera");
-            StopTime();
-        }
-        private void DeleteUsers_Click(object sender, EventArgs e)
-        {
-            if (HostName().Length > 2)
-            {
-                if (PuzzelLibrary.NetDiag.Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
-                {
-                    using (DeleteUsers deleteUsers = new DeleteUsers(HostName()))
-                    {
-                        deleteUsers.ShowDialog();
-                    }
-                }
-            }
-            else UpdateRichTextBox("Za krótka nazwa komputera");
-        }
-
-        private void InitializeNames()
-        {
-            string dw = PuzzelLibrary.Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "DW");
-            string eadm = PuzzelLibrary.Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "ELogin");
-            string lapslogn = PuzzelLibrary.Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "LAPSLogin");
-            this.btnDW.Text = dw;
-            this.DWMenuContext.Text = dw;
-            this.menuItemDWEadm.Text = dw + "(" + eadm + ")";
-            this.menuItemDWLAPS.Text = dw + "(" + lapslogn + ")";
-        }
-        private void ActivateOffice(object sender, EventArgs e)
-        {
-            if (HostName().Length > 2)
-                if (PuzzelLibrary.NetDiag.Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
-                    PuzzelLibrary.QuickFix.ActivateOffice.Activate(HostName());
-                else UpdateRichTextBox("Za krótka nazwa komputera");
+            richTextBox1.SelectionStart = 0;
+            richTextBox1.HideSelection = false;
+            Additional.SearchingMainForm wyszukiwarka = new Additional.SearchingMainForm();
+            wyszukiwarka.Show();
         }
     }
 }
