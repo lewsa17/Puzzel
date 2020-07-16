@@ -314,7 +314,7 @@ namespace Forms
             StartTime();
             if (isHostAvailable(HostName()))
             {
-                var OSName = OsName(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, PuzzelLibrary.WMI.ComputerInfo.queryOperatingSystem);
+                var OSName = PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, PuzzelLibrary.WMI.ComputerInfo.queryOperatingSystem, "osarchitecture");
                 string applicationName = null;
                 if (OSName.Contains("64-bit"))
                     applicationName = "PsExec64.exe";
@@ -1067,39 +1067,6 @@ namespace Forms
             PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess("mstsc.exe", "");
             StopTime();
         }
-
-        private string OsName(string nazwaKomputera, string path, string query)
-        {
-            string osarch = null;
-            ManagementScope scope = new ManagementScope();
-            try
-            {
-                ConnectionOptions options = new ConnectionOptions()
-                {
-                    EnablePrivileges = true
-                };
-                scope = new ManagementScope(@"\\" + nazwaKomputera + path, options);
-                scope.Connect();
-                using (ManagementObjectSearcher searcher = new ManagementObjectSearcher(scope, new SelectQuery(query)))
-                using (ManagementObjectCollection queryCollection = searcher.Get())
-                    foreach (ManagementObject m in queryCollection)
-                        //osname = m["caption"].ToString();
-                        osarch = m["osarchitecture"].ToString();
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, nazwaKomputera + "," + path + "," + query);
-                MessageBox.Show("Dostęp zabroniony na obecnych poświadczeniach", "Łączenie z WMI", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-
-            catch (Exception ex)
-            {
-                PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, nazwaKomputera + "," + path + "," + query);
-                MessageBox.Show("Nie można się połączyć z powodu błędu: " + ex.Message, "Łączenie z WMI", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-            return osarch;
-        }
-
         private void PowershellMenuItem2_Click(object sender, EventArgs e)
         {
             PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess("powershell", "-noexit Enter-PSSession -ComputerName " + HostName());
@@ -1148,7 +1115,7 @@ namespace Forms
             {
                 if (isHostAvailable(HostName()))
                 {
-                    var OSName = OsName(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, PuzzelLibrary.WMI.ComputerInfo.queryOperatingSystem);
+                    var OSName = PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, PuzzelLibrary.WMI.ComputerInfo.queryOperatingSystem, "osarchitecture");
                     string applicationName = null;
                     if (OSName.Contains("64-bit"))
                         applicationName = "PsExec64.exe";
