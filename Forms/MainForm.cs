@@ -138,8 +138,8 @@ namespace Forms
                     arguments = "eventvwr.msc";
                 if (((ToolStripMenuItem)sender) == menuItemWindowsFirewall)
                 {
-                    PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, PuzzelLibrary.WMI.ComputerInfo.queryOperatingSystem, "Caption");
-                    if (ComputerInfo_TEMP.Contains("Windows 7"))
+                    var OSName = PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, PuzzelLibrary.WMI.ComputerInfo.queryOperatingSystem, "Caption");
+                    if (OSName.Contains("Windows 7"))
                         PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcessWithWaitingForExit("netsh", "-r " + HostName() + " firewall set service RemoteAdmin enable");
                     else { PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcessWithWaitingForExit("netsh", "-r " + HostName() + "set rule name = \"Windows Defender Firewall Remote Management (RPC)\" new enable= yes"); }
                     arguments = "wf.msc";
