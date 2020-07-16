@@ -393,6 +393,7 @@ namespace Forms
             this.numericLogin.ContextMenuStrip = this.contextMenuOperationTextBox;
             this.numericLogin.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.numericLogin.Location = new System.Drawing.Point(143, 40);
+            this.numericLogin.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Keys_KeyDown);
             this.numericLogin.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -885,6 +886,7 @@ namespace Forms
             this.numericComputer.ContextMenuStrip = this.contextMenuOperationTextBox;
             this.numericComputer.ImeMode = System.Windows.Forms.ImeMode.Disable;
             this.numericComputer.Location = new System.Drawing.Point(143, 43);
+            this.numericComputer.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Keys_KeyDown);
             this.numericComputer.Maximum = new decimal(new int[] {
             10000,
             0,

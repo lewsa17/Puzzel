@@ -745,15 +745,15 @@ namespace Forms
 
         private void Keys_KeyDown(object sender, KeyEventArgs e)
         {
-            if ((sender is ComboBox && ((ComboBox)sender) != comboBoxFindedSessions) || (sender is Button && (((Button)sender).Name == "btnCompInfo" || ((Button)sender).Name == "btnCompLog")))
+            if (sender is ComboBox || sender is NumericUpDown)
             {
                 if (e.KeyCode == Keys.Enter)
                 {
-                    if (sender == comboBoxLogin)
+                    if (sender == comboBoxLogin  || sender == numericLogin)
                     {
                         SearchLogs(btnUserLog, e, numericLogin.Value, UserName(), "User");
                     }
-                    if (sender == comboBoxComputer)
+                    if (sender == comboBoxComputer || sender == numericComputer)
                     {
                         SearchLogs(btnCompLog, e, numericComputer.Value, HostName(), "Computer");
                     }
