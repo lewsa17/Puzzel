@@ -91,8 +91,10 @@ namespace PuzzelLibrary.Terminal
                               select x;
                 //}
             }
-            catch (System.ComponentModel.Win32Exception)
-            { }
+            catch (System.ComponentModel.Win32Exception e)
+            {
+                PuzzelLibrary.Debug.LogsCollector.GetLogs(e, server.ServerName);
+            }
             catch (Exception e)
             {
                 PuzzelLibrary.Debug.LogsCollector.GetLogs(e, server.ServerName);
