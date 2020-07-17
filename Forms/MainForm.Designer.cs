@@ -166,6 +166,7 @@ namespace Forms
             // 
             // groupBoxUserInfo
             // 
+            this.groupBoxUserInfo.Anchor = System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Top;
             this.groupBoxUserInfo.Controls.Add(this.comboBoxLogin);
             this.groupBoxUserInfo.Controls.Add(this.btnProfilEXT);
             this.groupBoxUserInfo.Controls.Add(this.btnProfilTS);
@@ -483,6 +484,7 @@ namespace Forms
             // 
             // groupBoxComputerInfo
             // 
+            this.groupBoxComputerInfo.Anchor = System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Top;
             this.groupBoxComputerInfo.Controls.Add(this.comboBoxComputer);
             this.groupBoxComputerInfo.Controls.Add(this.btnRemoteTracert);
             this.groupBoxComputerInfo.Controls.Add(this.btnRemotePing);
@@ -936,6 +938,7 @@ namespace Forms
             // 
             // groupBoxOtherTools
             // 
+            this.groupBoxOtherTools.Anchor = System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Top;
             this.groupBoxOtherTools.Controls.Add(this.panelTCP);
             this.groupBoxOtherTools.Controls.Add(this.btnReloadLogs);
             this.groupBoxOtherTools.Controls.Add(this.btnFlushDNS);
@@ -1035,6 +1038,7 @@ namespace Forms
             // richTextBox1
             // 
             richTextBox1.AutoWordSelection = true;
+            richTextBox1.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom;
             richTextBox1.ContextMenuStrip = this.contextMenuOperationRichTextBox;
             richTextBox1.DetectUrls = false;
             richTextBox1.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
@@ -1325,7 +1329,6 @@ namespace Forms
             this.MinimumSize = new System.Drawing.Size(1200, 509);
             this.Name = "MainForm";
             this.Text = "Puzzel";
-            this.Resize += new System.EventHandler(this.MainForm_Resize);
             this.groupBoxUserInfo.ResumeLayout(false);
             this.groupBoxUserInfo.PerformLayout();
             this.contextMenuOperationTextBox.ResumeLayout(false);

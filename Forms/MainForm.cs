@@ -9,6 +9,7 @@ using System.Runtime.InteropServices;
 using Forms.External.QuickFix;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Drawing;
 
 namespace Forms
 {
@@ -730,7 +731,6 @@ namespace Forms
                 //    richTextBox1.Redo(); 
             }
         }
-
         private void Keys_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
             try
@@ -1026,23 +1026,6 @@ namespace Forms
                 }
             }
             StopTime();
-        }
-
-        private void MainForm_Resize(object sender, EventArgs e)
-        {
-            try
-            {
-                richTextBox1.MaximumSize = new System.Drawing.Size(Width - 19, Height - 302);
-                richTextBox1.MinimumSize = new System.Drawing.Size(Width - 19, Height - 302);
-                richTextBox1.ClientSize = new System.Drawing.Size(Width - 19, Height - 302);
-                groupBoxUserInfo.Width = Width - 19;
-                groupBoxComputerInfo.Width = Width - 19;
-                groupBoxOtherTools.Width = Width - 19;
-            }
-            catch (Exception ex)
-            {
-                PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, WindowState.ToString());
-            }
         }
 
         private void menuItemLockoutStatus_Click(object sender, EventArgs e)
