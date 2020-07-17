@@ -1205,7 +1205,7 @@ namespace Forms
             this.menuItemCustomName.Name = "menuItemCustomName";
             this.menuItemCustomName.Size = new System.Drawing.Size(147, 22);
             this.menuItemCustomName.Text = "Ręczna nazwa";
-            this.menuItemCustomName.Click += new System.EventHandler(FindSessionsCustomTerminalServerName);
+            this.menuItemCustomName.Click += new System.EventHandler(FindSessions);
             // 
             // menuItemComputerExplorer
             // 
@@ -1233,7 +1233,7 @@ namespace Forms
             this.menuItemSessions.Name = "menuItemSessions";
             this.menuItemSessions.Size = new System.Drawing.Size(149, 22);
             this.menuItemSessions.Text = "Eksplorator Sesji";
-            this.menuItemSessions.Click += new System.EventHandler(this.ComputerSessions);
+            this.menuItemSessions.Click += new System.EventHandler(this.FindSessions);
             // 
             // SeparatorAdmTools1
             // 

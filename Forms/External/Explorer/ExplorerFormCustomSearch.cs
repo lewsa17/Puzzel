@@ -14,7 +14,7 @@ namespace Forms.External.Explorer
         {
             InitializeComponent();
         }
-        public static string TerminalName { get; set; }
+        public string TerminalName { get; set; }
         private void btnInput_Click(object sender, EventArgs e)
         {
             TerminalName = textBoxInput.Text;

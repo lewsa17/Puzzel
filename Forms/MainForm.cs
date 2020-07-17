@@ -326,16 +326,6 @@ namespace Forms
             StopTime();
         }
 
-        private void ComputerSessions(object sender, EventArgs e)
-        {
-            Thread thread;
-            External.Explorer.ExplorerForm explorer = new External.Explorer.ExplorerForm(((ToolStripMenuItem)sender).Text);
-            explorer.HostName = HostName();
-            thread = new Thread(() => explorer.GetSessionsToDataGridView());
-            thread.Start();
-            explorer.Show();
-        }
-
         private void ConnectToSession(object sender, EventArgs e)
         {
             StartTime();
@@ -558,21 +548,31 @@ namespace Forms
             }
         }
 
-        private void FindSessionsCustomTerminalServerName(object sender, EventArgs e)
+        private void FindSessions(object sender, EventArgs e)
         {
-            if (((ToolStripMenuItem)sender).Text == "Ręczna nazwa")
-            {
-                External.Explorer.ExplorerFormCustomSearch CustomTermsNameForms = new External.Explorer.ExplorerFormCustomSearch();
-                CustomTermsNameForms.ShowDialog();
-            }
-            Thread thread;
-            External.Explorer.ExplorerForm explorer = new External.Explorer.ExplorerForm(((ToolStripMenuItem)sender).Text);
-            explorer.HostName = HostName();
+            string _HostName = string.Empty;
+            if (sender is ToolStripMenuItem)
+                if (((ToolStripMenuItem)sender).Text == "Ręczna nazwa")
+                {
+                    External.Explorer.ExplorerFormCustomSearch CustomTermsNameForms = new External.Explorer.ExplorerFormCustomSearch();
+                    CustomTermsNameForms.ShowDialog();
+                    _HostName = CustomTermsNameForms.TerminalName;
+                }
+                else if (sender == menuItemSessions)
+                    if (HostName() == string.Empty || HostName().Length == 0)
+                    {
+                        _HostName = "localhost";
+                    }
+                    else _HostName = HostName();
+                else _HostName = ((ToolStripMenuItem)sender).Text;
+
+                Thread thread;
+            External.Explorer.ExplorerForm explorer = new External.Explorer.ExplorerForm(_HostName);
+            explorer.HostName = _HostName;
             thread = new Thread(() => explorer.GetSessionsToDataGridView());
             thread.Start();
             explorer.Show();
         }
-
         private string HostName()
         {
             string _HostName = null;
@@ -689,7 +689,7 @@ namespace Forms
             foreach (string t in terms)
             {
                 TerminalUniversalToolStripMenuItem = new ToolStripMenuItem() { Name = t, Text = t };
-                TerminalUniversalToolStripMenuItem.Click += new EventHandler(FindSessionsCustomTerminalServerName);
+                TerminalUniversalToolStripMenuItem.Click += new EventHandler(FindSessions);
                 if (menuItemTermimalExplorer.DropDownItems[menuItemTermimalExplorer.DropDownItems.Count - 1].Name.Contains(t.Remove(t.Length - 1)))
                     menuItemTermimalExplorer.DropDownItems.Add(TerminalUniversalToolStripMenuItem);
                 else menuItemTermimalExplorer.DropDownItems.AddRange(new ToolStripItem[]{ new ToolStripSeparator(), TerminalUniversalToolStripMenuItem });

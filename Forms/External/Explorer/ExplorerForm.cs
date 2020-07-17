@@ -14,7 +14,7 @@ namespace Forms.External.Explorer
         public ExplorerForm(string name)
         {
             InitializeComponent();
-            this.Name = name;
+            this.Text = this.Text + " Connected to:(" + name + ")";
         }
         public string HostName { get; set; }
 
