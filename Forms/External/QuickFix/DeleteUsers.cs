@@ -34,49 +34,34 @@ namespace Forms.External.QuickFix
                 }
             }
         }
-        private void BtnDeleteUsers_Click(object sender, EventArgs e)
+        private bool MessageToUser(string Title, string Message)
         {
             using (Form owner = new Form { TopMost = true })
             {
-                if (MessageBox.Show(owner, "Czy chcesz usunąć użytkownika z komputera?", "Usuwanie użytkownika", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (MessageBox.Show(owner, Message, Title, MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    return true;
+                return false;
+            }
+        }
+        private void BtnDeleteUsers_Click(object sender, EventArgs e)
+        {
+            if (MessageToUser("Czy chcesz usunąć użytkownika z komputera?", "Usuwanie użytkownika"))
+                if (MessageToUser("Czy jesteś pewien?", "Usuwanie użytkownika"))
                 {
                     var UserObj = ComboBoxUsers.SelectedItem.ToString();
                     var objSID = new NTAccount(UserObj);
-                    using (Form owner1 = new Form { TopMost = true })
+                    var keepData = MessageToUser("Czy chcesz zachować dane?", "Usuwanie użytkownika");
+                    try
                     {
-                        if (MessageBox.Show(owner1, "Czy jesteś pewien?", "Usuwanie użytkownika", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                        {
-                            using (Form owner2 = new Form { TopMost = true })
-                            {
-                                if (MessageBox.Show(owner2, "Czy chcesz zachować dane?", "Usuwanie użytkownika", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                                {
-                                    try
-                                    {
-                                        var objUser = objSID.Translate(typeof(SecurityIdentifier));
-                                        new PuzzelLibrary.QuickFix.DeleteUsers(_HostName).saveDeleteUserData(UserObj, true);
-                                    }
-                                    catch (IdentityNotMappedException)
-                                    {
-                                        new PuzzelLibrary.QuickFix.DeleteUsers(_HostName).saveDeleteUserData(UserObj, true);
-                                    }
-                                }
-                                else
-                                {
-                                    try
-                                    {
-                                        var objUser = objSID.Translate(typeof(SecurityIdentifier));
-                                        new PuzzelLibrary.QuickFix.DeleteUsers(_HostName).saveDeleteUserData(UserObj, false);
-                                    }
-                                    catch (IdentityNotMappedException)
-                                    {
-                                        new PuzzelLibrary.QuickFix.DeleteUsers(_HostName).saveDeleteUserData(UserObj, false);
-                                    }
-                                }
-                            }
-                        }
+                        var objUser = objSID.Translate(typeof(SecurityIdentifier));
+                        new PuzzelLibrary.QuickFix.DeleteUsers(_HostName).saveDeleteUserData(UserObj, keepData);
+                    }
+                    catch (IdentityNotMappedException)
+                    {
+                        new PuzzelLibrary.QuickFix.DeleteUsers(_HostName).saveDeleteUserData(UserObj, keepData);
                     }
                 }
-            }
         }
     }
 }
+

@@ -1,5 +1,4 @@
-﻿using System.Management.Automation;
-namespace PuzzelLibrary.QuickFix
+﻿namespace PuzzelLibrary.QuickFix
 {
     public class DeleteUsers
     {
@@ -30,24 +29,14 @@ namespace PuzzelLibrary.QuickFix
 
         private void RenameUserFolder(string user)
         {
-            using (PowerShell ps = PowerShell.Create())
-            {
-                ps.AddScript("Invoke-Command -ComputerName " + _HostName + " {cmd /c ren " + user + " " + user.Replace(@"C:\Users\", "") + "_old}");
-                //System.IO.Directory.Move(@"\\" + _HostName + @"\" + user, @"\\" + _HostName + @"\" + user + "_old");
-                ps.Invoke();
-            }
-            return;
+            string appName = ProcessExecutable.ProcExec.PSexec(_HostName);
+            ProcessExecutable.ProcExec.StartSimpleProcess(appName, "cmd / c ren " + user + " " + user.Replace(@"C: \Users\", "") + "_old");
         }
 
         private void DeleteUserFolder(string user)
         {
-            //System.IO.Directory.Delete(@"\\" + _HostName + @"\" + user,true);
-            using (PowerShell ps = PowerShell.Create())
-            {
-                ps.AddScript("Invoke-Command -ComputerName " + _HostName + " {cmd /c rmdir /Q /S " + user + "}");
-                ps.Invoke();
-            }
-            return;
+            string appName = ProcessExecutable.ProcExec.PSexec(_HostName);
+            ProcessExecutable.ProcExec.StartSimpleProcess(appName, "cmd /c rmdir /Q /S " + user);
         }
     }
 }
