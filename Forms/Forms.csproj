@@ -17,10 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Management" Version="4.7.0" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\PuzzelLibrary\PuzzelLibrary.csproj" />
   </ItemGroup>
 
@@ -29,7 +25,7 @@
       <HintPath>..\Cassia.dll</HintPath>
     </Reference>
     <Reference Include="System.DirectoryServices.AccountManagement">
-      <HintPath>..\..\..\..\..\..\Windows\Microsoft.NET\assembly\GAC_MSIL\System.DirectoryServices.AccountManagement\v4.0_4.0.0.0__b77a5c561934e089\System.DirectoryServices.AccountManagement.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files\PowerShell\7\System.DirectoryServices.AccountManagement.dll</HintPath>
     </Reference>
   </ItemGroup>
 

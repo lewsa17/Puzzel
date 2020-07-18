@@ -5,12 +5,12 @@
 /.vs/
 /PuzzelLibrary/obj
 /PuzzelLibrary/bin/
-/Forms/Obj
+/Forms/Obj/
 /PuzzleLibrary
 /Puzzel
 /packages
 /Bin
-/Forms/bin
+/Forms/Bin
 /Changelog.txt
 /bugs.txt
 /concept.txt

@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Linq;
 using System.Management;
-using System.Management.Automation;
 using System.Windows.Forms;
 
 namespace PuzzelLibrary.WMI
@@ -27,87 +25,87 @@ namespace PuzzelLibrary.WMI
         public const string queryBios = "Win32_BIOS";
         public const string queryDesktopMonitor = "Win32_DesktopMonitor";
         public const string queryProduct = "Win32_Product";
-        private static int progressBarValue;
-        public static int getProgressValue { get => progressBarValue; set => progressBarValue = value; }
+
+        public static int getProgressValue { get; set; }
 
         public static string AllComputerInfo(string HostName)
         {
             string StringBuilder = string.Empty;
             StringBuilder += ("Nazwa komputera: ");
-            progressBarValue = 1;
+            getProgressValue = 1;
             StringBuilder += GetInfo(HostName, pathCIMv2, queryComputerSystem, "DNSHostName");
             StringBuilder += ("----------------------------------------\n");
             StringBuilder += ("Domena: ");
-            progressBarValue = 2;
+            getProgressValue = 2;
             StringBuilder += GetInfo(HostName, pathCIMv2, queryComputerSystem, "Domain");
             StringBuilder += ("----------------------------------------\n");
             StringBuilder += ("Uptime: ");
-            progressBarValue = 3;
+            getProgressValue = 3;
             StringBuilder += GetInfo(HostName, pathCIMv2, queryOperatingSystem, "LastBootUpTime");
             StringBuilder += ("----------------------------------------\n");
             StringBuilder += ("SN: ");
-            progressBarValue = 4;
+            getProgressValue = 4;
             StringBuilder += GetInfo(HostName, pathCIMv2, queryComputerSystemProduct, "IdentifyingNumber");
             StringBuilder += ("PN: ");
-            progressBarValue = 5;
+            getProgressValue = 5;
             StringBuilder += GetInfo(HostName, pathWMI, querySystemInformation, "SystemSKU");
             StringBuilder += ("----------------------------------------\n");
             StringBuilder += ("Model: ");
-            progressBarValue = 6;
+            getProgressValue = 6;
             StringBuilder += GetInfo(HostName, pathCIMv2, queryComputerSystem, "Model");
             StringBuilder += ("----------------------------------------\n");
             StringBuilder += ("OS: ");
-            progressBarValue = 7;
+            getProgressValue = 7;
             StringBuilder += GetInfo(HostName, pathCIMv2, queryOperatingSystem, "Caption", "CsdVersion", "OsArchitecture", "Version");
             StringBuilder += ("----------------------------------------\n");
             //TotalCapacity
             StringBuilder += ("Pamięć TOTAL: \n");
-            progressBarValue = 8;
+            getProgressValue = 8;
             StringBuilder += GetInfo(HostName, pathCIMv2, queryPhysicalMemory, "Capacity");
             StringBuilder += ("\n");
             StringBuilder += GetInfo(HostName, pathCIMv2, queryPhysicalMemory, "DeviceLocator", "Manufacturer", "Capacity", "Speed", "PartNumber", "SerialNumber");
             StringBuilder += ("----------------------------------------\n");
             StringBuilder += ("CPU \n");
-            progressBarValue = 9;
+            getProgressValue = 9;
             StringBuilder += GetInfo(HostName, pathCIMv2, queryProcessor, "Name");
             StringBuilder += ("Rdzenie: ");
-            progressBarValue = 10;
+            getProgressValue = 10;
             StringBuilder += GetInfo(HostName, pathCIMv2, queryProcessor, "NumberOfCores");
             StringBuilder += ("Wątki: ");
-            progressBarValue = 11;
+            getProgressValue = 11;
             StringBuilder += GetInfo(HostName, pathCIMv2, queryProcessor, "NumberOfLogicalProcessors");
             StringBuilder += ("----------------------------------------\n");
             StringBuilder += ("Użytkownik: ");
-            progressBarValue = 12;
+            getProgressValue = 12;
             StringBuilder += GetInfo(HostName, pathCIMv2, queryComputerSystem, "UserName");
             StringBuilder += ("----------------------------------------\n");
             StringBuilder += ("Profile\n");
-            progressBarValue = 13;
+            getProgressValue = 13;
             StringBuilder += GetInfo(HostName, pathCIMv2, queryDesktop, "Name");
             StringBuilder += ("----------------------------------------\n");
             StringBuilder += ("Dyski: \n");
-            progressBarValue = 14;
+            getProgressValue = 14;
             StringBuilder += ("Nazwa   Opis                  System plików   Wolna przestrzeń       Rozmiar \n");
             StringBuilder += GetInfo(HostName, pathCIMv2, queryLogicalDisk, "Name", "Description", "FileSystem", "FreeSpace", "Size");
             StringBuilder += ("----------------------------------------\n");
             StringBuilder += ("Zasoby sieciowe\n\n");
-            progressBarValue = 15;
+            getProgressValue = 15;
             StringBuilder += GetInfo(HostName, pathCIMv2, queryNetworkConnection, "LocalName", "RemoteName");
             StringBuilder += ("----------------------------------------\n");
             StringBuilder += ("Drukarki sieciowe\n\n");
-            progressBarValue = 16;
+            getProgressValue = 16;
             StringBuilder += GetInfo(HostName, pathCIMv2, queryPrinterConfiguration, "DeviceName");
             StringBuilder += ("----------------------------------------\n");
             StringBuilder += ("Udziały\n");
-            progressBarValue = 17;
+            getProgressValue = 17;
             StringBuilder += GetInfo(HostName, pathCIMv2, queryShare, "Name", "Path", "Description");
             StringBuilder += ("----------------------------------------\n");
             StringBuilder += ("AutoStart\n");
-            progressBarValue = 18;
+            getProgressValue = 18;
             StringBuilder += GetInfo(HostName, pathCIMv2, queryStartupCommand, "Caption", "Command");
             StringBuilder += ("----------------------------------------\n");
             StringBuilder += ("Środowisko uruchomieniowe\n");
-            progressBarValue = 19;
+            getProgressValue = 19;
             StringBuilder += ("Nazwa zmiennej           Wartość zmiennej\n");
             StringBuilder += GetInfo(HostName, pathCIMv2, queryEnvironment, "Name", "VariableValue");
             StringBuilder += ("----------------------------------------\n");
@@ -229,6 +227,7 @@ namespace PuzzelLibrary.WMI
                                     if (query == queryOperatingSystem)
                                     {
                                         StringBuilder += osInfo(args, m);
+                                        break;
                                     }
 
                                     //bios
@@ -239,6 +238,7 @@ namespace PuzzelLibrary.WMI
                                     if (query == queryBios)
                                     {
                                         StringBuilder += BiosInfo(args, m);
+                                        break;
                                     }
                                     break;
                                 }
@@ -253,6 +253,7 @@ namespace PuzzelLibrary.WMI
                                     if (query == queryLogicalDisk)
                                     {
                                         StringBuilder += Disk(args, m);
+                                        break;
                                     }
                                     //args[0] = Caption
                                     //args[1] = DeviceID
@@ -262,6 +263,7 @@ namespace PuzzelLibrary.WMI
                                     if (query == queryDesktopMonitor)
                                     {
                                         StringBuilder += DesktopMonitor(args, m);
+                                        break;
                                     }
                                     StringBuilder += "\n";
                                     break;
@@ -298,13 +300,13 @@ namespace PuzzelLibrary.WMI
             }
             catch (UnauthorizedAccessException ex)
             {
-                PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, nazwaKomputera + "," + path + "," + query);
+                Debug.LogsCollector.GetLogs(ex, nazwaKomputera + "," + path + "," + query);
                 MessageBox.Show("Dostęp zabroniony na obecnych poświadczeniach", "WMI Testing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); return string.Empty;
             }
 
             catch (Exception ex)
             {
-                PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, nazwaKomputera + "," + path + "," + query);
+                Debug.LogsCollector.GetLogs(ex, nazwaKomputera + "," + path + "," + query);
                 MessageBox.Show("Nie można się połączyć z powodu błędu: " + ex.Message, "WMI Testing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); return string.Empty;
             }
                 return StringBuilder;
@@ -1048,164 +1050,6 @@ namespace PuzzelLibrary.WMI
             if (czasbootowania.Seconds > 1 && czasbootowania.Seconds < 5)
                 StringBuilder += (czasbootowania.Seconds + " " + sekunda1[1]);
             StringBuilder += ("\n");
-            return StringBuilder;
-        }
-
-        public static string Fast(string hostname, string path, string query)
-        {
-            string StringBuilder = string.Empty;
-            try
-            {
-                if (System.IO.Directory.Exists(System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), @"Microsoft.NET\assembly\GAC_MSIL\Microsoft.PowerShell.ConsoleHost")))
-                {
-                    using (var ps = PowerShell.Create())
-                    {
-                        ps.AddScript("Invoke-Command -ComputerName " + hostname + @" -Command {Get-ItemProperty -Path HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\* | Select-Object DisplayName, InstallDate, DisplayVersion}");
-                        System.Collections.Generic.List<PSObject> items = ps.Invoke().ToList();
-                        string[] objItem = null;
-                        int firstoptimvalue = 80;
-                        int secondoptimvalue = 31;
-                        StringBuilder += (string.Format("{0,-80}{1,-31}{2,-1}", "DisplayName", "InstallDate", "DisplayVersion" + "\n"));
-                        foreach (PSObject item in items)
-                        {
-                            objItem = item.ToString().Split(';');
-                            objItem[0] = objItem[0].Replace("@{DisplayName=", " ");
-                            objItem[1] = objItem[1].Replace("InstallDate=", "");
-                            objItem[2] = objItem[2].Replace("DisplayVersion=", "").Replace("}", "");
-
-                            int firstObjLength = objItem[0].Length;
-                            int secondObjLenght = objItem[1].Length;
-                            int thirdObjLenght = objItem[2].Length;
-                            int addspace = 0;
-                            if (firstObjLength > 1)
-                                if (!objItem[0].Contains("for Microsoft") && !objItem[0].Contains("(KB"))
-                                {
-                                    StringBuilder += objItem[0];
-                                    if (firstObjLength < firstoptimvalue)
-                                    {
-                                        addspace = firstoptimvalue - firstObjLength;
-                                        for (int i = 0; i < addspace; i++)
-                                            StringBuilder += " ";
-                                    }
-                                    else
-                                    {
-                                        StringBuilder += "   ";
-                                    }
-                                    if (secondObjLenght > 1 && thirdObjLenght > 1)
-                                    {
-                                        StringBuilder += objItem[1];
-                                        if (firstoptimvalue > firstObjLength)
-                                        {
-                                            addspace = secondoptimvalue - secondObjLenght;
-                                            for (int i = 0; i < addspace; i++)
-                                                StringBuilder += " ";
-                                        }
-                                        if (firstoptimvalue < firstObjLength)
-                                        {
-                                            if (firstoptimvalue + secondoptimvalue > firstObjLength + secondObjLenght + 3)
-                                            {
-                                                addspace = firstoptimvalue + secondoptimvalue - firstObjLength - secondObjLenght - 3;
-                                                for (int i = 0; i < addspace; i++)
-                                                    StringBuilder += " ";
-                                            }
-                                            else StringBuilder += "  ";
-                                        }
-                                    }
-                                    if (secondObjLenght < 4 && thirdObjLenght > 1)
-                                    {
-                                        if (firstoptimvalue > firstObjLength)
-                                            addspace = secondoptimvalue;
-                                        else addspace = firstoptimvalue + secondoptimvalue - firstObjLength - 3;
-                                        for (int i = 0; i < addspace; i++)
-                                            StringBuilder += " ";
-                                    }
-                                    if (secondObjLenght < 1 && thirdObjLenght < 1)
-                                    {
-                                        StringBuilder += "\n";
-                                    }
-                                    if (objItem[2].Length < 2)
-                                        objItem[2] = "";
-                                    StringBuilder += objItem[2] + "\n";
-                                }
-                        }
-                        //ps.Dispose();
-                    }
-                }
-                else
-                {
-                    StringBuilder = null;
-                }
-
-                if (StringBuilder == null)
-                {
-                    StringBuilder += ("Nazwa komputera: ");
-                    GetInfo(hostname,pathCIMv2, queryComputerSystem, "DNSHostName");
-                    GetInfo(hostname, path, query, "Name", "InstallDate", "Version");
-                }
-                
-                //else
-                //{
-                //    System.Collections.Generic.List<string> trind = StringBuilder.Split('\n').ToList();
-                //    trind.Sort();
-                //    foreach (var line in trind)
-                //        if (line.Length > 3)
-                //            Form1.UpdateRichTextBox(line + "\n");
-                //}
-            }
-            catch (Exception ex)
-            {
-                PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, "szybka metoda");
-            }
-            return StringBuilder;
-        }
-
-        public static string Fast2(string nazwaKomputera, string path, string query)
-        {
-            string StringBuilder = string.Empty;
-            try
-            {
-                if (System.IO.Directory.Exists(System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), @"Microsoft.NET\assembly\GAC_MSIL\Microsoft.PowerShell.ConsoleHost")))
-                {
-                    using (PowerShell ps = PowerShell.Create())
-                    {
-                        ps.AddScript("Invoke-Command -ComputerName " + nazwaKomputera + @" -Command {Get-ItemProperty -Path HKLM:\HARDWARE\DESCRIPTION\System\BIOS\ | Select-Object SystemManufacturer, BIOSVersion, BIOSReleaseDate}");
-                        string[] objItem = ps.Invoke()[0].ToString().Split(';');
-
-                        objItem[0] = objItem[0].Replace("@{SystemManufacturer=", " ");
-                        objItem[1] = objItem[1].Replace("BIOSVersion=", "");
-                        objItem[2] = objItem[2].Replace("BIOSReleaseDate=", "");
-
-                        StringBuilder += "Producent                Wersja Bios     " + "Data wydania\n";
-                        StringBuilder += objItem[0];
-                        int a = "Producent".Length + 16 - objItem[0].Length;
-                        for (int i = 0; i < a; i++)
-                        {
-                            StringBuilder += (" ");
-                        }
-
-                        StringBuilder += objItem[1];
-                        a = "Wersja SMBios".Length + 3 - objItem[1].Length;
-                        for (int i = 0; i < a; i++)
-                        {
-                            StringBuilder += (" ");
-                        }
-                        StringBuilder += objItem[2];
-                    }
-                }
-                else
-                {
-                    StringBuilder = null;
-                }
-
-                if (StringBuilder == null)
-                {
-                    GetInfo(nazwaKomputera, path, query, "Manufacturer", "BIOSVersion", "SMBIOSBIOSVersion", "ReleaseDate");
-                }
-            }
-            catch (Exception ex)
-            {
-                PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, nazwaKomputera + ",'" + path + "," + query);
-            }
             return StringBuilder;
         }
     }
