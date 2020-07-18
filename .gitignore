@@ -2,8 +2,7 @@
 # Ten plik .gitignore został utworzony automatycznie przez Microsoft(R) Visual Studio.
 ################################################################################
 
-/.vs/Puzzel/DesignTimeBuild/.dtbcache.v2
-/.vs/Puzzel/v16/.suo
+/.vs/
 /PuzzelLibrary/obj
 /PuzzelLibrary/bin/
 /Forms/Obj

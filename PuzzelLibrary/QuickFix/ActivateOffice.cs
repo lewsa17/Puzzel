@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using System.Management.Automation;
 using System;
 
 namespace PuzzelLibrary.QuickFix
@@ -8,18 +7,15 @@ namespace PuzzelLibrary.QuickFix
     {
         public static string Activate(string HostName)
         {
-            using (PowerShell ps = PowerShell.Create())
-            {
-                string pathCScript = "\\Windows\\system32\\cscript.exe";
-                foreach (string Office in GetOficePath(HostName))
-                    if (!string.IsNullOrEmpty(Office))
-                    {
-                        ps.AddScript("Invoke-Command -ComputerName " + HostName + " {cmd /c \"C:" + pathCScript + " \"C:" + Office + "\" /act} "); ;
-                        ps.Invoke();
-                        return ("Zlecono aktywacje Office, należy uruchomić ponownie w celu zakończenia zmian");
-                    }
-                    return ("Nie znaleziono Office");
-            }
+            string pathCScript = "\\Windows\\system32\\cscript.exe";
+            foreach (string Office in GetOficePath(HostName))
+                if (!string.IsNullOrEmpty(Office))
+                {
+                    var appName = ProcessExecutable.ProcExec.PSexec(HostName);
+                    ProcessExecutable.ProcExec.StartSimpleProcess(appName, "cmd /c \"C:" + pathCScript + " \"C:" + Office + "\" /act");
+                    return ("Zlecono aktywacje Office, należy uruchomić ponownie w celu zakończenia zmian");
+                }
+            return ("Nie znaleziono Office");
         }
         private static string[] GetOficePath(string HostName)
         {

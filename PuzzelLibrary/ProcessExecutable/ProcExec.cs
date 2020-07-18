@@ -40,6 +40,13 @@ namespace PuzzelLibrary.ProcessExecutable
                 MessageBox.Show(new Form() { TopMost = true }, x.Message, "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
+        public static string PSexec(string HostName)
+        {
+            var OSName = WMI.ComputerInfo.GetInfo(HostName, WMI.ComputerInfo.pathCIMv2, WMI.ComputerInfo.queryOperatingSystem, "osarchitecture");
+            if (OSName.Contains("64-bit"))
+                return "PsExec64.exe";
+            return "PsExec.exe";
+        }
 
         public static string StartExtendedProcess(string FileName, string Arguments)
         {
