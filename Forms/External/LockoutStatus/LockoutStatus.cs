@@ -10,8 +10,7 @@ namespace Forms.External
         {
             InitializeComponent();
             Username = username;
-        }
-        
+        }        
         public static string Username;
         public static string domainAddress = null;
 
@@ -32,8 +31,6 @@ namespace Forms.External
             DeleteEntryRows();
             AddEntry();
         }
-
-
         public void AddEntry()
         {
             foreach(string dcName in PuzzelLibrary.AD.Other.Domain.GetDomainControllers())
@@ -42,7 +39,6 @@ namespace Forms.External
                 thread.Start();
             }
         }
-
         private void DeleteEntryRows()
         {
             if (dataGridView.Rows.Count > 1)
@@ -59,13 +55,11 @@ namespace Forms.External
                     GetUserPasswordDetails(dcName);
                 }
         }
-
         private void LockoutStatus_Activated(object sender, EventArgs e)
         {
             if (Username.Length > 1)
                 this.Text = Username;
         }
-
         public static void GetUserPasswordDetails(string dcName)
         {
             if (dataGridView.Columns != null)
@@ -84,28 +78,24 @@ namespace Forms.External
                     PuzzelLibrary.Debug.LogsCollector.GetLogs(e, dcName + "," + Username);
                 }
         }
-
-
         private void menuItemClearAll_Click(object sender, EventArgs e)
         {
             DeleteEntryRows();
         }
-
         private void menuItemRefreshAll_Click(object sender, EventArgs e)
         {
             DeleteEntryRows();
             AddEntry();
         }
-
         private void menuItemPasswordStatus_Click(object sender, EventArgs e)
         {
             var pd = new PuzzelLibrary.AD.User.Information.PasswordDetails();
             string messagebox = null;
             DateTime pwdLastSet = Convert.ToDateTime(pd.lastPasswordSet);
             TimeSpan pwdAge = DateTime.Now - pwdLastSet.AddHours(1);
+            //msDS-UserPasswordExpiryTimeComputed
             TimeSpan expirePwd = pwdLastSet.AddDays(30) - DateTime.Now;
 
-            //pierwsza linijka
             messagebox += "Maksymalna długość hasła dla " + Username + " wynosi 30 dni.";
             //drugalinijka
             messagebox +=  "\n\n";
@@ -130,7 +120,6 @@ namespace Forms.External
 
             MessageBox.Show(messagebox, "Status hasła");
         }
-
         private void UnlockAll_Click(object sender, EventArgs e)
         {
             if (dataGridView.SelectedRows.Count != 0)
@@ -138,16 +127,11 @@ namespace Forms.External
                 int selectedRowIndex = dataGridView.SelectedRows[0].Index;
                 string dcName = dataGridView.Rows[selectedRowIndex].Cells[0].Value.ToString();
 
-                if (PuzzelLibrary.AD.User.Operations.UnlockAccount(Username, dcName))
+                if (new PuzzelLibrary.AD.User.AccountOperations().UnlockAccount(Username))
                        MessageBox.Show("Konto zostało odblokowane");
                 else MessageBox.Show("Nie można odblokować konta z powodu błędu");
-
-            Thread.Sleep(1000);
-            MessageBox.Show("Konto zostało odblokowane");
             }
             else MessageBox.Show("Nic nie zaznaczono");
         }
-
-
     }
 }

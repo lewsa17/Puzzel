@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.DirectoryServices.AccountManagement;
 
 namespace PuzzelLibrary.AD.User
@@ -37,9 +38,16 @@ namespace PuzzelLibrary.AD.User
         }
         public static bool IsUserAvailable(string UserName)
         {
-            if (GetUser(UserName).SamAccountName != null) 
-                return true; 
-            return false; 
+            if (GetUser(UserName).SamAccountName != null)
+                return true;
+            return false;
+        }
+        internal static List<UserPrincipal> GetUserInADControllers(string UserName)
+        {
+            List<UserPrincipal> userListFromADControllers = new List<UserPrincipal>();
+            foreach (var DomainController in Other.Domain.GetDomainControllers())
+                userListFromADControllers.Add(GetUser(UserName, DomainController));
+            return userListFromADControllers;
         }
         public static UserPrincipal GetUser(string UserName)
         {
@@ -59,7 +67,7 @@ namespace PuzzelLibrary.AD.User
             }
         }
 
-        public class PasswordDetails 
+        public class PasswordDetails
         {
             public string badLogonCount;
             public string lastBadPasswordAttempt;
@@ -71,11 +79,6 @@ namespace PuzzelLibrary.AD.User
                 UserPrincipal uP = GetUser(UserName, domainController);
                 if (uP != null)
                 {
-
-                    //if (uP.IsAccountLockedOut())
-                    //    useraccaountLocked = "Zablokowane";
-                    //else useraccaountLocked = "Odblokowane";
-
                     if (uP.BadLogonCount > 0)
                         badLogonCount = uP.BadLogonCount.ToString();
                     else badLogonCount = "0";
@@ -95,11 +98,10 @@ namespace PuzzelLibrary.AD.User
                     {
                         userAccountLocked = "Odblokowane";
                         userLockoutTime = "0";
-
                     }
                 }
-            } 
-    }
+            }
+        } 
         public ArrayList GetUserGroups(string UserName)
         {
             ArrayList myItems = new ArrayList();
@@ -137,9 +139,7 @@ namespace PuzzelLibrary.AD.User
                 if (rs.GetDirectoryEntry().Properties["homeDirectory"].Value != null)
                     homeDirectory = rs.GetDirectoryEntry().Properties["homeDirectory"].Value.ToString();
 
-                using (PrincipalContext context = new PrincipalContext(ContextType.Domain))
-                {
-                    UserPrincipal user = UserPrincipal.FindByIdentity(context, IdentityType.SamAccountName, UserName);
+                    UserPrincipal user = GetUser(UserName);
 
                     if (user.Enabled != null)
                     {
@@ -199,7 +199,6 @@ namespace PuzzelLibrary.AD.User
 
                     if (user.UserCannotChangePassword == true) userCannotChangePassword = "NIE";
                     else if (user.UserCannotChangePassword == false) userCannotChangePassword = "TAK";
-                }
 
                 if (rs.GetDirectoryEntry().Properties["msRTCSIP-PrimaryUserAddress"].Value != null)
                 {

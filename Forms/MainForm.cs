@@ -295,8 +295,7 @@ namespace Forms
             if (isNameValid(UserName()))
                 if (PuzzelLibrary.AD.User.Information.IsUserAvailable(UserName()))
                 {
-                    External.ChangePasswordForm zh = new External.ChangePasswordForm();
-                    zh.CheckIfAccountIsLocked(UserName());
+                    External.ChangePasswordForm zh = new External.ChangePasswordForm(UserName());
                     zh.Show();
                 }
         }
