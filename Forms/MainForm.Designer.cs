@@ -19,7 +19,6 @@
             }
             base.Dispose(disposing);
         }
-
         #region Kod generowany przez Projektanta formularzy systemu Windows
 
         /// <summary>
@@ -110,7 +109,6 @@
             this.btnFlushDNS = new System.Windows.Forms.Button();
             richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.backgroundWorkerComputerInfo = new System.ComponentModel.BackgroundWorker();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.statusBar1 = new System.Windows.Forms.StatusBar();
             this.statusBP1 = new System.Windows.Forms.StatusBarPanel();
             this.statusBP2 = new System.Windows.Forms.StatusBarPanel();
@@ -125,23 +123,19 @@
             this.menuItemTaskshedule = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemServices = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemLusrmgr = new System.Windows.Forms.ToolStripMenuItem();
-            this.SeparatorAdmTools = new System.Windows.Forms.ToolStripSeparator();
             this.menuItemTermimalExplorer = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemCustomName = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemComputerExplorer = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemActiveSessions = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemSessions = new System.Windows.Forms.ToolStripMenuItem();
-            this.SeparatorAdmTools1 = new System.Windows.Forms.ToolStripSeparator();
             this.menuItemLAPSpwd = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemLockoutStatus = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemChangeDomainPassword = new System.Windows.Forms.ToolStripMenuItem();
-            this.SeparatorAdmTools2 = new System.Windows.Forms.ToolStripSeparator();
             this.menuItemQuickFix = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemActivateOffice = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemEnableIEHosting = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemWinEnvironment = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemDeleteUsers = new System.Windows.Forms.ToolStripMenuItem();
-            this.AutoGettingLogs = new System.Windows.Forms.Timer(this.components);
             this.groupBoxUserInfo.SuspendLayout();
             this.contextMenuOperationTextBox.SuspendLayout();
             this.groupBoxLogoff.SuspendLayout();
@@ -203,13 +197,11 @@
             this.contextMenuItemSelectAll});
             this.contextMenuOperationTextBox.Name = "contextMenuOperationTextBox";
             this.contextMenuOperationTextBox.ShowImageMargin = false;
-            this.contextMenuOperationTextBox.Size = new System.Drawing.Size(190, 92);
             // 
             // contextMenuItemCut
             // 
             this.contextMenuItemCut.Name = "contextMenuItemCut";
             this.contextMenuItemCut.ShortcutKeyDisplayString = "Ctrl + X";
-            this.contextMenuItemCut.Size = new System.Drawing.Size(189, 22);
             this.contextMenuItemCut.Text = "Wytnij";
             this.contextMenuItemCut.Click += new System.EventHandler(this.contextMenuItemCut_Click);
             // 
@@ -217,7 +209,6 @@
             // 
             this.contextMenuItemCopy.Name = "contextMenuItemCopy";
             this.contextMenuItemCopy.ShortcutKeyDisplayString = "Ctrl + C";
-            this.contextMenuItemCopy.Size = new System.Drawing.Size(189, 22);
             this.contextMenuItemCopy.Text = "Kopiuj";
             this.contextMenuItemCopy.Click += new System.EventHandler(this.contextMenuItemCopy_Click);
             // 
@@ -225,7 +216,6 @@
             // 
             this.contextMenuItemPaste.Name = "contextMenuItemPaste";
             this.contextMenuItemPaste.ShortcutKeyDisplayString = "Ctrl + V";
-            this.contextMenuItemPaste.Size = new System.Drawing.Size(189, 22);
             this.contextMenuItemPaste.Text = "Wklej";
             this.contextMenuItemPaste.Click += new System.EventHandler(this.contextMenuItemPaste_Click);
             // 
@@ -233,7 +223,6 @@
             // 
             this.contextMenuItemSelectAll.Name = "contextMenuItemSelectAll";
             this.contextMenuItemSelectAll.ShortcutKeyDisplayString = "Ctrl + A";
-            this.contextMenuItemSelectAll.Size = new System.Drawing.Size(189, 22);
             this.contextMenuItemSelectAll.Text = "Zaznacz wszystko";
             this.contextMenuItemSelectAll.Click += new System.EventHandler(this.contextMenuItemSelectAll_Click);
             // 
@@ -423,7 +412,6 @@
             this.labelLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelLogin.Location = new System.Drawing.Point(3, 16);
             this.labelLogin.Name = "labelLogin";
-            this.labelLogin.Size = new System.Drawing.Size(41, 15);
             this.labelLogin.TabIndex = 8;
             this.labelLogin.Text = "Login:";
             // 
@@ -437,13 +425,11 @@
             this.contextMenuItemSearchR});
             this.contextMenuOperationRichTextBox.Name = "contextMenuOperationRichTextBox";
             this.contextMenuOperationRichTextBox.ShowImageMargin = false;
-            this.contextMenuOperationRichTextBox.Size = new System.Drawing.Size(190, 114);
             // 
             // contextMenuItemCutR
             // 
             this.contextMenuItemCutR.Name = "contextMenuItemCutR";
             this.contextMenuItemCutR.ShortcutKeyDisplayString = "Ctrl + X";
-            this.contextMenuItemCutR.Size = new System.Drawing.Size(189, 22);
             this.contextMenuItemCutR.Text = "Wytnij";
             this.contextMenuItemCutR.Click += new System.EventHandler(this.contextMenuItemCut_Click);
             // 
@@ -451,7 +437,6 @@
             // 
             this.contextMenuItemCopyR.Name = "contextMenuItemCopyR";
             this.contextMenuItemCopyR.ShortcutKeyDisplayString = "Ctrl + C";
-            this.contextMenuItemCopyR.Size = new System.Drawing.Size(189, 22);
             this.contextMenuItemCopyR.Text = "Kopiuj";
             this.contextMenuItemCopyR.Click += new System.EventHandler(this.contextMenuItemCopy_Click);
             // 
@@ -459,7 +444,6 @@
             // 
             this.contextMenuItemPasteR.Name = "contextMenuItemPasteR";
             this.contextMenuItemPasteR.ShortcutKeyDisplayString = "Ctrl + V";
-            this.contextMenuItemPasteR.Size = new System.Drawing.Size(189, 22);
             this.contextMenuItemPasteR.Text = "Wklej";
             this.contextMenuItemPasteR.Click += new System.EventHandler(this.contextMenuItemPaste_Click);
             // 
@@ -467,7 +451,6 @@
             // 
             this.contextMenuItemSelectAllR.Name = "contextMenuItemSelectAllR";
             this.contextMenuItemSelectAllR.ShortcutKeyDisplayString = "Ctrl + A";
-            this.contextMenuItemSelectAllR.Size = new System.Drawing.Size(189, 22);
             this.contextMenuItemSelectAllR.Text = "Zaznacz wszystko";
             this.contextMenuItemSelectAllR.Click += new System.EventHandler(this.contextMenuItemSelectAll_Click);
             // 
@@ -475,7 +458,6 @@
             // 
             this.contextMenuItemSearchR.Name = "contextMenuItemSearchR";
             this.contextMenuItemSearchR.ShortcutKeyDisplayString = "Ctrl + F";
-            this.contextMenuItemSearchR.Size = new System.Drawing.Size(189, 22);
             this.contextMenuItemSearchR.Text = "Wyszukaj";
             this.contextMenuItemSearchR.Click += new System.EventHandler(this.contextMenuItemSearch_Click);
             // 
@@ -512,7 +494,7 @@
             this.comboBoxComputer.FormattingEnabled = true;
             this.comboBoxComputer.Location = new System.Drawing.Point(6, 43);
             this.comboBoxComputer.Name = "comboBoxComputer";
-            this.comboBoxComputer.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxComputer.Size = comboBoxLogin.Size;
             this.comboBoxComputer.TabIndex = 1;
             this.comboBoxComputer.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Keys_KeyDown);
             this.comboBoxComputer.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Keys_PreviewKeyDown);
@@ -561,14 +543,12 @@
             this.contextMenuItemCMD,
             this.contextMenuItemPowerShell});
             this.contextMenuRemoteCMD.Name = "contextMenuRemoteCMD";
-            this.contextMenuRemoteCMD.Size = new System.Drawing.Size(194, 70);
             // 
             // contextMenuItemRemoteCMDSystem
             // 
             this.contextMenuItemRemoteCMDSystem.Image = global::Forms.Resources.Resources.zdalneCMD;
             this.contextMenuItemRemoteCMDSystem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.contextMenuItemRemoteCMDSystem.Name = "contextMenuItemRemoteCMDSystem";
-            this.contextMenuItemRemoteCMDSystem.Size = new System.Drawing.Size(193, 22);
             this.contextMenuItemRemoteCMDSystem.Text = "Zdalne CMD (SYSTEM)";
             this.contextMenuItemRemoteCMDSystem.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.contextMenuItemRemoteCMDSystem.Click += new System.EventHandler(this.CMDSYSTEMToolStripMenuItem_Click);
@@ -577,7 +557,6 @@
             // 
             this.contextMenuItemCMD.Image = global::Forms.Resources.Resources.cmd;
             this.contextMenuItemCMD.Name = "contextMenuItemCMD";
-            this.contextMenuItemCMD.Size = new System.Drawing.Size(193, 22);
             this.contextMenuItemCMD.Text = "CMD";
             this.contextMenuItemCMD.Click += new System.EventHandler(this.CMDMenuItem1_Click);
             // 
@@ -585,7 +564,6 @@
             // 
             this.contextMenuItemPowerShell.Image = global::Forms.Resources.Resources.powershell;
             this.contextMenuItemPowerShell.Name = "contextMenuItemPowerShell";
-            this.contextMenuItemPowerShell.Size = new System.Drawing.Size(193, 22);
             this.contextMenuItemPowerShell.Text = "Powershell";
             this.contextMenuItemPowerShell.Click += new System.EventHandler(this.PowershellMenuItem2_Click);
             // 
@@ -651,13 +629,12 @@
             this.contextMenuRDP.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuItemRDPOpen});
             this.contextMenuRDP.Name = "contextMenuRDP";
-            this.contextMenuRDP.Size = new System.Drawing.Size(129, 26);
             this.contextMenuRDP.Text = "ZdalnyPulpit";
+            this.contextMenuRDP.ShowImageMargin = false;
             // 
             // menuItemRDPOpen
             // 
             this.menuItemRDPOpen.Name = "rDPBezPustyContextMenu";
-            this.menuItemRDPOpen.Size = new System.Drawing.Size(128, 22);
             this.menuItemRDPOpen.Text = "RDP pusty";
             this.menuItemRDPOpen.Click += new System.EventHandler(this.menuItemRDPOpen_Click);
             // 
@@ -682,20 +659,18 @@
             this.menuItemDWEadm,
             this.menuItemDWLAPS});
             this.DWMenuContext.Name = "DWMenuContext";
-            this.DWMenuContext.Size = new System.Drawing.Size(183, 48);
             this.DWMenuContext.Text = "default";
+            this.DWMenuContext.ShowImageMargin = false;
             // 
             // menuItemDWEadm
             // 
             this.menuItemDWEadm.Name = "menuItemDWEadm";
-            this.menuItemDWEadm.Size = new System.Drawing.Size(182, 22);
             this.menuItemDWEadm.Text = "default";
             this.menuItemDWEadm.Click += new System.EventHandler(this.btnDW_Click);
             // 
             // menuItemDWLAPS
             // 
             this.menuItemDWLAPS.Name = "menuItemDWLAPS";
-            this.menuItemDWLAPS.Size = new System.Drawing.Size(182, 22);
             this.menuItemDWLAPS.Text = "default";
             this.menuItemDWLAPS.Click += new System.EventHandler(this.btnDW_Click);
             // 
@@ -750,117 +725,100 @@
             this.contextMenuComputerInfo.Name = "contextMenuComputerInfo";
             this.contextMenuComputerInfo.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.contextMenuComputerInfo.ShowImageMargin = false;
-            this.contextMenuComputerInfo.Size = new System.Drawing.Size(164, 356);
             // 
             // menuItemComputerInfoUptime
             // 
             this.menuItemComputerInfoUptime.Name = "menuItemComputerInfoUptime";
-            this.menuItemComputerInfoUptime.Size = new System.Drawing.Size(163, 22);
             this.menuItemComputerInfoUptime.Text = "Uptime";
             this.menuItemComputerInfoUptime.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
             // menuItemComputerInfoSNPN
             // 
             this.menuItemComputerInfoSNPN.Name = "menuItemComputerInfoSNPN";
-            this.menuItemComputerInfoSNPN.Size = new System.Drawing.Size(163, 22);
             this.menuItemComputerInfoSNPN.Text = "Nr Seryjny i Nr Partii";
             this.menuItemComputerInfoSNPN.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
             // menuItemComputerInfoModel
             // 
             this.menuItemComputerInfoModel.Name = "menuItemComputerInfoModel";
-            this.menuItemComputerInfoModel.Size = new System.Drawing.Size(163, 22);
             this.menuItemComputerInfoModel.Text = "Model";
             this.menuItemComputerInfoModel.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
             // menuItemComputerInfoOS
             // 
             this.menuItemComputerInfoOS.Name = "menuItemComputerInfoOS";
-            this.menuItemComputerInfoOS.Size = new System.Drawing.Size(163, 22);
             this.menuItemComputerInfoOS.Text = "OS";
             this.menuItemComputerInfoOS.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
             // menuItemComputerInfoRAM
             // 
             this.menuItemComputerInfoRAM.Name = "menuItemComputerInfoRAM";
-            this.menuItemComputerInfoRAM.Size = new System.Drawing.Size(163, 22);
             this.menuItemComputerInfoRAM.Text = "Pamięć RAM";
             this.menuItemComputerInfoRAM.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
             // menuItemComputerInfoProcessor
             // 
             this.menuItemComputerInfoProcessor.Name = "menuItemComputerInfoProcessor";
-            this.menuItemComputerInfoProcessor.Size = new System.Drawing.Size(163, 22);
             this.menuItemComputerInfoProcessor.Text = "CPU";
             this.menuItemComputerInfoProcessor.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
             // menuItemComputerInfoLoggedUser
             // 
             this.menuItemComputerInfoLoggedUser.Name = "menuItemComputerInfoLoggedUser";
-            this.menuItemComputerInfoLoggedUser.Size = new System.Drawing.Size(163, 22);
             this.menuItemComputerInfoLoggedUser.Text = "Zalogowany";
             this.menuItemComputerInfoLoggedUser.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
             // menuItemComputerInfoProfile
             // 
             this.menuItemComputerInfoProfile.Name = "menuItemComputerInfoProfile";
-            this.menuItemComputerInfoProfile.Size = new System.Drawing.Size(163, 22);
             this.menuItemComputerInfoProfile.Text = "Profile Użytkowników";
             this.menuItemComputerInfoProfile.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
             // menuItemComputerInfoDrives
             // 
             this.menuItemComputerInfoDrives.Name = "menuItemComputerInfoDrives";
-            this.menuItemComputerInfoDrives.Size = new System.Drawing.Size(163, 22);
             this.menuItemComputerInfoDrives.Text = "Dyski";
             this.menuItemComputerInfoDrives.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
             // menuItemComputerInfoPrinters
             // 
             this.menuItemComputerInfoPrinters.Name = "menuItemComputerInfoPrinters";
-            this.menuItemComputerInfoPrinters.Size = new System.Drawing.Size(163, 22);
             this.menuItemComputerInfoPrinters.Text = "Drukarki sieciowe";
             this.menuItemComputerInfoPrinters.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
             // menuItemComputerInfoShares
             // 
             this.menuItemComputerInfoShares.Name = "menuItemComputerInfoShares";
-            this.menuItemComputerInfoShares.Size = new System.Drawing.Size(163, 22);
             this.menuItemComputerInfoShares.Text = "Udziały";
             this.menuItemComputerInfoShares.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
             // menuItemComputerInfoAutostart
             // 
             this.menuItemComputerInfoAutostart.Name = "menuItemComputerInfoAutostart";
-            this.menuItemComputerInfoAutostart.Size = new System.Drawing.Size(163, 22);
             this.menuItemComputerInfoAutostart.Text = "Autostart";
             this.menuItemComputerInfoAutostart.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
             // menuItemComputerInfoPath
             // 
             this.menuItemComputerInfoPath.Name = "menuItemComputerInfoPath";
-            this.menuItemComputerInfoPath.Size = new System.Drawing.Size(163, 22);
             this.menuItemComputerInfoPath.Text = "PATH";
             this.menuItemComputerInfoPath.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
             // menuItemComputerInfoNetworkRes
             // 
             this.menuItemComputerInfoNetworkRes.Name = "menuItemComputerInfoNetworkRes";
-            this.menuItemComputerInfoNetworkRes.Size = new System.Drawing.Size(163, 22);
             this.menuItemComputerInfoNetworkRes.Text = "Zasoby sieciowe";
             this.menuItemComputerInfoNetworkRes.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
             // menuItemComputerInfoDisplay
             // 
             this.menuItemComputerInfoDisplay.Name = "menuItemComputerInfoDisplay";
-            this.menuItemComputerInfoDisplay.Size = new System.Drawing.Size(163, 22);
             this.menuItemComputerInfoDisplay.Text = "Ekrany podłączone";
             this.menuItemComputerInfoDisplay.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
             // menuItemComputerInfoBios
             // 
             this.menuItemComputerInfoBios.Name = "menuItemComputerInfoBios";
-            this.menuItemComputerInfoBios.Size = new System.Drawing.Size(163, 22);
             this.menuItemComputerInfoBios.Text = "BIOS";
             this.menuItemComputerInfoBios.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
             // 
@@ -890,7 +848,7 @@
             0,
             0});
             this.numericComputer.Name = "numericComputer";
-            this.numericComputer.Size = new System.Drawing.Size(60, 20);
+            this.numericComputer.Size = numericLogin.Size;
             this.numericComputer.TabIndex = 2;
             this.numericComputer.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericComputer.Value = new decimal(new int[] {
@@ -905,7 +863,6 @@
             this.labelCountCompLogs.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelCountCompLogs.Location = new System.Drawing.Point(137, 19);
             this.labelCountCompLogs.Name = "labelCountCompLogs";
-            this.labelCountCompLogs.Size = new System.Drawing.Size(71, 15);
             this.labelCountCompLogs.TabIndex = 11;
             this.labelCountCompLogs.Text = "Ilośc logów:";
             // 
@@ -915,7 +872,6 @@
             this.labelComputer.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelComputer.Location = new System.Drawing.Point(3, 19);
             this.labelComputer.Name = "labelComputer";
-            this.labelComputer.Size = new System.Drawing.Size(110, 15);
             this.labelComputer.TabIndex = 12;
             this.labelComputer.Text = "Nazwa komputera:";
             // 
@@ -925,7 +881,7 @@
             this.btnCompLog.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnCompLog.Location = new System.Drawing.Point(209, 10);
             this.btnCompLog.Name = "btnCompLog";
-            this.btnCompLog.Size = new System.Drawing.Size(107, 30);
+            this.btnCompLog.Size = btnUserLog.Size;
             this.btnCompLog.TabIndex = 13;
             this.btnCompLog.TabStop = false;
             this.btnCompLog.Text = "Komputer log";
@@ -1011,7 +967,7 @@
             this.btnReloadLogs.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnReloadLogs.Location = new System.Drawing.Point(101, 15);
             this.btnReloadLogs.Name = "btnReloadLogs";
-            this.btnReloadLogs.Size = new System.Drawing.Size(97, 33);
+            this.btnReloadLogs.Size = new System.Drawing.Size(97, 3);
             this.btnReloadLogs.TabIndex = 0;
             this.btnReloadLogs.TabStop = false;
             this.btnReloadLogs.Text = "Reload Logs";
@@ -1020,7 +976,7 @@
             // 
             // btnFlushDNS
             // 
-            this.btnFlushDNS.Image = ((System.Drawing.Image)(resources.GetObject("BtnFlush_DNS.Image")));
+            this.btnFlushDNS.Image = global::Forms.Resources.Resources.rubish;
             this.btnFlushDNS.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnFlushDNS.Location = new System.Drawing.Point(6, 15);
             this.btnFlushDNS.Name = "btnFlushDNS";
@@ -1044,7 +1000,6 @@
             richTextBox1.MinimumSize = new System.Drawing.Size(1181, 294);
             richTextBox1.Name = "richTextBox1";
             richTextBox1.ShortcutsEnabled = false;
-            richTextBox1.Size = new System.Drawing.Size(1181, 294);
             richTextBox1.TabIndex = 4;
             richTextBox1.Text = "";
             richTextBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Keys_KeyDown);
@@ -1054,10 +1009,6 @@
             // 
             this.backgroundWorkerComputerInfo.DoWork += new System.ComponentModel.DoWorkEventHandler(this.KomputerInfo_DoWork);
             // 
-            // timer1
-            // 
-            this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
-            // 
             // statusBar1
             // 
             this.statusBar1.Location = new System.Drawing.Point(0, 535);
@@ -1066,7 +1017,6 @@
             this.statusBP1,
             this.statusBP2});
             this.statusBar1.ShowPanels = true;
-            this.statusBar1.Size = new System.Drawing.Size(1184, 22);
             this.statusBar1.TabIndex = 5;
             this.statusBar1.Text = "statusbar";
             // 
@@ -1095,14 +1045,12 @@
             this.mainMenu.Location = new System.Drawing.Point(0, 0);
             this.mainMenu.Name = "mainMenu";
             this.mainMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.mainMenu.Size = new System.Drawing.Size(1184, 24);
             this.mainMenu.TabIndex = 0;
             this.mainMenu.Text = "mainMenu";
             // 
             // menuItemFile
             // 
             this.menuItemFile.Name = "menuItemFile";
-            this.menuItemFile.Size = new System.Drawing.Size(38, 20);
             this.menuItemFile.Text = "Plik";
             this.menuItemFile.Visible = false;
             // 
@@ -1125,16 +1073,14 @@
             this.menuItemServices,
             this.menuItemLusrmgr,
             this.menuItemWindowsFirewall,
-            this.SeparatorAdmTools,
+            new System.Windows.Forms.ToolStripSeparator(),
             this.menuItemTermimalExplorer,
             this.menuItemComputerExplorer,
-            this.SeparatorAdmTools1,
+            new System.Windows.Forms.ToolStripSeparator(),
             this.menuItemLAPSpwd,
             this.menuItemLockoutStatus,
-            this.menuItemChangeDomainPassword,
-            this.SeparatorAdmTools2});
+            this.menuItemChangeDomainPassword});
             this.menuItemAdmTools.Name = "menuItemAdmTools";
-            this.menuItemAdmTools.Size = new System.Drawing.Size(157, 20);
             this.menuItemAdmTools.Text = "Narzędzia administracyjne";
             //
             // menuItemWindowsFirewall
@@ -1142,14 +1088,12 @@
             this.menuItemWindowsFirewall.Image = global::Forms.Resources.Resources.firewall;
             this.menuItemWindowsFirewall.Name = "menuItemWindowsFirewall";
             this.menuItemWindowsFirewall.Text = "Zaawansowana Zapora Windows";
-            this.menuItemWindowsFirewall.Size = new System.Drawing.Size(222, 22);
             this.menuItemWindowsFirewall.Click += new System.EventHandler(this.AdmTools);
             //
             // menuItemDHCP
             // 
             this.menuItemDHCP.Image = global::Forms.Resources.Resources.dhcp;
             this.menuItemDHCP.Name = "menuItemDHCP";
-            this.menuItemDHCP.Size = new System.Drawing.Size(222, 22);
             this.menuItemDHCP.Text = "DHCP";
             this.menuItemDHCP.Click += new System.EventHandler(this.DHCPToolStripMenuItem_Click);
             // 
@@ -1157,7 +1101,6 @@
             // 
             this.menuItemEventViewer.Image = global::Forms.Resources.Resources.eventvwr;
             this.menuItemEventViewer.Name = "menuItemEventViewer";
-            this.menuItemEventViewer.Size = new System.Drawing.Size(222, 22);
             this.menuItemEventViewer.Text = "Dziennik zdarzeń";
             this.menuItemEventViewer.Click += new System.EventHandler(this.AdmTools);
             // 
@@ -1165,7 +1108,6 @@
             // 
             this.menuItemTaskshedule.Image = global::Forms.Resources.Resources.tasksched;
             this.menuItemTaskshedule.Name = "menuItemTaskshedule";
-            this.menuItemTaskshedule.Size = new System.Drawing.Size(222, 22);
             this.menuItemTaskshedule.Text = "Harmonogram zadań";
             this.menuItemTaskshedule.Click += new System.EventHandler(this.AdmTools);
             // 
@@ -1173,7 +1115,6 @@
             // 
             this.menuItemServices.Image = global::Forms.Resources.Resources.services;
             this.menuItemServices.Name = "menuItemServices";
-            this.menuItemServices.Size = new System.Drawing.Size(222, 22);
             this.menuItemServices.Text = "Usługi";
             this.menuItemServices.Click += new System.EventHandler(this.AdmTools);
             // 
@@ -1181,30 +1122,21 @@
             // 
             this.menuItemLusrmgr.Image = global::Forms.Resources.Resources.lusrmgr;
             this.menuItemLusrmgr.Name = "menuItemLusrmgr";
-            this.menuItemLusrmgr.Size = new System.Drawing.Size(222, 22);
             this.menuItemLusrmgr.Text = "Użytkownicy i grupy lokalne";
             this.menuItemLusrmgr.Click += new System.EventHandler(this.AdmTools);
             // 
-            // SeparatorAdmTools
-            // 
-            this.SeparatorAdmTools.Name = "SeparatorAdmTools";
-            this.SeparatorAdmTools.Size = new System.Drawing.Size(219, 6);
-            // 
             // menuItemTermimalExplorer
-            // 
             //
             this.menuItemTermimalExplorer.DropDownItems.Add(this.menuItemCustomName);
             this.menuItemTermimalExplorer.Image = global::Forms.Resources.Resources.terminalexplorer;
             this.menuItemTermimalExplorer.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.menuItemTermimalExplorer.Name = "menuItemTermimalExplorer";
-            this.menuItemTermimalExplorer.Size = new System.Drawing.Size(222, 22);
             this.menuItemTermimalExplorer.Text = "Terminal Explorer";
             this.menuItemTermimalExplorer.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // menuItemCustomName
             // 
             this.menuItemCustomName.Name = "menuItemCustomName";
-            this.menuItemCustomName.Size = new System.Drawing.Size(147, 22);
             this.menuItemCustomName.Text = "Ręczna nazwa";
             this.menuItemCustomName.Click += new System.EventHandler(FindSessions);
             // 
@@ -1216,7 +1148,6 @@
             this.menuItemComputerExplorer.Image = global::Forms.Resources.Resources.ComputerExplorer;
             this.menuItemComputerExplorer.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.menuItemComputerExplorer.Name = "menuItemComputerExplorer";
-            this.menuItemComputerExplorer.Size = new System.Drawing.Size(222, 22);
             this.menuItemComputerExplorer.Text = "Komputer Explorer";
             this.menuItemComputerExplorer.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -1224,7 +1155,6 @@
             // 
             this.menuItemActiveSessions.Image = global::Forms.Resources.Resources.deactiveSession;
             this.menuItemActiveSessions.Name = "menuItemActiveSessions";
-            this.menuItemActiveSessions.Size = new System.Drawing.Size(149, 22);
             this.menuItemActiveSessions.Text = "Aktywne Sesje";
             this.menuItemActiveSessions.Click += new System.EventHandler(this.ActiveSession);
             // 
@@ -1232,20 +1162,13 @@
             // 
             this.menuItemSessions.Image = global::Forms.Resources.Resources.process;
             this.menuItemSessions.Name = "menuItemSessions";
-            this.menuItemSessions.Size = new System.Drawing.Size(149, 22);
             this.menuItemSessions.Text = "Eksplorator Sesji";
             this.menuItemSessions.Click += new System.EventHandler(this.FindSessions);
-            // 
-            // SeparatorAdmTools1
-            // 
-            this.SeparatorAdmTools1.Name = "SeparatorAdmTools1";
-            this.SeparatorAdmTools1.Size = new System.Drawing.Size(219, 6);
             // 
             // menuItemLAPSpwd
             // 
             this.menuItemLAPSpwd.Image = global::Forms.Resources.Resources.password;
             this.menuItemLAPSpwd.Name = "menuItemLAPSpwd";
-            this.menuItemLAPSpwd.Size = new System.Drawing.Size(222, 22);
             this.menuItemLAPSpwd.Text = "Hasło z LAPS-a";
             this.menuItemLAPSpwd.Click += new System.EventHandler(this.pwdLAPS);
             // 
@@ -1253,7 +1176,6 @@
             // 
             this.menuItemLockoutStatus.Image = global::Forms.Resources.Resources.lockout;
             this.menuItemLockoutStatus.Name = "menuItemLockoutStatus";
-            this.menuItemLockoutStatus.Size = new System.Drawing.Size(222, 22);
             this.menuItemLockoutStatus.Text = "Lockout Status";
             this.menuItemLockoutStatus.Click += new System.EventHandler(this.menuItemLockoutStatus_Click);
             // 
@@ -1261,14 +1183,8 @@
             // 
             this.menuItemChangeDomainPassword.Image = global::Forms.Resources.Resources.changepass.ToBitmap();
             this.menuItemChangeDomainPassword.Name = "menuItemChangeDomainPassword";
-            this.menuItemChangeDomainPassword.Size = new System.Drawing.Size(222, 22);
             this.menuItemChangeDomainPassword.Text = "Zmiana hasła domenowego";
             this.menuItemChangeDomainPassword.Click += new System.EventHandler(this.ChangePassword);
-            // 
-            // SeparatorAdmTools2
-            // 
-            this.SeparatorAdmTools2.Name = "SeparatorAdmTools2";
-            this.SeparatorAdmTools2.Size = new System.Drawing.Size(219, 6);
             // 
             // menuItemQuickFix
             // 
@@ -1279,7 +1195,6 @@
             this.menuItemEnableIEHosting,
             this.menuItemWinEnvironment});
             this.menuItemQuickFix.Name = "menuItemQuickFix";
-            this.menuItemQuickFix.Size = new System.Drawing.Size(122, 20);
             this.menuItemQuickFix.Text = "Szybkie rozwiązanie";
             //
             // menuItemActivateOffice
@@ -1291,21 +1206,18 @@
             // menuItemEnableIEHosting
             // 
             this.menuItemEnableIEHosting.Name = "menuItemEnableIEHosting";
-            this.menuItemEnableIEHosting.Size = new System.Drawing.Size(204, 22);
             this.menuItemEnableIEHosting.Text = "Framework4+ IE compatibility";
             this.menuItemEnableIEHosting.Click += new System.EventHandler(this.EnableIEHosting_Click);
             // 
             // menuItemWinEnvironment
             // 
             this.menuItemWinEnvironment.Name = "menuItemWinEnvironment";
-            this.menuItemWinEnvironment.Size = new System.Drawing.Size(204, 22);
             this.menuItemWinEnvironment.Text = "Zmienna środowiskowa";
             this.menuItemWinEnvironment.Click += new System.EventHandler(this.WinEnvironment_Click);
             // 
             // menuItemDeleteUsers
             // 
             this.menuItemDeleteUsers.Name = "menuItemDeleteUsers";
-            this.menuItemDeleteUsers.Size = new System.Drawing.Size(204, 22);
             this.menuItemDeleteUsers.Text = "Usuwanie użytkowników";
             this.menuItemDeleteUsers.Click += new System.EventHandler(this.DeleteUsers_Click);
             // 
@@ -1381,11 +1293,10 @@
         private System.Windows.Forms.GroupBox groupBoxOtherTools;
         private System.Windows.Forms.Button btnReloadLogs;
         private System.Windows.Forms.Button btnFlushDNS;
-        public System.Windows.Forms.ComboBox comboBoxFindedSessions;
-        public System.Windows.Forms.NumericUpDown numericLogin;
-        public System.Windows.Forms.NumericUpDown numericComputer;
+        private System.Windows.Forms.ComboBox comboBoxFindedSessions;
+        private System.Windows.Forms.NumericUpDown numericLogin;
+        private System.Windows.Forms.NumericUpDown numericComputer;
         private System.ComponentModel.BackgroundWorker backgroundWorkerComputerInfo;
-        private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.StatusBar statusBar1;
         private System.Windows.Forms.StatusBarPanel statusBP1;
         private System.Windows.Forms.StatusBarPanel statusBP2;
@@ -1424,7 +1335,6 @@
         private System.Windows.Forms.ToolStripMenuItem menuItemDHCP;
         private System.Windows.Forms.ToolStripMenuItem menuItemLockoutStatus;
         private System.Windows.Forms.ToolStripMenuItem contextMenuItemPasteR;
-        private System.Windows.Forms.Timer AutoGettingLogs;
         private System.Windows.Forms.ToolStripMenuItem menuItemTermimalExplorer;
         private System.Windows.Forms.ToolStripMenuItem menuItemComputerExplorer;
         private System.Windows.Forms.ToolStripMenuItem menuItemCustomName;
@@ -1446,9 +1356,6 @@
         private System.Windows.Forms.ToolStripMenuItem contextMenuItemCopy;
         private System.Windows.Forms.ToolStripMenuItem contextMenuItemPaste;
         private System.Windows.Forms.ToolStripMenuItem contextMenuItemSelectAll;
-        private System.Windows.Forms.ToolStripSeparator SeparatorAdmTools;
-        private System.Windows.Forms.ToolStripSeparator SeparatorAdmTools1;
-        private System.Windows.Forms.ToolStripSeparator SeparatorAdmTools2;
         private System.Windows.Forms.ToolStripMenuItem menuItemChangeDomainPassword;
         private System.Windows.Forms.ComboBox comboBoxLogin;
         private System.Windows.Forms.ComboBox comboBoxComputer;
@@ -1468,4 +1375,3 @@
         public static System.Windows.Forms.RichTextBox richTextBox1;
     }
 }
-
