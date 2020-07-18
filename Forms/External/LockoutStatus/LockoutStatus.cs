@@ -90,6 +90,7 @@ namespace Forms.External
         private void menuItemPasswordStatus_Click(object sender, EventArgs e)
         {
             var pd = new PuzzelLibrary.AD.User.Information.PasswordDetails();
+            pd.GetUserPasswordDetails(Username, PuzzelLibrary.AD.Other.Domain.GetDomainControllers()[0]);
             string messagebox = null;
             DateTime pwdLastSet = Convert.ToDateTime(pd.lastPasswordSet);
             TimeSpan pwdAge = DateTime.Now - pwdLastSet.AddHours(1);
