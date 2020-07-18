@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using PuzzelLibrary.Settings;
+﻿using PuzzelLibrary.Settings;
 
 namespace PuzzelLibrary.AD.Connection.Credential
 {

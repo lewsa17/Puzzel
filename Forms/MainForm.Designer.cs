@@ -1,7 +1,4 @@
-﻿using System.IO;
-using System.Text;
-
-namespace Forms
+﻿namespace Forms
 {
     partial class MainForm
     {

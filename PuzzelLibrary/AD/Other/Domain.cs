@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.DirectoryServices;
-using System.DirectoryServices.AccountManagement;
 
 namespace PuzzelLibrary.AD.Other
 {
-   public class Domain
+    public class Domain
     {
         public static string[] GetDomainControllers()
         {

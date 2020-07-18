@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace PuzzelLibrary.Settings
+﻿namespace PuzzelLibrary.Settings
 {
     interface ISettings
     {

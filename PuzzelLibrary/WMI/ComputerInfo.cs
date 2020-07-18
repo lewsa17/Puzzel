@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Management;
-using System.Net.Sockets;
 using System.Management.Automation;
-using System.Security.Cryptography.X509Certificates;
 using System.Windows.Forms;
-using System.Runtime.CompilerServices;
 
 namespace PuzzelLibrary.WMI
 {

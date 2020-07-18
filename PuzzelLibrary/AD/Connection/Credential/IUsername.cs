@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace PuzzelLibrary.AD.Connection.Credential
+﻿namespace PuzzelLibrary.AD.Connection.Credential
 {
     interface IUsername
     {

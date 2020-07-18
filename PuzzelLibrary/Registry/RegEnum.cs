@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PuzzelLibrary.Registry
+﻿namespace PuzzelLibrary.Registry
 {
-   public class RegEnum : RegOpen, IEnum
+    public class RegEnum : RegOpen, IEnum
     {
         public RegEnum()
         {

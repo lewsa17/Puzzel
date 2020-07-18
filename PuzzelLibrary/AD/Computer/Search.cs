@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.DirectoryServices;
-using System.Text;
 
 namespace PuzzelLibrary.AD.Computer
 {

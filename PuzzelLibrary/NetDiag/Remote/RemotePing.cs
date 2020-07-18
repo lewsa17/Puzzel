@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
+﻿using System.IO;
 
 namespace PuzzelLibrary.NetDiag
 {
-   public class RemotePing
+    public class RemotePing
     {
         private static string HostName { get => _hostName; }
         private static string _hostName;

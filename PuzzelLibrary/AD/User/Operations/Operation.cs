@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.DirectoryServices;
 using System.DirectoryServices.AccountManagement;
-using System.DirectoryServices.ActiveDirectory;
 
 namespace PuzzelLibrary.AD.User
 {

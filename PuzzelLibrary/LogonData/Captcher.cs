@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Text;
 using System.IO;
-using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using PuzzelLibrary.Debug;
 using PuzzelLibrary.Settings;
