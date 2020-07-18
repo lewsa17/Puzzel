@@ -53,7 +53,6 @@
             this.menuItemSessionLogoff = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemSessionStatus = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemSessionProcesses = new System.Windows.Forms.ToolStripMenuItem();
-            this.TabPageProcess = new System.Windows.Forms.TabPage();
             this.LabelProcessCount = new System.Windows.Forms.Label();
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
@@ -122,10 +121,11 @@
             this.btnRefreshNow.TabIndex = 25;
             this.btnRefreshNow.Text = "Odśwież teraz";
             this.btnRefreshNow.UseVisualStyleBackColor = true;
-            this.btnRefreshNow.Click += new System.EventHandler(this.RefreshRows);
+            this.btnRefreshNow.Click += new System.EventHandler(this.BtnRefresh_Click);
             // 
             // dataGridView1
             // 
+           // this.DataGridView.Anchor = System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom;
             this.DataGridView.AllowUserToAddRows = false;
             this.DataGridView.AllowUserToDeleteRows = false;
             this.DataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
@@ -289,13 +289,6 @@
             this.menuItemSessionProcesses.Text = "Procesy";
             this.menuItemSessionProcesses.Click += new System.EventHandler(this.ContextMenus);
             // 
-            // TabPageProcess
-            // 
-            this.TabPageProcess.Location = new System.Drawing.Point(0, 0);
-            this.TabPageProcess.Name = "TabPageProcess";
-            this.TabPageProcess.Size = new System.Drawing.Size(200, 100);
-            this.TabPageProcess.TabIndex = 0;
-            // 
             // LabelProcessCount
             // 
             this.LabelProcessCount.Location = new System.Drawing.Point(0, 0);
@@ -339,7 +332,6 @@
 
         private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage tabPageSession;
-        private System.Windows.Forms.TabPage TabPageProcess;
         private System.Windows.Forms.DataGridView DataGridView;
         private System.Windows.Forms.DataGridViewTextBoxColumn ServerColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn UserColumn;

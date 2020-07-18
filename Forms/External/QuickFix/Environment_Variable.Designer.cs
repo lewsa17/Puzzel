@@ -111,7 +111,7 @@
             this.Controls.Add(this.LabelTitleEnv);
             this.Controls.Add(this.TextBoxValueVar);
             this.Controls.Add(this.TextBoxNameVar);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = global::Forms.Resources.Resources.Puzzel;
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(327, 163);
             this.MinimizeBox = false;

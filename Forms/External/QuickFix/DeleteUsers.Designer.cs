@@ -71,7 +71,7 @@
             this.Controls.Add(this.BtnDeleteUsers);
             this.Controls.Add(this.DeleteUserLabel);
             this.Controls.Add(this.ComboBoxUsers);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = global::Forms.Resources.Resources.Puzzel;
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(289, 142);
             this.MinimizeBox = false;

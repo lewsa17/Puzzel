@@ -37,12 +37,11 @@ namespace Forms.External.Explorer
         Label bajtyprzychodzaceLabel; Label label16; Label label15; Label label14; Label label13;
         Label label12; Label label11; Label label8; Label label7; Label label6; Label label5;
         Label label4; Label label3; Label label2; Label label1; Label statusZalogowlabel;
-        private void RefreshRows(object sender, EventArgs e)
+        private void BtnRefresh_Click(object sender, EventArgs e)
         {
-            DataGridView.Rows.Clear();
-            GetSessionsToDataGridView();
+                DataGridView.Rows.Clear();
+                GetSessionsToDataGridView();
         }
-
         public void GetSessionsToDataGridView()
         {
             try
@@ -65,7 +64,7 @@ namespace Forms.External.Explorer
                             session.IdleTime,
                             session.LoginTime)));
                     }
-                    labelSessionCount.BeginInvoke(new Action(() => labelSessionCount.Text = "Aktywne sesje: " + /*dataGridView1.Rows.Count*/sessions.Count));    
+                    labelSessionCount.BeginInvoke(new Action(() => labelSessionCount.Text = "Aktywne sesje: " + sessions.Count));    
             }
             catch (Win32Exception)
             {
@@ -181,7 +180,7 @@ namespace Forms.External.Explorer
                                 {
                                     session.Disconnect();
                                     MessageBox.Show(new Form() { TopMost = true }, "Sesja została rozłączona", "Rozłączanie sesji", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                    RefreshRows(sender, e);
+                                    BtnRefresh_Click(sender, e);
                                     break;
                                 }
 
@@ -205,7 +204,7 @@ namespace Forms.External.Explorer
                                 {
                                     session.Logoff();
                                     MessageBox.Show(new Form() { TopMost = true }, "Sesja została wylogowana", "Wylogowywanie sesji", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                    RefreshRows(sender, e);
+                                    BtnRefresh_Click(sender, e);
                                     break;
                                 }
 
