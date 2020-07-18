@@ -10,19 +10,13 @@ namespace Forms.Additional
         {
             InitializeComponent();
         }
-        public void Lastvalue(string lastValue)
-        {
-            ostatniouzywanawartosc = lastValue;
-        }
-        string ostatniouzywanawartosc = null;
-
         private void Buttons_Click(object sender, EventArgs e)
         {
             string SearchWord = textBoxSearchedText.Text;
             int SelectionStart = 0;
             if (sender is Button)
             {
-                if (Form.SelectedTab == TabFind)
+                if (TabControl.SelectedTab == TabFind)
                 {
                     if (((Button)sender) == btnSearch | ((Button)sender) == btnNextWord)
                     {
@@ -35,7 +29,6 @@ namespace Forms.Additional
                         SelectionStart = MainForm.richTextBox1.Find(SearchWord, 0, MainForm.richTextBox1.SelectionStart, RichTextBoxFinds.Reverse);
                 }
             }
-
             if (sender is TextBox)
             {
                 if (MainForm.richTextBox1.SelectionStart > 1)
@@ -48,26 +41,21 @@ namespace Forms.Additional
                 MessageBox.Show("Nie znaleziono wartości: " + SearchWord);
             MainForm.richTextBox1.SelectionLength = SearchWord.Length;
         }
-
-        private void WyszukiwarkaDlaFormy_Load(object sender, EventArgs e)
+        private void SearchingMainForm_Load(object sender, EventArgs e)
         {
-            textBoxSearchedText.Text = ostatniouzywanawartosc;
-            btnPreviousWord.Location = new Point(9, 54);
-            btnNextWord.Location = new Point(167, 54);
+            //btnPreviousWord.Location = new Point(9, 54);
+            //btnNextWord.Location = new Point(167, 54);
         }
-
-        private void TextBox1_KeyDown(object sender, KeyEventArgs e)
+        private void TextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
                 Buttons_Click(sender, e);
         }
-
-        private void Wyszukiwarka_Click(object sender, EventArgs e)
+        private void TabControl_Click(object sender, EventArgs e)
         {
-            this.Text = Form.SelectedTab.Text;
+            this.Text = TabControl.SelectedTab.Text;
         }
-
-        private void CheckBox1_CheckedChanged(object sender, EventArgs e)
+        private void CheckBox_CheckedChanged(object sender, EventArgs e)
         {
             if (DualDirectionbox.Checked)
             {
@@ -82,8 +70,7 @@ namespace Forms.Additional
                 btnSearch.Visible = true;
             }
         }
-
-        private void WyszukiwarkaDlaFormy_FormClosing(object sender, FormClosingEventArgs e)
+        private void SearchingMainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             MainForm.richTextBox1.HideSelection = true;
         }

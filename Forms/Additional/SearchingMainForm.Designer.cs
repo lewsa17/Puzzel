@@ -34,7 +34,7 @@
             this.textBoxSearchedText = new System.Windows.Forms.TextBox();
             this.btnPreviousWord = new System.Windows.Forms.Button();
             this.btnNextWord = new System.Windows.Forms.Button();
-            this.Form = new System.Windows.Forms.TabControl();
+            this.TabControl = new System.Windows.Forms.TabControl();
             this.TabFind = new System.Windows.Forms.TabPage();
             this.DualDirectionbox = new System.Windows.Forms.CheckBox();
             this.TabChange = new System.Windows.Forms.TabPage();
@@ -43,7 +43,7 @@
             this.labelSearchedText1 = new System.Windows.Forms.Label();
             this.btnReplace = new System.Windows.Forms.Button();
             this.textboxReplaceWord = new System.Windows.Forms.TextBox();
-            this.Form.SuspendLayout();
+            this.TabControl.SuspendLayout();
             this.TabFind.SuspendLayout();
             this.TabChange.SuspendLayout();
             this.SuspendLayout();
@@ -60,9 +60,9 @@
             // btnSearch
             // 
             this.btnSearch.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnSearch.Location = new System.Drawing.Point(9, 54);
+            this.btnSearch.Location = new System.Drawing.Point(8, 54);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(313, 23);
+            this.btnSearch.Size = new System.Drawing.Size(314, 23);
             this.btnSearch.TabIndex = 2;
             this.btnSearch.Text = "Wyszukaj";
             this.btnSearch.UseVisualStyleBackColor = true;
@@ -74,15 +74,15 @@
             this.textBoxSearchedText.Name = "textBoxSearchedText";
             this.textBoxSearchedText.Size = new System.Drawing.Size(313, 20);
             this.textBoxSearchedText.TabIndex = 1;
-            this.textBoxSearchedText.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBox1_KeyDown);
+            this.textBoxSearchedText.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBox_KeyDown);
             // 
             // btnPreviousWord
             // 
-            this.btnPreviousWord.Location = new System.Drawing.Point(9, 83);
+            this.btnPreviousWord.Location = new System.Drawing.Point(8, 83);
             this.btnPreviousWord.Name = "btnPreviousWord";
             this.btnPreviousWord.Size = new System.Drawing.Size(155, 23);
             this.btnPreviousWord.TabIndex = 3;
-            this.btnPreviousWord.Text = "< = Poprzednie";
+            this.btnPreviousWord.Text = "<= Poprzednie";
             this.btnPreviousWord.UseVisualStyleBackColor = true;
             this.btnPreviousWord.Visible = false;
             this.btnPreviousWord.Click += new System.EventHandler(this.Buttons_Click);
@@ -90,7 +90,7 @@
             // btnNextWord
             // 
             this.btnNextWord.DialogResult = System.Windows.Forms.DialogResult.Retry;
-            this.btnNextWord.Location = new System.Drawing.Point(167, 83);
+            this.btnNextWord.Location = new System.Drawing.Point(166, 83);
             this.btnNextWord.Name = "btnNextWord";
             this.btnNextWord.Size = new System.Drawing.Size(155, 23);
             this.btnNextWord.TabIndex = 4;
@@ -99,16 +99,16 @@
             this.btnNextWord.Visible = false;
             this.btnNextWord.Click += new System.EventHandler(this.Buttons_Click);
             // 
-            // Form
+            // TabControl
             // 
-            this.Form.Controls.Add(this.TabFind);
-            this.Form.Controls.Add(this.TabChange);
-            this.Form.Location = new System.Drawing.Point(1, 4);
-            this.Form.Name = "Wyszukiwarka";
-            this.Form.SelectedIndex = 0;
-            this.Form.Size = new System.Drawing.Size(341, 154);
-            this.Form.TabIndex = 5;
-            this.Form.SelectedIndexChanged += new System.EventHandler(this.Wyszukiwarka_Click);
+            this.TabControl.Controls.Add(this.TabFind);
+            this.TabControl.Controls.Add(this.TabChange);
+            this.TabControl.Location = new System.Drawing.Point(1, 4);
+            this.TabControl.Name = "Wyszukiwarka";
+            this.TabControl.SelectedIndex = 0;
+            this.TabControl.Size = new System.Drawing.Size(341, 154);
+            this.TabControl.TabIndex = 5;
+            this.TabControl.SelectedIndexChanged += new System.EventHandler(this.TabControl_Click);
             // 
             // TabFind
             // 
@@ -137,7 +137,7 @@
             this.DualDirectionbox.TabIndex = 5;
             this.DualDirectionbox.Text = "Szukanie dwukierunkowe";
             this.DualDirectionbox.UseVisualStyleBackColor = true;
-            this.DualDirectionbox.CheckedChanged += new System.EventHandler(this.CheckBox1_CheckedChanged);
+            this.DualDirectionbox.CheckedChanged += new System.EventHandler(this.CheckBox_CheckedChanged);
             // 
             // TabChange
             // 
@@ -177,7 +177,7 @@
             this.labelSearchedText1.Name = "labelSearchedText1";
             this.labelSearchedText1.Size = new System.Drawing.Size(77, 13);
             this.labelSearchedText1.TabIndex = 7;
-            this.labelSearchedText1.Text = "Szukany tekst;";
+            this.labelSearchedText1.Text = "Szukany tekst:";
             // 
             // btnReplace
             // 
@@ -196,24 +196,24 @@
             this.textboxReplaceWord.Size = new System.Drawing.Size(318, 20);
             this.textboxReplaceWord.TabIndex = 0;
             // 
-            // WyszukiwarkaDlaFormy
+            // SearchingMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(344, 161);
-            this.Controls.Add(this.Form);
+            this.Controls.Add(this.TabControl);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = global::Forms.Resources.Resources.Puzzel;
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(360, 200);
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(340, 200);
-            this.Name = "WyszukiwarkaDlaFormy";
+            this.Name = "SearchingMainForm";
             this.Text = "Szukaj";
             this.TopMost = true;
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.WyszukiwarkaDlaFormy_FormClosing);
-            this.Load += new System.EventHandler(this.WyszukiwarkaDlaFormy_Load);
-            this.Form.ResumeLayout(false);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SearchingMainForm_FormClosing);
+            this.Load += new System.EventHandler(this.SearchingMainForm_Load);
+            this.TabControl.ResumeLayout(false);
             this.TabFind.ResumeLayout(false);
             this.TabFind.PerformLayout();
             this.TabChange.ResumeLayout(false);
@@ -228,7 +228,7 @@
         private System.Windows.Forms.TextBox textBoxSearchedText;
         private System.Windows.Forms.Button btnPreviousWord;
         private System.Windows.Forms.Button btnNextWord;
-        private System.Windows.Forms.TabControl Form;
+        private System.Windows.Forms.TabControl TabControl;
         private System.Windows.Forms.TabPage TabFind;
         private System.Windows.Forms.TabPage TabChange;
         private System.Windows.Forms.Label labelSearchedText1;
