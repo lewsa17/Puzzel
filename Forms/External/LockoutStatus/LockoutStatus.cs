@@ -72,16 +72,12 @@ namespace Forms.External
                 try
                 {
                     var pd = new PuzzelLibrary.AD.User.Information.PasswordDetails();
-                            if (dataGridView.InvokeRequired)
-                            {
-                                dataGridView.Invoke(new MethodInvoker(() => dataGridView.Rows.Add(dcName, pd.userAccountLocked, pd.badLogonCount, pd.lastBadPasswordAttempt, pd.lastPasswordSet, pd.userLockoutTime)));
-                            }
-                            else dataGridView.Rows.Add(dcName, pd.userAccountLocked, pd.badLogonCount, pd.lastBadPasswordAttempt, pd.lastPasswordSet, pd.userLockoutTime);
-
-                        
-                        //else
-                        //    dataGridView1.ClearSelection();
-                    
+                    pd.GetUserPasswordDetails(Username, dcName);
+                    if (dataGridView.InvokeRequired)
+                    {
+                        dataGridView.Invoke(new MethodInvoker(() => dataGridView.Rows.Add(dcName, pd.userAccountLocked, pd.badLogonCount, pd.lastBadPasswordAttempt, pd.lastPasswordSet, pd.userLockoutTime)));
+                    }
+                    else dataGridView.Rows.Add(dcName, pd.userAccountLocked, pd.badLogonCount, pd.lastBadPasswordAttempt, pd.lastPasswordSet, pd.userLockoutTime);
                 }
                 catch (Exception e)
                 {
