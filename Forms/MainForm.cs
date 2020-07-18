@@ -3,13 +3,10 @@ using System;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
-using System.Management;
 using System.Threading;
 using System.Runtime.InteropServices;
 using Forms.External.QuickFix;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Drawing;
 
 namespace Forms
 {
@@ -108,9 +105,8 @@ namespace Forms
         }
         private void ActivateOffice(object sender, EventArgs e)
         {
-            if (isNameValid(HostName()))
-                if (PuzzelLibrary.NetDiag.Ping.Pinging(HostName()) == System.Net.NetworkInformation.IPStatus.Success)
-                    PuzzelLibrary.QuickFix.ActivateOffice.Activate(HostName());
+            if (isHostAvailable(HostName()))
+                UpdateRichTextBox(PuzzelLibrary.QuickFix.ActivateOffice.Activate(HostName()));
         }
 
         private void ActiveSession(object sender, EventArgs e)

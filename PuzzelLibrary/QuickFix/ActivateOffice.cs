@@ -11,16 +11,14 @@ namespace PuzzelLibrary.QuickFix
             using (PowerShell ps = PowerShell.Create())
             {
                 string pathCScript = "\\Windows\\system32\\cscript.exe";
-                string data = null;
                 foreach (string Office in GetOficePath(HostName))
                     if (!string.IsNullOrEmpty(Office))
-                {
-                    ps.AddScript("Invoke-Command -ComputerName " + HostName + " {cmd /c \"C:" + pathCScript + " \"C:" + Office + "\" /act} "); ;
-                    ps.Invoke();
-                    data += ("Zlecono aktywacje Office, należy uruchomić ponownie w celu zakończenia zmian");
-                }
-                else return ("Nie znaleziono Office");
-                return data;
+                    {
+                        ps.AddScript("Invoke-Command -ComputerName " + HostName + " {cmd /c \"C:" + pathCScript + " \"C:" + Office + "\" /act} "); ;
+                        ps.Invoke();
+                        return ("Zlecono aktywacje Office, należy uruchomić ponownie w celu zakończenia zmian");
+                    }
+                    return ("Nie znaleziono Office");
             }
         }
         private static string[] GetOficePath(string HostName)
@@ -28,15 +26,25 @@ namespace PuzzelLibrary.QuickFix
             string[] pathOffice = new string[0];
             foreach (string officeVersion in new string[] { "Office14", "Office15", "Office16" })
             {
-                Array.Resize(ref pathOffice, pathOffice.Length + 1);
-                string pathOfficeX86 = @"\Program Files(x86)\Microsoft Office\" + officeVersion + @"\ospp.vbs";
-                string pathOfficeX64 = @"\Program Files\Microsoft Office\" + officeVersion + @"\ospp.vbs";
-                if (File.Exists("\\" + HostName + @"\C$" + pathOfficeX86))
-                    pathOffice[pathOffice.Length] = pathOfficeX86;
-                if (File.Exists("\\" + HostName + @"\C$" + pathOfficeX64))
-                    pathOffice[pathOffice.Length] = pathOfficeX64;
+                foreach (string architecture in new string[] { "", " (x86)" })
+                {
+                    string path = "\\Program Files" + architecture + "\\Microsoft Office\\" + officeVersion + "\\ospp.vbs";
+                    if (isFileAvailable("\\\\" + HostName + "\\c$" + path)) 
+                    {
+                        Array.Resize(ref pathOffice, pathOffice.Length + 1);
+                        pathOffice[pathOffice.Length - 1] = path;
+                    }
+                }
             }
             return pathOffice;
+        }
+        private static bool isFileAvailable(string path)
+        {
+            if (File.Exists(path))
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

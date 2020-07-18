@@ -1289,7 +1289,7 @@ namespace Forms
             // 
             this.menuItemActivateOffice.Name = "menuItemActivateOffice";
             this.menuItemActivateOffice.Text = "Aktywacja Office 2016";
-            this.Click += new System.EventHandler(ActivateOffice);
+            this.menuItemActivateOffice.Click += new System.EventHandler(ActivateOffice);
             // 
             // menuItemEnableIEHosting
             // 
