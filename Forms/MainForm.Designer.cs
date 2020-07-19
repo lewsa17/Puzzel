@@ -65,6 +65,7 @@
             this.contextMenuItemRemoteCMDSystem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuItemCMD = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuItemPowerShell = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuItemRemotePowerShell = new System.Windows.Forms.ToolStripMenuItem();
             this.btnNetworkInterfaces = new System.Windows.Forms.Button();
             this.btnProgramList = new System.Windows.Forms.Button();
             this.btnExplorer = new System.Windows.Forms.Button();
@@ -105,7 +106,6 @@
             this.labelTCP = new System.Windows.Forms.Label();
             this.btnTestTCP = new System.Windows.Forms.Button();
             this.btnCollapseTCP = new System.Windows.Forms.Button();
-            this.btnReloadLogs = new System.Windows.Forms.Button();
             this.btnFlushDNS = new System.Windows.Forms.Button();
             richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.backgroundWorkerComputerInfo = new System.ComponentModel.BackgroundWorker();
@@ -540,6 +540,7 @@
             // 
             this.contextMenuRemoteCMD.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.contextMenuItemRemoteCMDSystem,
+            this.contextMenuItemRemotePowerShell,
             this.contextMenuItemCMD,
             this.contextMenuItemPowerShell});
             this.contextMenuRemoteCMD.Name = "contextMenuRemoteCMD";
@@ -551,21 +552,28 @@
             this.contextMenuItemRemoteCMDSystem.Name = "contextMenuItemRemoteCMDSystem";
             this.contextMenuItemRemoteCMDSystem.Text = "Zdalne CMD (SYSTEM)";
             this.contextMenuItemRemoteCMDSystem.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.contextMenuItemRemoteCMDSystem.Click += new System.EventHandler(this.CMDSYSTEMToolStripMenuItem_Click);
+            this.contextMenuItemRemoteCMDSystem.Click += new System.EventHandler(this.MenuItemCMDSYSTEM_Click);
             // 
             // contextMenuItemCMD
             // 
             this.contextMenuItemCMD.Image = global::Forms.Resources.Resources.cmd;
             this.contextMenuItemCMD.Name = "contextMenuItemCMD";
             this.contextMenuItemCMD.Text = "CMD";
-            this.contextMenuItemCMD.Click += new System.EventHandler(this.CMDMenuItem1_Click);
+            this.contextMenuItemCMD.Click += new System.EventHandler(this.MenuItemCMD_Click);
             // 
             // contextMenuItemPowerShell
             // 
             this.contextMenuItemPowerShell.Image = global::Forms.Resources.Resources.powershell;
             this.contextMenuItemPowerShell.Name = "contextMenuItemPowerShell";
             this.contextMenuItemPowerShell.Text = "Powershell";
-            this.contextMenuItemPowerShell.Click += new System.EventHandler(this.PowershellMenuItem2_Click);
+            this.contextMenuItemPowerShell.Click += new System.EventHandler(this.Powershell_Click);
+            //
+            // contextMenuItemRemotePowerShell
+            //
+            this.contextMenuItemRemotePowerShell.Name = "contextMenuItemRemotePowerShell";
+            this.contextMenuItemRemotePowerShell.Image = global::Forms.Resources.Resources.powershell;
+            this.contextMenuItemRemotePowerShell.Text = "Zdalny Powershell";
+            this.contextMenuItemRemotePowerShell.Click += new System.EventHandler(this.RemotePowerShell_Click);
             // 
             // btnNetworkInterfaces
             // 
@@ -893,7 +901,6 @@
             // 
             this.groupBoxOtherTools.Anchor = System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Top;
             this.groupBoxOtherTools.Controls.Add(this.panelTCP);
-            this.groupBoxOtherTools.Controls.Add(this.btnReloadLogs);
             this.groupBoxOtherTools.Controls.Add(this.btnFlushDNS);
             this.groupBoxOtherTools.Location = new System.Drawing.Point(1, 180);
             this.groupBoxOtherTools.MinimumSize = new System.Drawing.Size(1182, 45);
@@ -909,7 +916,7 @@
             this.panelTCP.Controls.Add(this.labelTCP);
             this.panelTCP.Controls.Add(this.btnTestTCP);
             this.panelTCP.Controls.Add(this.btnCollapseTCP);
-            this.panelTCP.Location = new System.Drawing.Point(202, 16);
+            this.panelTCP.Location = new System.Drawing.Point(94, 16);
             this.panelTCP.Name = "panelTCP";
             this.panelTCP.Size = new System.Drawing.Size(63, 32);
             this.panelTCP.TabIndex = 2;
@@ -959,20 +966,6 @@
             this.btnCollapseTCP.Text = "TCPPing";
             this.btnCollapseTCP.UseVisualStyleBackColor = true;
             this.btnCollapseTCP.Click += new System.EventHandler(this.BtnCollapseTCP);
-            // 
-            // btnReloadLogs
-            // 
-            this.btnReloadLogs.Enabled = false;
-            this.btnReloadLogs.Image = global::Forms.Resources.Resources.reload;
-            this.btnReloadLogs.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnReloadLogs.Location = new System.Drawing.Point(101, 15);
-            this.btnReloadLogs.Name = "btnReloadLogs";
-            this.btnReloadLogs.Size = new System.Drawing.Size(97, 3);
-            this.btnReloadLogs.TabIndex = 0;
-            this.btnReloadLogs.TabStop = false;
-            this.btnReloadLogs.Text = "Reload Logs";
-            this.btnReloadLogs.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnReloadLogs.UseVisualStyleBackColor = true;
             // 
             // btnFlushDNS
             // 
@@ -1291,7 +1284,6 @@
         private System.Windows.Forms.Label labelComputer;
         private System.Windows.Forms.Button btnCompLog;
         private System.Windows.Forms.GroupBox groupBoxOtherTools;
-        private System.Windows.Forms.Button btnReloadLogs;
         private System.Windows.Forms.Button btnFlushDNS;
         private System.Windows.Forms.ComboBox comboBoxFindedSessions;
         private System.Windows.Forms.NumericUpDown numericLogin;
@@ -1341,6 +1333,7 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuRemoteCMD;
         private System.Windows.Forms.ToolStripMenuItem contextMenuItemCMD;
         private System.Windows.Forms.ToolStripMenuItem contextMenuItemPowerShell;
+        private System.Windows.Forms.ToolStripMenuItem contextMenuItemRemotePowerShell;
         private System.Windows.Forms.ToolStripMenuItem contextMenuItemRemoteCMDSystem;
         private System.Windows.Forms.ContextMenuStrip DWMenuContext;
         private System.Windows.Forms.ToolStripMenuItem menuItemDWEadm;

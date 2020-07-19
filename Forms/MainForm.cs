@@ -264,11 +264,11 @@ namespace Forms
                     zh.Show();
                 }
         }
-        private void CMDMenuItem1_Click(object sender, EventArgs e)
+        private void MenuItemCMD_Click(object sender, EventArgs e)
         {
             PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess("cmd", "/u");
         }
-        private void CMDSYSTEMToolStripMenuItem_Click(object sender, EventArgs e)
+        private void MenuItemCMDSYSTEM_Click(object sender, EventArgs e)
         {
             StartTime();
             if (isHostAvailable(HostName()))
@@ -973,9 +973,10 @@ namespace Forms
             PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess("mstsc.exe", "");
             StopTime();
         }
-        private void PowershellMenuItem2_Click(object sender, EventArgs e)
+        private void RemotePowerShell_Click(object sender, EventArgs e)
         {
-            PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess("powershell", "-noexit Enter-PSSession -ComputerName " + HostName());
+            if (isHostAvailable(HostName()))
+                PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess("powershell", "-noexit Enter-PSSession -ComputerName " + HostName());
         }
         private void Profilsieciowy(object sender, EventArgs e)
         {
@@ -1112,6 +1113,10 @@ namespace Forms
             richTextBox1.HideSelection = false;
             Additional.SearchingMainForm wyszukiwarka = new Additional.SearchingMainForm();
             wyszukiwarka.Show();
+        }
+        private void Powershell_Click(object sender, EventArgs e)
+        {
+            PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess("powershell", "-noexit");
         }
     }
 }
