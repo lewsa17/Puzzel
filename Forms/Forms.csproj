@@ -7,16 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="External\Ustawienia.cs" />
-    <Compile Remove="External\Ustawienia.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="External\Ustawienia.cs" />
-    <None Include="External\Ustawienia.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\PuzzelLibrary\PuzzelLibrary.csproj" />
   </ItemGroup>
 

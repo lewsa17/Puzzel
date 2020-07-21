@@ -115,7 +115,6 @@
             this.InfozAD = new System.ComponentModel.BackgroundWorker();
             this.mainMenu = new System.Windows.Forms.MenuStrip();
             this.menuItemFile = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemAdmTools = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemWindowsFirewall = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemDHCP = new System.Windows.Forms.ToolStripMenuItem();
@@ -1032,7 +1031,6 @@
             this.mainMenu.BackColor = System.Drawing.Color.Gainsboro;
             this.mainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuItemFile,
-            this.menuItemSettings,
             this.menuItemAdmTools,
             this.menuItemQuickFix});
             this.mainMenu.Location = new System.Drawing.Point(0, 0);
@@ -1352,7 +1350,6 @@
         private System.Windows.Forms.ToolStripMenuItem menuItemChangeDomainPassword;
         private System.Windows.Forms.ComboBox comboBoxLogin;
         private System.Windows.Forms.ComboBox comboBoxComputer;
-        private System.Windows.Forms.ToolStripMenuItem menuItemSettings;
         private System.Windows.Forms.ToolStripMenuItem menuItemQuickFix;
         private System.Windows.Forms.ToolStripMenuItem menuItemActivateOffice;
         private System.Windows.Forms.ToolStripMenuItem menuItemEnableIEHosting;
