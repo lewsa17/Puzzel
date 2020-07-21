@@ -44,8 +44,5 @@
     <Compile Update="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <None Update="External\Ustawienia.cs">
-      <SubType>Form</SubType>
-    </None>
   </ItemGroup>
 </Project>
