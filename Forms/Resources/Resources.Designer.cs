@@ -393,29 +393,9 @@ namespace Forms.Resources {
         /// <summary>
         ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap services_ {
-            get {
-                object obj = ResourceManager.GetObject("services_", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap session {
             get {
                 object obj = ResourceManager.GetObject("session", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap session1 {
-            get {
-                object obj = ResourceManager.GetObject("session1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
