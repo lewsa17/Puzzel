@@ -41,6 +41,9 @@
     <Compile Update="External\QuickFix\Environment_Variable.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Additional\RemoteShellCustomAuth.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

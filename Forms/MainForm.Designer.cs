@@ -64,6 +64,7 @@
             this.contextMenuRemoteCMD = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextMenuItemRemoteCMDSystem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuItemCMD = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuItemCMDRemoteCustomAth = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuItemPowerShell = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuItemRemotePowerShell = new System.Windows.Forms.ToolStripMenuItem();
             this.btnNetworkInterfaces = new System.Windows.Forms.Button();
@@ -539,6 +540,7 @@
             // 
             this.contextMenuRemoteCMD.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.contextMenuItemRemoteCMDSystem,
+            this.contextMenuItemCMDRemoteCustomAth,
             this.contextMenuItemRemotePowerShell,
             this.contextMenuItemCMD,
             this.contextMenuItemPowerShell});
@@ -559,6 +561,13 @@
             this.contextMenuItemCMD.Name = "contextMenuItemCMD";
             this.contextMenuItemCMD.Text = "CMD";
             this.contextMenuItemCMD.Click += new System.EventHandler(this.MenuItemCMD_Click);
+            // 
+            // contextMenuItemCMDRemoteCustomAth
+            // 
+            this.contextMenuItemCMDRemoteCustomAth.Image = global::Forms.Resources.Resources.cmd;
+            this.contextMenuItemCMDRemoteCustomAth.Name = "contextMenuItemCMDRemoteCustomAth";
+            this.contextMenuItemCMDRemoteCustomAth.Text = "Zdalne CMD (Custom Auth)";
+            this.contextMenuItemCMDRemoteCustomAth.Click += new System.EventHandler(this.CMDRemoteCustomAuth);
             // 
             // contextMenuItemPowerShell
             // 
@@ -1330,6 +1339,7 @@
         private System.Windows.Forms.ToolStripMenuItem menuItemCustomName;
         private System.Windows.Forms.ContextMenuStrip contextMenuRemoteCMD;
         private System.Windows.Forms.ToolStripMenuItem contextMenuItemCMD;
+        private System.Windows.Forms.ToolStripMenuItem contextMenuItemCMDRemoteCustomAth;
         private System.Windows.Forms.ToolStripMenuItem contextMenuItemPowerShell;
         private System.Windows.Forms.ToolStripMenuItem contextMenuItemRemotePowerShell;
         private System.Windows.Forms.ToolStripMenuItem contextMenuItemRemoteCMDSystem;

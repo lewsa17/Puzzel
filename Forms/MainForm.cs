@@ -268,6 +268,17 @@ namespace Forms
         {
             PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess("cmd", "/u");
         }
+        private void CMDRemoteCustomAuth(object sender, EventArgs e)
+        {
+            if (isHostAvailable(HostName()))
+            {
+                Additional.RemoteShellCustomAuth customAuthForm = new Additional.RemoteShellCustomAuth();
+                customAuthForm.ShowDialog();
+                var applicationName = PuzzelLibrary.ProcessExecutable.ProcExec.PSexec(HostName());
+                if (isFileAvailable(Directory.GetCurrentDirectory() + @"\" + applicationName))
+                    PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess(applicationName, @"\\" + HostName() + " -u " + customAuthForm.Login + "-p " + customAuthForm.Password + "  cmd");
+            }
+        }
         private void MenuItemCMDSYSTEM_Click(object sender, EventArgs e)
         {
             StartTime();
