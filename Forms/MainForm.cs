@@ -989,6 +989,13 @@ namespace Forms
             if (isHostAvailable(HostName()))
                 PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess("powershell", "-noexit Enter-PSSession -ComputerName " + HostName());
         }
+        private void RemotePowerShellCustomAuth_Click(object sender, EventArgs e)
+        {
+            if (isHostAvailable(HostName()))
+            {
+                PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess("powershell", "-noexit Enter-PSSession -ComputerName " + HostName() + " -Credential DOMENA\\login'");
+            }
+        }
         private void Profilsieciowy(object sender, EventArgs e)
         {
             StartTime();
