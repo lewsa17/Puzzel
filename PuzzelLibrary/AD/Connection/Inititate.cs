@@ -27,9 +27,9 @@ namespace PuzzelLibrary.AD.Connection
                         {
                             dirsearch = new DirectorySearcher(new DirectoryEntry("LDAP://" + Other.Domain.GetDomainName, credentials.UserName, credentials.Password));
                         }
-                        else
-                            dirsearch = new DirectorySearcher(new DirectoryEntry("LDAP://" + Other.Domain.GetDomainName));
                     }
+                    else
+                        dirsearch = new DirectorySearcher(new DirectoryEntry("LDAP://" + Other.Domain.GetDomainName));
                 }
                 catch (DirectoryServicesCOMException e)
                 {
