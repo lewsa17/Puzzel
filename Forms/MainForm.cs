@@ -160,7 +160,7 @@ namespace Forms
                             string pwd = null;
                             if (sender is ToolStripMenuItem)
                             {
-                                if (((ToolStripMenuItem)sender).Text.Contains("LAPS"))
+                                if (((ToolStripMenuItem)sender).Name.Contains("LAPS"))
                                 {
                                     login = PuzzelLibrary.Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "LAPSLogin");
                                     pwd = PuzzelLibrary.LAPS.CompPWD.GetPWD(HostName());
