@@ -209,24 +209,28 @@ namespace Forms
             string rodzaj = string.Empty;
             if (sender == btnUserLog)
                 if (isNameValid(UserName()))
+                {
+                    counter = (int)numericLogin.Value;
+                    rodzaj = "User";
+                    pole = comboBoxLoginLast;
                     if (UserName() != comboBoxLoginLast)
-                    { 
-                        counter = (int)numericLogin.Value;
+                    {
                         comboBoxLoginLast = UserName();
-                        rodzaj = "User";
-                        pole = comboBoxLoginLast;
                         comboBoxLogin.Items.Add(comboBoxLoginLast);
                     }
+                }
             if (sender == btnCompLog)
                 if (isNameValid(HostName()))
+                {
+                    counter = (int)numericComputer.Value;
+                    pole = comboBoxCompLast;
+                    rodzaj = "Computer";
                     if (HostName() != comboBoxCompLast)
                     {
-                        counter = (int)numericComputer.Value;
                         comboBoxCompLast = HostName();
-                        pole = comboBoxCompLast;
-                        rodzaj = "Computer";
                         comboBoxComputer.Items.Add(comboBoxCompLast);
                     }
+                }
             UpdateRichTextBox(PuzzelLibrary.LogonData.Captcher.SearchLogs(counter, pole, rodzaj));
             statusBar1.Focus();
             StopTime();

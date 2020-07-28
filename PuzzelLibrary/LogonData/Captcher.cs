@@ -78,9 +78,9 @@ namespace PuzzelLibrary.LogonData
             System.Threading.Tasks.Task thread = null;
             if (Directory.Exists(logsDirectory))
             {
-                string[] returnedValues = keyWordsReturned(pole, rodzaj);
                 if (CheckInvalidChar(pole))
                 {
+                    string[] returnedValues = keyWordsReturned(pole, rodzaj);
                     if (returnedValues.Length > 0)
                         foreach (string LogName in returnedValues)
                         {
@@ -105,9 +105,11 @@ namespace PuzzelLibrary.LogonData
             foreach (char invalidPathChar in Path.GetInvalidFileNameChars())
             {
                 if (path.Contains(invalidPathChar))
+                {
+                    MessageBox.Show("Użyto niedozwolonych znaków w nazwie");
                     return true;
+                }
             }
-            MessageBox.Show("Użyto niedozwolonych znaków w nazwie");
             return false;
         }
         private static string[] keyWordsReturned(string pole, string rodzaj)
