@@ -899,7 +899,7 @@ namespace Forms
 
                         if (((ToolStripMenuItem)sender) == menuItemComputerInfoDisplay)
                         {
-                            UpdateRichTextBox("Podłączone ekrany\n\n");
+                            UpdateRichTextBox("Podłączone ekrany\n");
                             UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, PuzzelLibrary.WMI.ComputerInfo.queryDesktopMonitor, "Caption", "DeviceID", "ScreenHeight", "ScreenWidth", "Status"));
                         }
 

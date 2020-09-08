@@ -64,6 +64,7 @@ namespace PuzzelLibrary.WMI
             StringBuilder += GetInfo(HostName, pathCIMv2, queryPhysicalMemory, "Capacity");
             StringBuilder += ("\n");
             StringBuilder += GetInfo(HostName, pathCIMv2, queryPhysicalMemory, "DeviceLocator", "Manufacturer", "Capacity", "Speed", "PartNumber", "SerialNumber");
+            StringBuilder += ("\n");
             StringBuilder += ("----------------------------------------\n");
             StringBuilder += ("CPU \n");
             getProgressValue = 9;
@@ -263,6 +264,7 @@ namespace PuzzelLibrary.WMI
                                     if (query == queryDesktopMonitor)
                                     {
                                         StringBuilder += DesktopMonitor(args, m);
+                                        StringBuilder += "\n";
                                         break;
                                     }
                                     StringBuilder += "\n";
@@ -277,8 +279,8 @@ namespace PuzzelLibrary.WMI
                                     //args3 = speed
                                     //args4 = partnumber
                                     //args5 = serialnumber
-                                    warunek = Memory(args, warunek, m);
-                                    StringBuilder += ("\n");
+                                    StringBuilder += Memory(args, warunek, m);
+                                    //StringBuilder += ("\n");
                                     break;
                                 }
                             case 7:
@@ -313,7 +315,7 @@ namespace PuzzelLibrary.WMI
 
         }
 
-        private static int Memory(object[] args, int warunek, ManagementObject m)
+        private static string Memory(object[] args, int warunek, ManagementObject m)
         {
             string _capacity = null;
             string devicelocator = null;
@@ -457,7 +459,7 @@ namespace PuzzelLibrary.WMI
                 StringBuilder += (serialnumber);
             }
 
-            return warunek;
+            return StringBuilder;
         }
 
         private static string NetworkAdapter(object[] args, ManagementObject m)
