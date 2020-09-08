@@ -9,6 +9,7 @@ using Forms.External.QuickFix;
 using System.Collections.Generic;
 using Cassia;
 using System.Threading.Tasks;
+using System.Security.Principal;
 
 namespace Forms
 {
@@ -19,6 +20,7 @@ namespace Forms
             InitializeComponent();
             InitializeAdditionals();
             this.Text += " " + PuzzelLibrary.Version.GetVersion();
+            IsAdministrator();
         }
         public static int ProgressBarValue = 0;
         public static int ProgressMax = 0;
@@ -32,6 +34,13 @@ namespace Forms
         private delegate void updateComboBoxEventHandler(string message);
         private delegate void UpdateRichTextBoxEventHandler(string message);
         public static string ComputerInfo_TEMP { get; set; }
+        private void IsAdministrator()
+        {
+            var identity = WindowsIdentity.GetCurrent();
+            var principal = new WindowsPrincipal(identity);
+            if (principal.IsInRole(WindowsBuiltInRole.Administrator)) this.Text += " (Administrator)";
+            else this.Text += "(" + principal.Identity.Name + ")";
+        }
         public static void ReplaceRichTextBox(string message)
         {
             if (richTextBox1.InvokeRequired)
