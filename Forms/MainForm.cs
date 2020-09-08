@@ -1001,7 +1001,7 @@ namespace Forms
         {
             if (isHostAvailable(HostName()))
             {
-                PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess("powershell", "-noexit Enter-PSSession -ComputerName " + HostName() + " -Credential DOMENA\\login'");
+                PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess("powershell", "-noexit Enter-PSSession -ComputerName " + HostName() + " -Credential DOMENA\\login");
             }
         }
         private void Profilsieciowy(object sender, EventArgs e)
