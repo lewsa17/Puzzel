@@ -39,7 +39,7 @@ namespace Forms
             var identity = WindowsIdentity.GetCurrent();
             var principal = new WindowsPrincipal(identity);
             if (principal.IsInRole(WindowsBuiltInRole.Administrator)) this.Text += " (Administrator)";
-            else this.Text += "(" + principal.Identity.Name + ")";
+            else this.Text += " (" + principal.Identity.Name + ")";
         }
         public static void ReplaceRichTextBox(string message)
         {
