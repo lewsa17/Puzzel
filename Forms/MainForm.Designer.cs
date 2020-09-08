@@ -305,6 +305,7 @@ namespace Forms
             this.comboBoxFindedSessions.Location = new System.Drawing.Point(122, 19);
             this.comboBoxFindedSessions.Name = "comboBoxFindedSessions";
             this.comboBoxFindedSessions.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxFindedSessions.MaxDropDownItems = 100;
             this.comboBoxFindedSessions.TabIndex = 3;
             this.comboBoxFindedSessions.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Keys_PreviewKeyDown);
             // 

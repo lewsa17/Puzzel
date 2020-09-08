@@ -7,6 +7,8 @@ using System.Threading;
 using System.Runtime.InteropServices;
 using Forms.External.QuickFix;
 using System.Collections.Generic;
+using Cassia;
+using System.Threading.Tasks;
 
 namespace Forms
 {
@@ -476,24 +478,26 @@ namespace Forms
                             Thread th = new Thread(() =>
                             {
                                 data += new PuzzelLibrary.Terminal.TerminalExplorer().ActiveSession(server, UserName());
+                                var sessions = Task<ITerminalServicesSession>.Run(() => { return PuzzelLibrary.Terminal.TerminalExplorer.SessionIDServer; });
                                 if (comboBoxFindedSessions.InvokeRequired)
                                 {
                                     Thread.Sleep(500);
                                     comboBoxFindedSessions.Invoke(new MethodInvoker(() =>
                                     {
+                                        comboBoxFindedSessions.Items.Add(sessions.Result.SessionId + " " + sessions.Result.Server.ServerName);
                                         if (comboBoxFindedSessions.Items.Count > 0)
                                             comboBoxFindedSessions.SelectedIndex = 0;
                                     }));
                                 }
-                                else comboBoxFindedSessions.SelectedIndex = 0;
+                                else
+                                {
+                                    comboBoxFindedSessions.Items.Add(sessions.Result.SessionId + " " + sessions.Result.Server.ServerName);
+                                    comboBoxFindedSessions.SelectedIndex = 0;
+                                }
+                                UpdateRichTextBox(data);
                             });
                             th.Start();
-                            foreach (var session in PuzzelLibrary.Terminal.TerminalExplorer.SessionIDServer)
-                            {
-                                comboBoxFindedSessions.Items.Add(session.SessionId + " " + session.Server.ServerName);
-                            }
                         }
-                        UpdateRichTextBox(data);
                     }
                     else ReplaceRichTextBox("Nie znaleziono użytkownika w AD");
                 }

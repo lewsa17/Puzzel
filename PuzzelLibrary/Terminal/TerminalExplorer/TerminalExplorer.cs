@@ -26,13 +26,15 @@ namespace PuzzelLibrary.Terminal
         }
         public static string GetTerminalServers => Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "Terminals");
 
-        public static IList<ITerminalServicesSession> SessionIDServer;
+        public static ITerminalServicesSession SessionIDServer;
         public string ActiveSession(string TermServerName, string SearchedLogin)
         {
             string data = string.Empty;
             foreach (var session in new Explorer().FindSession(new Explorer().GetRemoteServer(TermServerName), SearchedLogin))
             {
-                SessionIDServer.Add(session);
+                data += (TermServerName + " --------------------------------\n");
+                data += ("Nazwa użytkownika     Nazwa Sesji    Id    Status        Czas bezczynności    Czas logowania\n");
+                SessionIDServer = (session);
                 data = new Explorer().FormatedSession(data, session);
             }
             return data;
