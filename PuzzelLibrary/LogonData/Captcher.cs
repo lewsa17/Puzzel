@@ -78,28 +78,27 @@ namespace PuzzelLibrary.LogonData
             System.Threading.Tasks.Task thread = null;
             if (Directory.Exists(logsDirectory))
             {
-                if (CheckInvalidChar(pole))
+                if (!IsInvalidChar(pole))
                 {
                     string[] returnedValues = keyWordsReturned(pole, rodzaj);
                     if (returnedValues.Length > 0)
                         foreach (string LogName in returnedValues)
                         {
-                            thread = new System.Threading.Tasks.Task(() =>
-                           logs += getUserComputerLog(LogName, rodzaj, counter));
-                            thread.RunSynchronously();
+                            //thread = new System.Threading.Tasks.Task(() =>
+                            logs += getUserComputerLog(LogName, rodzaj, counter);//);
+                            //thread.RunSynchronously();
                         }
                     else return ("Brak w logach");
                 }
             }
             else MessageBox.Show("Brak dostępu do zasobu");
-            if (thread != null)
-            thread.Wait();
+            //thread.Wait();
 
             return logs;
         }
 
 
-        private static bool CheckInvalidChar(string path)
+        private static bool IsInvalidChar(string path)
         {
 
             foreach (char invalidPathChar in Path.GetInvalidFileNameChars())

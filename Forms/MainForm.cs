@@ -20,7 +20,7 @@ namespace Forms
             InitializeComponent();
             InitializeAdditionals();
             this.Text += " " + PuzzelLibrary.Version.GetVersion();
-            IsAdministrator();
+            UserLoggedVisibility();
         }
         public static int ProgressBarValue = 0;
         public static int ProgressMax = 0;
@@ -34,11 +34,16 @@ namespace Forms
         private delegate void updateComboBoxEventHandler(string message);
         private delegate void UpdateRichTextBoxEventHandler(string message);
         public static string ComputerInfo_TEMP { get; set; }
-        private void IsAdministrator()
+        public bool isAdminRole = false;
+        private void UserLoggedVisibility()
         {
             var identity = WindowsIdentity.GetCurrent();
             var principal = new WindowsPrincipal(identity);
-            if (principal.IsInRole(WindowsBuiltInRole.Administrator)) this.Text += " (Administrator)";
+            if (principal.IsInRole(WindowsBuiltInRole.Administrator))
+            {
+                this.Text += " (Administrator)"; 
+                isAdminRole = true;
+            }
             else this.Text += " (" + principal.Identity.Name + ")";
         }
         public static void ReplaceRichTextBox(string message)
@@ -223,10 +228,10 @@ namespace Forms
                 {
                     counter = (int)numericLogin.Value;
                     rodzaj = "User";
-                    pole = comboBoxLoginLast;
+                    pole = UserName();
                     if (UserName() != comboBoxLoginLast)
                     {
-                        comboBoxLoginLast = UserName();
+                        comboBoxLoginLast = pole;
                         comboBoxLogin.Items.Add(comboBoxLoginLast);
                     }
                 }
@@ -234,11 +239,11 @@ namespace Forms
                 if (isNameValid(HostName()))
                 {
                     counter = (int)numericComputer.Value;
-                    pole = comboBoxCompLast;
+                    pole = HostName();
                     rodzaj = "Computer";
                     if (HostName() != comboBoxCompLast)
                     {
-                        comboBoxCompLast = HostName();
+                        comboBoxCompLast = pole;
                         comboBoxComputer.Items.Add(comboBoxCompLast);
                     }
                 }
@@ -488,6 +493,7 @@ namespace Forms
                             {
                                 data += new PuzzelLibrary.Terminal.TerminalExplorer().ActiveSession(server, UserName());
                                 var sessions = Task<ITerminalServicesSession>.Run(() => { return PuzzelLibrary.Terminal.TerminalExplorer.SessionIDServer; });
+                                if(sessions.Result!=null)
                                 if (comboBoxFindedSessions.InvokeRequired)
                                 {
                                     Thread.Sleep(500);
