@@ -488,11 +488,12 @@ namespace Forms
                         var termServers = PuzzelLibrary.Terminal.TerminalExplorer.GetTerminalServers.Split(",");
                         foreach (string server in termServers)
                         {
+                        PuzzelLibrary.Terminal.TerminalExplorer TE = new PuzzelLibrary.Terminal.TerminalExplorer();
                             //Thread.Sleep(250);
                             Thread th = new Thread(() =>
                             {
-                                data += new PuzzelLibrary.Terminal.TerminalExplorer().ActiveSession(server, UserName());
-                                var sessions = Task<ITerminalServicesSession>.Run(() => { return PuzzelLibrary.Terminal.TerminalExplorer.SessionIDServer; });
+                                data += TE.ActiveSession(server, UserName());
+                                var sessions = Task<ITerminalServicesSession>.Run(() => { return TE.SessionIDServer; });
                                 if(sessions.Result!=null)
                                 if (comboBoxFindedSessions.InvokeRequired)
                                 {

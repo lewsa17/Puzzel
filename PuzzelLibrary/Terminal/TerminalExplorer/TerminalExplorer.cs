@@ -26,7 +26,7 @@ namespace PuzzelLibrary.Terminal
         }
         public static string GetTerminalServers => Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "Terminals");
 
-        public static ITerminalServicesSession SessionIDServer;
+        public ITerminalServicesSession SessionIDServer;
         public string ActiveSession(string TermServerName, string SearchedLogin)
         {
             string data = string.Empty;
