@@ -247,7 +247,7 @@ namespace Forms
                         comboBoxComputer.Items.Add(comboBoxCompLast);
                     }
                 }
-            UpdateRichTextBox(PuzzelLibrary.LogonData.Captcher.SearchLogs(counter, pole, rodzaj));
+            UpdateRichTextBox(new PuzzelLibrary.LogonData.Captcher().SearchLogs(counter, pole, rodzaj));
             statusBar1.Focus();
             StopTime();
         }

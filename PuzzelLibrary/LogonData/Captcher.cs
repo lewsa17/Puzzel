@@ -18,7 +18,7 @@ namespace PuzzelLibrary.LogonData
             _logsDirectory = GetSettings.GetValuesFromXml("ExternalResources.xml", "LogsDirectory");
             return _logsDirectory;
         }
-        private static string getUserComputerLog(string pole, string rodzaj, decimal licznik)
+        private string getUserComputerLog(string pole, string rodzaj, decimal licznik)
         {
             StringBuilder sb = new StringBuilder();
             try
@@ -72,7 +72,7 @@ namespace PuzzelLibrary.LogonData
             }
             return sb.ToString();
         }
-        public static string SearchLogs(decimal counter, string pole, string rodzaj)
+        public string SearchLogs(decimal counter, string pole, string rodzaj)
         {
             string logs = string.Empty;
             System.Threading.Tasks.Task thread = null;
@@ -84,34 +84,38 @@ namespace PuzzelLibrary.LogonData
                     if (returnedValues.Length > 0)
                         foreach (string LogName in returnedValues)
                         {
-                            //thread = new System.Threading.Tasks.Task(() =>
-                            logs += getUserComputerLog(LogName, rodzaj, counter);//);
-                            //thread.RunSynchronously();
+                            thread = new System.Threading.Tasks.Task(() =>
+                            logs += getUserComputerLog(LogName, rodzaj, counter));
+                            thread.RunSynchronously();
                         }
                     else return ("Brak w logach");
                 }
             }
             else MessageBox.Show("Brak dostępu do zasobu");
-            //thread.Wait();
-
             return logs;
         }
 
 
         private static bool IsInvalidChar(string path)
         {
-
-            foreach (char invalidPathChar in Path.GetInvalidFileNameChars())
+            foreach (char x in path)
             {
-                if (path.Contains(invalidPathChar))
+                if (Path.GetInvalidFileNameChars().Equals(x))
                 {
-                    MessageBox.Show("Użyto niedozwolonych znaków w nazwie");
                     return true;
                 }
             }
+            //foreach (char invalidPathChar in Path.GetInvalidFileNameChars())
+            //{
+            //    if (path.Contains(invalidPathChar))
+            //    {
+            //        MessageBox.Show("Użyto niedozwolonych znaków w nazwie");
+            //        return true;
+            //    }
+            //}
             return false;
         }
-        private static string[] keyWordsReturned(string pole, string rodzaj)
+        private string[] keyWordsReturned(string pole, string rodzaj)
         {
             string[] logsNames = null;
             if (!string.IsNullOrEmpty(pole) | !string.IsNullOrWhiteSpace(pole))
@@ -126,7 +130,7 @@ namespace PuzzelLibrary.LogonData
             else MessageBox.Show("Pole puste lub niepotrzebna spacja");
             return logsNames;
         }
-        private static string SAMAccountName(string username)
+        private string SAMAccountName(string username)
         {
             var Result = new PuzzelLibrary.AD.User.SearchInformation.Search().ByUserName(username);
             object NameOfUser = Result.GetDirectoryEntry().Properties["displayName"].Value;
