@@ -477,52 +477,57 @@ namespace Forms
         private void FindSessionBtn_Click(object sender, EventArgs e)
         {
             comboBoxFindedSessions.Items.Clear();
-            try
+            Task th = new Task(() =>
             {
-                StartTime();
-                if (isNameValid(UserName()))
+                try
                 {
-                    string data = string.Empty;
-                    if (new PuzzelLibrary.AD.User.SearchInformation.Search().ByUserName(UserName()) != null)
+                    StartTime();
+                    if (isNameValid(UserName()))
                     {
-                        var termServers = PuzzelLibrary.Terminal.TerminalExplorer.GetTerminalServers.Split(",");
-                        foreach (string server in termServers)
+                        string data = string.Empty;
+                        if (new PuzzelLibrary.AD.User.SearchInformation.Search().ByUserName(UserName()) != null)
                         {
-                        PuzzelLibrary.Terminal.TerminalExplorer TE = new PuzzelLibrary.Terminal.TerminalExplorer();
-                            //Thread.Sleep(250);
-                            Thread th = new Thread(() =>
+                            var termServers = PuzzelLibrary.Terminal.TerminalExplorer.GetTerminalServers.Split(",");
+                            foreach (string server in termServers)
                             {
-                                data += TE.ActiveSession(server, UserName());
-                                var sessions = Task<ITerminalServicesSession>.Run(() => { return TE.SessionIDServer; });
-                                if(sessions.Result!=null)
-                                if (comboBoxFindedSessions.InvokeRequired)
+                                Thread thread = new Thread(() =>
                                 {
-                                    Thread.Sleep(500);
-                                    comboBoxFindedSessions.Invoke(new MethodInvoker(() =>
+                                    PuzzelLibrary.Terminal.TerminalExplorer TE = new PuzzelLibrary.Terminal.TerminalExplorer();
+                                    var task = Task<string>.Run(() => { return TE.ActiveSession(server, UserName()); });
+                                    UpdateRichTextBox(task.Result);
+                                    task.ContinueWith(antecedent =>
                                     {
-                                        comboBoxFindedSessions.Items.Add(sessions.Result.SessionId + " " + sessions.Result.Server.ServerName);
-                                        if (comboBoxFindedSessions.Items.Count > 0)
-                                            comboBoxFindedSessions.SelectedIndex = 0;
+                                        var sessions = Task<ITerminalServicesSession>.Run(() => { return TE.SessionIDServer; });
+                                        sessions.ContinueWith(antecedent =>
+                                        {
+                                            comboBoxFindedSessions.Invoke(new MethodInvoker(() =>
+                                    {
+                                        if (antecedent.Result != null)
+                                            comboBoxFindedSessions.Items.Add(antecedent.Result.SessionId + " " + antecedent.Result.Server.ServerName);
                                     }));
-                                }
-                                else
-                                {
-                                    comboBoxFindedSessions.Items.Add(sessions.Result.SessionId + " " + sessions.Result.Server.ServerName);
-                                    comboBoxFindedSessions.SelectedIndex = 0;
-                                }
-                                UpdateRichTextBox(data);
-                            });
-                            th.Start();
+                                        }, TaskContinuationOptions.OnlyOnRanToCompletion);
+                                    }, TaskContinuationOptions.OnlyOnRanToCompletion);
+                                });
+                                thread.Start();
+                            }
                         }
+                        else ReplaceRichTextBox("Nie znaleziono użytkownika w AD");
                     }
-                    else ReplaceRichTextBox("Nie znaleziono użytkownika w AD");
                 }
-            }
-            finally
-            {
-                StopTime();
-            }
+                finally
+                {
+                    Thread.Sleep(8000);
+                        comboBoxFindedSessions.Invoke(new MethodInvoker(() =>
+                        {
+                            if (comboBoxFindedSessions.Items.Count > 0)
+                                comboBoxFindedSessions.SelectedIndex = 0;
+                        }));
+                        StopTime();
+                }
+            });
+            th.Start();
         }
+    
         private void FindSessions(object sender, EventArgs e)
         {
             string _HostName = string.Empty;
