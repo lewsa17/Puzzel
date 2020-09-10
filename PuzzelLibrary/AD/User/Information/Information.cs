@@ -38,7 +38,7 @@ namespace PuzzelLibrary.AD.User
         }
         public static bool IsUserAvailable(string UserName)
         {
-            if (GetUser(UserName).SamAccountName != null)
+            if (GetUser(UserName) != null)
                 return true;
             return false;
         }
