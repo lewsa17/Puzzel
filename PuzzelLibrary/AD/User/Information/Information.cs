@@ -51,20 +51,16 @@ namespace PuzzelLibrary.AD.User
         }
         public static UserPrincipal GetUser(string UserName)
         {
-            using (PrincipalContext oPrincipalContext = new PrincipalContext(ContextType.Domain))
-            {
+            PrincipalContext oPrincipalContext = new PrincipalContext(ContextType.Domain);
                 UserPrincipal oUserPrincipal = UserPrincipal.FindByIdentity(oPrincipalContext, UserName);
                 return oUserPrincipal;
-            }
         }
 
         public static UserPrincipal GetUser(string UserName, string domainController)
         {
-            using (PrincipalContext oPrincipalContext = new PrincipalContext(ContextType.Domain, domainController))
-            {
-                UserPrincipal oUserPrincipal = UserPrincipal.FindByIdentity(oPrincipalContext, UserName);
-                return oUserPrincipal;
-            }
+            PrincipalContext oPrincipalContext = new PrincipalContext(ContextType.Domain, domainController);
+            UserPrincipal oUserPrincipal = UserPrincipal.FindByIdentity(oPrincipalContext, UserName);
+            return oUserPrincipal;
         }
 
         public class PasswordDetails
