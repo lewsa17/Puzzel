@@ -650,7 +650,7 @@ namespace Forms
                     //UpdateRichTextBox(/*Allowed_Hours()*/ permittedLogonTime.ToString());
                     UpdateRichTextBox("\n");
                     //32 linijka
-                    UpdateRichTextBox(/*MembersOf()*/"Członkostwa grup:\t\t\t\t" + user.Groups.ToString());
+                    UpdateRichTextBox(/*MembersOf()*/"Członkostwa grup:\t\t\t\t" + user.Groups);
                 }
                 else UpdateRichTextBox("Nie znaleziono użytkownika w AD");
             }

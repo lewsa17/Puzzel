@@ -27,7 +27,7 @@ namespace PuzzelLibrary.LogonData
                 using (StreamReader sr = new StreamReader(fileStream))
                 {
                     long fsize = fileStream.Length;
-                    int lineMaxLenOptim = 255;
+                    int lineMaxLenOptim = 200;
                     long pos = fsize - lineMaxLenOptim * (long)licznik;
                     if (pos > 0)
                     {
