@@ -16,7 +16,8 @@ namespace PuzzelLibrary.ProcessExecutable
         }
         public static void StartSimpleProcess(string FileName, string Arguments)
         {
-            if (isFileExist(FileName){
+            if (isFileExist(FileName))
+                {
                 try
                 {
                     using (Process p = new Process())
@@ -29,7 +30,7 @@ namespace PuzzelLibrary.ProcessExecutable
                 catch (System.ComponentModel.Win32Exception x) when (x.Message == "Żądana operacja wymaga podniesienia uprawnień.")
                 {
                     MessageBox.Show(new Form() { TopMost = true }, x.Message, "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                } 
+                }
             }
             else
                 MessageBox.Show(new Form() { TopMost = true }, "Brak pliku " + FileName, "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
