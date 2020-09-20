@@ -18,5 +18,10 @@ namespace Settings
             if (ApplicationName != string.Empty)
                 this.Text = ApplicationName + " - " + this.Text;
         }
+
+        private void CloseButton_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
 }
