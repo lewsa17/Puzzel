@@ -3,6 +3,8 @@
 ################################################################################
 
 /.vs/
+/Settings/obj
+/Settings/bin
 /PuzzelLibrary/obj
 /PuzzelLibrary/bin/
 /Forms/Obj/
