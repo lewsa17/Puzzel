@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Reflection.Metadata.Ecma335;
 using System.Security.Cryptography;
 using System.Xml;
 
@@ -10,6 +11,39 @@ namespace PuzzelLibrary.Settings
         public string UserName { get; set; }
         public string Password { get; set; }
         public string Version { get; set; }
+
+
+        public XmlWriter CreateSettingsFile()
+        {
+            XmlWriter writer = null;
+            XmlWriterSettings settings = new XmlWriterSettings();
+            writer = XmlWriter.Create("Settings.xml", settings);
+            //writer.WriteStartDocument(true);
+            writer.WriteStartElement("Settings");
+            settings.Encoding = System.Text.Encoding.UTF8;
+            settings.Indent = true;
+            return writer;
+        }
+
+        public static XmlWriter CreateSettingValues(XmlWriter writer)
+        {
+            foreach (var Value in typeof(Values).GetProperties())
+            {
+                writer.WriteStartElement(Value.Name);
+                writer.WriteAttributeString("Type", Value.PropertyType.Name);
+                writer.WriteString(Value.GetValue(null).ToString());
+                writer.WriteEndElement();
+            }
+            writer.WriteEndElement();
+            return writer;
+        }
+
+        public static void CloseSettingsFile(XmlWriter writer)
+        {
+            writer.Flush();
+            writer.Close();
+        }
+
 
         public void Save()
         {
