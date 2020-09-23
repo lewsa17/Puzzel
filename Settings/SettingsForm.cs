@@ -11,6 +11,11 @@ namespace Settings
             if (ApplicationName != string.Empty)
                 this.Text = ApplicationName + " - " + this.Text;
         }
+        private Control[] GetCollectionOfFieldSettings()
+        {
+            Control[] ListOfFieldWithSettings = { AutoOpenPortCheck, AutoUnlockFirewallCheck, HistoryLogCheck, CustomSourceCheck, SaveUserDataCheck, SessionShortcutText, CustomSourceTextBox, NumbersOfCompLogs, NumbersOfUserLogs };
+            return ListOfFieldWithSettings;
+        }
         static string defaultDescription = "Najedź kursorem na opcję aby wyświetlić tutaj jej opis";
         static string logsHistoryDescription = "Ustawienie tej opcji będzie wyświetlać lub nie ostatnio wyszukiwane wartości";
         static string userMaxLogsDesctiption = "Zmiana tej wartości ustala maksymalną liczbę logowań użytkownika jaką można wyszukać";
@@ -122,9 +127,9 @@ namespace Settings
             {
                 switch (((CheckBox)sender).Name)
                 {
-                    case nameof(CheckBoxHistoryLog):
+                    case nameof(HistoryLogCheck):
                         {
-                            PuzzelLibrary.Settings.Values.HistoryLog = CheckBoxHistoryLog.Checked;
+                            PuzzelLibrary.Settings.Values.HistoryLog = HistoryLogCheck.Checked;
                             break;
                         }
                     case nameof(CustomSourceCheck):
@@ -177,14 +182,14 @@ namespace Settings
             {
                 switch (((NumericUpDown)sender).Name)
                 {
-                    case nameof(numericUserLogs):
+                    case nameof(NumbersOfUserLogs):
                         {
-                            PuzzelLibrary.Settings.Values.UserMaxLogs = numericUserLogs.Value;
+                            PuzzelLibrary.Settings.Values.UserMaxLogs = NumbersOfUserLogs.Value;
                             break;
                         }
-                    case nameof(numericCompLogs):
+                    case nameof(NumbersOfCompLogs):
                         {
-                            PuzzelLibrary.Settings.Values.CompMaxLogs = numericCompLogs.Value;
+                            PuzzelLibrary.Settings.Values.CompMaxLogs = NumbersOfCompLogs.Value;
                             break;
                         }
                 }
@@ -200,15 +205,17 @@ namespace Settings
             }
             else
             {
-                PuzzelLibrary.Settings.Values.HistoryLog = CheckBoxHistoryLog.Checked;
+                foreach (var objSettings in GetCollectionOfFieldSettings())
+                    PuzzelLibrary.Settings.Values.RestoreDefaultSettings(objSettings);
+                PuzzelLibrary.Settings.Values.HistoryLog = HistoryLogCheck.Checked;
                 PuzzelLibrary.Settings.Values.CustomSource = CustomSourceCheck.Checked;
                 PuzzelLibrary.Settings.Values.SaveUserData = SaveUserDataCheck.Checked;
                 PuzzelLibrary.Settings.Values.AutoUnlockFirewall = AutoUnlockFirewallCheck.Checked;
                 PuzzelLibrary.Settings.Values.AutoOpenPort = AutoOpenPortCheck.Checked;
                 PuzzelLibrary.Settings.Values.SessionDisconectShortcut = SessionShortcutText.Text;
                 PuzzelLibrary.Settings.Values.CustomSourceData = CustomSourceTextBox.Text;
-                PuzzelLibrary.Settings.Values.UserMaxLogs = numericUserLogs.Value;
-                PuzzelLibrary.Settings.Values.CompMaxLogs = numericCompLogs.Value;
+                PuzzelLibrary.Settings.Values.UserMaxLogs = NumbersOfUserLogs.Value;
+                PuzzelLibrary.Settings.Values.CompMaxLogs = NumbersOfCompLogs.Value;
             }
         }
     }

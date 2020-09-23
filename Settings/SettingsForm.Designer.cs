@@ -38,10 +38,10 @@ namespace Settings
             this.CustomValueBox = new System.Windows.Forms.GroupBox();
             this.UserMaxLogs = new System.Windows.Forms.Label();
             this.CompMaxLogs = new System.Windows.Forms.Label();
-            this.numericUserLogs = new System.Windows.Forms.NumericUpDown();
-            this.numericCompLogs = new System.Windows.Forms.NumericUpDown();
+            this.NumbersOfUserLogs = new System.Windows.Forms.NumericUpDown();
+            this.NumbersOfCompLogs = new System.Windows.Forms.NumericUpDown();
             this.HistoryLogBox = new System.Windows.Forms.GroupBox();
-            this.CheckBoxHistoryLog = new System.Windows.Forms.CheckBox();
+            this.HistoryLogCheck = new System.Windows.Forms.CheckBox();
             this.SessionTab = new System.Windows.Forms.TabPage();
             this.SessionShortcutBox = new System.Windows.Forms.GroupBox();
             this.SessionShortcutText = new System.Windows.Forms.TextBox();
@@ -59,8 +59,8 @@ namespace Settings
             this.TabSettings.SuspendLayout();
             this.GeneralPage.SuspendLayout();
             this.CustomValueBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUserLogs)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericCompLogs)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumbersOfUserLogs)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumbersOfCompLogs)).BeginInit();
             this.HistoryLogBox.SuspendLayout();
             this.SessionTab.SuspendLayout();
             this.SessionShortcutBox.SuspendLayout();
@@ -117,8 +117,8 @@ namespace Settings
             // 
             this.CustomValueBox.Controls.Add(this.UserMaxLogs);
             this.CustomValueBox.Controls.Add(this.CompMaxLogs);
-            this.CustomValueBox.Controls.Add(this.numericUserLogs);
-            this.CustomValueBox.Controls.Add(this.numericCompLogs);
+            this.CustomValueBox.Controls.Add(this.NumbersOfUserLogs);
+            this.CustomValueBox.Controls.Add(this.NumbersOfCompLogs);
             this.CustomValueBox.Location = new System.Drawing.Point(20, 69);
             this.CustomValueBox.Name = "CustomValueBox";
             this.CustomValueBox.Size = new System.Drawing.Size(167, 82);
@@ -150,22 +150,22 @@ namespace Settings
             // 
             // numericUserLogs
             // 
-            this.numericUserLogs.Location = new System.Drawing.Point(55, 50);
-            this.numericUserLogs.Maximum = new decimal(new int[] {
+            this.NumbersOfUserLogs.Location = new System.Drawing.Point(55, 50);
+            this.NumbersOfUserLogs.Maximum = new decimal(new int[] {
             100000,
             0,
             0,
             0});
-            this.numericUserLogs.Minimum = new decimal(new int[] {
+            this.NumbersOfUserLogs.Minimum = new decimal(new int[] {
             5,
             0,
             0,
             0});
-            this.numericUserLogs.Name = "numericUserLogs";
-            this.numericUserLogs.Size = new System.Drawing.Size(61, 23);
-            this.numericUserLogs.TabIndex = 4;
-            this.numericUserLogs.ValueChanged += new System.EventHandler(this.OnChangeSaveProperty);
-            this.numericUserLogs.Value = new decimal(new int[] {
+            this.NumbersOfUserLogs.Name = "numericUserLogs";
+            this.NumbersOfUserLogs.Size = new System.Drawing.Size(61, 23);
+            this.NumbersOfUserLogs.TabIndex = 4;
+            this.NumbersOfUserLogs.ValueChanged += new System.EventHandler(this.OnChangeSaveProperty);
+            this.NumbersOfUserLogs.Value = new decimal(new int[] {
             5,
             0,
             0,
@@ -173,22 +173,22 @@ namespace Settings
             // 
             // numericCompLogs
             // 
-            this.numericCompLogs.Location = new System.Drawing.Point(55, 21);
-            this.numericCompLogs.Maximum = new decimal(new int[] {
+            this.NumbersOfCompLogs.Location = new System.Drawing.Point(55, 21);
+            this.NumbersOfCompLogs.Maximum = new decimal(new int[] {
             100000,
             0,
             0,
             0});
-            this.numericCompLogs.Minimum = new decimal(new int[] {
+            this.NumbersOfCompLogs.Minimum = new decimal(new int[] {
             5,
             0,
             0,
             0});
-            this.numericCompLogs.Name = "numericCompLogs";
-            this.numericCompLogs.Size = new System.Drawing.Size(61, 23);
-            this.numericCompLogs.TabIndex = 4;
-            this.numericCompLogs.ValueChanged += new System.EventHandler(this.OnChangeSaveProperty);
-            this.numericCompLogs.Value = new decimal(new int[] {
+            this.NumbersOfCompLogs.Name = "numericCompLogs";
+            this.NumbersOfCompLogs.Size = new System.Drawing.Size(61, 23);
+            this.NumbersOfCompLogs.TabIndex = 4;
+            this.NumbersOfCompLogs.ValueChanged += new System.EventHandler(this.OnChangeSaveProperty);
+            this.NumbersOfCompLogs.Value = new decimal(new int[] {
             5,
             0,
             0,
@@ -196,7 +196,7 @@ namespace Settings
             // 
             // HistoryLogBox
             // 
-            this.HistoryLogBox.Controls.Add(this.CheckBoxHistoryLog);
+            this.HistoryLogBox.Controls.Add(this.HistoryLogCheck);
             this.HistoryLogBox.Location = new System.Drawing.Point(20, 11);
             this.HistoryLogBox.Name = "HistoryLogBox";
             this.HistoryLogBox.Size = new System.Drawing.Size(167, 52);
@@ -206,16 +206,16 @@ namespace Settings
             // 
             // CheckBoxHistoryLog
             // 
-            this.CheckBoxHistoryLog.AutoSize = true;
-            this.CheckBoxHistoryLog.Location = new System.Drawing.Point(6, 22);
-            this.CheckBoxHistoryLog.Name = "CheckBoxHistoryLog";
-            this.CheckBoxHistoryLog.Size = new System.Drawing.Size(83, 19);
-            this.CheckBoxHistoryLog.TabIndex = 0;
-            this.CheckBoxHistoryLog.Text = "Wyłaczone";
-            this.CheckBoxHistoryLog.UseVisualStyleBackColor = true;
-            this.CheckBoxHistoryLog.CheckedChanged += new System.EventHandler(this.ChangeChecked);
-            this.CheckBoxHistoryLog.MouseEnter += new System.EventHandler(this.MouseOn);
-            this.CheckBoxHistoryLog.MouseLeave += new System.EventHandler(this.MouseOut);
+            this.HistoryLogCheck.AutoSize = true;
+            this.HistoryLogCheck.Location = new System.Drawing.Point(6, 22);
+            this.HistoryLogCheck.Name = "CheckBoxHistoryLog";
+            this.HistoryLogCheck.Size = new System.Drawing.Size(83, 19);
+            this.HistoryLogCheck.TabIndex = 0;
+            this.HistoryLogCheck.Text = "Wyłaczone";
+            this.HistoryLogCheck.UseVisualStyleBackColor = true;
+            this.HistoryLogCheck.CheckedChanged += new System.EventHandler(this.ChangeChecked);
+            this.HistoryLogCheck.MouseEnter += new System.EventHandler(this.MouseOn);
+            this.HistoryLogCheck.MouseLeave += new System.EventHandler(this.MouseOut);
             // 
             // SessionTab
             // 
@@ -394,8 +394,8 @@ namespace Settings
             this.GeneralPage.ResumeLayout(false);
             this.CustomValueBox.ResumeLayout(false);
             this.CustomValueBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUserLogs)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericCompLogs)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumbersOfUserLogs)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumbersOfCompLogs)).EndInit();
             this.HistoryLogBox.ResumeLayout(false);
             this.HistoryLogBox.PerformLayout();
             this.SessionTab.ResumeLayout(false);
@@ -423,12 +423,12 @@ namespace Settings
         private System.Windows.Forms.Label DescriptionLabel;
         private System.Windows.Forms.TabPage Other;
         private System.Windows.Forms.GroupBox HistoryLogBox;
-        private System.Windows.Forms.CheckBox CheckBoxHistoryLog;
+        private System.Windows.Forms.CheckBox HistoryLogCheck;
         private System.Windows.Forms.GroupBox CustomValueBox;
         private System.Windows.Forms.Label UserMaxLogs;
         private System.Windows.Forms.Label CompMaxLogs;
-        private System.Windows.Forms.NumericUpDown numericUserLogs;
-        private System.Windows.Forms.NumericUpDown numericCompLogs;
+        private System.Windows.Forms.NumericUpDown NumbersOfUserLogs;
+        private System.Windows.Forms.NumericUpDown NumbersOfCompLogs;
         private System.Windows.Forms.TabPage SessionTab;
         private System.Windows.Forms.GroupBox CustomSourceBox;
         private System.Windows.Forms.RichTextBox CustomSourceTextBox;
