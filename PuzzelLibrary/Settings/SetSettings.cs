@@ -34,7 +34,10 @@ namespace PuzzelLibrary.Settings
             {
                 writer.WriteStartElement(Value.Name);
                 writer.WriteAttributeString("Type", Value.PropertyType.Name);
-                writer.WriteString(Value.GetValue(null).ToString());
+                var data = Value.GetValue(Value);
+                if (data == null)
+                    data = (object)string.Empty;
+                writer.WriteValue(data);
                 writer.WriteEndElement();
             }
             writer.WriteEndElement();
