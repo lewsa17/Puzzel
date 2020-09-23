@@ -10,7 +10,6 @@
     <Folder Include="LAPS\" />
     <Folder Include="LogonData\" />
     <Folder Include="NetDiag\" />
-    <Folder Include="Settings\" />
     <Folder Include="Terminal\" />
   </ItemGroup>
 

@@ -1,4 +1,7 @@
-﻿namespace Settings
+﻿using System.Configuration;
+using System.Runtime.Serialization;
+
+namespace Settings
 {
     partial class SettingsForm
     {
@@ -32,15 +35,39 @@
             this.CloseButton = new System.Windows.Forms.Button();
             this.TabSettings = new System.Windows.Forms.TabControl();
             this.GeneralPage = new System.Windows.Forms.TabPage();
-            this.Other = new System.Windows.Forms.TabPage();
-            this.DescriptionBox = new System.Windows.Forms.GroupBox();
-            this.DescriptionLabel = new System.Windows.Forms.Label();
+            this.CustomValueBox = new System.Windows.Forms.GroupBox();
+            this.UserMaxLogs = new System.Windows.Forms.Label();
+            this.CompMaxLogs = new System.Windows.Forms.Label();
+            this.numericUserLogs = new System.Windows.Forms.NumericUpDown();
+            this.numericCompLogs = new System.Windows.Forms.NumericUpDown();
             this.HistoryLogBox = new System.Windows.Forms.GroupBox();
             this.CheckBoxHistoryLog = new System.Windows.Forms.CheckBox();
+            this.SessionTab = new System.Windows.Forms.TabPage();
+            this.SessionShortcutBox = new System.Windows.Forms.GroupBox();
+            this.SessionShortcutText = new System.Windows.Forms.TextBox();
+            this.SessionShortcutLabel = new System.Windows.Forms.Label();
+            this.CustomSourceBox = new System.Windows.Forms.GroupBox();
+            this.CustomSourceCheck = new System.Windows.Forms.CheckBox();
+            this.CustomSourceTextBox = new System.Windows.Forms.RichTextBox();
+            this.Other = new System.Windows.Forms.TabPage();
+            this.AutomaticallyAllowBox = new System.Windows.Forms.GroupBox();
+            this.SaveUserDataCheck = new System.Windows.Forms.CheckBox();
+            this.AutoUnlockFirewallCheck = new System.Windows.Forms.CheckBox();
+            this.AutoOpenPortCheck = new System.Windows.Forms.CheckBox();
+            this.DescriptionBox = new System.Windows.Forms.GroupBox();
+            this.DescriptionLabel = new System.Windows.Forms.Label();
             this.TabSettings.SuspendLayout();
             this.GeneralPage.SuspendLayout();
-            this.DescriptionBox.SuspendLayout();
+            this.CustomValueBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUserLogs)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericCompLogs)).BeginInit();
             this.HistoryLogBox.SuspendLayout();
+            this.SessionTab.SuspendLayout();
+            this.SessionShortcutBox.SuspendLayout();
+            this.CustomSourceBox.SuspendLayout();
+            this.Other.SuspendLayout();
+            this.AutomaticallyAllowBox.SuspendLayout();
+            this.DescriptionBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // SaveButton
@@ -51,6 +78,7 @@
             this.SaveButton.TabIndex = 0;
             this.SaveButton.Text = "Zapisz";
             this.SaveButton.UseVisualStyleBackColor = true;
+            this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
             // CloseButton
             // 
@@ -65,6 +93,7 @@
             // TabSettings
             // 
             this.TabSettings.Controls.Add(this.GeneralPage);
+            this.TabSettings.Controls.Add(this.SessionTab);
             this.TabSettings.Controls.Add(this.Other);
             this.TabSettings.Location = new System.Drawing.Point(12, 3);
             this.TabSettings.Name = "TabSettings";
@@ -74,6 +103,7 @@
             // 
             // GeneralPage
             // 
+            this.GeneralPage.Controls.Add(this.CustomValueBox);
             this.GeneralPage.Controls.Add(this.HistoryLogBox);
             this.GeneralPage.Location = new System.Drawing.Point(4, 24);
             this.GeneralPage.Name = "GeneralPage";
@@ -83,8 +113,193 @@
             this.GeneralPage.Text = "Ogólne";
             this.GeneralPage.UseVisualStyleBackColor = true;
             // 
+            // CustomValueBox
+            // 
+            this.CustomValueBox.Controls.Add(this.UserMaxLogs);
+            this.CustomValueBox.Controls.Add(this.CompMaxLogs);
+            this.CustomValueBox.Controls.Add(this.numericUserLogs);
+            this.CustomValueBox.Controls.Add(this.numericCompLogs);
+            this.CustomValueBox.Location = new System.Drawing.Point(20, 69);
+            this.CustomValueBox.Name = "CustomValueBox";
+            this.CustomValueBox.Size = new System.Drawing.Size(167, 82);
+            this.CustomValueBox.TabIndex = 1;
+            this.CustomValueBox.TabStop = false;
+            this.CustomValueBox.Text = "Niestandardowe wartości:";
+            // 
+            // UserMaxLogs
+            // 
+            this.UserMaxLogs.AutoSize = true;
+            this.UserMaxLogs.Location = new System.Drawing.Point(16, 23);
+            this.UserMaxLogs.Name = "UserMaxLogs";
+            this.UserMaxLogs.Size = new System.Drawing.Size(33, 15);
+            this.UserMaxLogs.TabIndex = 4;
+            this.UserMaxLogs.Text = "Max:";
+            this.UserMaxLogs.MouseEnter += new System.EventHandler(this.MouseOn);
+            this.UserMaxLogs.MouseLeave += new System.EventHandler(this.MouseOut);
+            // 
+            // CompMaxLogs
+            // 
+            this.CompMaxLogs.AutoSize = true;
+            this.CompMaxLogs.Location = new System.Drawing.Point(16, 52);
+            this.CompMaxLogs.Name = "CompMaxLogs";
+            this.CompMaxLogs.Size = new System.Drawing.Size(33, 15);
+            this.CompMaxLogs.TabIndex = 4;
+            this.CompMaxLogs.Text = "Max:";
+            this.CompMaxLogs.MouseEnter += new System.EventHandler(this.MouseOn);
+            this.CompMaxLogs.MouseLeave += new System.EventHandler(this.MouseOut);
+            // 
+            // numericUserLogs
+            // 
+            this.numericUserLogs.Location = new System.Drawing.Point(55, 50);
+            this.numericUserLogs.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.numericUserLogs.Minimum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.numericUserLogs.Name = "numericUserLogs";
+            this.numericUserLogs.Size = new System.Drawing.Size(61, 23);
+            this.numericUserLogs.TabIndex = 4;
+            this.numericUserLogs.ValueChanged += new System.EventHandler(this.OnChangeSaveProperty);
+            this.numericUserLogs.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            // 
+            // numericCompLogs
+            // 
+            this.numericCompLogs.Location = new System.Drawing.Point(55, 21);
+            this.numericCompLogs.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.numericCompLogs.Minimum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.numericCompLogs.Name = "numericCompLogs";
+            this.numericCompLogs.Size = new System.Drawing.Size(61, 23);
+            this.numericCompLogs.TabIndex = 4;
+            this.numericCompLogs.ValueChanged += new System.EventHandler(this.OnChangeSaveProperty);
+            this.numericCompLogs.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            // 
+            // HistoryLogBox
+            // 
+            this.HistoryLogBox.Controls.Add(this.CheckBoxHistoryLog);
+            this.HistoryLogBox.Location = new System.Drawing.Point(20, 11);
+            this.HistoryLogBox.Name = "HistoryLogBox";
+            this.HistoryLogBox.Size = new System.Drawing.Size(167, 52);
+            this.HistoryLogBox.TabIndex = 0;
+            this.HistoryLogBox.TabStop = false;
+            this.HistoryLogBox.Text = "Historia logów";
+            // 
+            // CheckBoxHistoryLog
+            // 
+            this.CheckBoxHistoryLog.AutoSize = true;
+            this.CheckBoxHistoryLog.Location = new System.Drawing.Point(6, 22);
+            this.CheckBoxHistoryLog.Name = "CheckBoxHistoryLog";
+            this.CheckBoxHistoryLog.Size = new System.Drawing.Size(83, 19);
+            this.CheckBoxHistoryLog.TabIndex = 0;
+            this.CheckBoxHistoryLog.Text = "Wyłaczone";
+            this.CheckBoxHistoryLog.UseVisualStyleBackColor = true;
+            this.CheckBoxHistoryLog.CheckedChanged += new System.EventHandler(this.ChangeChecked);
+            this.CheckBoxHistoryLog.MouseEnter += new System.EventHandler(this.MouseOn);
+            this.CheckBoxHistoryLog.MouseLeave += new System.EventHandler(this.MouseOut);
+            // 
+            // SessionTab
+            // 
+            this.SessionTab.BackColor = System.Drawing.Color.Transparent;
+            this.SessionTab.Controls.Add(this.SessionShortcutBox);
+            this.SessionTab.Controls.Add(this.CustomSourceBox);
+            this.SessionTab.Location = new System.Drawing.Point(4, 24);
+            this.SessionTab.Name = "SessionTab";
+            this.SessionTab.Size = new System.Drawing.Size(768, 378);
+            this.SessionTab.TabIndex = 2;
+            this.SessionTab.Text = "Sesje";
+            this.SessionTab.UseVisualStyleBackColor = true;
+            // 
+            // SessionShortcutBox
+            // 
+            this.SessionShortcutBox.Controls.Add(this.SessionShortcutText);
+            this.SessionShortcutBox.Controls.Add(this.SessionShortcutLabel);
+            this.SessionShortcutBox.Location = new System.Drawing.Point(23, 175);
+            this.SessionShortcutBox.Name = "SessionShortcutBox";
+            this.SessionShortcutBox.Size = new System.Drawing.Size(257, 100);
+            this.SessionShortcutBox.TabIndex = 3;
+            this.SessionShortcutBox.TabStop = false;
+            this.SessionShortcutBox.Text = "Skrót klawiszowy do rozłączenia";
+            // 
+            // SessionShortcutText
+            // 
+            this.SessionShortcutText.Location = new System.Drawing.Point(144, 20);
+            this.SessionShortcutText.Name = "SessionShortcutText";
+            this.SessionShortcutText.ReadOnly = true;
+            this.SessionShortcutText.Size = new System.Drawing.Size(95, 23);
+            this.SessionShortcutText.TabIndex = 1;
+            this.SessionShortcutText.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SessionShortcutText_KeyDown);
+            this.SessionShortcutText.TextChanged += new System.EventHandler(this.OnChangeSaveProperty);
+            // 
+            // SessionShortcutLabel
+            // 
+            this.SessionShortcutLabel.AutoSize = true;
+            this.SessionShortcutLabel.Location = new System.Drawing.Point(8, 23);
+            this.SessionShortcutLabel.Name = "SessionShortcutLabel";
+            this.SessionShortcutLabel.Size = new System.Drawing.Size(130, 15);
+            this.SessionShortcutLabel.TabIndex = 0;
+            this.SessionShortcutLabel.Text = "Ustaw skrót klawiszowy";
+            this.SessionShortcutLabel.MouseEnter += new System.EventHandler(this.MouseOn);
+            this.SessionShortcutLabel.MouseLeave += new System.EventHandler(this.MouseOut);
+            // 
+            // CustomSourceBox
+            // 
+            this.CustomSourceBox.Controls.Add(this.CustomSourceCheck);
+            this.CustomSourceBox.Controls.Add(this.CustomSourceTextBox);
+            this.CustomSourceBox.Location = new System.Drawing.Point(20, 11);
+            this.CustomSourceBox.Name = "CustomSourceBox";
+            this.CustomSourceBox.Size = new System.Drawing.Size(726, 141);
+            this.CustomSourceBox.TabIndex = 2;
+            this.CustomSourceBox.TabStop = false;
+            this.CustomSourceBox.Text = "Zewnętrzne źródła";
+            // 
+            // CustomSourceCheck
+            // 
+            this.CustomSourceCheck.AutoSize = true;
+            this.CustomSourceCheck.Location = new System.Drawing.Point(11, 23);
+            this.CustomSourceCheck.Name = "CustomSourceCheck";
+            this.CustomSourceCheck.Size = new System.Drawing.Size(83, 19);
+            this.CustomSourceCheck.TabIndex = 1;
+            this.CustomSourceCheck.Text = "Wyłączone";
+            this.CustomSourceCheck.UseVisualStyleBackColor = true;
+            this.CustomSourceCheck.CheckedChanged += new System.EventHandler(this.ChangeChecked);
+            this.CustomSourceCheck.CheckStateChanged += new System.EventHandler(this.EnablingTextBox);
+            this.CustomSourceCheck.MouseEnter += new System.EventHandler(this.MouseOn);
+            this.CustomSourceCheck.MouseLeave += new System.EventHandler(this.MouseOut);
+            // 
+            // CustomSourceTextBox
+            // 
+            this.CustomSourceTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.CustomSourceTextBox.Location = new System.Drawing.Point(3, 50);
+            this.CustomSourceTextBox.Name = "CustomSourceTextBox";
+            this.CustomSourceTextBox.Size = new System.Drawing.Size(720, 87);
+            this.CustomSourceTextBox.TabIndex = 0;
+            this.CustomSourceTextBox.Text = "";
+            this.CustomSourceTextBox.TextChanged += new System.EventHandler(this.OnChangeSaveProperty);
+
+            // 
             // Other
             // 
+            this.Other.Controls.Add(this.AutomaticallyAllowBox);
             this.Other.Location = new System.Drawing.Point(4, 24);
             this.Other.Name = "Other";
             this.Other.Padding = new System.Windows.Forms.Padding(3);
@@ -92,6 +307,57 @@
             this.Other.TabIndex = 1;
             this.Other.Text = "Inne";
             this.Other.UseVisualStyleBackColor = true;
+            // 
+            // AutomaticallyAllowBox
+            // 
+            this.AutomaticallyAllowBox.Controls.Add(this.SaveUserDataCheck);
+            this.AutomaticallyAllowBox.Controls.Add(this.AutoUnlockFirewallCheck);
+            this.AutomaticallyAllowBox.Controls.Add(this.AutoOpenPortCheck);
+            this.AutomaticallyAllowBox.Location = new System.Drawing.Point(20, 11);
+            this.AutomaticallyAllowBox.Name = "AutomaticallyAllowBox";
+            this.AutomaticallyAllowBox.Size = new System.Drawing.Size(236, 100);
+            this.AutomaticallyAllowBox.TabIndex = 2;
+            this.AutomaticallyAllowBox.TabStop = false;
+            this.AutomaticallyAllowBox.Text = "Automatyczne zezwolenia";
+            // 
+            // SaveUserDataCheck
+            // 
+            this.SaveUserDataCheck.AutoSize = true;
+            this.SaveUserDataCheck.Location = new System.Drawing.Point(6, 75);
+            this.SaveUserDataCheck.Name = "SaveUserDataCheck";
+            this.SaveUserDataCheck.Size = new System.Drawing.Size(201, 19);
+            this.SaveUserDataCheck.TabIndex = 0;
+            this.SaveUserDataCheck.Text = "Zachowanie danych użytkownika";
+            this.SaveUserDataCheck.UseVisualStyleBackColor = true;
+            this.SaveUserDataCheck.CheckedChanged += new System.EventHandler(this.OnChangeSaveProperty);
+            this.SaveUserDataCheck.MouseEnter += new System.EventHandler(this.MouseOn);
+            this.SaveUserDataCheck.MouseLeave += new System.EventHandler(this.MouseOut);
+            // 
+            // AutoUnlockFirewallCheck
+            // 
+            this.AutoUnlockFirewallCheck.AutoSize = true;
+            this.AutoUnlockFirewallCheck.Location = new System.Drawing.Point(6, 50);
+            this.AutoUnlockFirewallCheck.Name = "AutoUnlockFirewallCheck";
+            this.AutoUnlockFirewallCheck.Size = new System.Drawing.Size(141, 19);
+            this.AutoUnlockFirewallCheck.TabIndex = 0;
+            this.AutoUnlockFirewallCheck.Text = "Odblokowanie zapory";
+            this.AutoUnlockFirewallCheck.UseVisualStyleBackColor = true;
+            this.AutoUnlockFirewallCheck.CheckedChanged += new System.EventHandler(this.OnChangeSaveProperty);
+            this.AutoUnlockFirewallCheck.MouseEnter += new System.EventHandler(this.MouseOn);
+            this.AutoUnlockFirewallCheck.MouseLeave += new System.EventHandler(this.MouseOut);
+            // 
+            // AutoOpenPortCheck
+            // 
+            this.AutoOpenPortCheck.AutoSize = true;
+            this.AutoOpenPortCheck.Location = new System.Drawing.Point(6, 25);
+            this.AutoOpenPortCheck.Name = "AutoOpenPortCheck";
+            this.AutoOpenPortCheck.Size = new System.Drawing.Size(196, 19);
+            this.AutoOpenPortCheck.TabIndex = 0;
+            this.AutoOpenPortCheck.Text = "Automatycznie otwieranie portu";
+            this.AutoOpenPortCheck.UseVisualStyleBackColor = true;
+            this.AutoOpenPortCheck.CheckedChanged += new System.EventHandler(this.OnChangeSaveProperty);
+            this.AutoOpenPortCheck.MouseEnter += new System.EventHandler(this.MouseOn);
+            this.AutoOpenPortCheck.MouseLeave += new System.EventHandler(this.MouseOut);
             // 
             // DescriptionBox
             // 
@@ -108,33 +374,10 @@
             // 
             this.DescriptionLabel.AutoSize = true;
             this.DescriptionLabel.Location = new System.Drawing.Point(3, 19);
+            this.DescriptionLabel.MaximumSize = new System.Drawing.Size(762, 0);
             this.DescriptionLabel.Name = "DescriptionLabel";
-            this.DescriptionLabel.Size = new System.Drawing.Size(275, 15);
+            this.DescriptionLabel.Size = new System.Drawing.Size(0, 15);
             this.DescriptionLabel.TabIndex = 0;
-            this.DescriptionLabel.Text = "Najedź kursorem na opcję aby wyświetlić tutaj opis";
-            // 
-            // HistoryLogBox
-            // 
-            this.HistoryLogBox.Controls.Add(this.CheckBoxHistoryLog);
-            this.HistoryLogBox.Location = new System.Drawing.Point(20, 11);
-            this.HistoryLogBox.Name = "HistoryLogBox";
-            this.HistoryLogBox.Size = new System.Drawing.Size(127, 52);
-            this.HistoryLogBox.TabIndex = 0;
-            this.HistoryLogBox.TabStop = false;
-            this.HistoryLogBox.Text = "Historia logów";
-            // 
-            // CheckBoxHistoryLog
-            // 
-            this.CheckBoxHistoryLog.AutoSize = true;
-            this.CheckBoxHistoryLog.Location = new System.Drawing.Point(6, 22);
-            this.CheckBoxHistoryLog.Name = "CheckBoxHistoryLog";
-            this.CheckBoxHistoryLog.Size = new System.Drawing.Size(83, 19);
-            this.CheckBoxHistoryLog.TabIndex = 0;
-            this.CheckBoxHistoryLog.Text = "Wyłaczone";
-            this.CheckBoxHistoryLog.CheckedChanged += new System.EventHandler(this.ChangeChecked);
-            this.CheckBoxHistoryLog.MouseEnter += new System.EventHandler(this.MouseOn);
-            this.CheckBoxHistoryLog.MouseLeave += new System.EventHandler(this.MouseOut);
-            this.CheckBoxHistoryLog.UseVisualStyleBackColor = true;
             // 
             // SettingsForm
             // 
@@ -149,10 +392,23 @@
             this.Text = "Ustawienia";
             this.TabSettings.ResumeLayout(false);
             this.GeneralPage.ResumeLayout(false);
-            this.DescriptionBox.ResumeLayout(false);
-            this.DescriptionBox.PerformLayout();
+            this.CustomValueBox.ResumeLayout(false);
+            this.CustomValueBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUserLogs)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericCompLogs)).EndInit();
             this.HistoryLogBox.ResumeLayout(false);
             this.HistoryLogBox.PerformLayout();
+            this.SessionTab.ResumeLayout(false);
+            this.SessionShortcutBox.ResumeLayout(false);
+            this.SessionShortcutBox.PerformLayout();
+            this.CustomSourceBox.ResumeLayout(false);
+            this.CustomSourceBox.PerformLayout();
+            this.Other.ResumeLayout(false);
+            this.AutomaticallyAllowBox.ResumeLayout(false);
+            this.AutomaticallyAllowBox.PerformLayout();
+            this.Load += new System.EventHandler(this.OnLoad);
+            this.DescriptionBox.ResumeLayout(false);
+            this.DescriptionBox.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -168,6 +424,22 @@
         private System.Windows.Forms.TabPage Other;
         private System.Windows.Forms.GroupBox HistoryLogBox;
         private System.Windows.Forms.CheckBox CheckBoxHistoryLog;
+        private System.Windows.Forms.GroupBox CustomValueBox;
+        private System.Windows.Forms.Label UserMaxLogs;
+        private System.Windows.Forms.Label CompMaxLogs;
+        private System.Windows.Forms.NumericUpDown numericUserLogs;
+        private System.Windows.Forms.NumericUpDown numericCompLogs;
+        private System.Windows.Forms.TabPage SessionTab;
+        private System.Windows.Forms.GroupBox CustomSourceBox;
+        private System.Windows.Forms.RichTextBox CustomSourceTextBox;
+        private System.Windows.Forms.CheckBox CustomSourceCheck;
+        private System.Windows.Forms.GroupBox AutomaticallyAllowBox;
+        private System.Windows.Forms.CheckBox SaveUserDataCheck;
+        private System.Windows.Forms.CheckBox AutoUnlockFirewallCheck;
+        private System.Windows.Forms.CheckBox AutoOpenPortCheck;
+        private System.Windows.Forms.GroupBox SessionShortcutBox;
+        private System.Windows.Forms.TextBox SessionShortcutText;
+        private System.Windows.Forms.Label SessionShortcutLabel;
     }
 }
 
