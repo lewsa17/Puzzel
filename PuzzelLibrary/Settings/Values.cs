@@ -11,7 +11,7 @@ using System.Xml;
 
 namespace PuzzelLibrary.Settings
 {
-   public class Values
+   public static class Values
     {
         public static bool HistoryLog { get; set; }
         public static decimal UserMaxLogs { get; set; }
@@ -38,7 +38,7 @@ namespace PuzzelLibrary.Settings
 
         public static void LoadValues()
         {
-
+            GetSettings.LoadValues("Settings.xml");
         }
         public static void RestoreDefaultSettings(object sender)
         {

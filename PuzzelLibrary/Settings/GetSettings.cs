@@ -1,5 +1,8 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
+using System.Linq;
+using System.Reflection;
 using System.Security.Cryptography;
 
 namespace PuzzelLibrary.Settings
@@ -110,5 +113,33 @@ namespace PuzzelLibrary.Settings
             else System.Windows.Forms.MessageBox.Show(new System.Windows.Forms.Form { TopMost = true }, "Nie znaleziono pliku " + filePath, "Error", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
             return value;
         }   
+
+        public static void LoadValues(string XmlFile)
+        {
+            var settingsProperties = typeof(Values).GetProperties();
+                string filePath = Path.Combine(Directory.GetCurrentDirectory(), XmlFile);
+            if (File.Exists(filePath))
+                using (System.Xml.XmlReader reader = System.Xml.XmlReader.Create(XmlFile))
+                {
+                    while (reader.Read())
+                    {
+                        if (reader.IsStartElement())
+                        {
+                            if (reader.NodeType == System.Xml.XmlNodeType.Element)
+                                foreach (var settingsproperty in settingsProperties)
+                                    if (settingsproperty.Name == reader.Name)
+                                    {
+                                        var value = reader.ReadElementContentAsString();
+                                        switch (settingsproperty.PropertyType.Name)
+                                        {
+                                            case "Boolean": { settingsproperty.SetValue(null, Convert.ToBoolean(value)); break; }
+                                            case "Decimal": { settingsproperty.SetValue(null, Convert.ToDecimal(value)); break; }
+                                            case "String": { settingsproperty.SetValue(null, value); break; }
+                                        }
+                                }
+                        }
+                    }
+                }
+        }
     }
 }

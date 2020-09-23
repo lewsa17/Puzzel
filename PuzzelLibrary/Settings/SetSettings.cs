@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Xml;
 
@@ -32,8 +33,8 @@ namespace PuzzelLibrary.Settings
             foreach (var Value in typeof(Values).GetProperties())
             {
                 writer.WriteStartElement(Value.Name);
-                writer.WriteAttributeString("Type", Value.PropertyType.Name);
-                var data = Value.GetValue(Value);
+               // writer.WriteAttributeString("Type", Value.PropertyType.Name);
+                var data = Value.GetValue(null);
                 if (data == null)
                     data = (object)string.Empty;
                 writer.WriteValue(data);

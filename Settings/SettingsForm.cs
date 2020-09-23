@@ -8,6 +8,7 @@ namespace Settings
         public SettingsForm(string ApplicationName)
         {
             InitializeComponent();
+            OnLoad();
             if (ApplicationName != string.Empty)
                 this.Text = ApplicationName + " - " + this.Text;
         }
@@ -197,11 +198,20 @@ namespace Settings
             }
         }
 
-        private void OnLoad(object sender, EventArgs e)
+        private void OnLoad()
         {
             if (System.IO.File.Exists("Settings.xml"))
             {
                 PuzzelLibrary.Settings.Values.LoadValues();
+                HistoryLogCheck.Checked = PuzzelLibrary.Settings.Values.HistoryLog;
+                CustomSourceCheck.Checked = PuzzelLibrary.Settings.Values.CustomSource;
+                SaveUserDataCheck.Checked = PuzzelLibrary.Settings.Values.SaveUserData;
+                AutoUnlockFirewallCheck.Checked = PuzzelLibrary.Settings.Values.AutoUnlockFirewall;
+                AutoOpenPortCheck.Checked = PuzzelLibrary.Settings.Values.AutoOpenPort;
+                SessionShortcutText.Text = PuzzelLibrary.Settings.Values.SessionDisconectShortcut;
+                CustomSourceTextBox.Text = PuzzelLibrary.Settings.Values.CustomSourceData;
+                NumbersOfUserLogs.Value = PuzzelLibrary.Settings.Values.UserMaxLogs;
+                NumbersOfCompLogs.Value = PuzzelLibrary.Settings.Values.CompMaxLogs;
             }
             else
             {

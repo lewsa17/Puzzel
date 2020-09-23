@@ -161,15 +161,10 @@ namespace Settings
             0,
             0,
             0});
-            this.NumbersOfUserLogs.Name = "numericUserLogs";
+            this.NumbersOfUserLogs.Name = "NumbersOfUserLogs";
             this.NumbersOfUserLogs.Size = new System.Drawing.Size(61, 23);
             this.NumbersOfUserLogs.TabIndex = 4;
             this.NumbersOfUserLogs.ValueChanged += new System.EventHandler(this.OnChangeSaveProperty);
-            this.NumbersOfUserLogs.Value = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
             // 
             // numericCompLogs
             // 
@@ -184,15 +179,10 @@ namespace Settings
             0,
             0,
             0});
-            this.NumbersOfCompLogs.Name = "numericCompLogs";
+            this.NumbersOfCompLogs.Name = "NumbersOfCompLogs";
             this.NumbersOfCompLogs.Size = new System.Drawing.Size(61, 23);
             this.NumbersOfCompLogs.TabIndex = 4;
             this.NumbersOfCompLogs.ValueChanged += new System.EventHandler(this.OnChangeSaveProperty);
-            this.NumbersOfCompLogs.Value = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
             // 
             // HistoryLogBox
             // 
@@ -208,7 +198,7 @@ namespace Settings
             // 
             this.HistoryLogCheck.AutoSize = true;
             this.HistoryLogCheck.Location = new System.Drawing.Point(6, 22);
-            this.HistoryLogCheck.Name = "CheckBoxHistoryLog";
+            this.HistoryLogCheck.Name = "HistoryLogCheck";
             this.HistoryLogCheck.Size = new System.Drawing.Size(83, 19);
             this.HistoryLogCheck.TabIndex = 0;
             this.HistoryLogCheck.Text = "Wyłaczone";
@@ -293,7 +283,6 @@ namespace Settings
             this.CustomSourceTextBox.Name = "CustomSourceTextBox";
             this.CustomSourceTextBox.Size = new System.Drawing.Size(720, 87);
             this.CustomSourceTextBox.TabIndex = 0;
-            this.CustomSourceTextBox.Text = "";
             this.CustomSourceTextBox.TextChanged += new System.EventHandler(this.OnChangeSaveProperty);
 
             // 
@@ -406,7 +395,6 @@ namespace Settings
             this.Other.ResumeLayout(false);
             this.AutomaticallyAllowBox.ResumeLayout(false);
             this.AutomaticallyAllowBox.PerformLayout();
-            this.Load += new System.EventHandler(this.OnLoad);
             this.DescriptionBox.ResumeLayout(false);
             this.DescriptionBox.PerformLayout();
             this.ResumeLayout(false);
