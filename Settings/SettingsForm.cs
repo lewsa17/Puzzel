@@ -228,5 +228,11 @@ namespace Settings
                 PuzzelLibrary.Settings.Values.CompMaxLogs = NumbersOfCompLogs.Value;
             }
         }
+
+        private void RestoreDefaultSettings(object sender, EventArgs e)
+        {
+            foreach (var objSettings in GetCollectionOfFieldSettings())
+                PuzzelLibrary.Settings.Values.RestoreDefaultSettings(objSettings);
+        }
     }
 }

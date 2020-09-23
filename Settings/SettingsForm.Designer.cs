@@ -56,6 +56,7 @@ namespace Settings
             this.AutoOpenPortCheck = new System.Windows.Forms.CheckBox();
             this.DescriptionBox = new System.Windows.Forms.GroupBox();
             this.DescriptionLabel = new System.Windows.Forms.Label();
+            this.RestoreDefaultButton = new System.Windows.Forms.Button();
             this.TabSettings.SuspendLayout();
             this.GeneralPage.SuspendLayout();
             this.CustomValueBox.SuspendLayout();
@@ -148,7 +149,7 @@ namespace Settings
             this.CompMaxLogs.MouseEnter += new System.EventHandler(this.MouseOn);
             this.CompMaxLogs.MouseLeave += new System.EventHandler(this.MouseOut);
             // 
-            // numericUserLogs
+            // NumbersOfUserLogs
             // 
             this.NumbersOfUserLogs.Location = new System.Drawing.Point(55, 50);
             this.NumbersOfUserLogs.Maximum = new decimal(new int[] {
@@ -164,9 +165,14 @@ namespace Settings
             this.NumbersOfUserLogs.Name = "NumbersOfUserLogs";
             this.NumbersOfUserLogs.Size = new System.Drawing.Size(61, 23);
             this.NumbersOfUserLogs.TabIndex = 4;
+            this.NumbersOfUserLogs.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
             this.NumbersOfUserLogs.ValueChanged += new System.EventHandler(this.OnChangeSaveProperty);
             // 
-            // numericCompLogs
+            // NumbersOfCompLogs
             // 
             this.NumbersOfCompLogs.Location = new System.Drawing.Point(55, 21);
             this.NumbersOfCompLogs.Maximum = new decimal(new int[] {
@@ -182,6 +188,11 @@ namespace Settings
             this.NumbersOfCompLogs.Name = "NumbersOfCompLogs";
             this.NumbersOfCompLogs.Size = new System.Drawing.Size(61, 23);
             this.NumbersOfCompLogs.TabIndex = 4;
+            this.NumbersOfCompLogs.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
             this.NumbersOfCompLogs.ValueChanged += new System.EventHandler(this.OnChangeSaveProperty);
             // 
             // HistoryLogBox
@@ -194,7 +205,7 @@ namespace Settings
             this.HistoryLogBox.TabStop = false;
             this.HistoryLogBox.Text = "Historia logów";
             // 
-            // CheckBoxHistoryLog
+            // HistoryLogCheck
             // 
             this.HistoryLogCheck.AutoSize = true;
             this.HistoryLogCheck.Location = new System.Drawing.Point(6, 22);
@@ -237,8 +248,8 @@ namespace Settings
             this.SessionShortcutText.ReadOnly = true;
             this.SessionShortcutText.Size = new System.Drawing.Size(95, 23);
             this.SessionShortcutText.TabIndex = 1;
-            this.SessionShortcutText.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SessionShortcutText_KeyDown);
             this.SessionShortcutText.TextChanged += new System.EventHandler(this.OnChangeSaveProperty);
+            this.SessionShortcutText.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SessionShortcutText_KeyDown);
             // 
             // SessionShortcutLabel
             // 
@@ -283,8 +294,8 @@ namespace Settings
             this.CustomSourceTextBox.Name = "CustomSourceTextBox";
             this.CustomSourceTextBox.Size = new System.Drawing.Size(720, 87);
             this.CustomSourceTextBox.TabIndex = 0;
+            this.CustomSourceTextBox.Text = "";
             this.CustomSourceTextBox.TextChanged += new System.EventHandler(this.OnChangeSaveProperty);
-
             // 
             // Other
             // 
@@ -368,11 +379,22 @@ namespace Settings
             this.DescriptionLabel.Size = new System.Drawing.Size(0, 15);
             this.DescriptionLabel.TabIndex = 0;
             // 
+            // RestoreDefaultButton
+            // 
+            this.RestoreDefaultButton.Location = new System.Drawing.Point(448, 415);
+            this.RestoreDefaultButton.Name = "RestoreDefaultButton";
+            this.RestoreDefaultButton.Size = new System.Drawing.Size(178, 23);
+            this.RestoreDefaultButton.TabIndex = 4;
+            this.RestoreDefaultButton.Text = "Przywróć ustawienia domyślne";
+            this.RestoreDefaultButton.UseVisualStyleBackColor = true;
+            this.RestoreDefaultButton.Click += new System.EventHandler(this.RestoreDefaultSettings);
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.RestoreDefaultButton);
             this.Controls.Add(this.DescriptionBox);
             this.Controls.Add(this.CloseButton);
             this.Controls.Add(this.SaveButton);
@@ -428,6 +450,7 @@ namespace Settings
         private System.Windows.Forms.GroupBox SessionShortcutBox;
         private System.Windows.Forms.TextBox SessionShortcutText;
         private System.Windows.Forms.Label SessionShortcutLabel;
+        private System.Windows.Forms.Button RestoreDefaultButton;
     }
 }
 
