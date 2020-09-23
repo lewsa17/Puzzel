@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.IO;
 using System.Reflection.Metadata.Ecma335;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Windows.Forms;
 using System.Xml;
 
 namespace PuzzelLibrary.Settings
 {
-   public class Values : IValues
+   public class Values
     {
         public static bool HistoryLog { get; set; }
         public static decimal UserMaxLogs { get; set; }
@@ -21,6 +23,9 @@ namespace PuzzelLibrary.Settings
         public static bool SaveUserData { get; set; }
         public static string SessionDisconectShortcut { get; set; }
 
+        public static bool defaultCheckBoxesValue = false;
+        public static string defaultTextBoxesValue = string.Empty;
+        public static decimal defaultNumericUDValue = 5;
         public static void CommitChanges()
         {
             XmlWriter writer = null;
@@ -30,9 +35,21 @@ namespace PuzzelLibrary.Settings
             SetSettings.CreateSettingValues(writer);
             SetSettings.CloseSettingsFile(writer);
         }
+
         public static void LoadValues()
         {
 
+        }
+        public static void RestoreDefaultSettings(object sender)
+        {
+            if (sender is CheckBox)
+                ((CheckBox)sender).Checked = defaultCheckBoxesValue;
+            if (sender is TextBox)
+                ((TextBox)sender).Text = defaultTextBoxesValue;
+            if (sender is RichTextBox)
+                ((RichTextBox)sender).Text = defaultTextBoxesValue;
+            if (sender is NumericUpDown)
+                ((NumericUpDown)sender).Value = defaultNumericUDValue;
         }
     }
 }
