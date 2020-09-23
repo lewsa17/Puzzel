@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Reflection.Metadata.Ecma335;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -23,10 +24,9 @@ namespace PuzzelLibrary.Settings
         public static void Commit()
         {
             XmlWriter writer = null;
-            if (!System.IO.File.Exists("Settings.xml"))
-            {
-                writer = new SetSettings().CreateSettingsFile();
-            }
+            if (File.Exists("Settings.xml"))
+                File.Delete("Settings.xml");
+            writer = new SetSettings().CreateSettingsFile();
             SetSettings.CreateSettingValues(writer);
             SetSettings.CloseSettingsFile(writer);
         }
