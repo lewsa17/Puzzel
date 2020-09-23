@@ -17,11 +17,13 @@ namespace PuzzelLibrary.Settings
         {
             XmlWriter writer = null;
             XmlWriterSettings settings = new XmlWriterSettings();
-            writer = XmlWriter.Create("Settings.xml", settings);
             //writer.WriteStartDocument(true);
-            writer.WriteStartElement("Settings");
             settings.Encoding = System.Text.Encoding.UTF8;
             settings.Indent = true;
+            settings.OmitXmlDeclaration = true;
+            settings.NewLineOnAttributes = true;
+            writer = XmlWriter.Create("Settings.xml", settings);
+            writer.WriteStartElement("Settings");
             return writer;
         }
 
