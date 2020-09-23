@@ -94,7 +94,7 @@ namespace Settings
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
-            PuzzelLibrary.Settings.Values.Commit();
+            PuzzelLibrary.Settings.Values.CommitChanges();
             MessageBox.Show("Ustawienia zostały zapisane.\nZmiany wejdą w życie po ponownym uruchomieniu aplikacji","Zapisywanie ustawień",MessageBoxButtons.OK,MessageBoxIcon.Information);
         }
         private void EnablingTextBox(object sender, EventArgs e)

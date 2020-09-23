@@ -21,7 +21,7 @@ namespace PuzzelLibrary.Settings
         public static bool SaveUserData { get; set; }
         public static string SessionDisconectShortcut { get; set; }
 
-        public static void Commit()
+        public static void CommitChanges()
         {
             XmlWriter writer = null;
             if (File.Exists("Settings.xml"))
