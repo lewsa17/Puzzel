@@ -310,6 +310,19 @@ namespace Forms
             }
             StopTime();
         }
+
+        class RDPValues
+        {
+            internal string serverName { get; set; }
+            internal int sessionID { get; set; }
+            internal void GetSIdServerNameFromCombo(ComboBox SessionServer)
+            {
+                var SIdServerName = SessionServer.Items[SessionServer.SelectedIndex].ToString().Split(' ');
+                this.sessionID = Convert.ToInt16(SIdServerName[0]);
+                this.serverName = SIdServerName[1];
+
+            }
+        }
         private void ConnectToSession(object sender, EventArgs e)
         {
             StartTime();
@@ -322,9 +335,20 @@ namespace Forms
                     {
                         if (comboBoxFindedSessions.SelectedIndex >= 0)
                         {
-                            IDSessionServerName = comboBoxFindedSessions.Items[comboBoxFindedSessions.SelectedIndex].ToString().Split(' ');
-                            PuzzelLibrary.Terminal.TerminalExplorer Term = new PuzzelLibrary.Terminal.TerminalExplorer();
-                            Term.ConnectToSession(IDSessionServerName[1], Convert.ToInt16(IDSessionServerName[0]));
+                            var rdpValues = new RDPValues();
+                            rdpValues.GetSIdServerNameFromCombo(comboBoxFindedSessions);
+                            var ADCompResult = PuzzelLibrary.AD.Computer.Search.ByComputerName(rdpValues.serverName, "operatingSystemVersion");
+                            var osVersionComplete = ADCompResult.GetDirectoryEntry().Properties["operatingSystemVersion"].Value.ToString().Split(" ");
+                            double osVersion = Convert.ToDouble(osVersionComplete[0]);
+                            if (osVersion > 6.1)
+                            {
+                                PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess("mstsc.exe", "/v:" + rdpValues.serverName + " /shadow:" + rdpValues.sessionID + " /control /NoConsentPrompt");
+                            }
+                            else
+                            {
+                                PuzzelLibrary.Terminal.TerminalExplorer Term = new PuzzelLibrary.Terminal.TerminalExplorer();
+                                Term.ConnectToSession(rdpValues.serverName, rdpValues.sessionID);
+                            }
                         }
                         else ReplaceRichTextBox("Nie wybrano aktywnej sesji");
                     }
