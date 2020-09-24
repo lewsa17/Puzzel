@@ -15,7 +15,10 @@ namespace PuzzelLibrary.Terminal
                 using (ITerminalServer server = new Explorer().GetRemoteServer(hostname))
                 {
                     server.Open();
-                    server.GetSession(sessionID).StartRemoteControl(ConsoleKey.Multiply, RemoteControlHotkeyModifiers.Control);
+                    var Keys = Settings.Values.SessionDisconectShortcut.Split(" + ");
+                    var consoleKey = (ConsoleKey)TypeDescriptor.GetConverter(typeof(ConsoleKey)).ConvertFromString(Keys[1]);
+                    var remoteControlHotkeyModifiers = (RemoteControlHotkeyModifiers)TypeDescriptor.GetConverter(typeof(RemoteControlHotkeyModifiers)).ConvertFromString(Keys[0]);
+                    server.GetSession(sessionID).StartRemoteControl(consoleKey, remoteControlHotkeyModifiers);
                     server.Close();
                 }
             }
