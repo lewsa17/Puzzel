@@ -44,11 +44,11 @@ namespace PuzzelLibrary.Settings
         {
             if (sender is CheckBox)
                 ((CheckBox)sender).Checked = defaultCheckBoxesValue;
-            if (sender is TextBox)
+            else if (sender is TextBox)
                 ((TextBox)sender).Text = defaultTextBoxesValue;
-            if (sender is RichTextBox)
+            else if (sender is RichTextBox)
                 ((RichTextBox)sender).Text = defaultTextBoxesValue;
-            if (sender is NumericUpDown)
+            else if (sender is NumericUpDown)
                 ((NumericUpDown)sender).Value = defaultNumericUDValue;
         }
     }
