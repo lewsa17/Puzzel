@@ -21,6 +21,7 @@ namespace Forms
             InitializeAdditionals();
             this.Text += " " + PuzzelLibrary.Version.GetVersion();
             UserLoggedVisibility();
+            PuzzelLibrary.Settings.Values.LoadValues();
         }
         public static int ProgressBarValue = 0;
         public static int ProgressMax = 0;
