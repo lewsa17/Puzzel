@@ -292,6 +292,7 @@
             this.CustomSourceTextBox.Name = "CustomSourceTextBox";
             this.CustomSourceTextBox.Size = new System.Drawing.Size(720, 87);
             this.CustomSourceTextBox.TabIndex = 0;
+            this.CustomSourceTextBox.Enabled = false;
             this.CustomSourceTextBox.Text = "";
             this.CustomSourceTextBox.TextChanged += new System.EventHandler(this.OnChangeSaveProperty);
             // 
