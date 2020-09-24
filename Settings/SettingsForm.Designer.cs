@@ -249,6 +249,7 @@ namespace Settings
             this.SessionShortcutText.Size = new System.Drawing.Size(95, 23);
             this.SessionShortcutText.TabIndex = 1;
             this.SessionShortcutText.TextChanged += new System.EventHandler(this.OnChangeSaveProperty);
+            this.SessionShortcutBox.Text = "Control + *";
             this.SessionShortcutText.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SessionShortcutText_KeyDown);
             // 
             // SessionShortcutLabel

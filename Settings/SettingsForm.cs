@@ -17,15 +17,17 @@ namespace Settings
             Control[] ListOfFieldWithSettings = { AutoOpenPortCheck, AutoUnlockFirewallCheck, HistoryLogCheck, CustomSourceCheck, SaveUserDataCheck, SessionShortcutText, CustomSourceTextBox, NumbersOfCompLogs, NumbersOfUserLogs };
             return ListOfFieldWithSettings;
         }
+
         static string defaultDescription = "Najedź kursorem na opcję aby wyświetlić tutaj jej opis";
-        static string logsHistoryDescription = "Ustawienie tej opcji będzie wyświetlać lub nie ostatnio wyszukiwane wartości";
-        static string userMaxLogsDesctiption = "Zmiana tej wartości ustala maksymalną liczbę logowań użytkownika jaką można wyszukać";
-        static string compMaxLogsDescription = "Zmiana tej wartości ustala maksymalną liczbę logowań do komputera jaką można wyszukać";
-        static string customSourceSessionDescription = "Zezwala na wyszukiwanie sesji z ręcznie przygotowanej listy";
-        static string autoOpenPortDescription = "Zmiana tej wartości wyłączy pytanie o otwarcie portu 135 (RPC) odpowiedzialny za wykonywanie niektórych funkcji - będzie to wykonywane automatycznie";
-        static string autoUnlockFirewallDescription = "Zmiana tej wartości wyłączy pytanie o odblokowywanie Zdalnej Zapory - będzie to wykonywane automatycznie";
-        static string autoSaveDataDescription = "Zamiana tej wartości wyłączy pytanie o zapisywanie danych użytkownika przy usuwaniu - będzie to wykonywane automatycznie";
-        static string sessionShortcutDescription = "Ustaw skrót klawiszowy odpowiedzialny za rozłączanie się z sesji zdalnej. \nWystarczy zaznaczyć kursorem na pole tekstowe i nacisnąć klawisze";
+        static string HistoryLogDescription = "Ustawienie tej opcji będzie wyświetlać lub nie ostatnio wyszukiwane wartości";
+        static string NumbersOfUserLogsDescription = "Zmiana tej wartości ustala maksymalną liczbę logowań użytkownika jaką można wyszukać";
+        static string NumbersOfCompLogsDescription = "Zmiana tej wartości ustala maksymalną liczbę logowań do komputera jaką można wyszukać";
+        static string CustomSourceDescription = "Zezwala na wyszukiwanie sesji z ręcznie przygotowanej listy";
+        static string AutoOpenPortDescription = "Zmiana tej wartości wyłączy pytanie o otwarcie portu 135 (RPC) odpowiedzialny za wykonywanie niektórych funkcji - będzie to wykonywane automatycznie";
+        static string AutoUnlockFirewallDescription = "Zmiana tej wartości wyłączy pytanie o odblokowywanie Zdalnej Zapory - będzie to wykonywane automatycznie";
+        static string SaveUserDataCheckDescription = "Zamiana tej wartości wyłączy pytanie o zapisywanie danych użytkownika przy usuwaniu - będzie to wykonywane automatycznie";
+        static string SessionShortcutDescription = "Ustaw skrót klawiszowy odpowiedzialny za rozłączanie się z sesji zdalnej. \nWystarczy zaznaczyć kursorem na pole tekstowe i nacisnąć klawisze";
+
 
         private void CloseButton_Click(object sender, EventArgs e)
         {
@@ -52,42 +54,42 @@ namespace Settings
             {
                 case "CheckBoxHistoryLog": 
                     {
-                        DescriptionLabel.Text = logsHistoryDescription; 
+                        DescriptionLabel.Text = HistoryLogDescription; 
                         break; 
                     }
                 case "UserMaxLogs":
                     {
-                        DescriptionLabel.Text = userMaxLogsDesctiption;
+                        DescriptionLabel.Text = NumbersOfUserLogsDescription;
                         break;
                     }
                 case "CompMaxLogs":
                     {
-                        DescriptionLabel.Text = compMaxLogsDescription;
+                        DescriptionLabel.Text = NumbersOfCompLogsDescription;
                         break;
                     }
                 case "CustomSourceCheck":
                     {
-                        DescriptionLabel.Text = customSourceSessionDescription;
+                        DescriptionLabel.Text = CustomSourceDescription;
                         break;
                     }
                 case "AutoOpenPortCheck":
                     {
-                        DescriptionLabel.Text = autoOpenPortDescription;
+                        DescriptionLabel.Text = AutoOpenPortDescription;
                         break;
                     }
                 case "AutoUnlockFirewallCheck":
                     {
-                        DescriptionLabel.Text = autoUnlockFirewallDescription;
+                        DescriptionLabel.Text = AutoUnlockFirewallDescription;
                         break;
                     }
                 case "SaveUserDataCheck":
                     {
-                        DescriptionLabel.Text = autoSaveDataDescription;
+                        DescriptionLabel.Text = SaveUserDataCheckDescription;
                         break;
                     }
                 case "SessionShortcutLabel":
                     {
-                        DescriptionLabel.Text = sessionShortcutDescription;
+                        DescriptionLabel.Text = SessionShortcutDescription;
                         break;
                     }
             };               
@@ -216,6 +218,7 @@ namespace Settings
             else
             {
                 foreach (var objSettings in GetCollectionOfFieldSettings())
+                    if (objSettings != SessionShortcutText)
                     PuzzelLibrary.Settings.Values.RestoreDefaultSettings(objSettings);
                 PuzzelLibrary.Settings.Values.HistoryLog = HistoryLogCheck.Checked;
                 PuzzelLibrary.Settings.Values.CustomSource = CustomSourceCheck.Checked;
