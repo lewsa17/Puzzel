@@ -706,6 +706,8 @@ namespace Forms
             this.DWMenuContext.Text = dw;
             this.menuItemDWEadm.Text = dw + "(" + eadm + ")";
             this.menuItemDWLAPS.Text = dw + "(" + lapslogn + ")";
+            numericLogin.Maximum = PuzzelLibrary.Settings.Values.UserMaxLogs;
+            numericLogin.Maximum = PuzzelLibrary.Settings.Values.CompMaxLogs;
         }
         private void Keys_KeyDown(object sender, KeyEventArgs e)
         {
