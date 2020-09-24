@@ -99,6 +99,7 @@ namespace Forms
             this.menuItemComputerInfoNetworkRes = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemComputerInfoDisplay = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemComputerInfoBios = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItemSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.btnPing = new System.Windows.Forms.Button();
             this.numericComputer = new System.Windows.Forms.NumericUpDown();
             this.labelCountCompLogs = new System.Windows.Forms.Label();
@@ -1052,6 +1053,7 @@ namespace Forms
             this.mainMenu.BackColor = System.Drawing.Color.Gainsboro;
             this.mainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuItemFile,
+            this.menuItemSettings,
             this.menuItemAdmTools,
             this.menuItemQuickFix});
             this.mainMenu.Location = new System.Drawing.Point(0, 0);
@@ -1068,12 +1070,12 @@ namespace Forms
             // 
             // menuItemSettings
             // 
-            //this.menuItemSettings.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            //this.menuItemSettings.Name = "ustawienia";
-            //this.menuItemSettings.Size = new System.Drawing.Size(76, 20);
-            //this.menuItemSettings.Text = "Ustawienia";
-            //this.menuItemSettings.Visible = false;
-            //this.menuItemSettings.Click += new System.EventHandler(this.Ustawienia_Click);
+            this.menuItemSettings.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.menuItemSettings.Name = "ustawienia";
+            this.menuItemSettings.Size = new System.Drawing.Size(76, 20);
+            this.menuItemSettings.Text = "Ustawienia";
+            this.menuItemSettings.Visible = true;
+            this.menuItemSettings.Click += new System.EventHandler(this.OpenSettings);
             // 
             // narzędziaAdministracyjneToolStripMenuItem
             // 
@@ -1248,7 +1250,7 @@ namespace Forms
             this.Icon = global::Forms.Resources.Resources.Puzzel;
             this.MainMenuStrip = this.mainMenu;
             this.MinimumSize = new System.Drawing.Size(1200, 509);
-            this.Name = "MainForm";
+            this.Name = "Puzzel";
             this.Text = "Puzzel";
             this.groupBoxUserInfo.ResumeLayout(false);
             this.groupBoxUserInfo.PerformLayout();
@@ -1362,6 +1364,7 @@ namespace Forms
         private System.Windows.Forms.ContextMenuStrip contextMenuRDP;
         private System.Windows.Forms.ToolStripMenuItem menuItemRDPOpen;
         private System.Windows.Forms.ToolStripMenuItem contextMenuItemSearchR;
+        private System.Windows.Forms.ToolStripMenuItem menuItemSettings;
         private System.Windows.Forms.ToolStripMenuItem menuItemLAPSpwd;
         private System.Windows.Forms.ToolStripMenuItem menuItemComputerInfoDisplay;
         private System.Windows.Forms.ToolStripMenuItem menuItemComputerInfoBios;

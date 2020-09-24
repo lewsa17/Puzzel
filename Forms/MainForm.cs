@@ -1198,5 +1198,10 @@ namespace Forms
         {
             PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess("powershell", "-noexit");
         }
+        private void OpenSettings(object sender, EventArgs e)
+        {
+            var settingsForm = new Settings.SettingsForm(this.Name);
+            settingsForm.Show();
+        }
     }
 }
