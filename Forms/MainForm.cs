@@ -516,7 +516,7 @@ namespace Forms
                         string data = string.Empty;
                         if (new PuzzelLibrary.AD.User.SearchInformation.Search().ByUserName(UserName()) != null)
                         {
-                            var termServers = PuzzelLibrary.Terminal.TerminalExplorer.GetTerminalServers.Split(",");
+                            var termServers = PuzzelLibrary.Terminal.TerminalExplorer.GetTerminalServers;
                             foreach (string server in termServers)
                             {
                                 Thread thread = new Thread(() =>
