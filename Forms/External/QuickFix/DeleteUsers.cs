@@ -50,7 +50,9 @@ namespace Forms.External.QuickFix
                 {
                     var UserObj = ComboBoxUsers.SelectedItem.ToString();
                     var objSID = new NTAccount(UserObj);
-                    var keepData = MessageToUser("Czy chcesz zachować dane?", "Usuwanie użytkownika");
+                    var keepData = true;
+                    if (PuzzelLibrary.Settings.Values.SaveUserData == false)
+                        keepData = MessageToUser("Czy chcesz zachować dane?", "Usuwanie użytkownika");
                     try
                     {
                         var objUser = objSID.Translate(typeof(SecurityIdentifier));
