@@ -234,11 +234,12 @@ namespace Forms
                     counter = (int)numericLogin.Value;
                     rodzaj = "User";
                     pole = UserName();
-                    if (UserName() != comboBoxLoginLast)
-                    {
-                        comboBoxLoginLast = pole;
-                        comboBoxLogin.Items.Add(comboBoxLoginLast);
-                    }
+                    if (PuzzelLibrary.Settings.Values.HistoryLog)
+                        if (UserName() != comboBoxLoginLast)
+                        {
+                            comboBoxLoginLast = pole;
+                            comboBoxLogin.Items.Add(comboBoxLoginLast);
+                        }
                 }
             if (sender == btnCompLog)
                 if (isNameValid(HostName()))
@@ -246,11 +247,12 @@ namespace Forms
                     counter = (int)numericComputer.Value;
                     pole = HostName();
                     rodzaj = "Computer";
-                    if (HostName() != comboBoxCompLast)
-                    {
-                        comboBoxCompLast = pole;
-                        comboBoxComputer.Items.Add(comboBoxCompLast);
-                    }
+                    if (PuzzelLibrary.Settings.Values.HistoryLog)
+                        if (HostName() != comboBoxCompLast)
+                        {
+                            comboBoxCompLast = pole;
+                            comboBoxComputer.Items.Add(comboBoxCompLast);
+                        }
                 }
             UpdateRichTextBox(new PuzzelLibrary.LogonData.Captcher().SearchLogs(counter, pole, rodzaj));
             statusBar1.Focus();
