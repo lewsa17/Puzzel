@@ -172,7 +172,7 @@ namespace Forms.External.Explorer
                     {
                         switch (((ToolStripMenuItem)sender).Name)
                         {
-                            case "menuItemSessionDisconnect":
+                            case nameof(menuItemSessionDisconnect):
                                 {
                                     session.Disconnect();
                                     MessageBox.Show(new Form() { TopMost = true }, "Sesja została rozłączona", "Rozłączanie sesji", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -180,7 +180,7 @@ namespace Forms.External.Explorer
                                     break;
                                 }
 
-                            case "menuItemSessionSendMessage":
+                            case nameof(menuItemSessionSendMessage):
                                 {
                                     using (var terms = new ExplorerFormSendMessage(HostName, selectedSessionID))
                                     {
@@ -190,13 +190,13 @@ namespace Forms.External.Explorer
                                     break;
                                 }
 
-                            case "menuItemSessionRemoteControl":
+                            case nameof(menuItemSessionRemoteControl):
                                 {
-                                    server.GetSession(selectedSessionID).StartRemoteControl(ConsoleKey.Multiply, RemoteControlHotkeyModifiers.Control);
+                                    new PuzzelLibrary.Terminal.TerminalExplorer().ConnectToSession(HostName, selectedSessionID);
                                     break;
                                 }
 
-                            case "menuItemSessionLogoff":
+                            case nameof(menuItemSessionLogoff):
                                 {
                                     session.Logoff();
                                     MessageBox.Show(new Form() { TopMost = true }, "Sesja została wylogowana", "Wylogowywanie sesji", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -204,18 +204,18 @@ namespace Forms.External.Explorer
                                     break;
                                 }
 
-                            case "menuItemSessionStatus":
+                            case nameof(menuItemSessionStatus):
                                 {
                                     DynaStatusTab(session, selectedSessionID);
                                     break;
                                 }
-                            case "menuItemSessionProcesses":
+                            case nameof(menuItemSessionProcesses):
                                 {
                                     DynaProcessTab(server, session, selectedSessionID);
                                     break;
                                 }
 
-                            case "menuItemProcessKill":
+                            case nameof(menuItemProcessKill):
                                 {
                                     var processId = Convert.ToInt16(((DataGridView)((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl).Rows[selectedRowIndex].Cells[4].Value);
                                     var process = server.GetProcess(processId);
@@ -232,12 +232,12 @@ namespace Forms.External.Explorer
                     else
                         switch (((Button)sender).Name)
                         {
-                            case "btnRefreshNow":
+                            case nameof(btnRefreshNow):
                                 {
                                     RefreshProcesses(sender, server, session, selectedSessionID);
                                     break;
                                 }
-                            case "RefreshStatus":
+                            case "BtnRefreshStatus":
                                 {
                                     RefreshStatus(session, selectedSessionID);
                                     break;
@@ -383,7 +383,7 @@ namespace Forms.External.Explorer
                 Location = new System.Drawing.Point(382, 597),
                 Size = new System.Drawing.Size(98, 23),
                 Text = "Odśwież teraz",
-                Name = "RefreshStatus"
+                Name = "BtnRefreshStatus"
             };
 
 
