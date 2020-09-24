@@ -52,42 +52,42 @@ namespace Settings
                 Name = ((Label)sender).Name;
             switch (Name)
             {
-                case "CheckBoxHistoryLog": 
+                case nameof(HistoryLogCheck): 
                     {
                         DescriptionLabel.Text = HistoryLogDescription; 
                         break; 
                     }
-                case "UserMaxLogs":
+                case nameof(UserMaxLogs):
                     {
                         DescriptionLabel.Text = NumbersOfUserLogsDescription;
                         break;
                     }
-                case "CompMaxLogs":
+                case nameof(CompMaxLogs):
                     {
                         DescriptionLabel.Text = NumbersOfCompLogsDescription;
                         break;
                     }
-                case "CustomSourceCheck":
+                case nameof(CustomSourceCheck):
                     {
                         DescriptionLabel.Text = CustomSourceDescription;
                         break;
                     }
-                case "AutoOpenPortCheck":
+                case nameof(AutoOpenPortCheck):
                     {
                         DescriptionLabel.Text = AutoOpenPortDescription;
                         break;
                     }
-                case "AutoUnlockFirewallCheck":
+                case nameof(AutoUnlockFirewallCheck):
                     {
                         DescriptionLabel.Text = AutoUnlockFirewallDescription;
                         break;
                     }
-                case "SaveUserDataCheck":
+                case nameof(SaveUserDataCheck):
                     {
                         DescriptionLabel.Text = SaveUserDataCheckDescription;
                         break;
                     }
-                case "SessionShortcutLabel":
+                case nameof(SessionShortcutLabel):
                     {
                         DescriptionLabel.Text = SessionShortcutDescription;
                         break;
@@ -153,7 +153,8 @@ namespace Settings
                     case nameof(AutoOpenPortCheck):
                         {
                             PuzzelLibrary.Settings.Values.AutoOpenPort = AutoOpenPortCheck.Checked;
-                            break; }
+                            break;
+                        }
                 }
                 return;
             }
@@ -219,7 +220,7 @@ namespace Settings
             {
                 foreach (var objSettings in GetCollectionOfFieldSettings())
                     if (objSettings != SessionShortcutText)
-                    PuzzelLibrary.Settings.Values.RestoreDefaultSettings(objSettings);
+                        PuzzelLibrary.Settings.Values.RestoreDefaultSettings(objSettings);
                 PuzzelLibrary.Settings.Values.HistoryLog = HistoryLogCheck.Checked;
                 PuzzelLibrary.Settings.Values.CustomSource = CustomSourceCheck.Checked;
                 PuzzelLibrary.Settings.Values.SaveUserData = SaveUserDataCheck.Checked;
