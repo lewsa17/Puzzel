@@ -156,7 +156,7 @@
             this.Name = "ChangePasswordForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "ZmianaHasła";
-            this.TopMost = true;
+            this.TopMost = false;
             this.ResumeLayout(false);
             this.PerformLayout();
 
