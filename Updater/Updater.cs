@@ -11,79 +11,96 @@ namespace Updater
 {
     public partial class Updater : Form
     {
-        public Updater(string currentVersion)
+        public Updater(string[] currentBuildInfo)
         {
-            InitializeComponent(); Process.Start("powershell", "-WindowStyle hidden -Command Remove-Item " + localFolder + " -Recurse -Force");
-            CurrentVersion = currentVersion;
-        }
+            InitializeComponent();
+            Process.Start("powershell", "-WindowStyle hidden -Command Remove-Item " + localFolder + " -Recurse -Force");
 
-        private static List<Commit> commits;
-        internal static void LoadCommits()
+            CurrentVersion = currentBuildInfo[0]+"."+currentBuildInfo[1];
+            currentDate = DateTime.Parse(currentBuildInfo[4]);
+            currentCommits = currentBuildInfo[2];
+            currentShortSha = currentBuildInfo[3];
+            LoadCommits();
+            CheckVersion();
+
+        }
+        public string currentShortSha { get; set; }
+        public string currentCommits { get; set; }
+        public DateTime currentDate { get; set; }
+        public string newShortSha => commits[0].Sha.Substring(0,8);
+        public string newcommits => commits.Count.ToString();
+        public DateTime newDate => commits[0].Committer.When.DateTime;
+
+        private List<Commit> commits;
+        internal void LoadCommits()
         {
             var task = Task.Run(() => GetCommits());
             if (task.IsCompletedSuccessfully)
             {
                 commits = task.Result;
             }
-            else { task.Wait(); commits = task.Result; }
+            else { 
+                task.Wait(); 
+                commits = task.Result; }
         }
-    
-        internal static string UpdatingString()
+
+        internal string UpdatingString()
         {
             string Value = string.Format(
                 "Nowa wersja aplikacji Puzzel jest dostępna!" +
                 "\n" +
                 "\n" +
-                "Aktualna wersja: {0} - {1}({2})" +
-                "\n" + 
-                "Ostatnia wersja: {3} - {4}({5})" +
-                "\n" + 
-                "Aktualna wersja ma {6} dni {7} godzin" +
+                "Aktualna wersja: {0}-{1}-{2}({3})" +
+                "\n" +
+                "Ostatnia wersja: {4}-{5}-{6}({7})" +
+                "\n" +
+                "Aktualna wersja ma {8} dni {9} godzin" +
                 "\n" +
                 "\n" +
                 "Czy chcesz zaktualizować ?",
-                CurrentVersion, GetCurrentVersionName(),GetCurrentVersionDate(),
-                CurrentVersion, GetNewVersionName(),GetNewVersionDate(),
+                CurrentVersion, GetCurrentCommitNumber(),GetCurrentVersionHash(), GetCurrentVersionDate(),
+                CurrentVersion, GetNewCommitNumber(), GetNewShortSha(),GetNewVersionDate(),
                 CurrentAgeOfVersion().Days, CurrentAgeOfVersion().Hours);
             return Value;
         }
-        private static string CurrentVersion = "0.131.0-137-fee8399";
-        private static string localFolder = /*InputLocalFolder*/"";
-        private static List<Commit> GetCommits()
+        private string CurrentVersion;
+        private string localFolder = Path.Combine(System.IO.Directory.GetCurrentDirectory(),"remoteRepo");
+        private List<Commit> GetCommits()
         {
             const string remote = "https://github.com/Lewsa17/Puzzel.git";
             if (!File.Exists(localFolder))
-            Repository.Clone(remote, localFolder);
+                Repository.Clone(remote, localFolder);
             List<Commit> listOfCommits;
             var repo = new Repository(localFolder);
-            
-                listOfCommits = repo.Commits.ToList();
-            
+
+            listOfCommits = repo.Commits.ToList();
             return listOfCommits;
         }
-        private static string GetCurrentVersionName()
+        private DateTime GetNewVersionDate()
         {
-            return CurrentVersion.Split("-")[1];
+            return newDate;
         }
-        private static string GetCurrentVersionHash()
+        private string GetNewShortSha()
         {
-            return CurrentVersion.Split("-")[2];
+            return newShortSha;
         }
-        private static string GetNewVersionName()
+        private string GetCurrentCommitNumber()
+        {
+            return currentCommits;
+        }
+        private string GetCurrentVersionHash()
+        {
+            return currentShortSha;
+        }
+        private string GetNewCommitNumber()
         {
             return commits.Count.ToString();
         }
-        private static DateTime GetNewVersionDate()
+        private DateTime GetCurrentVersionDate()
         {
-            return commits[0].Committer.When.DateTime;
+            return currentDate;
         }
-        private static DateTime GetCurrentVersionDate()
-        {
-            var listOfCommits = commits;
-            var findedCommit = listOfCommits.Find(x => x.Sha.Contains(GetCurrentVersionHash()));
-            return findedCommit.Committer.When.DateTime;
-        }
-        private static TimeSpan CurrentAgeOfVersion()
+        private TimeSpan CurrentAgeOfVersion()
         {
             var currentAge = GetCurrentVersionDate() - GetNewVersionDate();
             return currentAge;
@@ -95,16 +112,38 @@ namespace Updater
             RemoveLocalRepo();
         }
 
-        internal static bool CheckNewVersion()
-        {
-            if (CurrentAgeOfVersion() == TimeSpan.Zero | Convert.ToInt32(GetNewVersionName()) == Convert.ToInt32(GetCurrentVersionName()))
-                    return false;
-            return true;
-        }
-
-        internal static void RemoveLocalRepo()
+        internal void RemoveLocalRepo()
         {
             Process.Start("powershell", "-WindowStyle hidden -Command Remove-Item " + localFolder + " -Recurse -Force");
+        }
+        public void CheckVersion()
+        {
+            bool isNewVersion = CheckNewVersion();
+            string stringToMessageBox = UpdatingString();
+            if (isNewVersion)
+            {
+                if (MessageBox.Show(stringToMessageBox, "Aktualizacja jest dostępna", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
+                {
+                }
+                else
+                {
+
+                }
+            }
+            else
+            {
+                MessageBox.Show("Twoja wersja jest obecnie aktualna", "Auto-Updater", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            }
+        }
+        internal bool CheckNewVersion()
+        {
+
+            var currAge = CurrentAgeOfVersion();
+            var newVer = GetNewCommitNumber();
+            var currVer = GetCurrentCommitNumber();
+            if (currAge == TimeSpan.Zero | Convert.ToInt32(newVer) == Convert.ToInt32(currVer))
+                return false;
+            return true;
         }
     }
 }

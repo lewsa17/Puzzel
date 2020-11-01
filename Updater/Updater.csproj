@@ -14,4 +14,8 @@
     <PackageReference Include="LibGit2Sharp" Version="0.26.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PuzzelLibrary\PuzzelLibrary.csproj" />
+  </ItemGroup>
+
 </Project>

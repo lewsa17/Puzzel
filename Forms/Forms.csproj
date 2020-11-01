@@ -1,16 +1,13 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
-
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop" ToolsVersion="Current">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
-  
   <ItemGroup>
     <ProjectReference Include="..\PuzzelLibrary\PuzzelLibrary.csproj" />
     <ProjectReference Include="..\Settings\Settings.csproj" />
   </ItemGroup>
-
   <ItemGroup>
     <Reference Include="Cassia">
       <HintPath>..\Cassia.dll</HintPath>
@@ -19,7 +16,6 @@
       <HintPath>..\..\..\..\..\..\Program Files\PowerShell\7\System.DirectoryServices.AccountManagement.dll</HintPath>
     </Reference>
   </ItemGroup>
-
   <ItemGroup>
     <Compile Update="Additional\RemotePing_Tracert.cs" />
     <Compile Update="Additional\RemotePing_Tracert.Designer.cs">
@@ -31,7 +27,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
   </ItemGroup>
-
   <ItemGroup>
     <EmbeddedResource Update="Additional\RemotePing_Tracert.resx">
       <DependentUpon>RemotePing_Tracert.cs</DependentUpon>
@@ -41,5 +36,4 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-
 </Project>

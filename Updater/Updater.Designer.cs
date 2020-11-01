@@ -32,13 +32,14 @@
             this.ProgressLoading = new System.Windows.Forms.ProgressBar();
             this.PercentLabel = new System.Windows.Forms.Label();
             this.cancelButton = new System.Windows.Forms.Button();
+            this.webBrowser = new System.Windows.Forms.WebBrowser();
             this.SuspendLayout();
             // 
             // WaitLabel
             // 
-            this.WaitLabel.Location = new System.Drawing.Point(128, 9);
+            this.WaitLabel.Location = new System.Drawing.Point(109, 9);
             this.WaitLabel.Name = "WaitLabel";
-            this.WaitLabel.Size = new System.Drawing.Size(79, 15);
+            this.WaitLabel.Size = new System.Drawing.Size(107, 22);
             this.WaitLabel.TabIndex = 3;
             this.WaitLabel.Text = "Proszę czekać...";
             // 
@@ -91,6 +92,7 @@
         private System.Windows.Forms.ProgressBar ProgressLoading;
         private System.Windows.Forms.Label PercentLabel;
         private System.Windows.Forms.Button cancelButton;
+        public System.Windows.Forms.WebBrowser webBrowser;
     }
 }
 

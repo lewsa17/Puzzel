@@ -1,9 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
-
   <ItemGroup>
     <Folder Include="AD\" />
     <Folder Include="Debug\" />
@@ -12,11 +10,9 @@
     <Folder Include="NetDiag\" />
     <Folder Include="Terminal\" />
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="Microsoft.Win32.Registry" Version="4.7.0" />
   </ItemGroup>
-
   <ItemGroup>
     <Reference Include="Cassia">
       <HintPath>..\Cassia.dll</HintPath>
@@ -33,9 +29,8 @@
     <Reference Include="System.Management">
       <HintPath>..\..\..\..\..\..\Program Files\PowerShell\7\System.Management.dll</HintPath>
     </Reference>
-	<Reference Include="System.Windows.Forms">
-	  <HintPath>..\..\..\..\..\..\Windows\Microsoft.NET\assembly\GAC_MSIL\System.Windows.Forms\v4.0_4.0.0.0__b77a5c561934e089\System.Windows.Forms.dll</HintPath>
-	</Reference>
+    <Reference Include="System.Windows.Forms">
+      <HintPath>..\..\..\..\..\..\Windows\Microsoft.NET\assembly\GAC_MSIL\System.Windows.Forms\v4.0_4.0.0.0__b77a5c561934e089\System.Windows.Forms.dll</HintPath>
+    </Reference>
   </ItemGroup>
-
 </Project>

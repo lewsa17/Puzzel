@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Forms;
-
 namespace Updater
 {
     static class Program
@@ -8,26 +7,21 @@ namespace Updater
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
+        /// 
         [STAThread]
         static void Main()
         {
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Updater.LoadCommits();
-            if (Updater.CheckNewVersion())
-            {
-                if (MessageBox.Show(Updater.UpdatingString(), "Aktualizacja jest dostępna", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
-                {
-                    Application.Run(new Updater("//ToDo//"));
-                }
-            }
-            else
-            {
-                MessageBox.Show("Twoja wersja jest obecnie aktualna", "Auto-Updater", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                Updater.RemoveLocalRepo();
-            }
-            
+            Application.Run(new Updater(new string[] { 
+                PuzzelLibrary.Version.Major.ToString(), 
+                PuzzelLibrary.Version.Minor.ToString(), 
+                PuzzelLibrary.Version.Build.ToString(), 
+                PuzzelLibrary.Version.Hash.ToString(), 
+                PuzzelLibrary.Version.BuildDate.ToString() 
+            }));
+
         }
     }
 }
