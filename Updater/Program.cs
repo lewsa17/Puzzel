@@ -14,14 +14,14 @@ namespace Updater
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Updater(new string[] { 
-                PuzzelLibrary.Version.Major.ToString(), 
-                PuzzelLibrary.Version.Minor.ToString(), 
-                PuzzelLibrary.Version.Build.ToString(), 
-                PuzzelLibrary.Version.Hash.ToString(), 
-                PuzzelLibrary.Version.BuildDate.ToString() 
-            }));
-
+            Updater updater = new Updater();
+            updater.Execute(new string[] {
+                PuzzelLibrary.Version.Major.ToString(),
+                PuzzelLibrary.Version.Minor.ToString(),
+                PuzzelLibrary.Version.Build.ToString(),
+                PuzzelLibrary.Version.Hash.ToString(),
+                PuzzelLibrary.Version.BuildDate.ToString()
+            });
         }
     }
 }

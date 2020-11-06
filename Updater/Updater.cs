@@ -11,37 +11,36 @@ namespace Updater
 {
     public partial class Updater : Form
     {
-        public Updater(string[] currentBuildInfo)
+        public Updater()
         {
-            InitializeComponent();
-            Process.Start("powershell", "-WindowStyle hidden -Command Remove-Item " + localFolder + " -Recurse -Force");
+            InitializeComponent();   
+        }
 
-            CurrentVersion = currentBuildInfo[0]+"."+currentBuildInfo[1];
+        internal void Execute(string[] currentBuildInfo)
+        {
+            while(Directory.Exists(localFolder))
+                RemoveLocalRepo(localFolder);
+            CurrentVersion = currentBuildInfo[0] + "." + currentBuildInfo[1];
             currentDate = DateTime.Parse(currentBuildInfo[4]);
             currentCommits = currentBuildInfo[2];
             currentShortSha = currentBuildInfo[3];
             LoadCommits();
             CheckVersion();
-
         }
-        public string currentShortSha { get; set; }
-        public string currentCommits { get; set; }
-        public DateTime currentDate { get; set; }
-        public string newShortSha => commits[0].Sha.Substring(0,8);
-        public string newcommits => commits.Count.ToString();
-        public DateTime newDate => commits[0].Committer.When.DateTime;
-
-        private List<Commit> commits;
+        private Repository repo;
+        private readonly string localFolder = Path.GetTempPath()+"remoteRepo";
+        private string currentShortSha { get; set; }
+        private string currentCommits { get; set; }
+        private DateTime currentDate { get; set; }
+        private string newShortSha => commits[0].Sha.Substring(0, 8);
+        private string newcommits => commits.Count.ToString();
+        private DateTime newDate => commits[0].Committer.When.DateTime;
+            
+        private static List<Commit> commits;
         internal void LoadCommits()
         {
-            var task = Task.Run(() => GetCommits());
-            if (task.IsCompletedSuccessfully)
-            {
-                commits = task.Result;
-            }
-            else { 
-                task.Wait(); 
-                commits = task.Result; }
+                var task = Task.Run(() => GetCommits()).GetAwaiter().GetResult();
+                commits = task;    
         }
 
         internal string UpdatingString()
@@ -64,58 +63,29 @@ namespace Updater
             return Value;
         }
         private string CurrentVersion;
-        private string localFolder = Path.Combine(System.IO.Directory.GetCurrentDirectory(),"remoteRepo");
-        private List<Commit> GetCommits()
+        private async Task<List<Commit>> GetCommits()
         {
             const string remote = "https://github.com/Lewsa17/Puzzel.git";
             if (!File.Exists(localFolder))
                 Repository.Clone(remote, localFolder);
             List<Commit> listOfCommits;
-            var repo = new Repository(localFolder);
-
-            listOfCommits = repo.Commits.ToList();
+            repo = new Repository(localFolder);
+            listOfCommits = await Task.Run(() => repo.Commits.ToList());
+            Debug.Write(listOfCommits);
             return listOfCommits;
         }
-        private DateTime GetNewVersionDate()
-        {
-            return newDate;
-        }
-        private string GetNewShortSha()
-        {
-            return newShortSha;
-        }
-        private string GetCurrentCommitNumber()
-        {
-            return currentCommits;
-        }
-        private string GetCurrentVersionHash()
-        {
-            return currentShortSha;
-        }
-        private string GetNewCommitNumber()
-        {
-            return commits.Count.ToString();
-        }
-        private DateTime GetCurrentVersionDate()
-        {
-            return currentDate;
-        }
-        private TimeSpan CurrentAgeOfVersion()
-        {
-            var currentAge = GetCurrentVersionDate() - GetNewVersionDate();
-            return currentAge;
-        }
-
+        private DateTime GetNewVersionDate() => newDate;
+        private string GetNewShortSha() => newShortSha;
+        private string GetCurrentCommitNumber() => currentCommits;
+        private string GetCurrentVersionHash() => currentShortSha;
+        private string GetNewCommitNumber() => newcommits;
+        private DateTime GetCurrentVersionDate() => currentDate;
+        private TimeSpan CurrentAgeOfVersion() => GetCurrentVersionDate() - GetNewVersionDate();
         private void cancelButton_Click(object sender, EventArgs e)
         {
             Close();
-            RemoveLocalRepo();
         }
 
-        internal void RemoveLocalRepo()
-        {
-            Process.Start("powershell", "-WindowStyle hidden -Command Remove-Item " + localFolder + " -Recurse -Force");
-        }
         public void CheckVersion()
         {
             bool isNewVersion = CheckNewVersion();
@@ -127,17 +97,35 @@ namespace Updater
                 }
                 else
                 {
-
                 }
             }
             else
             {
                 MessageBox.Show("Twoja wersja jest obecnie aktualna", "Auto-Updater", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
             }
+            repo.Dispose();
+            RemoveLocalRepo(localFolder);
+        }
+        private static void RemoveLocalRepo(string directory)
+        {
+            foreach (string subdirectory in Directory.EnumerateDirectories(directory))
+            {
+                RemoveLocalRepo(subdirectory);
+            }
+
+            foreach (string fileName in Directory.EnumerateFiles(directory))
+            {
+                var fileInfo = new FileInfo(fileName)
+                {
+                    Attributes = FileAttributes.Normal
+                };
+                fileInfo.Delete();
+            }
+
+            Directory.Delete(directory);
         }
         internal bool CheckNewVersion()
         {
-
             var currAge = CurrentAgeOfVersion();
             var newVer = GetNewCommitNumber();
             var currVer = GetCurrentCommitNumber();
