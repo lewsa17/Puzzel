@@ -94,6 +94,7 @@ namespace Updater
             {
                 if (MessageBox.Show(stringToMessageBox, "Aktualizacja jest dostępna", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
                 {
+                    Application.Run(FindForm());
                 }
                 else
                 {
@@ -129,9 +130,9 @@ namespace Updater
             var currAge = CurrentAgeOfVersion();
             var newVer = GetNewCommitNumber();
             var currVer = GetCurrentCommitNumber();
-            if (currAge == TimeSpan.Zero | Convert.ToInt32(newVer) == Convert.ToInt32(currVer))
-                return false;
-            return true;
+            if (currAge != TimeSpan.Zero | Convert.ToInt32(newVer) > Convert.ToInt32(currVer))
+                return true;
+            return false;
         }
     }
 }
