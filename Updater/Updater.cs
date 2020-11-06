@@ -32,15 +32,56 @@ namespace Updater
         private string currentShortSha { get; set; }
         private string currentCommits { get; set; }
         private DateTime currentDate { get; set; }
-        private string newShortSha => commits[0].Sha.Substring(0, 8);
-        private string newcommits => commits.Count.ToString();
-        private DateTime newDate => commits[0].Committer.When.DateTime;
-            
+        private string newShortSha
+        {
+            get
+            {
+                if (iDFSet)
+                    return "";
+                return commits[0].Sha.Substring(0, 8);
+            }
+        }
+        private string newcommits
+        {
+            get
+            {
+                if (iDFSet)
+                    return "";
+                return commits.Count.ToString();
+            }
+        }
+        private DateTime newDate
+        {
+            get
+            {
+                if (iDFSet)
+                    return DateTime.Now; 
+                return commits[0].Committer.When.DateTime;
+            }
+        }
+        private static bool iDFSet 
+        {
+            get 
+            {
+                if (string.IsNullOrEmpty(intranetDeploymentFolder)) 
+                    return false;
+                return true; 
+            }
+        }
+        private static string intranetDeploymentFolder { get; set; }
+
+
         private static List<Commit> commits;
         internal void LoadCommits()
         {
+            if (iDFSet)
+            { }
+            else
+            {
                 var task = Task.Run(() => GetCommits()).GetAwaiter().GetResult();
-                commits = task;    
+                commits = task;
+            }
+             
         }
 
         internal string UpdatingString()
@@ -113,7 +154,6 @@ namespace Updater
             {
                 RemoveLocalRepo(subdirectory);
             }
-
             foreach (string fileName in Directory.EnumerateFiles(directory))
             {
                 var fileInfo = new FileInfo(fileName)
@@ -122,7 +162,6 @@ namespace Updater
                 };
                 fileInfo.Delete();
             }
-
             Directory.Delete(directory);
         }
         internal bool CheckNewVersion()
