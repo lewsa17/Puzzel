@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using LibGit2Sharp;
 using System.IO;
 using System.Diagnostics;
+using System.Threading;
 
 namespace Updater
 {
@@ -136,9 +137,11 @@ namespace Updater
                 if (MessageBox.Show(stringToMessageBox, "Aktualizacja jest dostępna", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
                 {
                     Application.Run(FindForm());
-                }
-                else
-                {
+                    while (!this.IsHandleCreated)
+                    {
+                        Thread.Sleep(500);
+                    }
+                    ProcessUpdating();
                 }
             }
             else
@@ -172,6 +175,57 @@ namespace Updater
             if (currAge != TimeSpan.Zero | Convert.ToInt32(newVer) > Convert.ToInt32(currVer))
                 return true;
             return false;
+        }
+
+        private void BuildSollution()
+        {
+            PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcessWithWaitingForExit("dotnet", "build " + localFolder + "Puzzel.sln -o "+localFolder+"Update");
+        }
+
+        private void CopyUpdate()
+        {
+            string _localFolder = string.Empty;
+            if (iDFSet)
+                _localFolder = intranetDeploymentFolder;
+            else _localFolder = localFolder + "Update";
+
+            foreach (string fileName in Directory.EnumerateFiles(_localFolder))
+            {
+                if(fileName != new FileInfo(Application.ExecutablePath).Name)
+                    File.Copy(fileName, Directory.GetCurrentDirectory(), true);
+            }
+        }
+        private void ProcessUpdating()
+        {
+            string _waitLabel = WaitLabel.Text;
+            var progressBar = Task.Run(() =>
+            {
+                ProgressLoading.Invoke(new MethodInvoker(() => ProgressLoading.Value = 2));
+                PercentLabel.Invoke(new MethodInvoker(() => PercentLabel.Text = "50%"));
+                BuildSollution();
+
+                ProgressLoading.Invoke(new MethodInvoker(() => ProgressLoading.Value = 3));
+                PercentLabel.Invoke(new MethodInvoker(() => PercentLabel.Text = "75%"));
+                CopyUpdate();
+
+                ProgressLoading.Invoke(new MethodInvoker(() => ProgressLoading.Value = 4));
+                PercentLabel.Invoke(new MethodInvoker(() => PercentLabel.Text = "100%"));
+            });
+
+            var progressTitle = Task.Run(() =>
+            {
+                while (progressBar.IsCompletedSuccessfully)
+                    for (int i = 0; i < 5; i++)
+                    {
+                        WaitLabel.Invoke(new MethodInvoker(() => WaitLabel.Text += "."));
+                        if (i == 5)
+                        {
+                            WaitLabel.Invoke(new MethodInvoker(() => WaitLabel.Text = "Proszę czekać"));
+                        }
+                        Thread.Sleep(400);
+                    }
+            });
+
         }
     }
 }

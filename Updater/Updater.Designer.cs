@@ -41,14 +41,14 @@
             this.WaitLabel.Name = "WaitLabel";
             this.WaitLabel.Size = new System.Drawing.Size(107, 22);
             this.WaitLabel.TabIndex = 3;
-            this.WaitLabel.Text = "Proszę czekać...";
+            this.WaitLabel.Text = "Proszę czekać";
             // 
             // ProgressLoading
             // 
             this.ProgressLoading.Location = new System.Drawing.Point(12, 34);
             this.ProgressLoading.Name = "ProgressLoading";
             this.ProgressLoading.Size = new System.Drawing.Size(284, 30);
-            this.ProgressLoading.TabIndex = 2;
+            this.ProgressLoading.Maximum = 4;
             // 
             // PercentLabel
             // 
