@@ -334,8 +334,9 @@
             this.localUpdateTextBox.Location = new System.Drawing.Point(11, 47);
             this.localUpdateTextBox.Name = "localUpdateTextBox";
             this.localUpdateTextBox.Size = new System.Drawing.Size(205, 23);
+            this.localUpdateTextBox.Enabled = false;
             this.localUpdateTextBox.TabIndex = 1;
-            this.localUpdateTextBox.TextChanged += new System.EventHandler(OnChangeSaveProperty);
+            this.localUpdateTextBox.TextChanged += new System.EventHandler(this.OnChangeSaveProperty);
             // 
             // localUpdateCheck
             // 
@@ -346,6 +347,7 @@
             this.localUpdateCheck.TabIndex = 0;
             this.localUpdateCheck.Text = "Wyłączone";
             this.localUpdateCheck.UseVisualStyleBackColor = true;
+            this.localUpdateCheck.CheckedChanged += new System.EventHandler(this.ChangeChecked);
             this.localUpdateCheck.CheckStateChanged += new System.EventHandler(this.EnablingTextBox);
             this.localUpdateCheck.MouseEnter += new System.EventHandler(this.MouseOn);
             this.localUpdateCheck.MouseLeave += new System.EventHandler(this.MouseOut);
