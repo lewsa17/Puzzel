@@ -32,7 +32,6 @@
             this.ProgressLoading = new System.Windows.Forms.ProgressBar();
             this.PercentLabel = new System.Windows.Forms.Label();
             this.cancelButton = new System.Windows.Forms.Button();
-            this.webBrowser = new System.Windows.Forms.WebBrowser();
             this.SuspendLayout();
             // 
             // WaitLabel
@@ -92,7 +91,6 @@
         private System.Windows.Forms.ProgressBar ProgressLoading;
         private System.Windows.Forms.Label PercentLabel;
         private System.Windows.Forms.Button cancelButton;
-        public System.Windows.Forms.WebBrowser webBrowser;
     }
 }
 
