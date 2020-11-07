@@ -19,7 +19,7 @@ namespace Settings
         }
 
         static string defaultDescription = "Najedź kursorem na opcję aby wyświetlić tutaj jej opis";
-        static string HistoryLogDescription = "Ustawienie tej opcji będzie wyświetlać lub nie ostatnio wyszukiwane wartości";
+        static string HistoryLogDescription = "Ustawienie tej opcji będzie wyświetlać lub nie ostatnio wyszukiwanej wartości";
         static string NumbersOfUserLogsDescription = "Zmiana tej wartości ustala maksymalną liczbę logowań użytkownika jaką można wyszukać";
         static string NumbersOfCompLogsDescription = "Zmiana tej wartości ustala maksymalną liczbę logowań do komputera jaką można wyszukać";
         static string CustomSourceDescription = "Zezwala na wyszukiwanie sesji z ręcznie przygotowanej listy";
@@ -27,6 +27,8 @@ namespace Settings
         static string AutoUnlockFirewallDescription = "Zmiana tej wartości wyłączy pytanie o odblokowywanie Zdalnej Zapory - będzie to wykonywane automatycznie";
         static string SaveUserDataCheckDescription = "Zamiana tej wartości wyłączy pytanie o zapisywanie danych użytkownika przy usuwaniu - będzie to wykonywane automatycznie";
         static string SessionShortcutDescription = "Ustaw skrót klawiszowy odpowiedzialny za rozłączanie się z sesji zdalnej. \nWystarczy zaznaczyć kursorem na pole tekstowe i nacisnąć klawisze";
+        static string LocalUpdateDescription = "Zmienia miejsce wyszukiwania aktualizacji / ze zdalnie na lokalnie";
+        static string AutoStartUpdateDescription = "Automatyczne sprawdzanie aktualizacji przy uruchomieniu";
 
 
         private void CloseButton_Click(object sender, EventArgs e)
@@ -92,6 +94,16 @@ namespace Settings
                         DescriptionLabel.Text = SessionShortcutDescription;
                         break;
                     }
+                case nameof(localUpdateCheck):
+                    {
+                        DescriptionLabel.Text = LocalUpdateDescription;
+                        break;
+                    }
+                case nameof(AutostartUpdateCheck):
+                    {
+                        DescriptionLabel.Text = AutoStartUpdateDescription;
+                        break;
+                    }
             };               
         
         }
@@ -112,6 +124,12 @@ namespace Settings
                 CustomSourceTextBox.Enabled = true;
             }
             else CustomSourceTextBox.Enabled = false;
+
+            if (localUpdateCheck.Checked)
+            {
+                localUpdateTextBox.Enabled = true;
+            }
+            else localUpdateTextBox.Enabled = false;
         }
 
         private void SessionShortcutText_KeyDown(object sender, KeyEventArgs e)
@@ -155,6 +173,16 @@ namespace Settings
                             PuzzelLibrary.Settings.Values.AutoOpenPort = AutoOpenPortCheck.Checked;
                             break;
                         }
+                    case nameof(localUpdateCheck):
+                        {
+                            PuzzelLibrary.Settings.Values.LocalUpdateCheck = localUpdateCheck.Checked;
+                            break;
+                        }
+                    case nameof(AutostartUpdateCheck):
+                        {
+                            PuzzelLibrary.Settings.Values.AutostartUpdateCheck = AutostartUpdateCheck.Checked;
+                            break;
+                        }
                 }
                 return;
             }
@@ -165,6 +193,11 @@ namespace Settings
                     case nameof(SessionShortcutText):
                         {
                             PuzzelLibrary.Settings.Values.SessionDisconectShortcut = SessionShortcutText.Text;
+                            break;
+                        }
+                    case nameof(localUpdateTextBox):
+                        {
+                            PuzzelLibrary.Settings.Values.LocalUpdatePath = localUpdateTextBox.Text;
                             break;
                         }
                 }
@@ -215,7 +248,10 @@ namespace Settings
                 CustomSourceTextBox.Text = PuzzelLibrary.Settings.Values.CustomSourceData;
                 NumbersOfUserLogs.Value = PuzzelLibrary.Settings.Values.UserMaxLogs;
                 NumbersOfCompLogs.Value = PuzzelLibrary.Settings.Values.CompMaxLogs;
-            }
+                localUpdateCheck.Checked = PuzzelLibrary.Settings.Values.LocalUpdateCheck;
+                localUpdateTextBox.Text = PuzzelLibrary.Settings.Values.LocalUpdatePath;
+                AutostartUpdateCheck.Checked = PuzzelLibrary.Settings.Values.AutostartUpdateCheck;
+    }
             else
             {
                 foreach (var objSettings in GetCollectionOfFieldSettings())
@@ -230,6 +266,9 @@ namespace Settings
                 PuzzelLibrary.Settings.Values.CustomSourceData = CustomSourceTextBox.Text;
                 PuzzelLibrary.Settings.Values.UserMaxLogs = NumbersOfUserLogs.Value;
                 PuzzelLibrary.Settings.Values.CompMaxLogs = NumbersOfCompLogs.Value;
+                PuzzelLibrary.Settings.Values.LocalUpdateCheck = localUpdateCheck.Checked;
+                PuzzelLibrary.Settings.Values.LocalUpdatePath = localUpdateTextBox.Text;
+                PuzzelLibrary.Settings.Values.AutostartUpdateCheck = AutostartUpdateCheck.Checked;
             }
         }
 

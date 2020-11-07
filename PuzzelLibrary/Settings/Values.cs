@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.IO;
-using System.Reflection.Metadata.Ecma335;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
+﻿using System.IO;
 using System.Windows.Forms;
 using System.Xml;
 
 namespace PuzzelLibrary.Settings
 {
-   public static class Values
+    public static class Values
     {
         public static bool HistoryLog { get; set; }
         public static decimal UserMaxLogs { get; set; }
@@ -22,7 +15,9 @@ namespace PuzzelLibrary.Settings
         public static bool AutoUnlockFirewall { get; set; }
         public static bool SaveUserData { get; set; }
         public static string SessionDisconectShortcut { get; set; }
-
+        public static bool AutostartUpdateCheck { set; get; }
+        public static bool LocalUpdateCheck { get; set; }
+        public static string LocalUpdatePath { get; set; }
         public static bool defaultCheckBoxesValue = false;
         public static string defaultTextBoxesValue = string.Empty;
         public static decimal defaultNumericUDValue = 5;

@@ -17,7 +17,7 @@ namespace Updater
             InitializeComponent();   
         }
 
-        internal void Execute(string[] currentBuildInfo)
+        public void Execute(string[] currentBuildInfo)
         {
             while(Directory.Exists(localFolder))
                 RemoveLocalRepo(localFolder);

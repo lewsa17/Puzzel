@@ -46,6 +46,12 @@
             this.CustomSourceBox = new System.Windows.Forms.GroupBox();
             this.CustomSourceCheck = new System.Windows.Forms.CheckBox();
             this.CustomSourceTextBox = new System.Windows.Forms.RichTextBox();
+            this.UpdaterTab = new System.Windows.Forms.TabPage();
+            this.localUpdateBox = new System.Windows.Forms.GroupBox();
+            this.localUpdateTextBox = new System.Windows.Forms.TextBox();
+            this.localUpdateCheck = new System.Windows.Forms.CheckBox();
+            this.AutostartUpdateBox = new System.Windows.Forms.GroupBox();
+            this.AutostartUpdateCheck = new System.Windows.Forms.CheckBox();
             this.Other = new System.Windows.Forms.TabPage();
             this.AutomaticallyAllowBox = new System.Windows.Forms.GroupBox();
             this.SaveUserDataCheck = new System.Windows.Forms.CheckBox();
@@ -63,6 +69,9 @@
             this.SessionTab.SuspendLayout();
             this.SessionShortcutBox.SuspendLayout();
             this.CustomSourceBox.SuspendLayout();
+            this.UpdaterTab.SuspendLayout();
+            this.localUpdateBox.SuspendLayout();
+            this.AutostartUpdateBox.SuspendLayout();
             this.Other.SuspendLayout();
             this.AutomaticallyAllowBox.SuspendLayout();
             this.DescriptionBox.SuspendLayout();
@@ -92,6 +101,7 @@
             // 
             this.TabSettings.Controls.Add(this.GeneralPage);
             this.TabSettings.Controls.Add(this.SessionTab);
+            this.TabSettings.Controls.Add(this.UpdaterTab);
             this.TabSettings.Controls.Add(this.Other);
             this.TabSettings.Location = new System.Drawing.Point(12, 3);
             this.TabSettings.Name = "TabSettings";
@@ -245,8 +255,8 @@
             this.SessionShortcutText.ReadOnly = true;
             this.SessionShortcutText.Size = new System.Drawing.Size(95, 23);
             this.SessionShortcutText.TabIndex = 1;
-            this.SessionShortcutText.TextChanged += new System.EventHandler(this.OnChangeSaveProperty);
             this.SessionShortcutText.Text = "Control + *";
+            this.SessionShortcutText.TextChanged += new System.EventHandler(this.OnChangeSaveProperty);
             this.SessionShortcutText.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SessionShortcutText_KeyDown);
             // 
             // SessionShortcutLabel
@@ -288,13 +298,80 @@
             // CustomSourceTextBox
             // 
             this.CustomSourceTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.CustomSourceTextBox.Enabled = false;
             this.CustomSourceTextBox.Location = new System.Drawing.Point(3, 50);
             this.CustomSourceTextBox.Name = "CustomSourceTextBox";
             this.CustomSourceTextBox.Size = new System.Drawing.Size(720, 87);
             this.CustomSourceTextBox.TabIndex = 0;
-            this.CustomSourceTextBox.Enabled = false;
             this.CustomSourceTextBox.Text = "";
             this.CustomSourceTextBox.TextChanged += new System.EventHandler(this.OnChangeSaveProperty);
+            // 
+            // UpdaterTab
+            // 
+            this.UpdaterTab.BackColor = System.Drawing.Color.Transparent;
+            this.UpdaterTab.Controls.Add(this.localUpdateBox);
+            this.UpdaterTab.Controls.Add(this.AutostartUpdateBox);
+            this.UpdaterTab.Location = new System.Drawing.Point(4, 24);
+            this.UpdaterTab.Name = "UpdaterTab";
+            this.UpdaterTab.Size = new System.Drawing.Size(768, 378);
+            this.UpdaterTab.TabIndex = 3;
+            this.UpdaterTab.Text = "Aktualizacje";
+            this.UpdaterTab.UseVisualStyleBackColor = true;
+            // 
+            // localUpdateBox
+            // 
+            this.localUpdateBox.Controls.Add(this.localUpdateTextBox);
+            this.localUpdateBox.Controls.Add(this.localUpdateCheck);
+            this.localUpdateBox.Location = new System.Drawing.Point(20, 69);
+            this.localUpdateBox.Name = "localUpdateBox";
+            this.localUpdateBox.Size = new System.Drawing.Size(398, 81);
+            this.localUpdateBox.TabIndex = 1;
+            this.localUpdateBox.TabStop = false;
+            this.localUpdateBox.Text = "Aktualizacje lokalne";
+            // 
+            // localUpdateTextBox
+            // 
+            this.localUpdateTextBox.Location = new System.Drawing.Point(11, 47);
+            this.localUpdateTextBox.Name = "localUpdateTextBox";
+            this.localUpdateTextBox.Size = new System.Drawing.Size(205, 23);
+            this.localUpdateTextBox.TabIndex = 1;
+            this.localUpdateTextBox.TextChanged += new System.EventHandler(OnChangeSaveProperty);
+            // 
+            // localUpdateCheck
+            // 
+            this.localUpdateCheck.AutoSize = true;
+            this.localUpdateCheck.Location = new System.Drawing.Point(11, 22);
+            this.localUpdateCheck.Name = "localUpdateCheck";
+            this.localUpdateCheck.Size = new System.Drawing.Size(83, 19);
+            this.localUpdateCheck.TabIndex = 0;
+            this.localUpdateCheck.Text = "Wyłączone";
+            this.localUpdateCheck.UseVisualStyleBackColor = true;
+            this.localUpdateCheck.CheckStateChanged += new System.EventHandler(this.EnablingTextBox);
+            this.localUpdateCheck.MouseEnter += new System.EventHandler(this.MouseOn);
+            this.localUpdateCheck.MouseLeave += new System.EventHandler(this.MouseOut);
+            // 
+            // AutostartUpdateBox
+            // 
+            this.AutostartUpdateBox.Controls.Add(this.AutostartUpdateCheck);
+            this.AutostartUpdateBox.Location = new System.Drawing.Point(20, 11);
+            this.AutostartUpdateBox.Name = "AutostartUpdateBox";
+            this.AutostartUpdateBox.Size = new System.Drawing.Size(226, 52);
+            this.AutostartUpdateBox.TabIndex = 0;
+            this.AutostartUpdateBox.TabStop = false;
+            this.AutostartUpdateBox.Text = "Autostart";
+            // 
+            // AutostartUpdateCheck
+            // 
+            this.AutostartUpdateCheck.AutoSize = true;
+            this.AutostartUpdateCheck.Location = new System.Drawing.Point(11, 23);
+            this.AutostartUpdateCheck.Name = "AutostartUpdateCheck";
+            this.AutostartUpdateCheck.Size = new System.Drawing.Size(205, 19);
+            this.AutostartUpdateCheck.TabIndex = 0;
+            this.AutostartUpdateCheck.Text = "Sprawdzaj aktualizacje przy starcie";
+            this.AutostartUpdateCheck.UseVisualStyleBackColor = true;
+            this.AutostartUpdateCheck.CheckStateChanged += new System.EventHandler(this.OnChangeSaveProperty);
+            this.AutostartUpdateCheck.MouseEnter += new System.EventHandler(this.MouseOn);
+            this.AutostartUpdateCheck.MouseLeave += new System.EventHandler(this.MouseOut);
             // 
             // Other
             // 
@@ -413,6 +490,11 @@
             this.SessionShortcutBox.PerformLayout();
             this.CustomSourceBox.ResumeLayout(false);
             this.CustomSourceBox.PerformLayout();
+            this.UpdaterTab.ResumeLayout(false);
+            this.localUpdateBox.ResumeLayout(false);
+            this.localUpdateBox.PerformLayout();
+            this.AutostartUpdateBox.ResumeLayout(false);
+            this.AutostartUpdateBox.PerformLayout();
             this.Other.ResumeLayout(false);
             this.AutomaticallyAllowBox.ResumeLayout(false);
             this.AutomaticallyAllowBox.PerformLayout();
@@ -450,6 +532,12 @@
         private System.Windows.Forms.TextBox SessionShortcutText;
         private System.Windows.Forms.Label SessionShortcutLabel;
         private System.Windows.Forms.Button RestoreDefaultButton;
+        private System.Windows.Forms.TabPage UpdaterTab;
+        private System.Windows.Forms.GroupBox AutostartUpdateBox;
+        private System.Windows.Forms.CheckBox AutostartUpdateCheck;
+        private System.Windows.Forms.GroupBox localUpdateBox;
+        private System.Windows.Forms.TextBox localUpdateTextBox;
+        private System.Windows.Forms.CheckBox localUpdateCheck;
     }
 }
 
