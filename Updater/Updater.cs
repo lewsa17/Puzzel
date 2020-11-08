@@ -14,12 +14,12 @@ namespace Updater
     {
         public Updater()
         {
-            InitializeComponent();   
+            InitializeComponent();
         }
 
         public void Execute(string[] currentBuildInfo)
         {
-            while(Directory.Exists(localFolder))
+            while (Directory.Exists(localFolder))
                 RemoveLocalRepo(localFolder);
             CurrentVersion = currentBuildInfo[0] + "." + currentBuildInfo[1];
             currentDate = DateTime.Parse(currentBuildInfo[4]);
@@ -29,7 +29,7 @@ namespace Updater
             CheckVersion();
         }
         private Repository repo;
-        private readonly string localFolder = Path.GetTempPath()+"remoteRepo";
+        private readonly string localFolder = Path.GetTempPath() + "remoteRepo";
         private string currentShortSha { get; set; }
         private string currentCommits { get; set; }
         private DateTime currentDate { get; set; }
@@ -38,7 +38,7 @@ namespace Updater
             get
             {
                 if (iDFSet)
-                    return "";
+                    return propertyVersion[3].GetValue(null).ToString();
                 return commits[0].Sha.Substring(0, 8);
             }
         }
@@ -47,7 +47,7 @@ namespace Updater
             get
             {
                 if (iDFSet)
-                    return "";
+                    return propertyVersion[2].GetValue(null).ToString(); 
                 return commits.Count.ToString();
             }
         }
@@ -56,33 +56,32 @@ namespace Updater
             get
             {
                 if (iDFSet)
-                    return DateTime.Now; 
+                return (DateTime)propertyVersion[4].GetValue(null); 
                 return commits[0].Committer.When.DateTime;
             }
         }
-        private static bool iDFSet 
+        private static bool iDFSet
         {
-            get 
+            get
             {
-                if (string.IsNullOrEmpty(intranetDeploymentFolder)) 
+                if (string.IsNullOrEmpty(intranetDeploymentFolder))
                     return false;
-                return true; 
+                return true;
             }
         }
         private static string intranetDeploymentFolder { get; set; }
 
-
+        private static System.Reflection.PropertyInfo[] propertyVersion;
         private static List<Commit> commits;
         internal void LoadCommits()
         {
             if (iDFSet)
-            { }
+                GetVersionFromIDF();
             else
             {
                 var task = Task.Run(() => GetCommits()).GetAwaiter().GetResult();
                 commits = task;
             }
-             
         }
 
         internal string UpdatingString()
@@ -99,8 +98,8 @@ namespace Updater
                 "\n" +
                 "\n" +
                 "Czy chcesz zaktualizować ?",
-                CurrentVersion, GetCurrentCommitNumber(),GetCurrentVersionHash(), GetCurrentVersionDate(),
-                CurrentVersion, GetNewCommitNumber(), GetNewShortSha(),GetNewVersionDate(),
+                CurrentVersion, GetCurrentCommitNumber(), GetCurrentVersionHash(), GetCurrentVersionDate(),
+                CurrentVersion, GetNewCommitNumber(), GetNewShortSha(), GetNewVersionDate(),
                 CurrentAgeOfVersion().Days, CurrentAgeOfVersion().Hours);
             return Value;
         }
@@ -167,8 +166,21 @@ namespace Updater
             }
             Directory.Delete(directory);
         }
+        private void GetVersionFromIDF()
+        {
+            var assembly = System.Reflection.Assembly.LoadFrom(intranetDeploymentFolder+"\\PuzzelLibrary.dll");
+            var types = assembly.GetTypes();
+            foreach (var type in types)
+            {
+                if (type.Name == "Version")
+                {
+                    propertyVersion = type.GetProperties();
+                }
+            }
+        }
         internal bool CheckNewVersion()
         {
+
             var currAge = CurrentAgeOfVersion();
             var newVer = GetNewCommitNumber();
             var currVer = GetCurrentCommitNumber();
@@ -179,7 +191,7 @@ namespace Updater
 
         private void BuildSollution()
         {
-            PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcessWithWaitingForExit("dotnet", "build " + localFolder + "Puzzel.sln -o "+localFolder+"Update");
+            PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcessWithWaitingForExit("dotnet", "build " + localFolder + "\\Puzzel.sln -o " + localFolder + "\\Update");
         }
 
         private void CopyUpdate()
@@ -187,26 +199,44 @@ namespace Updater
             string _localFolder = string.Empty;
             if (iDFSet)
                 _localFolder = intranetDeploymentFolder;
-            else _localFolder = localFolder + "Update";
+            else _localFolder = localFolder + "\\Update";
 
-            foreach (string fileName in Directory.EnumerateFiles(_localFolder))
+            foreach (string fileNameWithPath in Directory.EnumerateFiles(_localFolder))
             {
-                if(fileName != new FileInfo(Application.ExecutablePath).Name)
-                    File.Copy(fileName, Directory.GetCurrentDirectory(), true);
+                var fileName = Path.GetFileName(fileNameWithPath);
+                foreach (var process in Process.GetProcesses())
+                {
+                    KillProcessBlockingFile(fileNameWithPath, fileName, process);
+                }
+                File.Copy(fileNameWithPath, localFolder + "\\" + fileName, true);
             }
+        }
+
+        private static void KillProcessBlockingFile(string fileNameWithPath, string fileName, Process process)
+        {
+            if (fileName != Process.GetCurrentProcess().MainModule.ModuleName)
+                if (process.ProcessName == Path.GetFileNameWithoutExtension(fileNameWithPath))
+                    foreach (var module in process.Modules)
+                        if (((ProcessModule)module).ModuleName == fileName)
+                            process.Kill(true);
         }
         private void ProcessUpdating()
         {
             string _waitLabel = WaitLabel.Text;
             var progressBar = Task.Run(() =>
             {
+                ProgressLoading.Invoke(new MethodInvoker(() => ProgressLoading.Value = 1));
+                PercentLabel.Invoke(new MethodInvoker(() => PercentLabel.Text = "25%"));
+                if (!iDFSet)
+                    BuildSollution();
+
                 ProgressLoading.Invoke(new MethodInvoker(() => ProgressLoading.Value = 2));
                 PercentLabel.Invoke(new MethodInvoker(() => PercentLabel.Text = "50%"));
-                BuildSollution();
+                CopyUpdate();
 
                 ProgressLoading.Invoke(new MethodInvoker(() => ProgressLoading.Value = 3));
                 PercentLabel.Invoke(new MethodInvoker(() => PercentLabel.Text = "75%"));
-                CopyUpdate();
+                CleanUpAfterUpdate();
 
                 ProgressLoading.Invoke(new MethodInvoker(() => ProgressLoading.Value = 4));
                 PercentLabel.Invoke(new MethodInvoker(() => PercentLabel.Text = "100%"));
@@ -215,7 +245,7 @@ namespace Updater
             var progressTitle = Task.Run(() =>
             {
                 while (progressBar.IsCompletedSuccessfully)
-                    for (int i = 0; i < 5; i++)
+                    for (int i = 0; i < 6; i++)
                     {
                         WaitLabel.Invoke(new MethodInvoker(() => WaitLabel.Text += "."));
                         if (i == 5)
@@ -225,7 +255,10 @@ namespace Updater
                         Thread.Sleep(400);
                     }
             });
-
+        }
+        private void CleanUpAfterUpdate()
+        {
+            RemoveLocalRepo(localFolder+"\\Update");
         }
     }
 }
