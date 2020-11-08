@@ -243,7 +243,7 @@
             this.SessionShortcutBox.Controls.Add(this.SessionShortcutLabel);
             this.SessionShortcutBox.Location = new System.Drawing.Point(23, 175);
             this.SessionShortcutBox.Name = "SessionShortcutBox";
-            this.SessionShortcutBox.Size = new System.Drawing.Size(257, 100);
+            this.SessionShortcutBox.Size = new System.Drawing.Size(302, 100);
             this.SessionShortcutBox.TabIndex = 3;
             this.SessionShortcutBox.TabStop = false;
             this.SessionShortcutBox.Text = "Skrót klawiszowy do rozłączenia";
@@ -253,7 +253,7 @@
             this.SessionShortcutText.Location = new System.Drawing.Point(144, 20);
             this.SessionShortcutText.Name = "SessionShortcutText";
             this.SessionShortcutText.ReadOnly = true;
-            this.SessionShortcutText.Size = new System.Drawing.Size(95, 23);
+            this.SessionShortcutText.Size = new System.Drawing.Size(143, 23);
             this.SessionShortcutText.TabIndex = 1;
             this.SessionShortcutText.Text = "Control + Multiply";
             this.SessionShortcutText.TextChanged += new System.EventHandler(this.OnChangeSaveProperty);
@@ -331,10 +331,10 @@
             // 
             // localUpdateTextBox
             // 
+            this.localUpdateTextBox.Enabled = false;
             this.localUpdateTextBox.Location = new System.Drawing.Point(11, 47);
             this.localUpdateTextBox.Name = "localUpdateTextBox";
             this.localUpdateTextBox.Size = new System.Drawing.Size(205, 23);
-            this.localUpdateTextBox.Enabled = false;
             this.localUpdateTextBox.TabIndex = 1;
             this.localUpdateTextBox.TextChanged += new System.EventHandler(this.OnChangeSaveProperty);
             // 
