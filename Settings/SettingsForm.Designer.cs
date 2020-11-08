@@ -255,7 +255,7 @@
             this.SessionShortcutText.ReadOnly = true;
             this.SessionShortcutText.Size = new System.Drawing.Size(95, 23);
             this.SessionShortcutText.TabIndex = 1;
-            this.SessionShortcutText.Text = "Control + *";
+            this.SessionShortcutText.Text = "Control + Multiply";
             this.SessionShortcutText.TextChanged += new System.EventHandler(this.OnChangeSaveProperty);
             this.SessionShortcutText.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SessionShortcutText_KeyDown);
             // 
