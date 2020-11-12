@@ -78,15 +78,16 @@ namespace Forms
         }
         [DllImport("user32.dll", SetLastError = true)]
         static extern bool CloseClipboard();
-        private bool isFileAvailable(string pathFileName)
+        private bool isFileAvailable(string FileName)
         {
-            if (File.Exists(pathFileName))
-                return true;
-            else
-            {
-                ReplaceRichTextBox("Nie można odnaleźć określonego pliku\n");
-                UpdateRichTextBox(pathFileName);
-            }
+            foreach (var path in System.Environment.GetEnvironmentVariable("PATH").Split(';'))
+                if (File.Exists(Path.Combine(path, FileName)))
+                    return true;
+                else
+                {
+                    ReplaceRichTextBox("Nie można odnaleźć określonego pliku\n");
+                    UpdateRichTextBox(FileName);
+                }
             return false;
         }
         private bool isHostAvailable(string HostName)

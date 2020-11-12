@@ -10,8 +10,9 @@ namespace PuzzelLibrary.ProcessExecutable
 
         private static bool isFileExist(string FileName)
         {
-            if (File.Exists(FileName))
-                return true;
+            foreach (var path in System.Environment.GetEnvironmentVariable("PATH").Split(';'))
+                if (File.Exists(Path.Combine(path,FileName)))
+                    return true;
             return false;
         }
         public static void StartSimpleProcess(string FileName, string Arguments)
