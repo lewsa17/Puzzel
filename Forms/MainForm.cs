@@ -18,7 +18,6 @@ namespace Forms
         public MainForm()
         {
             InitializeComponent();
-            InitializeAdditionals();
             this.Text += " " + PuzzelLibrary.Version.GetVersion();
             UserLoggedVisibility();
             PuzzelLibrary.Settings.Values.LoadValues();
@@ -26,6 +25,7 @@ namespace Forms
             {
                 this.Load += new EventHandler(CheckUpdate);
             }
+            InitializeAdditionals();
         }
         private void CheckUpdate(object sender, EventArgs e)
         {
@@ -724,7 +724,7 @@ namespace Forms
             this.menuItemDWEadm.Text = dw + "(" + eadm + ")";
             this.menuItemDWLAPS.Text = dw + "(" + lapslogn + ")";
             numericLogin.Maximum = PuzzelLibrary.Settings.Values.UserMaxLogs;
-            numericLogin.Maximum = PuzzelLibrary.Settings.Values.CompMaxLogs;
+            numericComputer.Maximum = PuzzelLibrary.Settings.Values.CompMaxLogs;
         }
         private void Keys_KeyDown(object sender, KeyEventArgs e)
         {

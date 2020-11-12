@@ -387,7 +387,7 @@ namespace Forms
             this.numericLogin.Location = new System.Drawing.Point(143, 40);
             this.numericLogin.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Keys_KeyDown);
             this.numericLogin.Maximum = new decimal(new int[] {
-            1000,
+            100,
             0,
             0,
             0});
@@ -872,7 +872,7 @@ namespace Forms
             this.numericComputer.Location = new System.Drawing.Point(143, 43);
             this.numericComputer.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Keys_KeyDown);
             this.numericComputer.Maximum = new decimal(new int[] {
-            10000,
+            1000,
             0,
             0,
             0});
