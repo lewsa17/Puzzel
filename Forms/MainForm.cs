@@ -871,7 +871,7 @@ namespace Forms
             if (isHostAvailable(HostName()))
                 if (isPortOpened(HostName(), 135))
                 {
-                    UpdateRichTextBox("Nazwa komputera: ");
+                    ReplaceRichTextBox("Nazwa komputera: ");
                     UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, PuzzelLibrary.WMI.ComputerInfo.queryComputerSystem, "DNSHostName"));
                     UpdateRichTextBox("----------------------------------------\n");
                     if (sender is ToolStripMenuItem)
