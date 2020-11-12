@@ -21,7 +21,7 @@ namespace PuzzelLibrary.AD.Computer
             return null;
         }
 
-        static public SearchResult ByComputerName(string hostName, string propertiesToLoad)
+        static public SearchResultCollection ByComputerName(string hostName, params string[] propertiesToLoad)
         {
             var ds = Connection.Initiate.GetDirectorySearcher();
             if (ds != null)
@@ -29,8 +29,9 @@ namespace PuzzelLibrary.AD.Computer
                 ds.Filter = "(cn=" + hostName + ")";
                 ds.SearchScope = SearchScope.Subtree;
                 ds.ServerTimeLimit = TimeSpan.FromSeconds(90);
-                ds.PropertiesToLoad.Add(propertiesToLoad);
-                SearchResult compObject = ds.FindOne();
+                foreach (var propertytoLoad in propertiesToLoad)
+                    ds.PropertiesToLoad.Add(propertytoLoad);
+                var compObject = ds.FindAll();
 
                 if (compObject != null)
                     return compObject;
