@@ -9,6 +9,7 @@ namespace PuzzelLibrary.LAPS
     {
         static string DirectoryEntryPath => GetSettings.GetValuesFromXml("ExternalResources.xml", "DirectoryEntryPath");
         static string LapsProperties => GetSettings.GetValuesFromXml("ExternalResources.xml", "LapsProperties");
+        static string LapsProperties1 => GetSettings.GetValuesFromXml("ExternalResources.xml", "LapsProperties1");
         static bool IsInADExist(string hostName)
         {
             if (Search.ByComputerName(hostName) != null)
@@ -20,8 +21,8 @@ namespace PuzzelLibrary.LAPS
         {
             if (IsInADExist(hostName))
             {
-                var search = Search.ByComputerName(hostName, "distinguishedName");
-                if (search.GetDirectoryEntry().Properties["distinguishedName"].Value.ToString().Contains("_Graveyard"))
+                var search = Search.ByComputerName(hostName, "distinguishedName")[0];
+                if (search.Properties["distinguishedName"].ToString().Contains("_Graveyard"))
                     return true;
             }
             return false;
@@ -31,8 +32,8 @@ namespace PuzzelLibrary.LAPS
         {
             if (IsInADExist(hostName))
             {
-                var search = Search.ByComputerName(hostName, "distinguishedName");
-                return search.GetDirectoryEntry().Properties["distinguishedName"].Value.ToString();
+                var search = Search.ByComputerName(hostName, "distinguishedName")[0];
+                return search.Properties["distinguishedName"][0].ToString();
             }
             return string.Empty;
         }
@@ -47,21 +48,24 @@ namespace PuzzelLibrary.LAPS
                 newDirectory.CommitChanges();
             }
         }
-        public static string GetPWD(string hostName)
+        public static object[] GetPWD(string hostName)
         {
             if (IsInGraveyardExist(hostName))
             {
                 ReleaseFromGraveyard(hostName);
             }
-
+            string[] sCollection = new string[2];
             try
             {
-                var search = Search.ByComputerName(hostName, LapsProperties);
+                var search = Search.ByComputerName(hostName, new string[] { LapsProperties, LapsProperties1 })[0];
                 if (search != null)
-                    return search.GetDirectoryEntry().Properties[LapsProperties].Value.ToString();
+                {
+                    sCollection[0] = search.Properties[LapsProperties][0].ToString();
+                    sCollection[1] = search.Properties[LapsProperties1][0].ToString();
+                }
             }
             catch (Exception) { };
-            return string.Empty;
+            return sCollection;
         }
     }
 }

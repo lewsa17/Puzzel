@@ -199,7 +199,7 @@ namespace Forms
                                 if (((ToolStripMenuItem)sender).Name.Contains("LAPS"))
                                 {
                                     login = PuzzelLibrary.Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "LAPSLogin");
-                                    pwd = PuzzelLibrary.LAPS.CompPWD.GetPWD(HostName());
+                                    pwd = PuzzelLibrary.LAPS.CompPWD.GetPWD(HostName())[0].ToString();
                                 }
                                 else
                                 {
@@ -360,7 +360,7 @@ namespace Forms
                             var rdpValues = new RDPValues();
                             rdpValues.GetSIdServerNameFromCombo(comboBoxFindedSessions);
                             var ADCompResult = PuzzelLibrary.AD.Computer.Search.ByComputerName(rdpValues.serverName, "operatingSystemVersion");
-                            var osVersionComplete = ADCompResult.GetDirectoryEntry().Properties["operatingSystemVersion"].Value.ToString().Split(" ");
+                            var osVersionComplete = ADCompResult[0].Properties["operatingSystemVersion"].ToString().Split(" ");
                             double osVersion = Convert.ToDouble(osVersionComplete[0]);
                             if (osVersion > 6.1)
                             {
