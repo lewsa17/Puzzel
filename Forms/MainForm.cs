@@ -64,15 +64,17 @@ namespace Forms
         }
         public static void ReplaceRichTextBox(string message)
         {
-            if (richTextBox1.InvokeRequired)
-                richTextBox1.Invoke(new ReplaceRichTextBoxEventHandler(ReplaceRichTextBox), new object[] { message });
-            else { richTextBox1.Text = message; }
+            if (!string.IsNullOrEmpty(message))
+                if (richTextBox1.InvokeRequired)
+                    richTextBox1.Invoke(new ReplaceRichTextBoxEventHandler(ReplaceRichTextBox), new object[] { message });
+                else { richTextBox1.Text = message; }
         }
         public static void UpdateRichTextBox(string message)
         {
-            if (richTextBox1.InvokeRequired)
-                richTextBox1.Invoke(new UpdateRichTextBoxEventHandler(UpdateRichTextBox), new object[] { message });
-            else { richTextBox1.AppendText(message); }
+            if (!string.IsNullOrEmpty(message))
+                if (richTextBox1.InvokeRequired)
+                    richTextBox1.Invoke(new UpdateRichTextBoxEventHandler(UpdateRichTextBox), new object[] { message });
+                else { richTextBox1.AppendText(message); }
         }
         [DllImport("user32.dll", SetLastError = true)]
         static extern bool CloseClipboard();
