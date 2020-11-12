@@ -95,7 +95,7 @@ namespace Forms
             if (isNameValid(HostName))
                 if (PuzzelLibrary.NetDiag.Ping.Pinging(HostName) == System.Net.NetworkInformation.IPStatus.Success)
                     return true;
-                else UpdateRichTextBox("Stacja: " + HostName + " nie jest widoczna na sieci");
+                else ReplaceRichTextBox("Stacja: " + HostName + " nie jest widoczna na sieci");
             return false;
         }
         private bool isNameValid(string Name)
@@ -272,8 +272,8 @@ namespace Forms
                             comboBoxComputer.Items.Add(comboBoxCompLast);
                         }
                 }
-            UpdateRichTextBox(new PuzzelLibrary.LogonData.Captcher().SearchLogs(counter, pole, rodzaj));
-            statusBar1.Focus();
+            ReplaceRichTextBox(new PuzzelLibrary.LogonData.Captcher().SearchLogs(counter, pole, rodzaj));
+            //statusBar1.Focus();
             StopTime();
         }
         private void btnPing_Click(object sender, EventArgs e)
