@@ -18,10 +18,7 @@ namespace Forms.External
         public void LoadPassword()
         {
             inputedcomputerName.Text = HostName;
-            var txt = CompPWD.GetPWD(HostName);
-            textPassword.Text = txt[0].ToString();
-            long text = Convert.ToInt64(txt[1]);
-            textPasswordExpires.Text = DateTime.FromFileTime(text).ToString();
+            textPassword.Text = CompPWD.GetPWD(HostName);
         }
         private void btnClose_Click(object sender, EventArgs e)
         {
@@ -30,12 +27,12 @@ namespace Forms.External
         }
         private void btnGetPwd(object sender, EventArgs e)
         {
-            LoadPassword();
+            textPassword.Text = CompPWD.GetPWD(inputedcomputerName.Text);
         }
 
         private void LAPSui_Load(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(HostName))
+            if (HostName != null)
             {
                 LoadPassword();
             }
