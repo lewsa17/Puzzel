@@ -3,6 +3,11 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
+    <PackageId>Puzzel</PackageId>
+    <Product>Puzzel</Product>
+    <Copyright>Copyright © Jakub@Sypek</Copyright>
+    <Authors>Jakub Sypek</Authors>
+    <Company />
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\PuzzelLibrary\PuzzelLibrary.csproj" />
