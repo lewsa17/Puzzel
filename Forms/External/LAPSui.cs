@@ -17,10 +17,10 @@ namespace Forms.External
         }
         public void LoadPassword()
         {
-            inputedcomputerName.Text = HostName;
+            inputtedcomputerName.Text = HostName;
             var lapsproperties = CompPWD.GetPWD(HostName);
             textPassword.Text = lapsproperties[0].ToString();
-            textPasswordExpires.Text = DateTime.FromFileTime(Convert.ToInt64(lapsproperties[1])).ToString();
+            dateTimePasswordExpires.Value = DateTime.FromFileTime(Convert.ToInt64(lapsproperties[1]));
         }
         private void btnClose_Click(object sender, EventArgs e)
         {
