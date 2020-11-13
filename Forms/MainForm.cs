@@ -707,8 +707,8 @@ namespace Forms
         }
         private void InitializeAdditionals()
         {
-            var termservers = PuzzelLibrary.Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "Terminals").Split(",");
-            List<string> terms = new List<string>();
+            var termservers = PuzzelLibrary.Settings.Values.CustomSourceData.Split(',');
+            List<string> terms = new();
             terms.AddRange(termservers);
             terms.Sort();
             foreach (string t in terms)
