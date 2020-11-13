@@ -12,6 +12,13 @@ namespace PuzzelLibrary.AD.Connection
         {
             get => new Settings.GetSettings().CredentialsAvailable;
         }
+
+        public static DirectoryEntry getDirectoryEntry(string domain, string userName, string password)
+        {
+            return new DirectoryEntry("LDAP://" + domain, userName, password);
+        }
+        public static DirectoryEntry getDirectoryEntry(string domain) { return new DirectoryEntry("LDAP://" + domain); }
+
         public static DirectorySearcher GetDirectorySearcher()
         {
             DirectorySearcher dirsearch = null;
@@ -25,11 +32,11 @@ namespace PuzzelLibrary.AD.Connection
                         credentials.GetCredential();
                         if (credentials.UserName != string.Empty)
                         {
-                            dirsearch = new DirectorySearcher(new DirectoryEntry("LDAP://" + Other.Domain.GetDomainName, credentials.UserName, credentials.Password));
+                            dirsearch = new DirectorySearcher(getDirectoryEntry(Other.Domain.GetDomainName, credentials.UserName, credentials.Password));
                         }
                     }
                     else
-                        dirsearch = new DirectorySearcher(new DirectoryEntry("LDAP://" + Other.Domain.GetDomainName));
+                        dirsearch = new DirectorySearcher(getDirectoryEntry(Other.Domain.GetDomainName));
                 }
                 catch (DirectoryServicesCOMException e)
                 {
