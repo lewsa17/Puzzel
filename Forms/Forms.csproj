@@ -1,7 +1,8 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop" ToolsVersion="Current">
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
+ 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <PackageId>Puzzel</PackageId>
     <Product>Puzzel</Product>
@@ -9,6 +10,11 @@
     <Authors>Jakub Sypek</Authors>
     <Company />
   </PropertyGroup>
+ 
+  <ItemGroup>
+    <PackageReference Include="System.DirectoryServices" Version="5.0.0" />
+  </ItemGroup>
+  
   <ItemGroup>
     <ProjectReference Include="..\PuzzelLibrary\PuzzelLibrary.csproj" />
     <ProjectReference Include="..\Settings\Settings.csproj" />
@@ -17,9 +23,6 @@
   <ItemGroup>
     <Reference Include="Cassia">
       <HintPath>..\Cassia.dll</HintPath>
-    </Reference>
-    <Reference Include="System.DirectoryServices.AccountManagement">
-      <HintPath>..\..\..\..\..\..\Program Files\PowerShell\7\System.DirectoryServices.AccountManagement.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
