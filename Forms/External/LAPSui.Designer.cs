@@ -116,6 +116,7 @@
             this.setButton.TabIndex = 8;
             this.setButton.Text = "Ustaw";
             this.setButton.UseVisualStyleBackColor = true;
+            this.setButton.Click += new System.EventHandler(this.setButton_Click);
             // 
             // dateTimePasswordExpires
             // 

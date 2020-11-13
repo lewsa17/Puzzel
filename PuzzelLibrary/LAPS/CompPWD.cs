@@ -67,6 +67,11 @@ namespace PuzzelLibrary.LAPS
             catch (Exception) { };
             return sCollection;
         }
+        public static void setPWD(string hostName, string value)
+        {
+            var cn = new AD.Change();
+            cn.replaceProperty(hostName, LapsProperties1, value);
+        }
     }
 }
 

@@ -38,5 +38,10 @@ namespace Forms.External
                 LoadPassword();
             }
         }
+
+        private void setButton_Click(object sender, EventArgs e)
+        {
+            CompPWD.setPWD(inputtedcomputerName.Text, dateTimePasswordExpires.Value.ToFileTime().ToString());
+        }
     }
 }
