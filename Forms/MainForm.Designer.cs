@@ -375,7 +375,7 @@
             this.btnUserLog.Text = "User log";
             this.btnUserLog.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnUserLog.UseVisualStyleBackColor = true;
-            this.btnUserLog.Click += new System.EventHandler(this.BtnLoginCompLog_Click);
+            this.btnUserLog.Click += new System.EventHandler(this.BtnUserLogs);
             // 
             // numericLogin
             // 
@@ -923,7 +923,7 @@
             this.btnCompLog.Text = "Komputer log";
             this.btnCompLog.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnCompLog.UseVisualStyleBackColor = true;
-            this.btnCompLog.Click += new System.EventHandler(this.BtnLoginCompLog_Click);
+            this.btnCompLog.Click += new System.EventHandler(this.BtnComputerLogs);
             // 
             // groupBoxOtherTools
             // 

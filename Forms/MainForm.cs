@@ -57,7 +57,7 @@ namespace Forms
             var principal = new WindowsPrincipal(identity);
             if (principal.IsInRole(WindowsBuiltInRole.Administrator))
             {
-                this.Text += " (Administrator)"; 
+                this.Text += " (Administrator)";
                 isAdminRole = true;
             }
             else this.Text += " (" + principal.Identity.Name + ")";
@@ -111,7 +111,7 @@ namespace Forms
             if (IsNameValid(HostName))
                 if (PuzzelLibrary.NetDiag.Ping.TCPPing(HostName, Port) == PuzzelLibrary.NetDiag.Ping.TCPPingStatus.Success)
                     return true;
-                UpdateRichTextBox("Badanie " + HostName + " zakończone porażką. Port " + numericTCP.Value.ToString() + " prawdopoodobnie jest zamknięty.");
+            UpdateRichTextBox("Badanie " + HostName + " zakończone porażką. Port " + numericTCP.Value.ToString() + " prawdopoodobnie jest zamknięty.");
             return false;
         }
         private void ActivateOffice(object sender, EventArgs e)
@@ -122,7 +122,7 @@ namespace Forms
         private void ActiveSession(object sender, EventArgs e)
         {
             if(IsNameValid(HostName()))
-            UpdateRichTextBox(new PuzzelLibrary.Terminal.CompExplorer().ActiveSession(HostName()));
+                UpdateRichTextBox(new PuzzelLibrary.Terminal.CompExplorer().ActiveSession(HostName()));
         }
         private void AdmTools(object sender, EventArgs e)
         {
@@ -238,42 +238,68 @@ namespace Forms
             StartWinSysApplication("ipconfig.exe", "/flushdns");
             StopTime();
         }
-        private void BtnLoginCompLog_Click(object sender, EventArgs e)
+        private LogsData UserData()
         {
-            StartTime();
+            LogsData user = new();
+            user.KindOf = "User";
+            user.LastUsedName = comboBoxLoginLast;
+            user.Name = UserName();
+            user.NumberOfLog = (int)numericLogin.Value;
+            return user;
+        }
+        private LogsData ComputerData()
+        {
+            LogsData computer = new();
+            computer.KindOf = "Computer";
+            computer.LastUsedName = comboBoxCompLast;
+            computer.Name = HostName();
+            computer.NumberOfLog = (int)numericComputer.Value;
+            return computer;
+        }
+        public struct LogsData
+        {
+            public string LastUsedName { get; set; }
+            public int NumberOfLog { get; set; }
+            public string KindOf { get; set; }
+            public string Name { get; set; }
+        }
+
+        private void BtnLoginCompLog_Click(int numberOfLogs, string name, string kindOf)
+        {
             comboBoxFindedSessions.Items.Clear();
             comboBoxFindedSessions.Text = "";
-            string pole = string.Empty;
-            int counter = 0;
-            string rodzaj = string.Empty;
-            if (sender == btnUserLog)
-                if (IsNameValid(UserName()))
-                {
-                    counter = (int)numericLogin.Value;
-                    rodzaj = "User";
-                    pole = UserName();
-                    if (PuzzelLibrary.Settings.Values.HistoryLog)
-                        if (UserName() != comboBoxLoginLast)
-                        {
-                            comboBoxLoginLast = pole;
-                            comboBoxLogin.Items.Add(comboBoxLoginLast);
-                        }
-                }
-            if (sender == btnCompLog)
-                if (IsNameValid(HostName()))
-                {
-                    counter = (int)numericComputer.Value;
-                    pole = HostName();
-                    rodzaj = "Computer";
-                    if (PuzzelLibrary.Settings.Values.HistoryLog)
-                        if (HostName() != comboBoxCompLast)
-                        {
-                            comboBoxCompLast = pole;
-                            comboBoxComputer.Items.Add(comboBoxCompLast);
-                        }
-                }
-            ReplaceRichTextBox(new PuzzelLibrary.LogonData.Captcher().SearchLogs(counter, pole, rodzaj));
-            //statusBar1.Focus();
+            ReplaceRichTextBox(new PuzzelLibrary.LogonData.Captcher().SearchLogs(numberOfLogs, name, kindOf));
+        }
+        private void BtnUserLogs(object sender, EventArgs e)
+        {
+            StartTime();
+            var data = UserData();
+            if (IsNameValid(data.Name))
+            {
+                if (PuzzelLibrary.Settings.Values.HistoryLog)
+                    if (data.Name != comboBoxLoginLast)
+                    {
+                        comboBoxLoginLast = data.Name;
+                        comboBoxLogin.Items.Add(comboBoxLoginLast);
+                    }
+                BtnLoginCompLog_Click(data.NumberOfLog, data.Name, data.KindOf);
+            }
+            StopTime();
+        }
+        private void BtnComputerLogs(object sender, EventArgs e)
+        {
+            StartTime();
+            var data = ComputerData();
+            if (IsNameValid(data.Name))
+            {
+                if (PuzzelLibrary.Settings.Values.HistoryLog)
+                    if (data.Name != comboBoxCompLast)
+                    {
+                        comboBoxCompLast = data.Name;
+                        comboBoxComputer.Items.Add(comboBoxCompLast);
+                    }
+                BtnLoginCompLog_Click(data.NumberOfLog, data.Name, data.KindOf);
+            }
             StopTime();
         }
         private void BtnPing_Click(object sender, EventArgs e)
@@ -736,10 +762,10 @@ namespace Forms
                 if (e.KeyCode == Keys.Enter)
                 {
                     if (sender == comboBoxLogin  || sender == numericLogin)
-                        BtnLoginCompLog_Click(btnUserLog, e);
+                        BtnUserLogs(btnUserLog, e);
 
                     if (sender == comboBoxComputer || sender == numericComputer)
-                        BtnLoginCompLog_Click(btnCompLog, e);
+                        BtnComputerLogs(btnCompLog, e);
                 }
             if (sender is RichTextBox)
             {
@@ -1200,7 +1226,8 @@ namespace Forms
                 comboBoxLogin.Invoke(new MethodInvoker(() => _UserName = comboBoxLogin.Text));
             else _UserName = comboBoxLogin.Text;
             return _UserName;
-        }        private void WinEnvironment_Click(object sender, EventArgs e)
+        }        
+        private void WinEnvironment_Click(object sender, EventArgs e)
         {
             if (IsHostAvailable(HostName()))
                 using (EnvironmentVariable env = new EnvironmentVariable(HostName()))
