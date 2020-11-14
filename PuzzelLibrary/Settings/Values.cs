@@ -20,7 +20,7 @@ namespace PuzzelLibrary.Settings
         public static string LocalUpdatePath { get; set; }
         public static bool defaultCheckBoxesValue;
         public static string defaultTextBoxesValue;
-        public static decimal defaultNumericUDValue = 5;
+        public static decimal defaultNumericUDValue = 100;
         public static void CommitChanges()
         {
             if (File.Exists("Settings.xml"))
