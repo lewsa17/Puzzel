@@ -32,7 +32,9 @@ namespace PuzzelLibrary.Settings
 
         public static void LoadValues()
         {
-            GetSettings.LoadValues("Settings.xml");
+            if (File.Exists("Settings.xml"))
+                GetSettings.LoadValues("Settings.xml");
+            else CommitChanges();
         }
         public static void RestoreDefaultSettings(object sender)
         {
