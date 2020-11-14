@@ -111,7 +111,6 @@ namespace Forms
             if (NameIsValid(HostName))
                 if (PuzzelLibrary.NetDiag.Ping.TCPPing(HostName, Port) == PuzzelLibrary.NetDiag.Ping.TCPPingStatus.Success)
                     return true;
-            UpdateRichTextBox("Badanie " + HostName + " zakończone porażką. Port " + numericTCP.Value.ToString() + " prawdopoodobnie jest zamknięty.");
             return false;
         }
         private void ActivateOffice(object sender, EventArgs e)
@@ -323,7 +322,9 @@ namespace Forms
         {
             StartTime();
             if (IsPortOpened(HostName(), (int)numericTCP.Value))
-                UpdateRichTextBox("Badanie " + HostName() + " zakończone sukcesem. Port " + numericTCP.Value.ToString() + " jest otwarty.");
+                ReplaceRichTextBox("Badanie " + HostName() + " zakończone sukcesem. Port " + numericTCP.Value.ToString() + " jest otwarty.");
+            else
+                ReplaceRichTextBox("Badanie " + HostName() + " zakończone porażką. Port " + numericTCP.Value.ToString() + " prawdopoodobnie jest zamknięty.");
             StopTime();
         }
         private void ChangePassword(object sender, EventArgs e)
@@ -530,7 +531,7 @@ namespace Forms
         {
             if (HostIsAvailable(HostName()))
             {
-                using DeleteUsers deleteUsers = new DeleteUsers(HostName());
+                using DeleteUsers deleteUsers = new(HostName());
                 deleteUsers.ShowDialog();
             }
         }

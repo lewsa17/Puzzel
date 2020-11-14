@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Windows.Forms;
 using Microsoft.Win32;
 namespace PuzzelLibrary.Registry
 {
@@ -22,18 +21,18 @@ namespace PuzzelLibrary.Registry
         {
             try
             {
-                RegOpenRemoteSubKey(HostName, mainCatalog, subKey).DeleteValue(value,true);
+                var remoteSubKey = RegOpenRemoteSubKey(HostName, mainCatalog, subKey);
+                if (remoteSubKey != null)
+                    remoteSubKey.DeleteValue(value, true);
             }
-            //catch (Exception)
-            //{
-            //    MessageBox.Show("Obiekt nie zostal znaleziony");
-            //}
             finally
             {
-                var names = RegOpenRemoteSubKey(HostName, mainCatalog, subKey).GetValue(value).ToString();
-                if (names.Contains(value))
+                var remoteSubKey = RegOpenRemoteSubKey(HostName, mainCatalog, subKey);
+                if (remoteSubKey != null)
                 {
-                    MessageBox.Show("Wartość została poprawnie usunięta");
+                    var names = remoteSubKey.GetValue(value).ToString();
+                    if (!names.Contains(value))
+                        System.Windows.Forms.MessageBox.Show("Wartość została poprawnie usunięta");
                 }
             }
         }
@@ -48,18 +47,18 @@ namespace PuzzelLibrary.Registry
         {
             try
             {
-                RegOpenRemoteSubKey(HostName, mainCatalog, subKey).DeleteSubKey(subKeyName, true);
+                var remoteSubKey = RegOpenRemoteSubKey(HostName, mainCatalog, subKey);
+                if (remoteSubKey != null)
+                    remoteSubKey.DeleteSubKey(subKeyName, true);
             }
-            //catch (Exception)
-            //{
-            //    MessageBox.Show("Klucz nie zostal znaleziony");
-            //}
             finally
             {
-                var names = RegOpenRemoteSubKey(HostName, mainCatalog, subKey).GetValueNames();
-                if (names.Contains(subKeyName))
+                var remoteSubKey = RegOpenRemoteSubKey(HostName, mainCatalog, subKey);
+                if (remoteSubKey != null)
                 {
-                    MessageBox.Show("Wartość została poprawnie usunięta");
+                    var names = remoteSubKey.GetValueNames();
+                    if (!names.Contains(subKeyName))
+                        System.Windows.Forms.MessageBox.Show("Wartość została poprawnie usunięta");
                 }
             }
         }
@@ -75,18 +74,18 @@ namespace PuzzelLibrary.Registry
         {
             try
             {
-                RegOpenRemoteSubKey(HostName, mainCatalog, subKey).DeleteSubKeyTree(subKeyName, true);
+                var remoteSubKey = RegOpenRemoteSubKey(HostName, mainCatalog, subKey);
+                if (remoteSubKey != null)
+                    remoteSubKey.DeleteSubKeyTree(subKeyName, true);
             }
-            //catch (Exception)
-            //{
-            //    MessageBox.Show("Klucz nie zostal znaleziony");
-            //}
             finally
             {
-                var names = RegOpenRemoteSubKey(HostName, mainCatalog, subKey).GetValueNames();
-                if (names.Contains(subKeyName))
+                var remoteSubKey = RegOpenRemoteSubKey(HostName, mainCatalog, subKey);
+                if (remoteSubKey != null)
                 {
-                    MessageBox.Show("Wartość została poprawnie usunięta");
+                    var names = remoteSubKey.GetValueNames();
+                    if (!names.Contains(subKeyName))
+                        System.Windows.Forms.MessageBox.Show("Wartość została poprawnie usunięta");
                 }
             }
         }

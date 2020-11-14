@@ -16,7 +16,10 @@
         /// <returns></returns>
         public object GetValue(string HostName, Microsoft.Win32.RegistryHive mainCatalog, string subKey, string value)
         {
-            return RegOpenRemoteSubKey(HostName, mainCatalog, subKey).GetValue(value, null);
+            var remoteSubKey = RegOpenRemoteSubKey(HostName, mainCatalog, subKey);
+            if (remoteSubKey != null)
+                return remoteSubKey.GetValue(value, null);
+            return null;
         }
 
         /// <summary>
@@ -28,8 +31,10 @@
         /// <returns></returns>
         public string[] GetValueNames(string HostName, Microsoft.Win32.RegistryHive mainCatalog, string subKey)
         {
-            var x = RegOpenRemoteSubKey(HostName, mainCatalog, subKey);
-            return x.GetValueNames();
+            var remoteSubKey = RegOpenRemoteSubKey(HostName, mainCatalog, subKey);
+            if (remoteSubKey != null)
+                return remoteSubKey.GetValueNames();
+            return null;
         }
         /// <summary>
         /// Wyszukiwanie nazw podkluczy w rejestrze
@@ -40,8 +45,10 @@
         /// <returns></returns>
         public string[] GetSubKeyNames(string HostName, Microsoft.Win32.RegistryHive mainCatalog, string subKey)
         {
-            var x = RegOpenRemoteSubKey(HostName, mainCatalog, subKey);
-            return x.GetSubKeyNames();
+            var remoteSubKey = RegOpenRemoteSubKey(HostName, mainCatalog, subKey);
+            if (remoteSubKey != null)
+                return remoteSubKey.GetSubKeyNames();
+            return null;
         }
         /// <summary>
         /// Pobieranie typu danych na wybranej wartości
@@ -53,7 +60,10 @@
         /// <returns></returns>
         public Microsoft.Win32.RegistryValueKind GetValueKind(string HostName, Microsoft.Win32.RegistryHive mainCatalog, string subKey, string value)
         {
-            return RegOpenRemoteSubKey(HostName, mainCatalog, subKey).GetValueKind(value);
+            var remoteSubKey = RegOpenRemoteSubKey(HostName, mainCatalog, subKey);
+            if (remoteSubKey != null)
+                return remoteSubKey.GetValueKind(value);
+            return default;
         }
     }
 }

@@ -43,10 +43,8 @@ namespace PuzzelLibrary.NetDiag
             TCPPingStatus status = TCPPingStatus.Success;
             try
             {
-                using (TcpClient tcpClient = new TcpClient(HostName, Port))
-                {
-                    tcpClient.ReceiveTimeout = 1000;
-                }
+                using (TcpClient tcpClient = new TcpClient(HostName, Port) { SendTimeout = 1000, ReceiveTimeout = 1000 });
+
             }
             catch (SocketException)
             {

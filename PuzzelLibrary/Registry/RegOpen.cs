@@ -6,7 +6,16 @@ namespace PuzzelLibrary.Registry
     {
         private static RegistryKey RegOpenRemoteBaseKey(RegistryHive mainCatalog, string HostName)
         {
-            return RegistryKey.OpenRemoteBaseKey(mainCatalog, HostName,RegistryView.Default);
+            try
+            {
+                return RegistryKey.OpenRemoteBaseKey(mainCatalog, HostName, RegistryView.Default);
+            }
+            catch (System.IO.IOException ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.Message,"Brak obiektu",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.Forms.MessageBoxIcon.Information);
+                Debug.LogsCollector.GetLogs(ex, " Registry::" + HostName + "\\" + mainCatalog);
+                return null;
+            }
         }
         /// <summary>
         /// Otwieranie podklucza
@@ -22,7 +31,8 @@ namespace PuzzelLibrary.Registry
             {
                 using (RegistryKey subkey = RegOpenRemoteBaseKey(mainCatalog, HostName))
                 {
-                    registryKey = subkey.OpenSubKey(subKey, true);
+                    if (subkey != null)
+                        registryKey = subkey.OpenSubKey(subKey, true);
                 }
             }
             catch (System.Security.SecurityException)

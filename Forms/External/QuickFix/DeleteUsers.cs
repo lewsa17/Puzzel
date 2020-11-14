@@ -17,22 +17,23 @@ namespace Forms.External.QuickFix
         public void LoadInfo(string HostName)
         {
             var UsersNames = new RegEnum().GetSubKeyNames(HostName, Microsoft.Win32.RegistryHive.LocalMachine, @"SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList");
-            foreach (string user in UsersNames)
-            {
-                var objSID = new SecurityIdentifier(user);
-                if (objSID.BinaryLength > 14)
+            if (UsersNames != null)
+                foreach (string user in UsersNames)
                 {
-                    IdentityReference objUser = null;
-                    try { objUser = objSID.Translate(typeof(NTAccount)); }
-                    catch (IdentityNotMappedException)
+                    var objSID = new SecurityIdentifier(user);
+                    if (objSID.BinaryLength > 14)
                     {
-                        var userName = new RegEnum().GetValue(HostName, Microsoft.Win32.RegistryHive.LocalMachine, @"SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList\" + user, "ProfileImagePath");
-                        ComboBoxUsers.Items.Add(userName.ToString().Replace("C:\\Users", HostName));
+                        IdentityReference objUser = null;
+                        try { objUser = objSID.Translate(typeof(NTAccount)); }
+                        catch (IdentityNotMappedException)
+                        {
+                            var userName = new RegEnum().GetValue(HostName, Microsoft.Win32.RegistryHive.LocalMachine, @"SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList\" + user, "ProfileImagePath");
+                            ComboBoxUsers.Items.Add(userName.ToString().Replace("C:\\Users", HostName));
+                        }
+                        if (objUser != null)
+                            ComboBoxUsers.Items.Add(objUser.Value);
                     }
-                    if (objUser != null)
-                        ComboBoxUsers.Items.Add(objUser.Value);
                 }
-            }
         }
         private bool MessageToUser(string Title, string Message)
         {
