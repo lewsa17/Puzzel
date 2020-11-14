@@ -7,8 +7,8 @@ namespace PuzzelLibrary.Settings
     public static class Values
     {
         public static bool HistoryLog { get; set; }
-        public static decimal UserMaxLogs { get; set; }
-        public static decimal CompMaxLogs { get; set; }
+        public static decimal UserMaxLogs = 100;
+        public static decimal CompMaxLogs = 100;
         public static bool CustomSource { get; set; }
         public static string CustomSourceData { get; set; }
         public static bool AutoOpenPort { get; set; }
