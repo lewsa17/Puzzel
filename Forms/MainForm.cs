@@ -705,17 +705,20 @@ namespace Forms
         }
         private void InitializeAdditionals()
         {
-            var termservers = PuzzelLibrary.Settings.Values.CustomSourceData.Split(',');
-            List<string> terms = new();
-            terms.AddRange(termservers);
-            terms.Sort();
-            foreach (string t in terms)
+            if (PuzzelLibrary.Settings.Values.CustomSourceData.Contains(','))
             {
-                TerminalUniversalToolStripMenuItem = new ToolStripMenuItem() { Name = t, Text = t };
-                TerminalUniversalToolStripMenuItem.Click += new EventHandler(FindSessions);
-                if (menuItemTermimalExplorer.DropDownItems[menuItemTermimalExplorer.DropDownItems.Count - 1].Name.Contains(t.Remove(t.Length - 1)))
-                    menuItemTermimalExplorer.DropDownItems.Add(TerminalUniversalToolStripMenuItem);
-                else menuItemTermimalExplorer.DropDownItems.AddRange(new ToolStripItem[]{ new ToolStripSeparator(), TerminalUniversalToolStripMenuItem });
+                var termservers = PuzzelLibrary.Settings.Values.CustomSourceData.Split(',');
+                List<string> terms = new();
+                terms.AddRange(termservers);
+                terms.Sort();
+                foreach (string t in terms)
+                {
+                    TerminalUniversalToolStripMenuItem = new ToolStripMenuItem() { Name = t, Text = t };
+                    TerminalUniversalToolStripMenuItem.Click += new EventHandler(FindSessions);
+                    if (menuItemTermimalExplorer.DropDownItems[menuItemTermimalExplorer.DropDownItems.Count - 1].Name.Contains(t.Remove(t.Length - 1)))
+                        menuItemTermimalExplorer.DropDownItems.Add(TerminalUniversalToolStripMenuItem);
+                    else menuItemTermimalExplorer.DropDownItems.AddRange(new ToolStripItem[] { new ToolStripSeparator(), TerminalUniversalToolStripMenuItem });
+                } 
             }
             string dw = PuzzelLibrary.Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "DW");
             string eadm = PuzzelLibrary.Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "ELogin");
