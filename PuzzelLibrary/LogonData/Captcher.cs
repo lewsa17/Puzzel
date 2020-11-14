@@ -91,7 +91,7 @@ namespace PuzzelLibrary.LogonData
                     else return ("Brak w logach");
                 }
             }
-            else MessageBox.Show("Brak dostępu do zasobu");
+            else return ("Brak dostępu do zasobu");
             return logs;
         }
 
