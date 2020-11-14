@@ -10,16 +10,16 @@ namespace PuzzelLibrary.LAPS
         static string DirectoryEntryPath => GetSettings.GetValuesFromXml("ExternalResources.xml", "DirectoryEntryPath");
         static string LapsProperties => GetSettings.GetValuesFromXml("ExternalResources.xml", "LapsProperties");
         static string LapsProperties1 => GetSettings.GetValuesFromXml("ExternalResources.xml", "LapsProperties1");
-        static bool IsInADExist(string hostName)
+        static bool InADExist(string hostName)
         {
             if (Search.ByComputerName(hostName) != null)
                 return true;
             return false;
         }
 
-        static bool IsInGraveyardExist(string hostName)
+        static bool InGraveyardExist(string hostName)
         {
-            if (IsInADExist(hostName))
+            if (InADExist(hostName))
             {
                 var search = Search.ByComputerName(hostName, "distinguishedName")[0];
                 if (search.GetDirectoryEntry().Properties["distinguishedName"].Value.ToString().Contains("_Graveyard"))
@@ -30,7 +30,7 @@ namespace PuzzelLibrary.LAPS
 
         static string GetLocationInAD(string hostName)
         {
-            if (IsInADExist(hostName))
+            if (InADExist(hostName))
             {
                 var search = Search.ByComputerName(hostName, "distinguishedName")[0];
                 return search.GetDirectoryEntry().Properties["distinguishedName"].Value.ToString();
@@ -50,7 +50,7 @@ namespace PuzzelLibrary.LAPS
         }
         public static object[] GetPWD(string hostName)
         {
-            if (IsInGraveyardExist(hostName))
+            if (InGraveyardExist(hostName))
             {
                 ReleaseFromGraveyard(hostName);
             }

@@ -76,7 +76,7 @@ namespace PuzzelLibrary.LogonData
         {
             string logs = string.Empty;
             System.Threading.Tasks.Task thread = null;
-            if (Directory.Exists(logsDirectory))
+            if (Directory.Exists(logsDirectory)) 
             {
                 if (!IsInvalidChar(pole))
                 {

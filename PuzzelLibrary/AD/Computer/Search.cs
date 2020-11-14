@@ -29,8 +29,7 @@ namespace PuzzelLibrary.AD.Computer
                 ds.Filter = "(cn=" + hostName + ")";
                 ds.SearchScope = SearchScope.Subtree;
                 ds.ServerTimeLimit = TimeSpan.FromSeconds(90);
-                foreach (var propertytoLoad in propertiesToLoad)
-                    ds.PropertiesToLoad.Add(propertytoLoad);
+                ds.PropertiesToLoad.AddRange(propertiesToLoad);
                 var compObject = ds.FindAll();
 
                 if (compObject != null)
