@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Forms
+﻿namespace Forms
 {
     partial class MainForm
     {
@@ -114,9 +112,9 @@ namespace Forms
             this.btnFlushDNS = new System.Windows.Forms.Button();
             richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.backgroundWorkerComputerInfo = new System.ComponentModel.BackgroundWorker();
-            this.statusBar1 = new System.Windows.Forms.StatusBar();
-            this.statusBP1 = new System.Windows.Forms.StatusBarPanel();
-            this.statusBP2 = new System.Windows.Forms.StatusBarPanel();
+            this.statusBar1 = new System.Windows.Forms.StatusStrip();
+            this.statusBP1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusBP2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.InfozAD = new System.ComponentModel.BackgroundWorker();
             this.mainMenu = new System.Windows.Forms.MenuStrip();
             this.menuItemFile = new System.Windows.Forms.ToolStripMenuItem();
@@ -153,9 +151,8 @@ namespace Forms
             ((System.ComponentModel.ISupportInitialize)(this.numericComputer)).BeginInit();
             this.groupBoxOtherTools.SuspendLayout();
             this.panelTCP.SuspendLayout();
+            this.statusBar1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericTCP)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.statusBP1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.statusBP2)).BeginInit();
             this.mainMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -1037,10 +1034,9 @@ namespace Forms
             // 
             this.statusBar1.Location = new System.Drawing.Point(0, 535);
             this.statusBar1.Name = "statusBar1";
-            this.statusBar1.Panels.AddRange(new System.Windows.Forms.StatusBarPanel[] {
+            this.statusBar1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statusBP1,
             this.statusBP2});
-            this.statusBar1.ShowPanels = true;
             this.statusBar1.TabIndex = 5;
             this.statusBar1.Text = "statusbar";
             // 
@@ -1279,9 +1275,9 @@ namespace Forms
             this.panelTCP.ResumeLayout(false);
             this.panelTCP.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericTCP)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.statusBP1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.statusBP2)).EndInit();
             this.mainMenu.ResumeLayout(false);
+            this.statusBar1.ResumeLayout(false);
+            this.statusBar1.PerformLayout();
             this.mainMenu.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -1320,9 +1316,9 @@ namespace Forms
         private System.Windows.Forms.NumericUpDown numericLogin;
         private System.Windows.Forms.NumericUpDown numericComputer;
         private System.ComponentModel.BackgroundWorker backgroundWorkerComputerInfo;
-        private System.Windows.Forms.StatusBar statusBar1;
-        private System.Windows.Forms.StatusBarPanel statusBP1;
-        private System.Windows.Forms.StatusBarPanel statusBP2;
+        private System.Windows.Forms.StatusStrip statusBar1;
+        private System.Windows.Forms.ToolStripStatusLabel statusBP1;
+        private System.Windows.Forms.ToolStripStatusLabel statusBP2;
         private System.ComponentModel.BackgroundWorker InfozAD;
         private System.Windows.Forms.Button btnRemoteCMD;
         private System.Windows.Forms.ContextMenuStrip contextMenuOperationRichTextBox;
