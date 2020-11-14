@@ -18,18 +18,17 @@ namespace Settings
             return ListOfFieldWithSettings;
         }
 
-        static string defaultDescription = "Najedź kursorem na opcję aby wyświetlić tutaj jej opis";
-        static string HistoryLogDescription = "Ustawienie tej opcji będzie wyświetlać lub nie ostatnio wyszukiwanej wartości";
-        static string NumbersOfUserLogsDescription = "Zmiana tej wartości ustala maksymalną liczbę logowań użytkownika jaką można wyszukać";
-        static string NumbersOfCompLogsDescription = "Zmiana tej wartości ustala maksymalną liczbę logowań do komputera jaką można wyszukać";
-        static string CustomSourceDescription = "Zezwala na wyszukiwanie sesji z ręcznie przygotowanej listy";
-        static string AutoOpenPortDescription = "Zmiana tej wartości wyłączy pytanie o otwarcie portu 135 (RPC) odpowiedzialny za wykonywanie niektórych funkcji - będzie to wykonywane automatycznie";
-        static string AutoUnlockFirewallDescription = "Zmiana tej wartości wyłączy pytanie o odblokowywanie Zdalnej Zapory - będzie to wykonywane automatycznie";
-        static string SaveUserDataCheckDescription = "Zamiana tej wartości wyłączy pytanie o zapisywanie danych użytkownika przy usuwaniu - będzie to wykonywane automatycznie";
-        static string SessionShortcutDescription = "Ustaw skrót klawiszowy odpowiedzialny za rozłączanie się z sesji zdalnej. \nWystarczy zaznaczyć kursorem na pole tekstowe i nacisnąć klawisze";
-        static string LocalUpdateDescription = "Zmienia miejsce wyszukiwania aktualizacji / ze zdalnie na lokalnie";
-        static string AutoStartUpdateDescription = "Automatyczne sprawdzanie aktualizacji przy uruchomieniu";
-
+        static readonly string defaultDescription = "Najedź kursorem na opcję aby wyświetlić tutaj jej opis";
+        static readonly string HistoryLogDescription = "Ustawienie tej opcji będzie wyświetlać lub nie ostatnio wyszukiwanej wartości";
+        static readonly string NumbersOfUserLogsDescription = "Zmiana tej wartości ustala maksymalną liczbę logowań użytkownika jaką można wyszukać";
+        static readonly string NumbersOfCompLogsDescription = "Zmiana tej wartości ustala maksymalną liczbę logowań do komputera jaką można wyszukać";
+        static readonly string CustomSourceDescription = "Zezwala na wyszukiwanie sesji z ręcznie przygotowanej listy";
+        static readonly string AutoOpenPortDescription = "Zmiana tej wartości wyłączy pytanie o otwarcie portu 135 (RPC) odpowiedzialny za wykonywanie niektórych funkcji - będzie to wykonywane automatycznie";
+        static readonly string AutoUnlockFirewallDescription = "Zmiana tej wartości wyłączy pytanie o odblokowywanie Zdalnej Zapory - będzie to wykonywane automatycznie";
+        static readonly string SaveUserDataCheckDescription = "Zamiana tej wartości wyłączy pytanie o zapisywanie danych użytkownika przy usuwaniu - będzie to wykonywane automatycznie";
+        static readonly string SessionShortcutDescription = "Ustaw skrót klawiszowy odpowiedzialny za rozłączanie się z sesji zdalnej. \nWystarczy zaznaczyć kursorem na pole tekstowe i nacisnąć klawisze";
+        static readonly string LocalUpdateDescription = "Zmienia miejsce wyszukiwania aktualizacji / ze zdalnie na lokalnie";
+        static readonly string AutoStartUpdateDescription = "Automatyczne sprawdzanie aktualizacji przy uruchomieniu";
 
         private void CloseButton_Click(object sender, EventArgs e)
         {
@@ -48,10 +47,10 @@ namespace Settings
         private void MouseOn(object sender, EventArgs e)
         {
             string Name = string.Empty;
-            if (sender is CheckBox)
-            Name = ((CheckBox)sender).Name;
-            if (sender is Label)
-                Name = ((Label)sender).Name;
+            if (sender is CheckBox check)
+                Name = check.Name;
+            if (sender is Label label)
+                Name = label.Name;
             switch (Name)
             {
                 case nameof(HistoryLogCheck): 
@@ -144,9 +143,9 @@ namespace Settings
             { 
                 return;
             }
-            if (sender is CheckBox)
+            if (sender is CheckBox check)
             {
-                switch (((CheckBox)sender).Name)
+                switch (check.Name)
                 {
                     case nameof(HistoryLogCheck):
                         {
@@ -186,9 +185,9 @@ namespace Settings
                 }
                 return;
             }
-            if (sender is TextBox)
+            if (sender is TextBox tbx)
             {
-                switch (((TextBox)sender).Name)
+                switch (tbx.Name)
                 {
                     case nameof(SessionShortcutText):
                         {
@@ -203,9 +202,9 @@ namespace Settings
                 }
                 return;
             }
-            if (sender is RichTextBox)
+            if (sender is RichTextBox rtbx)
             {
-                switch (((RichTextBox)sender).Name)
+                switch (rtbx.Name)
                 {
                     case nameof(CustomSourceTextBox):
                         {
@@ -215,9 +214,9 @@ namespace Settings
                 }
             return;
             }
-            if (sender is NumericUpDown)
+            if (sender is NumericUpDown numeric)
             {
-                switch (((NumericUpDown)sender).Name)
+                switch (numeric.Name)
                 {
                     case nameof(NumbersOfUserLogs):
                         {
@@ -251,7 +250,7 @@ namespace Settings
                 localUpdateCheck.Checked = PuzzelLibrary.Settings.Values.LocalUpdateCheck;
                 localUpdateTextBox.Text = PuzzelLibrary.Settings.Values.LocalUpdatePath;
                 AutostartUpdateCheck.Checked = PuzzelLibrary.Settings.Values.AutostartUpdateCheck;
-    }
+            }
             else
             {
                 foreach (var objSettings in GetCollectionOfFieldSettings())

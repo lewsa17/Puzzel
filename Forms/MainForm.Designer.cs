@@ -204,28 +204,28 @@
             this.contextMenuItemCut.Name = "contextMenuItemCut";
             this.contextMenuItemCut.ShortcutKeyDisplayString = "Ctrl + X";
             this.contextMenuItemCut.Text = "Wytnij";
-            this.contextMenuItemCut.Click += new System.EventHandler(this.contextMenuItemCut_Click);
+            this.contextMenuItemCut.Click += new System.EventHandler(this.ContextMenuItemCut_Click);
             // 
             // contextMenuItemCopy
             // 
             this.contextMenuItemCopy.Name = "contextMenuItemCopy";
             this.contextMenuItemCopy.ShortcutKeyDisplayString = "Ctrl + C";
             this.contextMenuItemCopy.Text = "Kopiuj";
-            this.contextMenuItemCopy.Click += new System.EventHandler(this.contextMenuItemCopy_Click);
+            this.contextMenuItemCopy.Click += new System.EventHandler(this.ContextMenuItemCopy_Click);
             // 
             // contextMenuItemPaste
             // 
             this.contextMenuItemPaste.Name = "contextMenuItemPaste";
             this.contextMenuItemPaste.ShortcutKeyDisplayString = "Ctrl + V";
             this.contextMenuItemPaste.Text = "Wklej";
-            this.contextMenuItemPaste.Click += new System.EventHandler(this.contextMenuItemPaste_Click);
+            this.contextMenuItemPaste.Click += new System.EventHandler(this.ContextMenuItemPaste_Click);
             // 
             // contextMenuItemSelectAll
             // 
             this.contextMenuItemSelectAll.Name = "contextMenuItemSelectAll";
             this.contextMenuItemSelectAll.ShortcutKeyDisplayString = "Ctrl + A";
             this.contextMenuItemSelectAll.Text = "Zaznacz wszystko";
-            this.contextMenuItemSelectAll.Click += new System.EventHandler(this.contextMenuItemSelectAll_Click);
+            this.contextMenuItemSelectAll.Click += new System.EventHandler(this.ContextMenuItemSelectAll_Click);
             // 
             // btnProfilEXT
             // 
@@ -375,7 +375,7 @@
             this.btnUserLog.Text = "User log";
             this.btnUserLog.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnUserLog.UseVisualStyleBackColor = true;
-            this.btnUserLog.Click += new System.EventHandler(this.btnLoginCompLog_Click);
+            this.btnUserLog.Click += new System.EventHandler(this.BtnLoginCompLog_Click);
             // 
             // numericLogin
             // 
@@ -438,35 +438,35 @@
             this.contextMenuItemCutR.Name = "contextMenuItemCutR";
             this.contextMenuItemCutR.ShortcutKeyDisplayString = "Ctrl + X";
             this.contextMenuItemCutR.Text = "Wytnij";
-            this.contextMenuItemCutR.Click += new System.EventHandler(this.contextMenuItemCut_Click);
+            this.contextMenuItemCutR.Click += new System.EventHandler(this.ContextMenuItemCut_Click);
             // 
             // contextMenuItemCopyR
             // 
             this.contextMenuItemCopyR.Name = "contextMenuItemCopyR";
             this.contextMenuItemCopyR.ShortcutKeyDisplayString = "Ctrl + C";
             this.contextMenuItemCopyR.Text = "Kopiuj";
-            this.contextMenuItemCopyR.Click += new System.EventHandler(this.contextMenuItemCopy_Click);
+            this.contextMenuItemCopyR.Click += new System.EventHandler(this.ContextMenuItemCopy_Click);
             // 
             // contextMenuItemPasteR
             // 
             this.contextMenuItemPasteR.Name = "contextMenuItemPasteR";
             this.contextMenuItemPasteR.ShortcutKeyDisplayString = "Ctrl + V";
             this.contextMenuItemPasteR.Text = "Wklej";
-            this.contextMenuItemPasteR.Click += new System.EventHandler(this.contextMenuItemPaste_Click);
+            this.contextMenuItemPasteR.Click += new System.EventHandler(this.ContextMenuItemPaste_Click);
             // 
             // contextMenuItemSelectAllR
             // 
             this.contextMenuItemSelectAllR.Name = "contextMenuItemSelectAllR";
             this.contextMenuItemSelectAllR.ShortcutKeyDisplayString = "Ctrl + A";
             this.contextMenuItemSelectAllR.Text = "Zaznacz wszystko";
-            this.contextMenuItemSelectAllR.Click += new System.EventHandler(this.contextMenuItemSelectAll_Click);
+            this.contextMenuItemSelectAllR.Click += new System.EventHandler(this.ContextMenuItemSelectAll_Click);
             // 
             // contextMenuItemSearchR
             // 
             this.contextMenuItemSearchR.Name = "contextMenuItemSearchR";
             this.contextMenuItemSearchR.ShortcutKeyDisplayString = "Ctrl + F";
             this.contextMenuItemSearchR.Text = "Wyszukaj";
-            this.contextMenuItemSearchR.Click += new System.EventHandler(this.contextMenuItemSearch_Click);
+            this.contextMenuItemSearchR.Click += new System.EventHandler(this.ContextMenuItemSearch_Click);
             // 
             // groupBoxComputerInfo
             // 
@@ -638,7 +638,7 @@
             this.btnExplorer.Text = "Explorer C$";
             this.btnExplorer.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnExplorer.UseVisualStyleBackColor = true;
-            this.btnExplorer.Click += new System.EventHandler(this.btnExplorer_Click);
+            this.btnExplorer.Click += new System.EventHandler(this.BtnExplorer_Click);
             // 
             // btnRDP
             // 
@@ -653,7 +653,7 @@
             this.btnRDP.Text = "Pulpit zdalny";
             this.btnRDP.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnRDP.UseVisualStyleBackColor = true;
-            this.btnRDP.Click += new System.EventHandler(this.btnRDP_Click);
+            this.btnRDP.Click += new System.EventHandler(this.BtnRDP_Click);
             // 
             // contextMenuRDP
             // 
@@ -667,7 +667,7 @@
             // 
             this.menuItemRDPOpen.Name = "rDPBezPustyContextMenu";
             this.menuItemRDPOpen.Text = "RDP pusty";
-            this.menuItemRDPOpen.Click += new System.EventHandler(this.menuItemRDPOpen_Click);
+            this.menuItemRDPOpen.Click += new System.EventHandler(this.MenuItemRDPOpen_Click);
             // 
             // btnDW
             // 
@@ -682,7 +682,7 @@
             this.btnDW.Text = "default";
             this.btnDW.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnDW.UseVisualStyleBackColor = true;
-            this.btnDW.Click += new System.EventHandler(this.btnDW_Click);
+            this.btnDW.Click += new System.EventHandler(this.BtnDW_Click);
             // 
             // DWMenuContext
             // 
@@ -697,13 +697,13 @@
             // 
             this.menuItemDWEadm.Name = "menuItemDWEadm";
             this.menuItemDWEadm.Text = "default";
-            this.menuItemDWEadm.Click += new System.EventHandler(this.btnDW_Click);
+            this.menuItemDWEadm.Click += new System.EventHandler(this.BtnDW_Click);
             // 
             // menuItemDWLAPS
             // 
             this.menuItemDWLAPS.Name = "menuItemDWLAPS";
             this.menuItemDWLAPS.Text = "default";
-            this.menuItemDWLAPS.Click += new System.EventHandler(this.btnDW_Click);
+            this.menuItemDWLAPS.Click += new System.EventHandler(this.BtnDW_Click);
             // 
             // btnManagement
             // 
@@ -865,7 +865,7 @@
             this.btnPing.Text = "Ping";
             this.btnPing.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnPing.UseVisualStyleBackColor = true;
-            this.btnPing.Click += new System.EventHandler(this.btnPing_Click);
+            this.btnPing.Click += new System.EventHandler(this.BtnPing_Click);
             // 
             // numericComputer
             // 
@@ -923,7 +923,7 @@
             this.btnCompLog.Text = "Komputer log";
             this.btnCompLog.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnCompLog.UseVisualStyleBackColor = true;
-            this.btnCompLog.Click += new System.EventHandler(this.btnLoginCompLog_Click);
+            this.btnCompLog.Click += new System.EventHandler(this.BtnLoginCompLog_Click);
             // 
             // groupBoxOtherTools
             // 
@@ -1007,7 +1007,7 @@
             this.btnFlushDNS.Text = "Flush DNS";
             this.btnFlushDNS.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnFlushDNS.UseVisualStyleBackColor = true;
-            this.btnFlushDNS.Click += new System.EventHandler(this.btnFlushDNS_Click);
+            this.btnFlushDNS.Click += new System.EventHandler(this.BtnFlushDNS_Click);
             // 
             // richTextBox1
             // 
@@ -1190,14 +1190,14 @@
             this.menuItemLAPSpwd.Image = global::Forms.Resources.Resources.password;
             this.menuItemLAPSpwd.Name = "menuItemLAPSpwd";
             this.menuItemLAPSpwd.Text = "Hasło z LAPS-a";
-            this.menuItemLAPSpwd.Click += new System.EventHandler(this.pwdLAPS);
+            this.menuItemLAPSpwd.Click += new System.EventHandler(this.PwdLAPS);
             // 
             // menuItemLockoutStatus
             // 
             this.menuItemLockoutStatus.Image = global::Forms.Resources.Resources.lockout;
             this.menuItemLockoutStatus.Name = "menuItemLockoutStatus";
             this.menuItemLockoutStatus.Text = "Lockout Status";
-            this.menuItemLockoutStatus.Click += new System.EventHandler(this.menuItemLockoutStatus_Click);
+            this.menuItemLockoutStatus.Click += new System.EventHandler(this.MenuItemLockoutStatus_Click);
             // 
             // menuItemChangeDomainPassword
             // 

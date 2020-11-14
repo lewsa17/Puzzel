@@ -18,15 +18,14 @@ namespace PuzzelLibrary.Settings
         public static bool AutostartUpdateCheck { set; get; }
         public static bool LocalUpdateCheck { get; set; }
         public static string LocalUpdatePath { get; set; }
-        public static bool defaultCheckBoxesValue = false;
-        public static string defaultTextBoxesValue = string.Empty;
+        public static bool defaultCheckBoxesValue;
+        public static string defaultTextBoxesValue;
         public static decimal defaultNumericUDValue = 5;
         public static void CommitChanges()
         {
-            XmlWriter writer = null;
             if (File.Exists("Settings.xml"))
                 File.Delete("Settings.xml");
-            writer = new SetSettings().CreateSettingsFile();
+            XmlWriter writer = new SetSettings().CreateSettingsFile();
             SetSettings.CreateSettingValues(writer);
             SetSettings.CloseSettingsFile(writer);
         }
@@ -37,14 +36,14 @@ namespace PuzzelLibrary.Settings
         }
         public static void RestoreDefaultSettings(object sender)
         {
-            if (sender is CheckBox)
-                ((CheckBox)sender).Checked = defaultCheckBoxesValue;
-            else if (sender is TextBox)
-                ((TextBox)sender).Text = defaultTextBoxesValue;
-            else if (sender is RichTextBox)
-                ((RichTextBox)sender).Text = defaultTextBoxesValue;
-            else if (sender is NumericUpDown)
-                ((NumericUpDown)sender).Value = defaultNumericUDValue;
+            if (sender is CheckBox check)
+                check.Checked = defaultCheckBoxesValue;
+            else if (sender is TextBox tbx)
+                tbx.Text = defaultTextBoxesValue;
+            else if (sender is RichTextBox rtb)
+              rtb.Text = defaultTextBoxesValue;
+            else if (sender is NumericUpDown numeric)
+                numeric.Value = defaultNumericUDValue;
         }
     }
 }
