@@ -103,7 +103,7 @@ namespace Forms
             ReplaceRichTextBox(null);
             if (Name.Length > 2)
                 return true;
-            else UpdateRichTextBox("Za krótka nazwa");
+            else ReplaceRichTextBox("Za krótka nazwa");
             return false;
         }
         private bool IsPortOpened(string HostName, int Port)
