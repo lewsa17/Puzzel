@@ -106,7 +106,7 @@ namespace Forms
             else ReplaceRichTextBox("Za krótka nazwa");
             return false;
         }
-        private bool IsPortOpened(string HostName, int Port)
+        private bool PortIsOpened(string HostName, int Port)
         {
             if (NameIsValid(HostName))
                 if (PuzzelLibrary.NetDiag.Ping.TCPPing(HostName, Port) == PuzzelLibrary.NetDiag.Ping.TCPPingStatus.Success)
@@ -321,7 +321,7 @@ namespace Forms
         private void BtnTestTCP_Click(object sender, EventArgs e)
         {
             StartTime();
-            if (IsPortOpened(HostName(), (int)numericTCP.Value))
+            if (PortIsOpened(HostName(), (int)numericTCP.Value))
                 ReplaceRichTextBox("Badanie " + HostName() + " zakończone sukcesem. Port " + numericTCP.Value.ToString() + " jest otwarty.");
             else
                 ReplaceRichTextBox("Badanie " + HostName() + " zakończone porażką. Port " + numericTCP.Value.ToString() + " prawdopoodobnie jest zamknięty.");
@@ -897,7 +897,7 @@ namespace Forms
         {
             StartTime();
             if (HostIsAvailable(HostName()))
-                if (IsPortOpened(HostName(), 135))
+                if (PortIsOpened(HostName(), 135))
                 {
                     ReplaceRichTextBox("Nazwa komputera: ");
                     UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, PuzzelLibrary.WMI.ComputerInfo.queryComputerSystem, "DNSHostName"));
