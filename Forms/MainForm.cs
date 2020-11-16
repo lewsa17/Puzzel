@@ -1164,7 +1164,7 @@ namespace Forms
         }
         private void RemotePingTracert(object sender, EventArgs e)
         {
-            using Additional.RemotePingTracert PingTracert = new Additional.RemotePingTracert();
+            using Additional.RemotePingTracert PingTracert = new Additional.RemotePingTracert(sender);
             PingTracert.ShowDialog();
             if (sender == btnRemotePing)
             {
