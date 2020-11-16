@@ -261,44 +261,49 @@ namespace Forms
             public string KindOf { get; set; }
             public string Name { get; set; }
         }
-
-        private void BtnLoginCompLog_Click(int numberOfLogs, string name, string kindOf)
+        private void PreprareData(LogsData data, ComboBox comboBoxData, string lastDataSet)
         {
-            comboBoxFindedSessions.Items.Clear();
-            comboBoxFindedSessions.Text = "";
-            ReplaceRichTextBox(new PuzzelLibrary.LogonData.Captcher().SearchLogs(numberOfLogs, name, kindOf));
+            if (NameIsValid(data.Name))
+            {
+                if (PuzzelLibrary.Settings.Values.HistoryLog)
+                    if (data.Name != lastDataSet)
+                    {
+                        lastDataSet = data.Name;
+                        comboBoxData.Items.Add(lastDataSet);
+                    }
+                GetLogs(data.NumberOfLog, data.Name, data.KindOf);
+            }
         }
         private void BtnUserLogs(object sender, EventArgs e)
         {
             StartTime();
-            var data = UserData();
-            if (NameIsValid(data.Name))
-            {
-                if (PuzzelLibrary.Settings.Values.HistoryLog)
-                    if (data.Name != comboBoxLoginLast)
-                    {
-                        comboBoxLoginLast = data.Name;
-                        comboBoxLogin.Items.Add(comboBoxLoginLast);
-                    }
-                BtnLoginCompLog_Click(data.NumberOfLog, data.Name, data.KindOf);
-            }
+            PreprareData(UserData(),comboBoxLogin, comboBoxLoginLast);
             StopTime();
+
         }
         private void BtnComputerLogs(object sender, EventArgs e)
         {
             StartTime();
-            var data = ComputerData();
-            if (NameIsValid(data.Name))
-            {
-                if (PuzzelLibrary.Settings.Values.HistoryLog)
-                    if (data.Name != comboBoxCompLast)
-                    {
-                        comboBoxCompLast = data.Name;
-                        comboBoxComputer.Items.Add(comboBoxCompLast);
-                    }
-                BtnLoginCompLog_Click(data.NumberOfLog, data.Name, data.KindOf);
-            }
+            PreprareData(ComputerData(), comboBoxComputer, comboBoxCompLast);
             StopTime();
+        }
+        private void GetLogs(int numberOfLogs, string name, string kindOf)
+        {
+            comboBoxFindedSessions.Items.Clear();
+            comboBoxFindedSessions.Text = "";
+            ReplaceRichTextBox(null);
+            if (!string.IsNullOrWhiteSpace(name))
+            {
+                PuzzelLibrary.LogonData.Captcher captcher = new();
+                var warnings = captcher.CheckLogs(name);
+                if (!string.IsNullOrEmpty(warnings))
+                    ReplaceRichTextBox(warnings);
+                else
+                {
+                    foreach (string LogName in captcher.keyWordsValues(name, kindOf))
+                        new Thread(() => UpdateRichTextBox(new PuzzelLibrary.LogonData.Captcher().SearchLogs(numberOfLogs, name, kindOf))).Start();
+                }
+            }
         }
         private void BtnPing_Click(object sender, EventArgs e)
         {

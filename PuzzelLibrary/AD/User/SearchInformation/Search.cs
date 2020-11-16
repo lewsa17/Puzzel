@@ -5,7 +5,6 @@ namespace PuzzelLibrary.AD.User.SearchInformation
 {
     public class Search
     {
-
         public SearchResult ByUserName(string username)
         {
             var ds = Connection.Initiate.GetDirectorySearcher();
@@ -16,6 +15,9 @@ namespace PuzzelLibrary.AD.User.SearchInformation
                     ds.Filter = "(&((&(objectCategory=Person)(objectClass=User)))(sAMAccountName=" + username + "))";
                     ds.SearchScope = SearchScope.Subtree;
                     ds.ServerTimeLimit = TimeSpan.FromSeconds(90);
+					ds.PropertiesToLoad.Add("displayName");
+					ds.SizeLimit = 1;
+					ds.PageSize = 1000;
                     SearchResult userObject = ds.FindOne();
 
                     if (userObject != null)
@@ -29,7 +31,6 @@ namespace PuzzelLibrary.AD.User.SearchInformation
             catch (System.Runtime.InteropServices.COMException) { System.Windows.Forms.MessageBox.Show("Brak połączenia z AD"); }
             return null;
         }
-
         private static SearchResult ByEmail(string email)
         {
             var ds = Connection.Initiate.GetDirectorySearcher();
@@ -42,9 +43,7 @@ namespace PuzzelLibrary.AD.User.SearchInformation
                 return userObject;
             else
             {
-                Console.WriteLine("Search Information");
-                Console.WriteLine("User not found");
-                //MessageBox.Show("User not found!", "Search Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                System.Windows.Forms.MessageBox.Show("User not found!", "Search Information", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Information);
             }
             return null;
         }

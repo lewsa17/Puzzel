@@ -18,9 +18,12 @@ namespace PuzzelLibrary.LogonData
             _logsDirectory = GetSettings.GetValuesFromXml("ExternalResources.xml", "LogsDirectory");
             return _logsDirectory;
         }
-        private string getUserComputerLog(string pole, string rodzaj, decimal licznik)
+
+        private static string lastSearchedName { get; set; }
+
+        public string getUserComputerLog(string pole, string rodzaj, decimal licznik)
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
             try
             {
                 using (FileStream fileStream = new FileStream(logsDirectory + rodzaj + @"\" + pole + "_logons.log", FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
@@ -39,30 +42,25 @@ namespace PuzzelLibrary.LogonData
                     Array.Resize(ref LogCompLogs, LogCompLogs.Length - 1);
                     Array.Reverse(LogCompLogs);
                     Array.Resize(ref LogCompLogs, LogCompLogs.Length - 1);
-                    string LastSearchedLogin = null;
                     int maxLines = LogCompLogs.Length;
                     string[] word;
                     string[] words;
                     word = LogCompLogs[0].Split(';');
-                    string lastWords = word[2];
-                    LastSearchedLogin = SAMAccountName(word[2]);
+                    lastSearchedName = SAMAccountName(word[2].Replace(" ", ""));
+                    string lastUsedLogin = word[2];
                     sb.Append(string.Format("{0,-13}{1,-16}{2,-30}{3,-12}{4,-28}{5,-10}", "LOGOWANIE", "KOMPUTER", "NAZWA", "UŻYTKOWNIK", "DATA", "WERSJA SYSTEMU" + "\n"));
-                    int count = 0;
+                    int count = (int)licznik;
                     if (licznik > maxLines)
                         count = maxLines;
-                    else
-                        count = (int)licznik;
 
                     for (int i = 0; i < count; i++)
                     {
                         words = LogCompLogs[i].Split(';');
-                        if (words[2] != lastWords)
-                            sb.Append(string.Format("{0,-13}{1,-17}{2,-30}{3,-11}{4,-28}{5,-10}", " " + words[0], words[1], SAMAccountName(words[2]), words[2].Replace(" ", ""), words[3], words[word.Length - 2]) + "\n");
-                        else
-                        {
-                            sb.Append(string.Format("{0,-13}{1,-17}{2,-30}{3,-11}{4,-28}{5,-10}", " " + words[0], words[1], LastSearchedLogin, words[2].Replace(" ", ""), words[3], words[word.Length - 2]) + "\n");
-                            lastWords = words[2];
-                        }
+                        if (words[2] != lastUsedLogin)
+                            lastSearchedName = SAMAccountName(words[2].Replace(" ", ""));
+                        //sb.Clear();
+                        sb.Append(string.Format("{0,-13}{1,-17}{2,-30}{3,-11}{4,-28}{5,-10}", " " + words[0], words[1], lastSearchedName, words[2].Replace(" ", ""), words[3], words[word.Length - 2]) + "\n");
+                        lastUsedLogin = words[2];
                     }
                 }
             }
@@ -72,30 +70,20 @@ namespace PuzzelLibrary.LogonData
             }
             return sb.ToString();
         }
-        public string SearchLogs(decimal counter, string pole, string rodzaj)
+        public string CheckLogs(string pole)
         {
-            string logs = string.Empty;
-            System.Threading.Tasks.Task thread = null;
-            if (Directory.Exists(logsDirectory)) 
-            {
-                if (!IsInvalidChar(pole))
-                {
-                    string[] returnedValues = keyWordsReturned(pole, rodzaj);
-                    if (returnedValues.Length > 0)
-                        foreach (string LogName in returnedValues)
-                        {
-                            thread = new System.Threading.Tasks.Task(() =>
-                            logs += getUserComputerLog(LogName, rodzaj, counter));
-                            thread.RunSynchronously();
-                        }
-                    else return ("Brak w logach");
-                }
-            }
-            else return ("Brak dostępu do zasobu");
-            return logs;
+            if (!Directory.Exists(logsDirectory))
+                return ("Brak dostępu do zasobu");
+            if (IsInvalidChar(pole))
+                return ("Użyto niedozwolonych znaków w nazwie");
+            return "";
         }
-
-
+        
+        public string SearchLogs(decimal counter, string LogName, string rodzaj)
+        {
+            return getUserComputerLog(LogName, rodzaj, counter);
+        } 
+    
         private static bool IsInvalidChar(string path)
         {
             foreach (char x in path)
@@ -115,7 +103,7 @@ namespace PuzzelLibrary.LogonData
             //}
             return false;
         }
-        private string[] keyWordsReturned(string pole, string rodzaj)
+        public string[] keyWordsValues(string pole, string rodzaj)
         {
             string[] logsNames = null;
             if (!string.IsNullOrEmpty(pole) | !string.IsNullOrWhiteSpace(pole))
@@ -133,18 +121,8 @@ namespace PuzzelLibrary.LogonData
         private string SAMAccountName(string username)
         {
             var Result = new AD.User.SearchInformation.Search().ByUserName(username);
-			object NameOfUser = null;
 			if (Result != null)
-            NameOfUser = Result.GetDirectoryEntry().Properties["displayName"].Value;
-
-            try
-            {
-                if (NameOfUser != null)
-                    return NameOfUser.ToString();
-            }
-
-            catch (Exception e) { LogsCollector.GetLogs(e, username); }
-
+				return Result.Properties["displayName"][0].ToString();
             return "Brak w AD";
             } 
         }
