@@ -10,10 +10,7 @@
     <Authors>Jakub Sypek</Authors>
     <Company />
   </PropertyGroup>
- 
-  <ItemGroup>
-    <PackageReference Include="System.DirectoryServices" Version="5.0.0" />
-  </ItemGroup>
+
   
   <ItemGroup>
     <ProjectReference Include="..\PuzzelLibrary\PuzzelLibrary.csproj" />

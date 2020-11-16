@@ -64,7 +64,6 @@ namespace Forms
         }
         public static void ReplaceRichTextBox(string message)
         {
-            if (!string.IsNullOrEmpty(message))
                 if (richTextBox1.InvokeRequired)
                     richTextBox1.Invoke(new ReplaceRichTextBoxEventHandler(ReplaceRichTextBox), new object[] { message });
                 else { richTextBox1.Text = message; }
