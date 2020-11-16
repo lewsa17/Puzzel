@@ -77,7 +77,7 @@ namespace Forms
         }
         [DllImport("user32.dll", SetLastError = true)]
         static extern bool CloseClipboard();
-        private static bool FileIsAvailable(string FileName)
+        private bool FileIsAvailable(string FileName)
         {
             foreach (var path in System.Environment.GetEnvironmentVariable("PATH").Split(';'))
                 if (File.Exists(Path.Combine(path, FileName)))
@@ -89,7 +89,7 @@ namespace Forms
                 }
             return false;
         }
-        private static bool HostIsAvailable(string HostName)
+        private bool HostIsAvailable(string HostName)
         {
             if (NameIsValid(HostName))
                 if (PuzzelLibrary.NetDiag.Ping.Pinging(HostName) == System.Net.NetworkInformation.IPStatus.Success)
@@ -97,7 +97,7 @@ namespace Forms
                 else ReplaceRichTextBox("Stacja: " + HostName + " nie jest widoczna na sieci");
             return false;
         }
-        private static bool NameIsValid(string Name)
+        private bool NameIsValid(string Name)
         {
             ReplaceRichTextBox(null);
             if (Name.Length > 2)
