@@ -70,7 +70,7 @@ namespace PuzzelLibrary.LAPS
         public static void setPWD(string hostName, string value)
         {
             var cn = new Change();
-            cn.Property(hostName, LapsProperties1, value);
+            cn.replaceProperty(hostName, LapsProperties1, value);
         }
     }
 }
