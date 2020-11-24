@@ -22,11 +22,12 @@ namespace Settings
         static readonly string HistoryLogDescription = "Ustawienie tej opcji będzie wyświetlać lub nie ostatnio wyszukiwanej wartości";
         static readonly string NumbersOfUserLogsDescription = "Zmiana tej wartości ustala maksymalną liczbę logowań użytkownika jaką można wyszukać";
         static readonly string NumbersOfCompLogsDescription = "Zmiana tej wartości ustala maksymalną liczbę logowań do komputera jaką można wyszukać";
-        static readonly string CustomSourceDescription = "Zezwala na wyszukiwanie sesji z ręcznie przygotowanej listy";
+        static readonly string CustomSourceCheckDescription = "Zezwala na wyszukiwanie sesji z ręcznie przygotowanej listy";
+        static readonly string CustomSourceTextBoxDescription = "Podaj nazwę terminali z których będa wyszukiwane sesje, musi być odzielone przecinkami";
         static readonly string AutoOpenPortDescription = "Zmiana tej wartości wyłączy pytanie o otwarcie portu 135 (RPC) odpowiedzialny za wykonywanie niektórych funkcji - będzie to wykonywane automatycznie";
         static readonly string AutoUnlockFirewallDescription = "Zmiana tej wartości wyłączy pytanie o odblokowywanie Zdalnej Zapory - będzie to wykonywane automatycznie";
         static readonly string SaveUserDataCheckDescription = "Zamiana tej wartości wyłączy pytanie o zapisywanie danych użytkownika przy usuwaniu - będzie to wykonywane automatycznie";
-        static readonly string SessionShortcutDescription = "Ustaw skrót klawiszowy odpowiedzialny za rozłączanie się z sesji zdalnej. \nWystarczy zaznaczyć kursorem na pole tekstowe i nacisnąć klawisze";
+        static readonly string SessionShortcutDescription = "Ustaw skrót klawiszowy odpowiedzialny za rozłączanie się od sesji zdalnej. \nWystarczy zaznaczyć kursorem na pole tekstowe i nacisnąć klawisze\nDziała tylko do serwera terminali 2008R2";
         static readonly string LocalUpdateDescription = "Zmienia miejsce wyszukiwania aktualizacji / ze zdalnie na lokalnie";
         static readonly string AutoStartUpdateDescription = "Automatyczne sprawdzanie aktualizacji przy uruchomieniu";
         static readonly string TerminalLogsSNFileDescription = "Podaj nazwę pliku zawierającego numery seryjne terminali";
@@ -53,6 +54,10 @@ namespace Settings
                 Name = check.Name;
             if (sender is Label label)
                 Name = label.Name;
+            if (sender is TextBox tbx)
+                Name = tbx.Name;
+            if (sender is RichTextBox rcbx)
+                Name = rcbx.Name;
             switch (Name)
             {
                 case nameof(HistoryLogCheck):
@@ -72,7 +77,7 @@ namespace Settings
                     }
                 case nameof(CustomSourceCheck):
                     {
-                        DescriptionLabel.Text = CustomSourceDescription;
+                        DescriptionLabel.Text = CustomSourceCheckDescription;
                         break;
                     }
                 case nameof(AutoOpenPortCheck):
@@ -110,7 +115,17 @@ namespace Settings
                         DescriptionLabel.Text = TerminalLogsFileDescription;
                         break;
                     }
+                case nameof(TerminalLogsFileTextBox):
+                    {
+                        DescriptionLabel.Text = TerminalLogsFileDescription;
+                        break;
+                    }
                 case nameof(TerminalLogsFolderLabel):
+                    {
+                        DescriptionLabel.Text = TerminalLogsFolderDescription;
+                        break;
+                    }
+                case nameof(TerminalLogsFolderTextBox):
                     {
                         DescriptionLabel.Text = TerminalLogsFolderDescription;
                         break;
@@ -119,6 +134,26 @@ namespace Settings
                     {
                         DescriptionLabel.Text = TerminalLogsSNFileDescription;
                         break; 
+                    }
+                case nameof(TerminalLogsSNFileTextBox):
+                    {
+                        DescriptionLabel.Text = TerminalLogsSNFileDescription;
+                        break;
+                    }
+                case nameof(localUpdateTextBox):
+                    { 
+                        DescriptionLabel.Text = LocalUpdateDescription;
+                        break;
+                    }
+                case nameof(CustomSourceTextBox):
+                    {
+                        DescriptionLabel.Text = CustomSourceTextBoxDescription;
+                        break;
+                    }
+                case nameof(SessionShortcutText):
+                    {
+                        DescriptionLabel.Text = SessionShortcutDescription;
+                        break;
                     }
             };               
         
