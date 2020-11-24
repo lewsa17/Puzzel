@@ -32,6 +32,8 @@ namespace Forms
             this.btnFinder = new System.Windows.Forms.Button();
             textLogView = new System.Windows.Forms.RichTextBox();
             this.panelBox = new System.Windows.Forms.GroupBox();
+            this.comboQueryFileBox = new System.Windows.Forms.ComboBox();
+            this.labelFile = new System.Windows.Forms.Label();
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.labelTime = new System.Windows.Forms.Label();
             this.labelQuery = new System.Windows.Forms.Label();
@@ -39,8 +41,6 @@ namespace Forms
             this.comboQueryTimeBox = new System.Windows.Forms.ComboBox();
             this.textQuery = new System.Windows.Forms.TextBox();
             this.comboQueryNameBox = new System.Windows.Forms.ComboBox();
-            this.labelFile = new System.Windows.Forms.Label();
-            this.comboQueryFileBox = new System.Windows.Forms.ComboBox();
             this.panelBox.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -60,13 +60,13 @@ namespace Forms
             textLogView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            textLogView.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             textLogView.Location = new System.Drawing.Point(6, 70);
             textLogView.Name = "textLogView";
             textLogView.Size = new System.Drawing.Size(864, 270);
-            textLogView.TabIndex = 6;
-            textLogView.TextChanged += new System.EventHandler(TextLogViewChanged);
+            textLogView.TabIndex = 5;
             textLogView.Text = "";
-            textLogView.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            textLogView.TextChanged += new System.EventHandler(this.TextLogViewChanged);
             // 
             // panelBox
             // 
@@ -87,9 +87,29 @@ namespace Forms
             this.panelBox.Location = new System.Drawing.Point(12, 12);
             this.panelBox.Name = "panelBox";
             this.panelBox.Size = new System.Drawing.Size(876, 375);
-            this.panelBox.TabIndex = 7;
+            this.panelBox.TabIndex = 0;
             this.panelBox.TabStop = false;
             this.panelBox.Text = "Szukaj logów";
+            // 
+            // comboQueryFileBox
+            // 
+            this.comboQueryFileBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboQueryFileBox.FormattingEnabled = true;
+            this.comboQueryFileBox.Location = new System.Drawing.Point(500, 41);
+            this.comboQueryFileBox.Name = "comboQueryFileBox";
+            this.comboQueryFileBox.Size = new System.Drawing.Size(130, 23);
+            this.comboQueryFileBox.TabIndex = 2;
+            // 
+            // labelFile
+            // 
+            this.labelFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelFile.AutoSize = true;
+            this.labelFile.Location = new System.Drawing.Point(500, 23);
+            this.labelFile.Name = "labelFile";
+            this.labelFile.Size = new System.Drawing.Size(90, 15);
+            this.labelFile.TabIndex = 15;
+            this.labelFile.Text = "Z którego pliku:";
             // 
             // progressBar
             // 
@@ -98,7 +118,7 @@ namespace Forms
             this.progressBar.Location = new System.Drawing.Point(6, 343);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(864, 23);
-            this.progressBar.TabIndex = 12;
+            this.progressBar.TabIndex = 16;
             // 
             // labelTime
             // 
@@ -107,7 +127,7 @@ namespace Forms
             this.labelTime.Location = new System.Drawing.Point(635, 23);
             this.labelTime.Name = "labelTime";
             this.labelTime.Size = new System.Drawing.Size(96, 15);
-            this.labelTime.TabIndex = 11;
+            this.labelTime.TabIndex = 17;
             this.labelTime.Text = "Z jakiego okresu:";
             // 
             // labelQuery
@@ -116,7 +136,7 @@ namespace Forms
             this.labelQuery.Location = new System.Drawing.Point(140, 23);
             this.labelQuery.Name = "labelQuery";
             this.labelQuery.Size = new System.Drawing.Size(150, 15);
-            this.labelQuery.TabIndex = 10;
+            this.labelQuery.TabIndex = 18;
             this.labelQuery.Text = "Podaj czego chcesz szukać:";
             // 
             // labelOptions
@@ -125,7 +145,7 @@ namespace Forms
             this.labelOptions.Location = new System.Drawing.Point(6, 23);
             this.labelOptions.Name = "labelOptions";
             this.labelOptions.Size = new System.Drawing.Size(84, 15);
-            this.labelOptions.TabIndex = 9;
+            this.labelOptions.TabIndex = 19;
             this.labelOptions.Text = "Wybierz opcję:";
             // 
             // comboQueryTimeBox
@@ -136,7 +156,7 @@ namespace Forms
             this.comboQueryTimeBox.Location = new System.Drawing.Point(636, 41);
             this.comboQueryTimeBox.Name = "comboQueryTimeBox";
             this.comboQueryTimeBox.Size = new System.Drawing.Size(153, 23);
-            this.comboQueryTimeBox.TabIndex = 8;
+            this.comboQueryTimeBox.TabIndex = 3;
             // 
             // textQuery
             // 
@@ -146,7 +166,7 @@ namespace Forms
             this.textQuery.Location = new System.Drawing.Point(140, 41);
             this.textQuery.Name = "textQuery";
             this.textQuery.Size = new System.Drawing.Size(354, 23);
-            this.textQuery.TabIndex = 7;
+            this.textQuery.TabIndex = 1;
             // 
             // comboQueryNameBox
             // 
@@ -160,27 +180,7 @@ namespace Forms
             this.comboQueryNameBox.Location = new System.Drawing.Point(6, 41);
             this.comboQueryNameBox.Name = "comboQueryNameBox";
             this.comboQueryNameBox.Size = new System.Drawing.Size(128, 23);
-            this.comboQueryNameBox.TabIndex = 5;
-            // 
-            // labelFile
-            // 
-            this.labelFile.AutoSize = true;
-            this.labelFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelFile.Location = new System.Drawing.Point(500, 23);
-            this.labelFile.Name = "labelFile";
-            this.labelFile.Size = new System.Drawing.Size(90, 15);
-            this.labelFile.TabIndex = 13;
-            this.labelFile.Text = "Z którego pliku:";
-            // 
-            // comboBoxFileQuery
-            // 
-            this.comboQueryFileBox.FormattingEnabled = true;
-            this.comboQueryFileBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboQueryFileBox.Location = new System.Drawing.Point(500, 41);
-            this.comboQueryFileBox.Name = "comboBoxFileQuery";
-            this.comboQueryFileBox.Size = new System.Drawing.Size(130, 23);
-            this.comboQueryFileBox.TabIndex = 14;
+            this.comboQueryNameBox.TabIndex = 0;
             // 
             // TerminalLogs
             // 
