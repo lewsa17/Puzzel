@@ -23,13 +23,16 @@ namespace Forms
                 var filename = PuzzelLibrary.Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "TerminalsLogDB");
                 var pathDB = Path.Combine(TerminalsLogFolder, filename);
                 List<string[]> dblist = new();
-                using (FileStream fileStream = new FileStream(pathDB, FileMode.Open, FileAccess.Read, FileShare.Read))
-                using (StreamReader sr = new StreamReader(fileStream))
+                if (File.Exists(pathDB))
                 {
-                    while (!sr.EndOfStream)
+                    using (FileStream fileStream = new FileStream(pathDB, FileMode.Open, FileAccess.Read, FileShare.Read))
+                    using (StreamReader sr = new StreamReader(fileStream))
                     {
-                        dblist.Add(sr.ReadLine().Split(','));
-                    }
+                        while (!sr.EndOfStream)
+                        {
+                            dblist.Add(sr.ReadLine().Split(','));
+                        }
+                    } 
                 }
                 return dblist;
             }
