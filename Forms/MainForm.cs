@@ -238,8 +238,8 @@ namespace Forms
         }
         private void NewClick(object sender, EventArgs e)
         {
-            TerminalLogs tl = new();
-            tl.ShowDialog();
+                TerminalLogs tl = new();
+                tl.ShowDialog();
 
         }
         private LogsData UserData()
