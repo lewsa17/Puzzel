@@ -236,6 +236,12 @@ namespace Forms
             StartWinSysApplication("ipconfig.exe", "/flushdns");
             StopTime();
         }
+        private void NewClick(object sender, EventArgs e)
+        {
+            TerminalLogs tl = new();
+            tl.ShowDialog();
+
+        }
         private LogsData UserData()
         {
             LogsData user = new();

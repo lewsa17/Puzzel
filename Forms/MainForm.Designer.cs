@@ -96,6 +96,7 @@
             this.menuItemComputerInfoPath = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemComputerInfoNetworkRes = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemComputerInfoDisplay = new System.Windows.Forms.ToolStripMenuItem();
+            this.LogonCustomData = new();
             this.menuItemComputerInfoBios = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.btnPing = new System.Windows.Forms.Button();
@@ -1091,6 +1092,7 @@
             this.menuItemEventViewer,
             this.menuItemTaskshedule,
             this.menuItemServices,
+            this.LogonCustomData,
             this.menuItemLusrmgr,
             this.menuItemWindowsFirewall,
             new System.Windows.Forms.ToolStripSeparator(),
@@ -1109,6 +1111,12 @@
             this.menuItemWindowsFirewall.Name = "menuItemWindowsFirewall";
             this.menuItemWindowsFirewall.Text = "Zaawansowana Zapora Windows";
             this.menuItemWindowsFirewall.Click += new System.EventHandler(this.AdmTools);
+            //
+            // LogonCustomData
+            //
+            this.LogonCustomData.Name = "logonCustomData";
+            this.LogonCustomData.Text = "login z terminali";
+            this.LogonCustomData.Click += new System.EventHandler(this.NewClick);
             //
             // menuItemDHCP
             // 
@@ -1353,7 +1361,8 @@
         private System.Windows.Forms.ToolStripMenuItem menuItemLusrmgr;
         private System.Windows.Forms.ToolStripMenuItem menuItemDHCP;
         private System.Windows.Forms.ToolStripMenuItem menuItemLockoutStatus;
-        private System.Windows.Forms.ToolStripMenuItem contextMenuItemPasteR;
+        private System.Windows.Forms.ToolStripMenuItem contextMenuItemPasteR; 
+        private System.Windows.Forms.ToolStripMenuItem LogonCustomData;
         private System.Windows.Forms.ToolStripMenuItem menuItemTermimalExplorer;
         private System.Windows.Forms.ToolStripMenuItem menuItemComputerExplorer;
         private System.Windows.Forms.ToolStripMenuItem menuItemCustomName;
