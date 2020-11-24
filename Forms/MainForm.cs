@@ -1261,7 +1261,7 @@ namespace Forms
         private void OpenSettings(object sender, EventArgs e)
         {
             var settingsForm = new Settings.SettingsForm(this.Name);
-            settingsForm.Show();
+            settingsForm.ShowDialog();
         }
     }
 }
