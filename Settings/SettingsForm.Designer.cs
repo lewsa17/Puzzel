@@ -92,7 +92,7 @@
             this.SaveButton.Location = new System.Drawing.Point(632, 415);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(75, 23);
-            this.SaveButton.TabIndex = 0;
+            this.SaveButton.TabIndex = 6;
             this.SaveButton.Text = "Zapisz";
             this.SaveButton.UseVisualStyleBackColor = true;
             this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
@@ -102,7 +102,7 @@
             this.CloseButton.Location = new System.Drawing.Point(713, 415);
             this.CloseButton.Name = "CloseButton";
             this.CloseButton.Size = new System.Drawing.Size(75, 23);
-            this.CloseButton.TabIndex = 1;
+            this.CloseButton.TabIndex = 7;
             this.CloseButton.Text = "Zamknij";
             this.CloseButton.UseVisualStyleBackColor = true;
             this.CloseButton.Click += new System.EventHandler(this.CloseButton_Click);
@@ -118,7 +118,7 @@
             this.TabSettings.Name = "TabSettings";
             this.TabSettings.SelectedIndex = 0;
             this.TabSettings.Size = new System.Drawing.Size(776, 406);
-            this.TabSettings.TabIndex = 2;
+            this.TabSettings.TabIndex = 0;
             // 
             // GeneralPage
             // 
@@ -138,10 +138,10 @@
             this.CustomValueBox.Controls.Add(this.CompMaxLogs);
             this.CustomValueBox.Controls.Add(this.NumbersOfUserLogs);
             this.CustomValueBox.Controls.Add(this.NumbersOfCompLogs);
-            this.CustomValueBox.Location = new System.Drawing.Point(20, 69);
+            this.CustomValueBox.Location = new System.Drawing.Point(20, 13);
             this.CustomValueBox.Name = "CustomValueBox";
             this.CustomValueBox.Size = new System.Drawing.Size(167, 82);
-            this.CustomValueBox.TabIndex = 1;
+            this.CustomValueBox.TabIndex = 0;
             this.CustomValueBox.TabStop = false;
             this.CustomValueBox.Text = "Niestandardowe wartości:";
             // 
@@ -151,7 +151,7 @@
             this.UserMaxLogs.Location = new System.Drawing.Point(16, 23);
             this.UserMaxLogs.Name = "UserMaxLogs";
             this.UserMaxLogs.Size = new System.Drawing.Size(33, 15);
-            this.UserMaxLogs.TabIndex = 4;
+            this.UserMaxLogs.TabIndex = 0;
             this.UserMaxLogs.Text = "Max:";
             this.UserMaxLogs.MouseEnter += new System.EventHandler(this.MouseOn);
             this.UserMaxLogs.MouseLeave += new System.EventHandler(this.MouseOut);
@@ -162,7 +162,7 @@
             this.CompMaxLogs.Location = new System.Drawing.Point(16, 52);
             this.CompMaxLogs.Name = "CompMaxLogs";
             this.CompMaxLogs.Size = new System.Drawing.Size(33, 15);
-            this.CompMaxLogs.TabIndex = 4;
+            this.CompMaxLogs.TabIndex = 1;
             this.CompMaxLogs.Text = "Max:";
             this.CompMaxLogs.MouseEnter += new System.EventHandler(this.MouseOn);
             this.CompMaxLogs.MouseLeave += new System.EventHandler(this.MouseOut);
@@ -182,7 +182,7 @@
             0});
             this.NumbersOfUserLogs.Name = "NumbersOfUserLogs";
             this.NumbersOfUserLogs.Size = new System.Drawing.Size(61, 23);
-            this.NumbersOfUserLogs.TabIndex = 4;
+            this.NumbersOfUserLogs.TabIndex = 3;
             this.NumbersOfUserLogs.Value = new decimal(new int[] {
             5,
             0,
@@ -205,7 +205,7 @@
             0});
             this.NumbersOfCompLogs.Name = "NumbersOfCompLogs";
             this.NumbersOfCompLogs.Size = new System.Drawing.Size(61, 23);
-            this.NumbersOfCompLogs.TabIndex = 4;
+            this.NumbersOfCompLogs.TabIndex = 2;
             this.NumbersOfCompLogs.Value = new decimal(new int[] {
             5,
             0,
@@ -216,7 +216,7 @@
             // HistoryLogBox
             // 
             this.HistoryLogBox.Controls.Add(this.HistoryLogCheck);
-            this.HistoryLogBox.Location = new System.Drawing.Point(20, 11);
+            this.HistoryLogBox.Location = new System.Drawing.Point(20, 101);
             this.HistoryLogBox.Name = "HistoryLogBox";
             this.HistoryLogBox.Size = new System.Drawing.Size(167, 52);
             this.HistoryLogBox.TabIndex = 0;
@@ -229,7 +229,7 @@
             this.HistoryLogCheck.Location = new System.Drawing.Point(6, 22);
             this.HistoryLogCheck.Name = "HistoryLogCheck";
             this.HistoryLogCheck.Size = new System.Drawing.Size(83, 19);
-            this.HistoryLogCheck.TabIndex = 0;
+            this.HistoryLogCheck.TabIndex = 1;
             this.HistoryLogCheck.Text = "Wyłaczone";
             this.HistoryLogCheck.UseVisualStyleBackColor = true;
             this.HistoryLogCheck.CheckedChanged += new System.EventHandler(this.ChangeChecked);
@@ -244,7 +244,7 @@
             this.SessionTab.Location = new System.Drawing.Point(4, 24);
             this.SessionTab.Name = "SessionTab";
             this.SessionTab.Size = new System.Drawing.Size(768, 378);
-            this.SessionTab.TabIndex = 2;
+            this.SessionTab.TabIndex = 1;
             this.SessionTab.Text = "Sesje";
             this.SessionTab.UseVisualStyleBackColor = true;
             // 
@@ -255,7 +255,7 @@
             this.SessionShortcutBox.Location = new System.Drawing.Point(23, 175);
             this.SessionShortcutBox.Name = "SessionShortcutBox";
             this.SessionShortcutBox.Size = new System.Drawing.Size(302, 100);
-            this.SessionShortcutBox.TabIndex = 3;
+            this.SessionShortcutBox.TabIndex = 1;
             this.SessionShortcutBox.TabStop = false;
             this.SessionShortcutBox.Text = "Skrót klawiszowy do rozłączenia";
             // 
@@ -265,10 +265,12 @@
             this.SessionShortcutText.Name = "SessionShortcutText";
             this.SessionShortcutText.ReadOnly = true;
             this.SessionShortcutText.Size = new System.Drawing.Size(143, 23);
-            this.SessionShortcutText.TabIndex = 1;
+            this.SessionShortcutText.TabIndex = 3;
             this.SessionShortcutText.Text = "Control + Multiply";
             this.SessionShortcutText.TextChanged += new System.EventHandler(this.OnChangeSaveProperty);
             this.SessionShortcutText.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SessionShortcutText_KeyDown);
+            this.SessionShortcutText.MouseEnter += new System.EventHandler(this.MouseOn);
+            this.SessionShortcutText.MouseLeave += new System.EventHandler(this.MouseOut);
             // 
             // SessionShortcutLabel
             // 
@@ -276,7 +278,7 @@
             this.SessionShortcutLabel.Location = new System.Drawing.Point(8, 23);
             this.SessionShortcutLabel.Name = "SessionShortcutLabel";
             this.SessionShortcutLabel.Size = new System.Drawing.Size(130, 15);
-            this.SessionShortcutLabel.TabIndex = 0;
+            this.SessionShortcutLabel.TabIndex = 1;
             this.SessionShortcutLabel.Text = "Ustaw skrót klawiszowy";
             this.SessionShortcutLabel.MouseEnter += new System.EventHandler(this.MouseOn);
             this.SessionShortcutLabel.MouseLeave += new System.EventHandler(this.MouseOut);
@@ -288,7 +290,7 @@
             this.CustomSourceBox.Location = new System.Drawing.Point(20, 11);
             this.CustomSourceBox.Name = "CustomSourceBox";
             this.CustomSourceBox.Size = new System.Drawing.Size(726, 141);
-            this.CustomSourceBox.TabIndex = 2;
+            this.CustomSourceBox.TabIndex = 0;
             this.CustomSourceBox.TabStop = false;
             this.CustomSourceBox.Text = "Zewnętrzne źródła";
             // 
@@ -313,9 +315,11 @@
             this.CustomSourceTextBox.Location = new System.Drawing.Point(3, 50);
             this.CustomSourceTextBox.Name = "CustomSourceTextBox";
             this.CustomSourceTextBox.Size = new System.Drawing.Size(720, 87);
-            this.CustomSourceTextBox.TabIndex = 0;
+            this.CustomSourceTextBox.TabIndex = 2;
             this.CustomSourceTextBox.Text = "";
             this.CustomSourceTextBox.TextChanged += new System.EventHandler(this.OnChangeSaveProperty);
+            this.CustomSourceTextBox.MouseEnter += new System.EventHandler(this.MouseOn);
+            this.CustomSourceTextBox.MouseLeave += new System.EventHandler(this.MouseOut);
             // 
             // UpdaterTab
             // 
@@ -325,7 +329,7 @@
             this.UpdaterTab.Location = new System.Drawing.Point(4, 24);
             this.UpdaterTab.Name = "UpdaterTab";
             this.UpdaterTab.Size = new System.Drawing.Size(768, 378);
-            this.UpdaterTab.TabIndex = 3;
+            this.UpdaterTab.TabIndex = 2;
             this.UpdaterTab.Text = "Aktualizacje";
             this.UpdaterTab.UseVisualStyleBackColor = true;
             // 
@@ -346,8 +350,10 @@
             this.localUpdateTextBox.Location = new System.Drawing.Point(11, 47);
             this.localUpdateTextBox.Name = "localUpdateTextBox";
             this.localUpdateTextBox.Size = new System.Drawing.Size(205, 23);
-            this.localUpdateTextBox.TabIndex = 1;
+            this.localUpdateTextBox.TabIndex = 2;
             this.localUpdateTextBox.TextChanged += new System.EventHandler(this.OnChangeSaveProperty);
+            this.localUpdateTextBox.MouseEnter += new System.EventHandler(this.MouseOn);
+            this.localUpdateTextBox.MouseLeave += new System.EventHandler(this.MouseOut);
             // 
             // localUpdateCheck
             // 
@@ -355,7 +361,7 @@
             this.localUpdateCheck.Location = new System.Drawing.Point(11, 22);
             this.localUpdateCheck.Name = "localUpdateCheck";
             this.localUpdateCheck.Size = new System.Drawing.Size(83, 19);
-            this.localUpdateCheck.TabIndex = 0;
+            this.localUpdateCheck.TabIndex = 1;
             this.localUpdateCheck.Text = "Wyłączone";
             this.localUpdateCheck.UseVisualStyleBackColor = true;
             this.localUpdateCheck.CheckedChanged += new System.EventHandler(this.ChangeChecked);
@@ -393,7 +399,7 @@
             this.TerminalLogsTab.Name = "TerminalLogsTab";
             this.TerminalLogsTab.Padding = new System.Windows.Forms.Padding(3);
             this.TerminalLogsTab.Size = new System.Drawing.Size(768, 378);
-            this.TerminalLogsTab.TabIndex = 4;
+            this.TerminalLogsTab.TabIndex = 3;
             this.TerminalLogsTab.Text = "LogiTerminali";
             this.TerminalLogsTab.UseVisualStyleBackColor = true;
             // 
@@ -405,7 +411,7 @@
             this.TerminalLogsBox.Controls.Add(this.TerminalLogsFileLabel);
             this.TerminalLogsBox.Controls.Add(this.TerminalLogsFolderTextBox);
             this.TerminalLogsBox.Controls.Add(this.TerminalLogsFolderLabel);
-            this.TerminalLogsBox.Location = new System.Drawing.Point(6, 4);
+            this.TerminalLogsBox.Location = new System.Drawing.Point(20, 11);
             this.TerminalLogsBox.Name = "TerminalLogsBox";
             this.TerminalLogsBox.Size = new System.Drawing.Size(470, 137);
             this.TerminalLogsBox.TabIndex = 0;
@@ -418,7 +424,8 @@
             this.TerminalLogsSNFileTextBox.Location = new System.Drawing.Point(165, 101);
             this.TerminalLogsSNFileTextBox.Name = "TerminalLogsSNFileTextBox";
             this.TerminalLogsSNFileTextBox.Size = new System.Drawing.Size(299, 23);
-            this.TerminalLogsSNFileTextBox.TabIndex = 5;
+            this.TerminalLogsSNFileTextBox.TabIndex = 3;
+            this.TerminalLogsSNFileTextBox.TextChanged += new System.EventHandler(this.OnChangeSaveProperty);
             this.TerminalLogsSNFileTextBox.MouseEnter += new System.EventHandler(this.MouseOn);
             this.TerminalLogsSNFileTextBox.MouseLeave += new System.EventHandler(this.MouseOut);
             // 
@@ -428,7 +435,7 @@
             this.TerminalLogsSNFileLabel.Location = new System.Drawing.Point(6, 105);
             this.TerminalLogsSNFileLabel.Name = "TerminalLogsSNFileLabel";
             this.TerminalLogsSNFileLabel.Size = new System.Drawing.Size(146, 15);
-            this.TerminalLogsSNFileLabel.TabIndex = 6;
+            this.TerminalLogsSNFileLabel.TabIndex = 1;
             this.TerminalLogsSNFileLabel.Text = "Plik z numerami seryjnymi";
             this.TerminalLogsSNFileLabel.MouseEnter += new System.EventHandler(this.MouseOn);
             this.TerminalLogsSNFileLabel.MouseLeave += new System.EventHandler(this.MouseOut);
@@ -439,7 +446,8 @@
             this.TerminalLogsFileTextBox.Location = new System.Drawing.Point(165, 62);
             this.TerminalLogsFileTextBox.Name = "TerminalLogsFileTextBox";
             this.TerminalLogsFileTextBox.Size = new System.Drawing.Size(299, 23);
-            this.TerminalLogsFileTextBox.TabIndex = 3;
+            this.TerminalLogsFileTextBox.TabIndex = 2;
+            this.TerminalLogsFileTextBox.TextChanged += new System.EventHandler(this.OnChangeSaveProperty);
             this.TerminalLogsFileTextBox.MouseEnter += new System.EventHandler(this.MouseOn);
             this.TerminalLogsFileTextBox.MouseLeave += new System.EventHandler(this.MouseOut);
             // 
@@ -461,6 +469,7 @@
             this.TerminalLogsFolderTextBox.Name = "TerminalLogsFolderTextBox";
             this.TerminalLogsFolderTextBox.Size = new System.Drawing.Size(299, 23);
             this.TerminalLogsFolderTextBox.TabIndex = 1;
+            this.TerminalLogsFolderTextBox.TextChanged += new System.EventHandler(this.OnChangeSaveProperty);
             this.TerminalLogsFolderTextBox.MouseEnter += new System.EventHandler(this.MouseOn);
             this.TerminalLogsFolderTextBox.MouseLeave += new System.EventHandler(this.MouseOut);
             // 
@@ -470,7 +479,7 @@
             this.TerminalLogsFolderLabel.Location = new System.Drawing.Point(6, 26);
             this.TerminalLogsFolderLabel.Name = "TerminalLogsFolderLabel";
             this.TerminalLogsFolderLabel.Size = new System.Drawing.Size(88, 15);
-            this.TerminalLogsFolderLabel.TabIndex = 2;
+            this.TerminalLogsFolderLabel.TabIndex = 5;
             this.TerminalLogsFolderLabel.Text = "Folder z logami";
             this.TerminalLogsFolderLabel.MouseEnter += new System.EventHandler(this.MouseOn);
             this.TerminalLogsFolderLabel.MouseLeave += new System.EventHandler(this.MouseOut);
@@ -482,7 +491,7 @@
             this.Other.Name = "Other";
             this.Other.Padding = new System.Windows.Forms.Padding(3);
             this.Other.Size = new System.Drawing.Size(768, 378);
-            this.Other.TabIndex = 5;
+            this.Other.TabIndex = 4;
             this.Other.Text = "Inne";
             this.Other.UseVisualStyleBackColor = true;
             // 
@@ -494,7 +503,7 @@
             this.AutomaticallyAllowBox.Location = new System.Drawing.Point(20, 11);
             this.AutomaticallyAllowBox.Name = "AutomaticallyAllowBox";
             this.AutomaticallyAllowBox.Size = new System.Drawing.Size(236, 100);
-            this.AutomaticallyAllowBox.TabIndex = 2;
+            this.AutomaticallyAllowBox.TabIndex = 0;
             this.AutomaticallyAllowBox.TabStop = false;
             this.AutomaticallyAllowBox.Text = "Automatyczne zezwolenia";
             // 
@@ -504,7 +513,7 @@
             this.SaveUserDataCheck.Location = new System.Drawing.Point(6, 75);
             this.SaveUserDataCheck.Name = "SaveUserDataCheck";
             this.SaveUserDataCheck.Size = new System.Drawing.Size(201, 19);
-            this.SaveUserDataCheck.TabIndex = 0;
+            this.SaveUserDataCheck.TabIndex = 3;
             this.SaveUserDataCheck.Text = "Zachowanie danych użytkownika";
             this.SaveUserDataCheck.UseVisualStyleBackColor = true;
             this.SaveUserDataCheck.CheckedChanged += new System.EventHandler(this.OnChangeSaveProperty);
@@ -517,7 +526,7 @@
             this.AutoUnlockFirewallCheck.Location = new System.Drawing.Point(6, 50);
             this.AutoUnlockFirewallCheck.Name = "AutoUnlockFirewallCheck";
             this.AutoUnlockFirewallCheck.Size = new System.Drawing.Size(141, 19);
-            this.AutoUnlockFirewallCheck.TabIndex = 0;
+            this.AutoUnlockFirewallCheck.TabIndex = 2;
             this.AutoUnlockFirewallCheck.Text = "Odblokowanie zapory";
             this.AutoUnlockFirewallCheck.UseVisualStyleBackColor = true;
             this.AutoUnlockFirewallCheck.CheckedChanged += new System.EventHandler(this.OnChangeSaveProperty);
@@ -530,7 +539,7 @@
             this.AutoOpenPortCheck.Location = new System.Drawing.Point(6, 25);
             this.AutoOpenPortCheck.Name = "AutoOpenPortCheck";
             this.AutoOpenPortCheck.Size = new System.Drawing.Size(196, 19);
-            this.AutoOpenPortCheck.TabIndex = 0;
+            this.AutoOpenPortCheck.TabIndex = 1;
             this.AutoOpenPortCheck.Text = "Automatycznie otwieranie portu";
             this.AutoOpenPortCheck.UseVisualStyleBackColor = true;
             this.AutoOpenPortCheck.CheckedChanged += new System.EventHandler(this.OnChangeSaveProperty);
@@ -544,7 +553,7 @@
             this.DescriptionBox.Location = new System.Drawing.Point(19, 303);
             this.DescriptionBox.Name = "DescriptionBox";
             this.DescriptionBox.Size = new System.Drawing.Size(762, 100);
-            this.DescriptionBox.TabIndex = 3;
+            this.DescriptionBox.TabIndex = 5;
             this.DescriptionBox.TabStop = false;
             this.DescriptionBox.Text = "Opis";
             // 
@@ -562,7 +571,7 @@
             this.RestoreDefaultButton.Location = new System.Drawing.Point(448, 415);
             this.RestoreDefaultButton.Name = "RestoreDefaultButton";
             this.RestoreDefaultButton.Size = new System.Drawing.Size(178, 23);
-            this.RestoreDefaultButton.TabIndex = 4;
+            this.RestoreDefaultButton.TabIndex = 5;
             this.RestoreDefaultButton.Text = "Przywróć ustawienia domyślne";
             this.RestoreDefaultButton.UseVisualStyleBackColor = true;
             this.RestoreDefaultButton.Click += new System.EventHandler(this.RestoreDefaultSettings);
