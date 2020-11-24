@@ -14,7 +14,7 @@ namespace Settings
         }
         private Control[] GetCollectionOfFieldSettings()
         {
-        Control[] ListOfFieldWithSettings = { localUpdateCheck, localUpdateTextBox, AutostartUpdateCheck,AutoOpenPortCheck, AutoUnlockFirewallCheck, HistoryLogCheck, CustomSourceCheck, SaveUserDataCheck, SessionShortcutText, CustomSourceTextBox, NumbersOfCompLogs, NumbersOfUserLogs };
+        Control[] ListOfFieldWithSettings = { localUpdateCheck, localUpdateTextBox, AutostartUpdateCheck,AutoOpenPortCheck, AutoUnlockFirewallCheck, HistoryLogCheck, CustomSourceCheck, SaveUserDataCheck, SessionShortcutText, CustomSourceTextBox, NumbersOfCompLogs, NumbersOfUserLogs, TerminalLogsFileTextBox,TerminalLogsFolderTextBox,TerminalLogsSNFileTextBox };
             return ListOfFieldWithSettings;
         }
 
@@ -29,12 +29,14 @@ namespace Settings
         static readonly string SessionShortcutDescription = "Ustaw skrót klawiszowy odpowiedzialny za rozłączanie się z sesji zdalnej. \nWystarczy zaznaczyć kursorem na pole tekstowe i nacisnąć klawisze";
         static readonly string LocalUpdateDescription = "Zmienia miejsce wyszukiwania aktualizacji / ze zdalnie na lokalnie";
         static readonly string AutoStartUpdateDescription = "Automatyczne sprawdzanie aktualizacji przy uruchomieniu";
+        static readonly string TerminalLogsSNFileDescription = "Podaj nazwę pliku zawierającego numery seryjne terminali";
+        static readonly string TerminalLogsFileDescription = "Podaj nazwy plików odzielone przecinkiem zawierające logi terminali";
+        static readonly string TerminalLogsFolderDescription = "Podaj lokalizację zawierająca logi terminali";
 
         private void CloseButton_Click(object sender, EventArgs e)
         {
             Close();
         }
-
         private void ChangeChecked(object sender, EventArgs e)
         {
             if (((CheckBox)sender).Checked)
@@ -53,10 +55,10 @@ namespace Settings
                 Name = label.Name;
             switch (Name)
             {
-                case nameof(HistoryLogCheck): 
+                case nameof(HistoryLogCheck):
                     {
-                        DescriptionLabel.Text = HistoryLogDescription; 
-                        break; 
+                        DescriptionLabel.Text = HistoryLogDescription;
+                        break;
                     }
                 case nameof(UserMaxLogs):
                     {
@@ -102,6 +104,21 @@ namespace Settings
                     {
                         DescriptionLabel.Text = AutoStartUpdateDescription;
                         break;
+                    }
+                case nameof(TerminalLogsFileLabel):
+                    {
+                        DescriptionLabel.Text = TerminalLogsFileDescription;
+                        break;
+                    }
+                case nameof(TerminalLogsFolderLabel):
+                    {
+                        DescriptionLabel.Text = TerminalLogsFolderDescription;
+                        break;
+                    }
+                case nameof(TerminalLogsSNFileLabel):
+                    {
+                        DescriptionLabel.Text = TerminalLogsSNFileDescription;
+                        break; 
                     }
             };               
         
@@ -199,6 +216,21 @@ namespace Settings
                             PuzzelLibrary.Settings.Values.LocalUpdatePath = localUpdateTextBox.Text;
                             break;
                         }
+                    case nameof(TerminalLogsFileTextBox):
+                        {
+                            PuzzelLibrary.Settings.Values.TerminalLogsFile = TerminalLogsFileTextBox.Text;
+                            break;
+                        }
+                    case nameof(TerminalLogsFolderTextBox):
+                        {
+                            PuzzelLibrary.Settings.Values.TerminalLogsFolder = TerminalLogsFolderTextBox.Text;
+                            break;
+                        }
+                    case nameof(TerminalLogsSNFileTextBox):
+                        {
+                            PuzzelLibrary.Settings.Values.TerminalLogsSNFile = TerminalLogsSNFileTextBox.Text;
+                            break;
+                        }
                 }
                 return;
             }
@@ -250,6 +282,9 @@ namespace Settings
                 localUpdateCheck.Checked = PuzzelLibrary.Settings.Values.LocalUpdateCheck;
                 localUpdateTextBox.Text = PuzzelLibrary.Settings.Values.LocalUpdatePath;
                 AutostartUpdateCheck.Checked = PuzzelLibrary.Settings.Values.AutostartUpdateCheck;
+                TerminalLogsFolderTextBox.Text = PuzzelLibrary.Settings.Values.TerminalLogsFolder;
+                TerminalLogsSNFileTextBox.Text = PuzzelLibrary.Settings.Values.TerminalLogsSNFile;
+                TerminalLogsFileTextBox.Text = PuzzelLibrary.Settings.Values.TerminalLogsFile;
             }
             else
             {
@@ -268,6 +303,9 @@ namespace Settings
                 PuzzelLibrary.Settings.Values.LocalUpdateCheck = localUpdateCheck.Checked;
                 PuzzelLibrary.Settings.Values.LocalUpdatePath = localUpdateTextBox.Text;
                 PuzzelLibrary.Settings.Values.AutostartUpdateCheck = AutostartUpdateCheck.Checked;
+                PuzzelLibrary.Settings.Values.TerminalLogsFolder = TerminalLogsFolderTextBox.Text;
+                PuzzelLibrary.Settings.Values.TerminalLogsSNFile = TerminalLogsSNFileTextBox.Text;
+                PuzzelLibrary.Settings.Values.TerminalLogsFile = TerminalLogsFileTextBox.Text;
             }
         }
 

@@ -52,6 +52,14 @@
             this.localUpdateCheck = new System.Windows.Forms.CheckBox();
             this.AutostartUpdateBox = new System.Windows.Forms.GroupBox();
             this.AutostartUpdateCheck = new System.Windows.Forms.CheckBox();
+            this.TerminalLogsTab = new System.Windows.Forms.TabPage();
+            this.TerminalLogsBox = new System.Windows.Forms.GroupBox();
+            this.TerminalLogsSNFileTextBox = new System.Windows.Forms.TextBox();
+            this.TerminalLogsSNFileLabel = new System.Windows.Forms.Label();
+            this.TerminalLogsFileTextBox = new System.Windows.Forms.TextBox();
+            this.TerminalLogsFileLabel = new System.Windows.Forms.Label();
+            this.TerminalLogsFolderTextBox = new System.Windows.Forms.TextBox();
+            this.TerminalLogsFolderLabel = new System.Windows.Forms.Label();
             this.Other = new System.Windows.Forms.TabPage();
             this.AutomaticallyAllowBox = new System.Windows.Forms.GroupBox();
             this.SaveUserDataCheck = new System.Windows.Forms.CheckBox();
@@ -72,6 +80,8 @@
             this.UpdaterTab.SuspendLayout();
             this.localUpdateBox.SuspendLayout();
             this.AutostartUpdateBox.SuspendLayout();
+            this.TerminalLogsTab.SuspendLayout();
+            this.TerminalLogsBox.SuspendLayout();
             this.Other.SuspendLayout();
             this.AutomaticallyAllowBox.SuspendLayout();
             this.DescriptionBox.SuspendLayout();
@@ -102,6 +112,7 @@
             this.TabSettings.Controls.Add(this.GeneralPage);
             this.TabSettings.Controls.Add(this.SessionTab);
             this.TabSettings.Controls.Add(this.UpdaterTab);
+            this.TabSettings.Controls.Add(this.TerminalLogsTab);
             this.TabSettings.Controls.Add(this.Other);
             this.TabSettings.Location = new System.Drawing.Point(12, 3);
             this.TabSettings.Name = "TabSettings";
@@ -375,6 +386,95 @@
             this.AutostartUpdateCheck.MouseEnter += new System.EventHandler(this.MouseOn);
             this.AutostartUpdateCheck.MouseLeave += new System.EventHandler(this.MouseOut);
             // 
+            // TerminalLogsTab
+            // 
+            this.TerminalLogsTab.Controls.Add(this.TerminalLogsBox);
+            this.TerminalLogsTab.Location = new System.Drawing.Point(4, 24);
+            this.TerminalLogsTab.Name = "TerminalLogsTab";
+            this.TerminalLogsTab.Padding = new System.Windows.Forms.Padding(3);
+            this.TerminalLogsTab.Size = new System.Drawing.Size(768, 378);
+            this.TerminalLogsTab.TabIndex = 4;
+            this.TerminalLogsTab.Text = "LogiTerminali";
+            this.TerminalLogsTab.UseVisualStyleBackColor = true;
+            // 
+            // TerminalLogsBox
+            // 
+            this.TerminalLogsBox.Controls.Add(this.TerminalLogsSNFileTextBox);
+            this.TerminalLogsBox.Controls.Add(this.TerminalLogsSNFileLabel);
+            this.TerminalLogsBox.Controls.Add(this.TerminalLogsFileTextBox);
+            this.TerminalLogsBox.Controls.Add(this.TerminalLogsFileLabel);
+            this.TerminalLogsBox.Controls.Add(this.TerminalLogsFolderTextBox);
+            this.TerminalLogsBox.Controls.Add(this.TerminalLogsFolderLabel);
+            this.TerminalLogsBox.Location = new System.Drawing.Point(6, 4);
+            this.TerminalLogsBox.Name = "TerminalLogsBox";
+            this.TerminalLogsBox.Size = new System.Drawing.Size(470, 137);
+            this.TerminalLogsBox.TabIndex = 0;
+            this.TerminalLogsBox.TabStop = false;
+            this.TerminalLogsBox.Text = "Wymagane do zbierania danych o terminalach";
+            // 
+            // TerminalLogsSNFileTextBox
+            // 
+            this.TerminalLogsSNFileTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.TerminalLogsSNFileTextBox.Location = new System.Drawing.Point(165, 101);
+            this.TerminalLogsSNFileTextBox.Name = "TerminalLogsSNFileTextBox";
+            this.TerminalLogsSNFileTextBox.Size = new System.Drawing.Size(299, 23);
+            this.TerminalLogsSNFileTextBox.TabIndex = 5;
+            this.TerminalLogsSNFileTextBox.MouseEnter += new System.EventHandler(this.MouseOn);
+            this.TerminalLogsSNFileTextBox.MouseLeave += new System.EventHandler(this.MouseOut);
+            // 
+            // TerminalLogsSNFileLabel
+            // 
+            this.TerminalLogsSNFileLabel.AutoSize = true;
+            this.TerminalLogsSNFileLabel.Location = new System.Drawing.Point(6, 105);
+            this.TerminalLogsSNFileLabel.Name = "TerminalLogsSNFileLabel";
+            this.TerminalLogsSNFileLabel.Size = new System.Drawing.Size(146, 15);
+            this.TerminalLogsSNFileLabel.TabIndex = 6;
+            this.TerminalLogsSNFileLabel.Text = "Plik z numerami seryjnymi";
+            this.TerminalLogsSNFileLabel.MouseEnter += new System.EventHandler(this.MouseOn);
+            this.TerminalLogsSNFileLabel.MouseLeave += new System.EventHandler(this.MouseOut);
+            // 
+            // TerminalLogsFileTextBox
+            // 
+            this.TerminalLogsFileTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.TerminalLogsFileTextBox.Location = new System.Drawing.Point(165, 62);
+            this.TerminalLogsFileTextBox.Name = "TerminalLogsFileTextBox";
+            this.TerminalLogsFileTextBox.Size = new System.Drawing.Size(299, 23);
+            this.TerminalLogsFileTextBox.TabIndex = 3;
+            this.TerminalLogsFileTextBox.MouseEnter += new System.EventHandler(this.MouseOn);
+            this.TerminalLogsFileTextBox.MouseLeave += new System.EventHandler(this.MouseOut);
+            // 
+            // TerminalLogsFileLabel
+            // 
+            this.TerminalLogsFileLabel.AutoSize = true;
+            this.TerminalLogsFileLabel.Location = new System.Drawing.Point(6, 66);
+            this.TerminalLogsFileLabel.Name = "TerminalLogsFileLabel";
+            this.TerminalLogsFileLabel.Size = new System.Drawing.Size(77, 15);
+            this.TerminalLogsFileLabel.TabIndex = 4;
+            this.TerminalLogsFileLabel.Text = "Pliki z logami";
+            this.TerminalLogsFileLabel.MouseEnter += new System.EventHandler(this.MouseOn);
+            this.TerminalLogsFileLabel.MouseLeave += new System.EventHandler(this.MouseOut);
+            // 
+            // TerminalLogsFolderTextBox
+            // 
+            this.TerminalLogsFolderTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.TerminalLogsFolderTextBox.Location = new System.Drawing.Point(165, 22);
+            this.TerminalLogsFolderTextBox.Name = "TerminalLogsFolderTextBox";
+            this.TerminalLogsFolderTextBox.Size = new System.Drawing.Size(299, 23);
+            this.TerminalLogsFolderTextBox.TabIndex = 1;
+            this.TerminalLogsFolderTextBox.MouseEnter += new System.EventHandler(this.MouseOn);
+            this.TerminalLogsFolderTextBox.MouseLeave += new System.EventHandler(this.MouseOut);
+            // 
+            // TerminalLogsFolderLabel
+            // 
+            this.TerminalLogsFolderLabel.AutoSize = true;
+            this.TerminalLogsFolderLabel.Location = new System.Drawing.Point(6, 26);
+            this.TerminalLogsFolderLabel.Name = "TerminalLogsFolderLabel";
+            this.TerminalLogsFolderLabel.Size = new System.Drawing.Size(88, 15);
+            this.TerminalLogsFolderLabel.TabIndex = 2;
+            this.TerminalLogsFolderLabel.Text = "Folder z logami";
+            this.TerminalLogsFolderLabel.MouseEnter += new System.EventHandler(this.MouseOn);
+            this.TerminalLogsFolderLabel.MouseLeave += new System.EventHandler(this.MouseOut);
+            // 
             // Other
             // 
             this.Other.Controls.Add(this.AutomaticallyAllowBox);
@@ -382,7 +482,7 @@
             this.Other.Name = "Other";
             this.Other.Padding = new System.Windows.Forms.Padding(3);
             this.Other.Size = new System.Drawing.Size(768, 378);
-            this.Other.TabIndex = 1;
+            this.Other.TabIndex = 5;
             this.Other.Text = "Inne";
             this.Other.UseVisualStyleBackColor = true;
             // 
@@ -471,7 +571,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(799, 450);
             this.Controls.Add(this.RestoreDefaultButton);
             this.Controls.Add(this.DescriptionBox);
             this.Controls.Add(this.CloseButton);
@@ -497,6 +597,9 @@
             this.localUpdateBox.PerformLayout();
             this.AutostartUpdateBox.ResumeLayout(false);
             this.AutostartUpdateBox.PerformLayout();
+            this.TerminalLogsTab.ResumeLayout(false);
+            this.TerminalLogsBox.ResumeLayout(false);
+            this.TerminalLogsBox.PerformLayout();
             this.Other.ResumeLayout(false);
             this.AutomaticallyAllowBox.ResumeLayout(false);
             this.AutomaticallyAllowBox.PerformLayout();
@@ -535,11 +638,19 @@
         private System.Windows.Forms.Label SessionShortcutLabel;
         private System.Windows.Forms.Button RestoreDefaultButton;
         private System.Windows.Forms.TabPage UpdaterTab;
+        private System.Windows.Forms.TabPage TerminalLogsTab;
         private System.Windows.Forms.GroupBox AutostartUpdateBox;
         private System.Windows.Forms.CheckBox AutostartUpdateCheck;
         private System.Windows.Forms.GroupBox localUpdateBox;
         private System.Windows.Forms.TextBox localUpdateTextBox;
         private System.Windows.Forms.CheckBox localUpdateCheck;
+        private System.Windows.Forms.GroupBox TerminalLogsBox;
+        private System.Windows.Forms.TextBox TerminalLogsFolderTextBox;
+        private System.Windows.Forms.Label TerminalLogsFolderLabel;
+        private System.Windows.Forms.TextBox TerminalLogsSNFileTextBox;
+        private System.Windows.Forms.Label TerminalLogsSNFileLabel;
+        private System.Windows.Forms.TextBox TerminalLogsFileTextBox;
+        private System.Windows.Forms.Label TerminalLogsFileLabel;
     }
 }
 
