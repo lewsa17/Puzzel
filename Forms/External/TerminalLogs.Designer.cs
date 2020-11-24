@@ -32,6 +32,7 @@ namespace Forms
             this.btnFinder = new System.Windows.Forms.Button();
             textLogView = new System.Windows.Forms.RichTextBox();
             this.panelBox = new System.Windows.Forms.GroupBox();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
             this.labelTime = new System.Windows.Forms.Label();
             this.labelQuery = new System.Windows.Forms.Label();
             this.labelOptions = new System.Windows.Forms.Label();
@@ -63,6 +64,7 @@ namespace Forms
             textLogView.Name = "textLogView";
             textLogView.Size = new System.Drawing.Size(864, 270);
             textLogView.TabIndex = 6;
+            textLogView.TextChanged += new System.EventHandler(TextLogViewChanged);
             textLogView.Text = "";
             textLogView.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             // 
@@ -73,6 +75,7 @@ namespace Forms
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelBox.Controls.Add(this.comboQueryFileBox);
             this.panelBox.Controls.Add(this.labelFile);
+            this.panelBox.Controls.Add(this.progressBar);
             this.panelBox.Controls.Add(this.labelTime);
             this.panelBox.Controls.Add(this.labelQuery);
             this.panelBox.Controls.Add(this.labelOptions);
@@ -87,6 +90,15 @@ namespace Forms
             this.panelBox.TabIndex = 7;
             this.panelBox.TabStop = false;
             this.panelBox.Text = "Szukaj logów";
+            // 
+            // progressBar
+            // 
+            this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.progressBar.Location = new System.Drawing.Point(6, 343);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(864, 23);
+            this.progressBar.TabIndex = 12;
             // 
             // labelTime
             // 
@@ -194,6 +206,7 @@ namespace Forms
         private System.Windows.Forms.Label labelQuery;
         private System.Windows.Forms.Label labelOptions;
         private System.Windows.Forms.ComboBox comboQueryTimeBox;
+        private System.Windows.Forms.ProgressBar progressBar;
         private System.Windows.Forms.ComboBox comboQueryFileBox;
         private System.Windows.Forms.Label labelFile;
         private static System.Windows.Forms.RichTextBox textLogView;

@@ -76,6 +76,17 @@ namespace Forms
             }
             else UpdateRichTextBox("Brak dostępu do pliku");
         }
+        long ProgressbarValue { get; set; }
+        public void UpdateProgressBarValue()
+        {
+            if (progressBar.InvokeRequired)
+                progressBar.Invoke(new MethodInvoker(() =>
+                {
+                    progressBar.Value = (int)ProgressbarValue;
+                    progressBar.Refresh();
+                }));
+            else { progressBar.Value = (int)ProgressbarValue; progressBar.Refresh(); }
+        }
         private delegate void UpdateRichTextBoxEventHandler(string message);
         private static void UpdateRichTextBox(string message)
         {
@@ -98,8 +109,13 @@ namespace Forms
                     return line[0];
             return "Brak danych";
         }
+        private void TextLogViewChanged(object sender, EventArgs e)
+        {
+            UpdateProgressBarValue();
+        }
         public void getTerminalLogs(string Value, string PathName, int ValueType)
         {
+            progressBar.Value = 0;
             textLogView.Focus();
             if (ValueType == 2)
             {
@@ -113,6 +129,7 @@ namespace Forms
                 {
                     while (!sr.EndOfStream)
                     {
+                        ProgressbarValue = (sr.BaseStream.Position * 100 / sr.BaseStream.Length);
                         string dataLine = sr.ReadLine();
                         var words = dataLine.Split(' ');
                         if (words.Length > 2)
@@ -123,6 +140,7 @@ namespace Forms
                             }
                         }
                     }
+                    UpdateProgressBarValue();
                 }
             });
         }
