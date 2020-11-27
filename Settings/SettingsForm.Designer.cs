@@ -68,6 +68,11 @@
             this.DescriptionBox = new System.Windows.Forms.GroupBox();
             this.DescriptionLabel = new System.Windows.Forms.Label();
             this.RestoreDefaultButton = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.ComputerLogsFolderTextBox = new System.Windows.Forms.TextBox();
+            this.ComputerLogsFolderLabel = new System.Windows.Forms.Label();
+            this.ComputerSNFileTextBox = new System.Windows.Forms.TextBox();
+            this.ComputerSNFileLabel = new System.Windows.Forms.Label();
             this.TabSettings.SuspendLayout();
             this.GeneralPage.SuspendLayout();
             this.CustomValueBox.SuspendLayout();
@@ -85,6 +90,7 @@
             this.Other.SuspendLayout();
             this.AutomaticallyAllowBox.SuspendLayout();
             this.DescriptionBox.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // SaveButton
@@ -394,13 +400,14 @@
             // 
             // TerminalLogsTab
             // 
+            this.TerminalLogsTab.Controls.Add(this.groupBox1);
             this.TerminalLogsTab.Controls.Add(this.TerminalLogsBox);
             this.TerminalLogsTab.Location = new System.Drawing.Point(4, 24);
             this.TerminalLogsTab.Name = "TerminalLogsTab";
             this.TerminalLogsTab.Padding = new System.Windows.Forms.Padding(3);
             this.TerminalLogsTab.Size = new System.Drawing.Size(768, 378);
             this.TerminalLogsTab.TabIndex = 3;
-            this.TerminalLogsTab.Text = "LogiTerminali";
+            this.TerminalLogsTab.Text = "Logi";
             this.TerminalLogsTab.UseVisualStyleBackColor = true;
             // 
             // TerminalLogsBox
@@ -421,7 +428,7 @@
             // TerminalLogsSNFileTextBox
             // 
             this.TerminalLogsSNFileTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.TerminalLogsSNFileTextBox.Location = new System.Drawing.Point(165, 101);
+            this.TerminalLogsSNFileTextBox.Location = new System.Drawing.Point(165, 102);
             this.TerminalLogsSNFileTextBox.Name = "TerminalLogsSNFileTextBox";
             this.TerminalLogsSNFileTextBox.Size = new System.Drawing.Size(299, 23);
             this.TerminalLogsSNFileTextBox.TabIndex = 3;
@@ -432,7 +439,7 @@
             // TerminalLogsSNFileLabel
             // 
             this.TerminalLogsSNFileLabel.AutoSize = true;
-            this.TerminalLogsSNFileLabel.Location = new System.Drawing.Point(6, 105);
+            this.TerminalLogsSNFileLabel.Location = new System.Drawing.Point(6, 106);
             this.TerminalLogsSNFileLabel.Name = "TerminalLogsSNFileLabel";
             this.TerminalLogsSNFileLabel.Size = new System.Drawing.Size(146, 15);
             this.TerminalLogsSNFileLabel.TabIndex = 1;
@@ -576,6 +583,63 @@
             this.RestoreDefaultButton.UseVisualStyleBackColor = true;
             this.RestoreDefaultButton.Click += new System.EventHandler(this.RestoreDefaultSettings);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.ComputerLogsFolderTextBox);
+            this.groupBox1.Controls.Add(this.ComputerLogsFolderLabel);
+            this.groupBox1.Controls.Add(this.ComputerSNFileTextBox);
+            this.groupBox1.Controls.Add(this.ComputerSNFileLabel);
+            this.groupBox1.Location = new System.Drawing.Point(20, 155);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(470, 115);
+            this.groupBox1.TabIndex = 1;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Wymagane do zbierania danych o komputerach";
+            // 
+            // ComputerLogsFolderTextBox
+            // 
+            this.ComputerLogsFolderTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ComputerLogsFolderTextBox.Location = new System.Drawing.Point(165, 62);
+            this.ComputerLogsFolderTextBox.Name = "ComputerLogsFolderTextBox";
+            this.ComputerLogsFolderTextBox.Size = new System.Drawing.Size(299, 23);
+            this.ComputerLogsFolderTextBox.TabIndex = 8;
+            this.ComputerLogsFolderTextBox.TextChanged += new System.EventHandler(this.OnChangeSaveProperty);
+            this.ComputerLogsFolderTextBox.MouseEnter += new System.EventHandler(this.MouseOn);
+            this.ComputerLogsFolderTextBox.MouseLeave += new System.EventHandler(this.MouseOut);
+            // 
+            // ComputerLogsFolderLabel
+            // 
+            this.ComputerLogsFolderLabel.AutoSize = true;
+            this.ComputerLogsFolderLabel.Location = new System.Drawing.Point(6, 66);
+            this.ComputerLogsFolderLabel.Name = "ComputerLogsFolderLabel";
+            this.ComputerLogsFolderLabel.Size = new System.Drawing.Size(146, 15);
+            this.ComputerLogsFolderLabel.TabIndex = 6;
+            this.ComputerLogsFolderLabel.Text = "Plik z numerami seryjnymi";
+            this.ComputerLogsFolderLabel.MouseEnter += new System.EventHandler(this.MouseOn);
+            this.ComputerLogsFolderLabel.MouseLeave += new System.EventHandler(this.MouseOut);
+            // 
+            // ComputerSNFileTextBox
+            // 
+            this.ComputerSNFileTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ComputerSNFileTextBox.Location = new System.Drawing.Point(165, 22);
+            this.ComputerSNFileTextBox.Name = "ComputerSNFileTextBox";
+            this.ComputerSNFileTextBox.Size = new System.Drawing.Size(299, 23);
+            this.ComputerSNFileTextBox.TabIndex = 7;
+            this.ComputerSNFileTextBox.TextChanged += new System.EventHandler(this.OnChangeSaveProperty);
+            this.ComputerSNFileTextBox.MouseEnter += new System.EventHandler(this.MouseOn);
+            this.ComputerSNFileTextBox.MouseLeave += new System.EventHandler(this.MouseOut);
+            // 
+            // ComputerSNFileLabel
+            // 
+            this.ComputerSNFileLabel.AutoSize = true;
+            this.ComputerSNFileLabel.Location = new System.Drawing.Point(6, 26);
+            this.ComputerSNFileLabel.Name = "ComputerSNFileLabel";
+            this.ComputerSNFileLabel.Size = new System.Drawing.Size(88, 15);
+            this.ComputerSNFileLabel.TabIndex = 9;
+            this.ComputerSNFileLabel.Text = "Folder z logami";
+            this.ComputerSNFileLabel.MouseEnter += new System.EventHandler(this.MouseOn);
+            this.ComputerSNFileLabel.MouseLeave += new System.EventHandler(this.MouseOut);
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -614,6 +678,8 @@
             this.AutomaticallyAllowBox.PerformLayout();
             this.DescriptionBox.ResumeLayout(false);
             this.DescriptionBox.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -660,6 +726,11 @@
         private System.Windows.Forms.Label TerminalLogsSNFileLabel;
         private System.Windows.Forms.TextBox TerminalLogsFileTextBox;
         private System.Windows.Forms.Label TerminalLogsFileLabel;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.TextBox ComputerLogsFolderTextBox;
+        private System.Windows.Forms.Label ComputerLogsFolderLabel;
+        private System.Windows.Forms.TextBox ComputerSNFileTextBox;
+        private System.Windows.Forms.Label ComputerSNFileLabel;
     }
 }
 

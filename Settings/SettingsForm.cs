@@ -14,7 +14,7 @@ namespace Settings
         }
         private Control[] GetCollectionOfFieldSettings()
         {
-        Control[] ListOfFieldWithSettings = { localUpdateCheck, localUpdateTextBox, AutostartUpdateCheck,AutoOpenPortCheck, AutoUnlockFirewallCheck, HistoryLogCheck, CustomSourceCheck, SaveUserDataCheck, SessionShortcutText, CustomSourceTextBox, NumbersOfCompLogs, NumbersOfUserLogs, TerminalLogsFileTextBox,TerminalLogsFolderTextBox,TerminalLogsSNFileTextBox };
+        Control[] ListOfFieldWithSettings = { localUpdateCheck, localUpdateTextBox, AutostartUpdateCheck,AutoOpenPortCheck, AutoUnlockFirewallCheck, HistoryLogCheck, CustomSourceCheck, SaveUserDataCheck, SessionShortcutText, CustomSourceTextBox, NumbersOfCompLogs, NumbersOfUserLogs, TerminalLogsFileTextBox,TerminalLogsFolderTextBox,TerminalLogsSNFileTextBox, ComputerSNFileTextBox, ComputerLogsFolderTextBox };
             return ListOfFieldWithSettings;
         }
 
@@ -33,6 +33,8 @@ namespace Settings
         static readonly string TerminalLogsSNFileDescription = "Podaj nazwę pliku zawierającego numery seryjne terminali";
         static readonly string TerminalLogsFileDescription = "Podaj nazwy plików odzielone przecinkiem zawierające logi terminali";
         static readonly string TerminalLogsFolderDescription = "Podaj lokalizację zawierająca logi terminali";
+        static readonly string ComputerSNFileDescription = "Podaj nazwę pliku zawierającego numery seryjne komputerów";
+        static readonly string ComputerLogsFolderDescripton = "Podaj lokalizację zawierająca logi komputera";
 
         private void CloseButton_Click(object sender, EventArgs e)
         {
@@ -133,7 +135,7 @@ namespace Settings
                 case nameof(TerminalLogsSNFileLabel):
                     {
                         DescriptionLabel.Text = TerminalLogsSNFileDescription;
-                        break; 
+                        break;
                     }
                 case nameof(TerminalLogsSNFileTextBox):
                     {
@@ -141,7 +143,7 @@ namespace Settings
                         break;
                     }
                 case nameof(localUpdateTextBox):
-                    { 
+                    {
                         DescriptionLabel.Text = LocalUpdateDescription;
                         break;
                     }
@@ -153,6 +155,26 @@ namespace Settings
                 case nameof(SessionShortcutText):
                     {
                         DescriptionLabel.Text = SessionShortcutDescription;
+                        break;
+                    }
+                case nameof(ComputerLogsFolderTextBox):
+                    {
+                        DescriptionLabel.Text = ComputerLogsFolderDescripton;
+                        break;
+                    }
+                case nameof(ComputerSNFileTextBox):
+                    {
+                        DescriptionLabel.Text = ComputerSNFileDescription;
+                        break;
+                    }
+                case nameof(ComputerSNFileLabel):
+                    {
+                        DescriptionLabel.Text = ComputerSNFileDescription;
+                        break;
+                    }
+                case nameof(ComputerLogsFolderLabel):
+                    {
+                        DescriptionLabel.Text = ComputerLogsFolderDescripton;
                         break;
                     }
             };               
@@ -266,6 +288,16 @@ namespace Settings
                             PuzzelLibrary.Settings.Values.TerminalLogsSNFile = TerminalLogsSNFileTextBox.Text;
                             break;
                         }
+                    case nameof(ComputerLogsFolderTextBox):
+                        {
+                            PuzzelLibrary.Settings.Values.ComputerLogsFolder = ComputerLogsFolderTextBox.Text;
+                            break;
+                        }
+                    case nameof(ComputerSNFileTextBox):
+                        {
+                            PuzzelLibrary.Settings.Values.ComputerSNFile = ComputerSNFileTextBox.Text;
+                            break;
+                        }
                 }
                 return;
             }
@@ -320,6 +352,8 @@ namespace Settings
                 TerminalLogsFolderTextBox.Text = PuzzelLibrary.Settings.Values.TerminalLogsFolder;
                 TerminalLogsSNFileTextBox.Text = PuzzelLibrary.Settings.Values.TerminalLogsSNFile;
                 TerminalLogsFileTextBox.Text = PuzzelLibrary.Settings.Values.TerminalLogsFile;
+                ComputerSNFileTextBox.Text = PuzzelLibrary.Settings.Values.ComputerSNFile;
+                ComputerLogsFolderTextBox.Text = PuzzelLibrary.Settings.Values.ComputerLogsFolder;
             }
             else
             {
@@ -341,6 +375,8 @@ namespace Settings
                 PuzzelLibrary.Settings.Values.TerminalLogsFolder = TerminalLogsFolderTextBox.Text;
                 PuzzelLibrary.Settings.Values.TerminalLogsSNFile = TerminalLogsSNFileTextBox.Text;
                 PuzzelLibrary.Settings.Values.TerminalLogsFile = TerminalLogsFileTextBox.Text;
+                PuzzelLibrary.Settings.Values.ComputerLogsFolder = ComputerLogsFolderTextBox.Text;
+                PuzzelLibrary.Settings.Values.ComputerSNFile = ComputerSNFileTextBox.Text;
             }
         }
 
