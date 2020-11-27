@@ -48,11 +48,11 @@
             this.CustomSourceTextBox = new System.Windows.Forms.RichTextBox();
             this.UpdaterTab = new System.Windows.Forms.TabPage();
             this.localUpdateBox = new System.Windows.Forms.GroupBox();
-            this.localUpdateTextBox = new System.Windows.Forms.TextBox();
-            this.localUpdateCheck = new System.Windows.Forms.CheckBox();
-            this.AutostartUpdateBox = new System.Windows.Forms.GroupBox();
-            this.AutostartUpdateCheck = new System.Windows.Forms.CheckBox();
-            this.TerminalLogsTab = new System.Windows.Forms.TabPage();
+            this.LocalUpdateTextBox = new System.Windows.Forms.TextBox();
+            this.LocalUpdateCheck = new System.Windows.Forms.CheckBox();
+            this.AutoStartUpdateBox = new System.Windows.Forms.GroupBox();
+            this.AutoStartUpdateCheck = new System.Windows.Forms.CheckBox();
+            this.Logs = new System.Windows.Forms.TabPage();
             this.TerminalLogsBox = new System.Windows.Forms.GroupBox();
             this.TerminalLogsSNFileTextBox = new System.Windows.Forms.TextBox();
             this.TerminalLogsSNFileLabel = new System.Windows.Forms.Label();
@@ -84,8 +84,8 @@
             this.CustomSourceBox.SuspendLayout();
             this.UpdaterTab.SuspendLayout();
             this.localUpdateBox.SuspendLayout();
-            this.AutostartUpdateBox.SuspendLayout();
-            this.TerminalLogsTab.SuspendLayout();
+            this.AutoStartUpdateBox.SuspendLayout();
+            this.Logs.SuspendLayout();
             this.TerminalLogsBox.SuspendLayout();
             this.Other.SuspendLayout();
             this.AutomaticallyAllowBox.SuspendLayout();
@@ -118,7 +118,7 @@
             this.TabSettings.Controls.Add(this.GeneralPage);
             this.TabSettings.Controls.Add(this.SessionTab);
             this.TabSettings.Controls.Add(this.UpdaterTab);
-            this.TabSettings.Controls.Add(this.TerminalLogsTab);
+            this.TabSettings.Controls.Add(this.Logs);
             this.TabSettings.Controls.Add(this.Other);
             this.TabSettings.Location = new System.Drawing.Point(12, 3);
             this.TabSettings.Name = "TabSettings";
@@ -331,7 +331,7 @@
             // 
             this.UpdaterTab.BackColor = System.Drawing.Color.Transparent;
             this.UpdaterTab.Controls.Add(this.localUpdateBox);
-            this.UpdaterTab.Controls.Add(this.AutostartUpdateBox);
+            this.UpdaterTab.Controls.Add(this.AutoStartUpdateBox);
             this.UpdaterTab.Location = new System.Drawing.Point(4, 24);
             this.UpdaterTab.Name = "UpdaterTab";
             this.UpdaterTab.Size = new System.Drawing.Size(768, 378);
@@ -341,8 +341,8 @@
             // 
             // localUpdateBox
             // 
-            this.localUpdateBox.Controls.Add(this.localUpdateTextBox);
-            this.localUpdateBox.Controls.Add(this.localUpdateCheck);
+            this.localUpdateBox.Controls.Add(this.LocalUpdateTextBox);
+            this.localUpdateBox.Controls.Add(this.LocalUpdateCheck);
             this.localUpdateBox.Location = new System.Drawing.Point(20, 69);
             this.localUpdateBox.Name = "localUpdateBox";
             this.localUpdateBox.Size = new System.Drawing.Size(398, 81);
@@ -350,65 +350,65 @@
             this.localUpdateBox.TabStop = false;
             this.localUpdateBox.Text = "Aktualizacje lokalne";
             // 
-            // localUpdateTextBox
+            // LocalUpdateTextBox
             // 
-            this.localUpdateTextBox.Enabled = false;
-            this.localUpdateTextBox.Location = new System.Drawing.Point(11, 47);
-            this.localUpdateTextBox.Name = "localUpdateTextBox";
-            this.localUpdateTextBox.Size = new System.Drawing.Size(205, 23);
-            this.localUpdateTextBox.TabIndex = 2;
-            this.localUpdateTextBox.TextChanged += new System.EventHandler(this.OnChangeSaveProperty);
-            this.localUpdateTextBox.MouseEnter += new System.EventHandler(this.MouseOn);
-            this.localUpdateTextBox.MouseLeave += new System.EventHandler(this.MouseOut);
+            this.LocalUpdateTextBox.Enabled = false;
+            this.LocalUpdateTextBox.Location = new System.Drawing.Point(11, 47);
+            this.LocalUpdateTextBox.Name = "LocalUpdateTextBox";
+            this.LocalUpdateTextBox.Size = new System.Drawing.Size(205, 23);
+            this.LocalUpdateTextBox.TabIndex = 2;
+            this.LocalUpdateTextBox.TextChanged += new System.EventHandler(this.OnChangeSaveProperty);
+            this.LocalUpdateTextBox.MouseEnter += new System.EventHandler(this.MouseOn);
+            this.LocalUpdateTextBox.MouseLeave += new System.EventHandler(this.MouseOut);
             // 
-            // localUpdateCheck
+            // LocalUpdateCheck
             // 
-            this.localUpdateCheck.AutoSize = true;
-            this.localUpdateCheck.Location = new System.Drawing.Point(11, 22);
-            this.localUpdateCheck.Name = "localUpdateCheck";
-            this.localUpdateCheck.Size = new System.Drawing.Size(83, 19);
-            this.localUpdateCheck.TabIndex = 1;
-            this.localUpdateCheck.Text = "Wyłączone";
-            this.localUpdateCheck.UseVisualStyleBackColor = true;
-            this.localUpdateCheck.CheckedChanged += new System.EventHandler(this.ChangeChecked);
-            this.localUpdateCheck.CheckStateChanged += new System.EventHandler(this.EnablingTextBox);
-            this.localUpdateCheck.MouseEnter += new System.EventHandler(this.MouseOn);
-            this.localUpdateCheck.MouseLeave += new System.EventHandler(this.MouseOut);
+            this.LocalUpdateCheck.AutoSize = true;
+            this.LocalUpdateCheck.Location = new System.Drawing.Point(11, 22);
+            this.LocalUpdateCheck.Name = "LocalUpdateCheck";
+            this.LocalUpdateCheck.Size = new System.Drawing.Size(83, 19);
+            this.LocalUpdateCheck.TabIndex = 1;
+            this.LocalUpdateCheck.Text = "Wyłączone";
+            this.LocalUpdateCheck.UseVisualStyleBackColor = true;
+            this.LocalUpdateCheck.CheckedChanged += new System.EventHandler(this.ChangeChecked);
+            this.LocalUpdateCheck.CheckStateChanged += new System.EventHandler(this.EnablingTextBox);
+            this.LocalUpdateCheck.MouseEnter += new System.EventHandler(this.MouseOn);
+            this.LocalUpdateCheck.MouseLeave += new System.EventHandler(this.MouseOut);
             // 
-            // AutostartUpdateBox
+            // AutoStartUpdateBox
             // 
-            this.AutostartUpdateBox.Controls.Add(this.AutostartUpdateCheck);
-            this.AutostartUpdateBox.Location = new System.Drawing.Point(20, 11);
-            this.AutostartUpdateBox.Name = "AutostartUpdateBox";
-            this.AutostartUpdateBox.Size = new System.Drawing.Size(226, 52);
-            this.AutostartUpdateBox.TabIndex = 0;
-            this.AutostartUpdateBox.TabStop = false;
-            this.AutostartUpdateBox.Text = "Autostart";
+            this.AutoStartUpdateBox.Controls.Add(this.AutoStartUpdateCheck);
+            this.AutoStartUpdateBox.Location = new System.Drawing.Point(20, 11);
+            this.AutoStartUpdateBox.Name = "AutoStartUpdateBox";
+            this.AutoStartUpdateBox.Size = new System.Drawing.Size(226, 52);
+            this.AutoStartUpdateBox.TabIndex = 0;
+            this.AutoStartUpdateBox.TabStop = false;
+            this.AutoStartUpdateBox.Text = "AutoStart";
             // 
-            // AutostartUpdateCheck
+            // AutoStartUpdateCheck
             // 
-            this.AutostartUpdateCheck.AutoSize = true;
-            this.AutostartUpdateCheck.Location = new System.Drawing.Point(11, 23);
-            this.AutostartUpdateCheck.Name = "AutostartUpdateCheck";
-            this.AutostartUpdateCheck.Size = new System.Drawing.Size(205, 19);
-            this.AutostartUpdateCheck.TabIndex = 0;
-            this.AutostartUpdateCheck.Text = "Sprawdzaj aktualizacje przy starcie";
-            this.AutostartUpdateCheck.UseVisualStyleBackColor = true;
-            this.AutostartUpdateCheck.CheckStateChanged += new System.EventHandler(this.OnChangeSaveProperty);
-            this.AutostartUpdateCheck.MouseEnter += new System.EventHandler(this.MouseOn);
-            this.AutostartUpdateCheck.MouseLeave += new System.EventHandler(this.MouseOut);
+            this.AutoStartUpdateCheck.AutoSize = true;
+            this.AutoStartUpdateCheck.Location = new System.Drawing.Point(11, 23);
+            this.AutoStartUpdateCheck.Name = "AutoStartUpdateCheck";
+            this.AutoStartUpdateCheck.Size = new System.Drawing.Size(205, 19);
+            this.AutoStartUpdateCheck.TabIndex = 0;
+            this.AutoStartUpdateCheck.Text = "Sprawdzaj aktualizacje przy starcie";
+            this.AutoStartUpdateCheck.UseVisualStyleBackColor = true;
+            this.AutoStartUpdateCheck.CheckStateChanged += new System.EventHandler(this.OnChangeSaveProperty);
+            this.AutoStartUpdateCheck.MouseEnter += new System.EventHandler(this.MouseOn);
+            this.AutoStartUpdateCheck.MouseLeave += new System.EventHandler(this.MouseOut);
             // 
-            // TerminalLogsTab
+            // Logs
             // 
-            this.TerminalLogsTab.Controls.Add(this.groupBox1);
-            this.TerminalLogsTab.Controls.Add(this.TerminalLogsBox);
-            this.TerminalLogsTab.Location = new System.Drawing.Point(4, 24);
-            this.TerminalLogsTab.Name = "TerminalLogsTab";
-            this.TerminalLogsTab.Padding = new System.Windows.Forms.Padding(3);
-            this.TerminalLogsTab.Size = new System.Drawing.Size(768, 378);
-            this.TerminalLogsTab.TabIndex = 3;
-            this.TerminalLogsTab.Text = "Logi";
-            this.TerminalLogsTab.UseVisualStyleBackColor = true;
+            this.Logs.Controls.Add(this.groupBox1);
+            this.Logs.Controls.Add(this.TerminalLogsBox);
+            this.Logs.Location = new System.Drawing.Point(4, 24);
+            this.Logs.Name = "TerminalLogsTab";
+            this.Logs.Padding = new System.Windows.Forms.Padding(3);
+            this.Logs.Size = new System.Drawing.Size(768, 378);
+            this.Logs.TabIndex = 3;
+            this.Logs.Text = "Logi";
+            this.Logs.UseVisualStyleBackColor = true;
             // 
             // TerminalLogsBox
             // 
@@ -642,95 +642,95 @@
             // 
             // SettingsForm
             // 
+            ((System.ComponentModel.ISupportInitialize)(this.NumbersOfCompLogs)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumbersOfUserLogs)).EndInit();
+            this.AutomaticallyAllowBox.PerformLayout();
+            this.AutomaticallyAllowBox.ResumeLayout(false);
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoStartUpdateBox.PerformLayout();
+            this.AutoStartUpdateBox.ResumeLayout(false);
             this.ClientSize = new System.Drawing.Size(799, 450);
-            this.Controls.Add(this.RestoreDefaultButton);
-            this.Controls.Add(this.DescriptionBox);
             this.Controls.Add(this.CloseButton);
+            this.Controls.Add(this.DescriptionBox);
+            this.Controls.Add(this.RestoreDefaultButton);
             this.Controls.Add(this.SaveButton);
             this.Controls.Add(this.TabSettings);
-            this.Name = "SettingsForm";
-            this.Text = "Ustawienia";
-            this.TabSettings.ResumeLayout(false);
-            this.GeneralPage.ResumeLayout(false);
-            this.CustomValueBox.ResumeLayout(false);
-            this.CustomValueBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NumbersOfUserLogs)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NumbersOfCompLogs)).EndInit();
-            this.HistoryLogBox.ResumeLayout(false);
-            this.HistoryLogBox.PerformLayout();
-            this.SessionTab.ResumeLayout(false);
-            this.SessionShortcutBox.ResumeLayout(false);
-            this.SessionShortcutBox.PerformLayout();
-            this.CustomSourceBox.ResumeLayout(false);
             this.CustomSourceBox.PerformLayout();
-            this.UpdaterTab.ResumeLayout(false);
-            this.localUpdateBox.ResumeLayout(false);
-            this.localUpdateBox.PerformLayout();
-            this.AutostartUpdateBox.ResumeLayout(false);
-            this.AutostartUpdateBox.PerformLayout();
-            this.TerminalLogsTab.ResumeLayout(false);
-            this.TerminalLogsBox.ResumeLayout(false);
-            this.TerminalLogsBox.PerformLayout();
-            this.Other.ResumeLayout(false);
-            this.AutomaticallyAllowBox.ResumeLayout(false);
-            this.AutomaticallyAllowBox.PerformLayout();
-            this.DescriptionBox.ResumeLayout(false);
+            this.CustomSourceBox.ResumeLayout(false);
+            this.CustomValueBox.PerformLayout();
+            this.CustomValueBox.ResumeLayout(false);
             this.DescriptionBox.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
+            this.DescriptionBox.ResumeLayout(false);
+            this.GeneralPage.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.HistoryLogBox.PerformLayout();
+            this.HistoryLogBox.ResumeLayout(false);
+            this.localUpdateBox.PerformLayout();
+            this.localUpdateBox.ResumeLayout(false);
+            this.Name = "SettingsForm";
+            this.Other.ResumeLayout(false);
+            this.SessionShortcutBox.PerformLayout();
+            this.SessionShortcutBox.ResumeLayout(false);
+            this.SessionTab.ResumeLayout(false);
+            this.TabSettings.ResumeLayout(false);
+            this.TerminalLogsBox.PerformLayout();
+            this.TerminalLogsBox.ResumeLayout(false);
+            this.Logs.ResumeLayout(false);
+            this.Text = "Ustawienia";
+            this.UpdaterTab.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button SaveButton;
         private System.Windows.Forms.Button CloseButton;
+        private System.Windows.Forms.Button RestoreDefaultButton;
+        private System.Windows.Forms.Button SaveButton;
+        private System.Windows.Forms.CheckBox AutoOpenPortCheck;
+        private System.Windows.Forms.CheckBox AutoStartUpdateCheck;
+        private System.Windows.Forms.CheckBox AutoUnlockFirewallCheck;
+        private System.Windows.Forms.CheckBox CustomSourceCheck;
+        private System.Windows.Forms.CheckBox HistoryLogCheck;
+        private System.Windows.Forms.CheckBox LocalUpdateCheck;
+        private System.Windows.Forms.CheckBox SaveUserDataCheck;
+        private System.Windows.Forms.GroupBox AutomaticallyAllowBox;
+        private System.Windows.Forms.GroupBox AutoStartUpdateBox;
+        private System.Windows.Forms.GroupBox CustomSourceBox;
+        private System.Windows.Forms.GroupBox CustomValueBox;
+        private System.Windows.Forms.GroupBox DescriptionBox;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox HistoryLogBox;
+        private System.Windows.Forms.GroupBox localUpdateBox;
+        private System.Windows.Forms.GroupBox SessionShortcutBox;
+        private System.Windows.Forms.GroupBox TerminalLogsBox;
+        private System.Windows.Forms.Label CompMaxLogs;
+        private System.Windows.Forms.Label ComputerLogsFolderLabel;
+        private System.Windows.Forms.Label ComputerSNFileLabel;
+        private System.Windows.Forms.Label DescriptionLabel;
+        private System.Windows.Forms.Label SessionShortcutLabel;
+        private System.Windows.Forms.Label TerminalLogsFileLabel;
+        private System.Windows.Forms.Label TerminalLogsFolderLabel;
+        private System.Windows.Forms.Label TerminalLogsSNFileLabel;
+        private System.Windows.Forms.Label UserMaxLogs;
+        private System.Windows.Forms.NumericUpDown NumbersOfCompLogs;
+        private System.Windows.Forms.NumericUpDown NumbersOfUserLogs;
+        private System.Windows.Forms.RichTextBox CustomSourceTextBox;
         private System.Windows.Forms.TabControl TabSettings;
         private System.Windows.Forms.TabPage GeneralPage;
-        private System.Windows.Forms.GroupBox DescriptionBox;
-        private System.Windows.Forms.Label DescriptionLabel;
         private System.Windows.Forms.TabPage Other;
-        private System.Windows.Forms.GroupBox HistoryLogBox;
-        private System.Windows.Forms.CheckBox HistoryLogCheck;
-        private System.Windows.Forms.GroupBox CustomValueBox;
-        private System.Windows.Forms.Label UserMaxLogs;
-        private System.Windows.Forms.Label CompMaxLogs;
-        private System.Windows.Forms.NumericUpDown NumbersOfUserLogs;
-        private System.Windows.Forms.NumericUpDown NumbersOfCompLogs;
         private System.Windows.Forms.TabPage SessionTab;
-        private System.Windows.Forms.GroupBox CustomSourceBox;
-        private System.Windows.Forms.RichTextBox CustomSourceTextBox;
-        private System.Windows.Forms.CheckBox CustomSourceCheck;
-        private System.Windows.Forms.GroupBox AutomaticallyAllowBox;
-        private System.Windows.Forms.CheckBox SaveUserDataCheck;
-        private System.Windows.Forms.CheckBox AutoUnlockFirewallCheck;
-        private System.Windows.Forms.CheckBox AutoOpenPortCheck;
-        private System.Windows.Forms.GroupBox SessionShortcutBox;
-        private System.Windows.Forms.TextBox SessionShortcutText;
-        private System.Windows.Forms.Label SessionShortcutLabel;
-        private System.Windows.Forms.Button RestoreDefaultButton;
+        private System.Windows.Forms.TabPage Logs;
         private System.Windows.Forms.TabPage UpdaterTab;
-        private System.Windows.Forms.TabPage TerminalLogsTab;
-        private System.Windows.Forms.GroupBox AutostartUpdateBox;
-        private System.Windows.Forms.CheckBox AutostartUpdateCheck;
-        private System.Windows.Forms.GroupBox localUpdateBox;
-        private System.Windows.Forms.TextBox localUpdateTextBox;
-        private System.Windows.Forms.CheckBox localUpdateCheck;
-        private System.Windows.Forms.GroupBox TerminalLogsBox;
-        private System.Windows.Forms.TextBox TerminalLogsFolderTextBox;
-        private System.Windows.Forms.Label TerminalLogsFolderLabel;
-        private System.Windows.Forms.TextBox TerminalLogsSNFileTextBox;
-        private System.Windows.Forms.Label TerminalLogsSNFileLabel;
-        private System.Windows.Forms.TextBox TerminalLogsFileTextBox;
-        private System.Windows.Forms.Label TerminalLogsFileLabel;
-        private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox ComputerLogsFolderTextBox;
-        private System.Windows.Forms.Label ComputerLogsFolderLabel;
         private System.Windows.Forms.TextBox ComputerSNFileTextBox;
-        private System.Windows.Forms.Label ComputerSNFileLabel;
+        private System.Windows.Forms.TextBox LocalUpdateTextBox;
+        private System.Windows.Forms.TextBox SessionShortcutText;
+        private System.Windows.Forms.TextBox TerminalLogsFileTextBox;
+        private System.Windows.Forms.TextBox TerminalLogsFolderTextBox;
+        private System.Windows.Forms.TextBox TerminalLogsSNFileTextBox;
     }
 }
 
