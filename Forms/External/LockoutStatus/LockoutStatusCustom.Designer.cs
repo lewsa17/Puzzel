@@ -28,74 +28,74 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LockoutStatusCustom));
-            this.labelUserName = new System.Windows.Forms.Label();
-            this.labelDomainName = new System.Windows.Forms.Label();
-            this.textUserName = new System.Windows.Forms.TextBox();
-            this.textDomainName = new System.Windows.Forms.TextBox();
-            this.btnOk = new System.Windows.Forms.Button();
-            this.btnCancel = new System.Windows.Forms.Button();
+            System.ComponentModel.ComponentResourceManager resources = new(typeof(LockoutStatusCustom));
+            this.labelUserName = new();
+            this.labelDomainName = new();
+            this.textUserName = new();
+            this.textDomainName = new();
+            this.btnOk = new();
+            this.btnCancel = new();
             this.SuspendLayout();
             // 
             // labelUserName
             // 
             this.labelUserName.AutoSize = true;
-            this.labelUserName.Location = new System.Drawing.Point(29, 15);
+            this.labelUserName.Location = new(29, 15);
             this.labelUserName.Name = "labelUserName";
-            this.labelUserName.Size = new System.Drawing.Size(133, 13);
+            this.labelUserName.Size = new(133, 13);
             this.labelUserName.TabIndex = 0;
             this.labelUserName.Text = "Podaj nazwę użytkownika:";
             // 
             // labelDomainName
             // 
             this.labelDomainName.AutoSize = true;
-            this.labelDomainName.Location = new System.Drawing.Point(51, 37);
+            this.labelDomainName.Location = new(51, 37);
             this.labelDomainName.Name = "labelDomainName";
-            this.labelDomainName.Size = new System.Drawing.Size(111, 13);
+            this.labelDomainName.Size = new(111, 13);
             this.labelDomainName.TabIndex = 1;
             this.labelDomainName.Text = "Podaj nazwę domeny:";
             // 
             // textUserName
             // 
-            this.textUserName.Location = new System.Drawing.Point(168, 12);
+            this.textUserName.Location = new(168, 12);
             this.textUserName.Name = "textUserName";
-            this.textUserName.Size = new System.Drawing.Size(165, 20);
+            this.textUserName.Size = new(165, 20);
             this.textUserName.TabIndex = 2;
-            this.textUserName.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.EnterKeyDown);
+            this.textUserName.PreviewKeyDown += new(this.EnterKeyDown);
             // 
             // textDomainName
             // 
-            this.textDomainName.Location = new System.Drawing.Point(168, 34);
+            this.textDomainName.Location = new(168, 34);
             this.textDomainName.Name = "textDomainName";
-            this.textDomainName.Size = new System.Drawing.Size(165, 20);
+            this.textDomainName.Size = new(165, 20);
             this.textDomainName.TabIndex = 3;
-            this.textDomainName.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.EnterKeyDown);
+            this.textDomainName.PreviewKeyDown += new(this.EnterKeyDown);
             // 
             // btnOk
             // 
-            this.btnOk.Location = new System.Drawing.Point(96, 60);
+            this.btnOk.Location = new(96, 60);
             this.btnOk.Name = "btnOk";
-            this.btnOk.Size = new System.Drawing.Size(75, 23);
+            this.btnOk.Size = new(75, 23);
             this.btnOk.TabIndex = 4;
             this.btnOk.Text = "OK";
             this.btnOk.UseVisualStyleBackColor = true;
-            this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
+            this.btnOk.Click += new(this.btnOk_Click);
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(177, 60);
+            this.btnCancel.Location = new(177, 60);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.Size = new(75, 23);
             this.btnCancel.TabIndex = 5;
             this.btnCancel.Text = "Anuluj";
             this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            this.btnCancel.Click += new(this.btnCancel_Click);
             // 
             // LockoutStatusCustom
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(354, 99);
+            this.ClientSize = new(354, 99);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.textDomainName);
@@ -109,7 +109,7 @@
             this.Name = "LockoutStatusCustom";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Wybierz użytkownika";
-            this.Load += new System.EventHandler(this.LockoutStatusCustoma_Load);
+            this.Load += new(this.LockoutStatusCustoma_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

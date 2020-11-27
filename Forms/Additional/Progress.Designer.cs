@@ -28,21 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Progress));
-            this.progressBar = new System.Windows.Forms.ProgressBar();
-            this.label = new System.Windows.Forms.Label();
+            System.ComponentModel.ComponentResourceManager resources = new(typeof(Progress));
+            this.progressBar = new();
+            this.label = new();
             this.SuspendLayout();
             // 
             // progressBar
             // 
-            this.progressBar.Location = new System.Drawing.Point(22, 12);
-            this.progressBar.Size = new System.Drawing.Size(170, 22);
+            this.progressBar.Location = new(22, 12);
+            this.progressBar.Size = new(170, 22);
             this.progressBar.Minimum = 0;
             this.progressBar.Maximum = _ProgressMax;
             //
             // label
             //
-            this.label.Location = new System.Drawing.Point(56, 43);
+            this.label.Location = new(56, 43);
             this.label.Text = "Ładowanie danych";
             this.label.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left);
             // 

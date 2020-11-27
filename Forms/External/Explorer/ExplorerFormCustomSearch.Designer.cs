@@ -28,42 +28,42 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExplorerFormCustomSearch));
-            this.textBoxInput = new System.Windows.Forms.TextBox();
-            this.btnInput = new System.Windows.Forms.Button();
+            System.ComponentModel.ComponentResourceManager resources = new(typeof(ExplorerFormCustomSearch));
+            this.textBoxInput = new();
+            this.btnInput = new();
             this.SuspendLayout();
             // 
             // textBoxInput
             // 
-            this.textBoxInput.Location = new System.Drawing.Point(12, 22);
+            this.textBoxInput.Location = new(12, 22);
             this.textBoxInput.Name = "textBoxInput";
-            this.textBoxInput.Size = new System.Drawing.Size(186, 20);
+            this.textBoxInput.Size = new(186, 20);
             this.textBoxInput.TabIndex = 0;
-            this.textBoxInput.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.textBoxInput_PreviewKeyDown);
+            this.textBoxInput.PreviewKeyDown += new(this.textBoxInput_PreviewKeyDown);
             // 
             // btnInput
             // 
-            this.btnInput.Location = new System.Drawing.Point(62, 66);
+            this.btnInput.Location = new(62, 66);
             this.btnInput.Name = "btnInput";
-            this.btnInput.Size = new System.Drawing.Size(75, 23);
+            this.btnInput.Size = new(75, 23);
             this.btnInput.TabIndex = 1;
             this.btnInput.Text = "Potwierdź";
             this.btnInput.UseVisualStyleBackColor = true;
-            this.btnInput.Click += new System.EventHandler(this.btnInput_Click);
+            this.btnInput.Click += new(this.btnInput_Click);
             // 
             // ExplorerFormCustomInput
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(217, 114);
+            this.ClientSize = new(217, 114);
             this.Controls.Add(this.btnInput);
             this.Controls.Add(this.textBoxInput);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = global::Forms.Resources.Resources.Puzzel;
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(223, 139);
+            this.MaximumSize = new(223, 139);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(223, 139);
+            this.MinimumSize = new(223, 139);
             this.Name = "ExplorerFormCustomInput";
             this.Text = "Podaj nazwę Terminala";
             this.ResumeLayout(false);

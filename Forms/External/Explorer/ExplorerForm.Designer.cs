@@ -29,41 +29,41 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExplorerForm));
-            this.tabControl = new System.Windows.Forms.TabControl();
-            this.tabPageSession = new System.Windows.Forms.TabPage();
-            this.labelSessionCount = new System.Windows.Forms.Label();
-            this.btnCloseForm = new System.Windows.Forms.Button();
-            this.btnRefreshNow = new System.Windows.Forms.Button();
-            this.DataGridView = new System.Windows.Forms.DataGridView();
-            this.ServerColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UserColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SessionColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IDColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StatusColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IdleTimeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.LogonTimeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ContextMenuSession = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.menuItemSessionConnect = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemSessionDisconnect = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemSessionSendMessage = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemSessionRemoteControl = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemSessionReset = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemSessionLogoff = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemSessionStatus = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemSessionProcesses = new System.Windows.Forms.ToolStripMenuItem();
-            this.LabelProcessCount = new System.Windows.Forms.Label();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.contextMenuProcess = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.menuItemProcessKill = new System.Windows.Forms.ToolStripMenuItem();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new();
+            System.ComponentModel.ComponentResourceManager resources = new(typeof(ExplorerForm));
+            this.tabControl = new();
+            this.tabPageSession = new();
+            this.labelSessionCount = new();
+            this.btnCloseForm = new();
+            this.btnRefreshNow = new();
+            this.DataGridView = new();
+            this.ServerColumn = new();
+            this.UserColumn = new();
+            this.SessionColumn = new();
+            this.IDColumn = new();
+            this.StatusColumn = new();
+            this.IdleTimeColumn = new();
+            this.LogonTimeColumn = new();
+            this.ContextMenuSession = new(this.components);
+            this.menuItemSessionConnect = new();
+            this.menuItemSessionDisconnect = new();
+            this.menuItemSessionSendMessage = new();
+            this.menuItemSessionRemoteControl = new();
+            this.menuItemSessionReset = new();
+            this.menuItemSessionLogoff = new(); 
+            this.menuItemSessionStatus = new();
+            this.menuItemSessionProcesses = new();
+            this.LabelProcessCount = new();
+            this.button5 = new();
+            this.button6 = new();
+            this.dataGridViewTextBoxColumn1 = new();
+            this.dataGridViewTextBoxColumn2 = new();
+            this.dataGridViewTextBoxColumn3 = new();
+            this.dataGridViewTextBoxColumn4 = new();
+            this.dataGridViewTextBoxColumn5 = new();
+            this.dataGridViewTextBoxColumn6 = new();
+            this.contextMenuProcess = new(this.components);
+            this.menuItemProcessKill = new();
             this.tabControl.SuspendLayout();
             this.tabPageSession.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridView)).BeginInit();
@@ -73,11 +73,11 @@
             // tabControl
             // 
             this.tabControl.Controls.Add(this.tabPageSession);
-            this.tabControl.Location = new System.Drawing.Point(0, 0);
-            this.tabControl.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.tabControl.Location = new(0, 0);
+            this.tabControl.Margin = new(4, 3, 4, 3);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(637, 649);
+            this.tabControl.Size = new(637, 649);
             this.tabControl.TabIndex = 0;
             // 
             // tabPageSession
@@ -86,10 +86,10 @@
             this.tabPageSession.Controls.Add(this.btnCloseForm);
             this.tabPageSession.Controls.Add(this.btnRefreshNow);
             this.tabPageSession.Controls.Add(this.DataGridView);
-            this.tabPageSession.Location = new System.Drawing.Point(4, 22);
+            this.tabPageSession.Location = new(4, 22);
             this.tabPageSession.Name = "tabPageSession";
-            this.tabPageSession.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSession.Size = new System.Drawing.Size(629, 623);
+            this.tabPageSession.Padding = new(3);
+            this.tabPageSession.Size = new(629, 623);
             this.tabPageSession.TabIndex = 0;
             this.tabPageSession.Text = "Sesje";
             this.tabPageSession.UseVisualStyleBackColor = true;
@@ -97,31 +97,31 @@
             // labelSessionCount
             // 
             this.labelSessionCount.AutoSize = true;
-            this.labelSessionCount.Location = new System.Drawing.Point(6, 602);
+            this.labelSessionCount.Location = new(6, 602);
             this.labelSessionCount.Name = "labelSessionCount";
-            this.labelSessionCount.Size = new System.Drawing.Size(83, 13);
+            this.labelSessionCount.Size = new(83, 13);
             this.labelSessionCount.TabIndex = 27;
             this.labelSessionCount.Text = "Aktywne Sesje: ";
             // 
             // btnCloseForm
             // 
-            this.btnCloseForm.Location = new System.Drawing.Point(552, 597);
+            this.btnCloseForm.Location = new(552, 597);
             this.btnCloseForm.Name = "btnCloseForm";
-            this.btnCloseForm.Size = new System.Drawing.Size(76, 23);
+            this.btnCloseForm.Size = new(76, 23);
             this.btnCloseForm.TabIndex = 26;
             this.btnCloseForm.Text = "Zamknij";
             this.btnCloseForm.UseVisualStyleBackColor = true;
-            this.btnCloseForm.Click += new System.EventHandler(this.CloseForm);
+            this.btnCloseForm.Click += new(this.CloseForm);
             // 
             // btnRefreshNow
             // 
-            this.btnRefreshNow.Location = new System.Drawing.Point(382, 597);
+            this.btnRefreshNow.Location = new(382, 597);
             this.btnRefreshNow.Name = "btnRefreshNow";
-            this.btnRefreshNow.Size = new System.Drawing.Size(98, 23);
+            this.btnRefreshNow.Size = new(98, 23);
             this.btnRefreshNow.TabIndex = 25;
             this.btnRefreshNow.Text = "Odśwież teraz";
             this.btnRefreshNow.UseVisualStyleBackColor = true;
-            this.btnRefreshNow.Click += new System.EventHandler(this.BtnRefresh_Click);
+            this.btnRefreshNow.Click += new(this.BtnRefresh_Click);
             // 
             // dataGridView1
             // 
@@ -134,14 +134,14 @@
             this.DataGridView.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            dataGridViewCellStyle1.Font = new("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.DataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.DataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.DataGridView.Columns.AddRange(new[] {
             this.ServerColumn,
             this.UserColumn,
             this.SessionColumn,
@@ -151,14 +151,14 @@
             this.LogonTimeColumn});
             this.DataGridView.ContextMenuStrip = this.ContextMenuSession;
             this.DataGridView.GridColor = System.Drawing.Color.DarkGray;
-            this.DataGridView.Location = new System.Drawing.Point(0, 0);
-            this.DataGridView.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.DataGridView.Location = new(0, 0);
+            this.DataGridView.Margin = new(4, 3, 4, 3);
             this.DataGridView.MultiSelect = false;
             this.DataGridView.Name = "dataGridView1";
             this.DataGridView.ReadOnly = true;
             this.DataGridView.RowHeadersVisible = false;
             this.DataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.DataGridView.Size = new System.Drawing.Size(629, 596);
+            this.DataGridView.Size = new(629, 596);
             this.DataGridView.TabIndex = 0;
             // 
             // ServerColumn
@@ -212,8 +212,8 @@
             // 
             // ContextMenuSession
             // 
-            this.ContextMenuSession.Font = new System.Drawing.Font("Tahoma", 8F);
-            this.ContextMenuSession.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ContextMenuSession.Font = new("Tahoma", 8F);
+            this.ContextMenuSession.Items.AddRange(new[] {
             this.menuItemSessionConnect,
             this.menuItemSessionDisconnect,
             this.menuItemSessionSendMessage,
@@ -224,44 +224,44 @@
             this.menuItemSessionProcesses});
             this.ContextMenuSession.Name = "ContextMenuSession";
             this.ContextMenuSession.ShowImageMargin = false;
-            this.ContextMenuSession.Size = new System.Drawing.Size(126, 180);
+            this.ContextMenuSession.Size = new(126, 180);
             // 
             // menuItemSessionConnect
             // 
             this.menuItemSessionConnect.Name = "menuItemSessionConnect";
             this.menuItemSessionConnect.ShowShortcutKeys = false;
-            this.menuItemSessionConnect.Size = new System.Drawing.Size(125, 22);
+            this.menuItemSessionConnect.Size = new(125, 22);
             this.menuItemSessionConnect.Text = "Połącz";
             this.menuItemSessionConnect.Visible = false;
             // 
             // menuItemSessionDisconnect
             // 
             this.menuItemSessionDisconnect.Name = "menuItemSessionDisconnect";
-            this.menuItemSessionDisconnect.Size = new System.Drawing.Size(125, 22);
+            this.menuItemSessionDisconnect.Size = new(125, 22);
             this.menuItemSessionDisconnect.Text = "Rozłącz";
-            this.menuItemSessionDisconnect.Click += new System.EventHandler(this.ContextMenus);
+            this.menuItemSessionDisconnect.Click += new(this.ContextMenus);
             // 
             // menuItemSessionSendMessage
             // 
             this.menuItemSessionSendMessage.Name = "menuItemSessionSendMessage";
             this.menuItemSessionSendMessage.ShowShortcutKeys = false;
-            this.menuItemSessionSendMessage.Size = new System.Drawing.Size(125, 22);
+            this.menuItemSessionSendMessage.Size = new(125, 22);
             this.menuItemSessionSendMessage.Text = "Wyślij wiadomość";
-            this.menuItemSessionSendMessage.Click += new System.EventHandler(this.ContextMenus);
+            this.menuItemSessionSendMessage.Click += new(this.ContextMenus);
             // 
             // menuItemSessionRemoteControl
             // 
             this.menuItemSessionRemoteControl.Name = "menuItemSessionRemoteControl";
             this.menuItemSessionRemoteControl.ShowShortcutKeys = false;
-            this.menuItemSessionRemoteControl.Size = new System.Drawing.Size(125, 22);
+            this.menuItemSessionRemoteControl.Size = new(125, 22);
             this.menuItemSessionRemoteControl.Text = "Zdalna kontrola";
-            this.menuItemSessionRemoteControl.Click += new System.EventHandler(this.ContextMenus);
+            this.menuItemSessionRemoteControl.Click += new(this.ContextMenus);
             // 
             // menuItemSessionReset
             // 
             this.menuItemSessionReset.Name = "menuItemSessionReset";
             this.menuItemSessionReset.ShowShortcutKeys = false;
-            this.menuItemSessionReset.Size = new System.Drawing.Size(125, 22);
+            this.menuItemSessionReset.Size = new(125, 22);
             this.menuItemSessionReset.Text = "Reset";
             this.menuItemSessionReset.Visible = false;
             // 
@@ -269,54 +269,54 @@
             // 
             this.menuItemSessionLogoff.Name = "menuItemSessionLogoff";
             this.menuItemSessionLogoff.ShowShortcutKeys = false;
-            this.menuItemSessionLogoff.Size = new System.Drawing.Size(125, 22);
+            this.menuItemSessionLogoff.Size = new(125, 22);
             this.menuItemSessionLogoff.Text = "Wyloguj";
-            this.menuItemSessionLogoff.Click += new System.EventHandler(this.ContextMenus);
+            this.menuItemSessionLogoff.Click += new(this.ContextMenus);
             // 
             // menuItemSessionStatus
             // 
             this.menuItemSessionStatus.Name = "menuItemSessionStatus";
             this.menuItemSessionStatus.ShowShortcutKeys = false;
-            this.menuItemSessionStatus.Size = new System.Drawing.Size(125, 22);
+            this.menuItemSessionStatus.Size = new(125, 22);
             this.menuItemSessionStatus.Text = "Status";
-            this.menuItemSessionStatus.Click += new System.EventHandler(this.ContextMenus);
+            this.menuItemSessionStatus.Click += new(this.ContextMenus);
             // 
             // menuItemSessionProcesses
             // 
             this.menuItemSessionProcesses.Name = "menuItemSessionProcesses";
             this.menuItemSessionProcesses.ShowShortcutKeys = false;
-            this.menuItemSessionProcesses.Size = new System.Drawing.Size(125, 22);
+            this.menuItemSessionProcesses.Size = new(125, 22);
             this.menuItemSessionProcesses.Text = "Procesy";
-            this.menuItemSessionProcesses.Click += new System.EventHandler(this.ContextMenus);
+            this.menuItemSessionProcesses.Click += new(this.ContextMenus);
             // 
             // LabelProcessCount
             // 
-            this.LabelProcessCount.Location = new System.Drawing.Point(0, 0);
+            this.LabelProcessCount.Location = new(0, 0);
             this.LabelProcessCount.Name = "LabelProcessCount";
-            this.LabelProcessCount.Size = new System.Drawing.Size(100, 23);
+            this.LabelProcessCount.Size = new(100, 23);
             this.LabelProcessCount.TabIndex = 0;
             // 
             // contextMenuProcess
             // 
             this.contextMenuProcess.Name = "contextMenuProcess";
-            this.contextMenuProcess.Size = new System.Drawing.Size(61, 4);
+            this.contextMenuProcess.Size = new(61, 4);
             // 
             // ZabijProcess
             // 
             this.menuItemProcessKill.Name = "menuItemProcessKill";
-            this.menuItemProcessKill.Size = new System.Drawing.Size(32, 19);
+            this.menuItemProcessKill.Size = new(32, 19);
             // 
             // ExplorerForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(637, 646);
+            this.ClientSize = new(637, 646);
             this.Controls.Add(this.tabControl);
             this.Icon = global::Forms.Resources.Resources.Puzzel;
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(653, 685);
+            this.MaximumSize = new(653, 685);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(653, 685);
+            this.MinimumSize = new(653, 685);
             this.Name = "ExplorerForm";
             this.Text = "Terminal Explorer";
             this.tabControl.ResumeLayout(false);

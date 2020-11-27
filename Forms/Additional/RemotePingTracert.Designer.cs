@@ -28,28 +28,28 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RemotePingTracert));
-            this.textboxHostName = new System.Windows.Forms.TextBox();
-            this.textboxCounter = new System.Windows.Forms.TextBox();
-            this.labelHostName = new System.Windows.Forms.Label();
-            this.labelCouter = new System.Windows.Forms.Label();
-            this.btnTryTest = new System.Windows.Forms.Button();
+            System.ComponentModel.ComponentResourceManager resources = new(typeof(RemotePingTracert));
+            this.textboxHostName = new();
+            this.textboxCounter = new();
+            this.labelHostName = new();
+            this.labelCouter = new();
+            this.btnTryTest = new();
             this.SuspendLayout();
             // 
             // textboxHostName
             // 
-            this.textboxHostName.Location = new System.Drawing.Point(240, 16);
+            this.textboxHostName.Location = new(240, 16);
             this.textboxHostName.Name = "textboxHostName";
             this.textboxHostName.Anchor = System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Top;
-            this.textboxHostName.Size = new System.Drawing.Size(100, 20);
+            this.textboxHostName.Size = new(100, 20);
             this.textboxHostName.TabIndex = 0;
             // 
             // textboxCounter
             // 
-            this.textboxCounter.Location = new System.Drawing.Point(240, 43);
+            this.textboxCounter.Location = new(240, 43);
             this.textboxCounter.Name = "textboxCounter";
             this.textboxCounter.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom;
-            this.textboxCounter.Size = new System.Drawing.Size(100, 20);
+            this.textboxCounter.Size = new(100, 20);
             this.textboxCounter.TabIndex = 1;
             this.textboxCounter.Visible = isPing;
             // 
@@ -57,9 +57,9 @@
             // 
             this.labelHostName.AutoSize = true;
             this.labelHostName.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Top;
-            this.labelHostName.Location = new System.Drawing.Point(16, 19);
+            this.labelHostName.Location = new(16, 19);
             this.labelHostName.Name = "labelHostName";
-            this.labelHostName.Size = new System.Drawing.Size(188, 13);
+            this.labelHostName.Size = new(188, 13);
             this.labelHostName.TabIndex = 3;
             this.labelHostName.Text = "Podaj IP lub nazwę hosta docelowego";
             // 
@@ -67,27 +67,27 @@
             // 
             this.labelCouter.AutoSize = true;
             this.labelCouter.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom;
-            this.labelCouter.Location = new System.Drawing.Point(16, 48);
+            this.labelCouter.Location = new(16, 48);
             this.labelCouter.Name = "labelCouter";
-            this.labelCouter.Size = new System.Drawing.Size(152, 13);
+            this.labelCouter.Size = new(152, 13);
             this.labelCouter.TabIndex = 4;
             this.labelCouter.Text = "Podaj ilość żądań echa (PING)";
             this.labelCouter.Visible = isPing;
             // 
             // btnTryTest
             // 
-            this.btnTryTest.Location = new System.Drawing.Point(129, 72);
+            this.btnTryTest.Location = new(129, 72);
             this.btnTryTest.Name = "btnTryTest";
             this.btnTryTest.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-            this.btnTryTest.Size = new System.Drawing.Size(75, 23);
+            this.btnTryTest.Size = new(75, 23);
             this.btnTryTest.TabIndex = 5;
             this.btnTryTest.Text = "Start";
             this.btnTryTest.UseVisualStyleBackColor = true;
-            this.btnTryTest.Click += new System.EventHandler(this.AssingValue);
+            this.btnTryTest.Click += new(this.AssingValue);
             // 
             // RemotePing_Tracert
             // 
-            this.ClientSize = new System.Drawing.Size(333, 107);
+            this.ClientSize = new(333, 107);
             this.Controls.Add(this.btnTryTest);
             this.Controls.Add(this.labelCouter);
             this.Controls.Add(this.labelHostName);
@@ -96,9 +96,9 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = global::Forms.Resources.Resources.Puzzel;
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(371, 148);
+            this.MaximumSize = new(371, 148);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(371, 148);
+            this.MinimumSize = new(371, 148);
             this.Name = "RemotePing_Tracert";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Remote Ping/Tracert";

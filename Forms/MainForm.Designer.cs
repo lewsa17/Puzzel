@@ -28,117 +28,117 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.groupBoxUserInfo = new System.Windows.Forms.GroupBox();
-            this.comboBoxLogin = new System.Windows.Forms.ComboBox();
-            this.contextMenuOperationTextBox = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.contextMenuItemCut = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextMenuItemCopy = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextMenuItemPaste = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextMenuItemSelectAll = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnProfilEXT = new System.Windows.Forms.Button();
-            this.btnProfilTS = new System.Windows.Forms.Button();
-            this.groupBoxLogoff = new System.Windows.Forms.GroupBox();
-            this.btnLogoffSession = new System.Windows.Forms.Button();
-            this.btnConnectSession = new System.Windows.Forms.Button();
-            this.comboBoxFindedSessions = new System.Windows.Forms.ComboBox();
-            this.BtnFindSession = new System.Windows.Forms.Button();
-            this.btnProfilERI = new System.Windows.Forms.Button();
-            this.btnProfilVFS = new System.Windows.Forms.Button();
-            this.btnInfoZAd = new System.Windows.Forms.Button();
-            this.btnUserLog = new System.Windows.Forms.Button();
-            this.numericLogin = new System.Windows.Forms.NumericUpDown();
-            this.labelCountUserLogs = new System.Windows.Forms.Label();
-            this.labelLogin = new System.Windows.Forms.Label();
-            this.contextMenuOperationRichTextBox = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.contextMenuItemCutR = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextMenuItemCopyR = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextMenuItemPasteR = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextMenuItemSelectAllR = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextMenuItemSearchR = new System.Windows.Forms.ToolStripMenuItem();
-            this.groupBoxComputerInfo = new System.Windows.Forms.GroupBox();
-            this.comboBoxComputer = new System.Windows.Forms.ComboBox();
-            this.btnRemoteTracert = new System.Windows.Forms.Button();
-            this.btnRemotePing = new System.Windows.Forms.Button();
-            this.btnRemoteCMD = new System.Windows.Forms.Button();
-            this.contextMenuRemoteCMD = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.contextMenuItemRemoteCMDSystem = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextMenuItemCMD = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextMenuItemCMDRemoteCustomAuth = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextMenuItemPowerShell = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextMenuItemPowerShellRemoteCustomAuth = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextMenuItemRemotePowerShell = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnNetworkInterfaces = new System.Windows.Forms.Button();
-            this.btnProgramList = new System.Windows.Forms.Button();
-            this.btnExplorer = new System.Windows.Forms.Button();
-            this.btnRDP = new System.Windows.Forms.Button();
-            this.contextMenuRDP = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.menuItemRDPOpen = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnDW = new System.Windows.Forms.Button();
-            this.DWMenuContext = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.menuItemDWEadm = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemDWLAPS = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnManagement = new System.Windows.Forms.Button();
-            this.btnCompInfo = new System.Windows.Forms.Button();
-            this.contextMenuComputerInfo = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.menuItemComputerInfoUptime = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemComputerInfoSNPN = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemComputerInfoModel = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemComputerInfoOS = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemComputerInfoRAM = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemComputerInfoProcessor = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemComputerInfoLoggedUser = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemComputerInfoProfile = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemComputerInfoDrives = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemComputerInfoPrinters = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemComputerInfoShares = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemComputerInfoAutostart = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemComputerInfoPath = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemComputerInfoNetworkRes = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemComputerInfoDisplay = new System.Windows.Forms.ToolStripMenuItem();
+            System.ComponentModel.ComponentResourceManager resources = new(typeof(MainForm));
+            this.groupBoxUserInfo = new();
+            this.comboBoxLogin = new();
+            this.contextMenuOperationTextBox = new(this.components);
+            this.contextMenuItemCut = new();
+            this.contextMenuItemCopy = new();
+            this.contextMenuItemPaste = new();
+            this.contextMenuItemSelectAll = new();
+            this.btnProfilEXT = new();
+            this.btnProfilTS = new();
+            this.groupBoxLogoff = new();
+            this.btnLogoffSession = new();
+            this.btnConnectSession = new();
+            this.comboBoxFindedSessions = new();
+            this.BtnFindSession = new();
+            this.btnProfilERI = new();
+            this.btnProfilVFS = new();
+            this.btnInfoZAd = new();
+            this.btnUserLog = new();
+            this.numericLogin = new();
+            this.labelCountUserLogs = new();
+            this.labelLogin = new();
+            this.contextMenuOperationRichTextBox = new(this.components);
+            this.contextMenuItemCutR = new();
+            this.contextMenuItemCopyR = new();
+            this.contextMenuItemPasteR = new();
+            this.contextMenuItemSelectAllR = new();
+            this.contextMenuItemSearchR = new();
+            this.groupBoxComputerInfo = new();
+            this.comboBoxComputer = new();
+            this.btnRemoteTracert = new();
+            this.btnRemotePing = new();
+            this.btnRemoteCMD = new();
+            this.contextMenuRemoteCMD = new(this.components);
+            this.contextMenuItemRemoteCMDSystem = new();
+            this.contextMenuItemCMD = new();
+            this.contextMenuItemCMDRemoteCustomAuth = new();
+            this.contextMenuItemPowerShell = new();
+            this.contextMenuItemPowerShellRemoteCustomAuth = new();
+            this.contextMenuItemRemotePowerShell = new();
+            this.btnNetworkInterfaces = new();
+            this.btnProgramList = new();
+            this.btnExplorer = new();
+            this.btnRDP = new();
+            this.contextMenuRDP = new(this.components);
+            this.menuItemRDPOpen = new();
+            this.btnDW = new();
+            this.DWMenuContext = new(this.components);
+            this.menuItemDWEadm = new();
+            this.menuItemDWLAPS = new();
+            this.btnManagement = new();
+            this.btnCompInfo = new();
+            this.contextMenuComputerInfo = new(this.components);
+            this.menuItemComputerInfoUptime = new();
+            this.menuItemComputerInfoSNPN = new();
+            this.menuItemComputerInfoModel = new();
+            this.menuItemComputerInfoOS = new();
+            this.menuItemComputerInfoRAM = new();
+            this.menuItemComputerInfoProcessor = new();
+            this.menuItemComputerInfoLoggedUser = new();
+            this.menuItemComputerInfoProfile = new();
+            this.menuItemComputerInfoDrives = new();
+            this.menuItemComputerInfoPrinters = new();
+            this.menuItemComputerInfoShares = new();
+            this.menuItemComputerInfoAutostart = new();
+            this.menuItemComputerInfoPath = new();
+            this.menuItemComputerInfoNetworkRes = new();
+            this.menuItemComputerInfoDisplay = new();
             this.LogonCustomData = new();
-            this.menuItemComputerInfoBios = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemSettings = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnPing = new System.Windows.Forms.Button();
-            this.numericComputer = new System.Windows.Forms.NumericUpDown();
-            this.labelCountCompLogs = new System.Windows.Forms.Label();
-            this.labelComputer = new System.Windows.Forms.Label();
-            this.btnCompLog = new System.Windows.Forms.Button();
-            this.groupBoxOtherTools = new System.Windows.Forms.GroupBox();
-            this.panelTCP = new System.Windows.Forms.Panel();
-            this.numericTCP = new System.Windows.Forms.NumericUpDown();
-            this.labelTCP = new System.Windows.Forms.Label();
-            this.btnTestTCP = new System.Windows.Forms.Button();
-            this.btnCollapseTCP = new System.Windows.Forms.Button();
-            this.btnFlushDNS = new System.Windows.Forms.Button();
-            richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.backgroundWorkerComputerInfo = new System.ComponentModel.BackgroundWorker();
-            this.statusBar1 = new System.Windows.Forms.StatusStrip();
-            this.statusBP1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.statusBP2 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.InfozAD = new System.ComponentModel.BackgroundWorker();
-            this.mainMenu = new System.Windows.Forms.MenuStrip();
-            this.menuItemFile = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemAdmTools = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemWindowsFirewall = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemDHCP = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemEventViewer = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemTaskshedule = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemServices = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemLusrmgr = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemTermimalExplorer = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemCustomName = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemComputerExplorer = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemActiveSessions = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemSessions = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemLAPSpwd = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemLockoutStatus = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemChangeDomainPassword = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemQuickFix = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemActivateOffice = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemEnableIEHosting = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemWinEnvironment = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemDeleteUsers = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItemComputerInfoBios = new();
+            this.menuItemSettings = new();
+            this.btnPing = new();
+            this.numericComputer = new();
+            this.labelCountCompLogs = new();
+            this.labelComputer = new();
+            this.btnCompLog = new();
+            this.groupBoxOtherTools = new();
+            this.panelTCP = new();
+            this.numericTCP = new();
+            this.labelTCP = new();
+            this.btnTestTCP = new();
+            this.btnCollapseTCP = new();
+            this.btnFlushDNS = new();
+            richTextBox1 = new();
+            this.backgroundWorkerComputerInfo = new();
+            this.statusBar1 = new();
+            this.statusBP1 = new();
+            this.statusBP2 = new();
+            this.InfozAD = new();
+            this.mainMenu = new();
+            this.menuItemFile = new();
+            this.menuItemAdmTools = new();
+            this.menuItemWindowsFirewall = new();
+            this.menuItemDHCP = new();
+            this.menuItemEventViewer = new();
+            this.menuItemTaskshedule = new();
+            this.menuItemServices = new();
+            this.menuItemLusrmgr = new();
+            this.menuItemTermimalExplorer = new();
+            this.menuItemCustomName = new();
+            this.menuItemComputerExplorer = new();
+            this.menuItemActiveSessions = new();
+            this.menuItemSessions = new();
+            this.menuItemLAPSpwd = new();
+            this.menuItemLockoutStatus = new();
+            this.menuItemChangeDomainPassword = new();
+            this.menuItemQuickFix = new();
+            this.menuItemActivateOffice = new();
+            this.menuItemEnableIEHosting = new();
+            this.menuItemWinEnvironment = new();
+            this.menuItemDeleteUsers = new();
             this.groupBoxUserInfo.SuspendLayout();
             this.contextMenuOperationTextBox.SuspendLayout();
             this.groupBoxLogoff.SuspendLayout();
@@ -171,10 +171,10 @@
             this.groupBoxUserInfo.Controls.Add(this.numericLogin);
             this.groupBoxUserInfo.Controls.Add(this.labelCountUserLogs);
             this.groupBoxUserInfo.Controls.Add(this.labelLogin);
-            this.groupBoxUserInfo.Location = new System.Drawing.Point(1, 26);
-            this.groupBoxUserInfo.MinimumSize = new System.Drawing.Size(1182, 75);
+            this.groupBoxUserInfo.Location = new(1, 26);
+            this.groupBoxUserInfo.MinimumSize = new(1182, 75);
             this.groupBoxUserInfo.Name = "groupBoxUserInfo";
-            this.groupBoxUserInfo.Size = new System.Drawing.Size(1182, 75);
+            this.groupBoxUserInfo.Size = new(1182, 75);
             this.groupBoxUserInfo.TabIndex = 1;
             this.groupBoxUserInfo.TabStop = false;
             this.groupBoxUserInfo.Text = "Informacje o użytkowniku:";
@@ -183,16 +183,16 @@
             // 
             this.comboBoxLogin.ContextMenuStrip = this.contextMenuOperationTextBox;
             this.comboBoxLogin.FormattingEnabled = true;
-            this.comboBoxLogin.Location = new System.Drawing.Point(6, 40);
+            this.comboBoxLogin.Location = new(6, 40);
             this.comboBoxLogin.Name = "comboBoxLogin";
-            this.comboBoxLogin.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxLogin.Size = new(121, 21);
             this.comboBoxLogin.TabIndex = 1;
-            this.comboBoxLogin.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Keys_KeyDown);
-            this.comboBoxLogin.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Keys_PreviewKeyDown);
+            this.comboBoxLogin.KeyDown += new(this.Keys_KeyDown);
+            this.comboBoxLogin.PreviewKeyDown += new(this.Keys_PreviewKeyDown);
             // 
             // contextMenuOperationTextBox
             // 
-            this.contextMenuOperationTextBox.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.contextMenuOperationTextBox.Items.AddRange(new[] {
             this.contextMenuItemCut,
             this.contextMenuItemCopy,
             this.contextMenuItemPaste,
@@ -205,56 +205,56 @@
             this.contextMenuItemCut.Name = "contextMenuItemCut";
             this.contextMenuItemCut.ShortcutKeyDisplayString = "Ctrl + X";
             this.contextMenuItemCut.Text = "Wytnij";
-            this.contextMenuItemCut.Click += new System.EventHandler(this.ContextMenuItemCut_Click);
+            this.contextMenuItemCut.Click += new(this.ContextMenuItemCut_Click);
             // 
             // contextMenuItemCopy
             // 
             this.contextMenuItemCopy.Name = "contextMenuItemCopy";
             this.contextMenuItemCopy.ShortcutKeyDisplayString = "Ctrl + C";
             this.contextMenuItemCopy.Text = "Kopiuj";
-            this.contextMenuItemCopy.Click += new System.EventHandler(this.ContextMenuItemCopy_Click);
+            this.contextMenuItemCopy.Click += new(this.ContextMenuItemCopy_Click);
             // 
             // contextMenuItemPaste
             // 
             this.contextMenuItemPaste.Name = "contextMenuItemPaste";
             this.contextMenuItemPaste.ShortcutKeyDisplayString = "Ctrl + V";
             this.contextMenuItemPaste.Text = "Wklej";
-            this.contextMenuItemPaste.Click += new System.EventHandler(this.ContextMenuItemPaste_Click);
+            this.contextMenuItemPaste.Click += new(this.ContextMenuItemPaste_Click);
             // 
             // contextMenuItemSelectAll
             // 
             this.contextMenuItemSelectAll.Name = "contextMenuItemSelectAll";
             this.contextMenuItemSelectAll.ShortcutKeyDisplayString = "Ctrl + A";
             this.contextMenuItemSelectAll.Text = "Zaznacz wszystko";
-            this.contextMenuItemSelectAll.Click += new System.EventHandler(this.ContextMenuItemSelectAll_Click);
+            this.contextMenuItemSelectAll.Click += new(this.ContextMenuItemSelectAll_Click);
             // 
             // btnProfilEXT
             // 
             this.btnProfilEXT.Image = global::Forms.Resources.Resources.folder;
             this.btnProfilEXT.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnProfilEXT.Location = new System.Drawing.Point(393, 41);
+            this.btnProfilEXT.Location = new(393, 41);
             this.btnProfilEXT.Name = "btnProfilEXT";
-            this.btnProfilEXT.Size = new System.Drawing.Size(80, 30);
+            this.btnProfilEXT.Size = new(80, 30);
             this.btnProfilEXT.TabIndex = 0;
             this.btnProfilEXT.TabStop = false;
             this.btnProfilEXT.Text = "Profil EXT";
             this.btnProfilEXT.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnProfilEXT.UseVisualStyleBackColor = true;
-            this.btnProfilEXT.Click += new System.EventHandler(this.Profilsieciowy);
+            this.btnProfilEXT.Click += new(this.Profilsieciowy);
             // 
             // btnProfilTS
             // 
             this.btnProfilTS.Image = global::Forms.Resources.Resources.folder;
             this.btnProfilTS.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnProfilTS.Location = new System.Drawing.Point(393, 11);
+            this.btnProfilTS.Location = new(393, 11);
             this.btnProfilTS.Name = "btnProfilTS";
-            this.btnProfilTS.Size = new System.Drawing.Size(80, 30);
+            this.btnProfilTS.Size = new(80, 30);
             this.btnProfilTS.TabIndex = 1;
             this.btnProfilTS.TabStop = false;
             this.btnProfilTS.Text = "Profil TS";
             this.btnProfilTS.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnProfilTS.UseVisualStyleBackColor = true;
-            this.btnProfilTS.Click += new System.EventHandler(this.Profilsieciowy);
+            this.btnProfilTS.Click += new(this.Profilsieciowy);
             // 
             // groupBoxLogoff
             // 
@@ -262,9 +262,9 @@
             this.groupBoxLogoff.Controls.Add(this.btnConnectSession);
             this.groupBoxLogoff.Controls.Add(this.comboBoxFindedSessions);
             this.groupBoxLogoff.Controls.Add(this.BtnFindSession);
-            this.groupBoxLogoff.Location = new System.Drawing.Point(537, 11);
+            this.groupBoxLogoff.Location = new(537, 11);
             this.groupBoxLogoff.Name = "groupBoxLogoff";
-            this.groupBoxLogoff.Size = new System.Drawing.Size(434, 60);
+            this.groupBoxLogoff.Size = new(434, 60);
             this.groupBoxLogoff.TabIndex = 3;
             this.groupBoxLogoff.TabStop = false;
             this.groupBoxLogoff.Text = "LogOff";
@@ -273,117 +273,117 @@
             // 
             this.btnLogoffSession.Image = global::Forms.Resources.Resources.Logoff;
             this.btnLogoffSession.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
-            this.btnLogoffSession.Location = new System.Drawing.Point(351, 14);
+            this.btnLogoffSession.Location = new(351, 14);
             this.btnLogoffSession.Name = "btnLogoffSession";
-            this.btnLogoffSession.Size = new System.Drawing.Size(75, 36);
+            this.btnLogoffSession.Size = new(75, 36);
             this.btnLogoffSession.TabIndex = 0;
             this.btnLogoffSession.TabStop = false;
             this.btnLogoffSession.Text = "LogOff";
             this.btnLogoffSession.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnLogoffSession.UseVisualStyleBackColor = true;
-            this.btnLogoffSession.Click += new System.EventHandler(this.LogoffSession);
+            this.btnLogoffSession.Click += new(this.LogoffSession);
             // 
             // btnConnectSession
             // 
             this.btnConnectSession.Image = ((System.Drawing.Image)(resources.GetObject("BtnPolacz.Image")));
             this.btnConnectSession.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnConnectSession.Location = new System.Drawing.Point(249, 14);
+            this.btnConnectSession.Location = new(249, 14);
             this.btnConnectSession.Name = "btnConnectSession";
-            this.btnConnectSession.Size = new System.Drawing.Size(96, 36);
+            this.btnConnectSession.Size = new(96, 36);
             this.btnConnectSession.TabIndex = 1;
             this.btnConnectSession.TabStop = false;
             this.btnConnectSession.Text = "Połącz";
             this.btnConnectSession.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnConnectSession.UseVisualStyleBackColor = true;
-            this.btnConnectSession.Click += new System.EventHandler(this.ConnectToSession);
+            this.btnConnectSession.Click += new(this.ConnectToSession);
             // 
             // comboBoxFindedSessions
             // 
             this.comboBoxFindedSessions.FormattingEnabled = true;
             this.comboBoxFindedSessions.ImeMode = System.Windows.Forms.ImeMode.Off;
-            this.comboBoxFindedSessions.Location = new System.Drawing.Point(122, 19);
+            this.comboBoxFindedSessions.Location = new(122, 19);
             this.comboBoxFindedSessions.Name = "comboBoxFindedSessions";
-            this.comboBoxFindedSessions.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxFindedSessions.Size = new(121, 21);
             this.comboBoxFindedSessions.MaxDropDownItems = 100;
             this.comboBoxFindedSessions.TabIndex = 3;
-            this.comboBoxFindedSessions.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Keys_PreviewKeyDown);
+            this.comboBoxFindedSessions.PreviewKeyDown += new(this.Keys_PreviewKeyDown);
             // 
             // btnFindSessions
             // 
             this.BtnFindSession.Image = global::Forms.Resources.Resources.session;
             this.BtnFindSession.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnFindSession.Location = new System.Drawing.Point(6, 14);
+            this.BtnFindSession.Location = new(6, 14);
             this.BtnFindSession.Name = "btnFindSessions";
-            this.BtnFindSession.Size = new System.Drawing.Size(101, 36);
+            this.BtnFindSession.Size = new(101, 36);
             this.BtnFindSession.TabIndex = 3;
             this.BtnFindSession.TabStop = false;
             this.BtnFindSession.Text = "Szukaj sesji";
             this.BtnFindSession.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.BtnFindSession.UseVisualStyleBackColor = true;
-            this.BtnFindSession.Click += new System.EventHandler(this.FindSessionBtn_Click);
+            this.BtnFindSession.Click += new(this.FindSessionBtn_Click);
             // 
             // btnProfilERI
             // 
             this.btnProfilERI.Image = global::Forms.Resources.Resources.folder;
             this.btnProfilERI.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnProfilERI.Location = new System.Drawing.Point(316, 41);
+            this.btnProfilERI.Location = new(316, 41);
             this.btnProfilERI.Name = "btnProfilERI";
-            this.btnProfilERI.Size = new System.Drawing.Size(77, 30);
+            this.btnProfilERI.Size = new(77, 30);
             this.btnProfilERI.TabIndex = 3;
             this.btnProfilERI.TabStop = false;
             this.btnProfilERI.Text = "Profil ERI";
             this.btnProfilERI.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnProfilERI.UseVisualStyleBackColor = true;
-            this.btnProfilERI.Click += new System.EventHandler(this.Profilsieciowy);
+            this.btnProfilERI.Click += new(this.Profilsieciowy);
             // 
             // btnProfilVFS
             // 
             this.btnProfilVFS.Image = global::Forms.Resources.Resources.folder;
             this.btnProfilVFS.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnProfilVFS.Location = new System.Drawing.Point(316, 11);
+            this.btnProfilVFS.Location = new(316, 11);
             this.btnProfilVFS.Name = "btnProfilVFS";
-            this.btnProfilVFS.Size = new System.Drawing.Size(77, 30);
+            this.btnProfilVFS.Size = new(77, 30);
             this.btnProfilVFS.TabIndex = 4;
             this.btnProfilVFS.TabStop = false;
             this.btnProfilVFS.Text = "Profil VFS";
             this.btnProfilVFS.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnProfilVFS.UseVisualStyleBackColor = true;
-            this.btnProfilVFS.Click += new System.EventHandler(this.Profilsieciowy);
+            this.btnProfilVFS.Click += new(this.Profilsieciowy);
             // 
             // btnInfoZAd
             // 
             this.btnInfoZAd.Image = global::Forms.Resources.Resources.infozad;
             this.btnInfoZAd.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnInfoZAd.Location = new System.Drawing.Point(209, 41);
+            this.btnInfoZAd.Location = new(209, 41);
             this.btnInfoZAd.Name = "btnInfoZAd";
-            this.btnInfoZAd.Size = new System.Drawing.Size(107, 30);
+            this.btnInfoZAd.Size = new(107, 30);
             this.btnInfoZAd.TabIndex = 5;
             this.btnInfoZAd.TabStop = false;
             this.btnInfoZAd.Text = "Info z AD";
             this.btnInfoZAd.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnInfoZAd.UseVisualStyleBackColor = true;
-            this.btnInfoZAd.Click += new System.EventHandler(this.Info_z_AD_Click);
+            this.btnInfoZAd.Click += new(this.Info_z_AD_Click);
             // 
             // btnUserLog
             // 
             this.btnUserLog.Image = global::Forms.Resources.Resources.userlog;
             this.btnUserLog.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnUserLog.Location = new System.Drawing.Point(209, 11);
+            this.btnUserLog.Location = new(209, 11);
             this.btnUserLog.Name = "btnUserLog";
-            this.btnUserLog.Size = new System.Drawing.Size(107, 30);
+            this.btnUserLog.Size = new(107, 30);
             this.btnUserLog.TabIndex = 6;
             this.btnUserLog.TabStop = false;
             this.btnUserLog.Text = "User log";
             this.btnUserLog.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnUserLog.UseVisualStyleBackColor = true;
-            this.btnUserLog.Click += new System.EventHandler(this.BtnUserLogs);
+            this.btnUserLog.Click += new(this.BtnUserLogs);
             // 
             // numericLogin
             // 
             this.numericLogin.ContextMenuStrip = this.contextMenuOperationTextBox;
             this.numericLogin.ImeMode = System.Windows.Forms.ImeMode.Off;
-            this.numericLogin.Location = new System.Drawing.Point(143, 40);
-            this.numericLogin.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Keys_KeyDown);
+            this.numericLogin.Location = new(143, 40);
+            this.numericLogin.KeyDown += new(this.Keys_KeyDown);
             this.numericLogin.Minimum = new decimal(new int[] {
             1,
             0,
@@ -395,7 +395,7 @@
             0,
             0});
             this.numericLogin.Name = "numericLogin";
-            this.numericLogin.Size = new System.Drawing.Size(60, 20);
+            this.numericLogin.Size = new(60, 20);
             this.numericLogin.TabIndex = 2;
             this.numericLogin.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericLogin.Value = new decimal(new int[] {
@@ -407,25 +407,25 @@
             // labelCountCompLogs
             // 
             this.labelCountUserLogs.AutoSize = true;
-            this.labelCountUserLogs.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelCountUserLogs.Location = new System.Drawing.Point(137, 16);
+            this.labelCountUserLogs.Font = new("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelCountUserLogs.Location = new(137, 16);
             this.labelCountUserLogs.Name = "labelCountCompLogs";
-            this.labelCountUserLogs.Size = new System.Drawing.Size(71, 15);
+            this.labelCountUserLogs.Size = new(71, 15);
             this.labelCountUserLogs.TabIndex = 7;
             this.labelCountUserLogs.Text = "Ilość logów:";
             // 
             // labelLogin
             // 
             this.labelLogin.AutoSize = true;
-            this.labelLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelLogin.Location = new System.Drawing.Point(3, 16);
+            this.labelLogin.Font = new("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelLogin.Location = new(3, 16);
             this.labelLogin.Name = "labelLogin";
             this.labelLogin.TabIndex = 8;
             this.labelLogin.Text = "Login:";
             // 
             // contextMenuOperationRichTextBox
             // 
-            this.contextMenuOperationRichTextBox.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.contextMenuOperationRichTextBox.Items.AddRange(new[] {
             this.contextMenuItemCutR,
             this.contextMenuItemCopyR,
             this.contextMenuItemPasteR,
@@ -439,35 +439,35 @@
             this.contextMenuItemCutR.Name = "contextMenuItemCutR";
             this.contextMenuItemCutR.ShortcutKeyDisplayString = "Ctrl + X";
             this.contextMenuItemCutR.Text = "Wytnij";
-            this.contextMenuItemCutR.Click += new System.EventHandler(this.ContextMenuItemCut_Click);
+            this.contextMenuItemCutR.Click += new(this.ContextMenuItemCut_Click);
             // 
             // contextMenuItemCopyR
             // 
             this.contextMenuItemCopyR.Name = "contextMenuItemCopyR";
             this.contextMenuItemCopyR.ShortcutKeyDisplayString = "Ctrl + C";
             this.contextMenuItemCopyR.Text = "Kopiuj";
-            this.contextMenuItemCopyR.Click += new System.EventHandler(this.ContextMenuItemCopy_Click);
+            this.contextMenuItemCopyR.Click += new(this.ContextMenuItemCopy_Click);
             // 
             // contextMenuItemPasteR
             // 
             this.contextMenuItemPasteR.Name = "contextMenuItemPasteR";
             this.contextMenuItemPasteR.ShortcutKeyDisplayString = "Ctrl + V";
             this.contextMenuItemPasteR.Text = "Wklej";
-            this.contextMenuItemPasteR.Click += new System.EventHandler(this.ContextMenuItemPaste_Click);
+            this.contextMenuItemPasteR.Click += new(this.ContextMenuItemPaste_Click);
             // 
             // contextMenuItemSelectAllR
             // 
             this.contextMenuItemSelectAllR.Name = "contextMenuItemSelectAllR";
             this.contextMenuItemSelectAllR.ShortcutKeyDisplayString = "Ctrl + A";
             this.contextMenuItemSelectAllR.Text = "Zaznacz wszystko";
-            this.contextMenuItemSelectAllR.Click += new System.EventHandler(this.ContextMenuItemSelectAll_Click);
+            this.contextMenuItemSelectAllR.Click += new(this.ContextMenuItemSelectAll_Click);
             // 
             // contextMenuItemSearchR
             // 
             this.contextMenuItemSearchR.Name = "contextMenuItemSearchR";
             this.contextMenuItemSearchR.ShortcutKeyDisplayString = "Ctrl + F";
             this.contextMenuItemSearchR.Text = "Wyszukaj";
-            this.contextMenuItemSearchR.Click += new System.EventHandler(this.ContextMenuItemSearch_Click);
+            this.contextMenuItemSearchR.Click += new(this.ContextMenuItemSearch_Click);
             // 
             // groupBoxComputerInfo
             // 
@@ -488,10 +488,10 @@
             this.groupBoxComputerInfo.Controls.Add(this.labelCountCompLogs);
             this.groupBoxComputerInfo.Controls.Add(this.labelComputer);
             this.groupBoxComputerInfo.Controls.Add(this.btnCompLog);
-            this.groupBoxComputerInfo.Location = new System.Drawing.Point(1, 101);
-            this.groupBoxComputerInfo.MinimumSize = new System.Drawing.Size(1182, 61);
+            this.groupBoxComputerInfo.Location = new(1, 101);
+            this.groupBoxComputerInfo.MinimumSize = new(1182, 61);
             this.groupBoxComputerInfo.Name = "groupBoxComputerInfo";
-            this.groupBoxComputerInfo.Size = new System.Drawing.Size(1182, 75);
+            this.groupBoxComputerInfo.Size = new(1182, 75);
             this.groupBoxComputerInfo.TabIndex = 2;
             this.groupBoxComputerInfo.TabStop = false;
             this.groupBoxComputerInfo.Text = "Informacje o komputerze:";
@@ -500,53 +500,53 @@
             // 
             this.comboBoxComputer.ContextMenuStrip = this.contextMenuOperationTextBox;
             this.comboBoxComputer.FormattingEnabled = true;
-            this.comboBoxComputer.Location = new System.Drawing.Point(6, 43);
+            this.comboBoxComputer.Location = new(6, 43);
             this.comboBoxComputer.Name = "comboBoxComputer";
             this.comboBoxComputer.Size = comboBoxLogin.Size;
             this.comboBoxComputer.TabIndex = 1;
-            this.comboBoxComputer.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Keys_KeyDown);
-            this.comboBoxComputer.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Keys_PreviewKeyDown);
+            this.comboBoxComputer.KeyDown += new(this.Keys_KeyDown);
+            this.comboBoxComputer.PreviewKeyDown += new(this.Keys_PreviewKeyDown);
             // 
             // btnRemoteTracert
             // 
-            this.btnRemoteTracert.Location = new System.Drawing.Point(736, 40);
+            this.btnRemoteTracert.Location = new(736, 40);
             this.btnRemoteTracert.Name = "btnRemoteTracert";
-            this.btnRemoteTracert.Size = new System.Drawing.Size(107, 30);
+            this.btnRemoteTracert.Size = new(107, 30);
             this.btnRemoteTracert.TabIndex = 0;
             this.btnRemoteTracert.TabStop = false;
             this.btnRemoteTracert.Text = "Remote TRACERT";
             this.btnRemoteTracert.UseVisualStyleBackColor = true;
-            this.btnRemoteTracert.Click += new System.EventHandler(this.RemotePingTracert);
+            this.btnRemoteTracert.Click += new(this.RemotePingTracert);
             // 
             // btnRemotePing
             // 
-            this.btnRemotePing.Location = new System.Drawing.Point(736, 10);
+            this.btnRemotePing.Location = new(736, 10);
             this.btnRemotePing.Name = "btnRemotePing";
-            this.btnRemotePing.Size = new System.Drawing.Size(107, 30);
+            this.btnRemotePing.Size = new(107, 30);
             this.btnRemotePing.TabIndex = 1;
             this.btnRemotePing.TabStop = false;
             this.btnRemotePing.Text = "Remote PING";
             this.btnRemotePing.UseVisualStyleBackColor = true;
-            this.btnRemotePing.Click += new System.EventHandler(this.RemotePingTracert);
+            this.btnRemotePing.Click += new(this.RemotePingTracert);
             // 
             // btnRemoteCMD
             // 
             this.btnRemoteCMD.ContextMenuStrip = this.contextMenuRemoteCMD;
             this.btnRemoteCMD.Image = global::Forms.Resources.Resources.zdalneCMD;
             this.btnRemoteCMD.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnRemoteCMD.Location = new System.Drawing.Point(633, 10);
+            this.btnRemoteCMD.Location = new(633, 10);
             this.btnRemoteCMD.Name = "btnRemoteCMD";
-            this.btnRemoteCMD.Size = new System.Drawing.Size(103, 30);
+            this.btnRemoteCMD.Size = new(103, 30);
             this.btnRemoteCMD.TabIndex = 2;
             this.btnRemoteCMD.TabStop = false;
             this.btnRemoteCMD.Text = "Zdalne CMD";
             this.btnRemoteCMD.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnRemoteCMD.UseVisualStyleBackColor = true;
-            this.btnRemoteCMD.Click += new System.EventHandler(this.RemoteCMD_Click);
+            this.btnRemoteCMD.Click += new(this.RemoteCMD_Click);
             // 
             // contextMenuRemoteCMD
             // 
-            this.contextMenuRemoteCMD.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.contextMenuRemoteCMD.Items.AddRange(new[] {
             this.contextMenuItemRemoteCMDSystem,
             this.contextMenuItemCMDRemoteCustomAuth,
             this.contextMenuItemPowerShellRemoteCustomAuth,
@@ -562,103 +562,103 @@
             this.contextMenuItemRemoteCMDSystem.Name = "contextMenuItemRemoteCMDSystem";
             this.contextMenuItemRemoteCMDSystem.Text = "Zdalne CMD (SYSTEM)";
             this.contextMenuItemRemoteCMDSystem.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.contextMenuItemRemoteCMDSystem.Click += new System.EventHandler(this.MenuItemCMDSYSTEM_Click);
+            this.contextMenuItemRemoteCMDSystem.Click += new(this.MenuItemCMDSYSTEM_Click);
             // 
             // contextMenuItemCMD
             // 
             this.contextMenuItemCMD.Image = global::Forms.Resources.Resources.cmd;
             this.contextMenuItemCMD.Name = "contextMenuItemCMD";
             this.contextMenuItemCMD.Text = "CMD";
-            this.contextMenuItemCMD.Click += new System.EventHandler(this.MenuItemCMD_Click);
+            this.contextMenuItemCMD.Click += new(this.MenuItemCMD_Click);
             // 
             // contextMenuItemCMDRemoteCustomAth
             // 
             this.contextMenuItemCMDRemoteCustomAuth.Image = global::Forms.Resources.Resources.cmd;
             this.contextMenuItemCMDRemoteCustomAuth.Name = "contextMenuItemCMDRemoteCustomAth";
             this.contextMenuItemCMDRemoteCustomAuth.Text = "Zdalne CMD (Custom Auth)";
-            this.contextMenuItemCMDRemoteCustomAuth.Click += new System.EventHandler(this.CMDRemoteCustomAuth);
+            this.contextMenuItemCMDRemoteCustomAuth.Click += new(this.CMDRemoteCustomAuth);
             // 
             // contextMenuItemPowerShell
             // 
             this.contextMenuItemPowerShell.Image = global::Forms.Resources.Resources.powershell;
             this.contextMenuItemPowerShell.Name = "contextMenuItemPowerShell";
             this.contextMenuItemPowerShell.Text = "Powershell";
-            this.contextMenuItemPowerShell.Click += new System.EventHandler(this.Powershell_Click);
+            this.contextMenuItemPowerShell.Click += new(this.Powershell_Click);
             //
             // contextMenuItemRemotePowerShell
             //
             this.contextMenuItemRemotePowerShell.Name = "contextMenuItemRemotePowerShell";
             this.contextMenuItemRemotePowerShell.Image = global::Forms.Resources.Resources.powershell;
             this.contextMenuItemRemotePowerShell.Text = "Zdalny Powershell";
-            this.contextMenuItemRemotePowerShell.Click += new System.EventHandler(this.RemotePowerShell_Click);
+            this.contextMenuItemRemotePowerShell.Click += new(this.RemotePowerShell_Click);
             //
             // contextMenuItemRemotePowerShell
             //
             this.contextMenuItemPowerShellRemoteCustomAuth.Name = "contextMenuItemPowerShellRemoteCustomAuth";
             this.contextMenuItemPowerShellRemoteCustomAuth.Image = global::Forms.Resources.Resources.powershell;
             this.contextMenuItemPowerShellRemoteCustomAuth.Text = "Zdalny Powershell (Custom Auth)";
-            this.contextMenuItemPowerShellRemoteCustomAuth.Click += new System.EventHandler(this.RemotePowerShellCustomAuth_Click);
+            this.contextMenuItemPowerShellRemoteCustomAuth.Click += new(this.RemotePowerShellCustomAuth_Click);
             // 
             // btnNetworkInterfaces
             // 
             this.btnNetworkInterfaces.Image = global::Forms.Resources.Resources.netcard;
             this.btnNetworkInterfaces.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnNetworkInterfaces.Location = new System.Drawing.Point(633, 40);
+            this.btnNetworkInterfaces.Location = new(633, 40);
             this.btnNetworkInterfaces.Name = "btnNetworkInterfaces";
-            this.btnNetworkInterfaces.Size = new System.Drawing.Size(103, 30);
+            this.btnNetworkInterfaces.Size = new(103, 30);
             this.btnNetworkInterfaces.TabIndex = 3;
             this.btnNetworkInterfaces.TabStop = false;
             this.btnNetworkInterfaces.Text = "Karty sieciowe";
             this.btnNetworkInterfaces.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnNetworkInterfaces.UseVisualStyleBackColor = true;
-            this.btnNetworkInterfaces.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
+            this.btnNetworkInterfaces.Click += new(this.KomputerInfoMenuStrip);
             // 
             // btnProgramList
             // 
             this.btnProgramList.Image = global::Forms.Resources.Resources.programlist;
             this.btnProgramList.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnProgramList.Location = new System.Drawing.Point(520, 40);
+            this.btnProgramList.Location = new(520, 40);
             this.btnProgramList.Name = "btnProgramList";
-            this.btnProgramList.Size = new System.Drawing.Size(113, 30);
+            this.btnProgramList.Size = new(113, 30);
             this.btnProgramList.TabIndex = 4;
             this.btnProgramList.TabStop = false;
             this.btnProgramList.Text = "Lista programów";
             this.btnProgramList.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnProgramList.UseVisualStyleBackColor = true;
-            this.btnProgramList.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
+            this.btnProgramList.Click += new(this.KomputerInfoMenuStrip);
             // 
             // btnExplorer
             // 
             this.btnExplorer.Image = global::Forms.Resources.Resources.folder;
             this.btnExplorer.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnExplorer.Location = new System.Drawing.Point(520, 10);
+            this.btnExplorer.Location = new(520, 10);
             this.btnExplorer.Name = "btnExplorer";
-            this.btnExplorer.Size = new System.Drawing.Size(113, 30);
+            this.btnExplorer.Size = new(113, 30);
             this.btnExplorer.TabIndex = 5;
             this.btnExplorer.TabStop = false;
             this.btnExplorer.Text = "Explorer C$";
             this.btnExplorer.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnExplorer.UseVisualStyleBackColor = true;
-            this.btnExplorer.Click += new System.EventHandler(this.BtnExplorer_Click);
+            this.btnExplorer.Click += new(this.BtnExplorer_Click);
             // 
             // btnRDP
             // 
             this.btnRDP.ContextMenuStrip = this.contextMenuRDP;
             this.btnRDP.Image = global::Forms.Resources.Resources.rdp;
             this.btnRDP.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnRDP.Location = new System.Drawing.Point(423, 40);
+            this.btnRDP.Location = new(423, 40);
             this.btnRDP.Name = "btnRDP";
-            this.btnRDP.Size = new System.Drawing.Size(97, 30);
+            this.btnRDP.Size = new(97, 30);
             this.btnRDP.TabIndex = 6;
             this.btnRDP.TabStop = false;
             this.btnRDP.Text = "Pulpit zdalny";
             this.btnRDP.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnRDP.UseVisualStyleBackColor = true;
-            this.btnRDP.Click += new System.EventHandler(this.BtnRDP_Click);
+            this.btnRDP.Click += new(this.BtnRDP_Click);
             // 
             // contextMenuRDP
             // 
-            this.contextMenuRDP.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.contextMenuRDP.Items.AddRange(new[] {
             this.menuItemRDPOpen});
             this.contextMenuRDP.Name = "contextMenuRDP";
             this.contextMenuRDP.Text = "ZdalnyPulpit";
@@ -668,26 +668,26 @@
             // 
             this.menuItemRDPOpen.Name = "rDPBezPustyContextMenu";
             this.menuItemRDPOpen.Text = "RDP pusty";
-            this.menuItemRDPOpen.Click += new System.EventHandler(this.MenuItemRDPOpen_Click);
+            this.menuItemRDPOpen.Click += new(this.MenuItemRDPOpen_Click);
             // 
             // btnDW
             // 
             this.btnDW.ContextMenuStrip = this.DWMenuContext;
             this.btnDW.Image = global::Forms.Resources.Resources.DW;
             this.btnDW.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnDW.Location = new System.Drawing.Point(423, 10);
+            this.btnDW.Location = new(423, 10);
             this.btnDW.Name = "btnDW";
-            this.btnDW.Size = new System.Drawing.Size(97, 30);
+            this.btnDW.Size = new(97, 30);
             this.btnDW.TabIndex = 7;
             this.btnDW.TabStop = false;
             this.btnDW.Text = "default";
             this.btnDW.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnDW.UseVisualStyleBackColor = true;
-            this.btnDW.Click += new System.EventHandler(this.BtnDW_Click);
+            this.btnDW.Click += new(this.BtnDW_Click);
             // 
             // DWMenuContext
             // 
-            this.DWMenuContext.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.DWMenuContext.Items.AddRange(new[] {
             this.menuItemDWEadm,
             this.menuItemDWLAPS});
             this.DWMenuContext.Name = "DWMenuContext";
@@ -698,46 +698,46 @@
             // 
             this.menuItemDWEadm.Name = "menuItemDWEadm";
             this.menuItemDWEadm.Text = "default";
-            this.menuItemDWEadm.Click += new System.EventHandler(this.BtnDW_Click);
+            this.menuItemDWEadm.Click += new(this.BtnDW_Click);
             // 
             // menuItemDWLAPS
             // 
             this.menuItemDWLAPS.Name = "menuItemDWLAPS";
             this.menuItemDWLAPS.Text = "default";
-            this.menuItemDWLAPS.Click += new System.EventHandler(this.BtnDW_Click);
+            this.menuItemDWLAPS.Click += new(this.BtnDW_Click);
             // 
             // btnManagement
             // 
             this.btnManagement.Image = global::Forms.Resources.Resources.compmgmt;
             this.btnManagement.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnManagement.Location = new System.Drawing.Point(316, 40);
+            this.btnManagement.Location = new(316, 40);
             this.btnManagement.Name = "btnManagement";
-            this.btnManagement.Size = new System.Drawing.Size(107, 30);
+            this.btnManagement.Size = new(107, 30);
             this.btnManagement.TabIndex = 8;
             this.btnManagement.TabStop = false;
             this.btnManagement.Text = "Zarządzanie";
             this.btnManagement.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnManagement.UseVisualStyleBackColor = true;
-            this.btnManagement.Click += new System.EventHandler(this.AdmTools);
+            this.btnManagement.Click += new(this.AdmTools);
             // 
             // btnCompInfo
             // 
             this.btnCompInfo.ContextMenuStrip = this.contextMenuComputerInfo;
             this.btnCompInfo.Image = global::Forms.Resources.Resources.komputerinfo;
             this.btnCompInfo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCompInfo.Location = new System.Drawing.Point(316, 10);
+            this.btnCompInfo.Location = new(316, 10);
             this.btnCompInfo.Name = "btnCompInfo";
-            this.btnCompInfo.Size = new System.Drawing.Size(107, 30);
+            this.btnCompInfo.Size = new(107, 30);
             this.btnCompInfo.TabIndex = 9;
             this.btnCompInfo.TabStop = false;
             this.btnCompInfo.Text = "Komputer info";
             this.btnCompInfo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnCompInfo.UseVisualStyleBackColor = true;
-            this.btnCompInfo.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
+            this.btnCompInfo.Click += new(this.KomputerInfoMenuStrip);
             // 
             // contextMenuComputerInfo
             // 
-            this.contextMenuComputerInfo.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.contextMenuComputerInfo.Items.AddRange(new[] {
             this.menuItemComputerInfoAutostart,
             this.menuItemComputerInfoBios,
             this.menuItemComputerInfoPrinters,
@@ -762,124 +762,124 @@
             // 
             this.menuItemComputerInfoUptime.Name = "menuItemComputerInfoUptime";
             this.menuItemComputerInfoUptime.Text = "Uptime";
-            this.menuItemComputerInfoUptime.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
+            this.menuItemComputerInfoUptime.Click += new(this.KomputerInfoMenuStrip);
             // 
             // menuItemComputerInfoSNPN
             // 
             this.menuItemComputerInfoSNPN.Name = "menuItemComputerInfoSNPN";
             this.menuItemComputerInfoSNPN.Text = "Nr Seryjny i Nr Partii";
-            this.menuItemComputerInfoSNPN.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
+            this.menuItemComputerInfoSNPN.Click += new(this.KomputerInfoMenuStrip);
             // 
             // menuItemComputerInfoModel
             // 
             this.menuItemComputerInfoModel.Name = "menuItemComputerInfoModel";
             this.menuItemComputerInfoModel.Text = "Model";
-            this.menuItemComputerInfoModel.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
+            this.menuItemComputerInfoModel.Click += new(this.KomputerInfoMenuStrip);
             // 
             // menuItemComputerInfoOS
             // 
             this.menuItemComputerInfoOS.Name = "menuItemComputerInfoOS";
             this.menuItemComputerInfoOS.Text = "OS";
-            this.menuItemComputerInfoOS.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
+            this.menuItemComputerInfoOS.Click += new(this.KomputerInfoMenuStrip);
             // 
             // menuItemComputerInfoRAM
             // 
             this.menuItemComputerInfoRAM.Name = "menuItemComputerInfoRAM";
             this.menuItemComputerInfoRAM.Text = "Pamięć RAM";
-            this.menuItemComputerInfoRAM.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
+            this.menuItemComputerInfoRAM.Click += new(this.KomputerInfoMenuStrip);
             // 
             // menuItemComputerInfoProcessor
             // 
             this.menuItemComputerInfoProcessor.Name = "menuItemComputerInfoProcessor";
             this.menuItemComputerInfoProcessor.Text = "CPU";
-            this.menuItemComputerInfoProcessor.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
+            this.menuItemComputerInfoProcessor.Click += new(this.KomputerInfoMenuStrip);
             // 
             // menuItemComputerInfoLoggedUser
             // 
             this.menuItemComputerInfoLoggedUser.Name = "menuItemComputerInfoLoggedUser";
             this.menuItemComputerInfoLoggedUser.Text = "Zalogowany";
-            this.menuItemComputerInfoLoggedUser.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
+            this.menuItemComputerInfoLoggedUser.Click += new(this.KomputerInfoMenuStrip);
             // 
             // menuItemComputerInfoProfile
             // 
             this.menuItemComputerInfoProfile.Name = "menuItemComputerInfoProfile";
             this.menuItemComputerInfoProfile.Text = "Profile Użytkowników";
-            this.menuItemComputerInfoProfile.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
+            this.menuItemComputerInfoProfile.Click += new(this.KomputerInfoMenuStrip);
             // 
             // menuItemComputerInfoDrives
             // 
             this.menuItemComputerInfoDrives.Name = "menuItemComputerInfoDrives";
             this.menuItemComputerInfoDrives.Text = "Dyski";
-            this.menuItemComputerInfoDrives.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
+            this.menuItemComputerInfoDrives.Click += new(this.KomputerInfoMenuStrip);
             // 
             // menuItemComputerInfoPrinters
             // 
             this.menuItemComputerInfoPrinters.Name = "menuItemComputerInfoPrinters";
             this.menuItemComputerInfoPrinters.Text = "Drukarki sieciowe";
-            this.menuItemComputerInfoPrinters.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
+            this.menuItemComputerInfoPrinters.Click += new(this.KomputerInfoMenuStrip);
             // 
             // menuItemComputerInfoShares
             // 
             this.menuItemComputerInfoShares.Name = "menuItemComputerInfoShares";
             this.menuItemComputerInfoShares.Text = "Udziały";
-            this.menuItemComputerInfoShares.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
+            this.menuItemComputerInfoShares.Click += new(this.KomputerInfoMenuStrip);
             // 
             // menuItemComputerInfoAutostart
             // 
             this.menuItemComputerInfoAutostart.Name = "menuItemComputerInfoAutostart";
             this.menuItemComputerInfoAutostart.Text = "Autostart";
-            this.menuItemComputerInfoAutostart.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
+            this.menuItemComputerInfoAutostart.Click += new(this.KomputerInfoMenuStrip);
             // 
             // menuItemComputerInfoPath
             // 
             this.menuItemComputerInfoPath.Name = "menuItemComputerInfoPath";
             this.menuItemComputerInfoPath.Text = "PATH";
-            this.menuItemComputerInfoPath.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
+            this.menuItemComputerInfoPath.Click += new(this.KomputerInfoMenuStrip);
             // 
             // menuItemComputerInfoNetworkRes
             // 
             this.menuItemComputerInfoNetworkRes.Name = "menuItemComputerInfoNetworkRes";
             this.menuItemComputerInfoNetworkRes.Text = "Zasoby sieciowe";
-            this.menuItemComputerInfoNetworkRes.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
+            this.menuItemComputerInfoNetworkRes.Click += new(this.KomputerInfoMenuStrip);
             // 
             // menuItemComputerInfoDisplay
             // 
             this.menuItemComputerInfoDisplay.Name = "menuItemComputerInfoDisplay";
             this.menuItemComputerInfoDisplay.Text = "Ekrany podłączone";
-            this.menuItemComputerInfoDisplay.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
+            this.menuItemComputerInfoDisplay.Click += new(this.KomputerInfoMenuStrip);
             // 
             // menuItemComputerInfoBios
             // 
             this.menuItemComputerInfoBios.Name = "menuItemComputerInfoBios";
             this.menuItemComputerInfoBios.Text = "BIOS";
-            this.menuItemComputerInfoBios.Click += new System.EventHandler(this.KomputerInfoMenuStrip);
+            this.menuItemComputerInfoBios.Click += new(this.KomputerInfoMenuStrip);
             // 
             // btnPing
             // 
             this.btnPing.Image = global::Forms.Resources.Resources.ping;
             this.btnPing.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPing.Location = new System.Drawing.Point(209, 40);
+            this.btnPing.Location = new(209, 40);
             this.btnPing.Name = "btnPing";
-            this.btnPing.Size = new System.Drawing.Size(107, 30);
+            this.btnPing.Size = new(107, 30);
             this.btnPing.TabIndex = 10;
             this.btnPing.TabStop = false;
             this.btnPing.Text = "Ping";
             this.btnPing.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnPing.UseVisualStyleBackColor = true;
-            this.btnPing.Click += new System.EventHandler(this.BtnPing_Click);
+            this.btnPing.Click += new(this.BtnPing_Click);
             // 
             // numericComputer
             // 
             this.numericComputer.ContextMenuStrip = this.contextMenuOperationTextBox;
             this.numericComputer.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.numericComputer.Location = new System.Drawing.Point(143, 43);
-            this.numericComputer.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Keys_KeyDown);
-            this.numericComputer.Minimum = new decimal(new int[] {
+            this.numericComputer.Location = new(143, 43);
+            this.numericComputer.KeyDown += new(this.Keys_KeyDown);
+            this.numericComputer.Minimum = new(new int[] {
             1,
             0,
             0,
             0});
-            this.numericComputer.Maximum = new decimal(new int[] {
+            this.numericComputer.Maximum = new(new int[] {
             1000,
             0,
             0,
@@ -888,7 +888,7 @@
             this.numericComputer.Size = numericLogin.Size;
             this.numericComputer.TabIndex = 2;
             this.numericComputer.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.numericComputer.Value = new decimal(new int[] {
+            this.numericComputer.Value = new(new int[] {
             5,
             0,
             0,
@@ -897,8 +897,8 @@
             // labelCountCompLogs
             // 
             this.labelCountCompLogs.AutoSize = true;
-            this.labelCountCompLogs.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelCountCompLogs.Location = new System.Drawing.Point(137, 19);
+            this.labelCountCompLogs.Font = new("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelCountCompLogs.Location = new(137, 19);
             this.labelCountCompLogs.Name = "labelCountCompLogs";
             this.labelCountCompLogs.TabIndex = 11;
             this.labelCountCompLogs.Text = "Ilośc logów:";
@@ -906,8 +906,8 @@
             // labelComputer
             // 
             this.labelComputer.AutoSize = true;
-            this.labelComputer.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelComputer.Location = new System.Drawing.Point(3, 19);
+            this.labelComputer.Font = new("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelComputer.Location = new(3, 19);
             this.labelComputer.Name = "labelComputer";
             this.labelComputer.TabIndex = 12;
             this.labelComputer.Text = "Nazwa komputera:";
@@ -916,7 +916,7 @@
             // 
             this.btnCompLog.Image = global::Forms.Resources.Resources.Complog;
             this.btnCompLog.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCompLog.Location = new System.Drawing.Point(209, 10);
+            this.btnCompLog.Location = new(209, 10);
             this.btnCompLog.Name = "btnCompLog";
             this.btnCompLog.Size = btnUserLog.Size;
             this.btnCompLog.TabIndex = 13;
@@ -924,17 +924,17 @@
             this.btnCompLog.Text = "Komputer log";
             this.btnCompLog.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnCompLog.UseVisualStyleBackColor = true;
-            this.btnCompLog.Click += new System.EventHandler(this.BtnComputerLogs);
+            this.btnCompLog.Click += new(this.BtnComputerLogs);
             // 
             // groupBoxOtherTools
             // 
             this.groupBoxOtherTools.Anchor = System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Top;
             this.groupBoxOtherTools.Controls.Add(this.panelTCP);
             this.groupBoxOtherTools.Controls.Add(this.btnFlushDNS);
-            this.groupBoxOtherTools.Location = new System.Drawing.Point(1, 180);
-            this.groupBoxOtherTools.MinimumSize = new System.Drawing.Size(1182, 45);
+            this.groupBoxOtherTools.Location = new(1, 180);
+            this.groupBoxOtherTools.MinimumSize = new(1182, 45);
             this.groupBoxOtherTools.Name = "groupBoxOtherTools";
-            this.groupBoxOtherTools.Size = new System.Drawing.Size(1182, 54);
+            this.groupBoxOtherTools.Size = new(1182, 54);
             this.groupBoxOtherTools.TabIndex = 3;
             this.groupBoxOtherTools.TabStop = false;
             this.groupBoxOtherTools.Text = "Inne narzędzia";
@@ -945,23 +945,23 @@
             this.panelTCP.Controls.Add(this.labelTCP);
             this.panelTCP.Controls.Add(this.btnTestTCP);
             this.panelTCP.Controls.Add(this.btnCollapseTCP);
-            this.panelTCP.Location = new System.Drawing.Point(94, 16);
+            this.panelTCP.Location = new(94, 16);
             this.panelTCP.Name = "panelTCP";
-            this.panelTCP.Size = new System.Drawing.Size(63, 32);
+            this.panelTCP.Size = new(63, 32);
             this.panelTCP.TabIndex = 2;
             // 
             // numericTCP
             // 
-            this.numericTCP.Location = new System.Drawing.Point(180, 8);
-            this.numericTCP.Maximum = new decimal(new int[] {
+            this.numericTCP.Location = new(180, 8);
+            this.numericTCP.Maximum = new(new int[] {
             65535,
             0,
             0,
             0});
             this.numericTCP.Name = "numericTCP";
-            this.numericTCP.Size = new System.Drawing.Size(61, 20);
+            this.numericTCP.Size = new(61, 20);
             this.numericTCP.TabIndex = 3;
-            this.numericTCP.Value = new decimal(new int[] {
+            this.numericTCP.Value = new(new int[] {
             135,
             0,
             0,
@@ -970,45 +970,45 @@
             // labelTCP
             // 
             this.labelTCP.AutoSize = true;
-            this.labelTCP.Location = new System.Drawing.Point(61, 11);
+            this.labelTCP.Location = new(61, 11);
             this.labelTCP.Name = "labelTCP";
-            this.labelTCP.Size = new System.Drawing.Size(117, 13);
+            this.labelTCP.Size = new(117, 13);
             this.labelTCP.TabIndex = 2;
             this.labelTCP.Text = "Podaj Port dla badania:";
             // 
             // btnTestTCP
             // 
-            this.btnTestTCP.Location = new System.Drawing.Point(245, 2);
+            this.btnTestTCP.Location = new(245, 2);
             this.btnTestTCP.Name = "btnTestTCP";
-            this.btnTestTCP.Size = new System.Drawing.Size(104, 28);
+            this.btnTestTCP.Size = new(104, 28);
             this.btnTestTCP.TabIndex = 1;
             this.btnTestTCP.Text = "Wykonaj badanie";
             this.btnTestTCP.UseVisualStyleBackColor = true;
-            this.btnTestTCP.Click += new System.EventHandler(this.BtnTestTCP_Click);
+            this.btnTestTCP.Click += new(this.BtnTestTCP_Click);
             // 
             // btnCollapseTCP
             // 
-            this.btnCollapseTCP.Location = new System.Drawing.Point(2, 2);
+            this.btnCollapseTCP.Location = new(2, 2);
             this.btnCollapseTCP.Name = "btnCollapseTCP";
-            this.btnCollapseTCP.Size = new System.Drawing.Size(59, 28);
+            this.btnCollapseTCP.Size = new(59, 28);
             this.btnCollapseTCP.TabIndex = 0;
             this.btnCollapseTCP.Text = "TCPPing";
             this.btnCollapseTCP.UseVisualStyleBackColor = true;
-            this.btnCollapseTCP.Click += new System.EventHandler(this.BtnCollapseTCP);
+            this.btnCollapseTCP.Click += new(this.BtnCollapseTCP);
             // 
             // btnFlushDNS
             // 
             this.btnFlushDNS.Image = global::Forms.Resources.Resources.rubish;
             this.btnFlushDNS.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnFlushDNS.Location = new System.Drawing.Point(6, 15);
+            this.btnFlushDNS.Location = new(6, 15);
             this.btnFlushDNS.Name = "btnFlushDNS";
-            this.btnFlushDNS.Size = new System.Drawing.Size(89, 36);
+            this.btnFlushDNS.Size = new(89, 36);
             this.btnFlushDNS.TabIndex = 1;
             this.btnFlushDNS.TabStop = false;
             this.btnFlushDNS.Text = "Flush DNS";
             this.btnFlushDNS.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnFlushDNS.UseVisualStyleBackColor = true;
-            this.btnFlushDNS.Click += new System.EventHandler(this.BtnFlushDNS_Click);
+            this.btnFlushDNS.Click += new(this.BtnFlushDNS_Click);
             // 
             // richTextBox1
             // 
@@ -1016,26 +1016,26 @@
             richTextBox1.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom;
             richTextBox1.ContextMenuStrip = this.contextMenuOperationRichTextBox;
             richTextBox1.DetectUrls = false;
-            richTextBox1.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            richTextBox1.Font = new("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             richTextBox1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            richTextBox1.Location = new System.Drawing.Point(2, 240);
-            richTextBox1.MinimumSize = new System.Drawing.Size(1181, 294);
+            richTextBox1.Location = new(2, 240);
+            richTextBox1.MinimumSize = new(1181, 294);
             richTextBox1.Name = "richTextBox1";
             richTextBox1.ShortcutsEnabled = false;
             richTextBox1.TabIndex = 4;
             richTextBox1.Text = "";
-            richTextBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Keys_KeyDown);
-            richTextBox1.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Keys_PreviewKeyDown);
+            richTextBox1.KeyDown += new(this.Keys_KeyDown);
+            richTextBox1.PreviewKeyDown += new(this.Keys_PreviewKeyDown);
             // 
             // backgroundWorkerComputerInfo
             // 
-            this.backgroundWorkerComputerInfo.DoWork += new System.ComponentModel.DoWorkEventHandler(this.KomputerInfo_DoWork);
+            this.backgroundWorkerComputerInfo.DoWork += new(this.KomputerInfo_DoWork);
             // 
             // statusBar1
             // 
-            this.statusBar1.Location = new System.Drawing.Point(0, 535);
+            this.statusBar1.Location = new(0, 535);
             this.statusBar1.Name = "statusBar1";
-            this.statusBar1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.statusBar1.Items.AddRange(new[] {
             this.statusBP1,
             this.statusBP2});
             this.statusBar1.TabIndex = 5;
@@ -1053,17 +1053,17 @@
             // 
             // InfozAD
             // 
-            this.InfozAD.DoWork += new System.ComponentModel.DoWorkEventHandler(this.InfozAD_DoWork);
+            this.InfozAD.DoWork += new(this.InfozAD_DoWork);
             // 
             // mainMenu
             // 
             this.mainMenu.BackColor = System.Drawing.Color.Gainsboro;
-            this.mainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mainMenu.Items.AddRange(new[] {
             this.menuItemFile,
             this.menuItemSettings,
             this.menuItemAdmTools,
             this.menuItemQuickFix});
-            this.mainMenu.Location = new System.Drawing.Point(0, 0);
+            this.mainMenu.Location = new(0, 0);
             this.mainMenu.Name = "mainMenu";
             this.mainMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.mainMenu.TabIndex = 0;
@@ -1079,10 +1079,10 @@
             // 
             this.menuItemSettings.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.menuItemSettings.Name = "ustawienia";
-            this.menuItemSettings.Size = new System.Drawing.Size(76, 20);
+            this.menuItemSettings.Size = new(76, 20);
             this.menuItemSettings.Text = "Ustawienia";
             this.menuItemSettings.Visible = true;
-            this.menuItemSettings.Click += new System.EventHandler(this.OpenSettings);
+            this.menuItemSettings.Click += new(this.OpenSettings);
             // 
             // narzędziaAdministracyjneToolStripMenuItem
             // 
@@ -1110,48 +1110,48 @@
             this.menuItemWindowsFirewall.Image = global::Forms.Resources.Resources.firewall;
             this.menuItemWindowsFirewall.Name = "menuItemWindowsFirewall";
             this.menuItemWindowsFirewall.Text = "Zaawansowana Zapora Windows";
-            this.menuItemWindowsFirewall.Click += new System.EventHandler(this.AdmTools);
+            this.menuItemWindowsFirewall.Click += new(this.AdmTools);
             //
             // LogonCustomData
             //
             this.LogonCustomData.Name = "logonCustomData";
             this.LogonCustomData.Text = "login z terminali";
-            this.LogonCustomData.Click += new System.EventHandler(this.NewClick);
+            this.LogonCustomData.Click += new(this.NewClick);
             //
             // menuItemDHCP
             // 
             this.menuItemDHCP.Image = global::Forms.Resources.Resources.dhcp;
             this.menuItemDHCP.Name = "menuItemDHCP";
             this.menuItemDHCP.Text = "DHCP";
-            this.menuItemDHCP.Click += new System.EventHandler(this.DHCPToolStripMenuItem_Click);
+            this.menuItemDHCP.Click += new(this.DHCPToolStripMenuItem_Click);
             // 
             // menuItemEventViewer
             // 
             this.menuItemEventViewer.Image = global::Forms.Resources.Resources.eventvwr;
             this.menuItemEventViewer.Name = "menuItemEventViewer";
             this.menuItemEventViewer.Text = "Dziennik zdarzeń";
-            this.menuItemEventViewer.Click += new System.EventHandler(this.AdmTools);
+            this.menuItemEventViewer.Click += new(this.AdmTools);
             // 
             // menuItemTaskshedule
             // 
             this.menuItemTaskshedule.Image = global::Forms.Resources.Resources.tasksched;
             this.menuItemTaskshedule.Name = "menuItemTaskshedule";
             this.menuItemTaskshedule.Text = "Harmonogram zadań";
-            this.menuItemTaskshedule.Click += new System.EventHandler(this.AdmTools);
+            this.menuItemTaskshedule.Click += new(this.AdmTools);
             // 
             // menuItemServices
             // 
             this.menuItemServices.Image = global::Forms.Resources.Resources.services;
             this.menuItemServices.Name = "menuItemServices";
             this.menuItemServices.Text = "Usługi";
-            this.menuItemServices.Click += new System.EventHandler(this.AdmTools);
+            this.menuItemServices.Click += new(this.AdmTools);
             // 
             // menuItemLusrmgr
             // 
             this.menuItemLusrmgr.Image = global::Forms.Resources.Resources.lusrmgr;
             this.menuItemLusrmgr.Name = "menuItemLusrmgr";
             this.menuItemLusrmgr.Text = "Użytkownicy i grupy lokalne";
-            this.menuItemLusrmgr.Click += new System.EventHandler(this.AdmTools);
+            this.menuItemLusrmgr.Click += new(this.AdmTools);
             // 
             // menuItemTermimalExplorer
             //
@@ -1166,11 +1166,11 @@
             // 
             this.menuItemCustomName.Name = "menuItemCustomName";
             this.menuItemCustomName.Text = "Ręczna nazwa";
-            this.menuItemCustomName.Click += new System.EventHandler(FindSessions);
+            this.menuItemCustomName.Click += new(FindSessions);
             // 
             // menuItemComputerExplorer
             // 
-            this.menuItemComputerExplorer.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuItemComputerExplorer.DropDownItems.AddRange(new[] {
             this.menuItemActiveSessions,
             this.menuItemSessions});
             this.menuItemComputerExplorer.Image = global::Forms.Resources.Resources.ComputerExplorer;
@@ -1184,40 +1184,40 @@
             this.menuItemActiveSessions.Image = global::Forms.Resources.Resources.deactiveSession;
             this.menuItemActiveSessions.Name = "menuItemActiveSessions";
             this.menuItemActiveSessions.Text = "Aktywne Sesje";
-            this.menuItemActiveSessions.Click += new System.EventHandler(this.ActiveSession);
+            this.menuItemActiveSessions.Click += new(this.ActiveSession);
             // 
             // menuItemSessions
             // 
             this.menuItemSessions.Image = global::Forms.Resources.Resources.process;
             this.menuItemSessions.Name = "menuItemSessions";
             this.menuItemSessions.Text = "Eksplorator Sesji";
-            this.menuItemSessions.Click += new System.EventHandler(this.FindSessions);
+            this.menuItemSessions.Click += new(this.FindSessions);
             // 
             // menuItemLAPSpwd
             // 
             this.menuItemLAPSpwd.Image = global::Forms.Resources.Resources.password;
             this.menuItemLAPSpwd.Name = "menuItemLAPSpwd";
             this.menuItemLAPSpwd.Text = "Hasło z LAPS-a";
-            this.menuItemLAPSpwd.Click += new System.EventHandler(this.PwdLAPS);
+            this.menuItemLAPSpwd.Click += new(this.PwdLAPS);
             // 
             // menuItemLockoutStatus
             // 
             this.menuItemLockoutStatus.Image = global::Forms.Resources.Resources.lockout;
             this.menuItemLockoutStatus.Name = "menuItemLockoutStatus";
             this.menuItemLockoutStatus.Text = "Lockout Status";
-            this.menuItemLockoutStatus.Click += new System.EventHandler(this.MenuItemLockoutStatus_Click);
+            this.menuItemLockoutStatus.Click += new(this.MenuItemLockoutStatus_Click);
             // 
             // menuItemChangeDomainPassword
             // 
             this.menuItemChangeDomainPassword.Image = global::Forms.Resources.Resources.changepass.ToBitmap();
             this.menuItemChangeDomainPassword.Name = "menuItemChangeDomainPassword";
             this.menuItemChangeDomainPassword.Text = "Zmiana hasła domenowego";
-            this.menuItemChangeDomainPassword.Click += new System.EventHandler(this.ChangePassword);
+            this.menuItemChangeDomainPassword.Click += new(this.ChangePassword);
             // 
             // menuItemQuickFix
             // 
             this.menuItemQuickFix.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.menuItemQuickFix.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuItemQuickFix.DropDownItems.AddRange(new[] {
             this.menuItemActivateOffice,
             this.menuItemDeleteUsers,
             this.menuItemEnableIEHosting,
@@ -1229,41 +1229,41 @@
             // 
             this.menuItemActivateOffice.Name = "menuItemActivateOffice";
             this.menuItemActivateOffice.Text = "Aktywacja Office 2016";
-            this.menuItemActivateOffice.Click += new System.EventHandler(ActivateOffice);
+            this.menuItemActivateOffice.Click += new(ActivateOffice);
             // 
             // menuItemEnableIEHosting
             // 
             this.menuItemEnableIEHosting.Name = "menuItemEnableIEHosting";
             this.menuItemEnableIEHosting.Text = "Framework4+ IE compatibility";
-            this.menuItemEnableIEHosting.Click += new System.EventHandler(this.EnableIEHosting_Click);
+            this.menuItemEnableIEHosting.Click += new(this.EnableIEHosting_Click);
             // 
             // menuItemWinEnvironment
             // 
             this.menuItemWinEnvironment.Name = "menuItemWinEnvironment";
             this.menuItemWinEnvironment.Text = "Zmienna środowiskowa";
-            this.menuItemWinEnvironment.Click += new System.EventHandler(this.WinEnvironment_Click);
+            this.menuItemWinEnvironment.Click += new(this.WinEnvironment_Click);
             // 
             // menuItemDeleteUsers
             // 
             this.menuItemDeleteUsers.Name = "menuItemDeleteUsers";
             this.menuItemDeleteUsers.Text = "Usuwanie użytkowników";
-            this.menuItemDeleteUsers.Click += new System.EventHandler(this.DeleteUsers_Click);
+            this.menuItemDeleteUsers.Click += new(this.DeleteUsers_Click);
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1184, 557);
+            this.ClientSize = new(1184, 557);
             this.Controls.Add(this.statusBar1);
             this.Controls.Add(richTextBox1);
             this.Controls.Add(this.groupBoxOtherTools);
             this.Controls.Add(this.groupBoxComputerInfo);
             this.Controls.Add(this.groupBoxUserInfo);
             this.Controls.Add(this.mainMenu);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.Font = new("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.Icon = global::Forms.Resources.Resources.Puzzel;
             this.MainMenuStrip = this.mainMenu;
-            this.MinimumSize = new System.Drawing.Size(1200, 509);
+            this.MinimumSize = new(1200, 509);
             this.Name = "Puzzel";
             this.Text = "Puzzel";
             this.groupBoxUserInfo.ResumeLayout(false);
