@@ -238,12 +238,12 @@ namespace Forms
         }
         private void NewClick(object sender, EventArgs e)
         {
-            if (Directory.Exists(TerminalLogs.TerminalsLogFolder))
+            if (Directory.Exists(CustomLogs.TerminalsLogFolder))
             {
-                TerminalLogs tl = new();
+                CustomLogs tl = new();
                 tl.ShowDialog();
             }
-            else MessageBox.Show("Brak dostępu do zasobu " + TerminalLogs.TerminalsLogFolder);
+            else MessageBox.Show("Brak dostępu do zasobu " + CustomLogs.TerminalsLogFolder);
         }
         private LogsData UserData()
         {

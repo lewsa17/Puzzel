@@ -1,7 +1,7 @@
 ﻿
 namespace Forms
 {
-    partial class TerminalLogs
+    partial class CustomLogs
     {
         /// <summary>
         /// Required designer variable.
@@ -182,15 +182,15 @@ namespace Forms
             this.comboQueryNameBox.Size = new System.Drawing.Size(128, 23);
             this.comboQueryNameBox.TabIndex = 0;
             // 
-            // TerminalLogs
+            // CustomLogs
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(900, 390);
             this.Controls.Add(this.panelBox);
             this.MinimumSize = new System.Drawing.Size(916, 429);
-            this.Name = "TerminalLogs";
-            this.Text = "TerminalLogs";
+            this.Name = "CustomLogs";
+            this.Text = "Niestandardowe logi";
             this.panelBox.ResumeLayout(false);
             this.panelBox.PerformLayout();
             this.ResumeLayout(false);

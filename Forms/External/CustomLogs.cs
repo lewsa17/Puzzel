@@ -6,9 +6,9 @@ using System.Windows.Forms;
 
 namespace Forms
 {
-    public partial class TerminalLogs : Form
+    public partial class CustomLogs : Form
     {
-        public TerminalLogs()
+        public CustomLogs()
         {
             InitializeComponent();
             comboQueryTimeBox.Items.AddRange(GetFolderNamesWithLogs());
@@ -116,7 +116,7 @@ namespace Forms
         {
             UpdateProgressBarValue();
         }
-        public void getTerminalLogs(string Value, string PathName, int ValueType)
+        private void getTerminalLogs(string Value, string PathName, int ValueType)
         {
             progressBar.Value = 0;
             textLogView.Focus();

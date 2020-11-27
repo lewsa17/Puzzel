@@ -44,7 +44,7 @@
     <Compile Update="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="External\TerminalLogs.cs">
+    <Compile Update="External\CustomLogs.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>
