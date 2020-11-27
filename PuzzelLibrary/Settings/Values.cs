@@ -22,8 +22,10 @@ namespace PuzzelLibrary.Settings
         public static string defaultTextBoxesValue;
         public static decimal defaultNumericUDValue = 100;
         public static string TerminalLogsFolder { get; set; }
-	    public static string TerminalLogsFile { get; set; }
-	    public static string TerminalLogsSNFile {get; set; }
+        public static string TerminalLogsFile { get; set; }
+	public static string TerminalLogsSNFile {get; set; }
+        public static string ComputerLogsFolder { get; set; }
+        public static string ComputerSNFile { get; set; }
         public static void CommitChanges()
         {
             if (File.Exists("Settings.xml"))

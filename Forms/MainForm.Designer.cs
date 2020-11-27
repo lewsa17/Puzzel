@@ -96,7 +96,8 @@
             this.menuItemComputerInfoPath = new();
             this.menuItemComputerInfoNetworkRes = new();
             this.menuItemComputerInfoDisplay = new();
-            this.LogonCustomData = new();
+            this.TerminalCustomData = new();
+            this.ComputerCustomData = new();
             this.menuItemComputerInfoBios = new();
             this.menuItemSettings = new();
             this.btnPing = new();
@@ -1092,7 +1093,8 @@
             this.menuItemEventViewer,
             this.menuItemTaskshedule,
             this.menuItemServices,
-            this.LogonCustomData,
+            this.ComputerCustomData,
+            this.TerminalCustomData,
             this.menuItemLusrmgr,
             this.menuItemWindowsFirewall,
             new System.Windows.Forms.ToolStripSeparator(),
@@ -1112,11 +1114,17 @@
             this.menuItemWindowsFirewall.Text = "Zaawansowana Zapora Windows";
             this.menuItemWindowsFirewall.Click += new(this.AdmTools);
             //
-            // LogonCustomData
+            // TerminalCustomData
             //
-            this.LogonCustomData.Name = "logonCustomData";
-            this.LogonCustomData.Text = "login z terminali";
-            this.LogonCustomData.Click += new(this.NewClick);
+            this.TerminalCustomData.Name = "TerminalCustomData";
+            this.TerminalCustomData.Text = "Niestandardowe logi dla terminali";
+            this.TerminalCustomData.Click += new(this.NewClick);
+            //
+            // ComputerCustomData
+            //
+            this.ComputerCustomData.Name = "ComputerCustomData";
+            this.ComputerCustomData.Text = "Niestandardowe logi dla komputerów";
+            this.ComputerCustomData.Click += new(this.NewClick);
             //
             // menuItemDHCP
             // 
@@ -1362,7 +1370,8 @@
         private System.Windows.Forms.ToolStripMenuItem menuItemDHCP;
         private System.Windows.Forms.ToolStripMenuItem menuItemLockoutStatus;
         private System.Windows.Forms.ToolStripMenuItem contextMenuItemPasteR; 
-        private System.Windows.Forms.ToolStripMenuItem LogonCustomData;
+        private System.Windows.Forms.ToolStripMenuItem TerminalCustomData;
+        private System.Windows.Forms.ToolStripMenuItem ComputerCustomData;
         private System.Windows.Forms.ToolStripMenuItem menuItemTermimalExplorer;
         private System.Windows.Forms.ToolStripMenuItem menuItemComputerExplorer;
         private System.Windows.Forms.ToolStripMenuItem menuItemCustomName;

@@ -238,12 +238,21 @@ namespace Forms
         }
         private void NewClick(object sender, EventArgs e)
         {
-            if (Directory.Exists(CustomLogs.TerminalsLogFolder))
+            string pathName = default;
+            if (((ToolStripMenuItem)sender).Name.Contains("Terminal"))
             {
-                CustomLogs tl = new();
-                tl.ShowDialog();
+                pathName = PuzzelLibrary.Settings.Values.TerminalLogsFolder;
             }
-            else MessageBox.Show("Brak dostępu do zasobu " + CustomLogs.TerminalsLogFolder);
+            else 
+            {
+                pathName = PuzzelLibrary.Settings.Values.ComputerLogsFolder; 
+            }
+            if (Directory.Exists(pathName))
+            {
+                CustomLogs Cl = new(((ToolStripMenuItem)sender).Name);
+                Cl.ShowDialog();
+            }
+            else MessageBox.Show("Brak dostępu do zasobu " + pathName);
         }
         private LogsData UserData()
         {

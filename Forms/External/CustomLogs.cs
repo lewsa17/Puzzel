@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -8,14 +9,27 @@ namespace Forms
 {
     public partial class CustomLogs : Form
     {
-        public CustomLogs()
-        {
+        private string _objectName { get; set; }
+        public CustomLogs(string ObjectName)
+        { _objectName = ObjectName;
             InitializeComponent();
-            comboQueryTimeBox.Items.AddRange(GetFolderNamesWithLogs());
-            comboQueryFileBox.Items.AddRange(fileQuery.Split(','));
+            if (_objectName.Contains("Terminal"))
+            {
+                comboQueryTimeBox.Items.AddRange(GetFolderNamesWithLogs());
+                comboQueryFileBox.Items.AddRange(fileQuery.Split(','));
+            }
+            else 
+            {
+                comboQueryTimeBox.Visible = false; 
+                comboQueryFileBox.Visible = false;
+                labelTime.Visible = false;
+                labelFile.Visible = false;
+                this.textQuery.Size = new System.Drawing.Size(649, 23); 
+            }
         }
-        public static string TerminalsLogFolder { get => PuzzelLibrary.Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "TerminalsLogFolder"); }
-        static string fileQuery = PuzzelLibrary.Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "TerminalsLogFile");
+        public static string TerminalsLogFolder { get => PuzzelLibrary.Settings.Values.TerminalLogsFolder; }
+        public static string ComputersLogFolder { get => PuzzelLibrary.Settings.Values.ComputerLogsFolder; }
+        private static string fileQuery = PuzzelLibrary.Settings.Values.TerminalLogsFile;
         static List<string[]> LogDB
         {
             get
@@ -60,6 +74,13 @@ namespace Forms
         private void BtnFinderClick(object sender, EventArgs e)
         {
             textLogView.Clear();
+            if (_objectName.Contains("Terminal"))
+                GetTerminalLogs();
+            else { GetComputerLogs(); }
+        }
+
+        private void GetTerminalLogs()
+        {
             string pathName = default;
             if (comboQueryTimeBox.Text != "Aktualne")
             {
@@ -76,6 +97,16 @@ namespace Forms
                     case 2: { dataType = 2; break; }
                 }
                 getTerminalLogs(textQuery.Text, pathName, dataType);
+            }
+            else UpdateRichTextBox("Brak dostępu do pliku");
+        }
+
+        private void GetComputerLogs()
+        {
+            string pathName = PuzzelLibrary.Settings.Values.ComputerSNFile;
+            if (File.Exists(pathName))
+            {
+                getComputerLogs(textQuery.Text, pathName, comboQueryNameBox.SelectedIndex);
             }
             else UpdateRichTextBox("Brak dostępu do pliku");
         }
@@ -146,6 +177,105 @@ namespace Forms
                     UpdateProgressBarValue();
                 }
             });
+        }
+        static cLogs[] dblist = null;
+        private void getComputerLogs(string Value, string PathName, int ValueType)
+        {
+            textLogView.Focus();
+            cLogs cLogs = new();
+            cLogs.AddData(System.IO.File.ReadAllLines(PathName));
+            dblist = cLogs.GetData();
+            var shortedDBList = shortDBlist(dblist, Value, ValueType).GroupBy(dbl => dbl.ComputerName);
+            List<string> listOfFilesLogs = new();
+            foreach (var list in shortedDBList)
+            {
+                var path = Path.Combine(ComputersLogFolder, list.Key);
+                if (File.Exists(path + ".txt"))
+                {
+                    listOfFilesLogs.Add(path + ".txt");
+                }
+                int i = 0;
+                int j = 0;
+                while (j<4)
+                {
+                    i++;
+                    var lowerFile = path + "-" + i + ".txt";
+                    if (File.Exists(lowerFile))
+                    {
+                        j = 0;
+                        listOfFilesLogs.Add(lowerFile);
+                    }
+                    else j++;
+                }
+            }
+            foreach (var list in listOfFilesLogs)
+            {
+                var file = File.ReadAllText(list);
+                var words = file.Split(';');
+                if (words.Length > 2)
+                {
+                    UpdateRichTextBox(string.Format("{0,-16}{1,-16}{2,-12}{3,-22}{4,0}", words[0], words[1], words[2], words[3], File.GetCreationTime(list)) + "\n");
+                }
+            }
+        }
+    
+
+        private cLogs[] shortDBlist(cLogs[] dblist, string queryValue, int ValueType) 
+        {
+            List<cLogs> shortedDBList = new();
+            foreach (var list in dblist)
+            {
+                if (ValueType == 0)
+                    if (list.UserName == queryValue)
+                    {
+                        shortedDBList.Add(list);
+                    }
+                if (ValueType == 1)
+
+                    if (list.ComputerName == queryValue)
+                    {
+                        shortedDBList.Add(list);
+                    }
+                if (ValueType == 2)
+                    if (list.SerialNumber == queryValue)
+                    {
+                        shortedDBList.Add(list);
+                    }
+            }
+            return shortedDBList.ToArray();
+        }
+
+        public class cLogs
+        {
+            public string ComputerName;
+            public string UserName;
+            public string SerialNumber;
+            public string Model;
+            public string OSVersion;
+            private List<cLogs> DBList = new();
+            public void AddData(string[] value)
+            {
+                CreateList(value);
+            }
+            public cLogs[] GetData()
+            {
+                return DBList.ToArray();
+            }
+            private void CreateList(string[] values)
+            {
+                foreach (string value in values)
+                {
+                    cLogs cl = new();
+                    string[] splittedVal = value.Split(';');
+                    cl.ComputerName = splittedVal[0];
+                    cl.UserName = splittedVal[1];
+                    cl.SerialNumber = splittedVal[2];
+                    cl.Model = splittedVal[3];
+                    if (splittedVal.Length > 4)
+                    cl.OSVersion = splittedVal[4];
+                    DBList.Add(cl);
+                }
+            }
         }
     }
 }
