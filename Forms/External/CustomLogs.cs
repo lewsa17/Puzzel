@@ -25,8 +25,8 @@ namespace Forms
                 List<string[]> dblist = new();
                 if (File.Exists(pathDB))
                 {
-                    using (FileStream fileStream = new FileStream(pathDB, FileMode.Open, FileAccess.Read, FileShare.Read))
-                    using (StreamReader sr = new StreamReader(fileStream))
+                    using (FileStream fileStream = new(pathDB, FileMode.Open, FileAccess.Read, FileShare.Read))
+                    using (StreamReader sr = new(fileStream))
                     {
                         while (!sr.EndOfStream)
                         {
@@ -127,8 +127,8 @@ namespace Forms
             }
             var task = Task.Run(() =>
             {
-                using (FileStream fileStream = new FileStream(PathName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-                using (StreamReader sr = new StreamReader(fileStream))
+                using (FileStream fileStream = new(PathName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                using (StreamReader sr = new(fileStream))
                 {
                     while (!sr.EndOfStream)
                     {
