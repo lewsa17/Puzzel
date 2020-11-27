@@ -14,27 +14,27 @@ namespace Settings
         }
         private Control[] GetCollectionOfFieldSettings()
         {
-        Control[] ListOfFieldWithSettings = { localUpdateCheck, localUpdateTextBox, AutostartUpdateCheck,AutoOpenPortCheck, AutoUnlockFirewallCheck, HistoryLogCheck, CustomSourceCheck, SaveUserDataCheck, SessionShortcutText, CustomSourceTextBox, NumbersOfCompLogs, NumbersOfUserLogs, TerminalLogsFileTextBox,TerminalLogsFolderTextBox,TerminalLogsSNFileTextBox, ComputerSNFileTextBox, ComputerLogsFolderTextBox };
+        Control[] ListOfFieldWithSettings = { LocalUpdateCheck, LocalUpdateTextBox, AutoStartUpdateCheck,AutoOpenPortCheck, AutoUnlockFirewallCheck, HistoryLogCheck, CustomSourceCheck, SaveUserDataCheck, SessionShortcutText, CustomSourceTextBox, NumbersOfCompLogs, NumbersOfUserLogs, TerminalLogsFileTextBox,TerminalLogsFolderTextBox,TerminalLogsSNFileTextBox, ComputerSNFileTextBox, ComputerLogsFolderTextBox };
             return ListOfFieldWithSettings;
         }
 
         static readonly string defaultDescription = "Najedź kursorem na opcję aby wyświetlić tutaj jej opis";
-        static readonly string HistoryLogDescription = "Ustawienie tej opcji będzie wyświetlać lub nie ostatnio wyszukiwanej wartości";
-        static readonly string NumbersOfUserLogsDescription = "Zmiana tej wartości ustala maksymalną liczbę logowań użytkownika jaką można wyszukać";
-        static readonly string NumbersOfCompLogsDescription = "Zmiana tej wartości ustala maksymalną liczbę logowań do komputera jaką można wyszukać";
-        static readonly string CustomSourceCheckDescription = "Zezwala na wyszukiwanie sesji z ręcznie przygotowanej listy";
-        static readonly string CustomSourceTextBoxDescription = "Podaj nazwę terminali z których będa wyszukiwane sesje, musi być odzielone przecinkami";
-        static readonly string AutoOpenPortDescription = "Zmiana tej wartości wyłączy pytanie o otwarcie portu 135 (RPC) odpowiedzialny za wykonywanie niektórych funkcji - będzie to wykonywane automatycznie";
-        static readonly string AutoUnlockFirewallDescription = "Zmiana tej wartości wyłączy pytanie o odblokowywanie Zdalnej Zapory - będzie to wykonywane automatycznie";
-        static readonly string SaveUserDataCheckDescription = "Zamiana tej wartości wyłączy pytanie o zapisywanie danych użytkownika przy usuwaniu - będzie to wykonywane automatycznie";
-        static readonly string SessionShortcutDescription = "Ustaw skrót klawiszowy odpowiedzialny za rozłączanie się od sesji zdalnej. \nWystarczy zaznaczyć kursorem na pole tekstowe i nacisnąć klawisze\nDziała tylko do serwera terminali 2008R2";
-        static readonly string LocalUpdateDescription = "Zmienia miejsce wyszukiwania aktualizacji / ze zdalnie na lokalnie";
-        static readonly string AutoStartUpdateDescription = "Automatyczne sprawdzanie aktualizacji przy uruchomieniu";
-        static readonly string TerminalLogsSNFileDescription = "Podaj nazwę pliku zawierającego numery seryjne terminali";
-        static readonly string TerminalLogsFileDescription = "Podaj nazwy plików odzielone przecinkiem zawierające logi terminali";
-        static readonly string TerminalLogsFolderDescription = "Podaj lokalizację zawierająca logi terminali";
-        static readonly string ComputerSNFileDescription = "Podaj nazwę pliku zawierającego numery seryjne komputerów";
-        static readonly string ComputerLogsFolderDescripton = "Podaj lokalizację zawierająca logi komputera";
+        public static readonly string HistoryLogDescription = "Ustawienie tej opcji będzie wyświetlać lub nie ostatnio wyszukiwanej wartości";
+        public static readonly string UserMaxLogsDescription = "Zmiana tej wartości ustala maksymalną liczbę logowań użytkownika jaką można wyszukać";
+        public static readonly string CompMaxLogsDescription = "Zmiana tej wartości ustala maksymalną liczbę logowań do komputera jaką można wyszukać";
+        public static readonly string CustomSourceCheckDescription = "Zezwala na wyszukiwanie sesji z ręcznie przygotowanej listy";
+        public static readonly string CustomSourceTextBoxDescription = "Podaj nazwę terminali z których będa wyszukiwane sesje, musi być odzielone przecinkami";
+        public static readonly string AutoOpenPortDescription = "Zmiana tej wartości wyłączy pytanie o otwarcie portu 135 (RPC) odpowiedzialny za wykonywanie niektórych funkcji - będzie to wykonywane automatycznie";
+        public static readonly string AutoUnlockFirewallDescription = "Zmiana tej wartości wyłączy pytanie o odblokowywanie Zdalnej Zapory - będzie to wykonywane automatycznie";
+        public static readonly string SaveUserDataCheckDescription = "Zamiana tej wartości wyłączy pytanie o zapisywanie danych użytkownika przy usuwaniu - będzie to wykonywane automatycznie";
+        public static readonly string SessionShortcutDescription = "Ustaw skrót klawiszowy odpowiedzialny za rozłączanie się od sesji zdalnej. \nWystarczy zaznaczyć kursorem na pole tekstowe i nacisnąć klawisze\nDziała tylko do serwera terminali 2008R2";
+        public static readonly string LocalUpdateDescription = "Zmienia miejsce wyszukiwania aktualizacji / ze zdalnie na lokalnie";
+        public static readonly string AutoStartUpdateDescription = "Automatyczne sprawdzanie aktualizacji przy uruchomieniu";
+        public static readonly string TerminalLogsSNFileDescription = "Podaj nazwę pliku zawierającego numery seryjne terminali";
+        public static readonly string TerminalLogsFileDescription = "Podaj nazwy plików odzielone przecinkiem zawierające logi terminali";
+        public static readonly string TerminalLogsFolderDescription = "Podaj lokalizację zawierająca logi terminali";
+        public static readonly string ComputerSNFileDescription = "Podaj nazwę pliku zawierającego numery seryjne komputerów";
+        public static readonly string ComputerLogsFolderDescription = "Podaj lokalizację zawierająca logi komputera";
 
         private void CloseButton_Click(object sender, EventArgs e)
         {
@@ -60,125 +60,15 @@ namespace Settings
                 Name = tbx.Name;
             if (sender is RichTextBox rcbx)
                 Name = rcbx.Name;
-            switch (Name)
+            foreach (var Value in typeof(SettingsForm).GetFields())
             {
-                case nameof(HistoryLogCheck):
-                    {
-                        DescriptionLabel.Text = HistoryLogDescription;
-                        break;
-                    }
-                case nameof(UserMaxLogs):
-                    {
-                        DescriptionLabel.Text = NumbersOfUserLogsDescription;
-                        break;
-                    }
-                case nameof(CompMaxLogs):
-                    {
-                        DescriptionLabel.Text = NumbersOfCompLogsDescription;
-                        break;
-                    }
-                case nameof(CustomSourceCheck):
-                    {
-                        DescriptionLabel.Text = CustomSourceCheckDescription;
-                        break;
-                    }
-                case nameof(AutoOpenPortCheck):
-                    {
-                        DescriptionLabel.Text = AutoOpenPortDescription;
-                        break;
-                    }
-                case nameof(AutoUnlockFirewallCheck):
-                    {
-                        DescriptionLabel.Text = AutoUnlockFirewallDescription;
-                        break;
-                    }
-                case nameof(SaveUserDataCheck):
-                    {
-                        DescriptionLabel.Text = SaveUserDataCheckDescription;
-                        break;
-                    }
-                case nameof(SessionShortcutLabel):
-                    {
-                        DescriptionLabel.Text = SessionShortcutDescription;
-                        break;
-                    }
-                case nameof(localUpdateCheck):
-                    {
-                        DescriptionLabel.Text = LocalUpdateDescription;
-                        break;
-                    }
-                case nameof(AutostartUpdateCheck):
-                    {
-                        DescriptionLabel.Text = AutoStartUpdateDescription;
-                        break;
-                    }
-                case nameof(TerminalLogsFileLabel):
-                    {
-                        DescriptionLabel.Text = TerminalLogsFileDescription;
-                        break;
-                    }
-                case nameof(TerminalLogsFileTextBox):
-                    {
-                        DescriptionLabel.Text = TerminalLogsFileDescription;
-                        break;
-                    }
-                case nameof(TerminalLogsFolderLabel):
-                    {
-                        DescriptionLabel.Text = TerminalLogsFolderDescription;
-                        break;
-                    }
-                case nameof(TerminalLogsFolderTextBox):
-                    {
-                        DescriptionLabel.Text = TerminalLogsFolderDescription;
-                        break;
-                    }
-                case nameof(TerminalLogsSNFileLabel):
-                    {
-                        DescriptionLabel.Text = TerminalLogsSNFileDescription;
-                        break;
-                    }
-                case nameof(TerminalLogsSNFileTextBox):
-                    {
-                        DescriptionLabel.Text = TerminalLogsSNFileDescription;
-                        break;
-                    }
-                case nameof(localUpdateTextBox):
-                    {
-                        DescriptionLabel.Text = LocalUpdateDescription;
-                        break;
-                    }
-                case nameof(CustomSourceTextBox):
-                    {
-                        DescriptionLabel.Text = CustomSourceTextBoxDescription;
-                        break;
-                    }
-                case nameof(SessionShortcutText):
-                    {
-                        DescriptionLabel.Text = SessionShortcutDescription;
-                        break;
-                    }
-                case nameof(ComputerLogsFolderTextBox):
-                    {
-                        DescriptionLabel.Text = ComputerLogsFolderDescripton;
-                        break;
-                    }
-                case nameof(ComputerSNFileTextBox):
-                    {
-                        DescriptionLabel.Text = ComputerSNFileDescription;
-                        break;
-                    }
-                case nameof(ComputerSNFileLabel):
-                    {
-                        DescriptionLabel.Text = ComputerSNFileDescription;
-                        break;
-                    }
-                case nameof(ComputerLogsFolderLabel):
-                    {
-                        DescriptionLabel.Text = ComputerLogsFolderDescripton;
-                        break;
-                    }
-            };               
-        
+                var replacedname = Value.Name.Replace("Description", "");
+                if (Name.Contains(Value.Name.Replace("Description", "")))
+                {
+                    DescriptionLabel.Text = Value.GetValue(null).ToString();
+                    break;
+                }
+            }        
         }
         private void MouseOut(object sender, EventArgs e)
         {
@@ -198,11 +88,11 @@ namespace Settings
             }
             else CustomSourceTextBox.Enabled = false;
 
-            if (localUpdateCheck.Checked)
+            if (LocalUpdateCheck.Checked)
             {
-                localUpdateTextBox.Enabled = true;
+                LocalUpdateTextBox.Enabled = true;
             }
-            else localUpdateTextBox.Enabled = false;
+            else LocalUpdateTextBox.Enabled = false;
         }
 
         private void SessionShortcutText_KeyDown(object sender, KeyEventArgs e)
@@ -246,14 +136,14 @@ namespace Settings
                             PuzzelLibrary.Settings.Values.AutoOpenPort = AutoOpenPortCheck.Checked;
                             break;
                         }
-                    case nameof(localUpdateCheck):
+                    case nameof(LocalUpdateCheck):
                         {
-                            PuzzelLibrary.Settings.Values.LocalUpdateCheck = localUpdateCheck.Checked;
+                            PuzzelLibrary.Settings.Values.LocalUpdateCheck = LocalUpdateCheck.Checked;
                             break;
                         }
-                    case nameof(AutostartUpdateCheck):
+                    case nameof(AutoStartUpdateCheck):
                         {
-                            PuzzelLibrary.Settings.Values.AutostartUpdateCheck = AutostartUpdateCheck.Checked;
+                            PuzzelLibrary.Settings.Values.AutostartUpdateCheck = AutoStartUpdateCheck.Checked;
                             break;
                         }
                 }
@@ -268,9 +158,9 @@ namespace Settings
                             PuzzelLibrary.Settings.Values.SessionDisconectShortcut = SessionShortcutText.Text;
                             break;
                         }
-                    case nameof(localUpdateTextBox):
+                    case nameof(LocalUpdateTextBox):
                         {
-                            PuzzelLibrary.Settings.Values.LocalUpdatePath = localUpdateTextBox.Text;
+                            PuzzelLibrary.Settings.Values.LocalUpdatePath = LocalUpdateTextBox.Text;
                             break;
                         }
                     case nameof(TerminalLogsFileTextBox):
@@ -346,9 +236,9 @@ namespace Settings
                 CustomSourceTextBox.Text = PuzzelLibrary.Settings.Values.CustomSourceData;
                 NumbersOfUserLogs.Value = PuzzelLibrary.Settings.Values.UserMaxLogs;
                 NumbersOfCompLogs.Value = PuzzelLibrary.Settings.Values.CompMaxLogs;
-                localUpdateCheck.Checked = PuzzelLibrary.Settings.Values.LocalUpdateCheck;
-                localUpdateTextBox.Text = PuzzelLibrary.Settings.Values.LocalUpdatePath;
-                AutostartUpdateCheck.Checked = PuzzelLibrary.Settings.Values.AutostartUpdateCheck;
+                LocalUpdateCheck.Checked = PuzzelLibrary.Settings.Values.LocalUpdateCheck;
+                LocalUpdateTextBox.Text = PuzzelLibrary.Settings.Values.LocalUpdatePath;
+                AutoStartUpdateCheck.Checked = PuzzelLibrary.Settings.Values.AutostartUpdateCheck;
                 TerminalLogsFolderTextBox.Text = PuzzelLibrary.Settings.Values.TerminalLogsFolder;
                 TerminalLogsSNFileTextBox.Text = PuzzelLibrary.Settings.Values.TerminalLogsSNFile;
                 TerminalLogsFileTextBox.Text = PuzzelLibrary.Settings.Values.TerminalLogsFile;
@@ -369,9 +259,9 @@ namespace Settings
                 PuzzelLibrary.Settings.Values.CustomSourceData = CustomSourceTextBox.Text;
                 PuzzelLibrary.Settings.Values.UserMaxLogs = NumbersOfUserLogs.Value;
                 PuzzelLibrary.Settings.Values.CompMaxLogs = NumbersOfCompLogs.Value;
-                PuzzelLibrary.Settings.Values.LocalUpdateCheck = localUpdateCheck.Checked;
-                PuzzelLibrary.Settings.Values.LocalUpdatePath = localUpdateTextBox.Text;
-                PuzzelLibrary.Settings.Values.AutostartUpdateCheck = AutostartUpdateCheck.Checked;
+                PuzzelLibrary.Settings.Values.LocalUpdateCheck = LocalUpdateCheck.Checked;
+                PuzzelLibrary.Settings.Values.LocalUpdatePath = LocalUpdateTextBox.Text;
+                PuzzelLibrary.Settings.Values.AutostartUpdateCheck = AutoStartUpdateCheck.Checked;
                 PuzzelLibrary.Settings.Values.TerminalLogsFolder = TerminalLogsFolderTextBox.Text;
                 PuzzelLibrary.Settings.Values.TerminalLogsSNFile = TerminalLogsSNFileTextBox.Text;
                 PuzzelLibrary.Settings.Values.TerminalLogsFile = TerminalLogsFileTextBox.Text;
