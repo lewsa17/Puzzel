@@ -319,7 +319,7 @@ namespace Forms
                 else
                 {
                     foreach (string LogName in captcher.keyWordsValues(name, kindOf))
-                        new Thread(() => UpdateRichTextBox(new PuzzelLibrary.LogonData.Captcher().SearchLogs(numberOfLogs, name, kindOf))).Start();
+                        new Thread(() => UpdateRichTextBox(new PuzzelLibrary.LogonData.Captcher().SearchLogs(numberOfLogs, LogName, kindOf))).Start();
                 }
             }
         }
