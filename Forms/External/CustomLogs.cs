@@ -178,13 +178,16 @@ namespace Forms
                 }
             });
         }
-        static cLogs[] dblist = null;
+        static cLogsEntry[] dblist = null;
         private void getComputerLogs(string Value, string PathName, int ValueType)
         {
             textLogView.Focus();
-            cLogs cLogs = new();
-            cLogs.AddData(System.IO.File.ReadAllLines(PathName));
-            dblist = cLogs.GetData();
+            if (dblist == null)
+            {
+                cLogs cLogs = new();
+                cLogs.AddData(System.IO.File.ReadAllLines(PathName));
+                dblist = cLogs.GetData();
+            }
             var shortedDBList = shortDBlist(dblist, Value, ValueType).GroupBy(dbl => dbl.ComputerName);
             List<string> listOfFilesLogs = new();
             foreach (var list in shortedDBList)
@@ -195,17 +198,17 @@ namespace Forms
                     listOfFilesLogs.Add(path + ".txt");
                 }
                 int i = 0;
-                int j = 0;
-                while (j<4)
+                int marginOfError = 0;
+                while (marginOfError<4)
                 {
                     i++;
                     var lowerFile = path + "-" + i + ".txt";
                     if (File.Exists(lowerFile))
                     {
-                        j = 0;
+                        marginOfError = 0;
                         listOfFilesLogs.Add(lowerFile);
                     }
-                    else j++;
+                    else marginOfError++;
                 }
             }
             foreach (var list in listOfFilesLogs)
@@ -218,11 +221,9 @@ namespace Forms
                 }
             }
         }
-    
-
-        private cLogs[] shortDBlist(cLogs[] dblist, string queryValue, int ValueType) 
+        private cLogsEntry[] shortDBlist(cLogsEntry[] dblist, string queryValue, int ValueType) 
         {
-            List<cLogs> shortedDBList = new();
+            List<cLogsEntry> shortedDBList = new();
             foreach (var list in dblist)
             {
                 if (ValueType == 0)
@@ -244,20 +245,22 @@ namespace Forms
             }
             return shortedDBList.ToArray();
         }
-
-        public class cLogs
+        public struct cLogsEntry
         {
             public string ComputerName;
             public string UserName;
             public string SerialNumber;
             public string Model;
-            public string OSVersion;
-            private List<cLogs> DBList = new();
+            public string OSVersion;            
+        }
+        public class cLogs
+        {
+            private List<cLogsEntry> DBList = new();
             public void AddData(string[] value)
             {
                 CreateList(value);
             }
-            public cLogs[] GetData()
+            public cLogsEntry[] GetData()
             {
                 return DBList.ToArray();
             }
@@ -265,14 +268,14 @@ namespace Forms
             {
                 foreach (string value in values)
                 {
-                    cLogs cl = new();
+                    cLogsEntry cl = new();
                     string[] splittedVal = value.Split(';');
                     cl.ComputerName = splittedVal[0];
                     cl.UserName = splittedVal[1];
                     cl.SerialNumber = splittedVal[2];
                     cl.Model = splittedVal[3];
                     if (splittedVal.Length > 4)
-                    cl.OSVersion = splittedVal[4];
+                        cl.OSVersion = splittedVal[4];
                     DBList.Add(cl);
                 }
             }
