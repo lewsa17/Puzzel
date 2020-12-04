@@ -33,7 +33,11 @@ namespace Forms.External
         }
         public void AddEntry()
         {
-            foreach(string dcName in PuzzelLibrary.AD.Other.Domain.GetDomainControllers())
+            string[] domainControllers = null;
+            if (domainAddress != null)
+                domainControllers = PuzzelLibrary.AD.Other.Domain.GetDomainControllersByDomainName(domainAddress);
+            else domainControllers = PuzzelLibrary.AD.Other.Domain.GetDomainControllers();
+            foreach (string dcName in domainControllers)
             {
                 Thread thread = new Thread(() => GetUserPasswordDetails(dcName));
                 thread.Start();
@@ -90,7 +94,11 @@ namespace Forms.External
         private void menuItemPasswordStatus_Click(object sender, EventArgs e)
         {
             var pd = new PuzzelLibrary.AD.User.Information.PasswordDetails();
-            pd.GetUserPasswordDetails(Username, PuzzelLibrary.AD.Other.Domain.GetDomainControllers()[0]);
+            string[] domainControllers = null;
+            if (domainAddress != null)
+                domainControllers = PuzzelLibrary.AD.Other.Domain.GetDomainControllersByDomainName(domainAddress);
+            else domainControllers = PuzzelLibrary.AD.Other.Domain.GetDomainControllers();
+            pd.GetUserPasswordDetails(Username, domainControllers[0]);
             string messagebox = null;
             DateTime pwdLastSet = Convert.ToDateTime(pd.lastPasswordSet);
             TimeSpan pwdAge = DateTime.Now - pwdLastSet.AddHours(1);
