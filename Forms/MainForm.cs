@@ -1040,7 +1040,7 @@ namespace Forms
                         }
 
                         if (button == btnProgramList)
-                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, PuzzelLibrary.WMI.ComputerInfo.queryProduct));
+                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, PuzzelLibrary.WMI.ComputerInfo.queryProduct, "Name","InstallDate","Version"));
 
                         if (button == btnCompInfo)
                             KomputerInfoMethod();

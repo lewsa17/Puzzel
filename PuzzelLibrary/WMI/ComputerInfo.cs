@@ -202,7 +202,7 @@ namespace PuzzelLibrary.WMI
                                     //args3 = Version
                                     if (query == queryProduct)
                                     {
-                                        StringBuilder += InstalledPrograms(m);
+                                        StringBuilder += InstalledPrograms(args, m);
                                         break;
                                     }
 
@@ -826,16 +826,16 @@ namespace PuzzelLibrary.WMI
             return StringBuilder;
         }
 
-        private static string InstalledPrograms(ManagementObject m)
+        private static string InstalledPrograms(object[] args, ManagementObject m)
         {
             string nazwa = null;
             string wersja = null;
             string data = null;
             int firstoptimvalue = 80;
             int secondoptimvalue = 31;
-            nazwa = m["Name"].ToString();
-            data = m["InstallDate"].ToString();
-            wersja = m["Version"].ToString();
+            nazwa = m[args[0].ToString()].ToString();
+            data = m[args[1].ToString()].ToString();
+            wersja = m[args[2].ToString()].ToString();
             string StringBuilder = string.Empty;
 
             int firstObjLength = nazwa.Length;
@@ -974,58 +974,58 @@ namespace PuzzelLibrary.WMI
         {
             string boottime = null;
             boottime = m[args[0].ToString()].ToString();
-            string rok = null;
-            string miesiac = null;
-            string dzien = null;
-            string godzina = null;
-            string minuta = null;
-            string sekunda = null;
+            string year = null;
+            string month = null;
+            string day = null;
+            string hour = null;
+            string minute = null;
+            string second = null;
             string StringBuilder = string.Empty;
             for (int i = 0; i < 4; i++)
-                rok += boottime[i];
+                year += boottime[i];
             for (int i = 4; i < 6; i++)
-                miesiac += boottime[i];
+                month += boottime[i];
             for (int i = 6; i < 8; i++)
-                dzien += boottime[i];
+                day += boottime[i];
             for (int i = 8; i < 10; i++)
-                godzina += boottime[i];
+                hour += boottime[i];
             for (int i = 10; i < 12; i++)
-                minuta += boottime[i];
+                minute += boottime[i];
             for (int i = 12; i < 14; i++)
-                sekunda += boottime[i];
+                second += boottime[i];
 
-            TimeSpan czasbootowania;
-            DateTime czas = DateTime.ParseExact(rok + "-" + miesiac + "-" + dzien + " " + godzina + ":" + minuta + ":" + sekunda/*+"."+milisekunda*/, "yyyy-MM-dd HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
-            czasbootowania = DateTime.Now - czas;
-            string[] dzien1 = { " dzień ", " dni " };
-            string[] godzina1 = { " godzina ", " godziny ", " godzin " };
-            string[] minuta1 = { " minuta ", " minuty ", " minut " };
-            string[] sekunda1 = { " sekunda ", "sekundy", " sekund" };
-            if (czasbootowania.Days == 1)
-                StringBuilder += (czasbootowania.Days + " " + dzien1[0] + ",");
-            if (czasbootowania.Days == 0 | czasbootowania.Days > 1)
-                StringBuilder += (czasbootowania.Days + " " + dzien1[1] + ",");
+            TimeSpan bootTime;
+            DateTime czas = DateTime.ParseExact(year + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second/*+"."+milisekunda*/, "yyyy-MM-dd HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
+            bootTime = DateTime.Now - czas;
+            string[] dayArr = { " dzień ", " dni " };
+            string[] hourArr = { " godzina ", " godziny ", " godzin " };
+            string[] minuteArr = { " minuta ", " minuty ", " minut " };
+            string[] secondArr = { " sekunda ", "sekundy", " sekund" };
+            if (bootTime.Days == 1)
+                StringBuilder += (bootTime.Days + " " + dayArr[0] + ",");
+            if (bootTime.Days == 0 | bootTime.Days > 1)
+                StringBuilder += (bootTime.Days + " " + dayArr[1] + ",");
 
-            if (czasbootowania.Hours == 0 | czasbootowania.Hours > 4)
-                StringBuilder += (czasbootowania.Hours + " " + godzina1[2] + ",");
-            if (czasbootowania.Hours == 1)
-                StringBuilder += (czasbootowania.Hours + " " + godzina1[0] + ",");
-            if (czasbootowania.Hours > 1 && czasbootowania.Hours < 5)
-                StringBuilder += (czasbootowania.Hours + " " + godzina1[1] + ",");
+            if (bootTime.Hours == 0 | bootTime.Hours > 4)
+                StringBuilder += (bootTime.Hours + " " + hourArr[2] + ",");
+            if (bootTime.Hours == 1)
+                StringBuilder += (bootTime.Hours + " " + hourArr[0] + ",");
+            if (bootTime.Hours > 1 && bootTime.Hours < 5)
+                StringBuilder += (bootTime.Hours + " " + hourArr[1] + ",");
 
-            if (czasbootowania.Minutes == 0 | czasbootowania.Minutes > 4)
-                StringBuilder += (czasbootowania.Minutes + " " + minuta1[2] + ",");
-            if (czasbootowania.Minutes == 1)
-                StringBuilder += (czasbootowania.Minutes + " " + minuta1[0] + ",");
-            if (czasbootowania.Minutes > 1 && czasbootowania.Minutes < 5)
-                StringBuilder += (czasbootowania.Minutes + " " + minuta1[1] + ",");
+            if (bootTime.Minutes == 0 | bootTime.Minutes > 4)
+                StringBuilder += (bootTime.Minutes + " " + minuteArr[2] + ",");
+            if (bootTime.Minutes == 1)
+                StringBuilder += (bootTime.Minutes + " " + minuteArr[0] + ",");
+            if (bootTime.Minutes > 1 && bootTime.Minutes < 5)
+                StringBuilder += (bootTime.Minutes + " " + minuteArr[1] + ",");
 
-            if (czasbootowania.Seconds == 0 | czasbootowania.Seconds > 4)
-                StringBuilder += (czasbootowania.Seconds + " " + sekunda1[2]);
-            if (czasbootowania.Seconds == 1)
-                StringBuilder += (czasbootowania.Seconds + " " + sekunda1[0]);
-            if (czasbootowania.Seconds > 1 && czasbootowania.Seconds < 5)
-                StringBuilder += (czasbootowania.Seconds + " " + sekunda1[1]);
+            if (bootTime.Seconds == 0 | bootTime.Seconds > 4)
+                StringBuilder += (bootTime.Seconds + " " + secondArr[2]);
+            if (bootTime.Seconds == 1)
+                StringBuilder += (bootTime.Seconds + " " + secondArr[0]);
+            if (bootTime.Seconds > 1 && bootTime.Seconds < 5)
+                StringBuilder += (bootTime.Seconds + " " + secondArr[1]);
             StringBuilder += ("\n");
             return StringBuilder;
         }
