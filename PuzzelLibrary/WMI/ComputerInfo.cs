@@ -664,45 +664,28 @@ namespace PuzzelLibrary.WMI
         private static string BiosInfo(object[] args, ManagementObject m)
         {
             string manufacturer = null;
-            //string[] biosVersion = null;
             string smbiosVersion = null;
             string releaseDate = null;
             string StringBuilder = string.Empty;
 
-
-            StringBuilder += "Producent                Wersja Bios     " +
-                // "Wersja SMBios   " +
-                "Data wydania\n";
+            StringBuilder += "Producent                Wersja Bios      Data wydania\n";
 
             if (m[args[0].ToString()] != null)
             {
                 manufacturer = m[args[0].ToString()].ToString();
                 StringBuilder += (manufacturer);
                 int a = "Producent".Length + 16 - manufacturer.Length;
-                //17 - manufacturer.Length;
                 for (int i = 0; i < a; i++)
                 {
                     StringBuilder += (" ");
                 }
             }
 
-            //if (m[args[1].ToString()] != null)
-            //{
-            //    biosVersion = ((string[])m[args[1].ToString()]);
-            //    StringBuilder += (biosVersion[0]);
-            //    int a = "Wersja Bios".Length + 8 - biosVersion[0].Length;
-            //    //20 - biosVersion[0].Length;
-            //    for (int i = 0; i < a; i++)
-            //    {
-            //        StringBuilder += (" ");
-            //    }
-            //}
-
             if (m[args[1].ToString()] != null)
             {
                 smbiosVersion = m[args[2].ToString()].ToString();
                 StringBuilder += (smbiosVersion);
-                int a = "Wersja SMBios".Length + 3 - smbiosVersion.Length;//12 - smbiosVersion.Length;
+                int a = "Wersja SMBios".Length + 3 - smbiosVersion.Length;
                 for (int i = 0; i < a; i++)
                 {
                     StringBuilder += (" ");
@@ -742,8 +725,6 @@ namespace PuzzelLibrary.WMI
                 StringBuilder += (csdversion);
                 if (csdversion.Length != 22)
                 {
-                    //int a = 15 - csdversion.Length;
-                    //for (int i = 0; i < a; i++)
                     StringBuilder += ("  ");
                 }
             }
@@ -751,8 +732,6 @@ namespace PuzzelLibrary.WMI
             {
                 csdversion = "-";
                 StringBuilder += (csdversion);
-                //int a = 15 - csdversion.Length;
-                //for (int i = 0; i < a; i++)
                 StringBuilder += ("  ");
             }
 
@@ -762,8 +741,6 @@ namespace PuzzelLibrary.WMI
                 StringBuilder += (osarchitecture);
                 if (osarchitecture.Length != 16)
                 {
-                    //int a = 14 - osarchitecture.Length;
-                    //for (int i = 0; i < a; i++)
                     StringBuilder += ("  ");
                 }
             }
@@ -854,7 +831,6 @@ namespace PuzzelLibrary.WMI
             string nazwa = null;
             string wersja = null;
             string data = null;
-            //nazwa_dlugosc = 0;
             int firstoptimvalue = 80;
             int secondoptimvalue = 31;
             nazwa = m["Name"].ToString();
@@ -997,7 +973,6 @@ namespace PuzzelLibrary.WMI
         private static string BootTime(object[] args, ManagementObject m)
         {
             string boottime = null;
-            //string[] date = null;
             boottime = m[args[0].ToString()].ToString();
             string rok = null;
             string miesiac = null;
