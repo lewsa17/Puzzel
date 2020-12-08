@@ -4,6 +4,9 @@ using System.IO;
 using System.Windows.Forms;
 using PuzzelLibrary.Debug;
 using PuzzelLibrary.Settings;
+using System.ComponentModel;
+using System.DirectoryServices;
+using System.Collections.Generic;
 
 namespace PuzzelLibrary.LogonData
 {
@@ -21,8 +24,35 @@ namespace PuzzelLibrary.LogonData
 
         private static string lastSearchedName { get; set; }
 
+       public class UserNameDB
+        {
+            public struct UserNameEntry
+        {
+            public string UserName;
+            public string DisplayName;
+        }
+            public static List<UserNameEntry> ADUserDB = new();            
+            public void GetADUsers()
+            {
+                if (ADUserDB.Count == 0 || ADUserDB is null)
+                {
+                    UserNameEntry _userNameEntry = new();
+                    foreach (SearchResult ADUser in Captcher.GetAllUsers())
+                    {
+                        if (ADUser.Properties.Contains("DisplayName") && ADUser.Properties.Contains("SamAccountName"))
+                        {
+                            _userNameEntry.DisplayName = ADUser.Properties["DisplayName"][0].ToString();
+                            _userNameEntry.UserName = ADUser.Properties["SamAccountName"][0].ToString();
+                            ADUserDB.Add(_userNameEntry);
+                        }
+                    }
+                }
+            }
+        }
         public string getUserComputerLog(string pole, string rodzaj, decimal licznik)
         {
+            UserNameDB userNameDB = new();
+            userNameDB.GetADUsers();
             StringBuilder sb = new();
             try
             {
@@ -46,7 +76,10 @@ namespace PuzzelLibrary.LogonData
                     string[] word;
                     string[] words;
                     word = LogCompLogs[0].Split(';');
-                    lastSearchedName = SAMAccountName(word[2].Replace(" ", ""));
+                    if (UserNameDB.ADUserDB != null)
+                        if (UserNameDB.ADUserDB.Count > 0)
+                            lastSearchedName = UserNameDB.ADUserDB.Find(x => string.Equals(x.UserName, word[2].Replace(" ", ""), StringComparison.OrdinalIgnoreCase)).DisplayName;
+                        else lastSearchedName = SAMAccountName(word[2].Replace(" ", ""));
                     string lastUsedLogin = word[2];
                     sb.Append(string.Format("{0,-13}{1,-16}{2,-30}{3,-12}{4,-28}{5,-10}", "LOGOWANIE", "KOMPUTER", "NAZWA", "UŻYTKOWNIK", "DATA", "WERSJA SYSTEMU" + "\n"));
                     int count = (int)licznik;
@@ -57,7 +90,15 @@ namespace PuzzelLibrary.LogonData
                     {
                         words = LogCompLogs[i].Split(';');
                         if (words[2] != lastUsedLogin)
-                            lastSearchedName = SAMAccountName(words[2].Replace(" ", ""));
+                        {
+                            if (UserNameDB.ADUserDB != null)
+                            {
+                                if (UserNameDB.ADUserDB.Count > 0)
+                                    lastSearchedName = UserNameDB.ADUserDB.Find(x => string.Equals(x.UserName, words[2].Replace(" ", ""), StringComparison.OrdinalIgnoreCase)).DisplayName;
+                            }
+                            else
+                                lastSearchedName = SAMAccountName(words[2].Replace(" ", ""));
+                        }
                         //sb.Clear();
                         sb.Append(string.Format("{0,-13}{1,-17}{2,-30}{3,-11}{4,-28}{5,-10}", " " + words[0], words[1], lastSearchedName, words[2].Replace(" ", ""), words[3], words[word.Length - 2]) + "\n");
                         lastUsedLogin = words[2];
@@ -121,10 +162,29 @@ namespace PuzzelLibrary.LogonData
         private string SAMAccountName(string username)
         {
             var Result = new AD.User.SearchInformation.Search().ByUserName(username);
-			if (Result != null)
-				return Result.Properties["displayName"][0].ToString();
+            if (Result != null)
+                return Result.Properties["displayName"][0].ToString();
             return "Brak w AD";
-            } 
+        }
+        private static SearchResultCollection GetAllUsers()
+        {
+            var ds = AD.Connection.Initiate.GetDirectorySearcher();
+            try
+            {
+                if (ds != null)
+                {
+                    ds.Filter = "(&(objectCategory=person)(objectClass=user))";
+                    ds.SearchScope = SearchScope.Subtree;
+                    ds.ServerTimeLimit = TimeSpan.FromSeconds(90);
+                    ds.PropertiesToLoad.AddRange(new string[] { "displayName", "SamAccountName" });
+                    ds.SizeLimit = 5000;
+                    ds.PageSize = 5000;
+                    SearchResultCollection ADUserCollection = ds.FindAll();
+                    return ADUserCollection;
+                }
+            }
+            catch (System.Runtime.InteropServices.COMException) { System.Windows.Forms.MessageBox.Show("Brak połączenia z AD"); }
+            return null;
         }
     }
 
