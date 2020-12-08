@@ -1272,5 +1272,21 @@ namespace Forms
             var settingsForm = new Settings.SettingsForm(this.Name);
             settingsForm.ShowDialog();
         }
+        private void LoadingForm(object sender, EventArgs e)
+        {
+            try
+            {
+                btnUserLog.Invoke(new MethodInvoker(() => btnUserLog.Enabled = false));
+                btnCompLog.Invoke(new MethodInvoker(() => btnCompLog.Enabled = false));
+                PuzzelLibrary.LogonData.Captcher.UserNameDB userNameDB = new();
+                userNameDB.GetADUsers();
+                btnUserLog.Invoke(new MethodInvoker(() => btnUserLog.Enabled = true));
+                btnCompLog.Invoke(new MethodInvoker(() => btnCompLog.Enabled = true));
+            }
+            catch (Exception ex)
+            {
+                PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, "Metoda LoadingForm");
+            }
+        }
     }
 }

@@ -1274,6 +1274,7 @@
             this.MinimumSize = new(1200, 509);
             this.Name = "Puzzel";
             this.Text = "Puzzel";
+            this.Load += (this.LoadingForm);
             this.groupBoxUserInfo.ResumeLayout(false);
             this.groupBoxUserInfo.PerformLayout();
             this.contextMenuOperationTextBox.ResumeLayout(false);
