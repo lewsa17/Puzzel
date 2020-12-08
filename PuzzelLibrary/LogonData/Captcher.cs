@@ -24,14 +24,14 @@ namespace PuzzelLibrary.LogonData
 
         private static string lastSearchedName { get; set; }
 
-       public class UserNameDB
+        public class UserNameDB
         {
             public struct UserNameEntry
-        {
-            public string UserName;
-            public string DisplayName;
-        }
-            public static List<UserNameEntry> ADUserDB = new();            
+            {
+                public string UserName;
+                public string DisplayName;
+            }
+            public static List<UserNameEntry> ADUserDB = new();
             public void GetADUsers()
             {
                 if (ADUserDB.Count == 0 || ADUserDB is null)
@@ -119,12 +119,12 @@ namespace PuzzelLibrary.LogonData
                 return ("Użyto niedozwolonych znaków w nazwie");
             return "";
         }
-        
+
         public string SearchLogs(decimal counter, string LogName, string rodzaj)
         {
             return getUserComputerLog(LogName, rodzaj, counter);
-        } 
-    
+        }
+
         private static bool IsInvalidChar(string path)
         {
             foreach (char x in path)
@@ -187,4 +187,5 @@ namespace PuzzelLibrary.LogonData
             return null;
         }
     }
+}
 
