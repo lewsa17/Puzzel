@@ -411,7 +411,7 @@ namespace Forms
                             rdpValues.GetSIdServerNameFromCombo(comboBoxFindedSessions);
                             var ADCompResult = PuzzelLibrary.AD.Computer.Search.ByComputerName(rdpValues.ServerName, "operatingSystemVersion");
                             var osVersionComplete = ADCompResult[0].GetDirectoryEntry().Properties["operatingSystemVersion"].Value.ToString().Split(" ");
-                            double osVersion = Convert.ToDouble(osVersionComplete[0]);
+                            double osVersion = Convert.ToDouble(osVersionComplete[0].Replace('.',','));
                             if (osVersion > 6.1)
                             {
                                 PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess("mstsc.exe", "/v:" + rdpValues.ServerName + " /shadow:" + rdpValues.SessionID + " /control /NoConsentPrompt");
