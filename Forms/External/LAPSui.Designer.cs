@@ -144,6 +144,7 @@
             this.Controls.Add(this.labelPassword);
             this.Controls.Add(this.inputtedcomputerName);
             this.Controls.Add(this.labelCompName);
+            this.DoubleBuffered = true;
             this.Icon = global::Forms.Resources.Resources.Puzzel;
             this.Margin = new(4, 3, 4, 3);
             this.MaximizeBox = false;

@@ -48,6 +48,7 @@
             // 
             // Progress
             // 
+            this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MinimizeBox = false;
             this.MaximizeBox = false;

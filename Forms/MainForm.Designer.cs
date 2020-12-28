@@ -1268,6 +1268,7 @@
             this.Controls.Add(this.groupBoxComputerInfo);
             this.Controls.Add(this.groupBoxUserInfo);
             this.Controls.Add(this.mainMenu);
+            this.DoubleBuffered = true;
             this.Font = new("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.Icon = global::Forms.Resources.Resources.Puzzel;
             this.MainMenuStrip = this.mainMenu;

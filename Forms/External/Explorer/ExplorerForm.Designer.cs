@@ -312,6 +312,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new(637, 646);
             this.Controls.Add(this.tabControl);
+            this.DoubleBuffered = true;
             this.Icon = global::Forms.Resources.Resources.Puzzel;
             this.MaximizeBox = false;
             this.MaximumSize = new(653, 685);
