@@ -946,7 +946,7 @@
             this.panelTCP.Controls.Add(this.labelTCP);
             this.panelTCP.Controls.Add(this.btnTestTCP);
             this.panelTCP.Controls.Add(this.btnCollapseTCP);
-            this.panelTCP.Location = new(94, 16);
+            this.panelTCP.Location = new(97, 16);
             this.panelTCP.Name = "panelTCP";
             this.panelTCP.Size = new(63, 32);
             this.panelTCP.TabIndex = 2;
