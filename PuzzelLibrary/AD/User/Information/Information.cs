@@ -111,7 +111,9 @@ namespace PuzzelLibrary.AD.User
         }
         private void ShowUserInformation(string UserName)
         {
-            var rs = ByUserName(UserName);
+            string[] propertiesToLoad = new string[] { "sAMAccountName", "displayName", "title", "company", "department", "mail", "homeDirectory", "msRTCSIP-PrimaryUserAddress", "msRTCSIP-InternetAccessEnabled", "lastLogoff", "lastlogon", "accountExpires", "lockoutTime" };
+
+            var rs = ByUserName(UserName, propertiesToLoad);
             if (rs != null)
             {
                 if (rs.GetDirectoryEntry().Properties["sAMAccountName"].Value != null)
