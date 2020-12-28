@@ -53,8 +53,8 @@ namespace PuzzelLibrary.AD.User
         public static UserPrincipal GetUser(string UserName)
         {
             PrincipalContext oPrincipalContext = new PrincipalContext(ContextType.Domain);
-                UserPrincipal oUserPrincipal = UserPrincipal.FindByIdentity(oPrincipalContext, UserName);
-                return oUserPrincipal;
+            UserPrincipal oUserPrincipal = UserPrincipal.FindByIdentity(oPrincipalContext, UserName);
+            return oUserPrincipal;
         }
 
         public static UserPrincipal GetUser(string UserName, string domainController)
@@ -98,7 +98,7 @@ namespace PuzzelLibrary.AD.User
                     }
                 }
             }
-        } 
+        }
         public ArrayList GetUserGroups(string UserName)
         {
             ArrayList myItems = new ArrayList();
@@ -112,113 +112,58 @@ namespace PuzzelLibrary.AD.User
         }
         private void ShowUserInformation(string UserName)
         {
-            string[] propertiesToLoad = new string[] { "sAMAccountName", "displayName", "title", "company", "department", "mail", "homeDirectory", "msRTCSIP-PrimaryUserAddress", "msRTCSIP-InternetAccessEnabled", "lastLogoff", "lastlogon", "accountExpires", "lockoutTime", "msDS-UserPasswordExpiryTimeComputed" };
+            string[] propertiesToLoad = new string[] { "title", "company", "department", "msRTCSIP-PrimaryUserAddress", "msRTCSIP-InternetAccessEnabled", "lastLogoff", "lastlogon", "accountExpires", "lockoutTime", "msDS-UserPasswordExpiryTimeComputed" };
 
             var rs = ByUserName(UserName, propertiesToLoad);
             if (rs != null)
             {
-                if (rs.GetDirectoryEntry().Properties["sAMAccountName"].Value != null)
-                    loginName = rs.GetDirectoryEntry().Properties["sAMAccountName"].Value.ToString();
+                title = rs.GetDirectoryEntry().Properties["title"].Value != null ? rs.GetDirectoryEntry().Properties["title"].Value.ToString() : string.Empty;
 
-                if (rs.GetDirectoryEntry().Properties["displayName"].Value != null)
-                    displayName = rs.GetDirectoryEntry().Properties["displayName"].Value.ToString();
+                company = rs.GetDirectoryEntry().Properties["company"].Value != null ? rs.GetDirectoryEntry().Properties["company"].Value.ToString() : string.Empty;
 
-                if (rs.GetDirectoryEntry().Properties["title"].Value != null)
-                    title = rs.GetDirectoryEntry().Properties["title"].Value.ToString();
+                department = rs.GetDirectoryEntry().Properties["department"].Value != null ? rs.GetDirectoryEntry().Properties["department"].Value.ToString() : string.Empty;
 
-                if (rs.GetDirectoryEntry().Properties["company"].Value != null)
-                    company = rs.GetDirectoryEntry().Properties["company"].Value.ToString();
+                UserPrincipal user = GetUser(UserName);
+                displayName = user.DisplayName;
+                loginName = user.SamAccountName != null ? user.SamAccountName : string.Empty;
+                mail = user.EmailAddress != null ? user.EmailAddress : string.Empty;
+                userEnabled = user.Enabled == true ? userEnabled = "TAK" : "NIE";
+                badPwdCount = user.BadLogonCount >= 0 ? (int)user.BadLogonCount : int.MinValue;
+                homeDirectory = user.HomeDirectory != null ? user.HomeDirectory : string.Empty;
 
-                if (rs.GetDirectoryEntry().Properties["department"].Value != null)
-                    department = rs.GetDirectoryEntry().Properties["department"].Value.ToString();
-
-                if (rs.GetDirectoryEntry().Properties["mail"].Value != null)
-                    mail = (string)rs.GetDirectoryEntry().Properties["mail"].Value;
-
-                if (rs.GetDirectoryEntry().Properties["homeDirectory"].Value != null)
-                    homeDirectory = rs.GetDirectoryEntry().Properties["homeDirectory"].Value.ToString();
-
-                    UserPrincipal user = GetUser(UserName);
-
-                    if (user.Enabled != null)
-                    {
-                        if (user.Enabled == true) userEnabled = "TAK";
-                        else userEnabled = "NIE";
-                    }
-                    else userEnabled = "błąd";
-
-                    if (user.BadLogonCount >= 0)
-                        badPwdCount = (int)user.BadLogonCount;
-
-                    if (user.HomeDirectory != null)
-                        homeDirectory = user.HomeDirectory;
-
-                    if (user.PermittedWorkstations.Count > 0)
-                    {
-                        foreach (var permiWorks in user.PermittedWorkstations)
-                        {
-                            permittedWorkstation += permiWorks.ToString() + "\n\t\t\t\t\t\t";
-                        }
-                    }
-                    else permittedWorkstation = "Wszystkie";
-
-                    if (user.LastPasswordSet != null)
-                    {
-                        pwdLastSet = DateTime.FromFileTime(user.LastPasswordSet.Value.ToFileTime());
-                    }
-                    //if (user.PermittedLogonTimes != null)
-                    //{
-                    //    var zone = TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time");
-                    //    var time = new LogonTime(DayOfWeek.Monday,
-                    //         new DateTime(2011, 1, 1, 8, 0, 0),
-                    //         new DateTime(2011, 1, 1, 10, 0, 0), zone);
-                    //    var times = new List<LogonTime>();
-                    //    times.add(time);
-                    //    var mask = PermittedLogonTimes.GetByteMask(times);
-
-                    //    var times = PermittedLogonTimes.GetLogonTimes(mask);
-                    //}
-                    //    permittedLogonTime = user.PermittedLogonTimes;
-
-                    if (user.GetGroups() != null)
-                        foreach (var groups in user.GetGroups())
-                            Groups += groups.SamAccountName + "\n\t\t\t\t\t\t";
-                    if (user.LastBadPasswordAttempt != null)
-                    {
-                        lastBadPwdAttempt = DateTime.FromFileTime(user.LastBadPasswordAttempt.Value.ToFileTime());
-                    }
-                    if (user.HomeDrive != null)
-                        homeDrive = (string)user.HomeDrive;
-
-                    if (user.ScriptPath != null)
-                        scriptPath = (string)user.ScriptPath;
-
-                    if (user.PasswordNotRequired == true) passwordNotRequired = "NIE";
-                    else if (user.PasswordNotRequired == false) passwordNotRequired = "TAK";
-
-                    if (user.UserCannotChangePassword == true) userCannotChangePassword = "NIE";
-                    else if (user.UserCannotChangePassword == false) userCannotChangePassword = "TAK";
-
-                if (rs.GetDirectoryEntry().Properties["msRTCSIP-PrimaryUserAddress"].Value != null)
+                if (user.PermittedWorkstations.Count > 0)
                 {
-                    SkypeLogin = rs.GetDirectoryEntry().Properties["msRTCSIP-PrimaryUserAddress"].Value.ToString();
+                    foreach (var permiWorks in user.PermittedWorkstations)
+                    {
+                        permittedWorkstation += permiWorks.ToString() + "\n\t\t\t\t\t\t";
+                    }
                 }
-                else SkypeLogin = "Brak loginu";
+                else permittedWorkstation = "Wszystkie";
+
+                pwdLastSet = user.LastPasswordSet != null ? DateTime.FromFileTime(user.LastPasswordSet.Value.ToFileTime()) : DateTime.MinValue;
+                
+                if (user.GetGroups() != null)
+                    foreach (var groups in user.GetGroups())
+                        Groups += groups.SamAccountName + "\n\t\t\t\t\t\t";
+                lastBadPwdAttempt = user.LastBadPasswordAttempt != null ? DateTime.FromFileTime(user.LastBadPasswordAttempt.Value.ToFileTime()) : DateTime.MinValue;
+                homeDrive = user.HomeDrive != null ? (string)user.HomeDrive : string.Empty;
+
+
+                scriptPath = user.ScriptPath != null ? (string)user.ScriptPath : string.Empty;
+
+                passwordNotRequired = user.PasswordNotRequired == true ? "NIE" : "TAK";
+
+                userCannotChangePassword = user.UserCannotChangePassword == true ? "NIE" : "TAK";
+
+                SkypeLogin = rs.GetDirectoryEntry().Properties["msRTCSIP-PrimaryUserAddress"].Value != null ? rs.GetDirectoryEntry().Properties["msRTCSIP-PrimaryUserAddress"].Value.ToString().Replace("sip:", "") : "Brak loginu";
+
                 if (rs.GetDirectoryEntry().Properties["msRTCSIP-InternetAccessEnabled"].Value != null)
                 {
-                    if (rs.GetDirectoryEntry().Properties["msRTCSIP-InternetAccessEnabled"].Value.ToString() == "True")
-                        InternetAccessEnabled = "TAK";
-                    if (rs.GetDirectoryEntry().Properties["msRTCSIP-InternetAccessEnabled"].Value.ToString() == "False")
-                        InternetAccessEnabled = "NIE";
+                    InternetAccessEnabled = rs.GetDirectoryEntry().Properties["msRTCSIP-InternetAccessEnabled"].Value.ToString() == "True" ? "TAK" : "NIE";
                 }
-                else InternetAccessEnabled = "Błąd, brak obiektu";
+                else InternetAccessEnabled = "Brak uprawnień";
 
-                if (rs.Properties.Contains("lastLogoff"))
-                    if (rs.Properties["lastlogoff"][0].ToString() != "0")
-                    {
-                        long temp = (long)rs.GetDirectoryEntry().Properties["lastLogoff"].Value;
-                        lastLogoff = DateTime.FromFileTime(temp);
-                    }
+                lastLogoff = rs.Properties["lastlogoff"][0].ToString() != "0" ? DateTime.FromFileTime((long)rs.GetDirectoryEntry().Properties["lastLogoff"].Value) : DateTime.MinValue;
 
                 if (rs.Properties.Contains("lastlogon"))
                     if (rs.Properties["lastLogon"][0].ToString() != "0")
@@ -235,14 +180,9 @@ namespace PuzzelLibrary.AD.User
                         accountExpires = DateTime.FromFileTime(temp);
                     }
 
-                if (rs.GetDirectoryEntry().Properties.Contains("lockoutTime"))
-                {
-                    long temp = (long)rs.Properties["lockoutTime"][0];
-                    lockoutTime = DateTime.FromFileTime(temp);
-                }
-                passwordExpiryTime = (rs.Properties["msDS-UserPasswordExpiryTimeComputed"][0] != null) ? DateTime.FromFileTime((long)rs.Properties["msDS-UserPasswordExpiryTimeComputed"][0]) : DateTime.MinValue;
-
+                lockoutTime = rs.Properties.Contains("lockoutTime") == true ? DateTime.FromFileTime((long)rs.Properties["lockoutTime"][0]) : DateTime.MinValue;
             }
+            passwordExpiryTime = (rs.Properties["msDS-UserPasswordExpiryTimeComputed"][0] != null) ? (DateTime.FromFileTime((long)rs.Properties["msDS-UserPasswordExpiryTimeComputed"][0])) : DateTime.MinValue;
         }
     }
 }

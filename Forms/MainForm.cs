@@ -693,7 +693,7 @@ namespace Forms
                     //8 linijka
                     UpdateRichTextBox("Mail:\t\t\t\t\t\t" + user.mail + "\n");
                     //9 linijka
-                    UpdateRichTextBox("Adres logowania Skype: \t\t\t" + user.SkypeLogin.Replace("sip:", "") + "\n");
+                    UpdateRichTextBox("Adres logowania Skype: \t\t\t" + user.SkypeLogin + "\n");
                     //10 linijka
                     UpdateRichTextBox("Konto jest aktywne:\t\t\t" + user.userEnabled + "\n");
                     //11 linijka
@@ -708,11 +708,11 @@ namespace Forms
                     else UpdateRichTextBox("Konto zablokowane:\t\t\t" + "0" + "\n");
                     //14 linijka
                     if (user.lastBadPwdAttempt.Year != 1)
-                        UpdateRichTextBox("Ostatnie błędne logowanie:\t\t" + user.lastBadPwdAttempt + "\n"); //działa ale potrzebna jest deklaracja serwera
+                        UpdateRichTextBox("Ostatnie błędne logowanie:\t\t" + user.lastBadPwdAttempt + "\n");      
                     else UpdateRichTextBox("Ostatnie błędne logowanie:\t\t" + 0 + "\n");
                     //15 linijka
-                    UpdateRichTextBox("Ilość błędnych prób logowania:\t" + user.badPwdCount + "\n"); //działa serwerów są 4
-                                                                                                     //16 linijka                                                                            
+                    UpdateRichTextBox("Ilość błędnych prób logowania:\t" + user.badPwdCount + "\n");
+                    //16 linijka                                                                            
                     UpdateRichTextBox("Dostęp do internetu:\t\t\t" + user.InternetAccessEnabled + "\n");
                     //17 linijka
                     UpdateRichTextBox("Hasło ostatnio ustawiono:\t\t" + user.pwdLastSet + "\n");
@@ -735,7 +735,7 @@ namespace Forms
                     //25 linijka
                     UpdateRichTextBox("Użytkownik nie może zmienić hasła \t" + user.userCannotChangePassword + "\n");
                     //26 linijka
-                    UpdateRichTextBox(/*Allowed_workstions() */"Dozwolone stacje robocze:\t\t" + user.permittedWorkstation + "\n");
+                    UpdateRichTextBox("Dozwolone stacje robocze:\t\t" + user.permittedWorkstation + "\n");
                     //27 linijka
                     UpdateRichTextBox("Skrypt logowania:\t\t\t\t" + user.scriptPath + "\n");
                     //28 linijka
@@ -745,10 +745,7 @@ namespace Forms
                     //30 linijka
                     UpdateRichTextBox("\n");
                     //31 linijka
-                    //UpdateRichTextBox(/*Allowed_Hours()*/ permittedLogonTime.ToString());
-                    UpdateRichTextBox("\n");
-                    //32 linijka
-                    UpdateRichTextBox(/*MembersOf()*/"Członkostwa grup:\t\t\t\t" + user.Groups);
+                    UpdateRichTextBox("Członkostwa grup:\t\t\t\t" + user.Groups);
                 }
                 else UpdateRichTextBox("Nie znaleziono użytkownika w AD");
             }
