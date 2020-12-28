@@ -9,6 +9,7 @@
     <Copyright>Copyright © Jakub@Sypek</Copyright>
     <Authors>Jakub Sypek</Authors>
     <Company />
+    <ApplicationIcon>..\Forms\Resources\ICO\Puzzel.ico</ApplicationIcon>
   </PropertyGroup>
   
   <ItemGroup>

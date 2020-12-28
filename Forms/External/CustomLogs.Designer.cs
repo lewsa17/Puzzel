@@ -188,6 +188,7 @@ namespace Forms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new(900, 390);
             this.Controls.Add(this.panelBox);
+            this.Icon = global::Forms.Resources.Resources.Puzzel;
             this.MinimumSize = new(916, 429);
             this.Name = "CustomLogs";
             this.Text = "Niestandardowe logi";
