@@ -5,7 +5,7 @@ namespace PuzzelLibrary.AD.Other
 {
     public class Domain
     {
-        public static string[] GetDomainControllers()
+        public static string[] GetCurrentDomainControllers()
         {
             DirectorySearcher search = new DirectorySearcher(new DirectoryEntry("LDAP://" + AD.Other.Domain.GetDomainName));
             //search.Filter = "(sAMAccountName=" + username + ")";
@@ -27,7 +27,7 @@ namespace PuzzelLibrary.AD.Other
         }
         public static string GetDomainName => System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().DomainName;
 
-        public static string[] GetDomainControllersByDomainName(string domainName)
+        public static string[] GetCustomDomainControllers(string domainName)
         {
             DirectorySearcher search = new DirectorySearcher(new DirectoryEntry("LDAP://" + domainName));
             //search.Filter = "(sAMAccountName=" + username + ")";

@@ -35,8 +35,8 @@ namespace Forms.External
         {
             string[] domainControllers = null;
             if (domainAddress != null)
-                domainControllers = PuzzelLibrary.AD.Other.Domain.GetDomainControllersByDomainName(domainAddress);
-            else domainControllers = PuzzelLibrary.AD.Other.Domain.GetDomainControllers();
+                domainControllers = PuzzelLibrary.AD.Other.Domain.GetCustomDomainControllers(domainAddress);
+            else domainControllers = PuzzelLibrary.AD.Other.Domain.GetCurrentDomainControllers();
             foreach (string dcName in domainControllers)
             {
                 Thread thread = new Thread(() => GetUserPasswordDetails(dcName));

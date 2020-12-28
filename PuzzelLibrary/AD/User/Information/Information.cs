@@ -46,7 +46,7 @@ namespace PuzzelLibrary.AD.User
         internal static List<UserPrincipal> GetUserInADControllers(string UserName)
         {
             List<UserPrincipal> userListFromADControllers = new List<UserPrincipal>();
-            foreach (var DomainController in Other.Domain.GetDomainControllers())
+            foreach (var DomainController in Other.Domain.GetCurrentDomainControllers())
                 userListFromADControllers.Add(GetUser(UserName, DomainController));
             return userListFromADControllers;
         }
