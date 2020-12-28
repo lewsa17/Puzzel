@@ -34,7 +34,7 @@ namespace Forms
         {
             get
             {
-                var filename = PuzzelLibrary.Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "TerminalsLogDB");
+                var filename = PuzzelLibrary.Settings.Values.TerminalLogsSNFile;
                 var pathDB = Path.Combine(TerminalsLogFolder, filename);
                 List<string[]> dblist = new();
                 if (File.Exists(pathDB))
