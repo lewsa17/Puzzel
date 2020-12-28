@@ -24,7 +24,7 @@ namespace Forms
                 comboQueryFileBox.Visible = false;
                 labelTime.Visible = false;
                 labelFile.Visible = false;
-                this.textQuery.Size = new System.Drawing.Size(649, 23); 
+                this.textQuery.Size = new System.Drawing.Size(btnFinder.Location.X - 4 - textQuery.Location.X, 23); 
             }
         }
         public static string TerminalsLogFolder { get => PuzzelLibrary.Settings.Values.TerminalLogsFolder; }
