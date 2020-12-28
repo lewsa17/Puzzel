@@ -717,7 +717,7 @@ namespace Forms
                     //17 linijka
                     UpdateRichTextBox("Hasło ostatnio ustawiono:\t\t" + user.pwdLastSet + "\n");
                     //18 linijka
-                    UpdateRichTextBox("Hasło wygasa:\t\t\t\t" + user.pwdLastSet.AddDays(30) + "\n");
+                    UpdateRichTextBox("Hasło wygasa:\t\t\t\t" + user.passwordExpiryTime + "\n");
                     //19 linijka
                     UpdateRichTextBox("Hasło może być zmienione:\t\t" + user.pwdLastSet.AddDays(1) + "\n");
                     //20 linijka

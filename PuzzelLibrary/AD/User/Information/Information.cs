@@ -23,6 +23,7 @@ namespace PuzzelLibrary.AD.User
         public DateTime lastBadPwdAttempt { get; set; }
         public DateTime lastLogon { get; set; }
         public DateTime lastLogoff { get; set; }
+        public DateTime passwordExpiryTime { get; set; }
         public string scriptPath { get; set; }
         public string homeDirectory { get; set; }
         public string homeDrive { get; set; }
@@ -111,7 +112,7 @@ namespace PuzzelLibrary.AD.User
         }
         private void ShowUserInformation(string UserName)
         {
-            string[] propertiesToLoad = new string[] { "sAMAccountName", "displayName", "title", "company", "department", "mail", "homeDirectory", "msRTCSIP-PrimaryUserAddress", "msRTCSIP-InternetAccessEnabled", "lastLogoff", "lastlogon", "accountExpires", "lockoutTime" };
+            string[] propertiesToLoad = new string[] { "sAMAccountName", "displayName", "title", "company", "department", "mail", "homeDirectory", "msRTCSIP-PrimaryUserAddress", "msRTCSIP-InternetAccessEnabled", "lastLogoff", "lastlogon", "accountExpires", "lockoutTime", "msDS-UserPasswordExpiryTimeComputed" };
 
             var rs = ByUserName(UserName, propertiesToLoad);
             if (rs != null)
@@ -239,6 +240,8 @@ namespace PuzzelLibrary.AD.User
                     long temp = (long)rs.Properties["lockoutTime"][0];
                     lockoutTime = DateTime.FromFileTime(temp);
                 }
+                passwordExpiryTime = (rs.Properties["msDS-UserPasswordExpiryTimeComputed"][0] != null) ? DateTime.FromFileTime((long)rs.Properties["msDS-UserPasswordExpiryTimeComputed"][0]) : DateTime.MinValue;
+
             }
         }
     }
