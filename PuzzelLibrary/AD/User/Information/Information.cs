@@ -230,6 +230,7 @@ namespace PuzzelLibrary.AD.User
                     if (rs.GetDirectoryEntry().Properties["accountExpires"] != null)
                     {
                         long temp = (long)rs.Properties["accountExpires"][0];
+                        temp = (temp > DateTime.MaxValue.ToFileTime()) ? 0 : temp;
                         accountExpires = DateTime.FromFileTime(temp);
                     }
 

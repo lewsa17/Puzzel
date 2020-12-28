@@ -699,8 +699,10 @@ namespace Forms
                     //11 linijka
                     UpdateRichTextBox("\n");
                     //12 linijka
-                    UpdateRichTextBox("Konto wygasa:\t\t\t\t" + user.accountExpires + "\n");  //działa ale jest zła strefa czasowa
-                                                                                              //13 linijka\
+                    if (user.accountExpires.ToFileTime() > 0)
+                        UpdateRichTextBox("Konto wygasa:\t\t\t\t" + user.accountExpires + "\n");
+                    else UpdateRichTextBox("Konto wygasa:\t\t\t\t" + "Nigdy" + "\n");
+                    //13 linijka\
                     if (user.pwdLastSet < user.lockoutTime)
                         UpdateRichTextBox("Konto zablokowane:\t\t\t" + user.lockoutTime + "\n");
                     else UpdateRichTextBox("Konto zablokowane:\t\t\t" + "0" + "\n");
