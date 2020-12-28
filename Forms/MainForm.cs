@@ -681,7 +681,7 @@ namespace Forms
                     //2 linijka
                     UpdateRichTextBox("\n");
                     //3 linijka
-                    UpdateRichTextBox("---------------------------------" + "\n");
+                    UpdateRichTextBox("------------------------------------" + "\n");
                     //4 linijka
                     UpdateRichTextBox("Nazwa użytkownika:\t\t\t" + user.loginName + "\n");
                     //5 linijka
@@ -701,14 +701,14 @@ namespace Forms
                     //12 linijka
                     if (user.accountExpires.ToFileTime() > 0)
                         UpdateRichTextBox("Konto wygasa:\t\t\t\t" + user.accountExpires + "\n");
-                    else UpdateRichTextBox("Konto wygasa:\t\t\t\t" + "Nigdy" + "\n");
+                    else UpdateRichTextBox("Konto wygasa:\t\t\t\t" + "Nigdy"+ "\n");
                     //13 linijka\
                     if (user.pwdLastSet < user.lockoutTime)
                         UpdateRichTextBox("Konto zablokowane:\t\t\t" + user.lockoutTime + "\n");
                     else UpdateRichTextBox("Konto zablokowane:\t\t\t" + "0" + "\n");
                     //14 linijka
                     if (user.lastBadPwdAttempt.Year != 1)
-                        UpdateRichTextBox("Ostatnie błędne logowanie:\t\t" + user.lastBadPwdAttempt + "\n");      
+                        UpdateRichTextBox("Ostatnie błędne logowanie:\t\t" + user.lastBadPwdAttempt + "\n");
                     else UpdateRichTextBox("Ostatnie błędne logowanie:\t\t" + 0 + "\n");
                     //15 linijka
                     UpdateRichTextBox("Ilość błędnych prób logowania:\t" + user.badPwdCount + "\n");
