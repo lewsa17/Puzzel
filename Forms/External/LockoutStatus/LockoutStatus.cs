@@ -94,38 +94,20 @@ namespace Forms.External
         private void menuItemPasswordStatus_Click(object sender, EventArgs e)
         {
             var pd = new PuzzelLibrary.AD.User.Information.PasswordDetails();
-            string[] domainControllers = null;
-            if (domainAddress != null)
-                domainControllers = PuzzelLibrary.AD.Other.Domain.GetDomainControllersByDomainName(domainAddress);
-            else domainControllers = PuzzelLibrary.AD.Other.Domain.GetDomainControllers();
-            pd.GetUserPasswordDetails(Username, domainControllers[0]);
+            pd.GetUserPasswordDetails(Username, PuzzelLibrary.AD.Other.Domain.GetCurrentDomainControllers()[0]);
             string messagebox = null;
-            DateTime pwdLastSet = Convert.ToDateTime(pd.lastPasswordSet);
-            TimeSpan pwdAge = DateTime.Now - pwdLastSet.AddHours(1);
-            //msDS-UserPasswordExpiryTimeComputed
-            TimeSpan expirePwd = pwdLastSet.AddDays(30) - DateTime.Now;
+            DateTime pwdLastSet = pd.lastPasswordSet;
+            DateTime expirePwd = pd.passwordExpiryTime;
 
-            messagebox += "Maksymalna długość hasła dla " + Username + " wynosi 30 dni.";
+            messagebox += "Maksymalna długość hasła dla " + Username + " wynosi " + (expirePwd - pwdLastSet).Days.ToString() + " dni";
             //drugalinijka
-            messagebox +=  "\n\n";
+            messagebox += "\n\n";
             //trzecia linijka
-            if (pwdAge > (DateTime.Now.AddDays(2) - DateTime.Now))
-            {
-                messagebox += pwdAge.ToString("'Obecne hasło wynosi: 'dd' dni 'hh'g 'mm'm'");
-            }
-            else if (pwdAge < (DateTime.Now.AddDays(1) - DateTime.Now))
-                messagebox += pwdAge.ToString("'Obecne hasło wynosi: 'dd' dni 'hh'g 'mm'm'");
+            messagebox += "Hasło obowiązuje do :" + pwdLastSet.ToShortDateString() + " " + pwdLastSet.ToLongTimeString();
             //czwarta linijka
             messagebox += "\n\n";
             //piąta linijka
-            if (expirePwd > (DateTime.Now.AddDays(2) - DateTime.Now))
-            {
-                messagebox += expirePwd.ToString("'Hasło wygasa za: 'dd' dni 'hh'g 'mm'm'");
-            }
-            else if (expirePwd > (DateTime.Now.AddDays(1) - DateTime.Now))
-            {
-                messagebox += expirePwd.ToString("'Hasło wygasa za: 'dd' dni 'hh'g 'mm'm'");
-            }
+            messagebox += "Hasło wygasa w: " + expirePwd.ToShortDateString() + " " + expirePwd.ToLongTimeString();
 
             MessageBox.Show(messagebox, "Status hasła");
         }

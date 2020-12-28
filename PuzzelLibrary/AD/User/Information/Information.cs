@@ -63,39 +63,30 @@ namespace PuzzelLibrary.AD.User
             UserPrincipal oUserPrincipal = UserPrincipal.FindByIdentity(oPrincipalContext, UserName);
             return oUserPrincipal;
         }
-
         public class PasswordDetails
         {
-            public string badLogonCount;
-            public string lastBadPasswordAttempt;
-            public string lastPasswordSet;
+            public int badLogonCount;
+            public DateTime lastBadPasswordAttempt;
+            public DateTime lastPasswordSet;
             public string userAccountLocked;
-            public string userLockoutTime;
+            public DateTime userLockoutTime;
+            public DateTime passwordExpiryTime;
+            private static void UserExtensions(string UserName)
+            {
+
+            }
             public void GetUserPasswordDetails(string UserName, string domainController)
             {
                 UserPrincipal uP = GetUser(UserName, domainController);
+                var rs = new SearchInformation.Search().ByUserName(UserName, new string[] { "msDS-UserPasswordExpiryTimeComputed" });
                 if (uP != null)
                 {
-                    if (uP.BadLogonCount > 0)
-                        badLogonCount = uP.BadLogonCount.ToString();
-                    else badLogonCount = "0";
-
-                    if (uP.LastBadPasswordAttempt != null)
-                        lastBadPasswordAttempt = DateTime.FromFileTime(uP.LastBadPasswordAttempt.Value.ToFileTime()).ToString();
-
-                    if (uP.LastPasswordSet != null)
-                        lastPasswordSet = DateTime.FromFileTime(uP.LastPasswordSet.Value.ToFileTime()).ToString();
-
-                    if (uP.AccountLockoutTime != null)
-                    {
-                        userAccountLocked = "Zablokowane";
-                        userLockoutTime = DateTime.FromFileTime(uP.AccountLockoutTime.Value.ToFileTime()).ToString();
-                    }
-                    else
-                    {
-                        userAccountLocked = "Odblokowane";
-                        userLockoutTime = "0";
-                    }
+                    badLogonCount = uP.BadLogonCount > 0 ? uP.BadLogonCount : 0;
+                    lastBadPasswordAttempt = uP.LastBadPasswordAttempt != null ? DateTime.FromFileTime(uP.LastBadPasswordAttempt.Value.ToFileTime()) : DateTime.MinValue;
+                    lastPasswordSet = uP.LastPasswordSet != null ? DateTime.FromFileTime(uP.LastPasswordSet.Value.ToFileTime()) : DateTime.MinValue;
+                    userAccountLocked = uP.AccountLockoutTime != null ? "Zablokowane" : "Odblokowane";
+                    userLockoutTime = uP.AccountLockoutTime != null ? DateTime.FromFileTime(uP.AccountLockoutTime.Value.ToFileTime()) : DateTime.MinValue;
+                    passwordExpiryTime = (rs.Properties["msDS-UserPasswordExpiryTimeComputed"][0] != null) ? DateTime.FromFileTime((long)rs.Properties["msDS-UserPasswordExpiryTimeComputed"][0]) : DateTime.MinValue;
                 }
             }
         }
