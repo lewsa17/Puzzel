@@ -1294,5 +1294,13 @@ namespace Forms
                 PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, "Metoda LoadingForm");
             }
         }
+        private void ReloadLogs(object sender, EventArgs e)
+        {
+            bool cachedSettings = PuzzelLibrary.Settings.Values.CheckLogsBeforeStartUp;
+            PuzzelLibrary.Settings.Values.CheckLogsBeforeStartUp = true;
+            PuzzelLibrary.LogonData.Captcher.GetADUserAndComputer();
+            PuzzelLibrary.Settings.Values.CheckLogsBeforeStartUp = cachedSettings;
+            ReplaceRichTextBox("Logi zostały odświeżone");
+        }
     }
 }
