@@ -89,6 +89,7 @@
             this.menuItemComputerInfoProcessor = new();
             this.menuItemComputerInfoLoggedUser = new();
             this.menuItemComputerInfoProfile = new();
+            this.btnReloadLogs = new();
             this.menuItemComputerInfoDrives = new();
             this.menuItemComputerInfoPrinters = new();
             this.menuItemComputerInfoShares = new();
@@ -931,6 +932,7 @@
             // 
             this.groupBoxOtherTools.Anchor = System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Top;
             this.groupBoxOtherTools.Controls.Add(this.panelTCP);
+            this.groupBoxOtherTools.Controls.Add(this.btnReloadLogs);
             this.groupBoxOtherTools.Controls.Add(this.btnFlushDNS);
             this.groupBoxOtherTools.Location = new(1, 180);
             this.groupBoxOtherTools.MinimumSize = new(1182, 45);
@@ -940,13 +942,27 @@
             this.groupBoxOtherTools.TabStop = false;
             this.groupBoxOtherTools.Text = "Inne narzędzia";
             // 
+            // btnReloadLogs
+            // 
+            this.btnReloadLogs.Image = global::Forms.Resources.Resources.reload;
+            this.btnReloadLogs.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnReloadLogs.Location = new System.Drawing.Point(97, 15);
+            this.btnReloadLogs.Name = "btnReloadLogs";
+            this.btnReloadLogs.Size = new System.Drawing.Size(97, 36);
+            this.btnReloadLogs.TabIndex = 0;
+            this.btnReloadLogs.TabStop = false;
+            this.btnReloadLogs.Text = "Reload Logs";
+            this.btnReloadLogs.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnReloadLogs.UseVisualStyleBackColor = true;
+            this.btnReloadLogs.Click += new(this.ReloadLogs);
+            // 
             // panelTCP
             // 
             this.panelTCP.Controls.Add(this.numericTCP);
             this.panelTCP.Controls.Add(this.labelTCP);
             this.panelTCP.Controls.Add(this.btnTestTCP);
             this.panelTCP.Controls.Add(this.btnCollapseTCP);
-            this.panelTCP.Location = new(97, 16);
+            this.panelTCP.Location = new(196, 16);
             this.panelTCP.Name = "panelTCP";
             this.panelTCP.Size = new(63, 32);
             this.panelTCP.TabIndex = 2;
@@ -1304,6 +1320,7 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBoxUserInfo;
+        private System.Windows.Forms.Button btnReloadLogs;
         private System.Windows.Forms.Button btnProfilEXT;
         private System.Windows.Forms.Button btnProfilTS;
         private System.Windows.Forms.GroupBox groupBoxLogoff;
