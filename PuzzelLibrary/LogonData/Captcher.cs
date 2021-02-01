@@ -25,7 +25,35 @@ namespace PuzzelLibrary.LogonData
         private static string lastSearchedName { get; set; }
         private static readonly string FileCache = Path.Combine(Directory.GetCurrentDirectory(), nameof(PuzzelLibrary)+".cache");
 
-        
+        public static void GetADUserAndComputer()
+        {
+            if (Values.CheckLogsBeforeStartUp | !File.Exists(FileCache))
+            {
+                ComputerNameDB.GetADComputers();
+                UserNameDB.GetADUsers();
+                Cache.Save();
+            }
+            else Cache.Refresh();
+        }
+        public class ComputerNameDB
+        {
+            public struct ComputerNameEntry
+            {
+                public string Name;
+            }
+            internal static List<ComputerNameEntry> ADComputerDB = new();
+            internal static void GetADComputers()
+            {
+                ComputerNameDB.ADComputerDB.Clear();
+                ComputerNameEntry computerNameEntry = new();
+                var logsNames = Directory.GetFiles(logsDirectory + "Computer" + @"\", "*_logons.log", SearchOption.TopDirectoryOnly);
+                for (int i = 0; i < logsNames.Length; i++)
+                {
+                    computerNameEntry.Name = Path.GetFileNameWithoutExtension(logsNames[i]).Replace("_logons", "");
+                    ADComputerDB.Add(computerNameEntry);
+                }
+            }
+        }
         public class Cache 
         {
             internal static void Save()
@@ -34,6 +62,9 @@ namespace PuzzelLibrary.LogonData
                 foreach (var ADUser in UserNameDB.ADUserDB)
                     data.Append(nameof(ADUser.UserName) + "=" + ADUser.UserName + "," +
                         nameof(ADUser.DisplayName) + "=" + ADUser.DisplayName + Environment.NewLine);
+                data.Append("ADComputers" + Environment.NewLine);
+                foreach (var ADComputer in ComputerNameDB.ADComputerDB)
+                    data.Append(nameof(ADComputer.Name) + "=" + ADComputer.Name + Environment.NewLine);
                 PuzzelLibrary.Crypting.Data.Encrypt(FileCache, data.ToString());
             }
             internal static void Refresh()
@@ -41,14 +72,27 @@ namespace PuzzelLibrary.LogonData
                 string decryptedData;
                 PuzzelLibrary.Crypting.Data.Decrypt(FileCache, out decryptedData);
                 UserNameDB.UserNameEntry ADUser = new();
+                ComputerNameDB.ComputerNameEntry ADComputer = new();
+                ComputerNameDB.ADComputerDB.Clear();
                 UserNameDB.ADUserDB.Clear();
+                int listCounter = 0;
                 List<string> lines = decryptedData.Split(Environment.NewLine).ToList<string>();
+                var nextCache = lines.IndexOf("ADComputers");
                 for (int i = 0; i < lines.Count; i++)
                 {
+                    if (i < nextCache)
+                    {
                         string[] variable = lines[i].Split(",");
                         ADUser.UserName = variable[0].Split("=")[1];
                         ADUser.DisplayName = variable[1].Split("=")[1];
                         UserNameDB.ADUserDB.Add(ADUser);
+
+                    }
+                    if (i > nextCache)
+                    {
+                        ADComputer.Name = lines[i].Split("=")[1];
+                        ComputerNameDB.ADComputerDB.Add(ADComputer);
+                    }
                 }
             }
         }
@@ -165,19 +209,22 @@ namespace PuzzelLibrary.LogonData
             //}
             return false;
         }
-        public string[] keyWordsValues(string pole, string rodzaj)
+        public ComputerNameDB.ComputerNameEntry[] ComputerNames(string pole)
         {
-            string[] logsNames = null;
+            ComputerNameDB.ComputerNameEntry[] logsNames = null;
             if (!string.IsNullOrEmpty(pole) | !string.IsNullOrWhiteSpace(pole))
             {
-                logsNames = Directory.GetFiles(logsDirectory + rodzaj + @"\", "*" + pole + "*_logons.log", SearchOption.TopDirectoryOnly);
-                for (int i = 0; i < logsNames.Length; i++)
-                {
-                    logsNames[i] = Path.GetFileNameWithoutExtension(logsNames[i]);
-                    logsNames[i] = logsNames[i].Replace("_logons", "");
-                }
+                logsNames = ComputerNameDB.ADComputerDB.FindAll(x => x.Name.Contains(pole)).ToArray();
             }
-            else MessageBox.Show("Pole puste lub niepotrzebna spacja");
+            return logsNames;
+        }
+        public UserNameDB.UserNameEntry[] userNames(string pole)
+        {
+            UserNameDB.UserNameEntry[] logsNames = null;
+            if (!string.IsNullOrEmpty(pole) | !string.IsNullOrWhiteSpace(pole))
+            {
+                logsNames = UserNameDB.ADUserDB.FindAll(x => x.UserName.Contains(pole)).ToArray();
+            }
             return logsNames;
         }
         private string SAMAccountName(string username)

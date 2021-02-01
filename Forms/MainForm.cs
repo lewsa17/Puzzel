@@ -318,8 +318,20 @@ namespace Forms
                     ReplaceRichTextBox(warnings);
                 else
                 {
-                    foreach (string LogName in captcher.keyWordsValues(name, kindOf))
-                        new Thread(() => UpdateRichTextBox(new PuzzelLibrary.LogonData.Captcher().SearchLogs(numberOfLogs, LogName, kindOf))).Start();
+                    if (kindOf == "User")
+                    {
+                        foreach (var LogName in captcher.userNames(name))
+                        {
+                            new Thread(() => UpdateRichTextBox(new PuzzelLibrary.LogonData.Captcher().SearchLogs(numberOfLogs, LogName.UserName, kindOf))).Start();
+                        }
+                    }
+                    if (kindOf == "Computer")
+                    {
+                        foreach (var LogName in captcher.ComputerNames(name))
+                        {
+                            new Thread(() => UpdateRichTextBox(new PuzzelLibrary.LogonData.Captcher().SearchLogs(numberOfLogs, LogName.Name, kindOf))).Start(); 
+                        }
+                    }
                 }
             }
         }
@@ -1275,12 +1287,7 @@ namespace Forms
         {
             try
             {
-                btnUserLog.Invoke(new MethodInvoker(() => btnUserLog.Enabled = false));
-                btnCompLog.Invoke(new MethodInvoker(() => btnCompLog.Enabled = false));
-                PuzzelLibrary.LogonData.Captcher.UserNameDB userNameDB = new();
-                userNameDB.GetADUsers();
-                btnUserLog.Invoke(new MethodInvoker(() => btnUserLog.Enabled = true));
-                btnCompLog.Invoke(new MethodInvoker(() => btnCompLog.Enabled = true));
+                PuzzelLibrary.LogonData.Captcher.GetADUserAndComputer();
             }
             catch (Exception ex)
             {
