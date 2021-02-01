@@ -23,7 +23,35 @@ namespace PuzzelLibrary.LogonData
         }
 
         private static string lastSearchedName { get; set; }
+        private static readonly string FileCache = Path.Combine(Directory.GetCurrentDirectory(), nameof(PuzzelLibrary)+".cache");
 
+        
+        public class Cache 
+        {
+            internal static void Save()
+            {
+                StringBuilder data = new StringBuilder();
+                foreach (var ADUser in UserNameDB.ADUserDB)
+                    data.Append(nameof(ADUser.UserName) + "=" + ADUser.UserName + "," +
+                        nameof(ADUser.DisplayName) + "=" + ADUser.DisplayName + Environment.NewLine);
+                PuzzelLibrary.Crypting.Data.Encrypt(FileCache, data.ToString());
+            }
+            internal static void Refresh()
+            {
+                string decryptedData;
+                PuzzelLibrary.Crypting.Data.Decrypt(FileCache, out decryptedData);
+                UserNameDB.UserNameEntry ADUser = new();
+                UserNameDB.ADUserDB.Clear();
+                List<string> lines = decryptedData.Split(Environment.NewLine).ToList<string>();
+                for (int i = 0; i < lines.Count; i++)
+                {
+                        string[] variable = lines[i].Split(",");
+                        ADUser.UserName = variable[0].Split("=")[1];
+                        ADUser.DisplayName = variable[1].Split("=")[1];
+                        UserNameDB.ADUserDB.Add(ADUser);
+                }
+            }
+        }
         public class UserNameDB
         {
             public struct UserNameEntry
@@ -31,20 +59,18 @@ namespace PuzzelLibrary.LogonData
                 public string UserName;
                 public string DisplayName;
             }
-            public static List<UserNameEntry> ADUserDB = new();
-            public void GetADUsers()
+            internal static List<UserNameEntry> ADUserDB = new();
+            internal static void GetADUsers()
             {
-                if (ADUserDB.Count == 0 || ADUserDB is null)
+                UserNameDB.ADUserDB.Clear();
+                UserNameEntry _userNameEntry = new();
+                foreach (SearchResult ADUser in Captcher.GetAllUsers())
                 {
-                    UserNameEntry _userNameEntry = new();
-                    foreach (SearchResult ADUser in Captcher.GetAllUsers())
+                    if (ADUser.Properties.Contains("DisplayName") && ADUser.Properties.Contains("SamAccountName"))
                     {
-                        if (ADUser.Properties.Contains("DisplayName") && ADUser.Properties.Contains("SamAccountName"))
-                        {
-                            _userNameEntry.DisplayName = ADUser.Properties["DisplayName"][0].ToString();
-                            _userNameEntry.UserName = ADUser.Properties["SamAccountName"][0].ToString();
-                            ADUserDB.Add(_userNameEntry);
-                        }
+                        _userNameEntry.DisplayName = ADUser.Properties["DisplayName"][0].ToString();
+                        _userNameEntry.UserName = ADUser.Properties["SamAccountName"][0].ToString();
+                        ADUserDB.Add(_userNameEntry);
                     }
                 }
             }
@@ -52,7 +78,6 @@ namespace PuzzelLibrary.LogonData
         public string getUserComputerLog(string pole, string rodzaj, decimal licznik)
         {
             UserNameDB userNameDB = new();
-            userNameDB.GetADUsers();
             StringBuilder sb = new();
             try
             {
@@ -76,10 +101,10 @@ namespace PuzzelLibrary.LogonData
                     string[] word;
                     string[] words;
                     word = LogCompLogs[0].Split(';');
-                    if (UserNameDB.ADUserDB != null)
-                        if (UserNameDB.ADUserDB.Count > 0)
-                            lastSearchedName = UserNameDB.ADUserDB.Find(x => string.Equals(x.UserName, word[2].Replace(" ", ""), StringComparison.OrdinalIgnoreCase)).DisplayName;
-                        else lastSearchedName = SAMAccountName(word[2].Replace(" ", ""));
+                    if (UserNameDB.ADUserDB == null)
+                        Cache.Refresh();
+                    else
+                        lastSearchedName = UserNameDB.ADUserDB.Find(x => string.Equals(x.UserName, word[2].Replace(" ", ""), StringComparison.OrdinalIgnoreCase)).DisplayName;
                     string lastUsedLogin = word[2];
                     sb.Append(string.Format("{0,-13}{1,-16}{2,-30}{3,-12}{4,-28}{5,-10}", "LOGOWANIE", "KOMPUTER", "NAZWA", "UŻYTKOWNIK", "DATA", "WERSJA SYSTEMU" + "\n"));
                     int count = (int)licznik;
@@ -91,13 +116,9 @@ namespace PuzzelLibrary.LogonData
                         words = LogCompLogs[i].Split(';');
                         if (words[2] != lastUsedLogin)
                         {
-                            if (UserNameDB.ADUserDB != null)
-                            {
-                                if (UserNameDB.ADUserDB.Count > 0)
-                                    lastSearchedName = UserNameDB.ADUserDB.Find(x => string.Equals(x.UserName, words[2].Replace(" ", ""), StringComparison.OrdinalIgnoreCase)).DisplayName;
-                            }
-                            else
-                                lastSearchedName = SAMAccountName(words[2].Replace(" ", ""));
+                            if (UserNameDB.ADUserDB == null || UserNameDB.ADUserDB.Count <= 0)
+                                Cache.Refresh();
+                             lastSearchedName = UserNameDB.ADUserDB.Find(x => string.Equals(x.UserName, words[2].Replace(" ", ""), StringComparison.OrdinalIgnoreCase)).DisplayName;
                         }
                         //sb.Clear();
                         sb.Append(string.Format("{0,-13}{1,-17}{2,-30}{3,-11}{4,-28}{5,-10}", " " + words[0], words[1], lastSearchedName, words[2].Replace(" ", ""), words[3], words[word.Length - 2]) + "\n");
