@@ -95,21 +95,22 @@ namespace Forms.External
         {
             var pd = new PuzzelLibrary.AD.User.Information.PasswordDetails();
             pd.GetUserPasswordDetails(Username, PuzzelLibrary.AD.Other.Domain.GetCurrentDomainControllers()[0]);
-            string messagebox = null;
+            System.Text.StringBuilder messagebox = new();
             DateTime pwdLastSet = pd.lastPasswordSet;
             DateTime expirePwd = pd.passwordExpiryTime;
-
-            messagebox += "Maksymalna długość hasła dla " + Username + " wynosi " + (expirePwd - pwdLastSet).Days.ToString() + " dni";
+            
+            //pierwszalinijka
+            messagebox.Append("Maksymalna długość hasła dla " + Username + " wynosi " + (expirePwd - pwdLastSet).Days.ToString() + " dni");
             //drugalinijka
-            messagebox += "\n\n";
+            messagebox.Append("\n\n");
             //trzecia linijka
-            messagebox += "Hasło obowiązuje do :" + pwdLastSet.ToShortDateString() + " " + pwdLastSet.ToLongTimeString();
+            messagebox.Append("Hasło obowiązuje do :" + pwdLastSet.ToShortDateString() + " " + pwdLastSet.ToLongTimeString());
             //czwarta linijka
-            messagebox += "\n\n";
+            messagebox.Append("\n\n");
             //piąta linijka
-            messagebox += "Hasło wygasa w: " + expirePwd.ToShortDateString() + " " + expirePwd.ToLongTimeString();
+            messagebox.Append("Hasło wygasa w: " + expirePwd.ToShortDateString() + " " + expirePwd.ToLongTimeString());
 
-            MessageBox.Show(messagebox, "Status hasła");
+            MessageBox.Show(messagebox.ToString(), "Status hasła");
         }
         private void UnlockAll_Click(object sender, EventArgs e)
         {
