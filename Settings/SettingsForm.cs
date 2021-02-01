@@ -35,6 +35,7 @@ namespace Settings
         public static readonly string TerminalLogsFolderDescription = "Podaj lokalizację zawierająca logi terminali";
         public static readonly string ComputerSNFileDescription = "Podaj nazwę pliku zawierającego numery seryjne komputerów";
         public static readonly string ComputerLogsFolderDescription = "Podaj lokalizację zawierająca logi komputera";
+        public static readonly string CheckLogsBeforeStartUpDescription = "Ustaw czy podczas uruchomienia logi mają być odświeżane";
 
         private void CloseButton_Click(object sender, EventArgs e)
         {
@@ -244,6 +245,7 @@ namespace Settings
                 TerminalLogsFileTextBox.Text = PuzzelLibrary.Settings.Values.TerminalLogsFile;
                 ComputerSNFileTextBox.Text = PuzzelLibrary.Settings.Values.ComputerSNFile;
                 ComputerLogsFolderTextBox.Text = PuzzelLibrary.Settings.Values.ComputerLogsFolder;
+                CheckLogsBeforeStartUpCheck.Checked = PuzzelLibrary.Settings.Values.CheckLogsBeforeStartUp;
             }
             else
             {
@@ -267,6 +269,7 @@ namespace Settings
                 PuzzelLibrary.Settings.Values.TerminalLogsFile = TerminalLogsFileTextBox.Text;
                 PuzzelLibrary.Settings.Values.ComputerLogsFolder = ComputerLogsFolderTextBox.Text;
                 PuzzelLibrary.Settings.Values.ComputerSNFile = ComputerSNFileTextBox.Text;
+                PuzzelLibrary.Settings.Values.CheckLogsBeforeStartUp = CheckLogsBeforeStartUpCheck.Checked;
             }
         }
 

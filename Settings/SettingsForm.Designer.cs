@@ -53,6 +53,11 @@
             this.AutoStartUpdateBox = new System.Windows.Forms.GroupBox();
             this.AutoStartUpdateCheck = new System.Windows.Forms.CheckBox();
             this.Logs = new System.Windows.Forms.TabPage();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.ComputerLogsFolderTextBox = new System.Windows.Forms.TextBox();
+            this.ComputerLogsFolderLabel = new System.Windows.Forms.Label();
+            this.ComputerSNFileTextBox = new System.Windows.Forms.TextBox();
+            this.ComputerSNFileLabel = new System.Windows.Forms.Label();
             this.TerminalLogsBox = new System.Windows.Forms.GroupBox();
             this.TerminalLogsSNFileTextBox = new System.Windows.Forms.TextBox();
             this.TerminalLogsSNFileLabel = new System.Windows.Forms.Label();
@@ -68,11 +73,8 @@
             this.DescriptionBox = new System.Windows.Forms.GroupBox();
             this.DescriptionLabel = new System.Windows.Forms.Label();
             this.RestoreDefaultButton = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.ComputerLogsFolderTextBox = new System.Windows.Forms.TextBox();
-            this.ComputerLogsFolderLabel = new System.Windows.Forms.Label();
-            this.ComputerSNFileTextBox = new System.Windows.Forms.TextBox();
-            this.ComputerSNFileLabel = new System.Windows.Forms.Label();
+            this.CheckLogsBeforeStartUpBox = new System.Windows.Forms.GroupBox();
+            this.CheckLogsBeforeStartUpCheck = new System.Windows.Forms.CheckBox();
             this.TabSettings.SuspendLayout();
             this.GeneralPage.SuspendLayout();
             this.CustomValueBox.SuspendLayout();
@@ -86,11 +88,12 @@
             this.localUpdateBox.SuspendLayout();
             this.AutoStartUpdateBox.SuspendLayout();
             this.Logs.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.TerminalLogsBox.SuspendLayout();
             this.Other.SuspendLayout();
             this.AutomaticallyAllowBox.SuspendLayout();
             this.DescriptionBox.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.CheckLogsBeforeStartUpBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // SaveButton
@@ -400,15 +403,73 @@
             // 
             // Logs
             // 
+            this.Logs.Controls.Add(this.CheckLogsBeforeStartUpBox);
             this.Logs.Controls.Add(this.groupBox1);
             this.Logs.Controls.Add(this.TerminalLogsBox);
             this.Logs.Location = new System.Drawing.Point(4, 24);
-            this.Logs.Name = "TerminalLogsTab";
+            this.Logs.Name = "Logs";
             this.Logs.Padding = new System.Windows.Forms.Padding(3);
             this.Logs.Size = new System.Drawing.Size(768, 378);
             this.Logs.TabIndex = 3;
             this.Logs.Text = "Logi";
             this.Logs.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.ComputerLogsFolderTextBox);
+            this.groupBox1.Controls.Add(this.ComputerLogsFolderLabel);
+            this.groupBox1.Controls.Add(this.ComputerSNFileTextBox);
+            this.groupBox1.Controls.Add(this.ComputerSNFileLabel);
+            this.groupBox1.Location = new System.Drawing.Point(20, 155);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(470, 115);
+            this.groupBox1.TabIndex = 1;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Wymagane do zbierania danych o komputerach";
+            // 
+            // ComputerLogsFolderTextBox
+            // 
+            this.ComputerLogsFolderTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ComputerLogsFolderTextBox.Location = new System.Drawing.Point(165, 22);
+            this.ComputerLogsFolderTextBox.Name = "ComputerLogsFolderTextBox";
+            this.ComputerLogsFolderTextBox.Size = new System.Drawing.Size(299, 23);
+            this.ComputerLogsFolderTextBox.TabIndex = 8;
+            this.ComputerLogsFolderTextBox.TextChanged += new System.EventHandler(this.OnChangeSaveProperty);
+            this.ComputerLogsFolderTextBox.MouseEnter += new System.EventHandler(this.MouseOn);
+            this.ComputerLogsFolderTextBox.MouseLeave += new System.EventHandler(this.MouseOut);
+            // 
+            // ComputerLogsFolderLabel
+            // 
+            this.ComputerLogsFolderLabel.AutoSize = true;
+            this.ComputerLogsFolderLabel.Location = new System.Drawing.Point(6, 66);
+            this.ComputerLogsFolderLabel.Name = "ComputerLogsFolderLabel";
+            this.ComputerLogsFolderLabel.Size = new System.Drawing.Size(146, 15);
+            this.ComputerLogsFolderLabel.TabIndex = 6;
+            this.ComputerLogsFolderLabel.Text = "Plik z numerami seryjnymi";
+            this.ComputerLogsFolderLabel.MouseEnter += new System.EventHandler(this.MouseOn);
+            this.ComputerLogsFolderLabel.MouseLeave += new System.EventHandler(this.MouseOut);
+            // 
+            // ComputerSNFileTextBox
+            // 
+            this.ComputerSNFileTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ComputerSNFileTextBox.Location = new System.Drawing.Point(165, 62);
+            this.ComputerSNFileTextBox.Name = "ComputerSNFileTextBox";
+            this.ComputerSNFileTextBox.Size = new System.Drawing.Size(299, 23);
+            this.ComputerSNFileTextBox.TabIndex = 7;
+            this.ComputerSNFileTextBox.TextChanged += new System.EventHandler(this.OnChangeSaveProperty);
+            this.ComputerSNFileTextBox.MouseEnter += new System.EventHandler(this.MouseOn);
+            this.ComputerSNFileTextBox.MouseLeave += new System.EventHandler(this.MouseOut);
+            // 
+            // ComputerSNFileLabel
+            // 
+            this.ComputerSNFileLabel.AutoSize = true;
+            this.ComputerSNFileLabel.Location = new System.Drawing.Point(6, 26);
+            this.ComputerSNFileLabel.Name = "ComputerSNFileLabel";
+            this.ComputerSNFileLabel.Size = new System.Drawing.Size(88, 15);
+            this.ComputerSNFileLabel.TabIndex = 9;
+            this.ComputerSNFileLabel.Text = "Folder z logami";
+            this.ComputerSNFileLabel.MouseEnter += new System.EventHandler(this.MouseOn);
+            this.ComputerSNFileLabel.MouseLeave += new System.EventHandler(this.MouseOut);
             // 
             // TerminalLogsBox
             // 
@@ -583,103 +644,71 @@
             this.RestoreDefaultButton.UseVisualStyleBackColor = true;
             this.RestoreDefaultButton.Click += new System.EventHandler(this.RestoreDefaultSettings);
             // 
-            // groupBox1
+            // CheckLogsBeforeStartUpBox
             // 
-            this.groupBox1.Controls.Add(this.ComputerLogsFolderTextBox);
-            this.groupBox1.Controls.Add(this.ComputerLogsFolderLabel);
-            this.groupBox1.Controls.Add(this.ComputerSNFileTextBox);
-            this.groupBox1.Controls.Add(this.ComputerSNFileLabel);
-            this.groupBox1.Location = new System.Drawing.Point(20, 155);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(470, 115);
-            this.groupBox1.TabIndex = 1;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Wymagane do zbierania danych o komputerach";
+            this.CheckLogsBeforeStartUpBox.Controls.Add(this.CheckLogsBeforeStartUpCheck);
+            this.CheckLogsBeforeStartUpBox.Location = new System.Drawing.Point(513, 11);
+            this.CheckLogsBeforeStartUpBox.Name = "CheckLogsBeforeStartUpBox";
+            this.CheckLogsBeforeStartUpBox.Size = new System.Drawing.Size(239, 45);
+            this.CheckLogsBeforeStartUpBox.TabIndex = 2;
+            this.CheckLogsBeforeStartUpBox.TabStop = false;
+            this.CheckLogsBeforeStartUpBox.Text = "Odświeżaniu logów przy uruchomieniu";
             // 
-            // ComputerLogsFolderTextBox
+            // ReloadLogsOnStartUpBoxCheck
             // 
-            this.ComputerLogsFolderTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ComputerLogsFolderTextBox.Location = new System.Drawing.Point(165, 62);
-            this.ComputerLogsFolderTextBox.Name = "ComputerLogsFolderTextBox";
-            this.ComputerLogsFolderTextBox.Size = new System.Drawing.Size(299, 23);
-            this.ComputerLogsFolderTextBox.TabIndex = 8;
-            this.ComputerLogsFolderTextBox.TextChanged += new System.EventHandler(this.OnChangeSaveProperty);
-            this.ComputerLogsFolderTextBox.MouseEnter += new System.EventHandler(this.MouseOn);
-            this.ComputerLogsFolderTextBox.MouseLeave += new System.EventHandler(this.MouseOut);
-            // 
-            // ComputerLogsFolderLabel
-            // 
-            this.ComputerLogsFolderLabel.AutoSize = true;
-            this.ComputerLogsFolderLabel.Location = new System.Drawing.Point(6, 66);
-            this.ComputerLogsFolderLabel.Name = "ComputerLogsFolderLabel";
-            this.ComputerLogsFolderLabel.Size = new System.Drawing.Size(146, 15);
-            this.ComputerLogsFolderLabel.TabIndex = 6;
-            this.ComputerLogsFolderLabel.Text = "Plik z numerami seryjnymi";
-            this.ComputerLogsFolderLabel.MouseEnter += new System.EventHandler(this.MouseOn);
-            this.ComputerLogsFolderLabel.MouseLeave += new System.EventHandler(this.MouseOut);
-            // 
-            // ComputerSNFileTextBox
-            // 
-            this.ComputerSNFileTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ComputerSNFileTextBox.Location = new System.Drawing.Point(165, 22);
-            this.ComputerSNFileTextBox.Name = "ComputerSNFileTextBox";
-            this.ComputerSNFileTextBox.Size = new System.Drawing.Size(299, 23);
-            this.ComputerSNFileTextBox.TabIndex = 7;
-            this.ComputerSNFileTextBox.TextChanged += new System.EventHandler(this.OnChangeSaveProperty);
-            this.ComputerSNFileTextBox.MouseEnter += new System.EventHandler(this.MouseOn);
-            this.ComputerSNFileTextBox.MouseLeave += new System.EventHandler(this.MouseOut);
-            // 
-            // ComputerSNFileLabel
-            // 
-            this.ComputerSNFileLabel.AutoSize = true;
-            this.ComputerSNFileLabel.Location = new System.Drawing.Point(6, 26);
-            this.ComputerSNFileLabel.Name = "ComputerSNFileLabel";
-            this.ComputerSNFileLabel.Size = new System.Drawing.Size(88, 15);
-            this.ComputerSNFileLabel.TabIndex = 9;
-            this.ComputerSNFileLabel.Text = "Folder z logami";
-            this.ComputerSNFileLabel.MouseEnter += new System.EventHandler(this.MouseOn);
-            this.ComputerSNFileLabel.MouseLeave += new System.EventHandler(this.MouseOut);
+            this.CheckLogsBeforeStartUpCheck.AutoSize = true;
+            this.CheckLogsBeforeStartUpCheck.Location = new System.Drawing.Point(7, 22);
+            this.CheckLogsBeforeStartUpCheck.Name = "CheckLogsBeforeStartUpCheck";
+            this.CheckLogsBeforeStartUpCheck.Size = new System.Drawing.Size(83, 19);
+            this.CheckLogsBeforeStartUpCheck.TabIndex = 0;
+            this.CheckLogsBeforeStartUpCheck.Text = "Wyłączone";
+            this.CheckLogsBeforeStartUpCheck.UseVisualStyleBackColor = true;
+            this.CheckLogsBeforeStartUpCheck.CheckedChanged += new System.EventHandler(this.ChangeChecked);
+            this.CheckLogsBeforeStartUpCheck.MouseEnter += new System.EventHandler(this.MouseOn);
+            this.CheckLogsBeforeStartUpCheck.MouseLeave += new System.EventHandler(this.MouseOut);
             // 
             // SettingsForm
             // 
-            ((System.ComponentModel.ISupportInitialize)(this.NumbersOfCompLogs)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NumbersOfUserLogs)).EndInit();
-            this.AutomaticallyAllowBox.PerformLayout();
-            this.AutomaticallyAllowBox.ResumeLayout(false);
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoStartUpdateBox.PerformLayout();
-            this.AutoStartUpdateBox.ResumeLayout(false);
             this.ClientSize = new System.Drawing.Size(799, 450);
             this.Controls.Add(this.CloseButton);
             this.Controls.Add(this.DescriptionBox);
             this.Controls.Add(this.RestoreDefaultButton);
             this.Controls.Add(this.SaveButton);
             this.Controls.Add(this.TabSettings);
-            this.CustomSourceBox.PerformLayout();
-            this.CustomSourceBox.ResumeLayout(false);
-            this.CustomValueBox.PerformLayout();
-            this.CustomValueBox.ResumeLayout(false);
-            this.DescriptionBox.PerformLayout();
-            this.DescriptionBox.ResumeLayout(false);
-            this.GeneralPage.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.HistoryLogBox.PerformLayout();
-            this.HistoryLogBox.ResumeLayout(false);
-            this.localUpdateBox.PerformLayout();
-            this.localUpdateBox.ResumeLayout(false);
             this.Name = "SettingsForm";
-            this.Other.ResumeLayout(false);
-            this.SessionShortcutBox.PerformLayout();
-            this.SessionShortcutBox.ResumeLayout(false);
-            this.SessionTab.ResumeLayout(false);
-            this.TabSettings.ResumeLayout(false);
-            this.TerminalLogsBox.PerformLayout();
-            this.TerminalLogsBox.ResumeLayout(false);
-            this.Logs.ResumeLayout(false);
             this.Text = "Ustawienia";
+            this.TabSettings.ResumeLayout(false);
+            this.GeneralPage.ResumeLayout(false);
+            this.CustomValueBox.ResumeLayout(false);
+            this.CustomValueBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NumbersOfUserLogs)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumbersOfCompLogs)).EndInit();
+            this.HistoryLogBox.ResumeLayout(false);
+            this.HistoryLogBox.PerformLayout();
+            this.SessionTab.ResumeLayout(false);
+            this.SessionShortcutBox.ResumeLayout(false);
+            this.SessionShortcutBox.PerformLayout();
+            this.CustomSourceBox.ResumeLayout(false);
+            this.CustomSourceBox.PerformLayout();
             this.UpdaterTab.ResumeLayout(false);
+            this.localUpdateBox.ResumeLayout(false);
+            this.localUpdateBox.PerformLayout();
+            this.AutoStartUpdateBox.ResumeLayout(false);
+            this.AutoStartUpdateBox.PerformLayout();
+            this.Logs.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.TerminalLogsBox.ResumeLayout(false);
+            this.TerminalLogsBox.PerformLayout();
+            this.Other.ResumeLayout(false);
+            this.AutomaticallyAllowBox.ResumeLayout(false);
+            this.AutomaticallyAllowBox.PerformLayout();
+            this.DescriptionBox.ResumeLayout(false);
+            this.DescriptionBox.PerformLayout();
+            this.CheckLogsBeforeStartUpBox.ResumeLayout(false);
+            this.CheckLogsBeforeStartUpBox.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -731,6 +760,8 @@
         private System.Windows.Forms.TextBox TerminalLogsFileTextBox;
         private System.Windows.Forms.TextBox TerminalLogsFolderTextBox;
         private System.Windows.Forms.TextBox TerminalLogsSNFileTextBox;
+        private System.Windows.Forms.GroupBox CheckLogsBeforeStartUpBox;
+        private System.Windows.Forms.CheckBox CheckLogsBeforeStartUpCheck;
     }
 }
 

@@ -11,6 +11,7 @@ namespace PuzzelLibrary.Settings
         public static decimal CompMaxLogs { get; set; }
         public static bool CustomSource { get; set; }
         public static string CustomSourceData { get; set; }
+        public static bool CheckLogsBeforeStartUp { get; set; }
         public static bool AutoOpenPort { get; set; }
         public static bool AutoUnlockFirewall { get; set; }
         public static bool SaveUserData { get; set; }
