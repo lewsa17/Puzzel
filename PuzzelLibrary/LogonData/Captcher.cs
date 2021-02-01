@@ -6,6 +6,7 @@ using PuzzelLibrary.Settings;
 using System.ComponentModel;
 using System.DirectoryServices;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PuzzelLibrary.LogonData
 {
