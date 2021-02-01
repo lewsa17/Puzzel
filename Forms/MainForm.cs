@@ -313,7 +313,7 @@ namespace Forms
             if (!string.IsNullOrWhiteSpace(name))
             {
                 PuzzelLibrary.LogonData.Captcher captcher = new();
-                var warnings = captcher.CheckLogs(name);
+                var warnings = captcher.CheckLogs(name, kindOf);
                 if (!string.IsNullOrEmpty(warnings))
                     ReplaceRichTextBox(warnings);
                 else

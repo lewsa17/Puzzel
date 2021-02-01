@@ -176,12 +176,18 @@ namespace PuzzelLibrary.LogonData
             }
             return sb.ToString();
         }
-        public string CheckLogs(string pole)
+        public string CheckLogs(string pole, string kindOf)
         {
             if (!Directory.Exists(logsDirectory))
                 return ("Brak dostępu do zasobu");
             if (IsInvalidChar(pole))
                 return ("Użyto niedozwolonych znaków w nazwie");
+            if (kindOf == "User")
+                if (UserNameDB.ADUserDB.FindAll(x => x.UserName.Contains(pole)).Count == 0)
+                    return ("Brak użytkownika w cache");
+            if (kindOf == "Computer")
+                if (ComputerNameDB.ADComputerDB.FindAll(x => x.Name.Contains(pole)).Count == 0)
+                    return ("Brak nazwy komputera w logach");
             return "";
         }
 
