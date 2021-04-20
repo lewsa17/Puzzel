@@ -608,10 +608,13 @@ namespace Forms
                                         sessions.ContinueWith(antecedent =>
                                         {
                                             comboBoxFindedSessions.Invoke(new MethodInvoker(() =>
-                                    {
-                                        if (antecedent.Result != null)
-                                            comboBoxFindedSessions.Items.Add(antecedent.Result.SessionId + " " + antecedent.Result.Server.ServerName);
-                                    }));
+                                            {
+                                                if (antecedent.Result != null)
+                                                {
+                                                    comboBoxFindedSessions.Items.Add(antecedent.Result.SessionId + " " + antecedent.Result.Server.ServerName);
+                                                    comboBoxFindedSessions.Text = comboBoxFindedSessions.Items[0].ToString();
+                                                }
+                                            }));
                                         }, TaskContinuationOptions.OnlyOnRanToCompletion);
                                     }, TaskContinuationOptions.OnlyOnRanToCompletion);
                                 });
@@ -624,12 +627,12 @@ namespace Forms
                 finally
                 {
                     Thread.Sleep(8000);
-                        comboBoxFindedSessions.Invoke(new MethodInvoker(() =>
-                        {
-                            if (comboBoxFindedSessions.Items.Count > 0)
-                                comboBoxFindedSessions.SelectedIndex = 0;
-                        }));
-                        StopTime();
+                    comboBoxFindedSessions.Invoke(new MethodInvoker(() =>
+                    {
+                        if (comboBoxFindedSessions.Items.Count > 0)
+                            comboBoxFindedSessions.SelectedIndex = 0;
+                    }));
+                    StopTime();
                 }
             });
             th.Start();
