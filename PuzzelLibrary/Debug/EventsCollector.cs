@@ -10,7 +10,7 @@ namespace PuzzelLibrary.Debug
 {
     public class EventsCollector
     {
-        public string QueryActiveLog(string logName, string queryString, DateTime time)
+        public string GetLocalLog(string logName, string queryString, DateTime time)
         {
             StringBuilder sb = new StringBuilder();
             var eventsQuery = new EventLogQuery(logName, PathType.LogName, queryString) { ReverseDirection = true, TolerateQueryErrors = true };

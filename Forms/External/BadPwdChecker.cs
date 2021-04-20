@@ -22,7 +22,7 @@ namespace Forms.External
             var query = string.Format("*[System/TimeCreated/@SystemTime >= '{0}'] and *[System/TimeCreated/@SystemTime <= '{1}']",
                 StartDateRangePicker.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"), EndDateRangePicker.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"));
             if (string.IsNullOrEmpty(LocationText.Text))
-                TextLogView.Text = ec.QueryActiveLog("Security", query, StartDateRangePicker.Value);
+                TextLogView.Text = ec.GetLocalLog("Security", query, StartDateRangePicker.Value);
             if (string.IsNullOrEmpty(LocationText.Text) && LocationText.ReadOnly)
             {
                 //TO DO
