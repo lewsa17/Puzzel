@@ -257,13 +257,14 @@ namespace Forms
         private void BtnBadPwdFinderLogs(object sender, EventArgs e)
         {
             Forms.External.BadPwdChecker badPwdForm;
-            if (((ToolStripMenuItem)sender).Name.Contains("Computer"))
+            if (sender == BadLogonOnComputer)
             {
                 badPwdForm = new(HostName());
             }
-            else
+            else if (sender == MotpLogons)
             {
-                badPwdForm = new("DomainHub", UserName());
+                //TODO
+                badPwdForm = new(string.Empty);
             }
             badPwdForm.ShowDialog();
         }

@@ -18,6 +18,7 @@ namespace Forms.External
             get => _titleName;
             set => _titleName = value;
         }
+        public string[] MotpSevers { get; set; }
         public BadPwdChecker(string TitleName)
         {
             this.TitleName = TitleName;
@@ -35,7 +36,15 @@ namespace Forms.External
             LocationText.Text = TitleName;
             GetLastBadPasswordAttempt();
         }
+        public BadPwdChecker(string[] motpServers)
+        {
+            MotpSevers = motpServers;
+            this.TitleName = TitleName;
+            InitializeComponent();
+            InitializeTip();
+            LocationText.Text = TitleName;
 
+        }
         private string DomainController { get; set; }
         private void GetLastBadPasswordAttempt()
         {
@@ -90,6 +99,12 @@ namespace Forms.External
             if (!string.IsNullOrEmpty(LocationText.Text))
             {
                 TextLogView.Text = ec.GetRemoteLog(LocationText.Text, "Security", query);
+            }
+
+            //Wyszukiwanie na serwerzer motp
+            if (string.Equals(LocationText.Text, "motp", StringComparison.OrdinalIgnoreCase))
+            {
+                TextLogView.Text = ec.GetRemoteLog(LocationText.Text, /*TODO*/ "", query);
             }
         }
         private void InitializeTip()

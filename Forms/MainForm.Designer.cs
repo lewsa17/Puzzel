@@ -99,6 +99,7 @@
             this.menuItemComputerInfoDisplay = new();
             this.BadLogonOnComputer = new();
             this.BadLogonOnDomainHub = new();
+            this.MotpLogons = new();
             this.TerminalCustomData = new();
             this.ComputerCustomData = new();
             this.menuItemComputerInfoBios = new();
@@ -1118,6 +1119,7 @@
             this.TerminalCustomData,
             this.BadLogonOnDomainHub,
             this.BadLogonOnComputer,
+            this.MotpLogons,
             new System.Windows.Forms.ToolStripSeparator(),
             this.menuItemTermimalExplorer,
             this.menuItemComputerExplorer,
@@ -1146,6 +1148,12 @@
             this.ComputerCustomData.Name = "ComputerCustomData";
             this.ComputerCustomData.Text = "Niestandardowe logi dla komputerów";
             this.ComputerCustomData.Click += new(this.BtnCustomFinderLogs);
+            //
+            // MotpLogons
+            //
+            this.MotpLogons.Name = "MotpLogons";
+            this.MotpLogons.Text = "Wyszukiwanie prób logowania (motp)";
+            this.MotpLogons.Click += new(this.BtnBadPwdFinderLogs);
             //
             // BadLogonOnDomainHub
             //
@@ -1410,6 +1418,7 @@
         private System.Windows.Forms.ToolStripMenuItem ComputerCustomData;
         private System.Windows.Forms.ToolStripMenuItem BadLogonOnDomainHub;
         private System.Windows.Forms.ToolStripMenuItem BadLogonOnComputer;
+        private System.Windows.Forms.ToolStripMenuItem MotpLogons;
         private System.Windows.Forms.ToolStripMenuItem menuItemTermimalExplorer;
         private System.Windows.Forms.ToolStripMenuItem menuItemComputerExplorer;
         private System.Windows.Forms.ToolStripMenuItem menuItemCustomName;
