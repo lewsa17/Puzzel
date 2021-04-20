@@ -233,14 +233,6 @@ namespace PuzzelLibrary.LogonData
                     return true;
                 }
             }
-            //foreach (char invalidPathChar in Path.GetInvalidFileNameChars())
-            //{
-            //    if (path.Contains(invalidPathChar))
-            //    {
-            //        MessageBox.Show("Użyto niedozwolonych znaków w nazwie");
-            //        return true;
-            //    }
-            //}
             return false;
         }
         public ComputerNameDB.ComputerNameEntry[] ComputerNames(string pole)
