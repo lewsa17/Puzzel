@@ -583,6 +583,7 @@ namespace Forms
         private void FindSessionBtn_Click(object sender, EventArgs e)
         {
             comboBoxFindedSessions.Items.Clear();
+            comboBoxFindedSessions.Text = string.Empty;
             Task th = new Task(() =>
             {
                 try
