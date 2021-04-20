@@ -10,35 +10,25 @@ namespace PuzzelLibrary.Debug
 {
     public class EventsCollector
     {
-        public string QueryActiveLog(string logName, string queryString, DateTime? time)
+        public string QueryActiveLog(string logName, string queryString, DateTime time)
         {
             StringBuilder sb = new StringBuilder();
             var eventsQuery = new EventLogQuery(logName, PathType.LogName, queryString) { ReverseDirection = true, TolerateQueryErrors = true };
-            var eventinformation = eventsQuery.Session.GetLogInformation("Security", PathType.LogName);
-            var eventCount = eventinformation.OldestRecordNumber;
+            var evtInfo = eventsQuery.Session.GetLogInformation("Security", PathType.LogName);
             using (var logReader = new EventLogReader(eventsQuery))
             {
-                long? i = 0;
-                long? max = eventinformation.RecordCount + eventCount;
-                while (max >= eventCount)
+                while (true)
                 {
-                    var record1 = logReader.ReadEvent();
-                    if (record1 == null) break;
-                    if (record1.TimeCreated >= time)
+                    var evtRecord = logReader.ReadEvent();
+                    if (evtRecord == null) break;
+                    sb.Append("-------------------\n");
+                    sb.Append(evtRecord.TimeCreated.Value.ToString("F"));
+                    sb.Append("\n");
+                    foreach (var evtProps in evtRecord.Properties)
                     {
-                        i = record1.RecordId;
-                        if (i <= max && i >= eventCount)
-                        {
-                            var record = record1.Properties;
-                            sb.Append("-------------------\n");
-                            sb.Append(record1.TimeCreated.Value.ToString("o"));
-                            foreach (var rec in record)
-                            {
-                                sb.Append("name: " + rec.Value.ToString() + "\t");
-                            }
-                            sb.Append("-------------------\n");
-                        }
+                        sb.Append("name: " + evtProps.Value.ToString() + "\t");
                     }
+                    sb.Append("-------------------\n");
                 }
             }
             return sb.ToString();
