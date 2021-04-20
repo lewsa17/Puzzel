@@ -180,6 +180,8 @@ namespace PuzzelLibrary.LogonData
         {
             if (!Directory.Exists(logsDirectory))
                 return ("Brak dostępu do zasobu");
+            if (!File.Exists(logsDirectory + "Computer\\" + pole + "_logons.log") || (!File.Exists(logsDirectory + "User\\" + pole + "_logons.log")))
+                return ("Brak w logach");
             if (IsInvalidChar(pole))
                 return ("Użyto niedozwolonych znaków w nazwie");
             if (kindOf == "User")
