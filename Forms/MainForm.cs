@@ -260,7 +260,7 @@ namespace Forms
             if (((ToolStripMenuItem)sender).Name.Contains("Computer"))
                 titleName = comboBoxComputer.Text;
             else
-                titleName = "Domain";
+                titleName = "Domain" + comboBoxLogin.Text;
 
             Forms.External.BadPwdChecker badPwdForm = new(titleName);
             badPwdForm.ShowDialog();

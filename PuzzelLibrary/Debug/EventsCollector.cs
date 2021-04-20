@@ -10,33 +10,31 @@ namespace PuzzelLibrary.Debug
 {
     public class EventsCollector
     {
-        public string GetLocalLog(string logName, string queryString, DateTime time)
+        private EventLogQuery CreateQuery(string logName, string queryString)
         {
-            StringBuilder sb = new StringBuilder();
-            var eventsQuery = new EventLogQuery(logName, PathType.LogName, queryString) { ReverseDirection = true, TolerateQueryErrors = true };
-            var evtInfo = eventsQuery.Session.GetLogInformation("Security", PathType.LogName);
-            using (var logReader = new EventLogReader(eventsQuery))
+            return new EventLogQuery(logName, PathType.LogName, queryString)
             {
-                while (true)
-                {
-                    var evtRecord = logReader.ReadEvent();
-                    if (evtRecord == null) break;
-                    sb.Append("-------------------\n");
-                    sb.Append(evtRecord.TimeCreated.Value.ToString("F"));
-                    sb.Append("\n");
-                    foreach (var evtProps in evtRecord.Properties)
-                    {
-                        sb.Append("name: " + evtProps.Value.ToString() + "\t");
-                    }
-                    sb.Append("-------------------\n");
-                }
-            }
-            return sb.ToString();
+                ReverseDirection = true,
+                TolerateQueryErrors = true
+            };
         }
 
-        public void QueryExternalFile(string queryString, string eventLogLocation)
+        private EventLogInformation GetLogInformation(EventLogQuery eventLogQuery)
         {
-            var eventsQuery = new EventLogQuery(eventLogLocation, PathType.FilePath, queryString);
+            return eventLogQuery.Session.GetLogInformation("Security", PathType.LogName);
+        }
+
+
+        public string GetLocalLog(string logName, string queryString)
+        {
+            var eventsQuery = CreateQuery(logName, queryString);
+            var evtInfo = GetLogInformation(eventsQuery);
+            return DisplayEventAndLogInformation(new EventLogReader(eventsQuery));
+        }
+
+        public void QueryExternalFile(string logName, string queryString)
+        {
+            var eventsQuery = new EventLogQuery(logName, PathType.FilePath, queryString);
 
             try
             {
@@ -45,32 +43,28 @@ namespace PuzzelLibrary.Debug
             }
             catch (EventLogNotFoundException e)
             {
-                Debug.LogsCollector.GetLogs(e, eventLogLocation);
+                Debug.LogsCollector.GetLogs(e, logName);
             }
         }
 
-
-
-        public void QueryRemoteComputer(string computerName, string domain, string userName, string queryString)
+        public string QueryRemoteComputer(string computerName, string logName, string queryString)
         {
-            System.Security.SecureString pw = GetPassword();
+            EventLogSession session = new EventLogSession(computerName);
 
-            EventLogSession session = new EventLogSession("RemoteComputerName");
-
-            EventLogQuery query = new EventLogQuery("Application", PathType.LogName, queryString);
+            EventLogQuery query = CreateQuery(logName, queryString);
             query.Session = session;
 
             try
             {
-
                 var logReader = new EventLogReader(query);
-                DisplayEventAndLogInformation(logReader);
+                return DisplayEventAndLogInformation(logReader);
             }
 
             catch (EventLogNotFoundException e)
             {
-                Debug.LogsCollector.GetLogs(e, computerName + "," + domain + "," + userName);
+                Debug.LogsCollector.GetLogs(e, computerName);
             }
+            return string.Empty;
         }
 
         public System.Security.SecureString GetPassword()
@@ -104,20 +98,21 @@ namespace PuzzelLibrary.Debug
             password.MakeReadOnly();
             return password;
         }
-        private void DisplayEventAndLogInformation(EventLogReader logReader)
+        private string DisplayEventAndLogInformation(EventLogReader logReader)
         {
-
-            EventRecord eventInstance = logReader.ReadEvent();
-            while (eventInstance != null)
+            StringBuilder sb = new StringBuilder();
+            while (true)
             {
+                EventRecord eventInstance = logReader.ReadEvent();
+                if (eventInstance == null) break;
 
-                Console.WriteLine("-----------------------------------------------------");
-                Console.WriteLine("Event ID: {0}", eventInstance.Id);
-                Console.WriteLine("Publisher: {0}", eventInstance.ProviderName);
+                sb.Append("-----------------------------------------------------\n");
+                sb.Append(string.Format("Event ID: {0}\n", eventInstance.Id));
+                sb.Append(string.Format("Publisher: {0}\n", eventInstance.ProviderName));
 
                 try
                 {
-                    Console.WriteLine("Description: {0}", eventInstance.FormatDescription());
+                    sb.Append(string.Format("Description: {0}\n", eventInstance.FormatDescription()));
                 }
                 catch (EventLogException e)
                 {
@@ -125,12 +120,10 @@ namespace PuzzelLibrary.Debug
                     Debug.LogsCollector.GetLogs(e, logReader.ToString());
                 }
 
-                eventInstance = logReader.ReadEvent();
-
                 EventLogRecord logRecord = ((EventLogRecord)eventInstance);
-                Console.WriteLine("Container Event Log: {0}", logRecord.ContainerLog);
+                sb.Append(string.Format("Container Event Log: {0}\n", logRecord.ContainerLog));
             }
-
+            return sb.ToString();
         }
     }
 }
