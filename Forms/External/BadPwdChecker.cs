@@ -48,7 +48,7 @@ namespace Forms.External
 
             if (!string.IsNullOrEmpty(LocationText.Text))
             {
-                TextLogView.Text = ec.QueryRemoteComputer("localhost", "Security", query);
+                TextLogView.Text = ec.QueryRemoteComputer(LocationText.Text, "Security", query);
             }
         }
         private void InitializeTip()
