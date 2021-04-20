@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.Threading.Tasks;
 
 namespace Forms.External
 {
@@ -32,6 +33,38 @@ namespace Forms.External
             InitializeTip();
             LocationText.ReadOnly = true;
             LocationText.Text = TitleName;
+            GetLastBadPasswordAttempt();
+        }
+
+        private string DomainController { get; set; }
+        private void GetLastBadPasswordAttempt()
+        {
+            string[] DomainControllers = null;
+            Task.Run(() => DomainControllers = PuzzelLibrary.AD.Other.Domain.GetCurrentDomainControllers()).ContinueWith(nextTask => {
+                DateTime lastBadPwd = DateTime.MinValue;
+                var pd = new PuzzelLibrary.AD.User.Information.PasswordDetails();
+                foreach (var domainController in DomainControllers)
+                {
+                    Task.Run(() =>
+                    {
+                        pd.GetUserPasswordDetails(UserName, domainController);
+                        if (lastBadPwd < pd.lastBadPasswordAttempt)
+                        {
+                            lastBadPwd = pd.lastBadPasswordAttempt;
+                            DomainController = domainController;
+                            StartDateRangePicker.Invoke(new MethodInvoker(() =>
+                            {
+                                StartDateRangePicker.Value = pd.lastBadPasswordAttempt.AddSeconds(-1);
+                            }));
+                            EndDateRangePicker.Invoke(new MethodInvoker(() =>
+                            {
+                                EndDateRangePicker.Value = pd.lastBadPasswordAttempt.AddSeconds(+1);
+                            }));
+
+                        }
+                    });
+                }
+            });
         }
 
         private void FindButton_Click(object sender, System.EventArgs e)
