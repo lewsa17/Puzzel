@@ -1,7 +1,7 @@
 ﻿
 namespace Forms.External
 {
-    partial class BadPwdChecker
+    partial class EventLogCollector
     {
         /// <summary>
         /// Required designer variable.

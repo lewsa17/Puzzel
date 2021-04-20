@@ -256,7 +256,7 @@ namespace Forms
         }
         private void BtnBadPwdFinderLogs(object sender, EventArgs e)
         {
-            Forms.External.BadPwdChecker badPwdForm;
+            Forms.External.EventLogCollector badPwdForm;
             if (sender == BadLogonOnComputer)
             {
                 badPwdForm = new(HostName());

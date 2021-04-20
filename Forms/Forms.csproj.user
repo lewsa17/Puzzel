@@ -11,7 +11,7 @@
     <Compile Update="Additional\SearchingMainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="External\BadPwdChecker.cs">
+    <Compile Update="External\EventLogCollector.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="External\Explorer\ExplorerForm.cs">

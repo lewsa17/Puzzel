@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Forms.External
 {
-    public partial class BadPwdChecker : Form
+    public partial class EventLogCollector : Form
     {
         private string _userName;
         public string UserName
@@ -19,14 +19,14 @@ namespace Forms.External
             set => _titleName = value;
         }
         public string[] MotpSevers { get; set; }
-        public BadPwdChecker(string TitleName)
+        public EventLogCollector(string TitleName)
         {
             this.TitleName = TitleName;
             InitializeComponent();
             InitializeTip();
             LocationText.Text = TitleName;
         }
-        public BadPwdChecker(string TitleName, string UserName)
+        public EventLogCollector(string TitleName, string UserName)
         {
             this.TitleName = TitleName;
             this.UserName = UserName;
@@ -36,7 +36,7 @@ namespace Forms.External
             LocationText.Text = TitleName;
             GetLastBadPasswordAttempt();
         }
-        public BadPwdChecker(string[] motpServers)
+        public EventLogCollector(string[] motpServers)
         {
             MotpSevers = motpServers;
             this.TitleName = TitleName;
