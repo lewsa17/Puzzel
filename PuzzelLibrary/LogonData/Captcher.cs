@@ -185,11 +185,37 @@ namespace PuzzelLibrary.LogonData
             if (IsInvalidChar(pole))
                 return ("Użyto niedozwolonych znaków w nazwie");
             if (kindOf == "User")
-                if (UserNameDB.ADUserDB.FindAll(x => x.UserName.Contains(pole)).Count == 0)
+            {
+                var usr = UserNameDB.ADUserDB.FindAll(x => x.UserName.Contains(pole));
+                if (usr.Count == 0)
                     return ("Brak użytkownika w cache");
+                else
+                {
+                    for (int i = 0; i < usr.Count; i++)
+                    {
+                        if (File.Exists(logsDirectory + kindOf + "\\" + usr[i].UserName + "_logons.log"))
+                            return "";
+                        else if (i == usr.Count - 1)
+                            return ("Brak w logach");
+                    }
+                }
+            }
             if (kindOf == "Computer")
-                if (ComputerNameDB.ADComputerDB.FindAll(x => x.Name.Contains(pole)).Count == 0)
+            {
+                var comp = ComputerNameDB.ADComputerDB.FindAll(x => x.Name.Contains(pole));
+                if (comp.Count == 0)
                     return ("Brak nazwy komputera w logach");
+                else
+                {
+                    for (int i = 0; i < comp.Count; i++)
+                    {
+                        if (File.Exists(logsDirectory + kindOf + "\\" + comp[i].Name + "_logons.log"))
+                            return "";
+                        else if (i == comp.Count - 1)
+                            return ("Brak w logach");
+                    }
+                }
+            }
             return "";
         }
 
