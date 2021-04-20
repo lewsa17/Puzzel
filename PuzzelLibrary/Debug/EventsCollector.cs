@@ -140,6 +140,7 @@ namespace PuzzelLibrary.Debug
                 EventLogRecord logRecord = ((EventLogRecord)eventInstance);
                 sb.Append(string.Format("Container Event Log: {0}\n", logRecord.ContainerLog));
             }
+            if (sb.Length == 0) { sb.Append("Brak logów"); }
             return sb.ToString();
         }
     }
