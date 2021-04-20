@@ -36,9 +36,9 @@ namespace PuzzelLibrary.Terminal
             foreach (var session in new Explorer().FindSession(new Explorer().GetRemoteServer(TermServerName), SearchedLogin))
             {
                 data += (TermServerName + " --------------------------------\n");
-                data += ("Nazwa użytkownika     Nazwa Sesji    Id    Status        Czas bezczynności    Czas logowania\n");
+                data += ("Nazwa użytkownika     Nazwa Sesji   IP klienta       Id    Status        Czas bezczynności    Czas logowania\n");
                 SessionIDServer = (session);
-                data = new Explorer().FormatedSession(data, session);
+                data = new Explorer().FormatedSession(data, session); 
             }
             return data;
         }

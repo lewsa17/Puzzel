@@ -29,11 +29,18 @@ namespace PuzzelLibrary.Terminal
                 data += (" ");
 
             data += (session.WindowStationName);
-            for (int i = 0; i < "Nazwa Sesji    ".Length - session.WindowStationName.Length; i++)
+            for (int i = 0; i < "Nazwa Sesji   ".Length - session.WindowStationName.Length; i++)
                 data += (" ");
+            string IPAddress;
+            if (session.ConnectionState != ConnectionState.Disconnected)
+                IPAddress = (session.ClientIPAddress.ToString());
+            else
+                IPAddress = "niedostępne";
+                for (int i = 0; i < "    IP klienta   ".Length - IPAddress.Length; i++)
+                    data += " ";
 
             data += (session.SessionId);
-            for (int i = 0; i < "Id    ".Length - session.SessionId.ToString().Length; i++)
+            for (int i = 0; i < " Id   ".Length - session.SessionId.ToString().Length; i++)
                 data += (" ");
 
             data += (session.ConnectionState);
