@@ -38,7 +38,10 @@ namespace Forms.External
             this.LocationText = new System.Windows.Forms.TextBox();
             this.LocationLabel = new System.Windows.Forms.Label();
             this.TextLogView = new System.Windows.Forms.RichTextBox();
+            this.LogCounter = new System.Windows.Forms.NumericUpDown();
+            this.LogCounterLabel = new System.Windows.Forms.Label();
             this.PanelBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.LogCounter)).BeginInit();
             this.SuspendLayout();
             // 
             // StartDateRangePicker
@@ -51,7 +54,6 @@ namespace Forms.External
             this.StartDateRangePicker.Name = "StartDateRangePicker";
             this.StartDateRangePicker.Size = new System.Drawing.Size(200, 23);
             this.StartDateRangePicker.TabIndex = 2;
-            this.StartDateRangePicker.Format = System.Windows.Forms.DateTimePickerFormat.Time;
             // 
             // EndDateRangePicker
             // 
@@ -65,7 +67,6 @@ namespace Forms.External
             this.EndDateRangePicker.Name = "EndDateRangePicker";
             this.EndDateRangePicker.Size = new System.Drawing.Size(200, 23);
             this.EndDateRangePicker.TabIndex = 3;
-            this.EndDateRangePicker.Format = System.Windows.Forms.DateTimePickerFormat.Time;
             // 
             // FromLabel
             // 
@@ -93,7 +94,7 @@ namespace Forms.External
             // 
             this.FindButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.FindButton.Location = new System.Drawing.Point(575, 52);
+            this.FindButton.Location = new System.Drawing.Point(645, 52);
             this.FindButton.Name = "FindButton";
             this.FindButton.Size = new System.Drawing.Size(75, 23);
             this.FindButton.TabIndex = 4;
@@ -106,6 +107,8 @@ namespace Forms.External
             this.PanelBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.PanelBox.Controls.Add(this.LogCounterLabel);
+            this.PanelBox.Controls.Add(this.LogCounter);
             this.PanelBox.Controls.Add(this.LocationText);
             this.PanelBox.Controls.Add(this.LocationLabel);
             this.PanelBox.Controls.Add(this.FromLabel);
@@ -151,6 +154,26 @@ namespace Forms.External
             this.TextLogView.TabIndex = 6;
             this.TextLogView.Text = "";
             // 
+            // LogCounter
+            // 
+            this.LogCounter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.LogCounter.Location = new System.Drawing.Point(576, 51);
+            this.LogCounter.Name = "LogCounter";
+            this.LogCounter.Size = new System.Drawing.Size(63, 23);
+            this.LogCounter.TabIndex = 8;
+            // 
+            // LogCounterLabel
+            // 
+            this.LogCounterLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.LogCounterLabel.AutoSize = true;
+            this.LogCounterLabel.Location = new System.Drawing.Point(579, 34);
+            this.LogCounterLabel.Name = "LogCounterLabel";
+            this.LogCounterLabel.Size = new System.Drawing.Size(34, 15);
+            this.LogCounterLabel.TabIndex = 9;
+            this.LogCounterLabel.Text = "Ilość:";
+            // 
             // BadPwdChecker
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -162,6 +185,7 @@ namespace Forms.External
             this.Text = "BadPwdChecker";
             this.PanelBox.ResumeLayout(false);
             this.PanelBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.LogCounter)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -177,5 +201,7 @@ namespace Forms.External
         private System.Windows.Forms.TextBox LocationText;
         private System.Windows.Forms.Label LocationLabel;
         private System.Windows.Forms.RichTextBox TextLogView;
+        private System.Windows.Forms.Label LogCounterLabel;
+        private System.Windows.Forms.NumericUpDown LogCounter;
     }
 }

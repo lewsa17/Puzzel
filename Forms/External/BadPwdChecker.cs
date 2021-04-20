@@ -19,7 +19,7 @@ namespace Forms.External
 
         private void FindButton_Click(object sender, System.EventArgs e)
         {
-            PuzzelLibrary.Debug.EventsCollector ec = new PuzzelLibrary.Debug.EventsCollector();
+            PuzzelLibrary.Debug.EventsCollector ec = new PuzzelLibrary.Debug.EventsCollector() { MaxCount = (int)LogCounter.Value };
             string dateFormat = "yyyy-MM-ddTHH:mm:ss.fffffffZ";
             var query = string.Format("*[System/TimeCreated/@SystemTime >= '{0}'] and *[System/TimeCreated/@SystemTime <= '{1}']",
                 StartDateRangePicker.Value.ToUniversalTime().ToString(dateFormat), EndDateRangePicker.Value.ToString(dateFormat));

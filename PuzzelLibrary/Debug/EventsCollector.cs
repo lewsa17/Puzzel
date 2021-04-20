@@ -10,6 +10,21 @@ namespace PuzzelLibrary.Debug
 {
     public class EventsCollector
     {
+        public EventsCollector()
+        {
+        }
+        private int _maxCount;
+        public int MaxCount
+        {
+            get => _maxCount;
+            set
+            {
+                if (value > 100)
+                    _maxCount = 100;
+                else _maxCount = value;
+            }
+
+        }
         private EventLogQuery CreateQuery(string logName, string queryString)
         {
             return new EventLogQuery(logName, PathType.LogName, queryString)
@@ -101,12 +116,14 @@ namespace PuzzelLibrary.Debug
         private string DisplayEventAndLogInformation(EventLogReader logReader)
         {
             StringBuilder sb = new StringBuilder();
-            while (true)
+            int i = 0;
+            while (i++ < MaxCount)
             {
                 EventRecord eventInstance = logReader.ReadEvent();
                 if (eventInstance == null) break;
 
                 sb.Append("-----------------------------------------------------\n");
+                sb.Append(string.Format("TimeCreated: {0}", eventInstance.TimeCreated));
                 sb.Append(string.Format("Event ID: {0}\n", eventInstance.Id));
                 sb.Append(string.Format("Publisher: {0}\n", eventInstance.ProviderName));
 
