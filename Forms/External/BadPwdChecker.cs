@@ -5,10 +5,15 @@ namespace Forms.External
 {
     public partial class BadPwdChecker : Form
     {
-        private static string _TitleName;
+        private string _titleName;
+        public string TitleName
+        {
+            get => _titleName;
+            set => _titleName = value;
+        }
         public BadPwdChecker(string TitleName)
         {
-            _TitleName = TitleName;
+            this.TitleName = TitleName;
             InitializeComponent();
             if (TitleName.Contains("Domain"))
             {
