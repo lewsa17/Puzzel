@@ -15,6 +15,7 @@ namespace Forms.External
                 LocationText.ReadOnly = true;
                 LocationText.Text = "DomainHub";
             }
+            InitializeTip();
         }
 
         private void FindButton_Click(object sender, System.EventArgs e)
@@ -49,6 +50,14 @@ namespace Forms.External
             {
                 TextLogView.Text = ec.QueryRemoteComputer("localhost", "Security", query);
             }
+        }
+        private void InitializeTip()
+        {
+            ToolTip tp = new ToolTip();
+            string LabelCounterText = "Nie polecam ustawiania wysokich liczb, może to skutkować zawieszeniem maszyny odpytywanej\n" +
+                                      "Kontroler domeny jest w stanie wygenerować nawet do 50 wpisów na sekundę.";
+            tp.SetToolTip(LogCounter, LabelCounterText);
+            tp.SetToolTip(LogCounterLabel, LabelCounterText);
         }
     }
 }
