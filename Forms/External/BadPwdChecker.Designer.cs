@@ -45,6 +45,8 @@ namespace Forms.External
             // 
             this.StartDateRangePicker.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.StartDateRangePicker.CustomFormat = "yyyy-MM-dd HH:mm:ss";
+            this.StartDateRangePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.StartDateRangePicker.Location = new System.Drawing.Point(163, 52);
             this.StartDateRangePicker.Name = "StartDateRangePicker";
             this.StartDateRangePicker.Size = new System.Drawing.Size(200, 23);
@@ -55,6 +57,8 @@ namespace Forms.External
             // 
             this.EndDateRangePicker.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.EndDateRangePicker.CustomFormat = "yyyy-MM-dd HH:mm:ss";
+            this.EndDateRangePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.EndDateRangePicker.Location = new System.Drawing.Point(369, 52);
             this.EndDateRangePicker.MaxDate = new System.DateTime(2030, 12, 31, 0, 0, 0, 0);
             this.EndDateRangePicker.MinDate = new System.DateTime(2020, 1, 1, 0, 0, 0, 0);
