@@ -73,15 +73,20 @@ namespace Forms.External
             string dateFormat = "yyyy-MM-ddTHH:mm:ss.fffffffZ";
             var query = string.Format("*[System/TimeCreated/@SystemTime >= '{0}'] and *[System/TimeCreated/@SystemTime <= '{1}']",
                 StartDateRangePicker.Value.ToUniversalTime().ToString(dateFormat), EndDateRangePicker.Value.ToString(dateFormat));
+            var queryDomain = string.Format("*[System/TimeCreated/@SystemTime >= '{0}'] and *[System/TimeCreated/@SystemTime <= '{1}']",
+                StartDateRangePicker.Value.ToUniversalTime().ToString(dateFormat), EndDateRangePicker.Value.ToUniversalTime().ToString(dateFormat));
 
+            //Wyszukiwanie w lokalu / brak danych w polu
             if (string.IsNullOrEmpty(LocationText.Text))
                 TextLogView.Text = ec.GetLocalLog("Security", query);
 
-            if (string.IsNullOrEmpty(LocationText.Text) && LocationText.ReadOnly)
+            //Wyszukiwanie w na kontrolerze domeny / zablokowane pole
+            if (LocationText.ReadOnly)
             {
-                ec.GetRemoteLog(DomainController, "Security", query);
+                ec.GetRemoteLog(DomainController, "Security", queryDomain);
             }
 
+            //Wyszukiwanie na komputerze o nazwie podanej w polu
             if (!string.IsNullOrEmpty(LocationText.Text))
             {
                 TextLogView.Text = ec.GetRemoteLog(LocationText.Text, "Security", query);
