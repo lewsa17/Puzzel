@@ -20,7 +20,6 @@ namespace Forms.External
             if (Username.Length > 1)
             {
                 this.Text = Username;
-                //AddEntry();
             }
         }
         private void menuItemSelectUser_Click(object sender, EventArgs e)
