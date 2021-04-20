@@ -104,122 +104,141 @@ namespace Settings
         }
         private void OnChangeSaveProperty(object sender, EventArgs e)
         {
-            if (sender is ComboBox)
-            { 
-                return;
-            }
-            if (sender is CheckBox check)
+            foreach (var Value in typeof(PuzzelLibrary.Settings.Values).GetProperties())
             {
-                switch (check.Name)
+                if (sender is ComboBox)
                 {
-                    case nameof(HistoryLogCheck):
-                        {
-                            PuzzelLibrary.Settings.Values.HistoryLog = HistoryLogCheck.Checked;
-                            break;
-                        }
-                    case nameof(CustomSourceCheck):
-                        {
-                            PuzzelLibrary.Settings.Values.CustomSource = CustomSourceCheck.Checked;
-                            break; 
-                        }
-                    case nameof(SaveUserDataCheck):
-                        {
-                            PuzzelLibrary.Settings.Values.SaveUserData = SaveUserDataCheck.Checked;
-                            break;
-                        }
-                    case nameof(AutoUnlockFirewallCheck):
-                        {
-                            PuzzelLibrary.Settings.Values.AutoUnlockFirewall = AutoUnlockFirewallCheck.Checked;
-                            break;
-                        }
-                    case nameof(AutoOpenPortCheck):
-                        {
-                            PuzzelLibrary.Settings.Values.AutoOpenPort = AutoOpenPortCheck.Checked;
-                            break;
-                        }
-                    case nameof(LocalUpdateCheck):
-                        {
-                            PuzzelLibrary.Settings.Values.LocalUpdateCheck = LocalUpdateCheck.Checked;
-                            break;
-                        }
-                    case nameof(AutoStartUpdateCheck):
-                        {
-                            PuzzelLibrary.Settings.Values.AutostartUpdateCheck = AutoStartUpdateCheck.Checked;
-                            break;
-                        }
+                    return;
                 }
-                return;
-            }
-            if (sender is TextBox tbx)
-            {
-                switch (tbx.Name)
+                if (sender is CheckBox check)
                 {
-                    case nameof(SessionShortcutText):
-                        {
-                            PuzzelLibrary.Settings.Values.SessionDisconectShortcut = SessionShortcutText.Text;
-                            break;
-                        }
-                    case nameof(LocalUpdateTextBox):
-                        {
-                            PuzzelLibrary.Settings.Values.LocalUpdatePath = LocalUpdateTextBox.Text;
-                            break;
-                        }
-                    case nameof(TerminalLogsFileTextBox):
-                        {
-                            PuzzelLibrary.Settings.Values.TerminalLogsFile = TerminalLogsFileTextBox.Text;
-                            break;
-                        }
-                    case nameof(TerminalLogsFolderTextBox):
-                        {
-                            PuzzelLibrary.Settings.Values.TerminalLogsFolder = TerminalLogsFolderTextBox.Text;
-                            break;
-                        }
-                    case nameof(TerminalLogsSNFileTextBox):
-                        {
-                            PuzzelLibrary.Settings.Values.TerminalLogsSNFile = TerminalLogsSNFileTextBox.Text;
-                            break;
-                        }
-                    case nameof(ComputerLogsFolderTextBox):
-                        {
-                            PuzzelLibrary.Settings.Values.ComputerLogsFolder = ComputerLogsFolderTextBox.Text;
-                            break;
-                        }
-                    case nameof(ComputerSNFileTextBox):
-                        {
-                            PuzzelLibrary.Settings.Values.ComputerSNFile = ComputerSNFileTextBox.Text;
-                            break;
-                        }
+                    if (check.Name.Contains(Value.Name))
+                    {
+                        Value.SetValue(null, check.Checked);
+                    }
+                    switch (check.Name)
+                    {
+                        case nameof(HistoryLogCheck):
+                            {
+                                PuzzelLibrary.Settings.Values.HistoryLog = HistoryLogCheck.Checked;
+                                break;
+                            }
+                        case nameof(CustomSourceCheck):
+                            {
+                                PuzzelLibrary.Settings.Values.CustomSource = CustomSourceCheck.Checked;
+                                break;
+                            }
+                        case nameof(SaveUserDataCheck):
+                            {
+                                PuzzelLibrary.Settings.Values.SaveUserData = SaveUserDataCheck.Checked;
+                                break;
+                            }
+                        case nameof(AutoUnlockFirewallCheck):
+                            {
+                                PuzzelLibrary.Settings.Values.AutoUnlockFirewall = AutoUnlockFirewallCheck.Checked;
+                                break;
+                            }
+                        case nameof(AutoOpenPortCheck):
+                            {
+                                PuzzelLibrary.Settings.Values.AutoOpenPort = AutoOpenPortCheck.Checked;
+                                break;
+                            }
+                        case nameof(LocalUpdateCheck):
+                            {
+                                PuzzelLibrary.Settings.Values.LocalUpdateCheck = LocalUpdateCheck.Checked;
+                                break;
+                            }
+                        case nameof(AutoStartUpdateCheck):
+                            {
+                                PuzzelLibrary.Settings.Values.AutostartUpdateCheck = AutoStartUpdateCheck.Checked;
+                                break;
+                            }
+                    }
+                    return;
                 }
-                return;
-            }
-            if (sender is RichTextBox rtbx)
-            {
-                switch (rtbx.Name)
+                if (sender is TextBox tbx)
                 {
-                    case nameof(CustomSourceTextBox):
-                        {
-                            PuzzelLibrary.Settings.Values.CustomSourceData = CustomSourceTextBox.Text;
-                            break;
-                        }
+                    if (tbx.Name.Contains(Value.Name))
+                    {
+                        Value.SetValue(typeof(PuzzelLibrary.Settings.Values), tbx.Text);
+                    }
+                    switch (tbx.Name)
+                    {
+                        case nameof(SessionShortcutText):
+                            {
+                                PuzzelLibrary.Settings.Values.SessionDisconectShortcut = SessionShortcutText.Text;
+                                break;
+                            }
+                        case nameof(LocalUpdateTextBox):
+                            {
+                                PuzzelLibrary.Settings.Values.LocalUpdatePath = LocalUpdateTextBox.Text;
+                                break;
+                            }
+                        case nameof(TerminalLogsFileTextBox):
+                            {
+                                PuzzelLibrary.Settings.Values.TerminalLogsFile = TerminalLogsFileTextBox.Text;
+                                break;
+                            }
+                        case nameof(TerminalLogsFolderTextBox):
+                            {
+                                PuzzelLibrary.Settings.Values.TerminalLogsFolder = TerminalLogsFolderTextBox.Text;
+                                break;
+                            }
+                        case nameof(TerminalLogsSNFileTextBox):
+                            {
+                                PuzzelLibrary.Settings.Values.TerminalLogsSNFile = TerminalLogsSNFileTextBox.Text;
+                                break;
+                            }
+                        case nameof(ComputerLogsFolderTextBox):
+                            {
+                                PuzzelLibrary.Settings.Values.ComputerLogsFolder = ComputerLogsFolderTextBox.Text;
+                                break;
+                            }
+                        case nameof(ComputerSNFileTextBox):
+                            {
+                                PuzzelLibrary.Settings.Values.ComputerSNFile = ComputerSNFileTextBox.Text;
+                                break;
+                            }
+                    }
+                    return;
                 }
-            return;
-            }
-            if (sender is NumericUpDown numeric)
-            {
-                switch (numeric.Name)
+                if (sender is RichTextBox rtbx)
                 {
-                    case nameof(NumbersOfUserLogs):
-                        {
-                            PuzzelLibrary.Settings.Values.UserMaxLogs = NumbersOfUserLogs.Value;
-                            break;
-                        }
-                    case nameof(NumbersOfCompLogs):
-                        {
-                            PuzzelLibrary.Settings.Values.CompMaxLogs = NumbersOfCompLogs.Value;
-                            break;
-                        }
+                    if (rtbx.Name.Contains(Value.Name))
+                    {
+                        Value.SetValue(null, rtbx.Text);
+                    }
+                    switch (rtbx.Name)
+                    {
+                        case nameof(CustomSourceTextBox):
+                            {
+                                PuzzelLibrary.Settings.Values.CustomSourceData = CustomSourceTextBox.Text;
+                                break;
+                            }
+                    }
+                    return;
                 }
-            return;
+                if (sender is NumericUpDown numeric)
+                {
+                    if (numeric.Name.Contains(Value.Name))
+                    {
+                        Value.SetValue(null, numeric.Value);
+                    }
+                    switch (numeric.Name)
+                    {
+                        case nameof(NumbersOfUserLogs):
+                            {
+                                PuzzelLibrary.Settings.Values.UserMaxLogs = NumbersOfUserLogs.Value;
+                                break;
+                            }
+                        case nameof(NumbersOfCompLogs):
+                            {
+                                PuzzelLibrary.Settings.Values.CompMaxLogs = NumbersOfCompLogs.Value;
+                                break;
+                            }
+                    }
+                    return;
+                }
             }
         }
 
