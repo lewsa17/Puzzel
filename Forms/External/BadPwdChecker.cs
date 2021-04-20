@@ -79,20 +79,7 @@ namespace Forms.External
 
             if (string.IsNullOrEmpty(LocationText.Text) && LocationText.ReadOnly)
             {
-                var domainControllers = PuzzelLibrary.AD.Other.Domain.GetCurrentDomainControllers();
-                string lastUseddomainControllers = string.Empty;
-                DateTime lastBadPwd = DateTime.MinValue;
-                var pd = new PuzzelLibrary.AD.User.Information.PasswordDetails();
-                foreach (var domainController in domainControllers)
-                {
-                    pd.GetUserPasswordDetails(TitleName.Replace("Domain", ""), domainController);
-                    if (lastBadPwd < pd.lastBadPasswordAttempt)
-                    {
-                        lastBadPwd = pd.lastBadPasswordAttempt;
-                        lastUseddomainControllers = domainController;
-                    }
-                }
-                ec.GetRemoteLog(lastUseddomainControllers, "Security", query);
+                ec.GetRemoteLog(DomainController, "Security", query);
             }
 
             if (!string.IsNullOrEmpty(LocationText.Text))
