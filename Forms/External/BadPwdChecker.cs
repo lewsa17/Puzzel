@@ -52,19 +52,19 @@ namespace Forms.External
                 var pd = new PuzzelLibrary.AD.User.Information.PasswordDetails();
                 foreach (var domainController in domainControllers)
                 {
-                    pd.GetUserPasswordDetails(_TitleName.Replace("Domain", ""), domainController);
+                    pd.GetUserPasswordDetails(TitleName.Replace("Domain", ""), domainController);
                     if (lastBadPwd < pd.lastBadPasswordAttempt)
                     {
                         lastBadPwd = pd.lastBadPasswordAttempt;
                         lastUseddomainControllers = domainController;
                     }
                 }
-                ec.QueryRemoteComputer(lastUseddomainControllers, "Security", query);
+                ec.GetRemoteLog(lastUseddomainControllers, "Security", query);
             }
 
             if (!string.IsNullOrEmpty(LocationText.Text))
             {
-                TextLogView.Text = ec.QueryRemoteComputer(LocationText.Text, "Security", query);
+                TextLogView.Text = ec.GetRemoteLog(LocationText.Text, "Security", query);
             }
         }
         private void InitializeTip()

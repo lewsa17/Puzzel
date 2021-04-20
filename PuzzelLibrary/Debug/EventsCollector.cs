@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using Microsoft.PowerShell;
 using System.Diagnostics.Eventing.Reader;
-using System.Threading.Tasks;
 
 namespace PuzzelLibrary.Debug
 {
@@ -23,7 +19,6 @@ namespace PuzzelLibrary.Debug
                     _maxCount = 100;
                 else _maxCount = value;
             }
-
         }
         private EventLogQuery CreateQuery(string logName, string queryString)
         {
@@ -38,7 +33,6 @@ namespace PuzzelLibrary.Debug
         {
             return eventLogQuery.Session.GetLogInformation("Security", PathType.LogName);
         }
-
 
         public string GetLocalLog(string logName, string queryString)
         {
@@ -62,7 +56,7 @@ namespace PuzzelLibrary.Debug
             }
         }
 
-        public string QueryRemoteComputer(string computerName, string logName, string queryString)
+        public string GetRemoteLog(string computerName, string logName, string queryString)
         {
             EventLogSession session = new EventLogSession(computerName);
 
