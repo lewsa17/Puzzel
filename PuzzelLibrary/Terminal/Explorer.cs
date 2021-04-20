@@ -85,17 +85,13 @@ namespace PuzzelLibrary.Terminal
             return server.GetSession(sessionID);
         }
 
-        public IEnumerable<ITerminalServicesSession> FindSession(ITerminalServer server, string SearchedLogin)
+        public ITerminalServicesSession FindSession(ITerminalServer server, string SearchedLogin)
         {
-            IEnumerable<ITerminalServicesSession> session = null;
             try
             {
-                //if (Ping.TCPPing(server.ServerName, 135) == Ping.TCPPingStatus.Success)
-                //{
-                    session = from x in FindSessions(server)
-                              where string.Equals(x.UserName, SearchedLogin, StringComparison.OrdinalIgnoreCase)
-                              select x;
-                //}
+                foreach (var currentSession in FindSessions(server))
+                    if (string.Equals(currentSession.UserName, SearchedLogin, StringComparison.OrdinalIgnoreCase))
+                        return currentSession;
             }
             catch (System.ComponentModel.Win32Exception e)
             {
@@ -105,7 +101,7 @@ namespace PuzzelLibrary.Terminal
             {
                 PuzzelLibrary.Debug.LogsCollector.GetLogs(e, server.ServerName);
             }
-            return session;
+            return null;
         }
 
         public IEnumerable<ITerminalServicesProcess> GetExplorerProcess(ITerminalServer server)
