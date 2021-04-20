@@ -97,6 +97,8 @@
             this.menuItemComputerInfoPath = new();
             this.menuItemComputerInfoNetworkRes = new();
             this.menuItemComputerInfoDisplay = new();
+            this.BadLogonOnComputer = new();
+            this.BadLogonOnDomainHub = new();
             this.TerminalCustomData = new();
             this.ComputerCustomData = new();
             this.menuItemComputerInfoBios = new();
@@ -1109,10 +1111,13 @@
             this.menuItemEventViewer,
             this.menuItemTaskshedule,
             this.menuItemServices,
-            this.ComputerCustomData,
-            this.TerminalCustomData,
             this.menuItemLusrmgr,
             this.menuItemWindowsFirewall,
+            new System.Windows.Forms.ToolStripSeparator(),
+            this.ComputerCustomData,
+            this.TerminalCustomData,
+            this.BadLogonOnDomainHub,
+            this.BadLogonOnComputer,
             new System.Windows.Forms.ToolStripSeparator(),
             this.menuItemTermimalExplorer,
             this.menuItemComputerExplorer,
@@ -1141,6 +1146,18 @@
             this.ComputerCustomData.Name = "ComputerCustomData";
             this.ComputerCustomData.Text = "Niestandardowe logi dla komputerów";
             this.ComputerCustomData.Click += new(this.BtnCustomFinderLogs);
+            //
+            // BadLogonOnDomainHub
+            //
+            this.BadLogonOnDomainHub.Name = "BadLogonOnDomainHub";
+            this.BadLogonOnDomainHub.Text = "Wyszukiwanie prób logowania (domena)";
+            this.BadLogonOnDomainHub.Click += new(this.BtnBadPwdFinderLogs);
+            //
+            // BadLogonOnComputer
+            //
+            this.BadLogonOnComputer.Name = "BadLogonOnComputer";
+            this.BadLogonOnComputer.Text = "Wyszukiwanie prób logowania (komputer)";
+            this.BadLogonOnComputer.Click += new(this.BtnBadPwdFinderLogs);
             //
             // menuItemDHCP
             // 
@@ -1391,6 +1408,8 @@
         private System.Windows.Forms.ToolStripMenuItem contextMenuItemPasteR; 
         private System.Windows.Forms.ToolStripMenuItem TerminalCustomData;
         private System.Windows.Forms.ToolStripMenuItem ComputerCustomData;
+        private System.Windows.Forms.ToolStripMenuItem BadLogonOnDomainHub;
+        private System.Windows.Forms.ToolStripMenuItem BadLogonOnComputer;
         private System.Windows.Forms.ToolStripMenuItem menuItemTermimalExplorer;
         private System.Windows.Forms.ToolStripMenuItem menuItemComputerExplorer;
         private System.Windows.Forms.ToolStripMenuItem menuItemCustomName;

@@ -254,6 +254,17 @@ namespace Forms
             }
             else MessageBox.Show("Brak dostępu do zasobu " + pathName);
         }
+        private void BtnBadPwdFinderLogs(object sender, EventArgs e)
+        {
+            string titleName = default;
+            if (((ToolStripMenuItem)sender).Name.Contains("Computer"))
+                titleName = "Computer";
+            else
+                titleName = "Domain";
+
+            Forms.External.BadPwdChecker badPwdForm = new(((ToolStripMenuItem)sender).Name);
+            badPwdForm.ShowDialog();
+        }
         private LogsData UserData()
         {
             LogsData user = new();
