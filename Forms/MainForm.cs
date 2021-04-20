@@ -266,6 +266,11 @@ namespace Forms
                 //TODO
                 badPwdForm = new(string.Empty);
             }
+            else
+            {
+                badPwdForm = new("DomainHub", UserName());
+            }
+
             badPwdForm.ShowDialog();
         }
         private LogsData UserData()
@@ -641,12 +646,7 @@ namespace Forms
                 finally
                 {
                     Thread.Sleep(8000);
-                    comboBoxFindedSessions.Invoke(new MethodInvoker(() =>
-                    {
-                        if (comboBoxFindedSessions.Items.Count > 0)
-                            comboBoxFindedSessions.SelectedIndex = 0;
-                    }));
-                    StopTime();
+                        StopTime();
                 }
             });
             th.Start();
@@ -1299,7 +1299,7 @@ namespace Forms
         private void OpenSettings(object sender, EventArgs e)
         {
             var settingsForm = new Settings.SettingsForm(this.Name);
-            settingsForm.ShowDialog();
+            settingsForm.Show();
         }
         private void LoadingForm(object sender, EventArgs e)
         {
@@ -1316,11 +1316,8 @@ namespace Forms
             }
         }
         private void ReloadLogs(object sender, EventArgs e)
-        {
-            bool cachedSettings = PuzzelLibrary.Settings.Values.CheckLogsBeforeStartUp;
-            PuzzelLibrary.Settings.Values.CheckLogsBeforeStartUp = true;
+        {            
             PuzzelLibrary.LogonData.Captcher.GetADUserAndComputer();
-            PuzzelLibrary.Settings.Values.CheckLogsBeforeStartUp = cachedSettings;
             ReplaceRichTextBox("Logi zostały odświeżone");
         }
     }
