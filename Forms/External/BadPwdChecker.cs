@@ -5,6 +5,12 @@ namespace Forms.External
 {
     public partial class BadPwdChecker : Form
     {
+        private string _userName;
+        public string UserName
+        {
+            get => _userName;
+            set => _userName = value;
+        }
         private string _titleName;
         public string TitleName
         {
@@ -15,12 +21,17 @@ namespace Forms.External
         {
             this.TitleName = TitleName;
             InitializeComponent();
-            if (TitleName.Contains("Domain"))
-            {
-                LocationText.ReadOnly = true;
-                LocationText.Text = "DomainHub";
-            }
             InitializeTip();
+            LocationText.Text = TitleName;
+        }
+        public BadPwdChecker(string TitleName, string UserName)
+        {
+            this.TitleName = TitleName;
+            this.UserName = UserName;
+            InitializeComponent();
+            InitializeTip();
+            LocationText.ReadOnly = true;
+            LocationText.Text = TitleName;
         }
 
         private void FindButton_Click(object sender, System.EventArgs e)

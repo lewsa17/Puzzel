@@ -256,13 +256,15 @@ namespace Forms
         }
         private void BtnBadPwdFinderLogs(object sender, EventArgs e)
         {
-            string titleName = default;
+            Forms.External.BadPwdChecker badPwdForm;
             if (((ToolStripMenuItem)sender).Name.Contains("Computer"))
-                titleName = comboBoxComputer.Text;
+            {
+                badPwdForm = new(HostName());
+            }
             else
-                titleName = "Domain" + comboBoxLogin.Text;
-
-            Forms.External.BadPwdChecker badPwdForm = new(titleName);
+            {
+                badPwdForm = new("DomainHub", UserName());
+            }
             badPwdForm.ShowDialog();
         }
         private LogsData UserData()
