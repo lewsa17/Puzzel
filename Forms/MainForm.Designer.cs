@@ -1134,13 +1134,13 @@
             //
             this.TerminalCustomData.Name = "TerminalCustomData";
             this.TerminalCustomData.Text = "Niestandardowe logi dla terminali";
-            this.TerminalCustomData.Click += new(this.NewClick);
+            this.TerminalCustomData.Click += new(this.BtnCustomFinderLogs);
             //
             // ComputerCustomData
             //
             this.ComputerCustomData.Name = "ComputerCustomData";
             this.ComputerCustomData.Text = "Niestandardowe logi dla komputerów";
-            this.ComputerCustomData.Click += new(this.NewClick);
+            this.ComputerCustomData.Click += new(this.BtnCustomFinderLogs);
             //
             // menuItemDHCP
             // 

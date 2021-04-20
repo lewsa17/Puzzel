@@ -236,7 +236,7 @@ namespace Forms
             StartWinSysApplication("ipconfig.exe", "/flushdns");
             StopTime();
         }
-        private void NewClick(object sender, EventArgs e)
+        private void BtnCustomFinderLogs(object sender, EventArgs e)
         {
             string pathName = default;
             if (((ToolStripMenuItem)sender).Name.Contains("Terminal"))
@@ -1291,7 +1291,10 @@ namespace Forms
         {
             try
             {
-                PuzzelLibrary.LogonData.Captcher.GetADUserAndComputer();
+                if (PuzzelLibrary.Settings.Values.CheckLogsBeforeStartUp)
+                {
+                    ReloadLogs(sender, e);
+                }
             }
             catch (Exception ex)
             {
