@@ -1,5 +1,4 @@
-﻿using System.Drawing;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace Forms.External
 {
@@ -10,6 +9,11 @@ namespace Forms.External
         {
             _TitleName = TitleName;
             InitializeComponent();
+            if (TitleName.Contains("Domain"))
+            {
+                LocationText.ReadOnly = true;
+                LocationText.Text = TitleName;
+            }
         }
 
         private void FindButton_Click(object sender, System.EventArgs e)
@@ -17,7 +21,16 @@ namespace Forms.External
             PuzzelLibrary.Debug.EventsCollector ec = new PuzzelLibrary.Debug.EventsCollector();
             var query = string.Format("*[System/TimeCreated/@SystemTime >= '{0}'] and *[System/TimeCreated/@SystemTime <= '{1}']",
                 StartDateRangePicker.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"), EndDateRangePicker.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"));
-            TextLogView.Text = ec.QueryActiveLog("Security", query, StartDateRangePicker.Value);
+            if (string.IsNullOrEmpty(LocationText.Text))
+                TextLogView.Text = ec.QueryActiveLog("Security", query, StartDateRangePicker.Value);
+            if (string.IsNullOrEmpty(LocationText.Text) && LocationText.ReadOnly)
+            {
+                //TO DO
+            }
+            if (!string.IsNullOrEmpty(LocationText.Text))
+            {
+                //TO DO
+            }
         }
     }
 }

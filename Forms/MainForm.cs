@@ -258,11 +258,11 @@ namespace Forms
         {
             string titleName = default;
             if (((ToolStripMenuItem)sender).Name.Contains("Computer"))
-                titleName = "Computer";
+                titleName = comboBoxComputer.Text;
             else
                 titleName = "Domain";
 
-            Forms.External.BadPwdChecker badPwdForm = new(((ToolStripMenuItem)sender).Name);
+            Forms.External.BadPwdChecker badPwdForm = new(titleName);
             badPwdForm.ShowDialog();
         }
         private LogsData UserData()
