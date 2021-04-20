@@ -118,6 +118,11 @@ namespace Settings
                     }
                     switch (check.Name)
                     {
+                        case nameof(CheckLogsBeforeStartUpCheck):
+                            {
+                                PuzzelLibrary.Settings.Values.CheckLogsBeforeStartUp = CheckLogsBeforeStartUpCheck.Checked;
+                                break;
+                            }
                         case nameof(HistoryLogCheck):
                             {
                                 PuzzelLibrary.Settings.Values.HistoryLog = HistoryLogCheck.Checked;
