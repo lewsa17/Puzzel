@@ -958,6 +958,7 @@
             this.btnReloadLogs.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnReloadLogs.UseVisualStyleBackColor = true;
             this.btnReloadLogs.Click += new(this.ReloadLogs);
+            this.btnReloadLogs.MouseMove += new(this.MouseMovingOverbtnReloadLogs);
             // 
             // panelTCP
             // 

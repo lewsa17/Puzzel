@@ -1309,5 +1309,11 @@ namespace Forms
                 PuzzelLibrary.LogonData.Captcher.HardResetCache();
             else PuzzelLibrary.LogonData.Captcher.ReloadCache();
         }
+        private void MouseMovingOverbtnReloadLogs(object sender, MouseEventArgs e)
+        {
+            if (Control.ModifierKeys == Keys.Shift)
+                btnReloadLogs.Text = "Hard Logs";
+            else btnReloadLogs.Text = "Reload Logs";
+        }
     }
 }
