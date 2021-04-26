@@ -1158,12 +1158,14 @@
             //
             // BadLogonOnDomainHub
             //
+            this.BadLogonOnDomainHub.Image = global::Forms.Resources.Resources.userlog;
             this.BadLogonOnDomainHub.Name = "BadLogonOnDomainHub";
             this.BadLogonOnDomainHub.Text = "Wyszukiwanie prób logowania (domena)";
             this.BadLogonOnDomainHub.Click += new(this.BtnBadPwdFinderLogs);
             //
             // BadLogonOnComputer
             //
+            this.BadLogonOnComputer.Image = global::Forms.Resources.Resources.Complog;
             this.BadLogonOnComputer.Name = "BadLogonOnComputer";
             this.BadLogonOnComputer.Text = "Wyszukiwanie prób logowania (komputer)";
             this.BadLogonOnComputer.Click += new(this.BtnBadPwdFinderLogs);
