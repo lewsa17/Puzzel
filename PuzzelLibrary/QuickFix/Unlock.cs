@@ -10,7 +10,7 @@ namespace PuzzelLibrary.QuickFix
         {
             var objects = new RegEnum().RegOpenRemoteSubKey(HostName, mainCatalog, subKey);
             if (objects != null)
-                if (objects.GetValueNames().Contains("AllowRemoteRPC"))
+                if (Convert.ToInt32(objects.GetValue("AllowRemoteRPC")) == 0)
                 {
                     if (Convert.ToInt32(new RegEnum().RegOpenRemoteSubKey(HostName, mainCatalog, subKey).GetValue("AllowRemoteRPC")) == 0)
                         new RegQuery().QueryKey(HostName, mainCatalog, subKey, "AllowRemoteRPC", "1", Microsoft.Win32.RegistryValueKind.DWord);

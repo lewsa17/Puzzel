@@ -24,18 +24,27 @@ namespace PuzzelLibrary.Terminal
             System.Text.StringBuilder data = new System.Text.StringBuilder();
             if (Settings.Values.AutoOpenPort)
             {
-                if (QuickFix.Unlock.UnlockRemoteRPC(HostName, Microsoft.Win32.RegistryHive.LocalMachine, @"SYSTEM\CurrentControlSet\Control\Terminal Server"))
+                GetSession(HostName, data);
+            }
+            else if (System.Windows.Forms.MessageBox.Show("Czy chcesz odblokować port", "Zdalne odblokowanie portu RPC", System.Windows.Forms.MessageBoxButtons.OKCancel, System.Windows.Forms.MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.OK)
+            {
+                GetSession(HostName, data);
+            }
+            else data.Append("Operacja nieudana");
+            return data.ToString();
+        }
+
+        private void GetSession(string HostName, System.Text.StringBuilder data)
+        {
+            if (QuickFix.Unlock.UnlockRemoteRPC(HostName, Microsoft.Win32.RegistryHive.LocalMachine, @"SYSTEM\CurrentControlSet\Control\Terminal Server"))
+            {
+                data.Append(HostName + " --------------------------------\n");
+                data.Append("Nazwa użytkownika     Nazwa Sesji    Id    Status        Czas bezczynności    Czas logowania\n");
+                foreach (var session in GetActiveSession(HostName))
                 {
-                    data.Append(HostName + " --------------------------------\n");
-                    data.Append("Nazwa użytkownika     Nazwa Sesji    Id    Status        Czas bezczynności    Czas logowania\n");
-                    foreach (var session in GetActiveSession(HostName))
-                    {
-                        data.Append(new Explorer().FormatedSession(data, session));
-                    }
+                    data.Append(new Explorer().FormatedSession(data, session));
                 }
             }
-            else { data.Append("Nie posiadasz uprawnień aby odblokować RPC"); }
-            return data.ToString();
         }
     }
 }
