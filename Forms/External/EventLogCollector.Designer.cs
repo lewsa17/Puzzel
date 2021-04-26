@@ -1,5 +1,4 @@
-﻿
-namespace Forms.External
+﻿namespace Forms.External
 {
     partial class EventLogCollector
     {
@@ -104,7 +103,7 @@ namespace Forms.External
             // 
             // PanelBox
             // 
-            this.PanelBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.PanelBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top
             | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.PanelBox.Controls.Add(this.LogCounterLabel);
@@ -116,9 +115,9 @@ namespace Forms.External
             this.PanelBox.Controls.Add(this.StartDateRangePicker);
             this.PanelBox.Controls.Add(this.EndDateRangePicker);
             this.PanelBox.Controls.Add(this.ToLabel);
-            this.PanelBox.Location = new System.Drawing.Point(12, 12);
+            this.PanelBox.Location = new System.Drawing.Point(3, 12);
             this.PanelBox.Name = "PanelBox";
-            this.PanelBox.Size = new System.Drawing.Size(776, 91);
+            this.PanelBox.Size = new System.Drawing.Size(753, 91);
             this.PanelBox.TabIndex = 5;
             this.PanelBox.TabStop = false;
             this.PanelBox.Text = "Wyszukiwanie złych prób logowania";
@@ -135,7 +134,7 @@ namespace Forms.External
             // LocationLabel
             // 
             this.LocationLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Right)));
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.LocationLabel.AutoSize = true;
             this.LocationLabel.Location = new System.Drawing.Point(6, 34);
             this.LocationLabel.Name = "LocationLabel";
@@ -148,9 +147,9 @@ namespace Forms.External
             this.TextLogView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.TextLogView.Location = new System.Drawing.Point(12, 110);
+            this.TextLogView.Location = new System.Drawing.Point(3, 110);
             this.TextLogView.Name = "TextLogView";
-            this.TextLogView.Size = new System.Drawing.Size(776, 328);
+            this.TextLogView.Size = new System.Drawing.Size(754, 328);
             this.TextLogView.TabIndex = 6;
             this.TextLogView.Text = "";
             this.TextLogView.AutoWordSelection = true;
@@ -181,11 +180,13 @@ namespace Forms.External
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(760, 450);
+            this.MinimumSize = new System.Drawing.Size(760, 450);
             this.Controls.Add(this.TextLogView);
             this.Controls.Add(this.PanelBox);
             this.Name = "BadPwdChecker";
             this.Text = "BadPwdChecker";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.PanelBox.ResumeLayout(false);
             this.PanelBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.LogCounter)).EndInit();
