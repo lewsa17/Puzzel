@@ -97,8 +97,8 @@
             this.menuItemComputerInfoPath = new();
             this.menuItemComputerInfoNetworkRes = new();
             this.menuItemComputerInfoDisplay = new();
-            this.BadLogonOnComputer = new();
-            this.BadLogonOnDomainHub = new();
+            this.LogonsOnComputer = new();
+            this.LogonsOnDomainHub = new();
             this.MotpLogons = new();
             this.TerminalCustomData = new();
             this.ComputerCustomData = new();
@@ -1118,8 +1118,8 @@
             new System.Windows.Forms.ToolStripSeparator(),
             this.ComputerCustomData,
             this.TerminalCustomData,
-            this.BadLogonOnDomainHub,
-            this.BadLogonOnComputer,
+            this.LogonsOnDomainHub,
+            this.LogonsOnComputer,
             this.MotpLogons,
             new System.Windows.Forms.ToolStripSeparator(),
             this.menuItemTermimalExplorer,
@@ -1157,19 +1157,19 @@
             this.MotpLogons.Text = "Wyszukiwanie prób logowania (motp)";
             this.MotpLogons.Click += new(this.BtnBadPwdFinderLogs);
             //
-            // BadLogonOnDomainHub
+            // LogonsOnDomainHub
             //
-            this.BadLogonOnDomainHub.Image = global::Forms.Resources.Resources.userlog;
-            this.BadLogonOnDomainHub.Name = "BadLogonOnDomainHub";
-            this.BadLogonOnDomainHub.Text = "Wyszukiwanie prób logowania (domena)";
-            this.BadLogonOnDomainHub.Click += new(this.BtnBadPwdFinderLogs);
+            this.LogonsOnDomainHub.Image = global::Forms.Resources.Resources.userlog;
+            this.LogonsOnDomainHub.Name = "LogonsOnDomainHub";
+            this.LogonsOnDomainHub.Text = "Wyszukiwanie prób logowania (domena)";
+            this.LogonsOnDomainHub.Click += new(this.BtnBadPwdFinderLogs);
             //
-            // BadLogonOnComputer
+            // LogonsOnComputer
             //
-            this.BadLogonOnComputer.Image = global::Forms.Resources.Resources.Complog;
-            this.BadLogonOnComputer.Name = "BadLogonOnComputer";
-            this.BadLogonOnComputer.Text = "Wyszukiwanie prób logowania (komputer)";
-            this.BadLogonOnComputer.Click += new(this.BtnBadPwdFinderLogs);
+            this.LogonsOnComputer.Image = global::Forms.Resources.Resources.Complog;
+            this.LogonsOnComputer.Name = "LogonsOnComputer";
+            this.LogonsOnComputer.Text = "Wyszukiwanie prób logowania (komputer)";
+            this.LogonsOnComputer.Click += new(this.BtnBadPwdFinderLogs);
             //
             // menuItemDHCP
             // 
@@ -1420,8 +1420,8 @@
         private System.Windows.Forms.ToolStripMenuItem contextMenuItemPasteR; 
         private System.Windows.Forms.ToolStripMenuItem TerminalCustomData;
         private System.Windows.Forms.ToolStripMenuItem ComputerCustomData;
-        private System.Windows.Forms.ToolStripMenuItem BadLogonOnDomainHub;
-        private System.Windows.Forms.ToolStripMenuItem BadLogonOnComputer;
+        private System.Windows.Forms.ToolStripMenuItem LogonsOnDomainHub;
+        private System.Windows.Forms.ToolStripMenuItem LogonsOnComputer;
         private System.Windows.Forms.ToolStripMenuItem MotpLogons;
         private System.Windows.Forms.ToolStripMenuItem menuItemTermimalExplorer;
         private System.Windows.Forms.ToolStripMenuItem menuItemComputerExplorer;
