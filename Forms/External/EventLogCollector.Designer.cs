@@ -35,7 +35,7 @@ namespace Forms.External
             this.ToLabel = new System.Windows.Forms.Label();
             this.FindButton = new System.Windows.Forms.Button();
             this.PanelBox = new System.Windows.Forms.GroupBox();
-            this.LocationText = new System.Windows.Forms.TextBox();
+            this.LocationText = new System.Windows.Forms.ComboBox();
             this.LocationLabel = new System.Windows.Forms.Label();
             this.TextLogView = new System.Windows.Forms.RichTextBox();
             this.LogCounter = new System.Windows.Forms.NumericUpDown();
@@ -198,7 +198,7 @@ namespace Forms.External
         private System.Windows.Forms.Label ToLabel;
         private System.Windows.Forms.Button FindButton;
         private System.Windows.Forms.GroupBox PanelBox;
-        private System.Windows.Forms.TextBox LocationText;
+        private System.Windows.Forms.ComboBox LocationText;
         private System.Windows.Forms.Label LocationLabel;
         private System.Windows.Forms.RichTextBox TextLogView;
         private System.Windows.Forms.Label LogCounterLabel;
