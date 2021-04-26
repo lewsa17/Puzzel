@@ -25,7 +25,12 @@ namespace PuzzelLibrary.LogonData
         private static string lastSearchedName { get; set; }
         private static readonly string FileCache = Path.Combine(Directory.GetCurrentDirectory(), nameof(PuzzelLibrary)+".cache");
 
-        public static void GetADUserAndComputer()
+        public static void HardResetCache()
+        {
+            File.Delete(FileCache);
+            ReloadCache();
+        }
+        public static void ReloadCache()
         {
             if (Values.CheckLogsBeforeStartUp | !File.Exists(FileCache))
             {

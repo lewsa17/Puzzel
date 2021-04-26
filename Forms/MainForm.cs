@@ -1304,9 +1304,10 @@ namespace Forms
             }
         }
         private void ReloadLogs(object sender, EventArgs e)
-        {            
-            PuzzelLibrary.LogonData.Captcher.GetADUserAndComputer();
-            ReplaceRichTextBox("Logi zostały odświeżone");
+        {
+            if (((Button)sender).Text == "Hard Logs")
+                PuzzelLibrary.LogonData.Captcher.HardResetCache();
+            else PuzzelLibrary.LogonData.Captcher.ReloadCache();
         }
     }
 }
