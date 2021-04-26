@@ -176,7 +176,7 @@
             this.LogCounterLabel.TabIndex = 9;
             this.LogCounterLabel.Text = "Ilość:";
             // 
-            // BadPwdChecker
+            // EventLogCollector
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -184,8 +184,8 @@
             this.MinimumSize = new System.Drawing.Size(760, 450);
             this.Controls.Add(this.TextLogView);
             this.Controls.Add(this.PanelBox);
-            this.Name = "BadPwdChecker";
-            this.Text = "BadPwdChecker";
+            this.Name = "EventLogCollector";
+            this.Text = "Zbieracz zdarzeń";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.PanelBox.ResumeLayout(false);
             this.PanelBox.PerformLayout();
