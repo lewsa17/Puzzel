@@ -91,19 +91,23 @@ namespace Forms.External
             //Wyszukiwanie w na kontrolerze domeny / zablokowane pole
             if (!LocationText.Enabled)
             {
-                ec.GetRemoteLog(DomainController, "Security", queryDomain);
+                if (PuzzelLibrary.NetDiag.Ping.TCPPing(DomainController, 135) == PuzzelLibrary.NetDiag.Ping.TCPPingStatus.Success)
+                    ec.GetRemoteLog(DomainController, "Security", queryDomain);
+                else TextLogView.Text = "Brak połączenia z kontrolerem domeny, serwer RPC jest niedostępny";
             }
-            //Wyszukiwanie na serwerzer motp
-            if (LocationText.Text.Contains("motp", StringComparison.OrdinalIgnoreCase))
+            else if (PuzzelLibrary.NetDiag.Ping.TCPPing(LocationText.Text, 135) == PuzzelLibrary.NetDiag.Ping.TCPPingStatus.Success)
             {
-                TextLogView.Text = ec.GetRemoteLog(LocationText.Text, PuzzelLibrary.Settings.Values.MotpLogName, queryDomain);
-            }
+                //Wyszukiwanie na serwerzer motp
+                if (LocationText.Text.Contains("motp", StringComparison.OrdinalIgnoreCase))
+                    TextLogView.Text = ec.GetRemoteLog(LocationText.Text, PuzzelLibrary.Settings.Values.MotpLogName, queryDomain);
 
-            //Wyszukiwanie na komputerze o nazwie podanej w polu
-            else if (!string.IsNullOrEmpty(LocationText.Text))
-            {
-                TextLogView.Text = ec.GetRemoteLog(LocationText.Text, "Security", query);
+                //Wyszukiwanie na komputerze o nazwie podanej w polu
+                else if (!string.IsNullOrEmpty(LocationText.Text))
+                {
+                    TextLogView.Text = ec.GetRemoteLog(LocationText.Text, "Security", query);
+                }
             }
+            else TextLogView.Text = string.Format("Brak połączenia z {0}, serwer RPC jest niedostępny", LocationText.Text);
         }
         private void InitializeTip()
         {
