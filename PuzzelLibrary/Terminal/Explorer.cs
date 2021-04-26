@@ -35,10 +35,9 @@ namespace PuzzelLibrary.Terminal
             if (session.ConnectionState != ConnectionState.Disconnected && session.ClientProtocolType != ClientProtocolType.Console)
             {
                 IPAddress = (session.ClientIPAddress.ToString());
-                data.Append(IPAddress);
             }
-            else
-                IPAddress = "niedostępne";
+            IPAddress = "Niedostępne";
+            data.Append(IPAddress);
             for (int i = 0; i < "    IP klienta   ".Length - IPAddress.Length; i++)
                 data.Append(" ");
 

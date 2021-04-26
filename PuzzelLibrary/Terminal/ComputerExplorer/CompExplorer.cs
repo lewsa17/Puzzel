@@ -45,7 +45,7 @@ namespace PuzzelLibrary.Terminal
         private void GetSession(string HostName, System.Text.StringBuilder data)
         {
             data.Append(HostName + " --------------------------------\n");
-            data.Append("Nazwa użytkownika     Nazwa Sesji    Id    Status        Czas bezczynności    Czas logowania\n");
+            data.Append("Nazwa użytkownika     Nazwa Sesji   IP klienta       Id    Status        Czas bezczynności    Czas logowania\n");
             foreach (var session in GetActiveSession(HostName))
             {
                 data.Append(new Explorer().FormatedSession(session));
