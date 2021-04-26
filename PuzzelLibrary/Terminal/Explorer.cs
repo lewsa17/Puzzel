@@ -31,7 +31,7 @@ namespace PuzzelLibrary.Terminal
             for (int i = 0; i < "Nazwa Sesji   ".Length - session.WindowStationName.Length; i++)
                 data.Append(" ");
             string IPAddress;
-            if (session.ConnectionState != ConnectionState.Disconnected)
+            if (session.ConnectionState != ConnectionState.Disconnected && session.ClientProtocolType != ClientProtocolType.Console)
             {
                 IPAddress = (session.ClientIPAddress.ToString());
                 data.Append(IPAddress);
