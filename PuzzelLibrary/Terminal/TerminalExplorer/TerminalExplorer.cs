@@ -32,16 +32,17 @@ namespace PuzzelLibrary.Terminal
         public ITerminalServicesSession SessionIDServer;
         public string ActiveSession(string TermServerName, string SearchedLogin)
         {
-            string data = string.Empty;
+            System.Text.StringBuilder data = new System.Text.StringBuilder();
             var session = new Explorer().FindSession(new Explorer().GetRemoteServer(TermServerName), SearchedLogin);
+
             if (session != null)
             {
-                data += (TermServerName + " --------------------------------\n");
-                data += ("Nazwa użytkownika     Nazwa Sesji   IP klienta       Id    Status        Czas bezczynności    Czas logowania\n");
+                data.Append(TermServerName + " --------------------------------\n");
+                data.Append("Nazwa użytkownika     Nazwa Sesji   IP klienta       Id    Status        Czas bezczynności    Czas logowania\n");
                 SessionIDServer = (session);
-                data = new Explorer().FormatedSession(data, session); 
+                data.Append(new Explorer().FormatedSession(data, session));
             }
-            return data;
+            return data.ToString();
         }
     }
 }

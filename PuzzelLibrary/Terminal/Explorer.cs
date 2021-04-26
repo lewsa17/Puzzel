@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Cassia;
-using System.Linq;
 
 namespace PuzzelLibrary.Terminal
 {
@@ -22,33 +21,33 @@ namespace PuzzelLibrary.Terminal
             }
         }
 
-        public string FormatedSession(string data, ITerminalServicesSession session)
+        public string FormatedSession(System.Text.StringBuilder data, ITerminalServicesSession session)
         {
-            data += (session.UserName);
+            data.Append(session.UserName);
             for (int i = 0; i < "Nazwa użytkownika     ".Length - session.UserName.Length; i++)
-                data += (" ");
+                data.Append(" ");
 
-            data += (session.WindowStationName);
+            data.Append(session.WindowStationName);
             for (int i = 0; i < "Nazwa Sesji   ".Length - session.WindowStationName.Length; i++)
-                data += (" ");
+                data.Append(" ");
             string IPAddress;
             if (session.ConnectionState != ConnectionState.Disconnected)
             {
                 IPAddress = (session.ClientIPAddress.ToString());
-                data += IPAddress;
+                data.Append(IPAddress);
             }
             else
                 IPAddress = "niedostępne";
-                for (int i = 0; i < "    IP klienta   ".Length - IPAddress.Length; i++)
-                    data += " ";
+            for (int i = 0; i < "    IP klienta   ".Length - IPAddress.Length; i++)
+                data.Append(" ");
 
-            data += (session.SessionId);
+            data.Append(session.SessionId);
             for (int i = 0; i < " Id   ".Length - session.SessionId.ToString().Length; i++)
-                data += (" ");
+                data.Append(" ");
 
-            data += (session.ConnectionState);
+            data.Append(session.ConnectionState);
             for (int i = 0; i < "Status        ".Length - session.ConnectionState.ToString().Length; i++)
-                data += (" ");
+                data.Append(" ");
 
             //Wyekstraktowanie całego czasu bezczynności
             int time = Convert.ToInt32(Math.Ceiling(((TimeSpan)session.IdleTime).TotalSeconds));
@@ -68,13 +67,13 @@ namespace PuzzelLibrary.Terminal
             }
 
             idletime += (time.ToString());
-            data += (idletime);
+            data.Append(idletime);
             for (int i = 0; i < "Czas bezczynności    ".Length - idletime.Length; i++)
-                data += (" ");
+                data.Append(" ");
 
-            data += (session.LoginTime);
-            data += ("\n");
-            return data;
+            data.Append(session.LoginTime);
+            data.Append("\n");
+            return data.ToString();
         }
         public IList<ITerminalServicesSession> FindSessions(ITerminalServer server)
         {

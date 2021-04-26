@@ -18,24 +18,24 @@ namespace PuzzelLibrary.Terminal
 
         public IEnumerable<ITerminalServicesSession> GetActiveSession(string hostName) =>
             GetRemoteComputerSessions(hostName);
-        
+
         public string ActiveSession(string HostName)
         {
-            string data = string.Empty;
+            System.Text.StringBuilder data = new System.Text.StringBuilder();
             if (Settings.Values.AutoOpenPort)
             {
                 if (QuickFix.Unlock.UnlockRemoteRPC(HostName, Microsoft.Win32.RegistryHive.LocalMachine, @"SYSTEM\CurrentControlSet\Control\Terminal Server"))
                 {
-                    data += (HostName + " --------------------------------\n");
-                    data += ("Nazwa użytkownika     Nazwa Sesji    Id    Status        Czas bezczynności    Czas logowania\n");
+                    data.Append(HostName + " --------------------------------\n");
+                    data.Append("Nazwa użytkownika     Nazwa Sesji    Id    Status        Czas bezczynności    Czas logowania\n");
                     foreach (var session in GetActiveSession(HostName))
                     {
-                        data = new Explorer().FormatedSession(data, session);
+                        data.Append(new Explorer().FormatedSession(data, session));
                     }
                 }
             }
-            else { data += ("Nie posiadasz uprawnień aby odblokować RPC"); }
-            return data;
+            else { data.Append("Nie posiadasz uprawnień aby odblokować RPC"); }
+            return data.ToString();
         }
     }
 }
