@@ -4,7 +4,7 @@ namespace PuzzelLibrary.Registry
 {
     public class RegOpen
     {
-        private static RegistryKey RegOpenRemoteBaseKey(RegistryHive mainCatalog, string HostName)
+        private RegistryKey RegOpenRemoteBaseKey(RegistryHive mainCatalog, string HostName)
         {
             try
             {
