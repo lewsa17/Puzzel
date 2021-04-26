@@ -112,5 +112,13 @@ namespace Forms.External
             tp.SetToolTip(LogCounter, LabelCounterText);
             tp.SetToolTip(LogCounterLabel, LabelCounterText);
         }
+        private void SearchData(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.KeyCode == Keys.F)
+            {
+                Additional.SearchingMainForm wyszukiwarka = new Additional.SearchingMainForm(TextLogView);
+                wyszukiwarka.Show();
+            }
+        }
     }
 }

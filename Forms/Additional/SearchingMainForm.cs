@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -11,6 +11,9 @@ namespace Forms.Additional
         {
             InitializeComponent();
             textField = richTextBox;
+            textField.HideSelection = true;
+            textField.SelectionStart = 0;
+            textField.SelectionLength = 0;
         }
         private void Buttons_Click(object sender, EventArgs e)
         {
@@ -29,6 +32,7 @@ namespace Forms.Additional
 
                     if (((Button)sender) == btnPreviousWord)
                         SelectionStart = textField.Find(SearchWord, 0, textField.SelectionStart, RichTextBoxFinds.Reverse);
+                    textField.HideSelection = false;
                 }
             }
             if (sender is TextBox)
@@ -36,6 +40,7 @@ namespace Forms.Additional
                 if (textField.SelectionStart > 1)
                     SelectionStart = textField.Text.IndexOf(SearchWord, textField.SelectionStart + SearchWord.Length, StringComparison.CurrentCultureIgnoreCase);
                 else SelectionStart = textField.Text.IndexOf(SearchWord, textField.SelectionStart, StringComparison.CurrentCultureIgnoreCase);
+                textField.HideSelection = false;
             }
             if (SelectionStart != -1)
                 textField.SelectionStart = SelectionStart;

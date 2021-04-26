@@ -153,6 +153,9 @@ namespace Forms.External
             this.TextLogView.Size = new System.Drawing.Size(776, 328);
             this.TextLogView.TabIndex = 6;
             this.TextLogView.Text = "";
+            this.TextLogView.AutoWordSelection = true;
+            this.TextLogView.ShortcutsEnabled = false;
+            this.TextLogView.KeyDown += new(this.SearchData);
             // 
             // LogCounter
             // 
