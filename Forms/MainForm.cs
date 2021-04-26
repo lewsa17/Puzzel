@@ -171,7 +171,7 @@ namespace Forms
         {
             if (panelTCP.Width == 351)
             {
-                btnCollapseTCP.Text = "Rozwiń";
+                btnCollapseTCP.Text = "TCPPing";
                 panelTCP.Width = 63;
             }
             else
