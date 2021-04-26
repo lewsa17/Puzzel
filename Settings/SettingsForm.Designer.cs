@@ -448,6 +448,7 @@
             this.MotpLogNameTextBox.Name = "MotpLogNameTextBox";
             this.MotpLogNameTextBox.Size = new System.Drawing.Size(214, 23);
             this.MotpLogNameTextBox.TabIndex = 1;
+            this.MotpLogNameTextBox.TextChanged += new System.EventHandler(this.OnChangeSaveProperty);
             // 
             // MotpServersTextBox
             // 
@@ -455,6 +456,7 @@
             this.MotpServersTextBox.Name = "MotpServersTextBox";
             this.MotpServersTextBox.Size = new System.Drawing.Size(226, 23);
             this.MotpServersTextBox.TabIndex = 0;
+            this.MotpServersTextBox.TextChanged += new System.EventHandler(this.OnChangeSaveProperty);
             // 
             // CheckLogsBeforeStartUpBox
             // 
