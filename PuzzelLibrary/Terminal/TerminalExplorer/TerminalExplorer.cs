@@ -33,7 +33,8 @@ namespace PuzzelLibrary.Terminal
         public string ActiveSession(string TermServerName, string SearchedLogin)
         {
             string data = string.Empty;
-            foreach (var session in new Explorer().FindSession(new Explorer().GetRemoteServer(TermServerName), SearchedLogin))
+            var session = new Explorer().FindSession(new Explorer().GetRemoteServer(TermServerName), SearchedLogin);
+            if (session != null)
             {
                 data += (TermServerName + " --------------------------------\n");
                 data += ("Nazwa użytkownika     Nazwa Sesji   IP klienta       Id    Status        Czas bezczynności    Czas logowania\n");
