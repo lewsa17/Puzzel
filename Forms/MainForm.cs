@@ -1305,8 +1305,11 @@ namespace Forms
         }
         private void ReloadLogs(object sender, EventArgs e)
         {
-            if (((Button)sender).Text == "Hard Logs")
-                PuzzelLibrary.LogonData.Captcher.HardResetCache();
+            if (sender is Button btn)
+            {
+                if (btn.Text == "Hard Logs")
+                    PuzzelLibrary.LogonData.Captcher.HardResetCache();
+            }
             else PuzzelLibrary.LogonData.Captcher.ReloadCache();
         }
         private void MouseMovingOverbtnReloadLogs(object sender, MouseEventArgs e)
