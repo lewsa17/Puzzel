@@ -687,7 +687,7 @@
             // 
             // DescriptionBox
             // 
-            this.DescriptionBox.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.DescriptionBox.BackColor = System.Drawing.Color.Transparent;
             this.DescriptionBox.Controls.Add(this.DescriptionLabel);
             this.DescriptionBox.Location = new System.Drawing.Point(19, 303);
             this.DescriptionBox.Name = "DescriptionBox";
