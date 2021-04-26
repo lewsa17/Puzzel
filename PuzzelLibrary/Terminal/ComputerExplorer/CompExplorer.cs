@@ -24,8 +24,10 @@ namespace PuzzelLibrary.Terminal
             System.Text.StringBuilder data = new System.Text.StringBuilder();
 
             QuickFix.UnlockRPC rPC = new QuickFix.UnlockRPC(HostName, Microsoft.Win32.RegistryHive.LocalMachine, @"SYSTEM\CurrentControlSet\Control\Terminal Server");
-
             if (rPC.IsOpen)
+                GetSession(HostName, data);
+            else
+            {
                 if (Settings.Values.AutoOpenPort)
                 {
                     GetSession(HostName, data);
@@ -35,7 +37,7 @@ namespace PuzzelLibrary.Terminal
                     GetSession(HostName, data);
                 }
                 else data.Append("Operacja nieudana");
-            else GetSession(HostName, data);
+            }
             return data.ToString();
         }
 
