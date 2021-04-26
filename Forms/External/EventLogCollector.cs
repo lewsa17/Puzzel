@@ -21,28 +21,26 @@ namespace Forms.External
         public string[] MotpSevers { get; set; }
         public EventLogCollector(string TitleName)
         {
-            this.TitleName = TitleName;
             InitializeComponent();
             InitializeTip();
-            LocationText.Text = TitleName;
+            this.TitleName = LocationText.Text = TitleName;
         }
         public EventLogCollector(string TitleName, string UserName)
         {
-            this.TitleName = TitleName;
-            this.UserName = UserName;
             InitializeComponent();
             InitializeTip();
-            LocationText.ReadOnly = true;
-            LocationText.Text = TitleName;
+            LocationText.Enabled = false;
+            this.TitleName = LocationText.Text = TitleName;
+            this.UserName = UserName;
             GetLastBadPasswordAttempt();
         }
         public EventLogCollector(string[] motpServers)
         {
             MotpSevers = motpServers;
-            this.TitleName = TitleName;
             InitializeComponent();
             InitializeTip();
-            LocationText.Text = TitleName;
+            LocationText.Items.AddRange(motpServers);
+            LocationText.SelectedIndex = 1;
 
         }
         private string DomainController { get; set; }
@@ -90,21 +88,20 @@ namespace Forms.External
                 TextLogView.Text = ec.GetLocalLog("Security", query);
 
             //Wyszukiwanie w na kontrolerze domeny / zablokowane pole
-            if (LocationText.ReadOnly)
+            if (!LocationText.Enabled)
             {
                 ec.GetRemoteLog(DomainController, "Security", queryDomain);
             }
-
-            //Wyszukiwanie na komputerze o nazwie podanej w polu
-            if (!string.IsNullOrEmpty(LocationText.Text))
+            //Wyszukiwanie na serwerzer motp
+            if (LocationText.Text.Contains("motp", StringComparison.OrdinalIgnoreCase))
             {
-                TextLogView.Text = ec.GetRemoteLog(LocationText.Text, "Security", query);
+                TextLogView.Text = ec.GetRemoteLog(LocationText.Text, PuzzelLibrary.Settings.Values.MotpLogName, queryDomain);
             }
 
-            //Wyszukiwanie na serwerzer motp
-            if (string.Equals(LocationText.Text, "motp", StringComparison.OrdinalIgnoreCase))
+            //Wyszukiwanie na komputerze o nazwie podanej w polu
+            else if (!string.IsNullOrEmpty(LocationText.Text))
             {
-                TextLogView.Text = ec.GetRemoteLog(LocationText.Text, /*TODO*/ "", query);
+                TextLogView.Text = ec.GetRemoteLog(LocationText.Text, "Security", query);
             }
         }
         private void InitializeTip()

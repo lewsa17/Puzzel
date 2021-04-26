@@ -263,8 +263,8 @@ namespace Forms
             }
             else if (sender == MotpLogons)
             {
-                //TODO
-                badPwdForm = new(string.Empty);
+                var motpServers = PuzzelLibrary.Settings.Values.MotpServers.Split(',', ';');
+                badPwdForm = new(motpServers);
             }
             else
             {
