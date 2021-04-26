@@ -26,7 +26,7 @@ namespace PuzzelLibrary.Terminal
             QuickFix.UnlockRPC rPC = new QuickFix.UnlockRPC(HostName, Microsoft.Win32.RegistryHive.LocalMachine, @"SYSTEM\CurrentControlSet\Control\Terminal Server");
             if (rPC.IsOpen)
                 GetSession(HostName, data);
-            else
+            else if (rPC.IsAccessDenied)
             {
                 if (Settings.Values.AutoOpenPort)
                 {
@@ -38,6 +38,7 @@ namespace PuzzelLibrary.Terminal
                 }
                 else data.Append("Operacja nieudana");
             }
+            else data.Append("Brak uprawnień do wykonania operacji");
             return data.ToString();
         }
 

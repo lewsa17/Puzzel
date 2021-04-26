@@ -15,12 +15,16 @@ namespace PuzzelLibrary.QuickFix
         private string HostName;
         private Microsoft.Win32.RegistryHive mainCatalog;
         private string subKey;
+        public bool IsAccessDenied = false;
         public bool IsOpen
         {
             get
             {
                 var OpenKey = new RegEnum();
                 var objects = OpenKey.RegOpenRemoteSubKey(HostName, mainCatalog, subKey);
+
+                if (OpenKey.AccessAllowed) { IsAccessDenied = true; }
+
                 if (objects != null)
                 {
                     if (objects.GetValueNames().Contains("AllowRemoteRPC"))

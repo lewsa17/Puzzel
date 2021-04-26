@@ -12,7 +12,7 @@ namespace PuzzelLibrary.Registry
             }
             catch (System.IO.IOException ex)
             {
-                System.Windows.Forms.MessageBox.Show(ex.Message,"Brak obiektu",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.Forms.MessageBoxIcon.Information);
+                System.Windows.Forms.MessageBox.Show(ex.Message, "Brak obiektu", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Information);
                 Debug.LogsCollector.GetLogs(ex, " Registry::" + HostName + "\\" + mainCatalog);
                 return null;
             }
@@ -37,9 +37,11 @@ namespace PuzzelLibrary.Registry
             }
             catch (System.Security.SecurityException)
             {
+                AccessAllowed = false;
                 System.Windows.Forms.MessageBox.Show("Brak uprawnień do " + subKey + " na " + HostName);
             }
             return registryKey;
         }
+        public bool AccessAllowed = true;
     }
 }
