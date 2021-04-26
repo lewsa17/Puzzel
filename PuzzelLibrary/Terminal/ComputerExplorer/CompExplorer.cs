@@ -22,28 +22,30 @@ namespace PuzzelLibrary.Terminal
         public string ActiveSession(string HostName)
         {
             System.Text.StringBuilder data = new System.Text.StringBuilder();
-            if (Settings.Values.AutoOpenPort)
-            {
-                GetSession(HostName, data);
-            }
-            else if (System.Windows.Forms.MessageBox.Show("Czy chcesz odblokować port", "Zdalne odblokowanie portu RPC", System.Windows.Forms.MessageBoxButtons.OKCancel, System.Windows.Forms.MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.OK)
-            {
-                GetSession(HostName, data);
-            }
-            else data.Append("Operacja nieudana");
+
+            QuickFix.UnlockRPC rPC = new QuickFix.UnlockRPC(HostName, Microsoft.Win32.RegistryHive.LocalMachine, @"SYSTEM\CurrentControlSet\Control\Terminal Server");
+
+            if (rPC.IsOpen)
+                if (Settings.Values.AutoOpenPort)
+                {
+                    GetSession(HostName, data);
+                }
+                else if (System.Windows.Forms.MessageBox.Show("Czy chcesz odblokować port", "Zdalne odblokowanie portu RPC", System.Windows.Forms.MessageBoxButtons.OKCancel, System.Windows.Forms.MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.OK)
+                {
+                    GetSession(HostName, data);
+                }
+                else data.Append("Operacja nieudana");
+            else GetSession(HostName, data);
             return data.ToString();
         }
 
         private void GetSession(string HostName, System.Text.StringBuilder data)
         {
-            if (QuickFix.Unlock.UnlockRemoteRPC(HostName, Microsoft.Win32.RegistryHive.LocalMachine, @"SYSTEM\CurrentControlSet\Control\Terminal Server"))
+            data.Append(HostName + " --------------------------------\n");
+            data.Append("Nazwa użytkownika     Nazwa Sesji    Id    Status        Czas bezczynności    Czas logowania\n");
+            foreach (var session in GetActiveSession(HostName))
             {
-                data.Append(HostName + " --------------------------------\n");
-                data.Append("Nazwa użytkownika     Nazwa Sesji    Id    Status        Czas bezczynności    Czas logowania\n");
-                foreach (var session in GetActiveSession(HostName))
-                {
-                    data.Append(new Explorer().FormatedSession(data, session));
-                }
+                data.Append(new Explorer().FormatedSession(data, session));
             }
         }
     }
