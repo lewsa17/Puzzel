@@ -36,6 +36,8 @@ namespace Settings
         public static readonly string ComputerSNFileDescription = "Podaj nazwę pliku zawierającego numery seryjne komputerów";
         public static readonly string ComputerLogsFolderDescription = "Podaj lokalizację zawierająca logi komputera";
         public static readonly string CheckLogsBeforeStartUpDescription = "Ustaw czy podczas uruchomienia logi mają być odświeżane";
+        public static readonly string MotpServersDescription = "Podaj nazawy hosta dla serwerów motp (Odzielone , lub ;)";
+        public static readonly string MotpLogNameDescription = "Podaj nazwę dziennika dla serwera motp";
 
         private void CloseButton_Click(object sender, EventArgs e)
         {
