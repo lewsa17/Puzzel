@@ -557,7 +557,7 @@ namespace Forms
         }
         private void ContextMenuItemSearch_Click(object sender, EventArgs e)
         {
-            WyszukiwanieDanych();
+            SearchData();
         }
         private void ContextMenuItemSelectAll_Click(object sender, EventArgs e)
         {
@@ -1284,13 +1284,6 @@ namespace Forms
             if (HostIsAvailable(HostName()))
                 using (EnvironmentVariable env = new EnvironmentVariable(HostName()))
                     env.ShowDialog();
-        }
-        private static void WyszukiwanieDanych()
-        {
-            richTextBox1.SelectionStart = 0;
-            richTextBox1.HideSelection = false;
-            Additional.SearchingMainForm wyszukiwarka = new Additional.SearchingMainForm();
-            wyszukiwarka.Show();
         }
         private void Powershell_Click(object sender, EventArgs e)
         {
