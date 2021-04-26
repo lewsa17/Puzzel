@@ -290,7 +290,7 @@
             // 
             // btnConnectSession
             // 
-            this.btnConnectSession.Image = ((System.Drawing.Image)(resources.GetObject("BtnPolacz.Image")));
+            this.btnConnectSession.Image = global::Forms.Resources.Resources.handshake;
             this.btnConnectSession.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnConnectSession.Location = new(249, 14);
             this.btnConnectSession.Name = "btnConnectSession";
