@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.IO;
+using System.Windows.Forms;
 using PuzzelLibrary.Debug;
 using PuzzelLibrary.Settings;
 using System.ComponentModel;
@@ -49,14 +50,17 @@ namespace PuzzelLibrary.LogonData
             internal static List<ComputerNameEntry> ADComputerDB = new();
             internal static void GetADComputers()
             {
-                ComputerNameDB.ADComputerDB.Clear();
-                ComputerNameEntry computerNameEntry = new();
-                var logsNames = Directory.GetFiles(logsDirectory + "Computer" + @"\", "*_logons.log", SearchOption.TopDirectoryOnly);
-                for (int i = 0; i < logsNames.Length; i++)
+                if (Directory.Exists(logsDirectory))
                 {
-                    computerNameEntry.Name = Path.GetFileNameWithoutExtension(logsNames[i]).Replace("_logons", "");
-                    ADComputerDB.Add(computerNameEntry);
-                }
+                    ComputerNameDB.ADComputerDB.Clear();
+                    ComputerNameEntry computerNameEntry = new();
+                    var logsNames = Directory.GetFiles(logsDirectory + "Computer" + @"\", "*_logons.log", SearchOption.TopDirectoryOnly);
+                    for (int i = 0; i < logsNames.Length; i++)
+                    {
+                        computerNameEntry.Name = Path.GetFileNameWithoutExtension(logsNames[i]).Replace("_logons", "");
+                        ADComputerDB.Add(computerNameEntry);
+                    }
+                } else MessageBox.Show(String.Concat("Brak dostępu do zasobu ", logsDirectory));
             }
         }
         public class Cache 
