@@ -108,7 +108,7 @@ namespace Forms.External
         {
             ToolTip tp = new ToolTip();
             string LabelCounterText = "Nie polecam ustawiania wysokich liczb, może to skutkować zawieszeniem maszyny odpytywanej\n" +
-                                      "Kontroler domeny jest w stanie wygenerować nawet do 50 wpisów na sekundę.";
+                                      "Kontroler domeny jest w stanie wygenerować nawet kilkadziesiąt wpisów na sekundę.";
             tp.SetToolTip(LogCounter, LabelCounterText);
             tp.SetToolTip(LogCounterLabel, LabelCounterText);
         }
