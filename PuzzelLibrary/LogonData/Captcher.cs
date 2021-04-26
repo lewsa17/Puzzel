@@ -27,7 +27,7 @@ namespace PuzzelLibrary.LogonData
 
         public static void GetADUserAndComputer()
         {
-            if (!File.Exists(FileCache))
+            if (Values.CheckLogsBeforeStartUp | !File.Exists(FileCache))
             {
                 ComputerNameDB.GetADComputers();
                 UserNameDB.GetADUsers();

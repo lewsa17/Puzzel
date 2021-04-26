@@ -1296,10 +1296,7 @@ namespace Forms
         {
             try
             {
-                if (PuzzelLibrary.Settings.Values.CheckLogsBeforeStartUp)
-                {
-                    ReloadLogs(sender, e);
-                }
+                ReloadLogs(sender, e);
             }
             catch (Exception ex)
             {
