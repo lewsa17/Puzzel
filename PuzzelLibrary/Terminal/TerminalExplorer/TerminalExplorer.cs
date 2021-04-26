@@ -2,8 +2,6 @@
 using Cassia;
 using System.ComponentModel;
 using System.Windows.Forms;
-using System.Collections.Generic;
-
 namespace PuzzelLibrary.Terminal
 {
     public class TerminalExplorer
@@ -40,7 +38,7 @@ namespace PuzzelLibrary.Terminal
                 data.Append(TermServerName + " --------------------------------\n");
                 data.Append("Nazwa użytkownika     Nazwa Sesji   IP klienta       Id    Status        Czas bezczynności    Czas logowania\n");
                 SessionIDServer = (session);
-                data.Append(new Explorer().FormatedSession(data, session));
+                data.Append(new Explorer().FormatedSession(session));
             }
             return data.ToString();
         }

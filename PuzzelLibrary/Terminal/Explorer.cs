@@ -21,8 +21,9 @@ namespace PuzzelLibrary.Terminal
             }
         }
 
-        public string FormatedSession(System.Text.StringBuilder data, ITerminalServicesSession session)
+        public string FormatedSession(ITerminalServicesSession session)
         {
+            System.Text.StringBuilder data = new System.Text.StringBuilder();
             data.Append(session.UserName);
             for (int i = 0; i < "Nazwa użytkownika     ".Length - session.UserName.Length; i++)
                 data.Append(" ");
