@@ -39,6 +39,7 @@ namespace Forms.External
             MotpSevers = motpServers;
             InitializeComponent();
             InitializeTip();
+            LocationText.DropDownStyle = ComboBoxStyle.DropDownList;
             LocationText.Items.AddRange(motpServers);
             LocationText.SelectedIndex = 1;
 
