@@ -14,7 +14,7 @@ namespace Settings
         }
         private Control[] GetCollectionOfFieldSettings()
         {
-            Control[] ListOfFieldWithSettings = { NumbersOfUserLogs, NumbersOfCompLogs, HistoryLogCheck, CustomSourceCheck, LocalUpdateCheck, AutoStartUpdateCheck, SaveUserDataCheck, AutoUnlockFirewallCheck, AutoOpenPortCheck, CheckLogsBeforeStartUpCheck, SessionShortcutText, LocalUpdateTextBox, ComputerLogsFolderTextBox, ComputerSNFileTextBox, TerminalLogsSNFileTextBox, TerminalLogsFileTextBox, TerminalLogsFolderTextBox, CustomSourceTextBox };
+            Control[] ListOfFieldWithSettings = { NumbersOfUserLogs, NumbersOfCompLogs, HistoryLogCheck, CustomSourceCheck, LocalUpdateCheck, AutoStartUpdateCheck, SaveUserDataCheck, AutoUnlockFirewallCheck, AutoOpenPortCheck, CheckLogsBeforeStartUpCheck, SessionShortcutText, LocalUpdateTextBox, ComputerLogsFolderTextBox, ComputerSNFileTextBox, TerminalLogsSNFileTextBox, TerminalLogsFileTextBox, TerminalLogsFolderTextBox, CustomSourceTextBox, MotpServersTextBox, MotpLogNameTextBox };
             return ListOfFieldWithSettings;
         }
 
@@ -204,6 +204,16 @@ namespace Settings
                                 PuzzelLibrary.Settings.Values.ComputerSNFile = ComputerSNFileTextBox.Text;
                                 break;
                             }
+                        case nameof(MotpLogNameTextBox):
+                            {
+                                PuzzelLibrary.Settings.Values.MotpLogName = MotpLogNameTextBox.Text;
+                                break;
+                            }
+                        case nameof(MotpServersTextBox):
+                            {
+                                PuzzelLibrary.Settings.Values.MotpServers = MotpServersTextBox.Text;
+                                break;
+                            }
                     }
                     return;
                 }
@@ -270,6 +280,8 @@ namespace Settings
                 ComputerSNFileTextBox.Text = PuzzelLibrary.Settings.Values.ComputerSNFile;
                 ComputerLogsFolderTextBox.Text = PuzzelLibrary.Settings.Values.ComputerLogsFolder;
                 CheckLogsBeforeStartUpCheck.Checked = PuzzelLibrary.Settings.Values.CheckLogsBeforeStartUp;
+                MotpServersTextBox.Text = PuzzelLibrary.Settings.Values.MotpServers;
+                MotpLogNameTextBox.Text = PuzzelLibrary.Settings.Values.MotpLogName;
             }
             else
             {
@@ -294,6 +306,8 @@ namespace Settings
                 PuzzelLibrary.Settings.Values.ComputerLogsFolder = ComputerLogsFolderTextBox.Text;
                 PuzzelLibrary.Settings.Values.ComputerSNFile = ComputerSNFileTextBox.Text;
                 PuzzelLibrary.Settings.Values.CheckLogsBeforeStartUp = CheckLogsBeforeStartUpCheck.Checked;
+                PuzzelLibrary.Settings.Values.MotpLogName = MotpLogNameTextBox.Text;
+                PuzzelLibrary.Settings.Values.MotpServers= MotpServersTextBox.Text;
             }
         }
 

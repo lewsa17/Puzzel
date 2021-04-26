@@ -53,6 +53,12 @@
             this.AutoStartUpdateBox = new System.Windows.Forms.GroupBox();
             this.AutoStartUpdateCheck = new System.Windows.Forms.CheckBox();
             this.Logs = new System.Windows.Forms.TabPage();
+            this.MotpServerBox = new System.Windows.Forms.GroupBox();
+            this.MotpLogNameBox = new System.Windows.Forms.GroupBox();
+            this.MotpLogNameTextBox = new System.Windows.Forms.TextBox();
+            this.MotpServersTextBox = new System.Windows.Forms.TextBox();
+            this.CheckLogsBeforeStartUpBox = new System.Windows.Forms.GroupBox();
+            this.CheckLogsBeforeStartUpCheck = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.ComputerLogsFolderTextBox = new System.Windows.Forms.TextBox();
             this.ComputerLogsFolderLabel = new System.Windows.Forms.Label();
@@ -73,8 +79,6 @@
             this.DescriptionBox = new System.Windows.Forms.GroupBox();
             this.DescriptionLabel = new System.Windows.Forms.Label();
             this.RestoreDefaultButton = new System.Windows.Forms.Button();
-            this.CheckLogsBeforeStartUpBox = new System.Windows.Forms.GroupBox();
-            this.CheckLogsBeforeStartUpCheck = new System.Windows.Forms.CheckBox();
             this.TabSettings.SuspendLayout();
             this.GeneralPage.SuspendLayout();
             this.CustomValueBox.SuspendLayout();
@@ -88,12 +92,14 @@
             this.localUpdateBox.SuspendLayout();
             this.AutoStartUpdateBox.SuspendLayout();
             this.Logs.SuspendLayout();
+            this.MotpServerBox.SuspendLayout();
+            this.MotpLogNameBox.SuspendLayout();
+            this.CheckLogsBeforeStartUpBox.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.TerminalLogsBox.SuspendLayout();
             this.Other.SuspendLayout();
             this.AutomaticallyAllowBox.SuspendLayout();
             this.DescriptionBox.SuspendLayout();
-            this.CheckLogsBeforeStartUpBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // SaveButton
@@ -403,6 +409,7 @@
             // 
             // Logs
             // 
+            this.Logs.Controls.Add(this.MotpServerBox);
             this.Logs.Controls.Add(this.CheckLogsBeforeStartUpBox);
             this.Logs.Controls.Add(this.groupBox1);
             this.Logs.Controls.Add(this.TerminalLogsBox);
@@ -413,6 +420,64 @@
             this.Logs.TabIndex = 3;
             this.Logs.Text = "Logi";
             this.Logs.UseVisualStyleBackColor = true;
+            // 
+            // MotpServerBox
+            // 
+            this.MotpServerBox.Controls.Add(this.MotpLogNameBox);
+            this.MotpServerBox.Controls.Add(this.MotpServersTextBox);
+            this.MotpServerBox.Location = new System.Drawing.Point(513, 62);
+            this.MotpServerBox.Name = "MotpServerBox";
+            this.MotpServerBox.Size = new System.Drawing.Size(239, 114);
+            this.MotpServerBox.TabIndex = 3;
+            this.MotpServerBox.TabStop = false;
+            this.MotpServerBox.Text = "Serwery MOTP z logami";
+            // 
+            // MotpLogNameBox
+            // 
+            this.MotpLogNameBox.Controls.Add(this.MotpLogNameTextBox);
+            this.MotpLogNameBox.Location = new System.Drawing.Point(6, 55);
+            this.MotpLogNameBox.Name = "MotpLogNameBox";
+            this.MotpLogNameBox.Size = new System.Drawing.Size(227, 53);
+            this.MotpLogNameBox.TabIndex = 2;
+            this.MotpLogNameBox.TabStop = false;
+            this.MotpLogNameBox.Text = "LogName z dziennika";
+            // 
+            // MotpLogNameTextBox
+            // 
+            this.MotpLogNameTextBox.Location = new System.Drawing.Point(7, 22);
+            this.MotpLogNameTextBox.Name = "MotpLogNameTextBox";
+            this.MotpLogNameTextBox.Size = new System.Drawing.Size(214, 23);
+            this.MotpLogNameTextBox.TabIndex = 1;
+            // 
+            // MotpServersTextBox
+            // 
+            this.MotpServersTextBox.Location = new System.Drawing.Point(7, 24);
+            this.MotpServersTextBox.Name = "MotpServersTextBox";
+            this.MotpServersTextBox.Size = new System.Drawing.Size(226, 23);
+            this.MotpServersTextBox.TabIndex = 0;
+            // 
+            // CheckLogsBeforeStartUpBox
+            // 
+            this.CheckLogsBeforeStartUpBox.Controls.Add(this.CheckLogsBeforeStartUpCheck);
+            this.CheckLogsBeforeStartUpBox.Location = new System.Drawing.Point(513, 11);
+            this.CheckLogsBeforeStartUpBox.Name = "CheckLogsBeforeStartUpBox";
+            this.CheckLogsBeforeStartUpBox.Size = new System.Drawing.Size(239, 45);
+            this.CheckLogsBeforeStartUpBox.TabIndex = 2;
+            this.CheckLogsBeforeStartUpBox.TabStop = false;
+            this.CheckLogsBeforeStartUpBox.Text = "Odświeżaniu logów przy uruchomieniu";
+            // 
+            // CheckLogsBeforeStartUpCheck
+            // 
+            this.CheckLogsBeforeStartUpCheck.AutoSize = true;
+            this.CheckLogsBeforeStartUpCheck.Location = new System.Drawing.Point(7, 22);
+            this.CheckLogsBeforeStartUpCheck.Name = "CheckLogsBeforeStartUpCheck";
+            this.CheckLogsBeforeStartUpCheck.Size = new System.Drawing.Size(83, 19);
+            this.CheckLogsBeforeStartUpCheck.TabIndex = 0;
+            this.CheckLogsBeforeStartUpCheck.Text = "Wyłączone";
+            this.CheckLogsBeforeStartUpCheck.UseVisualStyleBackColor = true;
+            this.CheckLogsBeforeStartUpCheck.CheckedChanged += new System.EventHandler(this.ChangeChecked);
+            this.CheckLogsBeforeStartUpCheck.MouseEnter += new System.EventHandler(this.MouseOn);
+            this.CheckLogsBeforeStartUpCheck.MouseLeave += new System.EventHandler(this.MouseOut);
             // 
             // groupBox1
             // 
@@ -644,29 +709,6 @@
             this.RestoreDefaultButton.UseVisualStyleBackColor = true;
             this.RestoreDefaultButton.Click += new System.EventHandler(this.RestoreDefaultSettings);
             // 
-            // CheckLogsBeforeStartUpBox
-            // 
-            this.CheckLogsBeforeStartUpBox.Controls.Add(this.CheckLogsBeforeStartUpCheck);
-            this.CheckLogsBeforeStartUpBox.Location = new System.Drawing.Point(513, 11);
-            this.CheckLogsBeforeStartUpBox.Name = "CheckLogsBeforeStartUpBox";
-            this.CheckLogsBeforeStartUpBox.Size = new System.Drawing.Size(239, 45);
-            this.CheckLogsBeforeStartUpBox.TabIndex = 2;
-            this.CheckLogsBeforeStartUpBox.TabStop = false;
-            this.CheckLogsBeforeStartUpBox.Text = "Odświeżaniu logów przy uruchomieniu";
-            // 
-            // ReloadLogsOnStartUpBoxCheck
-            // 
-            this.CheckLogsBeforeStartUpCheck.AutoSize = true;
-            this.CheckLogsBeforeStartUpCheck.Location = new System.Drawing.Point(7, 22);
-            this.CheckLogsBeforeStartUpCheck.Name = "CheckLogsBeforeStartUpCheck";
-            this.CheckLogsBeforeStartUpCheck.Size = new System.Drawing.Size(83, 19);
-            this.CheckLogsBeforeStartUpCheck.TabIndex = 0;
-            this.CheckLogsBeforeStartUpCheck.Text = "Wyłączone";
-            this.CheckLogsBeforeStartUpCheck.UseVisualStyleBackColor = true;
-            this.CheckLogsBeforeStartUpCheck.CheckedChanged += new System.EventHandler(this.ChangeChecked);
-            this.CheckLogsBeforeStartUpCheck.MouseEnter += new System.EventHandler(this.MouseOn);
-            this.CheckLogsBeforeStartUpCheck.MouseLeave += new System.EventHandler(this.MouseOut);
-            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -698,6 +740,12 @@
             this.AutoStartUpdateBox.ResumeLayout(false);
             this.AutoStartUpdateBox.PerformLayout();
             this.Logs.ResumeLayout(false);
+            this.MotpServerBox.ResumeLayout(false);
+            this.MotpServerBox.PerformLayout();
+            this.MotpLogNameBox.ResumeLayout(false);
+            this.MotpLogNameBox.PerformLayout();
+            this.CheckLogsBeforeStartUpBox.ResumeLayout(false);
+            this.CheckLogsBeforeStartUpBox.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.TerminalLogsBox.ResumeLayout(false);
@@ -707,8 +755,6 @@
             this.AutomaticallyAllowBox.PerformLayout();
             this.DescriptionBox.ResumeLayout(false);
             this.DescriptionBox.PerformLayout();
-            this.CheckLogsBeforeStartUpBox.ResumeLayout(false);
-            this.CheckLogsBeforeStartUpBox.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -762,6 +808,10 @@
         private System.Windows.Forms.TextBox TerminalLogsSNFileTextBox;
         private System.Windows.Forms.GroupBox CheckLogsBeforeStartUpBox;
         private System.Windows.Forms.CheckBox CheckLogsBeforeStartUpCheck;
+        private System.Windows.Forms.GroupBox MotpServerBox;
+        private System.Windows.Forms.GroupBox MotpLogNameBox;
+        private System.Windows.Forms.TextBox MotpLogNameTextBox;
+        private System.Windows.Forms.TextBox MotpServersTextBox;
     }
 }
 
