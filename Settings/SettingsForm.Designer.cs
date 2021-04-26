@@ -155,7 +155,7 @@
             this.CustomValueBox.Controls.Add(this.NumbersOfCompLogs);
             this.CustomValueBox.Location = new System.Drawing.Point(20, 13);
             this.CustomValueBox.Name = "CustomValueBox";
-            this.CustomValueBox.Size = new System.Drawing.Size(167, 82);
+            this.CustomValueBox.Size = new System.Drawing.Size(198, 82);
             this.CustomValueBox.TabIndex = 0;
             this.CustomValueBox.TabStop = false;
             this.CustomValueBox.Text = "Niestandardowe wartości:";
@@ -233,7 +233,7 @@
             this.HistoryLogBox.Controls.Add(this.HistoryLogCheck);
             this.HistoryLogBox.Location = new System.Drawing.Point(20, 101);
             this.HistoryLogBox.Name = "HistoryLogBox";
-            this.HistoryLogBox.Size = new System.Drawing.Size(167, 52);
+            this.HistoryLogBox.Size = new System.Drawing.Size(198, 52);
             this.HistoryLogBox.TabIndex = 0;
             this.HistoryLogBox.TabStop = false;
             this.HistoryLogBox.Text = "Historia logów";
@@ -354,7 +354,7 @@
             this.localUpdateBox.Controls.Add(this.LocalUpdateCheck);
             this.localUpdateBox.Location = new System.Drawing.Point(20, 69);
             this.localUpdateBox.Name = "localUpdateBox";
-            this.localUpdateBox.Size = new System.Drawing.Size(398, 81);
+            this.localUpdateBox.Size = new System.Drawing.Size(255, 81);
             this.localUpdateBox.TabIndex = 1;
             this.localUpdateBox.TabStop = false;
             this.localUpdateBox.Text = "Aktualizacje lokalne";
@@ -389,7 +389,7 @@
             this.AutoStartUpdateBox.Controls.Add(this.AutoStartUpdateCheck);
             this.AutoStartUpdateBox.Location = new System.Drawing.Point(20, 11);
             this.AutoStartUpdateBox.Name = "AutoStartUpdateBox";
-            this.AutoStartUpdateBox.Size = new System.Drawing.Size(226, 52);
+            this.AutoStartUpdateBox.Size = new System.Drawing.Size(255, 52);
             this.AutoStartUpdateBox.TabIndex = 0;
             this.AutoStartUpdateBox.TabStop = false;
             this.AutoStartUpdateBox.Text = "AutoStart";
