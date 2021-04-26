@@ -33,7 +33,10 @@ namespace PuzzelLibrary.Terminal
                 data += (" ");
             string IPAddress;
             if (session.ConnectionState != ConnectionState.Disconnected)
+            {
                 IPAddress = (session.ClientIPAddress.ToString());
+                data += IPAddress;
+            }
             else
                 IPAddress = "niedostępne";
                 for (int i = 0; i < "    IP klienta   ".Length - IPAddress.Length; i++)
