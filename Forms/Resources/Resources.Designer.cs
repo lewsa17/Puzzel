@@ -273,6 +273,16 @@ namespace Forms.Resources {
         /// <summary>
         ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap motp {
+            get {
+                object obj = ResourceManager.GetObject("motp", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap netcard {
             get {
                 object obj = ResourceManager.GetObject("netcard", resourceCulture);

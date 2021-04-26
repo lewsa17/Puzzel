@@ -1151,6 +1151,7 @@
             //
             // MotpLogons
             //
+            this.MotpLogons.Image = global::Forms.Resources.Resources.motp;
             this.MotpLogons.Name = "MotpLogons";
             this.MotpLogons.Text = "Wyszukiwanie prób logowania (motp)";
             this.MotpLogons.Click += new(this.BtnBadPwdFinderLogs);
