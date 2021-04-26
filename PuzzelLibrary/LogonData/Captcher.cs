@@ -117,15 +117,17 @@ namespace PuzzelLibrary.LogonData
             {
                 UserNameDB.ADUserDB.Clear();
                 UserNameEntry _userNameEntry = new();
-                foreach (SearchResult ADUser in Captcher.GetAllUsers())
-                {
-                    if (ADUser.Properties.Contains("DisplayName") && ADUser.Properties.Contains("SamAccountName"))
+                var allusers = Captcher.GetAllUsers();
+                if (allusers != null)
+                    foreach (SearchResult ADUser in allusers)
                     {
-                        _userNameEntry.DisplayName = ADUser.Properties["DisplayName"][0].ToString();
-                        _userNameEntry.UserName = ADUser.Properties["SamAccountName"][0].ToString();
-                        ADUserDB.Add(_userNameEntry);
+                        if (ADUser.Properties.Contains("DisplayName") && ADUser.Properties.Contains("SamAccountName"))
+                        {
+                            _userNameEntry.DisplayName = ADUser.Properties["DisplayName"][0].ToString();
+                            _userNameEntry.UserName = ADUser.Properties["SamAccountName"][0].ToString();
+                            ADUserDB.Add(_userNameEntry);
+                        }
                     }
-                }
             }
         }
         public string getUserComputerLog(string pole, string rodzaj, decimal licznik)
