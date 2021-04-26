@@ -1233,7 +1233,7 @@ namespace Forms
         {
             richTextBox1.SelectionStart = 0;
             richTextBox1.HideSelection = false;
-            Additional.SearchingMainForm wyszukiwarka = new Additional.SearchingMainForm();
+            Additional.SearchingMainForm wyszukiwarka = new Additional.SearchingMainForm(richTextBox1);
             wyszukiwarka.Show();
         }
         private void StartTime()

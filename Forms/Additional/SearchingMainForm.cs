@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -6,9 +6,11 @@ namespace Forms.Additional
 {
     public partial class SearchingMainForm : Form
     {
-        public SearchingMainForm()
+        RichTextBox textField = new();
+        public SearchingMainForm(RichTextBox richTextBox)
         {
             InitializeComponent();
+            textField = richTextBox;
         }
         private void Buttons_Click(object sender, EventArgs e)
         {
@@ -20,26 +22,26 @@ namespace Forms.Additional
                 {
                     if (((Button)sender) == btnSearch | ((Button)sender) == btnNextWord)
                     {
-                        if (MainForm.richTextBox1.SelectionStart > 1)
-                            SelectionStart = MainForm.richTextBox1.Text.IndexOf(SearchWord, MainForm.richTextBox1.SelectionStart + SearchWord.Length, StringComparison.CurrentCultureIgnoreCase);
-                        else SelectionStart = MainForm.richTextBox1.Text.IndexOf(SearchWord, MainForm.richTextBox1.SelectionStart, StringComparison.CurrentCultureIgnoreCase);
+                        if (textField.SelectionStart > 1)
+                            SelectionStart = textField.Text.IndexOf(SearchWord, textField.SelectionStart + SearchWord.Length, StringComparison.CurrentCultureIgnoreCase);
+                        else SelectionStart = textField.Text.IndexOf(SearchWord, textField.SelectionStart, StringComparison.CurrentCultureIgnoreCase);
                     }
 
                     if (((Button)sender) == btnPreviousWord)
-                        SelectionStart = MainForm.richTextBox1.Find(SearchWord, 0, MainForm.richTextBox1.SelectionStart, RichTextBoxFinds.Reverse);
+                        SelectionStart = textField.Find(SearchWord, 0, textField.SelectionStart, RichTextBoxFinds.Reverse);
                 }
             }
             if (sender is TextBox)
             {
-                if (MainForm.richTextBox1.SelectionStart > 1)
-                    SelectionStart = MainForm.richTextBox1.Text.IndexOf(SearchWord, MainForm.richTextBox1.SelectionStart + SearchWord.Length, StringComparison.CurrentCultureIgnoreCase);
-                else SelectionStart = MainForm.richTextBox1.Text.IndexOf(SearchWord, MainForm.richTextBox1.SelectionStart, StringComparison.CurrentCultureIgnoreCase);
+                if (textField.SelectionStart > 1)
+                    SelectionStart = textField.Text.IndexOf(SearchWord, textField.SelectionStart + SearchWord.Length, StringComparison.CurrentCultureIgnoreCase);
+                else SelectionStart = textField.Text.IndexOf(SearchWord, textField.SelectionStart, StringComparison.CurrentCultureIgnoreCase);
             }
             if (SelectionStart != -1)
-                MainForm.richTextBox1.SelectionStart = SelectionStart;
+                textField.SelectionStart = SelectionStart;
             else
                 MessageBox.Show("Nie znaleziono wartości: " + SearchWord);
-            MainForm.richTextBox1.SelectionLength = SearchWord.Length;
+            textField.SelectionLength = SearchWord.Length;
         }
         private void SearchingMainForm_Load(object sender, EventArgs e)
         {
@@ -72,7 +74,8 @@ namespace Forms.Additional
         }
         private void SearchingMainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            MainForm.richTextBox1.HideSelection = true;
+            textField.HideSelection = true;
         }
     }
 }
+
