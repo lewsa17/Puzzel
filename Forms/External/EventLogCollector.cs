@@ -92,7 +92,7 @@ namespace Forms.External
             if (!LocationText.Enabled)
             {
                 if (PuzzelLibrary.NetDiag.Ping.TCPPing(DomainController, 135) == PuzzelLibrary.NetDiag.Ping.TCPPingStatus.Success)
-                    ec.GetRemoteLog(DomainController, "Security", queryDomain);
+                    TextLogView.Text = ec.GetRemoteLog(DomainController, "Security", queryDomain);
                 else TextLogView.Text = "Brak połączenia z kontrolerem domeny, serwer RPC jest niedostępny";
             }
             else if (PuzzelLibrary.NetDiag.Ping.TCPPing(LocationText.Text, 135) == PuzzelLibrary.NetDiag.Ping.TCPPingStatus.Success)
