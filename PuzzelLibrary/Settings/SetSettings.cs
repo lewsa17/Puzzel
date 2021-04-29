@@ -65,7 +65,6 @@ namespace PuzzelLibrary.Settings
             SetValue("Version", Version, writer);
             writer.WriteEndDocument();
             writer.Close();
-            Console.WriteLine("XML File created ! ");
         }
         private void SetValue(string Name, string Value, XmlTextWriter writer)
         {
