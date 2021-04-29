@@ -260,18 +260,22 @@ namespace Forms
             if (sender == LogonsOnComputer)
             {
                 badPwdForm = new(HostName());
+                badPwdForm.ShowDialog();
             }
             else if (sender == MotpLogons)
             {
                 var motpServers = PuzzelLibrary.Settings.Values.MotpServers.Split(',', ';');
                 badPwdForm = new(motpServers);
+                badPwdForm.ShowDialog();
             }
-            else
+            else if (sender == LogonsOnDomainHub)
             {
-                badPwdForm = new("DomainHub", UserName());
+                if (!string.IsNullOrEmpty(UserName()))
+                {
+                    badPwdForm = new("DomainHub", UserName());
+                    badPwdForm.ShowDialog();
+                }
             }
-
-            badPwdForm.ShowDialog();
         }
         private LogsData UserData()
         {
