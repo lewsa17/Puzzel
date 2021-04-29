@@ -50,7 +50,7 @@ namespace PuzzelLibrary.Debug
                 var logReader = new EventLogReader(eventsQuery);
                 DisplayEventAndLogInformation(logReader);
             }
-            catch (EventLogNotFoundException e)
+            catch (EventLogException e)
             {
                 Debug.LogsCollector.GetLogs(e, logName);
             }
@@ -69,7 +69,11 @@ namespace PuzzelLibrary.Debug
                 return DisplayEventAndLogInformation(logReader);
             }
 
-            catch (EventLogNotFoundException e)
+            catch (EventLogException e)
+            {
+                return string.Concat("Server:", computerName, " - ", e.Message);
+            }
+            catch (Exception e)
             {
                 Debug.LogsCollector.GetLogs(e, computerName);
             }
@@ -89,7 +93,11 @@ namespace PuzzelLibrary.Debug
                 return DisplayEventSecurityLog(logReader);
             }
 
-            catch (EventLogNotFoundException e)
+            catch (EventLogException e)
+            {
+                return string.Concat("Server:", computerName, " - ", e.Message);
+            }
+            catch (Exception e)
             {
                 Debug.LogsCollector.GetLogs(e, computerName);
             }
