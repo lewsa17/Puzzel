@@ -46,7 +46,8 @@ namespace Forms.External
             InitializeTip();
             LocationText.DropDownStyle = ComboBoxStyle.DropDownList;
             LocationText.Items.AddRange(motpServers);
-            LocationText.SelectedIndex = 1;
+            if (LocationText.Items.Count > 0)
+                LocationText.SelectedIndex = 0;
         }
 
         private string DomainController { get; set; }
