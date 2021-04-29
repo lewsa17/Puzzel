@@ -42,7 +42,11 @@ namespace PuzzelLibrary.Settings
         {
             if (File.Exists("Settings.xml"))
                 GetSettings.LoadValues("Settings.xml");
-            else CommitChanges();
+            else 
+            {
+                CommitChanges();
+                GetSettings.LoadValues("Settings.xml");
+            }
         }
         public static void RestoreDefaultSettings(object sender)
         {
