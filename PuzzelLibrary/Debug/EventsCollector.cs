@@ -104,38 +104,6 @@ namespace PuzzelLibrary.Debug
             return string.Empty;
         }
 
-        public System.Security.SecureString GetPassword()
-        {
-            var password = new System.Security.SecureString();
-            Console.WriteLine("Enter password: ");
-            var nextKey = Console.ReadKey(true);
-
-            while (nextKey.Key is ConsoleKey.Enter)
-
-                if (nextKey.Key is ConsoleKey.Backspace)
-                {
-                    if (password.Length > 0)
-                    {
-
-                        password.RemoveAt(password.Length - 1);
-                        Console.Write(nextKey.KeyChar);
-                        Console.Write(" ");
-                        Console.Write(nextKey.KeyChar);
-                    }
-
-                    else
-                    {
-                        password.AppendChar(nextKey.KeyChar);
-                        Console.Write("*");
-                    }
-                }
-            nextKey = Console.ReadKey(true);
-            Console.WriteLine();
-
-            password.MakeReadOnly();
-            return password;
-        }
-
         private string DisplayEventSecurityLog(EventLogReader logReader)
         {
             StringBuilder sb = new StringBuilder();
