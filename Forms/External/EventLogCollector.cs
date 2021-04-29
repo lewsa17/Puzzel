@@ -103,14 +103,14 @@ namespace Forms.External
             if (!LocationText.Enabled)
             {
                 if (PuzzelLibrary.NetDiag.Ping.TCPPing(DomainController, 135) == PuzzelLibrary.NetDiag.Ping.TCPPingStatus.Success)
-                    TextLogView.Text = ec.GetSecurityControllerLog(DomainController, "Security", queryController);
+                    TextLogView.Text = ec.GetSecurityLog(DomainController, "Security", queryController);
                 else TextLogView.Text = "Brak połączenia z kontrolerem domeny, serwer RPC jest niedostępny";
             }
             else if (PuzzelLibrary.NetDiag.Ping.TCPPing(LocationText.Text, 135) == PuzzelLibrary.NetDiag.Ping.TCPPingStatus.Success)
             {
                 //Wyszukiwanie na serwerzer motp
                 if (LocationText.Text.Contains("motp", StringComparison.OrdinalIgnoreCase))
-                    TextLogView.Text = ec.GetRemoteLog(LocationText.Text, PuzzelLibrary.Settings.Values.MotpLogName, MotpQuery);
+                    TextLogView.Text = ec.GetSecurityLog(LocationText.Text, PuzzelLibrary.Settings.Values.MotpLogName, MotpQuery);
 
                 //Wyszukiwanie na komputerze o nazwie podanej w polu
                 else if (!string.IsNullOrEmpty(LocationText.Text))

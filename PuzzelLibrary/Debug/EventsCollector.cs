@@ -76,7 +76,7 @@ namespace PuzzelLibrary.Debug
             return string.Empty;
         }
 
-        public string GetSecurityControllerLog(string computerName, string logName, string queryString)
+        public string GetSecurityLog(string computerName, string logName, string queryString)
         {
             EventLogSession session = new EventLogSession(computerName);
 
@@ -143,13 +143,25 @@ namespace PuzzelLibrary.Debug
                     EventParser ep = new EventParser(eventInstance);
                     sb.Append("-----------------------------------------------------\n");
                     sb.Append(string.Format("{0}\n\n", ep.Descriptions.Title));
-                    sb.Append(string.Format("Event ID: {0}\t\t Record: {1}\n", ep.ID, eventInstance.RecordId));
-                    sb.Append(string.Format("TimeCreated:\t\t {0}\n", ep.TimeCreated));
-                    sb.Append(string.Format("Nazwa użytkownika:\t {0}\n", ep.Descriptions.TargetUserName));
-                    sb.Append(string.Format("Identyfikator zabepieczeń:\t {0}\n", ep.Descriptions.TargetUserSid));
-                    sb.Append(string.Format("Nazwa:\t\t\t {0}\n", ep.Descriptions.TargetDomainName));
-                    sb.Append(string.Format("IP adres\t\t\t {0}\n", ep.Descriptions.IpAddress));
-                    sb.Append(string.Format("Nazwa komputera \t {0}\n", ep.Descriptions.Workstation));
+                    sb.Append(string.Format("Event ID: {0}\t\t\t Record: {1}\n", ep.ID, eventInstance.RecordId));
+                    sb.Append(string.Format("TimeCreated:\t\t\t {0}\n", ep.TimeCreated));
+                    sb.Append(string.Format("Nazwa użytkownika:\t\t {0}\n", ep.Descriptions.TargetUserName));
+                    if (!string.IsNullOrEmpty(ep.Descriptions.TargetUserSid))
+                        sb.Append(string.Format("Identyfikator zabepieczeń:\t\t {0}\n", ep.Descriptions.TargetUserSid));
+                    if (!string.IsNullOrEmpty(ep.Descriptions.TargetDomainName))
+                        sb.Append(string.Format("Nazwa:\t\t\t\t {0}\n", ep.Descriptions.TargetDomainName));
+                    if (!string.IsNullOrEmpty(ep.Descriptions.IpAddress))
+                        sb.Append(string.Format("IP adres\t\t\t\t {0}\n", ep.Descriptions.IpAddress));
+                    if (!string.IsNullOrEmpty(ep.Descriptions.NewPID))
+                        sb.Append(string.Format("Identyfikator nowego procesu: \t {0}\n", ep.Descriptions.NewPID));
+                    if (!string.IsNullOrEmpty(ep.Descriptions.NewProcessName))
+                        sb.Append(string.Format("Nazwa nowego procesu: \t\t {0}\n", ep.Descriptions.NewProcessName));
+                    if (!string.IsNullOrEmpty(ep.Descriptions.PID))
+                        sb.Append(string.Format("Identyfikator procesu twórcy: \t {0}\n", ep.Descriptions.PID));
+                    if (!string.IsNullOrEmpty(ep.Descriptions.ParentProcessName))
+                        sb.Append(string.Format("Nazwa procesu twórcy: \t\t {0}\n", ep.Descriptions.ParentProcessName));
+                    if (!string.IsNullOrEmpty(ep.Descriptions.CommandLine))
+                        sb.Append(string.Format("Wiersz polecenia procesu: \t\t {0}\n", ep.Descriptions.CommandLine));
                 }
                 catch (EventLogException e)
                 {
@@ -210,6 +222,11 @@ namespace PuzzelLibrary.Debug
                 public string TargetUserSid { get => _TargetUserSid; }
                 public string Title { get => _Title; }
                 public string Workstation { get => _Workstation; }
+                public string NewPID { get => _newPID; }
+                public string NewProcessName { get => _newProcessName; }
+                public string PID { get => _PID; }
+                public string CommandLine { get => _CommandLine; }
+                public string ParentProcessName { get => _ParentProcessName; }
 
                 public EventDescriptions(EventRecord eventRecord)
                 {
@@ -222,23 +239,29 @@ namespace PuzzelLibrary.Debug
                         this._Workstation = eventRecord.Properties[11].Value.ToString();
                         this._IpAddress = eventRecord.Properties[18].Value.ToString();
                     }
-
+                    if (eventRecord.Id == 4688)
+                    {
+                        this._Title = "Utworzono nowy proces.";
+                        this._newPID = eventRecord.Properties[4].Value.ToString();
+                        this._newProcessName = eventRecord.Properties[5].Value.ToString();
+                        this._PID = eventRecord.Properties[7].Value.ToString();
+                        this._CommandLine = eventRecord.Properties[8].Value.ToString();
+                        this._TargetUserSid = eventRecord.Properties[9].Value.ToString();
+                        this._TargetUserName = eventRecord.Properties[10].Value.ToString();
+                        this._TargetDomainName = eventRecord.Properties[11].Value.ToString();
+                        this._ParentProcessName = eventRecord.Properties[13].Value.ToString();
+                    }
                     if (eventRecord.Id == 4776)
                     {
                         this._Title = "Komputer próbował zweryfikować poświadczenia dla konta.";
-                        this._TargetUserSid = string.Empty;
                         this._TargetUserName = eventRecord.Properties[1].Value.ToString();
-                        this._TargetDomainName = string.Empty;
                         this._Workstation = eventRecord.Properties[2].Value.ToString();
-                        this._IpAddress = string.Empty;
                     }
                     if (eventRecord.Id == 4771)
                     {
                         this._Title = "Wstępne logowanie protokołem Kerberos nie udane.";
                         this._TargetUserSid = eventRecord.Properties[1].Value.ToString();
                         this._TargetUserName = eventRecord.Properties[0].Value.ToString();
-                        this._TargetDomainName = string.Empty;
-                        this._Workstation = string.Empty;
                         this._IpAddress = eventRecord.Properties[6].ToString();
                     }
                     if (eventRecord.Id == 4740)
@@ -247,8 +270,6 @@ namespace PuzzelLibrary.Debug
                         this._TargetUserSid = eventRecord.Properties[2].Value.ToString();
                         this._TargetUserName = eventRecord.Properties[0].Value.ToString();
                         this._TargetDomainName = eventRecord.Properties[1].Value.ToString();
-                        this._Workstation = string.Empty;
-                        this._IpAddress = string.Empty;
                     }
                 }
                 private string _TargetUserSid;
@@ -257,6 +278,11 @@ namespace PuzzelLibrary.Debug
                 private string _Workstation;
                 private string _IpAddress;
                 private string _Title;
+                private string _newPID;
+                private string _newProcessName;
+                private string _PID;
+                private string _CommandLine;
+                private string _ParentProcessName;
             }
         }
     }
