@@ -343,19 +343,12 @@ namespace Forms
                 else
                 {
                     if (kindOf == "User")
-                    {
-                        foreach (var LogName in captcher.userNames(name))
-                        {
+                        foreach (var LogName in captcher.userNames(name, kindOf))
                             new Thread(() => UpdateRichTextBox(new PuzzelLibrary.LogonData.Captcher().SearchLogs(numberOfLogs, LogName.UserName, kindOf))).Start();
-                        }
-                    }
+
                     if (kindOf == "Computer")
-                    {
-                        foreach (var LogName in captcher.ComputerNames(name))
-                        {
-                            new Thread(() => UpdateRichTextBox(new PuzzelLibrary.LogonData.Captcher().SearchLogs(numberOfLogs, LogName.Name, kindOf))).Start(); 
-                        }
-                    }
+                        foreach (var LogName in captcher.ComputerNames(name, kindOf))
+                            new Thread(() => UpdateRichTextBox(new PuzzelLibrary.LogonData.Captcher().SearchLogs(numberOfLogs, LogName.Name, kindOf))).Start();
                 }
             }
         }

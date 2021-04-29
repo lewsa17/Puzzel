@@ -198,15 +198,11 @@ namespace PuzzelLibrary.LogonData
                 var usr = UserNameDB.ADUserDB.FindAll(x => x.UserName.Contains(pole));
                 if (usr.Count == 0)
                     return ("Brak użytkownika w cache");
-                else
+                else if (usr.Count == 1)
                 {
-                    for (int i = 0; i < usr.Count; i++)
-                    {
-                        if (File.Exists(logsDirectory + kindOf + "\\" + usr[i].UserName + "_logons.log"))
-                            return "";
-                        else if (i == usr.Count - 1)
-                            return ("Brak w logach");
-                    }
+                    if (File.Exists(logsDirectory + kindOf + "\\" + usr[0].UserName + "_logons.log"))
+                        return "";
+                    else return ("Brak w logach");
                 }
             }
             if (kindOf == "Computer")
@@ -214,15 +210,11 @@ namespace PuzzelLibrary.LogonData
                 var comp = ComputerNameDB.ADComputerDB.FindAll(x => x.Name.Contains(pole));
                 if (comp.Count == 0)
                     return ("Brak nazwy komputera w logach");
-                else
+                else if (comp.Count == 1)
                 {
-                    for (int i = 0; i < comp.Count; i++)
-                    {
-                        if (File.Exists(logsDirectory + kindOf + "\\" + comp[i].Name + "_logons.log"))
-                            return "";
-                        else if (i == comp.Count - 1)
-                            return ("Brak w logach");
-                    }
+                    if (File.Exists(logsDirectory + kindOf + "\\" + comp[0].Name + "_logons.log"))
+                        return "";
+                    else return ("Brak w logach");
                 }
             }
             return "";
@@ -244,23 +236,31 @@ namespace PuzzelLibrary.LogonData
             }
             return false;
         }
-        public ComputerNameDB.ComputerNameEntry[] ComputerNames(string pole)
+        public ComputerNameDB.ComputerNameEntry[] ComputerNames(string pole, string kindOf)
         {
-            ComputerNameDB.ComputerNameEntry[] logsNames = null;
+            List<ComputerNameDB.ComputerNameEntry> logsNames = null;
             if (!string.IsNullOrEmpty(pole) | !string.IsNullOrWhiteSpace(pole))
             {
-                logsNames = ComputerNameDB.ADComputerDB.FindAll(x => x.Name.Contains(pole)).ToArray();
+                foreach (var logName in ComputerNameDB.ADComputerDB.FindAll(x => x.Name.Contains(pole)))
+                    if (File.Exists(logsDirectory + kindOf + "\\" + logName + "_logons.log"))
+                    {
+                        logsNames.Add(logName);
+                    }
             }
-            return logsNames;
+            return logsNames.ToArray();
         }
-        public UserNameDB.UserNameEntry[] userNames(string pole)
+        public UserNameDB.UserNameEntry[] userNames(string pole, string kindOf)
         {
-            UserNameDB.UserNameEntry[] logsNames = null;
+            List<UserNameDB.UserNameEntry> logsNames = null;
             if (!string.IsNullOrEmpty(pole) | !string.IsNullOrWhiteSpace(pole))
             {
-                logsNames = UserNameDB.ADUserDB.FindAll(x => x.UserName.Contains(pole)).ToArray();
+                foreach (var logName in UserNameDB.ADUserDB.FindAll(x => x.UserName.Contains(pole)))
+                    if (File.Exists(logsDirectory + kindOf + "\\" + logName + "_logons.log"))
+                    {
+                        logsNames.Add(logName);
+                    }
             }
-            return logsNames;
+            return logsNames.ToArray();
         }
         private string SAMAccountName(string username)
         {
