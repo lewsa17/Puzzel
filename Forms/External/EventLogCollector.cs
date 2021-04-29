@@ -81,8 +81,14 @@ namespace Forms.External
             string dateFormat = "yyyy-MM-ddTHH:mm:ss.fffffffZ";
             var query = string.Format("*[System/TimeCreated/@SystemTime >= '{0}'] and *[System/TimeCreated/@SystemTime <= '{1}']",
                 StartDateRangePicker.Value.ToUniversalTime().ToString(dateFormat), EndDateRangePicker.Value.ToString(dateFormat));
-            var queryDomain = string.Format("*[System/TimeCreated/@SystemTime >= '{0}'] and *[System/TimeCreated/@SystemTime <= '{1}']",
+            var MotpQuery = string.Format("*[System/TimeCreated/@SystemTime >= '{0}'] and *[System/TimeCreated/@SystemTime <= '{1}']",
                 StartDateRangePicker.Value.ToUniversalTime().ToString(dateFormat), EndDateRangePicker.Value.ToUniversalTime().ToString(dateFormat));
+            var queryController = string.Format("<QueryList>" +
+                                         "  <Query Id='0' Path='Security'>" +
+                                         "    <Select Path='Security'>*[System[(EventID=4624 or EventID=4740 or EventID=4771 or EventID=4776) and TimeCreated[@SystemTime&gt;='{0}' and @SystemTime&lt;='{1}']]]</Select>" +
+                                         "  </Query>" +
+                                         "</QueryList>"
+                                         , StartDateRangePicker.Value.ToUniversalTime().ToString(dateFormat), EndDateRangePicker.Value.ToUniversalTime().ToString(dateFormat));
 
             //Wyszukiwanie w lokalu / brak danych w polu
             if (string.IsNullOrEmpty(LocationText.Text))
@@ -92,14 +98,14 @@ namespace Forms.External
             if (!LocationText.Enabled)
             {
                 if (PuzzelLibrary.NetDiag.Ping.TCPPing(DomainController, 135) == PuzzelLibrary.NetDiag.Ping.TCPPingStatus.Success)
-                    TextLogView.Text = ec.GetRemoteLog(DomainController, "Security", queryDomain);
+                    TextLogView.Text = ec.GetRemoteLog(DomainController, "Security", queryController);
                 else TextLogView.Text = "Brak połączenia z kontrolerem domeny, serwer RPC jest niedostępny";
             }
             else if (PuzzelLibrary.NetDiag.Ping.TCPPing(LocationText.Text, 135) == PuzzelLibrary.NetDiag.Ping.TCPPingStatus.Success)
             {
                 //Wyszukiwanie na serwerzer motp
                 if (LocationText.Text.Contains("motp", StringComparison.OrdinalIgnoreCase))
-                    TextLogView.Text = ec.GetRemoteLog(LocationText.Text, PuzzelLibrary.Settings.Values.MotpLogName, queryDomain);
+                    TextLogView.Text = ec.GetRemoteLog(LocationText.Text, PuzzelLibrary.Settings.Values.MotpLogName, MotpQuery);
 
                 //Wyszukiwanie na komputerze o nazwie podanej w polu
                 else if (!string.IsNullOrEmpty(LocationText.Text))
