@@ -275,6 +275,7 @@ namespace Forms
                     badPwdForm = new("DomainHub", UserName());
                     badPwdForm.ShowDialog();
                 }
+                else MessageBox.Show("Nie podano nazwy użytkownika", "Brak danych", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
         private LogsData UserData()
