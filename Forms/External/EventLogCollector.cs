@@ -12,19 +12,23 @@ namespace Forms.External
             get => _userName;
             set => _userName = value;
         }
+
         private string _titleName;
         public string TitleName
         {
             get => _titleName;
             set => _titleName = value;
         }
+
         public string[] MotpSevers { get; set; }
+
         public EventLogCollector(string TitleName)
         {
             InitializeComponent();
             InitializeTip();
             this.TitleName = LocationText.Text = TitleName;
         }
+
         public EventLogCollector(string TitleName, string UserName)
         {
             InitializeComponent();
@@ -34,6 +38,7 @@ namespace Forms.External
             this.UserName = UserName;
             GetLastBadPasswordAttempt();
         }
+
         public EventLogCollector(string[] motpServers)
         {
             MotpSevers = motpServers;
@@ -42,8 +47,8 @@ namespace Forms.External
             LocationText.DropDownStyle = ComboBoxStyle.DropDownList;
             LocationText.Items.AddRange(motpServers);
             LocationText.SelectedIndex = 1;
-
         }
+
         private string DomainController { get; set; }
         private void GetLastBadPasswordAttempt()
         {
@@ -68,7 +73,6 @@ namespace Forms.External
                             {
                                 EndDateRangePicker.Value = pd.lastBadPasswordAttempt.AddSeconds(+1);
                             }));
-
                         }
                     });
                 }
@@ -98,7 +102,7 @@ namespace Forms.External
             if (!LocationText.Enabled)
             {
                 if (PuzzelLibrary.NetDiag.Ping.TCPPing(DomainController, 135) == PuzzelLibrary.NetDiag.Ping.TCPPingStatus.Success)
-                    TextLogView.Text = ec.GetRemoteLog(DomainController, "Security", queryController);
+                    TextLogView.Text = ec.GetSecurityControllerLog(DomainController, "Security", queryController);
                 else TextLogView.Text = "Brak połączenia z kontrolerem domeny, serwer RPC jest niedostępny";
             }
             else if (PuzzelLibrary.NetDiag.Ping.TCPPing(LocationText.Text, 135) == PuzzelLibrary.NetDiag.Ping.TCPPingStatus.Success)
