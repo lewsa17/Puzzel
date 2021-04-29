@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Windows.Forms;
 using System.Xml;
+using System;
 
 namespace PuzzelLibrary.Settings
 {
@@ -42,10 +43,28 @@ namespace PuzzelLibrary.Settings
         {
             if (File.Exists("Settings.xml"))
                 GetSettings.LoadValues("Settings.xml");
-            else 
+            else
             {
+                RestoreDefautlValues();
                 CommitChanges();
-                GetSettings.LoadValues("Settings.xml");
+            }
+        }
+        public static void RestoreDefautlValues()
+        {
+            foreach (var Value in typeof(Values).GetProperties())
+            {
+                if (Value.PropertyType == typeof(Boolean))
+                {
+                    Value.SetValue(null, false);
+                }
+                if (Value.PropertyType == typeof(String))
+                {
+                    Value.SetValue(null, "");
+                }
+                if (Value.PropertyType == typeof(Decimal))
+                {
+                    Value.SetValue(null, (decimal)10);
+                }
             }
         }
         public static void RestoreDefaultSettings(object sender)
