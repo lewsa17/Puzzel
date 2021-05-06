@@ -140,7 +140,7 @@ namespace Forms.External.Explorer
             }
             if (sender is Button)
             {
-                tabPage = (TabPage)((Button)sender).Parent;
+                tabPage = tabControl.SelectedTab;
                 dataGridView = (DataGridView)tabPage.Controls.Find("dataGridView2", true)[0];
             }
             var label = tabPage.Controls.Find("processCount", true)[0];
@@ -164,7 +164,7 @@ namespace Forms.External.Explorer
             }
             if (sender is Button)
             {
-                var tabpage = (TabPage)((Button)sender).Parent;
+                var tabpage = tabControl.SelectedTab;
                 if (tabpage.Name == "dynaProcesTab")
                 {
                     DataGridView dgv = (DataGridView)tabpage.Controls.Find("dataGridView2", true)[0];
