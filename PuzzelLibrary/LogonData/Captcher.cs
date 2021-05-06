@@ -238,11 +238,11 @@ namespace PuzzelLibrary.LogonData
         }
         public ComputerNameDB.ComputerNameEntry[] ComputerNames(string pole, string kindOf)
         {
-            List<ComputerNameDB.ComputerNameEntry> logsNames = null;
+            List<ComputerNameDB.ComputerNameEntry> logsNames = new();
             if (!string.IsNullOrEmpty(pole) | !string.IsNullOrWhiteSpace(pole))
             {
                 foreach (var logName in ComputerNameDB.ADComputerDB.FindAll(x => x.Name.Contains(pole)))
-                    if (File.Exists(logsDirectory + kindOf + "\\" + logName + "_logons.log"))
+                    if (File.Exists(logsDirectory + kindOf + "\\" + logName.Name + "_logons.log"))
                     {
                         logsNames.Add(logName);
                     }
@@ -251,11 +251,11 @@ namespace PuzzelLibrary.LogonData
         }
         public UserNameDB.UserNameEntry[] userNames(string pole, string kindOf)
         {
-            List<UserNameDB.UserNameEntry> logsNames = null;
+            List<UserNameDB.UserNameEntry> logsNames = new();
             if (!string.IsNullOrEmpty(pole) | !string.IsNullOrWhiteSpace(pole))
             {
                 foreach (var logName in UserNameDB.ADUserDB.FindAll(x => x.UserName.Contains(pole)))
-                    if (File.Exists(logsDirectory + kindOf + "\\" + logName + "_logons.log"))
+                    if (File.Exists(logsDirectory + kindOf + "\\" + logName.UserName + "_logons.log"))
                     {
                         logsNames.Add(logName);
                     }
