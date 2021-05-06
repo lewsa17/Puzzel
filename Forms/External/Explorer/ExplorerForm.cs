@@ -27,14 +27,14 @@ namespace Forms.External.Explorer
             }
         }
 
-        Label IDsesjiLabel; Label rozdzielczoscLabel; Label sprzetidLabel; Label poziomszyfrowaniaLabel;
-        Label glebiakolorowLabel; Label produktidlabel; Label katalogLabel; Label adresipLabel;
-        Label nazwaklientaLabel; Label kartasieciowaLabel; Label nazwauzytkownikaLabel; Label label10;
-        Label label9; Label bajtyramkiwychodzace; Label ramkiwychodzaceLabel; Label bajtywychodzaceLabel;
-        Label stopienkompresjiLabel; Label bajtyramkiprzychodzaceLabel; Label ramkiprzychodzaceLabel;
-        Label bajtyprzychodzaceLabel; Label label16; Label label15; Label label14; Label label13;
-        Label label12; Label label11; Label label8; Label label7; Label label6; Label label5;
-        Label label4; Label label3; Label label2; Label label1; Label statusZalogowlabel;
+        Label IDSessionLabel; Label resolutionValueLabel; Label hardwareIDValueLabel; Label encryptionLevelValueLabel;
+        Label depthValueLabel; Label productidValueLabel; Label catalogValueLabel; Label addressIPValueLabel;
+        Label hostNameValueLabel; Label nicValueLabel; Label userNameValueLabel; Label resolutionLabel;
+        Label hardwareIDLabel; Label bytesFramesOutLabel; Label framesOutLabel; Label bytesOutLabel;
+        Label compressionLevelLabel; Label bytesFramesInLabel; Label framesInLabel;
+        Label bytesInLabel; Label outPacketLabel; Label inPacketLabel; Label bytesPerFrameLabel; Label compressionLabel;
+        Label framesLabel; Label bytesLabel; Label encryptionLabel; Label depthLabel; Label productIDLabel; Label catalogLabel;
+        Label addressIPLabel; Label hostNameLabel; Label nicLabel; Label userNameLabel; Label statusSessionLabel;
 
         private void BtnRefresh_Click(object sender, EventArgs e)
         {
@@ -81,60 +81,58 @@ namespace Forms.External.Explorer
         {
             if (session.UserAccount != null)
             {
-                IDsesjiLabel.Text = null;
-                IDsesjiLabel.Text = selectedSessionID.ToString();
-                nazwauzytkownikaLabel.Text = session.UserName;
-                nazwaklientaLabel.Text = session.ClientName;
+                IDSessionLabel.Text = null;
+                IDSessionLabel.Text = selectedSessionID.ToString();
+                userNameValueLabel.Text = session.UserName;
+                hostNameValueLabel.Text = session.ClientName;
 
                 if (session.ClientIPAddress != null)
                 {
-                    adresipLabel.Text = session.ClientIPAddress.ToString();
+                    addressIPValueLabel.Text = session.ClientIPAddress.ToString();
                 }
                 else
                 {
-                    adresipLabel.Text = "brak danych";
+                    addressIPValueLabel.Text = "brak danych";
                 }
-                katalogLabel.Text = session.ClientDirectory;
-                produktidlabel.Text = session.ClientProductId.ToString();
-                glebiakolorowLabel.Text = session.ClientDisplay.BitsPerPixel.ToString();
-                sprzetidLabel.Text = session.ClientHardwareId.ToString();
-                rozdzielczoscLabel.Text = (session.ClientDisplay.HorizontalResolution + " x " + session.ClientDisplay.VerticalResolution).ToString();
+                catalogValueLabel.Text = session.ClientDirectory;
+                productidValueLabel.Text = session.ClientProductId.ToString();
+                depthValueLabel.Text = session.ClientDisplay.BitsPerPixel.ToString();
+                hardwareIDValueLabel.Text = session.ClientHardwareId.ToString();
+                resolutionValueLabel.Text = (session.ClientDisplay.HorizontalResolution + " x " + session.ClientDisplay.VerticalResolution).ToString();
 
-                bajtyprzychodzaceLabel.Text = session.IncomingStatistics.Bytes.ToString();
-                ramkiprzychodzaceLabel.Text = session.IncomingStatistics.Frames.ToString();
+                bytesInLabel.Text = session.IncomingStatistics.Bytes.ToString();
+                framesInLabel.Text = session.IncomingStatistics.Frames.ToString();
                 if (session.IncomingStatistics.Bytes > 0 && session.IncomingStatistics.Frames > 0)
-                    bajtyramkiprzychodzaceLabel.Text = Math.Floor(Convert.ToDecimal(session.IncomingStatistics.Bytes / session.IncomingStatistics.Frames)).ToString();
-                else bajtyramkiwychodzace.Text = "brak danych";
+                    bytesFramesInLabel.Text = Math.Floor(Convert.ToDecimal(session.IncomingStatistics.Bytes / session.IncomingStatistics.Frames)).ToString();
+                else bytesFramesOutLabel.Text = "brak danych";
 
-                bajtywychodzaceLabel.Text = session.OutgoingStatistics.Bytes.ToString();
-                ramkiwychodzaceLabel.Text = session.OutgoingStatistics.Frames.ToString();
+                bytesOutLabel.Text = session.OutgoingStatistics.Bytes.ToString();
+                framesOutLabel.Text = session.OutgoingStatistics.Frames.ToString();
 
                 if (session.OutgoingStatistics.Bytes > 0 && session.OutgoingStatistics.Frames > 0)
-                    bajtyramkiwychodzace.Text = Math.Floor(Convert.ToDecimal(session.OutgoingStatistics.Bytes / session.OutgoingStatistics.Frames)).ToString();
-                else bajtyramkiwychodzace.Text = "brak danych";
+                    bytesFramesOutLabel.Text = Math.Floor(Convert.ToDecimal(session.OutgoingStatistics.Bytes / session.OutgoingStatistics.Frames)).ToString();
+                else bytesFramesOutLabel.Text = "brak danych";
             }
-            ramkiwychodzaceLabel.Refresh();
-            bajtyramkiwychodzace.Refresh();
-            bajtywychodzaceLabel.Refresh();
-            bajtyramkiprzychodzaceLabel.Refresh();
-            ramkiprzychodzaceLabel.Refresh();
-            bajtyprzychodzaceLabel.Refresh();
-            rozdzielczoscLabel.Refresh();
-            sprzetidLabel.Refresh();
-            glebiakolorowLabel.Refresh();
-            produktidlabel.Refresh();
-            katalogLabel.Refresh();
-            adresipLabel.Refresh();
-            IDsesjiLabel.Refresh();
-            nazwaklientaLabel.Refresh();
-            nazwaklientaLabel.Refresh();
+            framesOutLabel.Refresh();
+            bytesFramesOutLabel.Refresh();
+            bytesOutLabel.Refresh();
+            bytesFramesInLabel.Refresh();
+            framesInLabel.Refresh();
+            bytesInLabel.Refresh();
+            resolutionValueLabel.Refresh();
+            hardwareIDValueLabel.Refresh();
+            depthValueLabel.Refresh();
+            productidValueLabel.Refresh();
+            catalogValueLabel.Refresh();
+            addressIPValueLabel.Refresh();
+            IDSessionLabel.Refresh();
+            hostNameValueLabel.Refresh();
+            hostNameValueLabel.Refresh();
         }
         private void RefreshProcesses(object sender, ITerminalServer server, ITerminalServicesSession session, int selectedSessionID)
         {
-            DataGridView dataGridView = null;
-            TabPage tabPage = null;
-            tabPage = tabControl.SelectedTab;
-            dataGridView = (DataGridView)tabPage.Controls.Find("DataGridView", true)[0];
+            var tabPage = tabControl.SelectedTab;
+            var dataGridView = (DataGridView)tabPage.Controls.Find("DataGridView", true)[0];
             var label = tabPage.Controls.Find("processCount", true)[0];
             dataGridView.Rows.Clear();
             foreach (ITerminalServicesProcess process in new PuzzelLibrary.Terminal.Explorer().GetExplorerProcess(server))
@@ -156,7 +154,7 @@ namespace Forms.External.Explorer
                 selectedSessionID = Convert.ToInt16(datagridview.Rows[selectedRowIndex].Cells[3].Value);
             }
             else
-                selectedSessionID = Convert.ToInt16(IDsesjiLabel.Text);
+                selectedSessionID = Convert.ToInt16(IDSessionLabel.Text);
 
             try
             {
@@ -336,44 +334,44 @@ namespace Forms.External.Explorer
                 Padding = new System.Windows.Forms.Padding(3)
             };
 
-            IDsesjiLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(151, 3), Size = new System.Drawing.Size(0, 13), };
-            rozdzielczoscLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(287, 365), Size = new System.Drawing.Size(66, 13), Text = "brak danych" };
-            sprzetidLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(287, 330), Size = new System.Drawing.Size(66, 13), Text = "brak danych" };
-            poziomszyfrowaniaLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(287, 295), Size = new System.Drawing.Size(66, 13), Text = "brak danych" };
-            glebiakolorowLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(287, 260), Size = new System.Drawing.Size(66, 13), Text = "brak danych" };
-            produktidlabel = new Label { AutoSize = true, Location = new System.Drawing.Point(287, 225), Size = new System.Drawing.Size(66, 13), Text = "brak danych" };
-            katalogLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(287, 190), Size = new System.Drawing.Size(66, 13), Text = "brak danych" };
-            adresipLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(287, 155), Size = new System.Drawing.Size(66, 13), Text = "brak danych" };
-            nazwaklientaLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(287, 120), Size = new System.Drawing.Size(66, 13), Text = "brak danych" };
-            kartasieciowaLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(287, 85), Size = new System.Drawing.Size(66, 13), Text = "brak danych" };
-            nazwauzytkownikaLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(287, 50), Size = new System.Drawing.Size(66, 13), Text = "brak danych" };
+            IDSessionLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(151, 3), Size = new System.Drawing.Size(0, 13), };
+            resolutionValueLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(287, 365), Size = new System.Drawing.Size(66, 13), Text = "brak danych" };
+            hardwareIDValueLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(287, 330), Size = new System.Drawing.Size(66, 13), Text = "brak danych" };
+            encryptionLevelValueLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(287, 295), Size = new System.Drawing.Size(66, 13), Text = "brak danych" };
+            depthValueLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(287, 260), Size = new System.Drawing.Size(66, 13), Text = "brak danych" };
+            productidValueLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(287, 225), Size = new System.Drawing.Size(66, 13), Text = "brak danych" };
+            catalogValueLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(287, 190), Size = new System.Drawing.Size(66, 13), Text = "brak danych" };
+            addressIPValueLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(287, 155), Size = new System.Drawing.Size(66, 13), Text = "brak danych" };
+            hostNameValueLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(287, 120), Size = new System.Drawing.Size(66, 13), Text = "brak danych" };
+            nicValueLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(287, 85), Size = new System.Drawing.Size(66, 13), Text = "brak danych" };
+            userNameValueLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(287, 50), Size = new System.Drawing.Size(66, 13), Text = "brak danych" };
 
-            label10 = new Label { AutoSize = true, Location = new System.Drawing.Point(8, 365), Size = new System.Drawing.Size(75, 13), Text = "Rozdzielczość" };
-            label9 = new Label { AutoSize = true, Location = new System.Drawing.Point(8, 330), Size = new System.Drawing.Size(51, 31), Text = "Sprzęt ID" };
-            bajtyramkiwychodzace = new Label { AutoSize = true, Location = new System.Drawing.Point(423, 120), Size = new System.Drawing.Size(13, 13), Text = "0" };
-            ramkiwychodzaceLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(423, 85), Size = new System.Drawing.Size(13, 13), Text = "0" };
-            bajtywychodzaceLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(423, 50), Size = new System.Drawing.Size(13, 13), Text = "0" };
-            stopienkompresjiLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(276, 155), Size = new System.Drawing.Size(29, 13), Text = "Brak" };
-            bajtyramkiprzychodzaceLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(276, 120), Size = new System.Drawing.Size(13, 13), Text = "0" };
-            ramkiprzychodzaceLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(276, 85), Size = new System.Drawing.Size(13, 13), Text = "0" };
-            bajtyprzychodzaceLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(276, 50), Size = new System.Drawing.Size(13, 13), Text = "0" };
-            label16 = new Label { AutoSize = true, Location = new System.Drawing.Point(423, 20), Size = new System.Drawing.Size(70, 13), Text = "Wychodzące" };
-            label15 = new Label { AutoSize = true, Location = new System.Drawing.Point(276, 20), Size = new System.Drawing.Size(74, 13), Text = "Przychodzące" };
-            label14 = new Label { AutoSize = true, Location = new System.Drawing.Point(137, 120), Size = new System.Drawing.Size(73, 13), Text = "Bajtów/ramkę" };
-            label13 = new Label { AutoSize = true, Location = new System.Drawing.Point(120, 155), Size = new System.Drawing.Size(90, 13), Text = "Stopień kompresji" };
-            label12 = new Label { AutoSize = true, Location = new System.Drawing.Point(173, 85), Size = new System.Drawing.Size(37, 13), Text = "Ramki" };
-            label11 = new Label { AutoSize = true, Location = new System.Drawing.Point(180, 50), Size = new System.Drawing.Size(30, 13), Text = "Bajty" };
-            label8 = new Label { AutoSize = true, Location = new System.Drawing.Point(8, 295), Size = new System.Drawing.Size(99, 13), Text = "Poziom szyfrowania" };
-            label7 = new Label { AutoSize = true, Location = new System.Drawing.Point(8, 260), Size = new System.Drawing.Size(79, 13), Text = "Głębia kolorów" };
-            label6 = new Label { AutoSize = true, Location = new System.Drawing.Point(8, 225), Size = new System.Drawing.Size(58, 13), Text = "Produkt ID" };
-            label5 = new Label { AutoSize = true, Location = new System.Drawing.Point(8, 190), Size = new System.Drawing.Size(43, 13), Text = "Katalog" };
-            label4 = new Label { AutoSize = true, Location = new System.Drawing.Point(8, 155), Size = new System.Drawing.Size(47, 13), Text = "Adres IP" };
-            label3 = new Label { AutoSize = true, Location = new System.Drawing.Point(8, 120), Size = new System.Drawing.Size(74, 13), Text = "Nazwa klienta" };
-            label2 = new Label { AutoSize = true, Location = new System.Drawing.Point(8, 85), Size = new System.Drawing.Size(76, 13), Text = "Karta sieciowa" };
-            label1 = new Label { AutoSize = true, Location = new System.Drawing.Point(8, 50), Size = new System.Drawing.Size(102, 13), Text = "Nazwa użytkownika" };
-            statusZalogowlabel = new Label { AutoSize = true, Location = new System.Drawing.Point(8, 3), Size = new System.Drawing.Size(139, 13), Text = "Status zalogowanej sesji ID" };
+            resolutionLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(8, 365), Size = new System.Drawing.Size(75, 13), Text = "Rozdzielczość" };
+            hardwareIDLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(8, 330), Size = new System.Drawing.Size(51, 31), Text = "Sprzęt ID" };
+            bytesFramesOutLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(423, 120), Size = new System.Drawing.Size(13, 13), Text = "0" };
+            framesOutLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(423, 85), Size = new System.Drawing.Size(13, 13), Text = "0" };
+            bytesOutLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(423, 50), Size = new System.Drawing.Size(13, 13), Text = "0" };
+            compressionLevelLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(276, 155), Size = new System.Drawing.Size(29, 13), Text = "Brak" };
+            bytesFramesInLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(276, 120), Size = new System.Drawing.Size(13, 13), Text = "0" };
+            framesInLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(276, 85), Size = new System.Drawing.Size(13, 13), Text = "0" };
+            bytesInLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(276, 50), Size = new System.Drawing.Size(13, 13), Text = "0" };
+            outPacketLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(423, 20), Size = new System.Drawing.Size(70, 13), Text = "Wychodzące" };
+            inPacketLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(276, 20), Size = new System.Drawing.Size(74, 13), Text = "Przychodzące" };
+            bytesPerFrameLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(137, 120), Size = new System.Drawing.Size(73, 13), Text = "Bajtów/ramkę" };
+            compressionLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(120, 155), Size = new System.Drawing.Size(90, 13), Text = "Stopień kompresji" };
+            framesLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(173, 85), Size = new System.Drawing.Size(37, 13), Text = "Ramki" };
+            bytesLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(180, 50), Size = new System.Drawing.Size(30, 13), Text = "Bajty" };
+            encryptionLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(8, 295), Size = new System.Drawing.Size(99, 13), Text = "Poziom szyfrowania" };
+            depthLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(8, 260), Size = new System.Drawing.Size(79, 13), Text = "Głębia kolorów" };
+            productIDLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(8, 225), Size = new System.Drawing.Size(58, 13), Text = "Produkt ID" };
+            catalogLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(8, 190), Size = new System.Drawing.Size(43, 13), Text = "Katalog" };
+            addressIPLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(8, 155), Size = new System.Drawing.Size(47, 13), Text = "Adres IP" };
+            hostNameLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(8, 120), Size = new System.Drawing.Size(74, 13), Text = "Nazwa klienta" };
+            nicLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(8, 85), Size = new System.Drawing.Size(76, 13), Text = "Karta sieciowa" };
+            userNameLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(8, 50), Size = new System.Drawing.Size(102, 13), Text = "Nazwa użytkownika" };
+            statusSessionLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(8, 3), Size = new System.Drawing.Size(139, 13), Text = "Status zalogowanej sesji ID" };
 
-            GroupBox stanWeWy = new GroupBox
+            GroupBox statusIO = new GroupBox
             {
                 Location = new System.Drawing.Point(11, 400),
                 Size = new System.Drawing.Size(510, 180),
@@ -381,75 +379,75 @@ namespace Forms.External.Explorer
                 Text = "Stan wejścia/wyjścia"
             };
             dynaStatusTabPage.Text += " (" + session.UserName + ")";
-            stanWeWy.Controls.Add(bajtyramkiwychodzace);
-            stanWeWy.Controls.Add(ramkiwychodzaceLabel);
-            stanWeWy.Controls.Add(bajtywychodzaceLabel);
-            stanWeWy.Controls.Add(stopienkompresjiLabel);
-            stanWeWy.Controls.Add(bajtyramkiprzychodzaceLabel);
-            stanWeWy.Controls.Add(ramkiprzychodzaceLabel);
-            stanWeWy.Controls.Add(bajtyprzychodzaceLabel);
-            stanWeWy.Controls.Add(label11);
-            stanWeWy.Controls.Add(label12);
-            stanWeWy.Controls.Add(label13);
-            stanWeWy.Controls.Add(label14);
-            stanWeWy.Controls.Add(label15);
-            stanWeWy.Controls.Add(label16);
-            dynaStatusTabPage.Controls.Add(IDsesjiLabel);
-            dynaStatusTabPage.Controls.Add(rozdzielczoscLabel);
-            dynaStatusTabPage.Controls.Add(sprzetidLabel);
-            dynaStatusTabPage.Controls.Add(poziomszyfrowaniaLabel);
-            dynaStatusTabPage.Controls.Add(glebiakolorowLabel);
-            dynaStatusTabPage.Controls.Add(produktidlabel);
-            dynaStatusTabPage.Controls.Add(katalogLabel);
-            dynaStatusTabPage.Controls.Add(adresipLabel);
-            dynaStatusTabPage.Controls.Add(nazwaklientaLabel);
-            dynaStatusTabPage.Controls.Add(kartasieciowaLabel);
-            dynaStatusTabPage.Controls.Add(nazwauzytkownikaLabel);
-            dynaStatusTabPage.Controls.Add(label10);
-            dynaStatusTabPage.Controls.Add(label9);
-            dynaStatusTabPage.Controls.Add(stanWeWy);
-            dynaStatusTabPage.Controls.Add(label8);
-            dynaStatusTabPage.Controls.Add(label7);
-            dynaStatusTabPage.Controls.Add(label6);
-            dynaStatusTabPage.Controls.Add(label5);
-            dynaStatusTabPage.Controls.Add(label4);
-            dynaStatusTabPage.Controls.Add(label3);
-            dynaStatusTabPage.Controls.Add(label2);
-            dynaStatusTabPage.Controls.Add(label1);
-            dynaStatusTabPage.Controls.Add(statusZalogowlabel);
+            statusIO.Controls.Add(bytesFramesOutLabel);
+            statusIO.Controls.Add(framesOutLabel);
+            statusIO.Controls.Add(bytesOutLabel);
+            statusIO.Controls.Add(compressionLevelLabel);
+            statusIO.Controls.Add(bytesFramesInLabel);
+            statusIO.Controls.Add(framesInLabel);
+            statusIO.Controls.Add(bytesInLabel);
+            statusIO.Controls.Add(bytesLabel);
+            statusIO.Controls.Add(framesLabel);
+            statusIO.Controls.Add(compressionLabel);
+            statusIO.Controls.Add(bytesPerFrameLabel);
+            statusIO.Controls.Add(inPacketLabel);
+            statusIO.Controls.Add(outPacketLabel);
+            dynaStatusTabPage.Controls.Add(IDSessionLabel);
+            dynaStatusTabPage.Controls.Add(resolutionValueLabel);
+            dynaStatusTabPage.Controls.Add(hardwareIDValueLabel);
+            dynaStatusTabPage.Controls.Add(encryptionLevelValueLabel);
+            dynaStatusTabPage.Controls.Add(depthValueLabel);
+            dynaStatusTabPage.Controls.Add(productidValueLabel);
+            dynaStatusTabPage.Controls.Add(catalogValueLabel);
+            dynaStatusTabPage.Controls.Add(addressIPValueLabel);
+            dynaStatusTabPage.Controls.Add(hostNameValueLabel);
+            dynaStatusTabPage.Controls.Add(nicValueLabel);
+            dynaStatusTabPage.Controls.Add(userNameValueLabel);
+            dynaStatusTabPage.Controls.Add(resolutionLabel);
+            dynaStatusTabPage.Controls.Add(hardwareIDLabel);
+            dynaStatusTabPage.Controls.Add(statusIO);
+            dynaStatusTabPage.Controls.Add(encryptionLabel);
+            dynaStatusTabPage.Controls.Add(depthLabel);
+            dynaStatusTabPage.Controls.Add(productIDLabel);
+            dynaStatusTabPage.Controls.Add(catalogLabel);
+            dynaStatusTabPage.Controls.Add(addressIPLabel);
+            dynaStatusTabPage.Controls.Add(hostNameLabel);
+            dynaStatusTabPage.Controls.Add(nicLabel);
+            dynaStatusTabPage.Controls.Add(userNameLabel);
+            dynaStatusTabPage.Controls.Add(statusSessionLabel);
 
             if (session.UserAccount != null)
             {
-                IDsesjiLabel.Text = selectedSessionID.ToString();
-                nazwauzytkownikaLabel.Text = session.UserName;
-                nazwaklientaLabel.Text = session.ClientName;
+                IDSessionLabel.Text = selectedSessionID.ToString();
+                userNameValueLabel.Text = session.UserName;
+                hostNameValueLabel.Text = session.ClientName;
 
                 if (session.ClientIPAddress != null)
                 {
-                    adresipLabel.Text = session.ClientIPAddress.ToString();
+                    addressIPValueLabel.Text = session.ClientIPAddress.ToString();
                 }
                 else
                 {
-                    adresipLabel.Text = "brak danych";
+                    addressIPValueLabel.Text = "brak danych";
                 }
-                katalogLabel.Text = session.ClientDirectory;
-                produktidlabel.Text = session.ClientProductId.ToString();
-                glebiakolorowLabel.Text = session.ClientDisplay.BitsPerPixel.ToString();
-                sprzetidLabel.Text = session.ClientHardwareId.ToString();
-                rozdzielczoscLabel.Text = (session.ClientDisplay.HorizontalResolution + " x " + session.ClientDisplay.VerticalResolution).ToString();
+                catalogValueLabel.Text = session.ClientDirectory;
+                productidValueLabel.Text = session.ClientProductId.ToString();
+                depthValueLabel.Text = session.ClientDisplay.BitsPerPixel.ToString();
+                hardwareIDValueLabel.Text = session.ClientHardwareId.ToString();
+                resolutionValueLabel.Text = (session.ClientDisplay.HorizontalResolution + " x " + session.ClientDisplay.VerticalResolution).ToString();
 
-                bajtyprzychodzaceLabel.Text = session.IncomingStatistics.Bytes.ToString();
-                ramkiprzychodzaceLabel.Text = session.IncomingStatistics.Frames.ToString();
+                bytesInLabel.Text = session.IncomingStatistics.Bytes.ToString();
+                framesInLabel.Text = session.IncomingStatistics.Frames.ToString();
                 if (session.IncomingStatistics.Bytes > 0 && session.IncomingStatistics.Frames > 0)
-                    bajtyramkiprzychodzaceLabel.Text = Math.Floor(Convert.ToDecimal(session.IncomingStatistics.Bytes / session.IncomingStatistics.Frames)).ToString();
-                else bajtyramkiwychodzace.Text = "brak danych";
+                    bytesFramesInLabel.Text = Math.Floor(Convert.ToDecimal(session.IncomingStatistics.Bytes / session.IncomingStatistics.Frames)).ToString();
+                else bytesFramesOutLabel.Text = "brak danych";
 
-                bajtywychodzaceLabel.Text = session.OutgoingStatistics.Bytes.ToString();
-                ramkiwychodzaceLabel.Text = session.OutgoingStatistics.Frames.ToString();
+                bytesOutLabel.Text = session.OutgoingStatistics.Bytes.ToString();
+                framesOutLabel.Text = session.OutgoingStatistics.Frames.ToString();
 
                 if (session.OutgoingStatistics.Bytes > 0 && session.OutgoingStatistics.Frames > 0)
-                    bajtyramkiwychodzace.Text = Math.Floor(Convert.ToDecimal(session.OutgoingStatistics.Bytes / session.OutgoingStatistics.Frames)).ToString();
-                else bajtyramkiwychodzace.Text = "brak danych";
+                    bytesFramesOutLabel.Text = Math.Floor(Convert.ToDecimal(session.OutgoingStatistics.Bytes / session.OutgoingStatistics.Frames)).ToString();
+                else bytesFramesOutLabel.Text = "brak danych";
             }
             tabControl.Controls.Add(dynaStatusTabPage);
             tabControl.SelectedTab = dynaStatusTabPage;
