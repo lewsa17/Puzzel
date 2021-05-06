@@ -338,20 +338,11 @@ namespace Forms.External.Explorer
                     dynaDataGridView.Rows.Add(session.Server.ServerName, session.UserName, session.WindowStationName, process.SessionId, process.ProcessId, process.ProcessName);
             _processCount.Text = "Lista procesów: " + dynaDataGridView.Rows.Count;
             dynaProcessTabPage.Text += " (" + dynaDataGridView.Rows[0].Cells[1].Value.ToString() + ")";
-            Button dynaButton1 = new Button
-            {
-                Location = new System.Drawing.Point(382, 597),
-                Size = new System.Drawing.Size(98, 23),
-                Text = "Odśwież teraz",
-                Name = "RefreshProcess"
-            };
-            dynaButton1.Click += (ContextMenus);
 
             dynaProcessTabPage.Controls.AddRange
                 (new Control[]
                 {
                     _processCount,
-                    dynaButton1,
                     dynaDataGridView
                 });
             dynaDataGridView.ContextMenuStrip = contextProcessMenuStrip;
@@ -370,15 +361,6 @@ namespace Forms.External.Explorer
                 UseVisualStyleBackColor = true,
                 Padding = new System.Windows.Forms.Padding(3)
             };
-
-            Button dynaButton1 = new Button
-            {
-                Location = new System.Drawing.Point(382, 597),
-                Size = new System.Drawing.Size(98, 23),
-                Text = "Odśwież teraz",
-                Name = "BtnRefreshStatus"
-            };
-
 
             IDsesjiLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(151, 3), Size = new System.Drawing.Size(0, 13), };
             rozdzielczoscLabel = new Label { AutoSize = true, Location = new System.Drawing.Point(287, 365), Size = new System.Drawing.Size(66, 13), Text = "brak danych" };
@@ -424,7 +406,6 @@ namespace Forms.External.Explorer
                 TabStop = false,
                 Text = "Stan wejścia/wyjścia"
             };
-            dynaButton1.Click += new EventHandler(ContextMenus);
             dynaStatusTabPage.Text += " (" + session.UserName + ")";
             stanWeWy.Controls.Add(bajtyramkiwychodzace);
             stanWeWy.Controls.Add(ramkiwychodzaceLabel);
@@ -439,7 +420,6 @@ namespace Forms.External.Explorer
             stanWeWy.Controls.Add(label14);
             stanWeWy.Controls.Add(label15);
             stanWeWy.Controls.Add(label16);
-            dynaStatusTabPage.Controls.Add(dynaButton1);
             dynaStatusTabPage.Controls.Add(IDsesjiLabel);
             dynaStatusTabPage.Controls.Add(rozdzielczoscLabel);
             dynaStatusTabPage.Controls.Add(sprzetidLabel);
