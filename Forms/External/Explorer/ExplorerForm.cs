@@ -70,7 +70,7 @@ namespace Forms.External.Explorer
                             session.IdleTime,
                             session.LoginTime)));
                     }
-                    labelSessionCount.BeginInvoke(new Action(() => labelSessionCount.Text = "Aktywne sesje: " + sessions.Count));    
+                labelSessionCount.BeginInvoke(new Action(() => labelSessionCount.Text = "Aktywne sesje: " + DataGridView.RowCount));
             }
             catch (Win32Exception)
             {
@@ -472,7 +472,7 @@ namespace Forms.External.Explorer
             }
             if (tabControl.SelectedTab == tabPageSession)
             {
-                labelSessionCount.Text = "Aktywne Sesje: " + DataGridView.Rows.Count;
+                labelSessionCount.Text = "Aktywne sesje: " + DataGridView.Rows.Count;
             }
         }
 
