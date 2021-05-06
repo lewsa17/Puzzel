@@ -471,6 +471,18 @@ namespace Forms.External.Explorer
             tabControl.SelectedTab = dynaStatusTabPage;
         }
 
-        
+        private void tabControl_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabControl.SelectedTab.Name == "dynaProcesTab")
+            {
+                var dataGridView = (DataGridView)tabControl.SelectedTab.Controls.Find("dataGridView2", true)[0];
+                labelSessionCount.Text = "Lista procesów: " + dataGridView.Rows.Count;
+            }
+            if (tabControl.SelectedTab == tabPageSession)
+            {
+                labelSessionCount.Text = "Aktywne Sesje: " + DataGridView.Rows.Count;
+            }
+        }
+
     }
 }
