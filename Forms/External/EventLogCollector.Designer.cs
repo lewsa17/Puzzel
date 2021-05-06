@@ -50,9 +50,13 @@
             this.StartDateRangePicker.CustomFormat = "yyyy-MM-dd HH:mm:ss";
             this.StartDateRangePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.StartDateRangePicker.Location = new System.Drawing.Point(163, 52);
+            this.StartDateRangePicker.MaxDate = new System.DateTime(2030, 12, 31, 23, 59, 59, 0);
+            this.StartDateRangePicker.MinDate = new System.DateTime(2020, 1, 1, 0, 0, 0, 0);
             this.StartDateRangePicker.Name = "StartDateRangePicker";
             this.StartDateRangePicker.Size = new System.Drawing.Size(200, 23);
             this.StartDateRangePicker.TabIndex = 2;
+            this.StartDateRangePicker.Value = new System.DateTime(2021, 5, 6, 0, 0, 0, 0);
+            this.StartDateRangePicker.ValueChanged += new System.EventHandler(this.ChangedValue);
             // 
             // EndDateRangePicker
             // 
@@ -61,11 +65,12 @@
             this.EndDateRangePicker.CustomFormat = "yyyy-MM-dd HH:mm:ss";
             this.EndDateRangePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.EndDateRangePicker.Location = new System.Drawing.Point(369, 52);
-            this.EndDateRangePicker.MaxDate = new System.DateTime(2030, 12, 31, 0, 0, 0, 0);
+            this.EndDateRangePicker.MaxDate = new System.DateTime(2031, 1, 1, 0, 0, 0, 0);
             this.EndDateRangePicker.MinDate = new System.DateTime(2020, 1, 1, 0, 0, 0, 0);
             this.EndDateRangePicker.Name = "EndDateRangePicker";
             this.EndDateRangePicker.Size = new System.Drawing.Size(200, 23);
             this.EndDateRangePicker.TabIndex = 3;
+            this.EndDateRangePicker.ValueChanged += new System.EventHandler(this.ChangedValue);
             // 
             // FromLabel
             // 

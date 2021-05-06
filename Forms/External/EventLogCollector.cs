@@ -138,5 +138,15 @@ namespace Forms.External
                 wyszukiwarka.Show();
             }
         }
+        private void ChangedValue(object sender, EventArgs e)
+        {
+            if (LocationText.Text.Contains("Domain"))
+            {
+                if (sender == EndDateRangePicker)
+                    StartDateRangePicker.Value = EndDateRangePicker.Value.AddSeconds(-1);
+                if (sender == StartDateRangePicker)
+                    EndDateRangePicker.Value = StartDateRangePicker.Value.AddSeconds(+1);
+            }
+        }
     }
 }
