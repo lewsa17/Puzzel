@@ -158,7 +158,7 @@
             this.DataGridView.ReadOnly = true;
             this.DataGridView.RowHeadersVisible = false;
             this.DataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.DataGridView.Size = new(734, 688);
+            this.DataGridView.Size = new(734, 686);
             this.DataGridView.TabIndex = 0;
             // 
             // ServerColumn
