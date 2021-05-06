@@ -35,6 +35,7 @@ namespace Forms.External.Explorer
         Label bajtyprzychodzaceLabel; Label label16; Label label15; Label label14; Label label13;
         Label label12; Label label11; Label label8; Label label7; Label label6; Label label5;
         Label label4; Label label3; Label label2; Label label1; Label statusZalogowlabel;
+
         private void BtnRefresh_Click(object sender, EventArgs e)
         {
                 DataGridView.Rows.Clear();
@@ -327,15 +328,6 @@ namespace Forms.External.Explorer
                     dynaDataGridView.Rows.Add(session.Server.ServerName, session.UserName, session.WindowStationName, process.SessionId, process.ProcessId, process.ProcessName);
             _processCount.Text = "Lista procesów: " + dynaDataGridView.Rows.Count;
             dynaProcessTabPage.Text += " (" + dynaDataGridView.Rows[0].Cells[1].Value.ToString() + ")";
-            Button dynaButton = new Button
-            {
-                Location = new System.Drawing.Point(552, 597),
-                Size = new System.Drawing.Size(76, 23),
-                Text = "Zamknij",
-                UseVisualStyleBackColor = true,
-            };
-            dynaButton.Click += new EventHandler(CloseTabForm);
-
             Button dynaButton1 = new Button
             {
                 Location = new System.Drawing.Point(382, 597),
@@ -349,7 +341,6 @@ namespace Forms.External.Explorer
                 (new Control[]
                 {
                     _processCount,
-                    dynaButton,
                     dynaButton1,
                     dynaDataGridView
                 });
@@ -369,16 +360,6 @@ namespace Forms.External.Explorer
                 UseVisualStyleBackColor = true,
                 Padding = new System.Windows.Forms.Padding(3)
             };
-
-            //dynaStatusTabPage.Text += " (" + dynaDataGridView.Rows[0].Cells[1].Value.ToString() + ")";
-            Button dynaButton = new Button
-            {
-                Location = new System.Drawing.Point(552, 597),
-                Size = new System.Drawing.Size(76, 23),
-                Text = "Zamknij",
-                UseVisualStyleBackColor = true,
-            };
-            dynaButton.Click += new EventHandler(CloseTabForm);
 
             Button dynaButton1 = new Button
             {
@@ -448,7 +429,6 @@ namespace Forms.External.Explorer
             stanWeWy.Controls.Add(label14);
             stanWeWy.Controls.Add(label15);
             stanWeWy.Controls.Add(label16);
-            dynaStatusTabPage.Controls.Add(dynaButton);
             dynaStatusTabPage.Controls.Add(dynaButton1);
             dynaStatusTabPage.Controls.Add(IDsesjiLabel);
             dynaStatusTabPage.Controls.Add(rozdzielczoscLabel);
