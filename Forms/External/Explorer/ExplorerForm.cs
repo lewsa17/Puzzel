@@ -272,7 +272,6 @@ namespace Forms.External.Explorer
 
             ContextMenuStrip contextProcessMenuStrip = new ContextMenuStrip
             {
-                Size = new System.Drawing.Size(61, 4),
                 Font = new System.Drawing.Font("Tahoma", 8F),
                 ShowImageMargin = false,
             };
@@ -289,7 +288,7 @@ namespace Forms.External.Explorer
                 ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single,
                 GridColor = System.Drawing.Color.DarkGray,
                 Location = new System.Drawing.Point(0, 0),
-                ReadOnly = false,
+                ReadOnly = true,
                 MultiSelect = false,
                 Name = "DataGridView",
                 RowHeadersVisible = false,
