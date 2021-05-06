@@ -167,6 +167,7 @@
             this.ServerColumn.Name = "ServerColumn";
             this.ServerColumn.ReadOnly = true;
             this.ServerColumn.Width = 65;
+            this.ServerColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             // 
             // UserColumn
             // 
@@ -174,6 +175,7 @@
             this.UserColumn.Name = "UserColumn";
             this.UserColumn.ReadOnly = true;
             this.UserColumn.Width = 127;
+            this.UserColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             // 
             // SessionColumn
             // 
@@ -181,6 +183,7 @@
             this.SessionColumn.Name = "SessionColumn";
             this.SessionColumn.ReadOnly = true;
             this.SessionColumn.Width = 58;
+            this.SessionColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             // 
             // IDColumn
             // 
@@ -195,6 +198,7 @@
             this.StatusColumn.Name = "StatusColumn";
             this.StatusColumn.ReadOnly = true;
             this.StatusColumn.Width = 62;
+            this.StatusColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             // 
             // IdleTimeColumn
             // 
@@ -202,6 +206,7 @@
             this.IdleTimeColumn.Name = "IdleTimeColumn";
             this.IdleTimeColumn.ReadOnly = true;
             this.IdleTimeColumn.Width = 49;
+            this.IdleTimeColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             // 
             // LogonTimeColumn
             // 
@@ -209,6 +214,7 @@
             this.LogonTimeColumn.Name = "LogonTimeColumn";
             this.LogonTimeColumn.ReadOnly = true;
             this.LogonTimeColumn.Width = 106;
+            this.LogonTimeColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             // 
             // ContextMenuSession
             // 
