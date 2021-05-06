@@ -54,7 +54,6 @@
             this.labelSearchedText.Location = new(6, 12);
             this.labelSearchedText.Name = "labelSearchedText";
             this.labelSearchedText.Size = new(74, 13);
-            this.labelSearchedText.TabIndex = 0;
             this.labelSearchedText.Text = "Szukany tekst";
             // 
             // btnSearch
@@ -63,7 +62,7 @@
             this.btnSearch.Location = new(8, 54);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new(314, 23);
-            this.btnSearch.TabIndex = 2;
+            this.btnSearch.TabIndex = 1;
             this.btnSearch.Text = "Wyszukaj";
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new(this.Buttons_Click);
@@ -73,7 +72,7 @@
             this.textBoxSearchedText.Location = new(9, 28);
             this.textBoxSearchedText.Name = "textBoxSearchedText";
             this.textBoxSearchedText.Size = new(313, 20);
-            this.textBoxSearchedText.TabIndex = 1;
+            this.textBoxSearchedText.TabIndex = 0;
             this.textBoxSearchedText.KeyDown += new(this.TextBox_KeyDown);
             // 
             // btnPreviousWord
@@ -81,7 +80,7 @@
             this.btnPreviousWord.Location = new(8, 83);
             this.btnPreviousWord.Name = "btnPreviousWord";
             this.btnPreviousWord.Size = new(155, 23);
-            this.btnPreviousWord.TabIndex = 3;
+            this.btnPreviousWord.TabIndex = 2;
             this.btnPreviousWord.Text = "<= Poprzednie";
             this.btnPreviousWord.UseVisualStyleBackColor = true;
             this.btnPreviousWord.Visible = false;
@@ -93,7 +92,7 @@
             this.btnNextWord.Location = new(166, 83);
             this.btnNextWord.Name = "btnNextWord";
             this.btnNextWord.Size = new(155, 23);
-            this.btnNextWord.TabIndex = 4;
+            this.btnNextWord.TabIndex = 3;
             this.btnNextWord.Text = "Następne =>";
             this.btnNextWord.UseVisualStyleBackColor = true;
             this.btnNextWord.Visible = false;
@@ -107,7 +106,7 @@
             this.TabControl.Name = "Wyszukiwarka";
             this.TabControl.SelectedIndex = 0;
             this.TabControl.Size = new(341, 154);
-            this.TabControl.TabIndex = 5;
+            this.TabControl.TabStop = false;
             this.TabControl.SelectedIndexChanged += new(this.TabControl_Click);
             // 
             // TabFind
@@ -122,7 +121,6 @@
             this.TabFind.Name = "TabFind";
             this.TabFind.Padding = new System.Windows.Forms.Padding(3);
             this.TabFind.Size = new(333, 128);
-            this.TabFind.TabIndex = 0;
             this.TabFind.Text = "Szukaj";
             this.TabFind.UseVisualStyleBackColor = true;
             // 
@@ -150,7 +148,6 @@
             this.TabChange.Name = "TabChange";
             this.TabChange.Padding = new(3);
             this.TabChange.Size = new(333, 128);
-            this.TabChange.TabIndex = 1;
             this.TabChange.Text = "Zamień";
             this.TabChange.UseVisualStyleBackColor = true;
             // 
@@ -160,7 +157,6 @@
             this.labelChangeWord.Location = new(6, 57);
             this.labelChangeWord.Name = "labelChangeWord";
             this.labelChangeWord.Size = new(60, 13);
-            this.labelChangeWord.TabIndex = 6;
             this.labelChangeWord.Text = "Zamień na:";
             // 
             // textboxChangeWord
@@ -176,7 +172,6 @@
             this.labelSearchedText1.Location = new(6, 12);
             this.labelSearchedText1.Name = "labelSearchedText1";
             this.labelSearchedText1.Size = new(77, 13);
-            this.labelSearchedText1.TabIndex = 7;
             this.labelSearchedText1.Text = "Szukany tekst:";
             // 
             // btnReplace
