@@ -154,7 +154,7 @@
             this.DataGridView.Location = new(0, 0);
             this.DataGridView.Margin = new(5, 3, 5, 3);
             this.DataGridView.MultiSelect = false;
-            this.DataGridView.Name = "dataGridView1";
+            this.DataGridView.Name = "DataGridView";
             this.DataGridView.ReadOnly = true;
             this.DataGridView.RowHeadersVisible = false;
             this.DataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;

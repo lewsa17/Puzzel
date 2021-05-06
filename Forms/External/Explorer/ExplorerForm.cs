@@ -134,7 +134,7 @@ namespace Forms.External.Explorer
             DataGridView dataGridView = null;
             TabPage tabPage = null;
             tabPage = tabControl.SelectedTab;
-            dataGridView = (DataGridView)tabPage.Controls.Find("dataGridView2", true)[0];
+            dataGridView = (DataGridView)tabPage.Controls.Find("DataGridView", true)[0];
             var label = tabPage.Controls.Find("processCount", true)[0];
             dataGridView.Rows.Clear();
             foreach (ITerminalServicesProcess process in new PuzzelLibrary.Terminal.Explorer().GetExplorerProcess(server))
@@ -146,23 +146,18 @@ namespace Forms.External.Explorer
         private void ContextMenus(object sender, EventArgs e)
         {
             int selectedSessionID = 0;
+            DataGridView datagridview = null;
             int selectedRowIndex = 0;
-
-            if (sender is ToolStripMenuItem)
-            {
-                selectedRowIndex = ((DataGridView)((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl).SelectedRows[0].Index;
-                selectedSessionID = Convert.ToInt16(((DataGridView)((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl).Rows[selectedRowIndex].Cells[3].Value);
-            }
-            if (sender is Button)
+            if (tabControl.SelectedTab.Name != "dynaStatusTab")
             {
                 var tabpage = tabControl.SelectedTab;
-                if (tabpage.Name == "dynaProcesTab")
-                {
-                    DataGridView dgv = (DataGridView)tabpage.Controls.Find("dataGridView2", true)[0];
-                    selectedSessionID = (int)dgv.Rows[0].Cells[3].Value;
-                }
-                else { if (IDsesjiLabel.Text != null) { selectedSessionID = Convert.ToInt16(IDsesjiLabel.Text); } }
+                datagridview = (DataGridView)tabpage.Controls.Find("DataGridView", true)[0];
+                selectedRowIndex = datagridview.SelectedRows[0].Index;
+                selectedSessionID = Convert.ToInt16(datagridview.Rows[selectedRowIndex].Cells[3].Value);
             }
+            else
+                selectedSessionID = Convert.ToInt16(IDsesjiLabel.Text);
+
             try
             {
                 using (ITerminalServer server = new PuzzelLibrary.Terminal.Explorer().GetRemoteServer(HostName))
@@ -218,10 +213,8 @@ namespace Forms.External.Explorer
 
                             case "KillProcess":
                                 {
-                                    var processId = Convert.ToInt16(((DataGridView)((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl).Rows[selectedRowIndex].Cells[4].Value);
+                                    var processId = Convert.ToInt16(datagridview.Rows[selectedRowIndex].Cells[4].Value);
                                     var process = server.GetProcess(processId);
-                                    var tabPage = ((TabPage)((DataGridView)((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl).Parent);
-                                    var button = tabPage.Controls.Find("Refresh", true);
                                     process.Kill();
                                     RefreshProcesses(sender, server, session, selectedSessionID);
                                     MessageBox.Show("Zabito aplikację");
@@ -289,7 +282,7 @@ namespace Forms.External.Explorer
                 Location = new System.Drawing.Point(0, 0),
                 ReadOnly = false,
                 MultiSelect = false,
-                Name = "dataGridView2",
+                Name = "DataGridView",
                 RowHeadersVisible = false,
                 SelectionMode = DataGridViewSelectionMode.FullRowSelect,
                 Size = DataGridView.Size,
@@ -466,7 +459,7 @@ namespace Forms.External.Explorer
         {
             if (tabControl.SelectedTab.Name == "dynaProcesTab")
             {
-                var dataGridView = (DataGridView)tabControl.SelectedTab.Controls.Find("dataGridView2", true)[0];
+                var dataGridView = (DataGridView)tabControl.SelectedTab.Controls.Find("DataGridView", true)[0];
                 labelSessionCount.Text = "Lista procesów: " + dataGridView.Rows.Count;
             }
             if (tabControl.SelectedTab == tabPageSession)
