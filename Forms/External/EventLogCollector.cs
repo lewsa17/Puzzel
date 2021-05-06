@@ -68,7 +68,7 @@ namespace Forms.External
                             DomainController = domainController;
                             StartDateRangePicker.Invoke(new MethodInvoker(() =>
                             {
-                                StartDateRangePicker.Value = pd.lastBadPasswordAttempt.AddSeconds(-1);
+                                StartDateRangePicker.Value = pd.lastBadPasswordAttempt;
                             }));
                             EndDateRangePicker.Invoke(new MethodInvoker(() =>
                             {
