@@ -38,8 +38,15 @@ namespace Forms.External.Explorer
 
         private void BtnRefresh_Click(object sender, EventArgs e)
         {
+            if (tabControl.SelectedTab != tabPageSession)
+            {
+                ContextMenus(sender, e);
+            }
+            else
+            {
                 DataGridView.Rows.Clear();
                 GetSessionsToDataGridView();
+            }
         }
         public void GetSessionsToDataGridView()
         {
@@ -237,12 +244,15 @@ namespace Forms.External.Explorer
                         {
                             case nameof(btnRefreshNow):
                                 {
-                                    RefreshProcesses(sender, server, session, selectedSessionID);
-                                    break;
-                                }
-                            case "BtnRefreshStatus":
-                                {
-                                    RefreshStatus(session, selectedSessionID);
+                                    if (tabControl.SelectedTab.Name == "dynaProcesTab")
+                                    {
+                                        RefreshProcesses(sender, server, session, selectedSessionID);
+                                    }
+
+                                    if (tabControl.SelectedTab.Name == "dynaStatusTab")
+                                    {
+                                        RefreshStatus(session, selectedSessionID);
+                                    }
                                     break;
                                 }
                         }
