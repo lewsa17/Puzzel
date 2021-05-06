@@ -133,16 +133,8 @@ namespace Forms.External.Explorer
         {
             DataGridView dataGridView = null;
             TabPage tabPage = null;
-            if (sender is ToolStripMenuItem)
-            {
-                dataGridView = (DataGridView)((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl;
-                tabPage = (TabPage)dataGridView.Parent;
-            }
-            if (sender is Button)
-            {
-                tabPage = tabControl.SelectedTab;
-                dataGridView = (DataGridView)tabPage.Controls.Find("dataGridView2", true)[0];
-            }
+            tabPage = tabControl.SelectedTab;
+            dataGridView = (DataGridView)tabPage.Controls.Find("dataGridView2", true)[0];
             var label = tabPage.Controls.Find("processCount", true)[0];
             dataGridView.Rows.Clear();
             foreach (ITerminalServicesProcess process in new PuzzelLibrary.Terminal.Explorer().GetExplorerProcess(server))
