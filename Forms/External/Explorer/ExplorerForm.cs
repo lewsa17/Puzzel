@@ -324,25 +324,15 @@ namespace Forms.External.Explorer
                     new DataGridViewTextBoxColumn   {  HeaderText = "Obraz",       Width = 59, AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill  }
             });
 
-            Label _processCount = new Label
-            {
-                AutoSize = true,
-                Location = new System.Drawing.Point(8, 602),
-                Size = new System.Drawing.Size(84, 13),
-                Text = "Lista procesów: ",
-                Name = "processCount"
-            };
-
             foreach (ITerminalServicesProcess process in server.GetProcesses())
                 if (process.SessionId == selectedSessionID)
                     dynaDataGridView.Rows.Add(session.Server.ServerName, session.UserName, session.WindowStationName, process.SessionId, process.ProcessId, process.ProcessName);
-            _processCount.Text = "Lista procesów: " + dynaDataGridView.Rows.Count;
+            labelSessionCount.Text = "Lista procesów: " + dynaDataGridView.Rows.Count;
             dynaProcessTabPage.Text += " (" + dynaDataGridView.Rows[0].Cells[1].Value.ToString() + ")";
 
             dynaProcessTabPage.Controls.AddRange
                 (new Control[]
                 {
-                    _processCount,
                     dynaDataGridView
                 });
             dynaDataGridView.ContextMenuStrip = contextProcessMenuStrip;
