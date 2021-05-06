@@ -82,6 +82,7 @@ namespace Forms.External
 
         private void FindButton_Click(object sender, System.EventArgs e)
         {
+            this.Cursor = Cursors.WaitCursor;
             PuzzelLibrary.Debug.EventsCollector ec = new PuzzelLibrary.Debug.EventsCollector() { MaxCount = (int)LogCounter.Value };
             string dateFormat = "yyyy-MM-ddTHH:mm:ss.fffffffZ";
             var query = string.Format("*[System/TimeCreated/@SystemTime >= '{0}'] and *[System/TimeCreated/@SystemTime <= '{1}']",
@@ -119,6 +120,7 @@ namespace Forms.External
                 }
             }
             else TextLogView.Text = string.Format("Brak połączenia z {0}, serwer RPC jest niedostępny", LocationText.Text);
+            this.Cursor = Cursors.Default;
         }
         private void InitializeTip()
         {
