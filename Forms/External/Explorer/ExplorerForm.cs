@@ -143,7 +143,6 @@ namespace Forms.External.Explorer
             labelSessionCount.Text = "Lista procesów: " + dataGridView.Rows.Count;
         }
 
-
         private void ContextMenus(object sender, EventArgs e)
         {
             int selectedSessionID = 0;
@@ -217,7 +216,7 @@ namespace Forms.External.Explorer
                                     break;
                                 }
 
-                            case nameof(menuItemProcessKill):
+                            case "KillProcess":
                                 {
                                     var processId = Convert.ToInt16(((DataGridView)((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl).Rows[selectedRowIndex].Cells[4].Value);
                                     var process = server.GetProcess(processId);
@@ -275,7 +274,7 @@ namespace Forms.External.Explorer
                 Font = new System.Drawing.Font("Tahoma", 8F),
                 ShowImageMargin = false,
             };
-            ToolStripMenuItem killprocess = new ToolStripMenuItem { Text = "Zabij proces", Name = "ZabijProcess", };
+            ToolStripMenuItem killprocess = new ToolStripMenuItem { Text = "Zabij proces", Name = "KillProcess" };
             killprocess.Click += new EventHandler(ContextMenus);
             contextProcessMenuStrip.Items.Add(killprocess);
             DataGridView dynaDataGridView = new DataGridView
