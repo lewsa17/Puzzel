@@ -74,10 +74,10 @@
             // 
             this.tabControl.Controls.Add(this.tabPageSession);
             this.tabControl.Location = new(0, 0);
-            this.tabControl.Margin = new(4, 3, 4, 3);
+            this.tabControl.Margin = new(5, 3, 5, 3);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new(637, 649);
+            this.tabControl.Size = new(743, 714);
             this.tabControl.TabIndex = 0;
             // 
             // tabPageSession
@@ -86,10 +86,10 @@
             this.tabPageSession.Controls.Add(this.btnCloseForm);
             this.tabPageSession.Controls.Add(this.btnRefreshNow);
             this.tabPageSession.Controls.Add(this.DataGridView);
-            this.tabPageSession.Location = new(4, 22);
+            this.tabPageSession.Location = new(4, 24);
             this.tabPageSession.Name = "tabPageSession";
-            this.tabPageSession.Padding = new(3);
-            this.tabPageSession.Size = new(629, 623);
+            this.tabPageSession.Padding = new(4, 3, 4, 3);
+            this.tabPageSession.Size = new(735, 686);
             this.tabPageSession.TabIndex = 0;
             this.tabPageSession.Text = "Sesje";
             this.tabPageSession.UseVisualStyleBackColor = true;
@@ -97,17 +97,19 @@
             // labelSessionCount
             // 
             this.labelSessionCount.AutoSize = true;
-            this.labelSessionCount.Location = new(6, 602);
+            this.labelSessionCount.Location = new(7, 723);
+            this.labelSessionCount.Margin = new(4, 0, 4, 0);
             this.labelSessionCount.Name = "labelSessionCount";
-            this.labelSessionCount.Size = new(83, 13);
+            this.labelSessionCount.Size = new(88, 15);
             this.labelSessionCount.TabIndex = 27;
             this.labelSessionCount.Text = "Aktywne Sesje: ";
             // 
             // btnCloseForm
             // 
-            this.btnCloseForm.Location = new(552, 597);
+            this.btnCloseForm.Location = new(644, 716);
+            this.btnCloseForm.Margin = new(4, 3, 4, 3);
             this.btnCloseForm.Name = "btnCloseForm";
-            this.btnCloseForm.Size = new(76, 23);
+            this.btnCloseForm.Size = new(89, 27);
             this.btnCloseForm.TabIndex = 26;
             this.btnCloseForm.Text = "Zamknij";
             this.btnCloseForm.UseVisualStyleBackColor = true;
@@ -115,9 +117,10 @@
             // 
             // btnRefreshNow
             // 
-            this.btnRefreshNow.Location = new(382, 597);
+            this.btnRefreshNow.Location = new(522, 716);
+            this.btnRefreshNow.Margin = new(4, 3, 4, 3);
             this.btnRefreshNow.Name = "btnRefreshNow";
-            this.btnRefreshNow.Size = new(98, 23);
+            this.btnRefreshNow.Size = new(114, 27);
             this.btnRefreshNow.TabIndex = 25;
             this.btnRefreshNow.Text = "Odśwież teraz";
             this.btnRefreshNow.UseVisualStyleBackColor = true;
@@ -152,13 +155,13 @@
             this.DataGridView.ContextMenuStrip = this.ContextMenuSession;
             this.DataGridView.GridColor = System.Drawing.Color.DarkGray;
             this.DataGridView.Location = new(0, 0);
-            this.DataGridView.Margin = new(4, 3, 4, 3);
+            this.DataGridView.Margin = new(5, 3, 5, 3);
             this.DataGridView.MultiSelect = false;
             this.DataGridView.Name = "dataGridView1";
             this.DataGridView.ReadOnly = true;
             this.DataGridView.RowHeadersVisible = false;
             this.DataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.DataGridView.Size = new(629, 596);
+            this.DataGridView.Size = new(734, 688);
             this.DataGridView.TabIndex = 0;
             // 
             // ServerColumn
@@ -314,16 +317,17 @@
             // 
             // ExplorerForm
             // 
-            this.AutoScaleDimensions = new(6F, 13F);
+            this.AutoScaleDimensions = new(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new(637, 646);
+            this.ClientSize = new(743, 745);
             this.Controls.Add(this.tabControl);
             this.DoubleBuffered = true;
             this.Icon = global::Forms.Resources.Resources.Puzzel;
+            this.Margin = new(4, 3, 4, 3);
             this.MaximizeBox = false;
-            this.MaximumSize = new(653, 685);
+            this.MaximumSize = new(759, 784);
             this.MinimizeBox = false;
-            this.MinimumSize = new(653, 685);
+            this.MinimumSize = new(759, 784);
             this.Name = "ExplorerForm";
             this.Text = "Terminal Explorer";
             this.tabControl.ResumeLayout(false);
@@ -332,6 +336,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.DataGridView)).EndInit();
             this.ContextMenuSession.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
