@@ -186,7 +186,18 @@ namespace Forms.External.Explorer
 
                             case nameof(menuItemSessionRemoteControl):
                                 {
-                                    new PuzzelLibrary.Terminal.TerminalExplorer().ConnectToSession(HostName, selectedSessionID);
+                                    var ADCompResult = PuzzelLibrary.AD.Computer.Search.ByComputerName(HostName, "operatingSystemVersion");
+                                    var osVersionComplete = ADCompResult[0].GetDirectoryEntry().Properties["operatingSystemVersion"].Value.ToString().Split(" ");
+                                    double osVersion = Convert.ToDouble(osVersionComplete[0].Replace('.', ','));
+                                    if (osVersion > 6.1)
+                                    {
+                                        PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess("mstsc.exe", "/v:" + HostName + " /shadow:" + selectedSessionID + " /control /NoConsentPrompt");
+                                    }
+                                    else
+                                    {
+                                        PuzzelLibrary.Terminal.TerminalExplorer Term = new PuzzelLibrary.Terminal.TerminalExplorer();
+                                        Term.ConnectToSession(HostName, selectedSessionID);
+                                    }
                                     break;
                                 }
 
