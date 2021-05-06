@@ -308,11 +308,11 @@ namespace Forms.External.Explorer
             };
             dynaDataGridView.Columns.AddRange(new DataGridViewColumn[]
             {
-                    new DataGridViewTextBoxColumn   {  HeaderText = "Serwer",      Width = 64, AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill  },
-                    new DataGridViewTextBoxColumn   {  HeaderText = "Użytkownik",  Width = 86, AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill  },
-                    new DataGridViewTextBoxColumn   {  HeaderText = "Sesja",       Width = 57, AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill  },
-                    new DataGridViewTextBoxColumn   {  HeaderText = "ID",          Width = 42  },
-                    new DataGridViewTextBoxColumn   {  HeaderText = "Proces ID",   Width = 78, AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill  },
+                    new DataGridViewTextBoxColumn   {  HeaderText = "Serwer",      Width = 64 },
+                    new DataGridViewTextBoxColumn   {  HeaderText = "Użytkownik",  Width = 86 },
+                    new DataGridViewTextBoxColumn   {  HeaderText = "Sesja",       Width = 57 },
+                    new DataGridViewTextBoxColumn   {  HeaderText = "ID",          Width = 42 },
+                    new DataGridViewTextBoxColumn   {  HeaderText = "Proces ID",   Width = 78 },
                     new DataGridViewTextBoxColumn   {  HeaderText = "Obraz",       Width = 59, AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill  }
             });
 
