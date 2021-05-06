@@ -82,9 +82,6 @@
             // 
             // tabPageSession
             // 
-            this.tabPageSession.Controls.Add(this.labelSessionCount);
-            this.tabPageSession.Controls.Add(this.btnCloseForm);
-            this.tabPageSession.Controls.Add(this.btnRefreshNow);
             this.tabPageSession.Controls.Add(this.DataGridView);
             this.tabPageSession.Location = new(4, 24);
             this.tabPageSession.Name = "tabPageSession";
@@ -321,6 +318,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new(743, 745);
             this.Controls.Add(this.tabControl);
+            this.Controls.Add(this.btnCloseForm);
+            this.Controls.Add(this.labelSessionCount);
+            this.Controls.Add(this.btnRefreshNow);
             this.DoubleBuffered = true;
             this.Icon = global::Forms.Resources.Resources.Puzzel;
             this.Margin = new(4, 3, 4, 3);
