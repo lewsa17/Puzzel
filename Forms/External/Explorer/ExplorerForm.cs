@@ -140,7 +140,7 @@ namespace Forms.External.Explorer
             foreach (ITerminalServicesProcess process in new PuzzelLibrary.Terminal.Explorer().GetExplorerProcess(server))
                 if (process.SessionId == selectedSessionID)
                     dataGridView.Rows.Add(session.Server.ServerName, session.UserName, session.WindowStationName, process.SessionId, process.ProcessId, process.ProcessName);
-            ((Label)label).Text = "Lista procesów: " + dataGridView.Rows.Count;
+            labelSessionCount.Text = "Lista procesów: " + dataGridView.Rows.Count;
         }
 
 
