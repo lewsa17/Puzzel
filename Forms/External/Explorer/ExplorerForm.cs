@@ -14,15 +14,17 @@ namespace Forms.External.Explorer
         }
         public string HostName { get; set; }
 
-        private void CloseForm(object sender, EventArgs e)
+        private void CloseTabForm(object sender, EventArgs e)
         {
-            this.Close();
-        }
-
-        private void CloseTabPage(object sender, EventArgs e)
-        {
-            tabControl.Controls.Remove((TabPage)((Button)sender).Parent);
-            tabControl.SelectedIndex = tabControl.TabPages.Count - 1;
+            if (tabControl.SelectedTab != tabPageSession)
+            {
+                tabControl.TabPages.Remove(tabControl.SelectedTab);
+                tabControl.SelectedIndex = tabControl.TabPages.Count - 1;
+            }
+            else
+            {
+                this.Close();
+            }
         }
 
         Label IDsesjiLabel; Label rozdzielczoscLabel; Label sprzetidLabel; Label poziomszyfrowaniaLabel;
@@ -332,7 +334,7 @@ namespace Forms.External.Explorer
                 Text = "Zamknij",
                 UseVisualStyleBackColor = true,
             };
-            dynaButton.Click += new EventHandler(CloseTabPage);
+            dynaButton.Click += new EventHandler(CloseTabForm);
 
             Button dynaButton1 = new Button
             {
@@ -376,7 +378,7 @@ namespace Forms.External.Explorer
                 Text = "Zamknij",
                 UseVisualStyleBackColor = true,
             };
-            dynaButton.Click += new EventHandler(CloseTabPage);
+            dynaButton.Click += new EventHandler(CloseTabForm);
 
             Button dynaButton1 = new Button
             {

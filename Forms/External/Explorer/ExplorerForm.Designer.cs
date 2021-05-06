@@ -110,7 +110,7 @@
             this.btnCloseForm.TabIndex = 26;
             this.btnCloseForm.Text = "Zamknij";
             this.btnCloseForm.UseVisualStyleBackColor = true;
-            this.btnCloseForm.Click += new(this.CloseForm);
+            this.btnCloseForm.Click += new(this.CloseTabForm);
             // 
             // btnRefreshNow
             // 
