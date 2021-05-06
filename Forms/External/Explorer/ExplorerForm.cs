@@ -288,7 +288,7 @@ namespace Forms.External.Explorer
                 Name = "dataGridView2",
                 RowHeadersVisible = false,
                 SelectionMode = DataGridViewSelectionMode.FullRowSelect,
-                Size = new System.Drawing.Size(629, 596),
+                Size = DataGridView.Size,
                 ColumnHeadersDefaultCellStyle = new DataGridViewCellStyle
                 {
                     Alignment = DataGridViewContentAlignment.MiddleLeft,
