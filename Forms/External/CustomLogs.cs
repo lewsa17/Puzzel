@@ -147,6 +147,15 @@ namespace Forms
         {
             UpdateProgressBarValue();
         }
+
+        private void waitCursor()
+        {
+            Invoke(new MethodInvoker(() => Cursor = Cursors.WaitCursor));
+        }
+        private void defaultCursor()
+        {
+            Invoke(new MethodInvoker(() => Cursor = Cursors.Default));
+        }
         private void getTerminalLogs(string Value, string PathName, int ValueType)
         {
             progressBar.Value = 0;
@@ -158,6 +167,7 @@ namespace Forms
             }
             var task = Task.Run(() =>
             {
+                waitCursor();
                 using (FileStream fileStream = new(PathName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                 using (StreamReader sr = new(fileStream))
                 {
@@ -183,6 +193,7 @@ namespace Forms
                         }
                     }));
                 }
+                defaultCursor();
             });
         }
         static cLogsEntry[] dblist = null;
