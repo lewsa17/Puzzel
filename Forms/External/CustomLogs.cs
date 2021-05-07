@@ -175,6 +175,13 @@ namespace Forms
                         }
                     }
                     UpdateProgressBarValue();
+                    textLogView.Invoke(new MethodInvoker(() =>
+                    {
+                        if (textLogView.Text.Length < 1)
+                        {
+                            UpdateRichTextBox("Brak danych");
+                        }
+                    }));
                 }
             });
         }
@@ -220,6 +227,13 @@ namespace Forms
                     UpdateRichTextBox(string.Format("{0,-16}{1,-16}{2,-12}{3,-22}{4,0}", words[0], words[1], words[2], words[3], File.GetCreationTime(list)) + "\n");
                 }
             }
+            textLogView.Invoke(new MethodInvoker(() =>
+            {
+                if (textLogView.Text.Length < 1)
+                {
+                    UpdateRichTextBox("Brak danych");
+                }
+            }));
         }
         private cLogsEntry[] shortDBlist(cLogsEntry[] dblist, string queryValue, int ValueType) 
         {
