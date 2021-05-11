@@ -1173,7 +1173,7 @@ namespace Forms
                 if (!string.IsNullOrEmpty(folder))
                     if (Directory.Exists(Path.Combine(folder, UserName())))
                         PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess("explorer.exe", folder + UserName());
-                    else MessageBox.Show("Brak dostępu do zasobu");
+                    else MessageBox.Show("Brak dostępu lub brak uprawnień do zasobu");
             }
             StopTime();
         }
