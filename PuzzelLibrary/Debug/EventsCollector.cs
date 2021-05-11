@@ -29,16 +29,25 @@ namespace PuzzelLibrary.Debug
             };
         }
 
-        private EventLogInformation GetLogInformation(EventLogQuery eventLogQuery)
-        {
-            return eventLogQuery.Session.GetLogInformation("Security", PathType.LogName);
-        }
-
         public string GetLocalLog(string logName, string queryString)
         {
+            EventLogSession session = new EventLogSession();
             var eventsQuery = CreateQuery(logName, queryString);
-            var evtInfo = GetLogInformation(eventsQuery);
-            return DisplayEventAndLogInformation(new EventLogReader(eventsQuery));
+            eventsQuery.Session = session;
+            try
+            {
+                var evtReader = new EventLogReader(eventsQuery);
+
+                if (evtReader.LogStatus[0].StatusCode == 5)
+                    return "Wykonanie operacji wymaga podniesionych uprawnień";
+                else if (evtReader.LogStatus[0].StatusCode == 0)
+                    return DisplayEventAndLogInformation(evtReader);
+            }
+            catch (Exception e)
+            {
+                Debug.LogsCollector.GetLogs(e, "");
+            }
+            return string.Empty;
         }
 
         public void QueryExternalFile(string logName, string queryString)
