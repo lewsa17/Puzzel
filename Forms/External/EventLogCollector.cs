@@ -89,12 +89,13 @@ namespace Forms.External
                 StartDateRangePicker.Value.ToUniversalTime().ToString(dateFormat), EndDateRangePicker.Value.ToString(dateFormat));
             var MotpQuery = string.Format("*[System/TimeCreated/@SystemTime >= '{0}'] and *[System/TimeCreated/@SystemTime <= '{1}']",
                 StartDateRangePicker.Value.ToUniversalTime().ToString(dateFormat), EndDateRangePicker.Value.ToUniversalTime().ToString(dateFormat));
-            var queryController = string.Format("<QueryList>" +
-                                         "  <Query Id='0' Path='Security'>" +
-                                         "    <Select Path='Security'>*[System[(EventID=4624 or EventID=4740 or EventID=4771 or EventID=4776) and TimeCreated[@SystemTime&gt;='{0}' and @SystemTime&lt;='{1}']]]</Select>" +
-                                         "  </Query>" +
-                                         "</QueryList>"
-                                         , StartDateRangePicker.Value.ToUniversalTime().ToString(dateFormat), EndDateRangePicker.Value.ToUniversalTime().ToString(dateFormat));
+            var queryController = string.Format(
+                "<QueryList>" +
+                "  <Query Id='0' Path='Security'>" +
+                "    <Select Path='Security'>*[System[(EventID=4624 or EventID=4740 or EventID=4771 or EventID=4776) and TimeCreated[@SystemTime&gt;='{0}' and @SystemTime&lt;='{1}']]]</Select>" +
+                "  </Query>" +
+                "</QueryList>"
+                , StartDateRangePicker.Value.ToUniversalTime().ToString(dateFormat), EndDateRangePicker.Value.ToUniversalTime().ToString(dateFormat));
 
             //Wyszukiwanie w lokalu / brak danych w polu
             if (string.IsNullOrEmpty(LocationText.Text))
@@ -111,12 +112,12 @@ namespace Forms.External
             {
                 //Wyszukiwanie na serwerzer motp
                 if (LocationText.Text.Contains("motp", StringComparison.OrdinalIgnoreCase))
-                    TextLogView.Text = ec.GetSecurityLog(LocationText.Text, PuzzelLibrary.Settings.Values.MotpLogName, MotpQuery);
+                    TextLogView.Text = ec.GetRemoteLog(LocationText.Text, PuzzelLibrary.Settings.Values.MotpLogName, MotpQuery);
 
                 //Wyszukiwanie na komputerze o nazwie podanej w polu
                 else if (!string.IsNullOrEmpty(LocationText.Text))
                 {
-                    TextLogView.Text = ec.GetRemoteLog(LocationText.Text, "Security", query);
+                    TextLogView.Text = ec.GetSecurityLog(LocationText.Text, "Security", query);
                 }
             }
             else TextLogView.Text = string.Format("Brak połączenia z {0}, serwer RPC jest niedostępny", LocationText.Text);
