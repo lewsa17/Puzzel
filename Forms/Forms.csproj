@@ -41,4 +41,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="powershell -ExecutionPolicy ByPass -command $(SolutionDir)MakeVersion.ps1" />
+  </Target>
 </Project>
