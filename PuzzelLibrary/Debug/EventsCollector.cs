@@ -66,7 +66,10 @@ namespace PuzzelLibrary.Debug
             try
             {
                 var logReader = new EventLogReader(query);
-                return DisplayEventAndLogInformation(logReader);
+                if (logReader.LogStatus[0].StatusCode == 0)
+                    return DisplayEventAndLogInformation(logReader);
+                else if (logReader.LogStatus[0].StatusCode == 5)
+                    return "Wykonanie operacji wymaga podniesionych uprawnień";
             }
 
             catch (EventLogException e)
@@ -90,7 +93,10 @@ namespace PuzzelLibrary.Debug
             try
             {
                 var logReader = new EventLogReader(query);
-                return DisplayEventSecurityLog(logReader);
+                if (logReader.LogStatus[0].StatusCode == 0)
+                    return DisplayEventSecurityLog(logReader);
+                else if (logReader.LogStatus[0].StatusCode == 5)
+                    return "Wykonanie operacji wymaga podniesionych uprawnień";
             }
 
             catch (EventLogException e)
