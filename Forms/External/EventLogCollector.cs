@@ -61,6 +61,7 @@ namespace Forms.External
                 {
                     Task.Run(() =>
                     {
+                        this.Invoke(new MethodInvoker(() => { this.Cursor = Cursors.WaitCursor; TextLogView.Cursor = Cursors.WaitCursor; }));
                         pd.GetUserPasswordDetails(UserName, domainController);
                         if (lastBadPwd < pd.lastBadPasswordAttempt)
                         {
@@ -75,6 +76,7 @@ namespace Forms.External
                                 EndDateRangePicker.Value = pd.lastBadPasswordAttempt.AddSeconds(+1);
                             }));
                         }
+                        this.Invoke(new MethodInvoker(() => { this.Cursor = Cursors.Default; TextLogView.Cursor = Cursors.Default; }));
                     });
                 }
             });
