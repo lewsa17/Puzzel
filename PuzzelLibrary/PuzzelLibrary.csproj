@@ -1,6 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <Platforms>AnyCPU;x64</Platforms>
+    <EnableNETAnalyzers>false</EnableNETAnalyzers>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <NoWarn>1701;1702</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="LAPS\" />
@@ -24,10 +29,10 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Windows.Forms">
-      <HintPath>C:\Program Files\dotnet\shared\Microsoft.WindowsDesktop.App\5.0.5\System.Windows.Forms.dll</HintPath>
+      <HintPath>C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\5.0.0\ref\net5.0\System.Windows.Forms.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows.Forms.Primitives">
-      <HintPath>C:\Program Files\dotnet\shared\Microsoft.WindowsDesktop.App\5.0.5\System.Windows.Forms.Primitives.dll</HintPath>
+      <HintPath>C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\5.0.0\ref\net5.0\System.Windows.Forms.Primitives.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">

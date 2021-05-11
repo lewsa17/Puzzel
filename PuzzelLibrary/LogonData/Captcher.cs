@@ -84,7 +84,6 @@ namespace PuzzelLibrary.LogonData
                 ComputerNameDB.ComputerNameEntry ADComputer = new();
                 ComputerNameDB.ADComputerDB.Clear();
                 UserNameDB.ADUserDB.Clear();
-                int listCounter = 0;
                 List<string> lines = decryptedData.Split(Environment.NewLine).ToList<string>();
                 var nextCache = lines.IndexOf("ADComputers");
                 for (int i = 0; i < lines.Count; i++)

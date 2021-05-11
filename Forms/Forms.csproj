@@ -10,16 +10,20 @@
     <Authors>Jakub Sypek</Authors>
     <Company />
     <ApplicationIcon>..\Forms\Resources\ICO\Puzzel.ico</ApplicationIcon>
+    <Platforms>AnyCPU;x64</Platforms>
+    <EnableNETAnalyzers>false</EnableNETAnalyzers>
   </PropertyGroup>
- 
-  <ItemGroup>
-    <PackageReference Include="Cassia" Version="3.0.0-alpha.9" />
-  </ItemGroup>
   
   <ItemGroup>
     <ProjectReference Include="..\PuzzelLibrary\PuzzelLibrary.csproj" />
     <ProjectReference Include="..\Settings\Settings.csproj" />
     <ProjectReference Include="..\Updater\Updater.csproj" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Reference Include="Cassia">
+      <HintPath>..\Cassia.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Additional\RemotePing_Tracert.cs" />

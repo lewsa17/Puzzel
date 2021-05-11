@@ -42,8 +42,8 @@ namespace Forms
         public static int ProgressMax = 0;
         public readonly Stopwatch stopWatch = new Stopwatch();
         private static Thread progressBar;
-        private string comboBoxCompLast;
-        private string comboBoxLoginLast;
+        private string comboBoxCompLast = string.Empty;
+        private string comboBoxLoginLast = string.Empty;
         delegate void ReplaceRichTextBoxEventHandler(string message);
         private delegate void Statusbp1TextEventHandler(string text);
         private delegate void Statusbp2TextEventHandler(string text);
