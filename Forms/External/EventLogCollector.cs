@@ -105,7 +105,7 @@ namespace Forms.External
             if (!LocationText.Enabled)
             {
                 if (PuzzelLibrary.NetDiag.Ping.TCPPing(DomainController, 135) == PuzzelLibrary.NetDiag.Ping.TCPPingStatus.Success)
-                    TextLogView.Text = ec.GetSecurityLog(DomainController, "Security", queryController);
+                    TextLogView.Text = ec.GetRemoteLog(DomainController, "Security", queryController);
                 else TextLogView.Text = "Brak połączenia z kontrolerem domeny, serwer RPC jest niedostępny";
             }
             else if (PuzzelLibrary.NetDiag.Ping.TCPPing(LocationText.Text, 135) == PuzzelLibrary.NetDiag.Ping.TCPPingStatus.Success)
@@ -117,7 +117,7 @@ namespace Forms.External
                 //Wyszukiwanie na komputerze o nazwie podanej w polu
                 else if (!string.IsNullOrEmpty(LocationText.Text))
                 {
-                    TextLogView.Text = ec.GetSecurityLog(LocationText.Text, "Security", query);
+                    TextLogView.Text = ec.GetRemoteLog(LocationText.Text, "Security", query);
                 }
             }
             else TextLogView.Text = string.Format("Brak połączenia z {0}, serwer RPC jest niedostępny", LocationText.Text);

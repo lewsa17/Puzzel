@@ -67,34 +67,11 @@ namespace PuzzelLibrary.Debug
             {
                 var logReader = new EventLogReader(query);
                 if (logReader.LogStatus[0].StatusCode == 0)
-                    return DisplayEventAndLogInformation(logReader);
-                else if (logReader.LogStatus[0].StatusCode == 5)
-                    return "Wykonanie operacji wymaga podniesionych uprawnień";
-            }
-
-            catch (EventLogException e)
-            {
-                return string.Concat("Server:", computerName, " - ", e.Message);
-            }
-            catch (Exception e)
-            {
-                Debug.LogsCollector.GetLogs(e, computerName);
-            }
-            return string.Empty;
-        }
-
-        public string GetSecurityLog(string computerName, string logName, string queryString)
-        {
-            EventLogSession session = new EventLogSession(computerName);
-
-            EventLogQuery query = CreateQuery(logName, queryString);
-            query.Session = session;
-
-            try
-            {
-                var logReader = new EventLogReader(query);
-                if (logReader.LogStatus[0].StatusCode == 0)
-                    return DisplayEventSecurityLog(logReader);
+                {
+                    if (computerName.Contains("motp", StringComparison.OrdinalIgnoreCase))
+                        return DisplayEventAndLogInformation(logReader);
+                    else return DisplayEventSecurityLog(logReader);
+                }
                 else if (logReader.LogStatus[0].StatusCode == 5)
                     return "Wykonanie operacji wymaga podniesionych uprawnień";
             }
