@@ -55,7 +55,6 @@
             this.StartDateRangePicker.Name = "StartDateRangePicker";
             this.StartDateRangePicker.Size = new System.Drawing.Size(200, 23);
             this.StartDateRangePicker.TabIndex = 2;
-            this.StartDateRangePicker.Value = new System.DateTime(2021, 5, 6, 0, 0, 0, 0);
             this.StartDateRangePicker.ValueChanged += new System.EventHandler(this.ChangedValue);
             // 
             // EndDateRangePicker
