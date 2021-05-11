@@ -42,6 +42,11 @@ namespace Forms.External
         private void setButton_Click(object sender, EventArgs e)
         {
             CompPWD.setPWD(inputtedcomputerName.Text, dateTimePasswordExpires.Value.ToFileTime().ToString());
+            MessageBox.Show("Zmiana została wprowadzona.\n" +
+                            "Przy nabliżej aktualizacji polis komputer pobierze nowe", 
+                            "Zmiana hasła", 
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Question);
         }
     }
 }
