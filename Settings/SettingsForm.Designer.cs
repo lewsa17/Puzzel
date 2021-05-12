@@ -79,6 +79,8 @@
             this.DescriptionBox = new System.Windows.Forms.GroupBox();
             this.DescriptionLabel = new System.Windows.Forms.Label();
             this.RestoreDefaultButton = new System.Windows.Forms.Button();
+            this.ComputerInputBox = new System.Windows.Forms.GroupBox();
+            this.ComputerInputCheck = new System.Windows.Forms.CheckBox();
             this.TabSettings.SuspendLayout();
             this.GeneralPage.SuspendLayout();
             this.CustomValueBox.SuspendLayout();
@@ -100,6 +102,7 @@
             this.Other.SuspendLayout();
             this.AutomaticallyAllowBox.SuspendLayout();
             this.DescriptionBox.SuspendLayout();
+            this.ComputerInputBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // SaveButton
@@ -137,6 +140,7 @@
             // 
             // GeneralPage
             // 
+            this.GeneralPage.Controls.Add(this.ComputerInputBox);
             this.GeneralPage.Controls.Add(this.CustomValueBox);
             this.GeneralPage.Controls.Add(this.HistoryLogBox);
             this.GeneralPage.Location = new System.Drawing.Point(4, 24);
@@ -715,10 +719,34 @@
             this.RestoreDefaultButton.UseVisualStyleBackColor = true;
             this.RestoreDefaultButton.Click += new System.EventHandler(this.RestoreDefaultSettings);
             // 
+            // ComputerInputBox
+            // 
+            this.ComputerInputBox.Controls.Add(this.ComputerInputCheck);
+            this.ComputerInputBox.Location = new System.Drawing.Point(20, 160);
+            this.ComputerInputBox.Name = "ComputerInputBox";
+            this.ComputerInputBox.Size = new System.Drawing.Size(200, 53);
+            this.ComputerInputBox.TabIndex = 1;
+            this.ComputerInputBox.TabStop = false;
+            this.ComputerInputBox.Text = "Podstawianie nazwy komputera:";
+            // 
+            // ComputerInputCheck
+            // 
+            this.ComputerInputCheck.AutoSize = true;
+            this.ComputerInputCheck.Location = new System.Drawing.Point(6, 23);
+            this.ComputerInputCheck.Name = "ComputerInputCheck";
+            this.ComputerInputCheck.Size = new System.Drawing.Size(83, 19);
+            this.ComputerInputCheck.TabIndex = 0;
+            this.ComputerInputCheck.Text = "Wyłączone";
+            this.ComputerInputCheck.UseVisualStyleBackColor = true;
+            this.ComputerInputCheck.CheckedChanged += new System.EventHandler(this.ChangeChecked);
+            this.ComputerInputCheck.MouseEnter += new System.EventHandler(this.MouseOn);
+            this.ComputerInputCheck.MouseLeave += new System.EventHandler(this.MouseOut);
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.ClientSize = new System.Drawing.Size(799, 450);
             this.Controls.Add(this.CloseButton);
             this.Controls.Add(this.DescriptionBox);
@@ -761,6 +789,8 @@
             this.AutomaticallyAllowBox.PerformLayout();
             this.DescriptionBox.ResumeLayout(false);
             this.DescriptionBox.PerformLayout();
+            this.ComputerInputBox.ResumeLayout(false);
+            this.ComputerInputBox.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -818,6 +848,8 @@
         private System.Windows.Forms.GroupBox MotpLogNameBox;
         private System.Windows.Forms.TextBox MotpLogNameTextBox;
         private System.Windows.Forms.TextBox MotpServersTextBox;
+        private System.Windows.Forms.GroupBox ComputerInputBox;
+        private System.Windows.Forms.CheckBox ComputerInputCheck;
     }
 }
 

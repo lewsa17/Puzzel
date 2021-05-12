@@ -30,6 +30,7 @@ namespace PuzzelLibrary.Settings
         public static string ComputerSNFile { get; set; }
         public static string MotpServers { get; set; }
         public static string MotpLogName { get; set; }
+        public static bool ComputerInput { get; set; }
         public static void CommitChanges()
         {
             if (File.Exists("Settings.xml"))

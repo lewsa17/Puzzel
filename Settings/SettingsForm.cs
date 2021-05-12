@@ -14,7 +14,7 @@ namespace Settings
         }
         private Control[] GetCollectionOfFieldSettings()
         {
-            Control[] ListOfFieldWithSettings = { NumbersOfUserLogs, NumbersOfCompLogs, HistoryLogCheck, CustomSourceCheck, LocalUpdateCheck, AutoStartUpdateCheck, SaveUserDataCheck, AutoUnlockFirewallCheck, AutoOpenPortCheck, CheckLogsBeforeStartUpCheck, SessionShortcutText, LocalUpdateTextBox, ComputerLogsFolderTextBox, ComputerSNFileTextBox, TerminalLogsSNFileTextBox, TerminalLogsFileTextBox, TerminalLogsFolderTextBox, CustomSourceTextBox, MotpServersTextBox, MotpLogNameTextBox };
+            Control[] ListOfFieldWithSettings = { NumbersOfUserLogs, NumbersOfCompLogs, HistoryLogCheck, CustomSourceCheck, LocalUpdateCheck, AutoStartUpdateCheck, SaveUserDataCheck, AutoUnlockFirewallCheck, AutoOpenPortCheck, CheckLogsBeforeStartUpCheck, SessionShortcutText, LocalUpdateTextBox, ComputerLogsFolderTextBox, ComputerSNFileTextBox, TerminalLogsSNFileTextBox, TerminalLogsFileTextBox, TerminalLogsFolderTextBox, CustomSourceTextBox, MotpServersTextBox, MotpLogNameTextBox, ComputerInputCheck };
             return ListOfFieldWithSettings;
         }
 
@@ -38,6 +38,7 @@ namespace Settings
         public static readonly string CheckLogsBeforeStartUpDescription = "Ustaw czy podczas uruchomienia logi mają być odświeżane";
         public static readonly string MotpServersDescription = "Podaj nazawy hosta dla serwerów motp (Odzielone , lub ;)";
         public static readonly string MotpLogNameDescription = "Podaj nazwę dziennika dla serwera motp";
+        public static readonly string ComputerInputDescription = "Ustawienie tej wartości spowododuje podstawianie ostatnio używanej nazwy komputera przy wyszukiwaniu użytkownika";
 
         private void CloseButton_Click(object sender, EventArgs e)
         {
@@ -158,6 +159,11 @@ namespace Settings
                         case nameof(AutoStartUpdateCheck):
                             {
                                 PuzzelLibrary.Settings.Values.AutostartUpdateCheck = AutoStartUpdateCheck.Checked;
+                                break;
+                            }
+                        case nameof(ComputerInputCheck):
+                            {
+                                PuzzelLibrary.Settings.Values.ComputerInput = ComputerInputCheck.Checked;
                                 break;
                             }
                     }
@@ -284,6 +290,7 @@ namespace Settings
                 CheckLogsBeforeStartUpCheck.Checked = PuzzelLibrary.Settings.Values.CheckLogsBeforeStartUp;
                 MotpServersTextBox.Text = PuzzelLibrary.Settings.Values.MotpServers;
                 MotpLogNameTextBox.Text = PuzzelLibrary.Settings.Values.MotpLogName;
+                ComputerInputCheck.Checked = PuzzelLibrary.Settings.Values.ComputerInput;
             }
             else
             {
@@ -310,6 +317,7 @@ namespace Settings
                 PuzzelLibrary.Settings.Values.CheckLogsBeforeStartUp = CheckLogsBeforeStartUpCheck.Checked;
                 PuzzelLibrary.Settings.Values.MotpLogName = MotpLogNameTextBox.Text;
                 PuzzelLibrary.Settings.Values.MotpServers= MotpServersTextBox.Text;
+                PuzzelLibrary.Settings.Values.ComputerInput = ComputerInputCheck.Checked;
             }
         }
 
