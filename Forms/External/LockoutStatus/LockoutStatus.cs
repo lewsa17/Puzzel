@@ -124,5 +124,22 @@ namespace Forms.External
             }
             else MessageBox.Show("Nic nie zaznaczono");
         }
+        private void CopyValueClick(object sender, EventArgs e)
+        {
+            string value = string.Empty;
+            if (sender == contextMenuItemCopyValue)
+            {
+                value = dataGridView.CurrentCell.Value.ToString();
+            }
+            if (sender == contextMenuItemCopySelectedRow)
+            {
+                var cells = dataGridView.SelectedRows[0].Cells;
+                foreach (DataGridViewCell cell in cells)
+                {
+                    value += cell.Value.ToString() + "\t";
+                }
+            }
+            Clipboard.SetText(value);
+        }
     }
 }

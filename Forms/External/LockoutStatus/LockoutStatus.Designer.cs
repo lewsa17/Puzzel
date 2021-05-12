@@ -1,4 +1,6 @@
-﻿namespace Forms.External
+﻿using System.Windows.Forms;
+
+namespace Forms.External
 {
     partial class LockoutStatus
     {
@@ -47,6 +49,8 @@
             this.menuItemClear = new();
             this.menuSeparator = new();
             this.menuItemPasswordStatus = new();
+            this.contextMenuItemCopyValue = new();
+            this.contextMenuItemCopySelectedRow = new();
             this.menuSeparator2 = new();
             this.menuItemRefreshSelected = new();
             this.menuItemRefreshAll = new();
@@ -139,7 +143,7 @@
             this.menuItemRefreshSelected.Size = new(181, 22);
             this.menuItemRefreshSelected.Text = "Odśwież zaznaczone";
             this.menuItemRefreshSelected.Click += new(this.menuItemRefreshSelected_Click);
-            // 
+            //
             // menuItemRefreshAll
             // 
             this.menuItemRefreshAll.Name = "menuItemRefreshAll";
@@ -319,6 +323,9 @@
             this.ContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.contextMenuItemPasswordStatus,
             this.contextMenuItemUnlockAccount,
+            new ToolStripSeparator(),
+            this.contextMenuItemCopyValue,
+            this.contextMenuItemCopySelectedRow,
             this.contextMenuseparator,
             this.contextMenuItemClearAll,
             this.contextMenuseparator2,
@@ -345,6 +352,18 @@
             this.contextMenuItemClearAll.Size = new(181, 22);
             this.contextMenuItemClearAll.Text = "Wyczyść";
             this.contextMenuItemClearAll.Click += new(this.menuItemClearAll_Click);
+            //
+            // contextMenuItemCopySelectedRow;
+            //
+            this.contextMenuItemCopySelectedRow.Name = "menuItemCopySelectedRow";
+            this.contextMenuItemCopySelectedRow.Text = "Kopiuj wiersz";
+            this.contextMenuItemCopySelectedRow.Click += new(this.CopyValueClick);
+            //
+            //contextMenuItemCopyValue
+            //
+            this.contextMenuItemCopyValue.Name = "menuItemCopyValue";
+            this.contextMenuItemCopyValue.Text = "Kopiuj wartość";
+            this.contextMenuItemCopyValue.Click += new(this.CopyValueClick);
             // 
             // Separator4
             // 
@@ -392,6 +411,8 @@
         private System.Windows.Forms.ToolStripSeparator menuSeparator2;
         private System.Windows.Forms.ToolStripMenuItem contextMenuItemRefreshSelected;
         private System.Windows.Forms.ToolStripMenuItem contextMenuItemRefreshAll;
+        private System.Windows.Forms.ToolStripMenuItem contextMenuItemCopyValue;
+        private System.Windows.Forms.ToolStripMenuItem contextMenuItemCopySelectedRow;
         private System.Windows.Forms.ContextMenuStrip ContextMenu;
         private System.Windows.Forms.ToolStripMenuItem contextMenuItemUnlockAccount;
         private System.Windows.Forms.ToolStripMenuItem contextMenuItemClearAll;
