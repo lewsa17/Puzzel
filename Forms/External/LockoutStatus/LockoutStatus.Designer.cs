@@ -47,11 +47,9 @@ namespace Forms.External
             this.menuItemSelectUser = new();
             this.menuItemView = new();
             this.menuItemClear = new();
-            this.menuSeparator = new();
             this.menuItemPasswordStatus = new();
             this.contextMenuItemCopyValue = new();
             this.contextMenuItemCopySelectedRow = new();
-            this.menuSeparator2 = new();
             this.menuItemRefreshSelected = new();
             this.menuItemRefreshAll = new();
             this.contextMenuItemPasswordStatus = new();
@@ -66,9 +64,7 @@ namespace Forms.External
             this.LockoutTimeColumn = new();
             this.ContextMenu = new(this.components);
             this.contextMenuItemUnlockAccount = new();
-            this.contextMenuseparator = new();
             this.contextMenuItemClearAll = new();
-            this.contextMenuseparator2 = new();
             this.mainMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(dataGridView)).BeginInit();
             this.ContextMenu.SuspendLayout();
@@ -104,9 +100,9 @@ namespace Forms.External
             // 
             this.menuItemView.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuItemClear,
-            this.menuSeparator,
+            new ToolStripSeparator(),
             this.menuItemPasswordStatus,
-            this.menuSeparator2,
+            new ToolStripSeparator(),
             this.menuItemRefreshSelected,
             this.menuItemRefreshAll});
             this.menuItemView.Name = "menuItemView";
@@ -120,22 +116,12 @@ namespace Forms.External
             this.menuItemClear.Text = "Wyczyść";
             this.menuItemClear.Click += new(this.menuItemClearAll_Click);
             // 
-            // menuSeparator
-            // 
-            this.menuSeparator.Name = "menuSeparator";
-            this.menuSeparator.Size = new(178, 6);
-            // 
             // menuItemPasswordStatus
             // 
             this.menuItemPasswordStatus.Name = "menuItemPasswordStatus";
             this.menuItemPasswordStatus.Size = new(181, 22);
             this.menuItemPasswordStatus.Text = "Status hasła";
             this.menuItemPasswordStatus.Click += new(this.menuItemPasswordStatus_Click);
-            // 
-            // menuSeparator2
-            // 
-            this.menuSeparator2.Name = "menuSeparator2";
-            this.menuSeparator2.Size = new(178, 6);
             // 
             // menuItemRefreshSelected
             // 
@@ -326,9 +312,9 @@ namespace Forms.External
             new ToolStripSeparator(),
             this.contextMenuItemCopyValue,
             this.contextMenuItemCopySelectedRow,
-            this.contextMenuseparator,
+            new ToolStripSeparator(),
             this.contextMenuItemClearAll,
-            this.contextMenuseparator2,
+            new ToolStripSeparator(),
             this.contextMenuItemRefreshSelected,
             this.contextMenuItemRefreshAll});
             this.ContextMenu.Name = "ContextMenu";
@@ -340,11 +326,6 @@ namespace Forms.External
             this.contextMenuItemUnlockAccount.Size = new(181, 22);
             this.contextMenuItemUnlockAccount.Text = "Odblokuj Konto";
             this.contextMenuItemUnlockAccount.Click += new(this.UnlockAll_Click);
-            // 
-            // contextMenuseparator
-            // 
-            this.contextMenuseparator.Name = "contextMenuseparator";
-            this.contextMenuseparator.Size = new(178, 6);
             // 
             // menuItemClearAll
             // 
@@ -364,11 +345,6 @@ namespace Forms.External
             this.contextMenuItemCopyValue.Name = "menuItemCopyValue";
             this.contextMenuItemCopyValue.Text = "Kopiuj wartość";
             this.contextMenuItemCopyValue.Click += new(this.CopyValueClick);
-            // 
-            // Separator4
-            // 
-            this.contextMenuseparator2.Name = "Separator4";
-            this.contextMenuseparator2.Size = new(178, 6);
             // 
             // LockoutStatus
             // 
@@ -406,9 +382,7 @@ namespace Forms.External
         private System.Windows.Forms.ToolStripMenuItem menuItemSelectUser;
         private System.Windows.Forms.ToolStripMenuItem menuItemView;
         private System.Windows.Forms.ToolStripMenuItem menuItemClear;
-        private System.Windows.Forms.ToolStripSeparator menuSeparator;
         private System.Windows.Forms.ToolStripMenuItem contextMenuItemPasswordStatus;
-        private System.Windows.Forms.ToolStripSeparator menuSeparator2;
         private System.Windows.Forms.ToolStripMenuItem contextMenuItemRefreshSelected;
         private System.Windows.Forms.ToolStripMenuItem contextMenuItemRefreshAll;
         private System.Windows.Forms.ToolStripMenuItem contextMenuItemCopyValue;
@@ -419,8 +393,6 @@ namespace Forms.External
         private System.Windows.Forms.ToolStripMenuItem menuItemPasswordStatus;
         private System.Windows.Forms.ToolStripMenuItem menuItemRefreshSelected;
         private System.Windows.Forms.ToolStripMenuItem menuItemRefreshAll;
-        private System.Windows.Forms.ToolStripSeparator contextMenuseparator;
-        private System.Windows.Forms.ToolStripSeparator contextMenuseparator2;
         private System.Windows.Forms.DataGridViewTextBoxColumn DCColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn UserStateColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn BadPasswordCountColumn;
