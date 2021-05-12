@@ -273,8 +273,8 @@ namespace Forms.External
             this.LastBadPasswordAttemptColumn.HeaderText = "Ostatnie błędne";
             this.LastBadPasswordAttemptColumn.Name = "LastBadPasswordAttemptColumn";
             this.LastBadPasswordAttemptColumn.ReadOnly = true;
-            this.LastBadPasswordAttemptColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.LastBadPasswordAttemptColumn.Width = 130;
+            this.LastBadPasswordAttemptColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             // 
             // LastSetPasswordColumn
             // 
@@ -287,7 +287,7 @@ namespace Forms.External
             this.LastSetPasswordColumn.HeaderText = "Ostatnia zmiana";
             this.LastSetPasswordColumn.Name = "LastSetPasswordColumn";
             this.LastSetPasswordColumn.ReadOnly = true;
-            this.LastSetPasswordColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.LastSetPasswordColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             this.LastSetPasswordColumn.Width = 120;
             // 
             // LockoutTimeColumn
