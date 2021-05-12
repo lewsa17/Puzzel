@@ -343,12 +343,22 @@ namespace Forms
                 else
                 {
                     if (kindOf == "User")
-                        foreach (var LogName in captcher.userNames(name, kindOf))
-                            new Thread(() => UpdateRichTextBox(new PuzzelLibrary.LogonData.Captcher().SearchLogs(numberOfLogs, LogName.UserName, kindOf))).Start();
+                    {
+                        var users = captcher.userNames(name, kindOf);
+                        foreach (var LogName in users)
+                        {
+                            new Thread(() =>
+                            {
+                                UpdateRichTextBox(captcher.SearchLogs(numberOfLogs, LogName.UserName, kindOf));
+                                if (users.Length == 1 && PuzzelLibrary.Settings.Values.ComputerInput)
+                                    comboBoxComputer.Invoke(new MethodInvoker(() => comboBoxComputer.Text = captcher.LastKnownComputerName.TrimStart()));
+                            }).Start();
+                        }
+                    }
 
                     if (kindOf == "Computer")
                         foreach (var LogName in captcher.ComputerNames(name, kindOf))
-                            new Thread(() => UpdateRichTextBox(new PuzzelLibrary.LogonData.Captcher().SearchLogs(numberOfLogs, LogName.Name, kindOf))).Start();
+                            new Thread(() => UpdateRichTextBox(captcher.SearchLogs(numberOfLogs, LogName.Name, kindOf))).Start();
                 }
             }
         }

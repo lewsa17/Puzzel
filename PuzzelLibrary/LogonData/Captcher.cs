@@ -15,6 +15,7 @@ namespace PuzzelLibrary.LogonData
     {
         private static string _logsDirectory;
         private static string logsDirectory => getLogsDirectory();
+        public string LastKnownComputerName { get; set; }
         private static string getLogsDirectory()
         {
             if (_logsDirectory != null)
@@ -155,6 +156,7 @@ namespace PuzzelLibrary.LogonData
                     string[] word;
                     string[] words;
                     word = LogCompLogs[0].Split(';');
+                    int lastKnownName = 0;
                     if (UserNameDB.ADUserDB == null)
                         Cache.Refresh();
                     else
@@ -168,6 +170,12 @@ namespace PuzzelLibrary.LogonData
                     for (int i = 0; i < count; i++)
                     {
                         words = LogCompLogs[i].Split(';');
+
+                        if (Settings.Values.ComputerInput && lastKnownName < 1)
+                        {
+                            ExtractLastKnowComputerName(out lastKnownName, words[1]);
+                        }
+
                         if (words[2] != lastUsedLogin)
                         {
                             if (UserNameDB.ADUserDB == null || UserNameDB.ADUserDB.Count <= 0)
@@ -287,6 +295,15 @@ namespace PuzzelLibrary.LogonData
             }
             catch (System.Runtime.InteropServices.COMException) { System.Windows.Forms.MessageBox.Show("Brak połączenia z AD"); }
             return null;
+        }
+        private void ExtractLastKnowComputerName(out int isKnown, string ComputerName)
+        {
+            isKnown = 0;
+            if (!ComputerName.Contains("ts-", StringComparison.OrdinalIgnoreCase))
+            {
+                LastKnownComputerName = ComputerName;
+                isKnown = 1;
+            }
         }
     }
 }
