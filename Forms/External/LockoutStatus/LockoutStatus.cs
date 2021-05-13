@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Threading;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Forms.External
 {
@@ -63,7 +64,7 @@ namespace Forms.External
             if (Username.Length > 1)
                 this.Text = Username;
         }
-        public static void GetUserPasswordDetails(string dcName)
+        public void GetUserPasswordDetails(string dcName)
         {
             if (dataGridView.Columns != null)
                 try
