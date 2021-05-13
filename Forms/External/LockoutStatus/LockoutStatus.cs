@@ -66,6 +66,8 @@ namespace Forms.External
         }
         public void GetUserPasswordDetails(string dcName)
         {
+            if (this.IsHandleCreated)
+                Invoke(new MethodInvoker(() => Cursor = Cursors.WaitCursor));
             if (dataGridView.Columns != null)
                 try
                 {
@@ -81,6 +83,7 @@ namespace Forms.External
                 {
                     PuzzelLibrary.Debug.LogsCollector.GetLogs(e, dcName + "," + Username);
                 }
+            Invoke(new MethodInvoker(() => Cursor = Cursors.Default));
         }
         private void menuItemClearAll_Click(object sender, EventArgs e)
         {
