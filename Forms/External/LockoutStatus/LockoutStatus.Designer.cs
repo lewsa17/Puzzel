@@ -32,15 +32,6 @@ namespace Forms.External
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new();
             System.ComponentModel.ComponentResourceManager resources = new(typeof(LockoutStatus));
             this.mainMenu = new();
             this.menuItemFile = new();
@@ -129,7 +120,7 @@ namespace Forms.External
             this.menuItemRefreshSelected.Size = new(181, 22);
             this.menuItemRefreshSelected.Text = "Odśwież zaznaczone";
             this.menuItemRefreshSelected.Click += new(this.menuItemRefreshSelected_Click);
-            //
+            // 
             // menuItemRefreshAll
             // 
             this.menuItemRefreshAll.Name = "menuItemRefreshAll";
@@ -184,186 +175,116 @@ namespace Forms.External
             this.LastSetPasswordColumn,
             this.LockoutTimeColumn});
             dataGridView.ContextMenuStrip = this.ContextMenu;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle8.Font = new ("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            dataGridView.DefaultCellStyle = dataGridViewCellStyle8;
             dataGridView.GridColor = System.Drawing.SystemColors.Control;
             dataGridView.Location = new(0, 25);
             dataGridView.MultiSelect = false;
             dataGridView.Name = "dataGridView";
             dataGridView.ReadOnly = true;
             dataGridView.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.Font = new("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            dataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
             dataGridView.RowHeadersVisible = false;
-            dataGridViewCellStyle10.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridView.RowsDefaultCellStyle = dataGridViewCellStyle10;
             dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             dataGridView.ShowEditingIcon = false;
-            dataGridView.Size = new(745, 268);
+            dataGridView.Size = new(742, 309);
             dataGridView.TabIndex = 1;
             dataGridView.TabStop = false;
             // 
             // DCColumn
             // 
-            this.DCColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            this.DCColumn.DefaultCellStyle = dataGridViewCellStyle2;
             this.DCColumn.HeaderText = "Kontroler domeny";
             this.DCColumn.Name = "DCColumn";
             this.DCColumn.ReadOnly = true;
-            this.DCColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.DCColumn.Width = 120;
             // 
             // UserStateColumn
             // 
-            this.UserStateColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            this.UserStateColumn.DefaultCellStyle = dataGridViewCellStyle3;
             this.UserStateColumn.HeaderText = "Status konta";
             this.UserStateColumn.Name = "UserStateColumn";
             this.UserStateColumn.ReadOnly = true;
-            this.UserStateColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.UserStateColumn.DefaultCellStyle = new() { Alignment = DataGridViewContentAlignment.MiddleCenter };
             this.UserStateColumn.Width = 95;
             // 
             // BadPasswordCountColumn
             // 
-            this.BadPasswordCountColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            this.BadPasswordCountColumn.DefaultCellStyle = dataGridViewCellStyle4;
             this.BadPasswordCountColumn.HeaderText = "Ilość błędnych prób";
             this.BadPasswordCountColumn.Name = "BadPasswordCountColumn";
             this.BadPasswordCountColumn.ReadOnly = true;
-            this.BadPasswordCountColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.BadPasswordCountColumn.DefaultCellStyle = new() { Alignment = DataGridViewContentAlignment.MiddleCenter };
             this.BadPasswordCountColumn.Width = 150;
             // 
             // LastBadPasswordAttemptColumn
             // 
-            this.LastBadPasswordAttemptColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            this.LastBadPasswordAttemptColumn.DefaultCellStyle = dataGridViewCellStyle5;
+            this.LastBadPasswordAttemptColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.LastBadPasswordAttemptColumn.HeaderText = "Ostatnie błędne";
             this.LastBadPasswordAttemptColumn.Name = "LastBadPasswordAttemptColumn";
             this.LastBadPasswordAttemptColumn.ReadOnly = true;
-            this.LastBadPasswordAttemptColumn.Width = 130;
-            this.LastBadPasswordAttemptColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             // 
             // LastSetPasswordColumn
             // 
-            this.LastSetPasswordColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            this.LastSetPasswordColumn.DefaultCellStyle = dataGridViewCellStyle6;
+            this.LastSetPasswordColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.LastSetPasswordColumn.HeaderText = "Ostatnia zmiana";
             this.LastSetPasswordColumn.Name = "LastSetPasswordColumn";
             this.LastSetPasswordColumn.ReadOnly = true;
-            this.LastSetPasswordColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            this.LastSetPasswordColumn.Width = 120;
             // 
             // LockoutTimeColumn
             // 
-            this.LockoutTimeColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            this.LockoutTimeColumn.DefaultCellStyle = dataGridViewCellStyle7;
             this.LockoutTimeColumn.HeaderText = "Kiedy zablokowane";
             this.LockoutTimeColumn.Name = "LockoutTimeColumn";
             this.LockoutTimeColumn.ReadOnly = true;
-            this.LockoutTimeColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.LockoutTimeColumn.Width = 130;
             // 
             // ContextMenu
             // 
-            this.ContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ContextMenu.Items.AddRange(new[] {
             this.contextMenuItemPasswordStatus,
             this.contextMenuItemUnlockAccount,
-            new ToolStripSeparator(),
             this.contextMenuItemCopyValue,
             this.contextMenuItemCopySelectedRow,
-            new ToolStripSeparator(),
             this.contextMenuItemClearAll,
-            new ToolStripSeparator(),
             this.contextMenuItemRefreshSelected,
             this.contextMenuItemRefreshAll});
             this.ContextMenu.Name = "ContextMenu";
             this.ContextMenu.Size = new(182, 126);
             // 
-            // menuItemUnlockAccount
+            // contextMenuItemUnlockAccount
             // 
-            this.contextMenuItemUnlockAccount.Name = "menuItemUnlockAccount";
+            this.contextMenuItemUnlockAccount.Name = "contextMenuItemUnlockAccount";
             this.contextMenuItemUnlockAccount.Size = new(181, 22);
             this.contextMenuItemUnlockAccount.Text = "Odblokuj Konto";
             this.contextMenuItemUnlockAccount.Click += new(this.UnlockAll_Click);
             // 
-            // menuItemClearAll
+            // contextMenuItemClearAll
             // 
-            this.contextMenuItemClearAll.Name = "menuItemClearAll";
+            this.contextMenuItemClearAll.Name = "contextMenuItemClearAll";
             this.contextMenuItemClearAll.Size = new(181, 22);
             this.contextMenuItemClearAll.Text = "Wyczyść";
             this.contextMenuItemClearAll.Click += new(this.menuItemClearAll_Click);
-            //
-            // contextMenuItemCopySelectedRow;
-            //
-            this.contextMenuItemCopySelectedRow.Name = "menuItemCopySelectedRow";
+            // 
+            // contextMenuItemCopySelectedRow
+            // 
+            this.contextMenuItemCopySelectedRow.Name = "contextMenuItemCopySelectedRow";
             this.contextMenuItemCopySelectedRow.Text = "Kopiuj wiersz";
             this.contextMenuItemCopySelectedRow.Click += new(this.CopyValueClick);
-            //
-            //contextMenuItemCopyValue
-            //
-            this.contextMenuItemCopyValue.Name = "menuItemCopyValue";
-            this.contextMenuItemCopyValue.Text = "Kopiuj wartość";
-            this.contextMenuItemCopyValue.Click += new(this.CopyValueClick);
             // 
+            // contextMenuItemCopyValue
+            // 
+            this.contextMenuItemCopyValue.Name = "contextMenuItemCopyValue";
+            this.contextMenuItemCopyValue.Text = "Kopiuj";
+            this.contextMenuItemCopyValue.Click += new(this.CopyValueClick);
             // LockoutStatus
             // 
-            this.AutoScaleDimensions = new(6F, 13F);
+            this.AutoScaleDimensions = new(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new(736, 280);
             this.Controls.Add(dataGridView);
             this.Controls.Add(this.mainMenu);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = global::Forms.Resources.Resources.Puzzel;
             this.MainMenuStrip = this.mainMenu;
             this.MaximizeBox = false;
-            this.MaximumSize = new(752, 319);
             this.MinimizeBox = false;
             this.MinimumSize = new(752, 319);
             this.Name = "LockoutStatus";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Lockout Status";
-            this.TopMost = false;
             this.Activated += new(this.LockoutStatus_Activated);
             this.Load += new(this.LockoutStatus_Load);
             this.mainMenu.ResumeLayout(false);
