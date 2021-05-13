@@ -351,7 +351,14 @@ namespace Forms
                             {
                                 UpdateRichTextBox(captcher.SearchLogs(numberOfLogs, LogName.UserName, kindOf));
                                 if (users.Length == 1 && PuzzelLibrary.Settings.Values.ComputerInput)
-                                    comboBoxComputer.Invoke(new MethodInvoker(() => comboBoxComputer.Text = captcher.LastKnownComputerName.TrimStart()));
+                                    comboBoxComputer.Invoke(new MethodInvoker(() =>
+                                    {
+                                        if (captcher.LastKnownComputerName == null)
+                                            comboBoxComputer.Text = string.Empty;
+                                        else
+                                            comboBoxComputer.Text = captcher.LastKnownComputerName.TrimStart();
+                                    }
+                                    ));
                             }).Start();
                         }
                     }
