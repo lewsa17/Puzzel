@@ -39,29 +39,49 @@ namespace PuzzelLibrary.AD.User
         }
         public static bool IsUserAvailable(string UserName)
         {
-            if (GetUser(UserName) != null)
-                return true;
+                if (GetUser(UserName) != null)
+                    return true;
             return false;
         }
         internal static List<UserPrincipal> GetUserInADControllers(string UserName)
         {
             List<UserPrincipal> userListFromADControllers = new List<UserPrincipal>();
             foreach (var DomainController in Other.Domain.GetCurrentDomainControllers())
-                userListFromADControllers.Add(GetUser(UserName, DomainController));
+            {
+                var user = GetUser(UserName, DomainController);
+                if (user != null)
+                    userListFromADControllers.Add(user);
+            }
             return userListFromADControllers;
         }
         public static UserPrincipal GetUser(string UserName)
         {
-            PrincipalContext oPrincipalContext = new PrincipalContext(ContextType.Domain);
-            UserPrincipal oUserPrincipal = UserPrincipal.FindByIdentity(oPrincipalContext, UserName);
-            return oUserPrincipal;
+            try
+            {
+                PrincipalContext oPrincipalContext = new PrincipalContext(ContextType.Domain);
+                UserPrincipal oUserPrincipal = UserPrincipal.FindByIdentity(oPrincipalContext, UserName);
+                return oUserPrincipal;
+            }
+            catch(Exception e)
+            {
+                Debug.LogsCollector.GetLogs(e, UserName);
+            }
+            return null;
         }
 
         public static UserPrincipal GetUser(string UserName, string domainController)
         {
-            PrincipalContext oPrincipalContext = new PrincipalContext(ContextType.Domain, domainController);
-            UserPrincipal oUserPrincipal = UserPrincipal.FindByIdentity(oPrincipalContext, UserName);
-            return oUserPrincipal;
+            try
+            {
+                PrincipalContext oPrincipalContext = new PrincipalContext(ContextType.Domain, domainController);
+                UserPrincipal oUserPrincipal = UserPrincipal.FindByIdentity(oPrincipalContext, UserName);
+                return oUserPrincipal;
+            }
+            catch (Exception e)
+            {
+                Debug.LogsCollector.GetLogs(e, UserName);
+            }
+            return null;
         }
         public class PasswordDetails
         {
