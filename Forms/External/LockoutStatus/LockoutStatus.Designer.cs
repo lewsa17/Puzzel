@@ -54,11 +54,15 @@ namespace Forms.External
             this.LastSetPasswordColumn = new();
             this.LockoutTimeColumn = new();
             this.ContextMenu = new(this.components);
+            this.ContextMenuFile = new(this.components);
+            this.ContextMenuView = new(this.components);
             this.contextMenuItemUnlockAccount = new();
             this.contextMenuItemClearAll = new();
             this.mainMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(dataGridView)).BeginInit();
             this.ContextMenu.SuspendLayout();
+            this.ContextMenuFile.SuspendLayout();
+            this.ContextMenuView.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainMenu
@@ -74,8 +78,7 @@ namespace Forms.External
             // 
             // menuItemFile
             // 
-            this.menuItemFile.DropDownItems.AddRange(new[] {
-            this.menuItemSelectUser});
+            this.menuItemFile.DropDown = ContextMenuFile;
             this.menuItemFile.Name = "menuItemFile";
             this.menuItemFile.Size = new(38, 20);
             this.menuItemFile.Text = "Plik";
@@ -86,16 +89,28 @@ namespace Forms.External
             this.menuItemSelectUser.Size = new(185, 22);
             this.menuItemSelectUser.Text = "Wybierz użytkownika";
             this.menuItemSelectUser.Click += new(this.menuItemSelectUser_Click);
-            // 
-            // menuItemView
-            // 
-            this.menuItemView.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            //
+            // ContextMenuFile
+            //
+            this.ContextMenuFile.Items.AddRange(new ToolStripItem[] {
+            this.menuItemSelectUser});
+            this.ContextMenuFile.ShowImageMargin = false;
+            //
+            // ContextMenuView
+            //
+            this.ContextMenuView.ShowImageMargin = false;
+            this.ContextMenuView.Items.AddRange(
+            new System.Windows.Forms.ToolStripItem[] {
             this.menuItemClear,
             new ToolStripSeparator(),
             this.menuItemPasswordStatus,
             new ToolStripSeparator(),
             this.menuItemRefreshSelected,
             this.menuItemRefreshAll});
+            // 
+            // menuItemView
+            // 
+            this.menuItemView.DropDown = ContextMenuView;
             this.menuItemView.Name = "menuItemView";
             this.menuItemView.Size = new(53, 20);
             this.menuItemView.Text = "Widok";
@@ -291,6 +306,8 @@ namespace Forms.External
             this.mainMenu.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(dataGridView)).EndInit();
             this.ContextMenu.ResumeLayout(false);
+            this.ContextMenuFile.ResumeLayout(false);
+            this.ContextMenuView.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -309,6 +326,8 @@ namespace Forms.External
         private System.Windows.Forms.ToolStripMenuItem contextMenuItemCopyValue;
         private System.Windows.Forms.ToolStripMenuItem contextMenuItemCopySelectedRow;
         private System.Windows.Forms.ContextMenuStrip ContextMenu;
+        private System.Windows.Forms.ContextMenuStrip ContextMenuFile;
+        private System.Windows.Forms.ContextMenuStrip ContextMenuView;
         private System.Windows.Forms.ToolStripMenuItem contextMenuItemUnlockAccount;
         private System.Windows.Forms.ToolStripMenuItem contextMenuItemClearAll;
         private System.Windows.Forms.ToolStripMenuItem menuItemPasswordStatus;
