@@ -35,5 +35,21 @@ namespace Forms.External
                 Close();
             }
         }
+
+        private void alternateCredCheck_CheckedChanged(object sender, EventArgs e)
+        {
+            if (((CheckBox)sender).Checked)
+            {
+                UserNameText.ReadOnly = false;
+                PasswordText.ReadOnly = false;
+                DomainText.ReadOnly = false;
+            }
+            else
+            {
+                UserNameText.ReadOnly = true;
+                PasswordText.ReadOnly = true;
+                DomainText.ReadOnly = true;
+            }
+        }
     }
 }
