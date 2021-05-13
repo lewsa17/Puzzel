@@ -199,6 +199,7 @@ namespace Forms
         static cLogsEntry[] dblist = null;
         private void getComputerLogs(string Value, string PathName, int ValueType)
         {
+            waitCursor();
             textLogView.Focus();
             if (dblist == null)
             {
@@ -245,6 +246,7 @@ namespace Forms
                     UpdateRichTextBox("Brak danych");
                 }
             }));
+            defaultCursor();
         }
         private cLogsEntry[] shortDBlist(cLogsEntry[] dblist, string queryValue, int ValueType) 
         {
