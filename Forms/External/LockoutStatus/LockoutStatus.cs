@@ -27,9 +27,11 @@ namespace Forms.External
         {
             this.Text = "Lockout Status";
             LockoutStatusCustom custom = new LockoutStatusCustom();
-            custom.ShowDialog();
-            DeleteEntryRows();
-            AddEntry();
+            if (custom.ShowDialog() == DialogResult.OK)
+            {
+                DeleteEntryRows();
+                AddEntry();
+            }
         }
         public void AddEntry()
         {
