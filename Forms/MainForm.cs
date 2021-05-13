@@ -1139,18 +1139,17 @@ namespace Forms
         }
         private void MenuItemLockoutStatus_Click(object sender, EventArgs e)
         {
-            if (NameIsValid(UserName())) 
+            External.LockoutStatus LS = new External.LockoutStatus(UserName());
+            if (NameIsValid(UserName()))
             {
-                External.LockoutStatus LS = new External.LockoutStatus(UserName());
                 if (PuzzelLibrary.AD.User.Information.IsUserAvailable(UserName()))
                 {
                     LS.AddEntry();
                     LS.Show();
                 }
-                else
-                    LS.Show();
             }
-            else MessageBox.Show("Brak użytkownika w AD");
+            else
+                LS.Show();
         }
         private void MenuItemRDPOpen_Click(object sender, EventArgs e)
         {
