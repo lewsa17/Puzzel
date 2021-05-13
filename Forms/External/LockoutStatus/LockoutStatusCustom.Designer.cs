@@ -180,8 +180,6 @@
             // 
             this.AutoScaleDimensions = new(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AcceptButton = btnOk;
-            this.CancelButton = btnCancel;
             this.ClientSize = new(398, 239);
             this.Controls.Add(this.CredentialBox);
             this.Controls.Add(this.alternateCredCheck);

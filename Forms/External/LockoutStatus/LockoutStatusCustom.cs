@@ -12,12 +12,17 @@ namespace Forms.External
         }
         private void btnCancel_Click(object sender, EventArgs e)
         {
+            this.DialogResult = DialogResult.Cancel;
             Close();
         }
         private void btnOk_Click(object sender, EventArgs e)
         {
             LockoutStatus.Username = textUserName.Text;
             LockoutStatus.domainAddress = textDomainName.Text;
+            PuzzelLibrary.AD.User.Information.CustomCredentials.Domain = DomainText.Text;
+            PuzzelLibrary.AD.User.Information.CustomCredentials.Password = PasswordText.Text;
+            PuzzelLibrary.AD.User.Information.CustomCredentials.UserName = UserNameText.Text;
+            this.DialogResult = DialogResult.OK;
             Close();
         }
         private void LockoutStatusCustoma_Load(object sender, EventArgs e)
