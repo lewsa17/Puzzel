@@ -44,6 +44,12 @@ namespace PuzzelLibrary.AD.User
                     return true;
             return false;
         }
+        public static class CustomCredentials
+        {
+            public static string UserName = null;
+            public static string Password = null;
+            public static string Domain = null;
+        }
         internal static List<UserPrincipal> GetUserInADControllers(string UserName)
         {
             List<UserPrincipal> userListFromADControllers = new List<UserPrincipal>();
@@ -74,7 +80,7 @@ namespace PuzzelLibrary.AD.User
         {
             try
             {
-                PrincipalContext oPrincipalContext = new PrincipalContext(ContextType.Domain, domainController);
+                PrincipalContext oPrincipalContext = new PrincipalContext(ContextType.Domain, domainController, CustomCredentials.UserName, CustomCredentials.Password);
                 UserPrincipal oUserPrincipal = UserPrincipal.FindByIdentity(oPrincipalContext, UserName);
                 return oUserPrincipal;
             }
