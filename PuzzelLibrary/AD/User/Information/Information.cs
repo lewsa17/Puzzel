@@ -46,9 +46,13 @@ namespace PuzzelLibrary.AD.User
         }
         public static class CustomCredentials
         {
-            public static string UserName = null;
-            public static string Password = null;
-            public static string Domain = null;
+            public static string UserName = string.Empty;
+            public static string Password = string.Empty;
+            public static string Domain = string.Empty;
+            public static bool Available 
+            {
+                get => UserName.Length > 1 && Password.Length > 1 && Domain.Length > 1;
+            }
         }
         internal static List<UserPrincipal> GetUserInADControllers(string UserName)
         {
