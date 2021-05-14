@@ -47,7 +47,7 @@ namespace Updater
             get
             {
                 if (iDFSet)
-                    return propertyVersion[2].GetValue(null).ToString(); 
+                    return propertyVersion[2].GetValue(null).ToString();
                 return commits.Count.ToString();
             }
         }
@@ -56,7 +56,7 @@ namespace Updater
             get
             {
                 if (iDFSet)
-                return (DateTime)propertyVersion[4].GetValue(null); 
+                    return (DateTime)propertyVersion[4].GetValue(null);
                 return commits[0].Committer.When.DateTime;
             }
         }
@@ -168,7 +168,7 @@ namespace Updater
         }
         private void GetVersionFromIDF()
         {
-            var assembly = System.Reflection.Assembly.LoadFrom(intranetDeploymentFolder+"\\PuzzelLibrary.dll");
+            var assembly = System.Reflection.Assembly.LoadFrom(intranetDeploymentFolder + "\\PuzzelLibrary.dll");
             var types = assembly.GetTypes();
             foreach (var type in types)
             {
@@ -184,7 +184,7 @@ namespace Updater
             var currAge = CurrentAgeOfVersion();
             var newVer = GetNewCommitNumber();
             var currVer = GetCurrentCommitNumber();
-            if (currAge != TimeSpan.Zero | Convert.ToInt32(newVer) > Convert.ToInt32(currVer))
+            if (currAge != TimeSpan.Zero && Convert.ToInt32(newVer) > Convert.ToInt32(currVer))
                 return true;
             return false;
         }
