@@ -8,6 +8,13 @@ namespace Forms.External
         public LockoutStatusCustom()
         {
             InitializeComponent();
+            if (PuzzelLibrary.AD.User.Information.CustomCredentials.Available)
+            {
+                alternateCredCheck.Checked = true;
+                DomainText.Text = PuzzelLibrary.AD.User.Information.CustomCredentials.Domain;
+                PasswordText.Text = PuzzelLibrary.AD.User.Information.CustomCredentials.Password;
+                UserNameText.Text = PuzzelLibrary.AD.User.Information.CustomCredentials.UserName;
+            }
 
         }
         private void btnCancel_Click(object sender, EventArgs e)
@@ -19,9 +26,12 @@ namespace Forms.External
         {
             LockoutStatus.Username = textUserName.Text;
             LockoutStatus.domainAddress = textDomainName.Text;
-            PuzzelLibrary.AD.User.Information.CustomCredentials.Domain = DomainText.Text;
-            PuzzelLibrary.AD.User.Information.CustomCredentials.Password = PasswordText.Text;
-            PuzzelLibrary.AD.User.Information.CustomCredentials.UserName = UserNameText.Text;
+            if (alternateCredCheck.Checked)
+            {
+                PuzzelLibrary.AD.User.Information.CustomCredentials.Domain = DomainText.Text;
+                PuzzelLibrary.AD.User.Information.CustomCredentials.Password = PasswordText.Text;
+                PuzzelLibrary.AD.User.Information.CustomCredentials.UserName = UserNameText.Text;
+            }
             this.DialogResult = DialogResult.OK;
             Close();
         }
@@ -30,14 +40,20 @@ namespace Forms.External
             if (LockoutStatus.Username.Length > 1)
                 this.textUserName.Text = LockoutStatus.Username;
             this.textDomainName.Text = PuzzelLibrary.AD.Other.Domain.GetDomainName;
+
+            if (PuzzelLibrary.AD.User.Information.CustomCredentials.Available)
+            {
+                alternateCredCheck.Checked = true;
+                DomainText.Text = PuzzelLibrary.AD.User.Information.CustomCredentials.Domain;
+                PasswordText.Text = PuzzelLibrary.AD.User.Information.CustomCredentials.Password;
+                UserNameText.Text = PuzzelLibrary.AD.User.Information.CustomCredentials.UserName;
+            }
         }
         private void EnterKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                LockoutStatus.Username = textUserName.Text;
-                LockoutStatus.domainAddress = textDomainName.Text;
-                Close();
+                btnOk_Click(sender, e);
             }
         }
 
