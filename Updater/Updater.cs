@@ -142,13 +142,16 @@ namespace Updater
                     }
                     ProcessUpdating();
                 }
+                if (repo != null)
+                {
+                    repo.Dispose();
+                    RemoveLocalRepo(localFolder);
+                }
             }
             else
             {
                 MessageBox.Show("Twoja wersja jest obecnie aktualna", "Auto-Updater", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
             }
-            repo.Dispose();
-            RemoveLocalRepo(localFolder);
         }
         private static void RemoveLocalRepo(string directory)
         {
