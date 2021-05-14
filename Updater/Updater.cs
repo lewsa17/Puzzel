@@ -291,7 +291,8 @@ namespace Updater
 
                 ProgressLoading.Invoke(new MethodInvoker(() => ProgressLoading.Value = 3));
                 PercentLabel.Invoke(new MethodInvoker(() => PercentLabel.Text = "75%"));
-                CleanUpAfterUpdate();
+                if (!iDFSet)
+                    CleanUpAfterUpdate();
 
                 ProgressLoading.Invoke(new MethodInvoker(() => ProgressLoading.Value = 4));
                 PercentLabel.Invoke(new MethodInvoker(() => PercentLabel.Text = "100%"));
