@@ -33,6 +33,15 @@ namespace Updater
         private string currentShortSha { get; set; }
         private string currentCommits { get; set; }
         private DateTime currentDate { get; set; }
+        private string newBuild
+        {
+            get
+            {
+                if (iDFSet)
+                    return "0."+propertyVersion[1].GetValue(null).ToString();
+                return string.Empty;
+            }
+        }
         private string newShortSha
         {
             get
@@ -47,7 +56,7 @@ namespace Updater
             get
             {
                 if (iDFSet)
-                    return propertyVersion[2].GetValue(null).ToString();
+                    return propertyVersion[2].GetValue(null).ToString(); 
                 return commits.Count.ToString();
             }
         }
@@ -56,7 +65,7 @@ namespace Updater
             get
             {
                 if (iDFSet)
-                    return (DateTime)propertyVersion[4].GetValue(null);
+                return (DateTime)propertyVersion[4].GetValue(null); 
                 return commits[0].Committer.When.DateTime;
             }
         }
@@ -94,13 +103,13 @@ namespace Updater
                 "\n" +
                 "Ostatnia wersja: {4}-{5}-{6}({7})" +
                 "\n" +
-                "Aktualna wersja ma {8} dni {9} godzin" +
+                "Aktualna wersja jest z przed {8} dni {9} godzin" +
                 "\n" +
                 "\n" +
                 "Czy chcesz zaktualizować ?",
                 CurrentVersion, GetCurrentCommitNumber(), GetCurrentVersionHash(), GetCurrentVersionDate(),
-                CurrentVersion, GetNewCommitNumber(), GetNewShortSha(), GetNewVersionDate(),
-                CurrentAgeOfVersion().Days, CurrentAgeOfVersion().Hours);
+                newBuild, GetNewCommitNumber(), GetNewShortSha(), GetNewVersionDate(),
+                CurrentAgeOfVersion().Days.ToString().Trim('-'), CurrentAgeOfVersion().Hours.ToString().Trim('-'));
             return Value;
         }
         private string CurrentVersion;
