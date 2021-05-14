@@ -258,11 +258,12 @@ namespace Updater
             foreach (string fileNameWithPath in Directory.EnumerateFiles(_localFolder))
             {
                 var fileName = Path.GetFileName(fileNameWithPath);
+                var targetPath = Application.StartupPath;
                 foreach (var process in Process.GetProcesses())
                 {
                     KillProcessBlockingFile(fileNameWithPath, fileName, process);
                 }
-                File.Copy(fileNameWithPath, localFolder + "\\" + fileName, true);
+                File.Copy(fileNameWithPath, targetPath + "\\" + fileName, true);
             }
         }
 
