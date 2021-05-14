@@ -29,14 +29,7 @@ namespace Forms
         }
         private void CheckUpdate(object sender, EventArgs e)
         {
-            Updater.Updater updater = new Updater.Updater();
-            updater.Execute(new string[] {
-                PuzzelLibrary.Version.Major.ToString(),
-                PuzzelLibrary.Version.Minor.ToString(),
-                PuzzelLibrary.Version.Build.ToString(),
-                PuzzelLibrary.Version.Hash.ToString(),
-                PuzzelLibrary.Version.BuildDate.ToString()
-            });
+            PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess("Updater.exe", "");
         }
         public static int ProgressBarValue = 0;
         public static int ProgressMax = 0;

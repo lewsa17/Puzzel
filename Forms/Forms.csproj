@@ -17,7 +17,6 @@
   <ItemGroup>
     <ProjectReference Include="..\PuzzelLibrary\PuzzelLibrary.csproj" />
     <ProjectReference Include="..\Settings\Settings.csproj" />
-    <ProjectReference Include="..\Updater\Updater.csproj" />
   </ItemGroup>
   
   <ItemGroup>

@@ -16,10 +16,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PuzzelLibrary\PuzzelLibrary.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Reference Include="LibGit2Sharp">
       <HintPath>..\LibGit2Sharp.dll</HintPath>
     </Reference>
