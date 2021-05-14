@@ -15,13 +15,6 @@ namespace Updater
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Updater updater = new Updater();
-            updater.Execute(new string[] {
-                PuzzelLibrary.Version.Major.ToString(),
-                PuzzelLibrary.Version.Minor.ToString(),
-                PuzzelLibrary.Version.Build.ToString(),
-                PuzzelLibrary.Version.Hash.ToString(),
-                PuzzelLibrary.Version.BuildDate.ToString()
-            });
         }
     }
 }

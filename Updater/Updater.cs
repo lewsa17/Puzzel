@@ -15,8 +15,44 @@ namespace Updater
         public Updater()
         {
             InitializeComponent();
+            var path = Path.Combine(Application.StartupPath, "PuzzelLibrary.dll");
+            System.Reflection.Assembly assembly = System.Reflection.Assembly.Load(File.ReadAllBytes(path));
+            var types = assembly.GetTypes();
+            foreach (var type in types)
+            {
+                if (type.Name == "Version")
+                {
+                    propertyVersion = type.GetProperties();
+                }
+            }
+            Execute(new string[]
+            {
+                propertyVersion[0].GetValue(null).ToString(),
+                propertyVersion[1].GetValue(null).ToString(),
+                propertyVersion[2].GetValue(null).ToString(),
+                propertyVersion[3].GetValue(null).ToString(),
+                propertyVersion[4].GetValue(null).ToString()
+            });
         }
-
+        public static string GetValuesFromXml(string XmlFile, string valueToGet)
+        {
+            string value = string.Empty;
+            string filePath = Path.Combine(Directory.GetCurrentDirectory(), XmlFile);
+            if (File.Exists(filePath))
+                using (System.Xml.XmlReader reader = System.Xml.XmlReader.Create(XmlFile))
+                {
+                    while (reader.Read())
+                    {
+                        if (reader.IsStartElement())
+                        {
+                            if (valueToGet == reader.Name.ToString())
+                                value = reader.ReadString();
+                        }
+                    }
+                }
+            else System.Windows.Forms.MessageBox.Show(new System.Windows.Forms.Form { TopMost = true }, "Nie znaleziono pliku " + filePath, "Error", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+            return value;
+        }
         public void Execute(string[] currentBuildInfo)
         {
             while (Directory.Exists(localFolder))
@@ -78,7 +114,7 @@ namespace Updater
                 return true;
             }
         }
-        private static string intranetDeploymentFolder { get => PuzzelLibrary.Settings.Values.LocalUpdatePath; }
+        private static string intranetDeploymentFolder { get => GetValuesFromXml("Settings.xml","LocalUpdatePath"); }
 
         private static System.Reflection.PropertyInfo[] propertyVersion;
         private static List<Commit> commits;
@@ -181,7 +217,7 @@ namespace Updater
         private void GetVersionFromIDF()
         {
             var path = Path.Combine(intranetDeploymentFolder, "PuzzelLibrary.dll");
-            var assembly = System.Reflection.Assembly.LoadFile(path);
+            System.Reflection.Assembly assembly = System.Reflection.Assembly.Load(File.ReadAllBytes(path));
             var types = assembly.GetTypes();
             foreach (var type in types)
             {
@@ -204,7 +240,12 @@ namespace Updater
 
         private void BuildSollution()
         {
-            PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcessWithWaitingForExit("dotnet", "build " + localFolder + "\\Puzzel.sln -o " + localFolder + "\\Update");
+            using (Process p = new Process())
+            {
+                p.StartInfo.FileName = "dotnet.exe";
+                p.StartInfo.Arguments = "build " + localFolder + "\\Puzzel.sln -o " + localFolder + "\\Update";
+                p.Start();
+            }
         }
 
         private void CopyUpdate()
