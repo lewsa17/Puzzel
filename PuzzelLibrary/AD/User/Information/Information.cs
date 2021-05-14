@@ -84,7 +84,10 @@ namespace PuzzelLibrary.AD.User
         {
             try
             {
-                PrincipalContext oPrincipalContext = new PrincipalContext(ContextType.Domain, domainController, CustomCredentials.UserName, CustomCredentials.Password);
+                PrincipalContext oPrincipalContext;
+                if (CustomCredentials.Available)
+                    oPrincipalContext = new PrincipalContext(ContextType.Domain, domainController, CustomCredentials.UserName, CustomCredentials.Password);
+                else oPrincipalContext = new PrincipalContext(ContextType.Domain, domainController);
                 UserPrincipal oUserPrincipal = UserPrincipal.FindByIdentity(oPrincipalContext, UserName);
                 return oUserPrincipal;
             }
