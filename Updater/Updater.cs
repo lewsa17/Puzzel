@@ -78,7 +78,7 @@ namespace Updater
                 return true;
             }
         }
-        private static string intranetDeploymentFolder { get; set; }
+        private static string intranetDeploymentFolder { get => PuzzelLibrary.Settings.Values.LocalUpdatePath; }
 
         private static System.Reflection.PropertyInfo[] propertyVersion;
         private static List<Commit> commits;
