@@ -168,7 +168,8 @@ namespace Updater
         }
         private void GetVersionFromIDF()
         {
-            var assembly = System.Reflection.Assembly.LoadFrom(intranetDeploymentFolder + "\\PuzzelLibrary.dll");
+            var path = Path.Combine(intranetDeploymentFolder, "PuzzelLibrary.dll");
+            var assembly = System.Reflection.Assembly.LoadFile(path);
             var types = assembly.GetTypes();
             foreach (var type in types)
             {
