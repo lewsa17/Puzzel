@@ -61,7 +61,11 @@ namespace PuzzelLibrary.AD.User
             {
                 PrincipalContext oPrincipalContext;
                 if (Connection.Credentials.Available)
+                {
                     oPrincipalContext = new PrincipalContext(ContextType.Domain, Connection.Credentials.Domain, Connection.Credentials.UserName, Connection.Credentials.Password);
+                    if (!oPrincipalContext.ValidateCredentials(Connection.Credentials.UserName, Connection.Credentials.Password))
+                        return null;
+                }
                 else oPrincipalContext = new PrincipalContext(ContextType.Domain, Connection.Credentials.Domain);
 
                 UserPrincipal oUserPrincipal = UserPrincipal.FindByIdentity(oPrincipalContext, UserName);
@@ -80,8 +84,13 @@ namespace PuzzelLibrary.AD.User
             {
                 PrincipalContext oPrincipalContext;
                 if (Connection.Credentials.Available)
-                oPrincipalContext = new PrincipalContext(ContextType.Domain, domainController, Connection.Credentials.UserName, Connection.Credentials.Password);
+                {
+                    oPrincipalContext = new PrincipalContext(ContextType.Domain, domainController, Connection.Credentials.UserName, Connection.Credentials.Password);
+                    if (!oPrincipalContext.ValidateCredentials(Connection.Credentials.UserName, Connection.Credentials.Password))
+                        return null;
+                }
                 else oPrincipalContext = new PrincipalContext(ContextType.Domain, domainController);
+
                 UserPrincipal oUserPrincipal = UserPrincipal.FindByIdentity(oPrincipalContext, UserName);
                 return oUserPrincipal;
             }
