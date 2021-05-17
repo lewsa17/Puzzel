@@ -619,7 +619,7 @@ namespace Forms
                     if (NameIsValid(UserName()))
                     {
                         string data = string.Empty;
-                        if (new PuzzelLibrary.AD.User.SearchInformation.Search().ByUserName(UserName()) != null)
+                        if (PuzzelLibrary.AD.User.Information.IsUserAvailable(UserName()))
                         {
                             var termServers = PuzzelLibrary.Terminal.TerminalExplorer.GetTerminalServers;
                             foreach (string server in termServers)

@@ -40,7 +40,7 @@ namespace PuzzelLibrary.AD.User
         public static bool IsUserAvailable(string UserName)
         {
             if (!string.IsNullOrEmpty(UserName) && UserName.Length > 0)
-                if (GetUser(UserName) != null)
+                if (new SearchInformation.Search().ByUserName(UserName) != null)
                     return true;
             return false;
         }
