@@ -7,12 +7,8 @@ using System.Security.Cryptography;
 
 namespace PuzzelLibrary.Settings
 {
-    public class GetSettings : ISettings
+    public class GetSettings
     {
-        public string UserName { get => GetValuesFromXml("Settings.xml", "UserName"); }
-        public string Password { get => DecryptPassword(GetValuesFromXml("Settings.xml", "Password")); }
-        public string Version { get => ""; set { } }
-        public string CustomLogon { get; set; }
         public bool isFileSettingsAvailable
         {
             get
@@ -21,16 +17,6 @@ namespace PuzzelLibrary.Settings
                     return true;
                 return false;
             }
-        }
-        public bool CredentialsAvailable 
-        {
-            get
-            {
-                if (isFileSettingsAvailable)
-                    if (UserName != null && UserName != string.Empty)
-                        return true;
-                return false;
-            } 
         }
         public GetSettings()
         {

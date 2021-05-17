@@ -6,13 +6,8 @@ using System.Xml;
 
 namespace PuzzelLibrary.Settings
 {
-    public class SetSettings : ISettings
+    public class SetSettings
     {
-        public string UserName { get; set; }
-        public string Password { get; set; }
-        public string Version { get; set; }
-
-
         public XmlWriter CreateSettingsFile()
         {
             XmlWriter writer = null;
@@ -50,36 +45,12 @@ namespace PuzzelLibrary.Settings
             writer.Close();
         }
 
-
-        public void Save()
-        {
-            XmlTextWriter writer = new XmlTextWriter("Settings.xml", System.Text.Encoding.UTF8);
-            writer.WriteStartDocument(true);
-            writer.Formatting = Formatting.Indented;
-            writer.Indentation = 2;
-            writer.WriteStartElement("Settings");
-            writer.WriteStartElement("Credentials");
-            SetValue("UserName", UserName, writer);
-            SetValue("Password", Password, writer);
-            writer.WriteEndElement();
-            SetValue("Version", Version, writer);
-            writer.WriteEndDocument();
-            writer.Close();
-        }
-        private void SetValue(string Name, string Value, XmlTextWriter writer)
-        {
-            writer.WriteStartElement(Name);
-            if (Name == "Password")
-                Value = (EncryptPassword(Value));
-            writer.WriteString(Value.ToString());
-            writer.WriteEndElement();
-        }        
         public string EncryptPassword(string source)
         {
             string hash;
             using (Aes aesHash = Aes.Create())
             {
-                hash = EncryptStringToBytes_Aes(source, aesHash.Key,aesHash.IV);
+                hash = EncryptStringToBytes_Aes(source, aesHash.Key, aesHash.IV);
             }
             return hash;
         }
