@@ -7,9 +7,9 @@ namespace PuzzelLibrary.AD.Connection
     {
         public static DirectoryEntry getDirectoryEntry(string domain, string userName, string password)
         {
-            return new DirectoryEntry("LDAP://" + domain, userName, password);
+            return new DirectoryEntry("LDAP://" + domain, userName, password, AuthenticationTypes.Secure);
         }
-        public static DirectoryEntry getDirectoryEntry(string domain) { return new DirectoryEntry("LDAP://" + domain); }
+        public static DirectoryEntry getDirectoryEntry(string domain) { return new DirectoryEntry("LDAP://" + domain) { AuthenticationType = AuthenticationTypes.Secure}; }
 
         public static DirectorySearcher GetDirectorySearcher()
         {
