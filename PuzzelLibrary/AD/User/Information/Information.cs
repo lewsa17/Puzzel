@@ -44,16 +44,6 @@ namespace PuzzelLibrary.AD.User
                     return true;
             return false;
         }
-        public static class CustomCredentials
-        {
-            public static string UserName = string.Empty;
-            public static string Password = string.Empty;
-            public static string Domain = string.Empty;
-            public static bool Available 
-            {
-                get => UserName.Length > 1 && Password.Length > 1 && Domain.Length > 1;
-            }
-        }
         internal static List<UserPrincipal> GetUserInADControllers(string UserName)
         {
             List<UserPrincipal> userListFromADControllers = new List<UserPrincipal>();
@@ -69,7 +59,11 @@ namespace PuzzelLibrary.AD.User
         {
             try
             {
-                PrincipalContext oPrincipalContext = new PrincipalContext(ContextType.Domain);
+                PrincipalContext oPrincipalContext;
+                if (Connection.Credentials.Available)
+                    oPrincipalContext = new PrincipalContext(ContextType.Domain, Connection.Credentials.Domain, Connection.Credentials.UserName, Connection.Credentials.Password);
+                else oPrincipalContext = new PrincipalContext(ContextType.Domain, Connection.Credentials.Domain);
+
                 UserPrincipal oUserPrincipal = UserPrincipal.FindByIdentity(oPrincipalContext, UserName);
                 return oUserPrincipal;
             }
@@ -85,8 +79,8 @@ namespace PuzzelLibrary.AD.User
             try
             {
                 PrincipalContext oPrincipalContext;
-                if (CustomCredentials.Available)
-                    oPrincipalContext = new PrincipalContext(ContextType.Domain, domainController, CustomCredentials.UserName, CustomCredentials.Password);
+                if (Connection.Credentials.Available)
+                oPrincipalContext = new PrincipalContext(ContextType.Domain, domainController, Connection.Credentials.UserName, Connection.Credentials.Password);
                 else oPrincipalContext = new PrincipalContext(ContextType.Domain, domainController);
                 UserPrincipal oUserPrincipal = UserPrincipal.FindByIdentity(oPrincipalContext, UserName);
                 return oUserPrincipal;
