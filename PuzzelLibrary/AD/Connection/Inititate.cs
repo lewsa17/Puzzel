@@ -17,12 +17,16 @@ namespace PuzzelLibrary.AD.Connection
             if (dirsearch == null)
                 try
                 {
-                    if (Credentials.Available)
+                    if (Credentials.DomainName != null && Credentials.DomainName.Length > 1)
                     {
-                        dirsearch = new DirectorySearcher(getDirectoryEntry(Credentials.DomainName, Credentials.UserName, Credentials.Password));
+                        if (Credentials.Available)
+                        {
+                            dirsearch = new DirectorySearcher(getDirectoryEntry(Credentials.DomainName, Credentials.UserName, Credentials.Password));
+                        }
+                        else
+                            dirsearch = new DirectorySearcher(getDirectoryEntry(Credentials.DomainName));
                     }
-                    else
-                        dirsearch = new DirectorySearcher(getDirectoryEntry(Credentials.DomainName));
+                    else dirsearch = new DirectorySearcher(getDirectoryEntry(Other.Domain.GetDomainName));
                 }
                 catch (DirectoryServicesCOMException e)
                 {
