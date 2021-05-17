@@ -8,12 +8,12 @@ namespace Forms.External
         public LockoutStatusCustom()
         {
             InitializeComponent();
-            if (PuzzelLibrary.AD.User.Information.CustomCredentials.Available)
+            if (PuzzelLibrary.AD.Connection.Credentials.Available)
             {
                 alternateCredCheck.Checked = true;
-                DomainText.Text = PuzzelLibrary.AD.User.Information.CustomCredentials.Domain;
-                PasswordText.Text = PuzzelLibrary.AD.User.Information.CustomCredentials.Password;
-                UserNameText.Text = PuzzelLibrary.AD.User.Information.CustomCredentials.UserName;
+                DomainText.Text = PuzzelLibrary.AD.Connection.Credentials.Domain;
+                PasswordText.Text = PuzzelLibrary.AD.Connection.Credentials.Password;
+                UserNameText.Text = PuzzelLibrary.AD.Connection.Credentials.UserName;
             }
 
         }
@@ -25,12 +25,12 @@ namespace Forms.External
         private void btnOk_Click(object sender, EventArgs e)
         {
             LockoutStatus.Username = textUserName.Text;
-            LockoutStatus.domainAddress = textDomainName.Text;
+            LockoutStatus.domainAddress = PuzzelLibrary.AD.Connection.Credentials.DomainName = textDomainName.Text;
             if (alternateCredCheck.Checked)
             {
-                PuzzelLibrary.AD.User.Information.CustomCredentials.Domain = DomainText.Text;
-                PuzzelLibrary.AD.User.Information.CustomCredentials.Password = PasswordText.Text;
-                PuzzelLibrary.AD.User.Information.CustomCredentials.UserName = UserNameText.Text;
+                PuzzelLibrary.AD.Connection.Credentials.Domain = DomainText.Text;
+                PuzzelLibrary.AD.Connection.Credentials.Password = PasswordText.Text;
+                PuzzelLibrary.AD.Connection.Credentials.UserName = UserNameText.Text;
             }
             this.DialogResult = DialogResult.OK;
             Close();
@@ -41,12 +41,12 @@ namespace Forms.External
                 this.textUserName.Text = LockoutStatus.Username;
             this.textDomainName.Text = PuzzelLibrary.AD.Other.Domain.GetDomainName;
 
-            if (PuzzelLibrary.AD.User.Information.CustomCredentials.Available)
+            if (PuzzelLibrary.AD.Connection.Credentials.Available)
             {
                 alternateCredCheck.Checked = true;
-                DomainText.Text = PuzzelLibrary.AD.User.Information.CustomCredentials.Domain;
-                PasswordText.Text = PuzzelLibrary.AD.User.Information.CustomCredentials.Password;
-                UserNameText.Text = PuzzelLibrary.AD.User.Information.CustomCredentials.UserName;
+                DomainText.Text = PuzzelLibrary.AD.Connection.Credentials.Domain;
+                PasswordText.Text = PuzzelLibrary.AD.Connection.Credentials.Password;
+                UserNameText.Text = PuzzelLibrary.AD.Connection.Credentials.UserName;
             }
         }
         private void EnterKeyDown(object sender, PreviewKeyDownEventArgs e)
