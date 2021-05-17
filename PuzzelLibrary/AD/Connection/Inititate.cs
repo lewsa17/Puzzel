@@ -5,14 +5,6 @@ namespace PuzzelLibrary.AD.Connection
 {
     internal class Initiate
     {
-       
-
-        private static bool isConnectionCredential => CheckCredentials;
-        private static bool CheckCredentials 
-        {
-            get => new Settings.GetSettings().CredentialsAvailable;
-        }
-
         public static DirectoryEntry getDirectoryEntry(string domain, string userName, string password)
         {
             return new DirectoryEntry("LDAP://" + domain, userName, password);
@@ -23,20 +15,14 @@ namespace PuzzelLibrary.AD.Connection
         {
             DirectorySearcher dirsearch = null;
             if (dirsearch == null)
-
                 try
                 {
-                    if (isConnectionCredential)
+                    if (Credentials.Available)
                     {
-                        Credential.Username credentials = new Credential.Username();
-                        credentials.GetCredential();
-                        if (credentials.UserName != string.Empty)
-                        {
-                            dirsearch = new DirectorySearcher(getDirectoryEntry(Other.Domain.GetDomainName, credentials.UserName, credentials.Password));
-                        }
+                        dirsearch = new DirectorySearcher(getDirectoryEntry(Credentials.DomainName, Credentials.UserName, Credentials.Password));
                     }
                     else
-                        dirsearch = new DirectorySearcher(getDirectoryEntry(Other.Domain.GetDomainName));
+                        dirsearch = new DirectorySearcher(getDirectoryEntry(Credentials.DomainName));
                 }
                 catch (DirectoryServicesCOMException e)
                 {
