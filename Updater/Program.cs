@@ -14,7 +14,7 @@ namespace Updater
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Updater updater = new Updater();
+            Application.Run(new Updater());
         }
     }
 }

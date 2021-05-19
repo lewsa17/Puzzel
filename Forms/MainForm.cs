@@ -30,7 +30,18 @@ namespace Forms
         }
         private void CheckUpdate(object sender, EventArgs e)
         {
-            PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess(Directory.GetCurrentDirectory()+"\\Updater.exe", "");
+            string message;
+            var NewVersion = new PuzzelLibrary.Update.NewVersion();
+            bool isNewVersion = NewVersion.CheckVersion(out message);
+            if (!isNewVersion)
+            {
+                if (MessageBox.Show(message, "Aktualizacja jest dostępna", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
+                {
+                    PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess(Directory.GetCurrentDirectory() + "\\Updater.exe", "");
+                }
+            }
+            else
+                MessageBox.Show("Twoja wersja jest aktualna", "Auto-Updater", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
         }
         public static int ProgressBarValue = 0;
         public static int ProgressMax = 0;

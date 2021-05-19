@@ -15,12 +15,6 @@
     <OutputPath>..\Forms\bin\Debug\</OutputPath>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Reference Include="LibGit2Sharp">
-      <HintPath>..\LibGit2Sharp.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
     <Exec Command="powershell -ExecutionPolicy ByPass -command $(SolutionDir)MakeVersion.ps1" />
   </Target>
