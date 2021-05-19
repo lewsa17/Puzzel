@@ -78,13 +78,13 @@ namespace Updater
                 var targetPath = Application.StartupPath;
                 foreach (var process in Process.GetProcesses())
                 {
-                    KillProcessBlockingFile(fileNameWithPath, fileName, process);
+                    WaitForKillingApp(fileNameWithPath, fileName, process);
                 }
                 File.Copy(fileNameWithPath, targetPath + "\\" + fileName, true);
             }
         }
 
-        private static void KillProcessBlockingFile(string fileNameWithPath, string fileName, Process process)
+        private static void WaitForKillingApp(string fileNameWithPath, string fileName, Process process)
         {
             if (fileName != Process.GetCurrentProcess().MainModule.ModuleName)
                 if (process.ProcessName == Path.GetFileNameWithoutExtension(fileNameWithPath))

@@ -38,6 +38,7 @@ namespace Forms
                 if (MessageBox.Show(message, "Aktualizacja jest dostępna", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
                 {
                     PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess(Directory.GetCurrentDirectory() + "\\Updater.exe", "");
+                    this.Close();
                 }
             }
             else
