@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using Cassia;
 using System.Threading.Tasks;
 using System.Security.Principal;
+using System.Linq;
 
 namespace Forms
 {
@@ -92,7 +93,6 @@ namespace Forms
         }
         private bool NameIsValid(string Name)
         {
-            ReplaceRichTextBox(null);
             if (Name.Length > 2)
                 return true;
             else ReplaceRichTextBox("Za krótka nazwa");
@@ -1111,9 +1111,18 @@ namespace Forms
                     if (comboBoxFindedSessions.Items.Count > 0)
                         if (comboBoxFindedSessions.SelectedIndex >= 0)
                         {
-                            IDSessionServerName = comboBoxFindedSessions.Items[comboBoxFindedSessions.SelectedIndex].ToString().Split(' ');
+                            int comboIndex = comboBoxFindedSessions.SelectedIndex;
+                            IDSessionServerName = comboBoxFindedSessions.Items[comboIndex].ToString().Split(' ');
                             PuzzelLibrary.Terminal.Explorer.LogOffSession(new PuzzelLibrary.Terminal.Explorer().GetRemoteServer(IDSessionServerName[1]), Convert.ToInt16(IDSessionServerName[0]));
 
+                            //czyszczenie linijki okna z sesją
+                            //oraz 3 linijki z pola tekstowego
+                            comboBoxFindedSessions.Text = "";
+                            comboBoxFindedSessions.Items.RemoveAt(comboIndex);
+                            int lines = richTextBox1.Lines.Length-1;
+                            var array = richTextBox1.Lines.ToList<string>();
+                            array.RemoveRange(comboIndex * 3 + 0, 3);
+                            richTextBox1.Lines = array.ToArray();
                         }
                         else ReplaceRichTextBox("Nie wybrano aktywnej sesji");
                     else ReplaceRichTextBox("Nie ma żadnej aktywnej sesji");
