@@ -127,6 +127,10 @@ namespace Updater
                         }
                         Thread.Sleep(400);
                     }
+            });
+            progressTitle.ContinueWith(last =>
+            {
+                Thread.Sleep(500);
                 WaitLabel.Invoke(new MethodInvoker(() => WaitLabel.Text = "Aktualizacja zakończona"));
                 cancelOKButton.Invoke(new MethodInvoker(() => cancelOKButton.Text = "OK"));
             });

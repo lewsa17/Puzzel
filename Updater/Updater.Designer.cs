@@ -38,7 +38,8 @@
             // 
             this.WaitLabel.Location = new System.Drawing.Point(109, 9);
             this.WaitLabel.Name = "WaitLabel";
-            this.WaitLabel.Size = new System.Drawing.Size(107, 22);
+            this.WaitLabel.AutoSize = true;
+            this.WaitLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.WaitLabel.TabIndex = 3;
             this.WaitLabel.Text = "Proszę czekać";
             // 
@@ -51,7 +52,8 @@
             // 
             // PercentLabel
             // 
-            this.PercentLabel.Location = new System.Drawing.Point(296, 38);
+            this.PercentLabel.Location = new System.Drawing.Point(296, 40);
+            this.PercentLabel.AutoSize = true;
             this.PercentLabel.Name = "PercentLabel";
             this.PercentLabel.Size = new System.Drawing.Size(23, 15);
             this.PercentLabel.TabIndex = 1;
