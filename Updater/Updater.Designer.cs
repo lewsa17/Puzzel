@@ -31,7 +31,7 @@
             this.WaitLabel = new System.Windows.Forms.Label();
             this.ProgressLoading = new System.Windows.Forms.ProgressBar();
             this.PercentLabel = new System.Windows.Forms.Label();
-            this.cancelButton = new System.Windows.Forms.Button();
+            this.cancelOKButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // WaitLabel
@@ -46,33 +46,34 @@
             // 
             this.ProgressLoading.Location = new System.Drawing.Point(12, 34);
             this.ProgressLoading.Name = "ProgressLoading";
-            this.ProgressLoading.Size = new System.Drawing.Size(284, 30);
+            this.ProgressLoading.Size = new System.Drawing.Size(282, 30);
             this.ProgressLoading.Maximum = 4;
             // 
             // PercentLabel
             // 
-            this.PercentLabel.Location = new System.Drawing.Point(302, 42);
+            this.PercentLabel.Location = new System.Drawing.Point(296, 38);
             this.PercentLabel.Name = "PercentLabel";
             this.PercentLabel.Size = new System.Drawing.Size(23, 15);
             this.PercentLabel.TabIndex = 1;
             this.PercentLabel.Text = "0%";
+            this.PercentLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // cancelButton
+            // cancelOKButton
             // 
-            this.cancelButton.Location = new System.Drawing.Point(253, 70);
-            this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(75, 23);
-            this.cancelButton.TabIndex = 0;
-            this.cancelButton.Text = "Anuluj";
-            this.cancelButton.UseVisualStyleBackColor = true;
-            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
+            this.cancelOKButton.Location = new System.Drawing.Point(253, 70);
+            this.cancelOKButton.Name = "cancelOKButton";
+            this.cancelOKButton.Size = new System.Drawing.Size(75, 23);
+            this.cancelOKButton.TabIndex = 0;
+            this.cancelOKButton.Text = "Anuluj";
+            this.cancelOKButton.UseVisualStyleBackColor = true;
+            this.cancelOKButton.Click += new System.EventHandler(this.cancelOKButton_Click);
             // 
             // Updater
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(340, 101);
-            this.Controls.Add(this.cancelButton);
+            this.Controls.Add(this.cancelOKButton);
             this.Controls.Add(this.PercentLabel);
             this.Controls.Add(this.ProgressLoading);
             this.Controls.Add(this.WaitLabel);
@@ -82,6 +83,7 @@
             this.Name = "Updater";
             this.Text = "Auto-Updater";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -90,7 +92,7 @@
         private System.Windows.Forms.Label WaitLabel;
         private System.Windows.Forms.ProgressBar ProgressLoading;
         private System.Windows.Forms.Label PercentLabel;
-        private System.Windows.Forms.Button cancelButton;
+        private System.Windows.Forms.Button cancelOKButton;
     }
 }
 

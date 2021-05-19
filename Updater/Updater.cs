@@ -51,7 +51,7 @@ namespace Updater
             }
         }
 
-        private void cancelButton_Click(object sender, EventArgs e)
+        private void cancelOKButton_Click(object sender, EventArgs e)
         {
             Close();
         }
@@ -127,6 +127,8 @@ namespace Updater
                         }
                         Thread.Sleep(400);
                     }
+                WaitLabel.Invoke(new MethodInvoker(() => WaitLabel.Text = "Aktualizacja zakończona"));
+                cancelOKButton.Invoke(new MethodInvoker(() => cancelOKButton.Text = "OK"));
             });
         }
         private void CleanUpAfterUpdate()
