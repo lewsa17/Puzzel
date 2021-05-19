@@ -30,7 +30,7 @@ namespace Forms
         }
         private void CheckUpdate(object sender, EventArgs e)
         {
-            PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess("Updater.exe", "");
+            PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess(Directory.GetCurrentDirectory()+"\\Updater.exe", "");
         }
         public static int ProgressBarValue = 0;
         public static int ProgressMax = 0;
