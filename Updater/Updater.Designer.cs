@@ -80,6 +80,7 @@
             this.Controls.Add(this.ProgressLoading);
             this.Controls.Add(this.WaitLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = global::Updater.Properties.Resources.PuzzelUpdate;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Updater";

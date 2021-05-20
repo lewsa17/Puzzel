@@ -4,6 +4,12 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <Platforms>AnyCPU;x64</Platforms>
+    <Company>Jakub Sypek</Company>
+    <Copyright>Copyright © Jakub@Sypek</Copyright>
+    <Product>Puzzel Settings</Product>
+    <Authors>Jakub Sypek</Authors>
+    <ApplicationIcon>PuzzelSettings.ico</ApplicationIcon>
+    <Win32Resource />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputPath>..\Forms\bin\Debug\</OutputPath>
@@ -13,6 +19,19 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\PuzzelLibrary\PuzzelLibrary.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
     <Exec Command="powershell -ExecutionPolicy ByPass -command $(SolutionDir)MakeVersion.ps1" />

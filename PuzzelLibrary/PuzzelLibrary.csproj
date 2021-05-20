@@ -3,6 +3,8 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <Platforms>AnyCPU;x64</Platforms>
     <EnableNETAnalyzers>false</EnableNETAnalyzers>
+    <Copyright>Copyright © Jakub@Sypek</Copyright>
+    <Company>Jakub Sypek</Company>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <NoWarn>1701;1702</NoWarn>

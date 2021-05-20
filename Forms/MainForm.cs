@@ -33,7 +33,7 @@ namespace Forms
             string message;
             var NewVersion = new PuzzelLibrary.Update.NewVersion();
             bool isNewVersion = NewVersion.CheckVersion(out message);
-            if (!isNewVersion)
+            if (isNewVersion)
             {
                 if (MessageBox.Show(message, "Aktualizacja jest dostępna", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
                 {

@@ -122,9 +122,6 @@
     <value>PNG\activeSession.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="changepass" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>PNG\changepass.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="changepass1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>PNG\changepass.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="cmd" type="System.Resources.ResXFileRef, System.Windows.Forms">

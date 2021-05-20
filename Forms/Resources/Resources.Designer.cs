@@ -9,7 +9,6 @@
 //------------------------------------------------------------------------------
 
 namespace Forms.Resources {
-    using System;
     
     
     /// <summary>
@@ -71,21 +70,11 @@ namespace Forms.Resources {
         }
         
         /// <summary>
-        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Icon podobny do zasobu (Ikona).
-        /// </summary>
-        internal static System.Drawing.Icon changepass {
-            get {
-                object obj = ResourceManager.GetObject("changepass", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap changepass1 {
+        internal static System.Drawing.Bitmap changepass {
             get {
-                object obj = ResourceManager.GetObject("changepass1", resourceCulture);
+                object obj = ResourceManager.GetObject("changepass", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

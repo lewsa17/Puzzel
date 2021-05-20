@@ -753,6 +753,7 @@
             this.Controls.Add(this.RestoreDefaultButton);
             this.Controls.Add(this.SaveButton);
             this.Controls.Add(this.TabSettings);
+            this.Icon = global::Settings.Properties.Resources.PuzzelSettings;
             this.Name = "SettingsForm";
             this.Text = "Ustawienia";
             this.TabSettings.ResumeLayout(false);

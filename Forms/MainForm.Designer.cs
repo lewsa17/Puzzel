@@ -1262,7 +1262,7 @@
             // 
             // menuItemChangeDomainPassword
             // 
-            this.menuItemChangeDomainPassword.Image = global::Forms.Resources.Resources.changepass.ToBitmap();
+            this.menuItemChangeDomainPassword.Image = global::Forms.Resources.Resources.changepass;
             this.menuItemChangeDomainPassword.Name = "menuItemChangeDomainPassword";
             this.menuItemChangeDomainPassword.Text = "Zmiana hasła domenowego";
             this.menuItemChangeDomainPassword.Click += new(this.ChangePassword);
