@@ -6,11 +6,9 @@ namespace PuzzelLibrary.AD.Computer
     {
         public void Property(string cnObject, string propertyName, string propertyValue)
         {
-            using (var ps = PowerShell.Create())
-            {
-                ps.AddScript("Set-ADComputer -Identity " + cnObject + " -Replace @{" + "'" + propertyName + "'" + "=" + propertyValue + "}");
-                ps.Invoke();
-            }
+            using var ps = PowerShell.Create();
+            ps.AddScript("Set-ADComputer -Identity " + cnObject + " -Replace @{" + "'" + propertyName + "'" + "=" + propertyValue + "}");
+            ps.Invoke();
         }
     }
 }

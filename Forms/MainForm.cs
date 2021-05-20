@@ -30,9 +30,8 @@ namespace Forms
         }
         private void CheckUpdate(object sender, EventArgs e)
         {
-            string message;
             var NewVersion = new PuzzelLibrary.Update.NewVersion();
-            bool isNewVersion = NewVersion.CheckVersion(out message);
+            bool isNewVersion = NewVersion.CheckVersion(out string message);
             if (isNewVersion)
             {
                 if (MessageBox.Show(message, "Aktualizacja jest dostępna", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
@@ -46,7 +45,7 @@ namespace Forms
         }
         public static int ProgressBarValue = 0;
         public static int ProgressMax = 0;
-        public readonly Stopwatch stopWatch = new Stopwatch();
+        public readonly Stopwatch stopWatch = new();
         private static Thread progressBar;
         private string comboBoxCompLast = string.Empty;
         private string comboBoxLoginLast = string.Empty;
@@ -243,7 +242,7 @@ namespace Forms
         }
         private void BtnCustomFinderLogs(object sender, EventArgs e)
         {
-            string pathName = default;
+            string pathName;
             if (((ToolStripMenuItem)sender).Name.Contains("Terminal"))
             {
                 pathName = PuzzelLibrary.Settings.Values.TerminalLogsFolder;
@@ -405,7 +404,7 @@ namespace Forms
             if (NameIsValid(UserName()))
                 if (PuzzelLibrary.AD.User.Information.IsUserAvailable(UserName()))
                 {
-                    External.ChangePasswordForm zh = new External.ChangePasswordForm(UserName());
+                    External.ChangePasswordForm zh = new(UserName());
                     zh.Show();
                 }
         }
@@ -417,7 +416,7 @@ namespace Forms
         {
             if (HostIsAvailable(HostName()))
             {
-                Additional.RemoteShellCustomAuth customAuthForm = new Additional.RemoteShellCustomAuth();
+                Additional.RemoteShellCustomAuth customAuthForm = new();
                 customAuthForm.ShowDialog();
                 var applicationName = PuzzelLibrary.ProcessExecutable.ProcExec.PSexec(HostName());
                 if (FileIsAvailable(Directory.GetCurrentDirectory() + @"\" + applicationName))
@@ -458,7 +457,7 @@ namespace Forms
                     {
                         if (comboBoxFindedSessions.SelectedIndex >= 0)
                         {
-                            var rdpValues = new RDPValues();
+                            RDPValues rdpValues = new();
                             rdpValues.GetSIdServerNameFromCombo(comboBoxFindedSessions);
                             var ADCompResult = PuzzelLibrary.AD.Computer.Search.ByComputerName(rdpValues.ServerName, "operatingSystemVersion");
                             var osVersionComplete = ADCompResult[0].GetDirectoryEntry().Properties["operatingSystemVersion"].Value.ToString().Split(" ");
@@ -469,7 +468,7 @@ namespace Forms
                             }
                             else
                             {
-                                PuzzelLibrary.Terminal.TerminalExplorer Term = new PuzzelLibrary.Terminal.TerminalExplorer();
+                                PuzzelLibrary.Terminal.TerminalExplorer Term = new();
                                 Term.ConnectToSession(rdpValues.ServerName, rdpValues.SessionID);
                             }
                         }
@@ -623,7 +622,7 @@ namespace Forms
         {
             comboBoxFindedSessions.Items.Clear();
             comboBoxFindedSessions.Text = string.Empty;
-            Task th = new Task(() =>
+            Task th = new(() =>
             {
                 try
                 {
@@ -636,9 +635,9 @@ namespace Forms
                             var termServers = PuzzelLibrary.Terminal.TerminalExplorer.GetTerminalServers;
                             foreach (string server in termServers)
                             {
-                                Thread thread = new Thread(() =>
+                                Thread thread = new(() =>
                                 {
-                                    PuzzelLibrary.Terminal.TerminalExplorer TE = new PuzzelLibrary.Terminal.TerminalExplorer();
+                                    PuzzelLibrary.Terminal.TerminalExplorer TE = new();
                                     var task = Task<string>.Run(() => { return TE.ActiveSession(server, UserName()); });
                                     UpdateRichTextBox(task.Result);
                                     task.ContinueWith(antecedent =>
@@ -678,7 +677,7 @@ namespace Forms
             if (sender is ToolStripMenuItem toolStrip)
                 if (toolStrip.Text == "Ręczna nazwa")
                 {
-                    External.Explorer.ExplorerFormCustomSearch CustomTermsNameForms = new External.Explorer.ExplorerFormCustomSearch();
+                    External.Explorer.ExplorerFormCustomSearch CustomTermsNameForms = new();
                     CustomTermsNameForms.ShowDialog();
                     _HostName = CustomTermsNameForms.TerminalName;
                 }
@@ -691,7 +690,7 @@ namespace Forms
                 else _HostName = toolStrip.Text;
 
                 Thread thread;
-            External.Explorer.ExplorerForm explorer = new External.Explorer.ExplorerForm(_HostName)
+            External.Explorer.ExplorerForm explorer = new(_HostName)
             {
                 HostName = _HostName
             };
@@ -733,28 +732,28 @@ namespace Forms
                     //3 linijka
                     UpdateRichTextBox("------------------------------------" + "\n");
                     //4 linijka
-                    UpdateRichTextBox("Nazwa użytkownika:\t\t\t" + user.loginName + "\n");
+                    UpdateRichTextBox("Nazwa użytkownika:\t\t\t" + user.LoginName + "\n");
                     //5 linijka
-                    UpdateRichTextBox("Pełna nazwa:\t\t\t\t" + user.displayName + "\n");
+                    UpdateRichTextBox("Pełna nazwa:\t\t\t\t" + user.DisplayName + "\n");
                     //6 linijka
-                    UpdateRichTextBox("Komentarz:\t\t\t\t\t" + user.title + "\n");
+                    UpdateRichTextBox("Komentarz:\t\t\t\t\t" + user.Title + "\n");
                     //7 linijka
-                    UpdateRichTextBox("Firma zatrudniająca:\t\t\t" + user.company + "\n");
+                    UpdateRichTextBox("Firma zatrudniająca:\t\t\t" + user.Company + "\n");
                     //8 linijka
-                    UpdateRichTextBox("Mail:\t\t\t\t\t\t" + user.mail + "\n");
+                    UpdateRichTextBox("Mail:\t\t\t\t\t\t" + user.Mail + "\n");
                     //9 linijka
                     UpdateRichTextBox("Adres logowania Skype: \t\t\t" + user.SkypeLogin + "\n");
                     //10 linijka
-                    UpdateRichTextBox("Konto jest aktywne:\t\t\t" + user.userEnabled + "\n");
+                    UpdateRichTextBox("Konto jest aktywne:\t\t\t" + user.UserEnabled + "\n");
                     //11 linijka
                     UpdateRichTextBox("\n");
                     //12 linijka
-                    if (user.accountExpires.ToFileTime() > 0)
-                        UpdateRichTextBox("Konto wygasa:\t\t\t\t" + user.accountExpires + "\n");
+                    if (user.AccountExpires.ToFileTime() > 0)
+                        UpdateRichTextBox("Konto wygasa:\t\t\t\t" + user.AccountExpires + "\n");
                     else UpdateRichTextBox("Konto wygasa:\t\t\t\t" + "Nigdy"+ "\n");
                     //13 linijka\
-                    if (user.pwdLastSet < user.lockoutTime)
-                        UpdateRichTextBox("Konto zablokowane:\t\t\t" + user.lockoutTime + "\n");
+                    if (user.pwdLastSet < user.LockoutTime)
+                        UpdateRichTextBox("Konto zablokowane:\t\t\t" + user.LockoutTime + "\n");
                     else UpdateRichTextBox("Konto zablokowane:\t\t\t" + "0" + "\n");
                     //14 linijka
                     if (user.lastBadPwdAttempt.Year != 1)
@@ -767,7 +766,7 @@ namespace Forms
                     //17 linijka
                     UpdateRichTextBox("Hasło ostatnio ustawiono:\t\t" + user.pwdLastSet + "\n");
                     //18 linijka
-                    UpdateRichTextBox("Hasło wygasa:\t\t\t\t" + user.passwordExpiryTime + "\n");
+                    UpdateRichTextBox("Hasło wygasa:\t\t\t\t" + user.PasswordExpiryTime + "\n");
                     //19 linijka
                     UpdateRichTextBox("Hasło może być zmienione:\t\t" + user.pwdLastSet.AddDays(1) + "\n");
                     //20 linijka
@@ -1099,16 +1098,16 @@ namespace Forms
         }
         private void KomputerInfoMethod()
         {
-            using Form owner = new Form() { TopMost = true };
+            using Form owner = new() { TopMost = true };
             if (MessageBox.Show(owner, "Wyszukiwanie może chwile potrwać, zezwolić ?", "Wyszukiwanie danych", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 if (!backgroundWorkerComputerInfo.IsBusy)
                 {
                     ReplaceRichTextBox(null);
-                    Additional.Progress loadingForm = new Additional.Progress(19);
+                    Additional.Progress loadingForm = new(19);
                     Thread progress;
-                    progress = new Thread(loadingForm.progress);
+                    progress = new(loadingForm.progress);
                     progress.Start();
-                    progressBar = new Thread(KomputerInfoCOMM);
+                    progressBar = new(KomputerInfoCOMM);
                     backgroundWorkerComputerInfo.RunWorkerAsync();
                 }
         }
@@ -1153,7 +1152,7 @@ namespace Forms
         }
         private void MenuItemLockoutStatus_Click(object sender, EventArgs e)
         {
-            External.LockoutStatus LS = new External.LockoutStatus(UserName());
+            External.LockoutStatus LS = new(UserName());
             if (NameIsValid(UserName()))
             {
                 if (PuzzelLibrary.AD.User.Information.IsUserAvailable(UserName()))
@@ -1211,7 +1210,7 @@ namespace Forms
         {
             if (NameIsValid(HostName()))
             {
-                External.LAPSui lAPSui = new External.LAPSui
+                External.LAPSui lAPSui = new()
                 {
                     HostName = HostName()
                 };
@@ -1244,22 +1243,22 @@ namespace Forms
         }
         private void RemotePingTracert(object sender, EventArgs e)
         {
-            using Additional.RemotePingTracert PingTracert = new Additional.RemotePingTracert(sender);
+            using Additional.RemotePingTracert PingTracert = new(sender);
             PingTracert.ShowDialog();
             if (sender == btnRemotePing)
             {
-                PuzzelLibrary.NetDiag.RemotePing ping = new PuzzelLibrary.NetDiag.RemotePing(HostName());
+                PuzzelLibrary.NetDiag.RemotePing ping = new(HostName());
                 UpdateRichTextBox(ping.StartRemotePing(PingTracert.GetHost, PingTracert.GetCounter));
             }
             else
             {
-                PuzzelLibrary.NetDiag.RemoteTracert tracert = new PuzzelLibrary.NetDiag.RemoteTracert(HostName());
+                PuzzelLibrary.NetDiag.RemoteTracert tracert = new(HostName());
                 UpdateRichTextBox(tracert.StartRemoteTracert(PingTracert.GetHost));
             }
         }
         private static void SearchData()
         {
-            Additional.SearchingMainForm wyszukiwarka = new Additional.SearchingMainForm(richTextBox1);
+            Additional.SearchingMainForm wyszukiwarka = new(richTextBox1);
             wyszukiwarka.Show();
         }
         private void StartTime()
@@ -1308,7 +1307,7 @@ namespace Forms
         private void WinEnvironment_Click(object sender, EventArgs e)
         {
             if (HostIsAvailable(HostName()))
-                using (EnvironmentVariable env = new EnvironmentVariable(HostName()))
+                using (EnvironmentVariable env = new(HostName()))
                     env.ShowDialog();
         }
         private void Powershell_Click(object sender, EventArgs e)

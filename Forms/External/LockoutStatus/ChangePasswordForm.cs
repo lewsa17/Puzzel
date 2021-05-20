@@ -30,7 +30,7 @@ namespace Forms.External
         }
         private void CheckIfAccountIsLocked(string UserName)
         {                
-            if (new PuzzelLibrary.AD.User.AccountOperations().isAccountLocked(UserName))
+            if (new PuzzelLibrary.AD.User.AccountOperations().IsAccountLocked(UserName))
                 this.labelAccountIsLocked.Text = "Stan blokady konta w domenie: Zablokowane";
             else this.labelAccountIsLocked.Text = "Stan blokady konta w domenie: Odblokowane";
         }

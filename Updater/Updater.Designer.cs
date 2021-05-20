@@ -68,7 +68,7 @@
             this.cancelOKButton.TabIndex = 0;
             this.cancelOKButton.Text = "Anuluj";
             this.cancelOKButton.UseVisualStyleBackColor = true;
-            this.cancelOKButton.Click += new System.EventHandler(this.cancelOKButton_Click);
+            this.cancelOKButton.Click += new System.EventHandler(this.CancelOKButton_Click);
             // 
             // Updater
             // 

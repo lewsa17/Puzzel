@@ -4,15 +4,15 @@ namespace PuzzelLibrary.AD.User
 {
     interface IInformation
     {
-        public string loginName { get; set; }
-        public string displayName { get; set; }
-        public string title { get; set; }
-        public string company { get; set; }
-        public string department { get; set; }
-        public string mail { get; set; }
-        public string userEnabled { get; set; }
-        public DateTime accountExpires { get; set; }
-        public DateTime lockoutTime { get; set; }
+        public string LoginName { get; set; }
+        public string DisplayName { get; set; }
+        public string Title { get; set; }
+        public string Company { get; set; }
+        public string Department { get; set; }
+        public string Mail { get; set; }
+        public string UserEnabled { get; set; }
+        public DateTime AccountExpires { get; set; }
+        public DateTime LockoutTime { get; set; }
         public DateTime badPasswordTime { get; set; }
         public int badPwdCount { get; set; }
         public string InternetAccessEnabled { get; set; }

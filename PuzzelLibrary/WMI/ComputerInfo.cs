@@ -316,7 +316,6 @@ namespace PuzzelLibrary.WMI
         private static string Memory(object[] args, int warunek, ManagementObject m)
         {
             string devicelocator = null;
-            string manufacturer = null;
             int devicelocatorSize = 0;
             int manufacturerSize = 0;
             System.Text.StringBuilder sb = new();
@@ -341,7 +340,6 @@ namespace PuzzelLibrary.WMI
 
             if (m[args[1].ToString()] != null)
             {
-                manufacturer = m[args[1].ToString()].ToString();
                 if (devicelocator.Length > 7)
                 {
                     manufacturerSize = 5;
@@ -424,7 +422,7 @@ namespace PuzzelLibrary.WMI
 
             if (m[args[1].ToString()] != null)
             {
-                manufacturer = m[args[1].ToString()].ToString();
+                string manufacturer = m[args[1].ToString()].ToString();
                 sb.Append(manufacturer);
                 int a = 14 - manufacturer.Length;
                 for (int i = 0; i < a; i++)
@@ -499,15 +497,10 @@ namespace PuzzelLibrary.WMI
 
         private static string DesktopMonitor(object[] args, ManagementObject m)
         {
-            string caption = null;
-            string deviceID = null;
-            string screenHeight = null;
-            string screenWidth = null;
-            string status = null;
             System.Text.StringBuilder sb = new();
             if (m[args[0].ToString()] != null)
             {
-                caption = m[args[0].ToString()].ToString();
+                string caption = m[args[0].ToString()].ToString();
                 sb.Append(caption);
                 int a = 25 - caption.Length;
                 for (int i = 0; i < a; i++)
@@ -518,7 +511,7 @@ namespace PuzzelLibrary.WMI
 
             if (m[args[1].ToString()] != null)
             {
-                deviceID = m[args[1].ToString()].ToString();
+                string deviceID = m[args[1].ToString()].ToString();
                 sb.Append(deviceID);
                 int a = 25 - deviceID.Length;
                 for (int i = 0; i < a; i++)
@@ -529,7 +522,7 @@ namespace PuzzelLibrary.WMI
 
             if (m[args[2].ToString()] != null)
             {
-                screenHeight = m[args[2].ToString()].ToString();
+                string screenHeight = m[args[2].ToString()].ToString();
                 sb.Append(screenHeight);
                 int a = 6 - screenHeight.Length;
                 for (int i = 0; i < a; i++)
@@ -540,7 +533,7 @@ namespace PuzzelLibrary.WMI
 
             if (m[args[3].ToString()] != null)
             {
-                screenWidth = m[args[3].ToString()].ToString();
+                string screenWidth = m[args[3].ToString()].ToString();
                 sb.Append(screenWidth);
                 int a = 6 - screenWidth.Length;
                 for (int i = 0; i < a; i++)
@@ -551,7 +544,7 @@ namespace PuzzelLibrary.WMI
 
             if (m[args[4].ToString()] != null)
             {
-                status = m[args[4].ToString()].ToString();
+                string status = m[args[4].ToString()].ToString();
                 sb.Append(status);
             }
             return sb.ToString();
@@ -559,16 +552,11 @@ namespace PuzzelLibrary.WMI
 
         private static string Disk(object[] args, ManagementObject m)
         {
-            string name = null;
-            string description = null;
-            string filesystem = null;
-            string freespace = null;
-            string size = null;
             System.Text.StringBuilder sb = new();
 
             if (m[args[0].ToString()] != null)
             {
-                name = m[args[0].ToString()].ToString();
+                string name = m[args[0].ToString()].ToString();
                 sb.Append(name);
                 int a = 8 - name.Length;
                 for (int i = 0; i < a; i++)
@@ -577,6 +565,7 @@ namespace PuzzelLibrary.WMI
                 }
             }
 
+            string description;
             if (m[args[1].ToString()] != null)
             {
                 description = m[args[1].ToString()].ToString();
@@ -597,6 +586,7 @@ namespace PuzzelLibrary.WMI
                     sb.Append(" ");
             }
 
+            string filesystem;
             if (m[args[2].ToString()] != null)
             {
                 filesystem = m[args[2].ToString()].ToString();
@@ -617,6 +607,7 @@ namespace PuzzelLibrary.WMI
                     sb.Append(" ");
             }
 
+            string freespace;
             if (m[args[3].ToString()] != null)
             {
                 freespace = m[args[3].ToString()].ToString();
@@ -640,6 +631,7 @@ namespace PuzzelLibrary.WMI
                     sb.Append(" ");
             }
 
+            string size;
             if (m["size"] != null)
             {
                 size = m["size"].ToString();
@@ -655,15 +647,13 @@ namespace PuzzelLibrary.WMI
 
         private static string BiosInfo(object[] args, ManagementObject m)
         {
-            string manufacturer = null;
-            string smbiosVersion = null;
             System.Text.StringBuilder sb = new();
 
             sb.Append("Producent                Wersja Bios      Data wydania\n");
 
             if (m[args[0].ToString()] != null)
             {
-                manufacturer = m[args[0].ToString()].ToString();
+                string manufacturer = m[args[0].ToString()].ToString();
                 sb.Append(manufacturer);
                 int a = "Producent".Length + 16 - manufacturer.Length;
                 for (int i = 0; i < a; i++)
@@ -674,7 +664,7 @@ namespace PuzzelLibrary.WMI
 
             if (m[args[1].ToString()] != null)
             {
-                smbiosVersion = m[args[2].ToString()].ToString();
+                string smbiosVersion = m[args[2].ToString()].ToString();
                 sb.Append(smbiosVersion);
                 int a = "Wersja SMBios".Length + 3 - smbiosVersion.Length;
                 for (int i = 0; i < a; i++)
@@ -829,7 +819,7 @@ namespace PuzzelLibrary.WMI
             if (firstObjLength > 1)
                 if (!nazwa.Contains("for Microsoft") && !nazwa.Contains("(KB"))
                 {
-                    int addspace = 0;
+                    int addspace;
                     sb.Append(nazwa + " ");
                     if (firstObjLength < firstoptimvalue)
                     {
@@ -909,8 +899,8 @@ namespace PuzzelLibrary.WMI
 
         private static string AutoStart(object[] args, ManagementObject m)
         {
-            string caption = null;
             System.Text.StringBuilder sb = new();
+            string caption;
             if (m[args[0].ToString()] != null)
             {
                 caption = m[args[0].ToString()].ToString();
@@ -934,7 +924,7 @@ namespace PuzzelLibrary.WMI
                 }
             }
 
-            string command = null;
+            string command;
             if (m[args[1].ToString()] != null)
             {
                 command = m[args[1].ToString()].ToString();

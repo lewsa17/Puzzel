@@ -29,11 +29,9 @@ namespace PuzzelLibrary.Registry
             RegistryKey registryKey = null;
             try
             {
-                using (RegistryKey subkey = RegOpenRemoteBaseKey(mainCatalog, HostName))
-                {
-                    if (subkey != null)
-                        registryKey = subkey.OpenSubKey(subKey, true);
-                }
+                using RegistryKey subkey = RegOpenRemoteBaseKey(mainCatalog, HostName);
+                if (subkey != null)
+                    registryKey = subkey.OpenSubKey(subKey, true);
             }
             catch (System.Security.SecurityException)
             {

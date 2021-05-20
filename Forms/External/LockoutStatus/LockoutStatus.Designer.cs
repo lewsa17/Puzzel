@@ -88,7 +88,7 @@ namespace Forms.External
             this.menuItemSelectUser.Name = "menuItemSelectUser";
             this.menuItemSelectUser.Size = new(185, 22);
             this.menuItemSelectUser.Text = "Wybierz użytkownika";
-            this.menuItemSelectUser.Click += new(this.menuItemSelectUser_Click);
+            this.menuItemSelectUser.Click += new(this.MenuItemSelectUser_Click);
             //
             // ContextMenuFile
             //
@@ -120,49 +120,49 @@ namespace Forms.External
             this.menuItemClear.Name = "menuItemClear";
             this.menuItemClear.Size = new(181, 22);
             this.menuItemClear.Text = "Wyczyść";
-            this.menuItemClear.Click += new(this.menuItemClearAll_Click);
+            this.menuItemClear.Click += new(this.MenuItemClearAll_Click);
             // 
             // menuItemPasswordStatus
             // 
             this.menuItemPasswordStatus.Name = "menuItemPasswordStatus";
             this.menuItemPasswordStatus.Size = new(181, 22);
             this.menuItemPasswordStatus.Text = "Status hasła";
-            this.menuItemPasswordStatus.Click += new(this.menuItemPasswordStatus_Click);
+            this.menuItemPasswordStatus.Click += new(this.MenuItemPasswordStatus_Click);
             // 
             // menuItemRefreshSelected
             // 
             this.menuItemRefreshSelected.Name = "menuItemRefreshSelected";
             this.menuItemRefreshSelected.Size = new(181, 22);
             this.menuItemRefreshSelected.Text = "Odśwież zaznaczone";
-            this.menuItemRefreshSelected.Click += new(this.menuItemRefreshSelected_Click);
+            this.menuItemRefreshSelected.Click += new(this.MenuItemRefreshSelected_Click);
             // 
             // menuItemRefreshAll
             // 
             this.menuItemRefreshAll.Name = "menuItemRefreshAll";
             this.menuItemRefreshAll.Size = new(181, 22);
             this.menuItemRefreshAll.Text = "Odśwież wszystko";
-            this.menuItemRefreshAll.Click += new(this.menuItemRefreshAll_Click);
+            this.menuItemRefreshAll.Click += new(this.MenuItemRefreshAll_Click);
             // 
             // contextMenuItemPasswordStatus
             // 
             this.contextMenuItemPasswordStatus.Name = "contextMenuItemPasswordStatus";
             this.contextMenuItemPasswordStatus.Size = new(81, 22);
             this.contextMenuItemPasswordStatus.Text = "Status hasła";
-            this.contextMenuItemPasswordStatus.Click += new(this.menuItemPasswordStatus_Click);
+            this.contextMenuItemPasswordStatus.Click += new(this.MenuItemPasswordStatus_Click);
             // 
             // contextMenuItemRefreshSelected
             // 
             this.contextMenuItemRefreshSelected.Name = "contextMenuItemRefreshSelected";
             this.contextMenuItemRefreshSelected.Size = new(181, 22);
             this.contextMenuItemRefreshSelected.Text = "Odśwież zaznaczone";
-            this.contextMenuItemRefreshSelected.Click += new(this.menuItemRefreshSelected_Click);
+            this.contextMenuItemRefreshSelected.Click += new(this.MenuItemRefreshSelected_Click);
             // 
             // contextMenuItemRefreshAll
             // 
             this.contextMenuItemRefreshAll.Name = "contextMenuItemRefreshAll";
             this.contextMenuItemRefreshAll.Size = new(181, 22);
             this.contextMenuItemRefreshAll.Text = "Odśwież wszystko";
-            this.contextMenuItemRefreshAll.Click += new(this.menuItemRefreshAll_Click);
+            this.contextMenuItemRefreshAll.Click += new(this.MenuItemRefreshAll_Click);
             // 
             // dataGridView
             // 
@@ -272,7 +272,7 @@ namespace Forms.External
             this.contextMenuItemClearAll.Name = "contextMenuItemClearAll";
             this.contextMenuItemClearAll.Size = new(181, 22);
             this.contextMenuItemClearAll.Text = "Wyczyść";
-            this.contextMenuItemClearAll.Click += new(this.menuItemClearAll_Click);
+            this.contextMenuItemClearAll.Click += new(this.MenuItemClearAll_Click);
             // 
             // contextMenuItemCopySelectedRow
             // 

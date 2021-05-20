@@ -22,10 +22,10 @@ namespace Forms.External
                 this.Text = Username;
             }
         }
-        private void menuItemSelectUser_Click(object sender, EventArgs e)
+        private void MenuItemSelectUser_Click(object sender, EventArgs e)
         {
             this.Text = "Lockout Status";
-            LockoutStatusCustom custom = new LockoutStatusCustom();
+            LockoutStatusCustom custom = new();
             if (custom.ShowDialog() == DialogResult.OK)
             {
                 DeleteEntryRows();
@@ -40,7 +40,7 @@ namespace Forms.External
             else domainControllers = PuzzelLibrary.AD.Other.Domain.GetCurrentDomainControllers();
             foreach (string dcName in domainControllers)
             {
-                Thread thread = new Thread(() => GetUserPasswordDetails(dcName));
+                Thread thread = new(() => GetUserPasswordDetails(dcName));
                 thread.Start();
             }
         }
@@ -50,7 +50,7 @@ namespace Forms.External
                 dataGridView.Rows.Clear();
         }
 
-        private void menuItemRefreshSelected_Click(object sender, EventArgs e)
+        private void MenuItemRefreshSelected_Click(object sender, EventArgs e)
         {
             if (dataGridView.CurrentCell != null)
                 if (dataGridView.CurrentCell.RowIndex != 0)
@@ -86,16 +86,16 @@ namespace Forms.External
                 }
             Invoke(new MethodInvoker(() => Cursor = Cursors.Default));
         }
-        private void menuItemClearAll_Click(object sender, EventArgs e)
+        private void MenuItemClearAll_Click(object sender, EventArgs e)
         {
             DeleteEntryRows();
         }
-        private void menuItemRefreshAll_Click(object sender, EventArgs e)
+        private void MenuItemRefreshAll_Click(object sender, EventArgs e)
         {
             DeleteEntryRows();
             AddEntry();
         }
-        private void menuItemPasswordStatus_Click(object sender, EventArgs e)
+        private void MenuItemPasswordStatus_Click(object sender, EventArgs e)
         {
             var pd = new PuzzelLibrary.AD.User.Information.PasswordDetails();
             pd.GetUserPasswordDetails(Username, PuzzelLibrary.AD.Connection.Credentials.DomainName);
@@ -120,9 +120,6 @@ namespace Forms.External
         {
             if (dataGridView.SelectedRows.Count != 0)
             {
-                int selectedRowIndex = dataGridView.SelectedRows[0].Index;
-                string dcName = dataGridView.Rows[selectedRowIndex].Cells[0].Value.ToString();
-
                 if (new PuzzelLibrary.AD.User.AccountOperations().UnlockAccount(Username))
                        MessageBox.Show("Konto zostało odblokowane");
                 else MessageBox.Show("Nie można odblokować konta z powodu błędu");

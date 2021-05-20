@@ -7,15 +7,15 @@ namespace PuzzelLibrary.AD.User
 {
     public class Information : SearchInformation.Search, IInformation
     {
-        public string loginName { get; set; }
-        public string displayName { get; set; }
-        public string title { get; set; }
-        public string company { get; set; }
-        public string department { get; set; }
-        public string mail { get; set; }
-        public string userEnabled { get; set; }
-        public DateTime accountExpires { get; set; }
-        public DateTime lockoutTime { get; set; }
+        public string LoginName { get; set; }
+        public string DisplayName { get; set; }
+        public string Title { get; set; }
+        public string Company { get; set; }
+        public string Department { get; set; }
+        public string Mail { get; set; }
+        public string UserEnabled { get; set; }
+        public DateTime AccountExpires { get; set; }
+        public DateTime LockoutTime { get; set; }
         public DateTime badPasswordTime { get; set; }
         public int badPwdCount { get; set; }
         public string InternetAccessEnabled { get; set; }
@@ -23,7 +23,7 @@ namespace PuzzelLibrary.AD.User
         public DateTime lastBadPwdAttempt { get; set; }
         public DateTime lastLogon { get; set; }
         public DateTime lastLogoff { get; set; }
-        public DateTime passwordExpiryTime { get; set; }
+        public DateTime PasswordExpiryTime { get; set; }
         public string scriptPath { get; set; }
         public string homeDirectory { get; set; }
         public string homeDrive { get; set; }
@@ -46,7 +46,7 @@ namespace PuzzelLibrary.AD.User
         }
         internal static List<UserPrincipal> GetUserInADControllers(string UserName)
         {
-            List<UserPrincipal> userListFromADControllers = new List<UserPrincipal>();
+            List<UserPrincipal> userListFromADControllers = new();
             foreach (var DomainController in Other.Domain.GetCurrentDomainControllers())
             {
                 var user = GetUser(UserName, DomainController);
@@ -108,10 +108,6 @@ namespace PuzzelLibrary.AD.User
             public string userAccountLocked;
             public DateTime userLockoutTime;
             public DateTime passwordExpiryTime;
-            private static void UserExtensions(string UserName)
-            {
-
-            }
             public void GetUserPasswordDetails(string UserName, string domainController)
             {
                 UserPrincipal uP = GetUser(UserName, domainController);
@@ -129,7 +125,7 @@ namespace PuzzelLibrary.AD.User
         }
         public ArrayList GetUserGroups(string UserName)
         {
-            ArrayList myItems = new ArrayList();
+            ArrayList myItems = new();
             UserPrincipal user = GetUser(UserName);
             PrincipalSearchResult<Principal> oPrincipalSearcherResult = user.GetGroups();
             foreach (Principal oResult in oPrincipalSearcherResult)
@@ -145,17 +141,17 @@ namespace PuzzelLibrary.AD.User
             var rs = ByUserName(UserName, propertiesToLoad);
             if (rs != null)
             {
-                title = rs.GetDirectoryEntry().Properties["title"].Value != null ? rs.GetDirectoryEntry().Properties["title"].Value.ToString() : string.Empty;
+                Title = rs.GetDirectoryEntry().Properties["title"].Value != null ? rs.GetDirectoryEntry().Properties["title"].Value.ToString() : string.Empty;
 
-                company = rs.GetDirectoryEntry().Properties["company"].Value != null ? rs.GetDirectoryEntry().Properties["company"].Value.ToString() : string.Empty;
+                Company = rs.GetDirectoryEntry().Properties["company"].Value != null ? rs.GetDirectoryEntry().Properties["company"].Value.ToString() : string.Empty;
 
-                department = rs.GetDirectoryEntry().Properties["department"].Value != null ? rs.GetDirectoryEntry().Properties["department"].Value.ToString() : string.Empty;
+                Department = rs.GetDirectoryEntry().Properties["department"].Value != null ? rs.GetDirectoryEntry().Properties["department"].Value.ToString() : string.Empty;
 
                 UserPrincipal user = GetUser(UserName);
-                displayName = user.DisplayName;
-                loginName = user.SamAccountName != null ? user.SamAccountName : string.Empty;
-                mail = user.EmailAddress != null ? user.EmailAddress : string.Empty;
-                userEnabled = user.Enabled == true ? userEnabled = "TAK" : "NIE";
+                DisplayName = user.DisplayName;
+                LoginName = user.SamAccountName != null ? user.SamAccountName : string.Empty;
+                Mail = user.EmailAddress != null ? user.EmailAddress : string.Empty;
+                UserEnabled = user.Enabled == true ? UserEnabled = "TAK" : "NIE";
                 badPwdCount = user.BadLogonCount >= 0 ? (int)user.BadLogonCount : int.MinValue;
                 homeDirectory = user.HomeDirectory != null ? user.HomeDirectory : string.Empty;
 
@@ -205,12 +201,12 @@ namespace PuzzelLibrary.AD.User
                     {
                         long temp = (long)rs.Properties["accountExpires"][0];
                         temp = (temp > DateTime.MaxValue.ToFileTime()) ? 0 : temp;
-                        accountExpires = DateTime.FromFileTime(temp);
+                        AccountExpires = DateTime.FromFileTime(temp);
                     }
 
-                lockoutTime = rs.Properties.Contains("lockoutTime") == true ? DateTime.FromFileTime((long)rs.Properties["lockoutTime"][0]) : DateTime.MinValue;
+                LockoutTime = rs.Properties.Contains("lockoutTime") == true ? DateTime.FromFileTime((long)rs.Properties["lockoutTime"][0]) : DateTime.MinValue;
             }
-            passwordExpiryTime = (rs.Properties["msDS-UserPasswordExpiryTimeComputed"][0] != null) ? (DateTime.FromFileTime((long)rs.Properties["msDS-UserPasswordExpiryTimeComputed"][0])) : DateTime.MinValue;
+            PasswordExpiryTime = (rs.Properties["msDS-UserPasswordExpiryTimeComputed"][0] != null) ? (DateTime.FromFileTime((long)rs.Properties["msDS-UserPasswordExpiryTimeComputed"][0])) : DateTime.MinValue;
         }
     }
 }

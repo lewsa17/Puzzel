@@ -30,42 +30,42 @@ namespace PuzzelLibrary.AD.User
                 return false;
             }
         }
-        public bool isAccountLocked(string userName)
+        public bool IsAccountLocked(string userName)
         {
                 foreach (var userObject in Information.GetUserInADControllers(userName))
-                    if (isAccountLocked(userObject))
+                    if (IsAccountLocked(userObject))
                         return true;
                 return false;
         }
-        private bool isAccountLocked(UserPrincipal userObject)
+        private bool IsAccountLocked(UserPrincipal userObject)
         {
             if (userObject != null)
                 if (userObject.AccountLockoutTime != null)
                     return true;
             return false;
         }
-        private bool isUpper(string passowrd)
+        private bool IsUpper(string passowrd)
         {
             foreach (var letter in passowrd)
                 if (char.IsUpper(letter))
                     return true;
             return false;
         }
-        private bool isLower(string passowrd)
+        private bool IsLower(string passowrd)
         {
             foreach (var letter in passowrd)
                 if (char.IsLower(letter))
                     return true;
             return false;
         }
-        private bool isDigit(string passowrd)
+        private bool IsDigit(string passowrd)
         {
             foreach (var letter in passowrd)
                 if (char.IsDigit(letter))
                     return true;
             return false;
         }
-        private bool isLetterOrDigit(string passowrd)
+        private bool IsLetterOrDigit(string passowrd)
         {
             foreach (var letter in passowrd)
                 if (!char.IsLetterOrDigit(letter))
@@ -75,10 +75,10 @@ namespace PuzzelLibrary.AD.User
         private bool CheckRequirementsOfPassword(string password)
         {
             int requirements = 0;
-            if (isUpper(password)) requirements++;
-            if (isLower(password)) requirements++;
-            if (isDigit(password)) requirements++;
-            if (isLetterOrDigit(password)) requirements++;
+            if (IsUpper(password)) requirements++;
+            if (IsLower(password)) requirements++;
+            if (IsDigit(password)) requirements++;
+            if (IsLetterOrDigit(password)) requirements++;
             if (requirements > 3)
                 return true;
             return false;
@@ -113,7 +113,7 @@ namespace PuzzelLibrary.AD.User
         private void ChangePassword(UserPrincipal userObject, string password, bool unlockAccount, bool passwordExpired)
         {
             userObject.SetPassword(password);
-            if (isAccountLocked(userObject))
+            if (IsAccountLocked(userObject))
                 userObject.UnlockAccount();
             if (passwordExpired)
                 userObject.ExpirePasswordNow();

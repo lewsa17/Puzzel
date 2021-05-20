@@ -31,7 +31,7 @@ namespace PuzzelLibrary.Debug
 
         public string GetLocalLog(string logName, string queryString)
         {
-            EventLogSession session = new EventLogSession();
+            EventLogSession session = new();
             var eventsQuery = CreateQuery(logName, queryString);
             eventsQuery.Session = session;
             try
@@ -67,7 +67,7 @@ namespace PuzzelLibrary.Debug
 
         public string GetRemoteLog(string computerName, string logName, string queryString)
         {
-            EventLogSession session = new EventLogSession(computerName);
+            EventLogSession session = new(computerName);
 
             EventLogQuery query = CreateQuery(logName, queryString);
             query.Session = session;
@@ -98,7 +98,7 @@ namespace PuzzelLibrary.Debug
 
         private string DisplayEventSecurityLog(EventLogReader logReader)
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
             int i = 0;
             while (i++ < MaxCount)
             {
@@ -108,7 +108,7 @@ namespace PuzzelLibrary.Debug
                     if (eventInstance == null)
                         break;
 
-                    EventParser ep = new EventParser(eventInstance);
+                    EventParser ep = new(eventInstance);
                     sb.Append("-----------------------------------------------------\n");
                     sb.Append(string.Format("{0}\n\n", ep.Descriptions.Title));
                     sb.Append(string.Format("Event ID: {0}\t\t\t Record: {1}\n", ep.ID, eventInstance.RecordId));
@@ -142,7 +142,7 @@ namespace PuzzelLibrary.Debug
 
         private string DisplayEventAndLogInformation(EventLogReader logReader)
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
             int i = 0;
             while (i++ < MaxCount)
             {

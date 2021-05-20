@@ -17,7 +17,7 @@ namespace Updater
             ProcessUpdating();
         }
 
-        private static string intranetDeploymentFolder { get => GetValuesFromXml("Settings.xml", "LocalUpdatePath"); }
+        private static string IntranetDeploymentFolder { get => GetValuesFromXml("Settings.xml", "LocalUpdatePath"); }
 
         private readonly string localFolder = Path.Combine(Path.GetTempPath(), "remoteRepo");
 
@@ -41,35 +41,33 @@ namespace Updater
             return value;
         }
 
-        private static bool iDFSet
+        private static bool IDFSet
         {
             get
             {
-                if (string.IsNullOrEmpty(intranetDeploymentFolder))
+                if (string.IsNullOrEmpty(IntranetDeploymentFolder))
                     return false;
                 return true;
             }
         }
 
-        private void cancelOKButton_Click(object sender, EventArgs e)
+        private void CancelOKButton_Click(object sender, EventArgs e)
         {
             Close();
         }
         private void BuildSollution()
         {
-            using (Process p = new Process())
-            {
-                p.StartInfo.FileName = "dotnet.exe";
-                p.StartInfo.Arguments = "build " + localFolder + "\\Puzzel.sln -o " + localFolder + "\\Update";
-                p.Start();
-            }
+            using Process p = new();
+            p.StartInfo.FileName = "dotnet.exe";
+            p.StartInfo.Arguments = "build " + localFolder + "\\Puzzel.sln -o " + localFolder + "\\Update";
+            p.Start();
         }
 
         private void CopyUpdate()
         {
-            string _localFolder = string.Empty;
-            if (iDFSet)
-                _localFolder = intranetDeploymentFolder;
+            string _localFolder;
+            if (IDFSet)
+                _localFolder = IntranetDeploymentFolder;
             else _localFolder = localFolder + "\\Update";
 
             foreach (string fileNameWithPath in Directory.EnumerateFiles(_localFolder))
@@ -99,7 +97,7 @@ namespace Updater
             {
                 ProgressLoading.Invoke(new MethodInvoker(() => ProgressLoading.Value = 1));
                 PercentLabel.Invoke(new MethodInvoker(() => PercentLabel.Text = "25%"));
-                if (!iDFSet)
+                if (!IDFSet)
                     BuildSollution();
 
                 ProgressLoading.Invoke(new MethodInvoker(() => ProgressLoading.Value = 2));
@@ -108,7 +106,7 @@ namespace Updater
 
                 ProgressLoading.Invoke(new MethodInvoker(() => ProgressLoading.Value = 3));
                 PercentLabel.Invoke(new MethodInvoker(() => PercentLabel.Text = "75%"));
-                if (!iDFSet)
+                if (!IDFSet)
                     CleanUpAfterUpdate();
 
                 ProgressLoading.Invoke(new MethodInvoker(() => ProgressLoading.Value = 4));

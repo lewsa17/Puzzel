@@ -66,7 +66,6 @@ namespace Settings
                 Name = rcbx.Name;
             foreach (var Value in typeof(SettingsForm).GetFields())
             {
-                var replacedname = Value.Name.Replace("Description", "");
                 if (Name.Contains(Value.Name.Replace("Description", "")))
                 {
                     DescriptionLabel.Text = Value.GetValue(null).ToString();

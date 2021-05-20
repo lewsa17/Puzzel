@@ -5,7 +5,7 @@ namespace Forms.Additional
 {
     public partial class Progress : Form
     {
-        public int ProgressValue { get => PuzzelLibrary.WMI.ComputerInfo.getProgressValue; }
+        public int ProgressValue { get => PuzzelLibrary.WMI.ComputerInfo.GetProgressValue; }
         private int _ProgressMax { get; }
         public Progress(int ProgressMax)
     {
@@ -35,7 +35,7 @@ namespace Forms.Additional
                 {
                     this.Close();
                 }));
-                PuzzelLibrary.WMI.ComputerInfo.getProgressValue = 0;
+                PuzzelLibrary.WMI.ComputerInfo.GetProgressValue = 0;
             }
         }
 
