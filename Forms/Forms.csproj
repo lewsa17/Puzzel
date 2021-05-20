@@ -12,6 +12,7 @@
     <ApplicationIcon>..\Forms\Resources\ICO\Puzzel.ico</ApplicationIcon>
     <Platforms>AnyCPU;x64</Platforms>
     <EnableNETAnalyzers>false</EnableNETAnalyzers>
+    <AssemblyName>Puzzel</AssemblyName>
   </PropertyGroup>
   
   <ItemGroup>

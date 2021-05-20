@@ -6,12 +6,15 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PuzzelLibrary", "PuzzelLibrary\PuzzelLibrary.csproj", "{D20FC7E2-4E9F-412B-9AF1-AF08899D3CD4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Forms", "Forms\Forms.csproj", "{06CF8AC4-2FBF-4B8C-B405-FB8CE6B730C7}"
+	ProjectSection(ProjectDependencies) = postProject
+		{513EA81B-F8DA-408B-B385-D48057F6A326} = {513EA81B-F8DA-408B-B385-D48057F6A326}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Settings", "Settings\Settings.csproj", "{19396620-63C6-4768-807D-CAC92412EFF3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Updater", "Updater\Updater.csproj", "{513EA81B-F8DA-408B-B385-D48057F6A326}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PuzzelTest", "PuzzelTest\PuzzelTest.csproj", "{DD8F5B2C-3A65-4AF9-812C-E476D0221F01}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PuzzelTest", "PuzzelTest\PuzzelTest.csproj", "{DD8F5B2C-3A65-4AF9-812C-E476D0221F01}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
