@@ -133,6 +133,16 @@ namespace Updater
                 Thread.Sleep(500);
                 WaitLabel.Invoke(new MethodInvoker(() => WaitLabel.Text = "Aktualizacja zakończona"));
                 cancelOKButton.Invoke(new MethodInvoker(() => cancelOKButton.Text = "OK"));
+                last.ContinueWith(lastLast => 
+                {
+                    if (MessageBox.Show("Czy chcesz uruchomić ponownie aplikację?", "Uruchamianie aplikacji", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                    {
+                        string path = Path.Combine(Directory.GetCurrentDirectory(), "Puzzel.exe");
+                        Process.Start(path);
+                        this.Close();
+                    }
+
+                });
             });
         }
         private void CleanUpAfterUpdate()
