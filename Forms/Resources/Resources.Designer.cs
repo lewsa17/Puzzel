@@ -9,6 +9,7 @@
 //------------------------------------------------------------------------------
 
 namespace Forms.Resources {
+    using System;
     
     
     /// <summary>
@@ -335,6 +336,16 @@ namespace Forms.Resources {
         internal static System.Drawing.Icon Puzzel {
             get {
                 object obj = ResourceManager.GetObject("Puzzel", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Icon podobny do zasobu (Ikona).
+        /// </summary>
+        internal static System.Drawing.Icon PuzzelUpdate {
+            get {
+                object obj = ResourceManager.GetObject("PuzzelUpdate", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }

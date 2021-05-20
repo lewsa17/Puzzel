@@ -123,6 +123,8 @@
             this.statusBP2 = new();
             this.InfozAD = new();
             this.mainMenu = new();
+            this.menuItemAbout = new();
+            this.menuItemUpdate = new();
             this.menuItemFile = new();
             this.menuItemAdmTools = new();
             this.menuItemWindowsFirewall = new();
@@ -1081,9 +1083,10 @@
             this.mainMenu.BackColor = System.Drawing.Color.Gainsboro;
             this.mainMenu.Items.AddRange(new[] {
             this.menuItemFile,
+            this.menuItemAbout,
             this.menuItemSettings,
             this.menuItemAdmTools,
-            this.menuItemQuickFix});
+            this.menuItemQuickFix,});
             this.mainMenu.Location = new(0, 0);
             this.mainMenu.Name = "mainMenu";
             this.mainMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
@@ -1095,6 +1098,23 @@
             this.menuItemFile.Name = "menuItemFile";
             this.menuItemFile.Text = "Plik";
             this.menuItemFile.Visible = false;
+            //
+            // menuItemAbout
+            //
+            this.menuItemAbout.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.menuItemAbout.Name = "menuItemAbout";
+            this.menuItemAbout.Text = "?";
+            this.menuItemAbout.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuItemUpdate,
+            });
+            //
+            // menuItemUpdate
+            //
+            this.menuItemUpdate.Name = "menuItemUpdate";
+            this.menuItemUpdate.Text = "Sprawdź dostępność aktualizacji";
+            this.menuItemUpdate.Image = global::Forms.Resources.Resources.PuzzelUpdate.ToBitmap();
+            this.menuItemUpdate.Click += new(this.CheckUpdate);
+
             // 
             // menuItemSettings
             // 
@@ -1394,6 +1414,8 @@
         private System.Windows.Forms.MenuStrip mainMenu;
         private System.Windows.Forms.ContextMenuStrip contextMenuComputerInfo;
         private System.Windows.Forms.ToolStripMenuItem TerminalUniversalToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menuItemAbout;
+        private System.Windows.Forms.ToolStripMenuItem menuItemUpdate;
         private System.Windows.Forms.ToolStripMenuItem menuItemComputerInfoUptime;
         private System.Windows.Forms.ToolStripMenuItem menuItemComputerInfoSNPN;
         private System.Windows.Forms.ToolStripMenuItem menuItemComputerInfoModel;
