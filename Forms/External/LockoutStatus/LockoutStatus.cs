@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Threading;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Forms.External
 {

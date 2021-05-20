@@ -104,7 +104,7 @@ namespace PuzzelLibrary.Debug
             {
                 try
                 {
-                    EventRecord eventInstance = logReader.ReadEvent();
+                   EventRecord eventInstance = logReader.ReadEvent();
                     if (eventInstance == null)
                         break;
 
