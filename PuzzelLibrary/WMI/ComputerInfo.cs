@@ -26,96 +26,96 @@ namespace PuzzelLibrary.WMI
         public const string queryDesktopMonitor = "Win32_DesktopMonitor";
         public const string queryProduct = "Win32_Product";
 
-        public static int getProgressValue { get; set; }
+        public static int GetProgressValue { get; set; }
 
         public static string AllComputerInfo(string HostName)
         {
-            string StringBuilder = string.Empty;
-            StringBuilder += ("Nazwa komputera: ");
-            getProgressValue = 1;
-            StringBuilder += GetInfo(HostName, pathCIMv2, queryComputerSystem, "DNSHostName");
-            StringBuilder += ("----------------------------------------\n");
-            StringBuilder += ("Domena: ");
-            getProgressValue = 2;
-            StringBuilder += GetInfo(HostName, pathCIMv2, queryComputerSystem, "Domain");
-            StringBuilder += ("----------------------------------------\n");
-            StringBuilder += ("Uptime: ");
-            getProgressValue = 3;
-            StringBuilder += GetInfo(HostName, pathCIMv2, queryOperatingSystem, "LastBootUpTime");
-            StringBuilder += ("----------------------------------------\n");
-            StringBuilder += ("SN: ");
-            getProgressValue = 4;
-            StringBuilder += GetInfo(HostName, pathCIMv2, queryComputerSystemProduct, "IdentifyingNumber");
-            StringBuilder += ("PN: ");
-            getProgressValue = 5;
-            StringBuilder += GetInfo(HostName, pathWMI, querySystemInformation, "SystemSKU");
-            StringBuilder += ("----------------------------------------\n");
-            StringBuilder += ("Model: ");
-            getProgressValue = 6;
-            StringBuilder += GetInfo(HostName, pathCIMv2, queryComputerSystem, "Model");
-            StringBuilder += ("----------------------------------------\n");
-            StringBuilder += ("OS: ");
-            getProgressValue = 7;
-            StringBuilder += GetInfo(HostName, pathCIMv2, queryOperatingSystem, "Caption", "CsdVersion", "OsArchitecture", "Version");
-            StringBuilder += ("----------------------------------------\n");
+            System.Text.StringBuilder sb = new();
+            sb.Append("Nazwa komputera: ");
+            GetProgressValue = 1;
+            sb.Append(GetInfo(HostName, pathCIMv2, queryComputerSystem, "DNSHostName"));
+            sb.Append("----------------------------------------\n");
+            sb.Append("Domena: ");
+            GetProgressValue = 2;
+            sb.Append(GetInfo(HostName, pathCIMv2, queryComputerSystem, "Domain"));
+            sb.Append("----------------------------------------\n");
+            sb.Append("Uptime: ");
+            GetProgressValue = 3;
+            sb.Append(GetInfo(HostName, pathCIMv2, queryOperatingSystem, "LastBootUpTime"));
+            sb.Append("----------------------------------------\n");
+            sb.Append("SN: ");
+            GetProgressValue = 4;
+            sb.Append(GetInfo(HostName, pathCIMv2, queryComputerSystemProduct, "IdentifyingNumber"));
+            sb.Append("PN: ");
+            GetProgressValue = 5;
+            sb.Append(GetInfo(HostName, pathWMI, querySystemInformation, "SystemSKU"));
+            sb.Append("----------------------------------------\n");
+            sb.Append("Model: ");
+            GetProgressValue = 6;
+            sb.Append(GetInfo(HostName, pathCIMv2, queryComputerSystem, "Model"));
+            sb.Append("----------------------------------------\n");
+            sb.Append("OS: ");
+            GetProgressValue = 7;
+            sb.Append(GetInfo(HostName, pathCIMv2, queryOperatingSystem, "Caption", "CsdVersion", "OsArchitecture", "Version"));
+            sb.Append("----------------------------------------\n");
             //TotalCapacity
-            StringBuilder += ("Pamięć TOTAL: \n");
-            getProgressValue = 8;
-            StringBuilder += GetInfo(HostName, pathCIMv2, queryPhysicalMemory, "Capacity");
-            StringBuilder += ("\n");
-            StringBuilder += GetInfo(HostName, pathCIMv2, queryPhysicalMemory, "DeviceLocator", "Manufacturer", "Capacity", "Speed", "PartNumber", "SerialNumber");
-            StringBuilder += ("\n");
-            StringBuilder += ("----------------------------------------\n");
-            StringBuilder += ("CPU \n");
-            getProgressValue = 9;
-            StringBuilder += GetInfo(HostName, pathCIMv2, queryProcessor, "Name");
-            StringBuilder += ("Rdzenie: ");
-            getProgressValue = 10;
-            StringBuilder += GetInfo(HostName, pathCIMv2, queryProcessor, "NumberOfCores");
-            StringBuilder += ("Wątki: ");
-            getProgressValue = 11;
-            StringBuilder += GetInfo(HostName, pathCIMv2, queryProcessor, "NumberOfLogicalProcessors");
-            StringBuilder += ("----------------------------------------\n");
-            StringBuilder += ("Użytkownik: ");
-            getProgressValue = 12;
-            StringBuilder += GetInfo(HostName, pathCIMv2, queryComputerSystem, "UserName");
-            StringBuilder += ("----------------------------------------\n");
-            StringBuilder += ("Profile\n");
-            getProgressValue = 13;
-            StringBuilder += GetInfo(HostName, pathCIMv2, queryDesktop, "Name");
-            StringBuilder += ("----------------------------------------\n");
-            StringBuilder += ("Dyski: \n");
-            getProgressValue = 14;
-            StringBuilder += ("Nazwa   Opis                  System plików   Wolna przestrzeń       Rozmiar \n");
-            StringBuilder += GetInfo(HostName, pathCIMv2, queryLogicalDisk, "Name", "Description", "FileSystem", "FreeSpace", "Size");
-            StringBuilder += ("----------------------------------------\n");
-            StringBuilder += ("Zasoby sieciowe\n\n");
-            getProgressValue = 15;
-            StringBuilder += GetInfo(HostName, pathCIMv2, queryNetworkConnection, "LocalName", "RemoteName");
-            StringBuilder += ("----------------------------------------\n");
-            StringBuilder += ("Drukarki sieciowe\n\n");
-            getProgressValue = 16;
-            StringBuilder += GetInfo(HostName, pathCIMv2, queryPrinterConfiguration, "DeviceName");
-            StringBuilder += ("----------------------------------------\n");
-            StringBuilder += ("Udziały\n");
-            getProgressValue = 17;
-            StringBuilder += GetInfo(HostName, pathCIMv2, queryShare, "Name", "Path", "Description");
-            StringBuilder += ("----------------------------------------\n");
-            StringBuilder += ("AutoStart\n");
-            getProgressValue = 18;
-            StringBuilder += GetInfo(HostName, pathCIMv2, queryStartupCommand, "Caption", "Command");
-            StringBuilder += ("----------------------------------------\n");
-            StringBuilder += ("Środowisko uruchomieniowe\n");
-            getProgressValue = 19;
-            StringBuilder += ("Nazwa zmiennej           Wartość zmiennej\n");
-            StringBuilder += GetInfo(HostName, pathCIMv2, queryEnvironment, "Name", "VariableValue");
-            StringBuilder += ("----------------------------------------\n");
-            StringBuilder += ("Podłączone ekrany\n");
-            StringBuilder += GetInfo(HostName, pathCIMv2, queryDesktopMonitor, "Caption", "DeviceID", "ScreenHeight", "ScreenWidth", "Status");
-            StringBuilder += ("----------------------------------------\n");
-            StringBuilder += ("BIOS\n");
-            StringBuilder += GetInfo(HostName, pathCIMv2, queryBios, "Manufacturer", "BIOSVersion", "SMBIOSBIOSVersion", "ReleaseDate");
-            return StringBuilder;
+            sb.Append("Pamięć TOTAL: \n");
+            GetProgressValue = 8;
+            sb.Append(GetInfo(HostName, pathCIMv2, queryPhysicalMemory, "Capacity"));
+            sb.Append("\n");
+            sb.Append(GetInfo(HostName, pathCIMv2, queryPhysicalMemory, "DeviceLocator", "Manufacturer", "Capacity", "Speed", "PartNumber", "SerialNumber"));
+            sb.Append("\n");
+            sb.Append("----------------------------------------\n");
+            sb.Append("CPU \n");
+            GetProgressValue = 9;
+            sb.Append(GetInfo(HostName, pathCIMv2, queryProcessor, "Name"));
+            sb.Append("Rdzenie: ");
+            GetProgressValue = 10;
+            sb.Append(GetInfo(HostName, pathCIMv2, queryProcessor, "NumberOfCores"));
+            sb.Append("Wątki: ");
+            GetProgressValue = 11;
+            sb.Append(GetInfo(HostName, pathCIMv2, queryProcessor, "NumberOfLogicalProcessors"));
+            sb.Append("----------------------------------------\n");
+            sb.Append("Użytkownik: ");
+            GetProgressValue = 12;
+            sb.Append(GetInfo(HostName, pathCIMv2, queryComputerSystem, "UserName"));
+            sb.Append("----------------------------------------\n");
+            sb.Append("Profile\n");
+            GetProgressValue = 13;
+            sb.Append(GetInfo(HostName, pathCIMv2, queryDesktop, "Name"));
+            sb.Append("----------------------------------------\n");
+            sb.Append("Dyski: \n");
+            GetProgressValue = 14;
+            sb.Append("Nazwa   Opis                  System plików   Wolna przestrzeń       Rozmiar \n");
+            sb.Append(GetInfo(HostName, pathCIMv2, queryLogicalDisk, "Name", "Description", "FileSystem", "FreeSpace", "Size"));
+            sb.Append("----------------------------------------\n");
+            sb.Append("Zasoby sieciowe\n\n");
+            GetProgressValue = 15;
+            sb.Append(GetInfo(HostName, pathCIMv2, queryNetworkConnection, "LocalName", "RemoteName"));
+            sb.Append("----------------------------------------\n");
+            sb.Append("Drukarki sieciowe\n\n");
+            GetProgressValue = 16;
+            sb.Append(GetInfo(HostName, pathCIMv2, queryPrinterConfiguration, "DeviceName"));
+            sb.Append("----------------------------------------\n");
+            sb.Append("Udziały\n");
+            GetProgressValue = 17;
+            sb.Append(GetInfo(HostName, pathCIMv2, queryShare, "Name", "Path", "Description"));
+            sb.Append("----------------------------------------\n");
+            sb.Append("AutoStart\n");
+            GetProgressValue = 18;
+            sb.Append(GetInfo(HostName, pathCIMv2, queryStartupCommand, "Caption", "Command"));
+            sb.Append("----------------------------------------\n");
+            sb.Append("Środowisko uruchomieniowe\n");
+            GetProgressValue = 19;
+            sb.Append("Nazwa zmiennej           Wartość zmiennej\n");
+            sb.Append(GetInfo(HostName, pathCIMv2, queryEnvironment, "Name", "VariableValue"));
+            sb.Append("----------------------------------------\n");
+            sb.Append("Podłączone ekrany\n");
+            sb.Append(GetInfo(HostName, pathCIMv2, queryDesktopMonitor, "Caption", "DeviceID", "ScreenHeight", "ScreenWidth", "Status"));
+            sb.Append("----------------------------------------\n");
+            sb.Append("BIOS\n");
+            sb.Append(GetInfo(HostName, pathCIMv2, queryBios, "Manufacturer", "BIOSVersion", "SMBIOSBIOSVersion", "ReleaseDate"));
+            return sb.ToString();
         }
         public static string GetInfo(string nazwaKomputera, string path, string query, params object[] args)
         {
@@ -123,180 +123,178 @@ namespace PuzzelLibrary.WMI
             int warunek = 0;
             int warunek1 = 0;
 
-            string StringBuilder = string.Empty;
-            ManagementScope scope = new ManagementScope();
+            System.Text.StringBuilder sb = new();
             try
             {
-                ConnectionOptions options = new ConnectionOptions()
+                ConnectionOptions options = new()
                 {
                     EnablePrivileges = true
                 };
+                ManagementScope scope = new();
                 scope = new ManagementScope(@"\\" + nazwaKomputera + path, options);
                 scope.Connect();
 
-                SelectQuery Squery = new SelectQuery(query);
-                ManagementObjectSearcher searcher = new ManagementObjectSearcher(scope, Squery);
+                SelectQuery Squery = new(query);
+                ManagementObjectSearcher searcher = new(scope, Squery);
                 searcher.Dispose();
-                using (ManagementObjectCollection queryCollection = searcher.Get())
+                using ManagementObjectCollection queryCollection = searcher.Get();
+                foreach (ManagementObject m in queryCollection)
                 {
-                    foreach (ManagementObject m in queryCollection)
+                    switch (args.Length)
                     {
-                        switch (args.Length)
-                        {
-                            case 1:
-                                {
-                                    //bootTime
-                                    //args0 = lastbootuptime
-                                    if (args[0].ToString() == "LastBootUpTime")
-                                        if (query == queryOperatingSystem)
-                                        {
-                                            StringBuilder += BootTime(args, m);
-                                            break;
-                                        }
-
-                                    //memoryTotal
-                                    //args0 = capacity
-                                    if (query == queryPhysicalMemory)
-                                    {
-                                        StringBuilder += MemoryTotal(args, ref TotalCapacity, ref warunek1, queryCollection, m);
-                                        break;
-                                    }
-                                    if (m[args[0].ToString()] != null)
-                                        StringBuilder += (m[args[0].ToString()] + "\n");
-                                    break;
-                                }
-                            case 2:
-                                {
-
-                                    if (query == queryNetworkConnection)
-                                    {
-                                        StringBuilder += NetworkResources(args, m);
-                                        break;
-                                    }
-                                    //autostart
-                                    //args0 = caption
-                                    //args1 = command
-                                    if (query == queryStartupCommand)
-                                    {
-                                        StringBuilder += AutoStart(args, m);
-                                        break;
-                                    }
-
-                                    //Zmienna PATH
-                                    //args0 = name
-                                    //args1 = variablevalue
-                                    if (query == queryEnvironment)
-                                    {
-                                        StringBuilder += EnvironmentPath(args, m);
-                                        break;
-                                    }
-                                    if (m[args[0].ToString()] != null)
-                                        StringBuilder += (m[args[0].ToString()] + "     " + m[args[1].ToString()] + "\n");
-                                    break;
-                                }
-                            case 3:
-                                {
-                                    //Lista programów
-                                    //args1 = Name
-                                    //args2 = InstallDate
-                                    //args3 = Version
-                                    if (query == queryProduct)
-                                    {
-                                        StringBuilder += InstalledPrograms(args, m);
-                                        break;
-                                    }
-
-
-                                    //zasoby sieciowe
-                                    //args0 = name
-                                    //args1 = path
-                                    //args2 = description
-                                    if (query == queryShare)
-                                    {
-                                        StringBuilder += NetworkResources(args, m);
-                                        break;
-                                    }
-                                    break;
-                                }
-                            case 4:
-                                {
-                                    //system
-                                    //args0 = caption
-                                    //args1 = csdversion
-                                    //args2 = osarchitecture
-                                    //args3 = version
+                        case 1:
+                            {
+                                //bootTime
+                                //args0 = lastbootuptime
+                                if (args[0].ToString() == "LastBootUpTime")
                                     if (query == queryOperatingSystem)
                                     {
-                                        StringBuilder += osInfo(args, m);
+                                        sb.Append(BootTime(args, m));
                                         break;
                                     }
 
-                                    //bios
-                                    //args0 = manufacturer
-                                    //args1 = biosversion
-                                    //args2 = smbiobiosversion
-                                    //args3 = releasedate
-                                    if (query == queryBios)
-                                    {
-                                        StringBuilder += BiosInfo(args, m);
-                                        break;
-                                    }
-                                    break;
-                                }
-                            case 5:
+                                //memoryTotal
+                                //args0 = capacity
+                                if (query == queryPhysicalMemory)
                                 {
-                                    //Disk
-                                    //args0 = name
-                                    //args1 = description
-                                    //args2 = filesystem
-                                    //args3 = freespace
-                                    //args4 = size
-                                    if (query == queryLogicalDisk)
-                                    {
-                                        StringBuilder += Disk(args, m);
-                                        break;
-                                    }
-                                    //args[0] = Caption
-                                    //args[1] = DeviceID
-                                    //args[2] = ScreenHeight
-                                    //args[3] = ScreenWidth
-                                    //args[4] = Status
-                                    if (query == queryDesktopMonitor)
-                                    {
-                                        StringBuilder += DesktopMonitor(args, m);
-                                        StringBuilder += "\n";
-                                        break;
-                                    }
-                                    StringBuilder += "\n";
+                                    sb.Append(MemoryTotal(args, ref TotalCapacity, ref warunek1, queryCollection, m));
                                     break;
                                 }
-                            case 6:
+                                if (m[args[0].ToString()] != null)
+                                    sb.Append(m[args[0].ToString()] + "\n");
+                                break;
+                            }
+                        case 2:
+                            {
+
+                                if (query == queryNetworkConnection)
                                 {
-                                    //Memory
-                                    //args0 = devicelocator
-                                    //args1 = manufacturer
-                                    //args2 = capacity
-                                    //args3 = speed
-                                    //args4 = partnumber
-                                    //args5 = serialnumber
-                                    StringBuilder += Memory(args, warunek, m);
-                                    //StringBuilder += ("\n");
+                                    sb.Append(NetworkResources(args, m));
                                     break;
                                 }
-                            case 7:
+                                //autostart
+                                //args0 = caption
+                                //args1 = command
+                                if (query == queryStartupCommand)
                                 {
-                                    //networkAdapter
-                                    //args0 = IPEnabled
-                                    //args1 = Description
-                                    //args2 = DNSDomainSuffixSearchOrder
-                                    //args3 = DNSHostName
-                                    //args4 = IPAddress
-                                    //args5 = IPSubnet
-                                    //args6 = MACAddress
-                                    StringBuilder += NetworkAdapter(args, m);
+                                    sb.Append(AutoStart(args, m));
                                     break;
                                 }
-                        }
+
+                                //Zmienna PATH
+                                //args0 = name
+                                //args1 = variablevalue
+                                if (query == queryEnvironment)
+                                {
+                                    sb.Append(EnvironmentPath(args, m));
+                                    break;
+                                }
+                                if (m[args[0].ToString()] != null)
+                                    sb.Append(m[args[0].ToString()] + "     " + m[args[1].ToString()] + "\n");
+                                break;
+                            }
+                        case 3:
+                            {
+                                //Lista programów
+                                //args1 = Name
+                                //args2 = InstallDate
+                                //args3 = Version
+                                if (query == queryProduct)
+                                {
+                                    sb.Append(InstalledPrograms(args, m));
+                                    break;
+                                }
+
+
+                                //zasoby sieciowe
+                                //args0 = name
+                                //args1 = path
+                                //args2 = description
+                                if (query == queryShare)
+                                {
+                                    sb.Append(NetworkResources(args, m));
+                                    break;
+                                }
+                                break;
+                            }
+                        case 4:
+                            {
+                                //system
+                                //args0 = caption
+                                //args1 = csdversion
+                                //args2 = osarchitecture
+                                //args3 = version
+                                if (query == queryOperatingSystem)
+                                {
+                                    sb.Append(OsInfo(args, m));
+                                    break;
+                                }
+
+                                //bios
+                                //args0 = manufacturer
+                                //args1 = biosversion
+                                //args2 = smbiobiosversion
+                                //args3 = releasedate
+                                if (query == queryBios)
+                                {
+                                    sb.Append(BiosInfo(args, m));
+                                    break;
+                                }
+                                break;
+                            }
+                        case 5:
+                            {
+                                //Disk
+                                //args0 = name
+                                //args1 = description
+                                //args2 = filesystem
+                                //args3 = freespace
+                                //args4 = size
+                                if (query == queryLogicalDisk)
+                                {
+                                    sb.Append(Disk(args, m));
+                                    break;
+                                }
+                                //args[0] = Caption
+                                //args[1] = DeviceID
+                                //args[2] = ScreenHeight
+                                //args[3] = ScreenWidth
+                                //args[4] = Status
+                                if (query == queryDesktopMonitor)
+                                {
+                                    sb.Append(DesktopMonitor(args, m));
+                                    sb.Append("\n");
+                                    break;
+                                }
+                                sb.Append("\n");
+                                break;
+                            }
+                        case 6:
+                            {
+                                //Memory
+                                //args0 = devicelocator
+                                //args1 = manufacturer
+                                //args2 = capacity
+                                //args3 = speed
+                                //args4 = partnumber
+                                //args5 = serialnumber
+                                sb.Append(Memory(args, warunek, m));
+                                //StringBuilder += ("\n");
+                                break;
+                            }
+                        case 7:
+                            {
+                                //networkAdapter
+                                //args0 = IPEnabled
+                                //args1 = Description
+                                //args2 = DNSDomainSuffixSearchOrder
+                                //args3 = DNSHostName
+                                //args4 = IPAddress
+                                //args5 = IPSubnet
+                                //args6 = MACAddress
+                                sb.Append(NetworkAdapter(args, m));
+                                break;
+                            }
                     }
                 }
             }
@@ -311,29 +309,22 @@ namespace PuzzelLibrary.WMI
                 Debug.LogsCollector.GetLogs(ex, nazwaKomputera + "," + path + "," + query);
                 MessageBox.Show("Nie można się połączyć z powodu błędu: " + ex.Message, "WMI Testing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); return string.Empty;
             }
-                return StringBuilder;
+            return sb.ToString();
 
         }
 
         private static string Memory(object[] args, int warunek, ManagementObject m)
         {
-            string _capacity = null;
             string devicelocator = null;
             string manufacturer = null;
-            string partnumber = null;
-            string serialnumber = null;
-            string speed = null;
-            int capacitySize = 0;
             int devicelocatorSize = 0;
             int manufacturerSize = 0;
-            int partnumberSize = 0;
-            int speedSize = 0;
-            string StringBuilder = string.Empty;
+            System.Text.StringBuilder sb = new();
 
             //wyrzucanie nazw
-            capacitySize = 6;
-            speedSize = 2;
-            partnumberSize = 11;
+            int capacitySize = 6;
+            int speedSize = 2;
+            int partnumberSize = 11;
 
             if (m[args[0].ToString()] != null)
             {
@@ -363,62 +354,62 @@ namespace PuzzelLibrary.WMI
             warunek++;
             if (warunek == 1)
             {
-                StringBuilder += ("Rozmiar");
+                sb.Append("Rozmiar");
                 for (int i = 0; i < capacitySize; i++)
-                    StringBuilder += (" ");
+                    sb.Append(" ");
 
-                StringBuilder += ("Speed");
+                sb.Append("Speed");
                 for (int i = 0; i < speedSize; i++)
-                    StringBuilder += (" ");
+                    sb.Append(" ");
 
-                StringBuilder += ("Slot");
+                sb.Append("Slot");
                 for (int i = 0; i < devicelocatorSize; i++)
-                    StringBuilder += (" ");
+                    sb.Append(" ");
 
-                StringBuilder += ("Producent");
+                sb.Append("Producent");
                 for (int i = 0; i < manufacturerSize; i++)
-                    StringBuilder += (" ");
+                    sb.Append(" ");
 
-                StringBuilder += ("Nr Partii");
+                sb.Append("Nr Partii");
                 for (int i = 0; i < partnumberSize; i++)
-                    StringBuilder += (" ");
-                StringBuilder += ("Nr Seryjny");
-                StringBuilder += ("\n");
+                    sb.Append(" ");
+                sb.Append("Nr Seryjny");
+                sb.Append("\n");
             }
             //wyrzucanie wartości
             if (m[args[2].ToString()] != null)
             {
-                _capacity = m[args[2].ToString()].ToString();
-                StringBuilder += _capacity;
+                string _capacity = m[args[2].ToString()].ToString();
+                sb.Append(_capacity);
                 int a = 13 - _capacity.Length;
                 for (int i = 0; i < a; i++)
                 {
-                    StringBuilder += (" ");
+                    sb.Append(" ");
                 }
             }
 
             if (m[args[3].ToString()] != null)
             {
-                speed = m[args[3].ToString()].ToString();
-                StringBuilder += (speed);
+                string speed = m[args[3].ToString()].ToString();
+                sb.Append(speed);
                 int a = 7 - speed.Length;
                 for (int i = 0; i < a; i++)
                 {
-                    StringBuilder += (" ");
+                    sb.Append(" ");
                 }
             }
 
             if (m[args[0].ToString()] != null)
             {
                 devicelocator = m[args[0].ToString()].ToString();
-                StringBuilder += (devicelocator);
+                sb.Append(devicelocator);
 
                 if (devicelocator.Length > 7)
                 {
                     int a = 22 - devicelocator.Length;
                     for (int i = 0; i < a; i++)
                     {
-                        StringBuilder += (" ");
+                        sb.Append(" ");
                     }
                 }
                 else if (devicelocator.Length < 7)
@@ -426,7 +417,7 @@ namespace PuzzelLibrary.WMI
                     int a = 7 - devicelocator.Length;
                     for (int i = 0; i < a; i++)
                     {
-                        StringBuilder += (" ");
+                        sb.Append(" ");
                     }
                 }
             }
@@ -434,32 +425,32 @@ namespace PuzzelLibrary.WMI
             if (m[args[1].ToString()] != null)
             {
                 manufacturer = m[args[1].ToString()].ToString();
-                StringBuilder += (manufacturer);
+                sb.Append(manufacturer);
                 int a = 14 - manufacturer.Length;
                 for (int i = 0; i < a; i++)
                 {
-                    StringBuilder += (" ");
+                    sb.Append(" ");
                 }
             }
 
             if (m[args[4].ToString()] != null)
             {
-                partnumber = m[args[4].ToString()].ToString();
-                StringBuilder += (partnumber);
+                string partnumber = m[args[4].ToString()].ToString();
+                sb.Append(partnumber);
                 int a = 20 - partnumber.Length;
                 for (int i = 0; i < a; i++)
                 {
-                    StringBuilder += (" ");
+                    sb.Append(" ");
                 }
             }
 
             if (m[args[5].ToString()] != null)
             {
-                serialnumber = m[args[5].ToString()].ToString();
-                StringBuilder += (serialnumber);
+                string serialnumber = m[args[5].ToString()].ToString();
+                sb.Append(serialnumber);
             }
 
-            return StringBuilder;
+            return sb.ToString();
         }
 
         private static string NetworkAdapter(object[] args, ManagementObject m)
@@ -467,7 +458,7 @@ namespace PuzzelLibrary.WMI
             string[] Suffix = null;
             string[] Ipaddress = null;
             string[] IPSubnet = null;
-            string StringBuilder = string.Empty;
+            System.Text.StringBuilder sb = new();
 
             if (args.Length > 1)
             {
@@ -478,32 +469,32 @@ namespace PuzzelLibrary.WMI
                 if (m[args[5].ToString()] != null)
                     IPSubnet = (string[])m[args[5].ToString()];
 
-                StringBuilder += ("\nNazwa karty sieciowej   " + m[args[1].ToString()].ToString() + "\n");
-                StringBuilder += ("IP Włączone             " + m[args[0].ToString()].ToString() + "\n");
+                sb.Append("\nNazwa karty sieciowej   " + m[args[1].ToString()].ToString() + "\n");
+                sb.Append("IP Włączone             " + m[args[0].ToString()].ToString() + "\n");
 
                 if (m[args[0].ToString()].ToString() == "True")
                 {
-                    StringBuilder += ("DNS Suffix              ");
+                    sb.Append("DNS Suffix              ");
                     if (Suffix != null)
                         for (int i = 0; i < Suffix.Length; i++)
-                            StringBuilder += (Suffix[i] + "; ");
-                    StringBuilder += ("\n");
+                            sb.Append(Suffix[i] + "; ");
+                    sb.Append("\n");
                     if (m[args[3].ToString()] != null)
-                        StringBuilder += ("Nazwa hosta DNS         " + m[args[3].ToString()].ToString() + "\n");
-                    StringBuilder += ("Adres IP                ");
+                        sb.Append("Nazwa hosta DNS         " + m[args[3].ToString()].ToString() + "\n");
+                    sb.Append("Adres IP                ");
                     if (Ipaddress != null)
                         for (int i = 0; i < Ipaddress.Length; i++)
-                            StringBuilder += (Ipaddress[i] + "; ");
-                    StringBuilder += ("\n");
-                    StringBuilder += ("Maska podsieci          ");
+                            sb.Append(Ipaddress[i] + "; ");
+                    sb.Append("\n");
+                    sb.Append("Maska podsieci          ");
                     if (IPSubnet != null)
                         for (int i = 0; i < IPSubnet.Length; i++)
-                            StringBuilder += (IPSubnet[i] + "; ");
-                    StringBuilder += ("\n");
-                    StringBuilder += ("Adres MAC               " + m[args[6].ToString()].ToString() + ";\n");
+                            sb.Append(IPSubnet[i] + "; ");
+                    sb.Append("\n");
+                    sb.Append("Adres MAC               " + m[args[6].ToString()].ToString() + ";\n");
                 }
             }
-            return StringBuilder;
+            return sb.ToString();
         }
 
         private static string DesktopMonitor(object[] args, ManagementObject m)
@@ -513,57 +504,57 @@ namespace PuzzelLibrary.WMI
             string screenHeight = null;
             string screenWidth = null;
             string status = null;
-            string StringBuilder = string.Empty;
+            System.Text.StringBuilder sb = new();
             if (m[args[0].ToString()] != null)
             {
                 caption = m[args[0].ToString()].ToString();
-                StringBuilder += (caption);
+                sb.Append(caption);
                 int a = 25 - caption.Length;
                 for (int i = 0; i < a; i++)
                 {
-                    StringBuilder += (" ");
+                    sb.Append(" ");
                 }
             }
 
             if (m[args[1].ToString()] != null)
             {
                 deviceID = m[args[1].ToString()].ToString();
-                StringBuilder += (deviceID);
+                sb.Append(deviceID);
                 int a = 25 - deviceID.Length;
                 for (int i = 0; i < a; i++)
                 {
-                    StringBuilder += (" ");
+                    sb.Append(" ");
                 }
             }
 
             if (m[args[2].ToString()] != null)
             {
                 screenHeight = m[args[2].ToString()].ToString();
-                StringBuilder += (screenHeight);
+                sb.Append(screenHeight);
                 int a = 6 - screenHeight.Length;
                 for (int i = 0; i < a; i++)
                 {
-                    StringBuilder += (" ");
+                    sb.Append(" ");
                 }
             }
 
             if (m[args[3].ToString()] != null)
             {
                 screenWidth = m[args[3].ToString()].ToString();
-                StringBuilder += (screenWidth);
+                sb.Append(screenWidth);
                 int a = 6 - screenWidth.Length;
                 for (int i = 0; i < a; i++)
                 {
-                    StringBuilder += (" ");
+                    sb.Append(" ");
                 }
             }
 
             if (m[args[4].ToString()] != null)
             {
                 status = m[args[4].ToString()].ToString();
-                StringBuilder += (status);
+                sb.Append(status);
             }
-            return StringBuilder;
+            return sb.ToString();
         }
 
         private static string Disk(object[] args, ManagementObject m)
@@ -573,57 +564,57 @@ namespace PuzzelLibrary.WMI
             string filesystem = null;
             string freespace = null;
             string size = null;
-            string StringBuilder = string.Empty;
+            System.Text.StringBuilder sb = new();
 
             if (m[args[0].ToString()] != null)
             {
                 name = m[args[0].ToString()].ToString();
-                StringBuilder += (name);
+                sb.Append(name);
                 int a = 8 - name.Length;
                 for (int i = 0; i < a; i++)
                 {
-                    StringBuilder += (" ");
+                    sb.Append(" ");
                 }
             }
 
             if (m[args[1].ToString()] != null)
             {
                 description = m[args[1].ToString()].ToString();
-                StringBuilder += (description);
+                sb.Append(description);
                 if (description.Length != 22)
                 {
                     int a = 22 - description.Length;
                     for (int i = 0; i < a; i++)
-                        StringBuilder += (" ");
+                        sb.Append(" ");
                 }
             }
             else
             {
                 description = "-";
-                StringBuilder += (description);
+                sb.Append(description);
                 int a = 22 - description.Length;
                 for (int i = 0; i < a; i++)
-                    StringBuilder += (" ");
+                    sb.Append(" ");
             }
 
             if (m[args[2].ToString()] != null)
             {
                 filesystem = m[args[2].ToString()].ToString();
-                StringBuilder += (filesystem);
+                sb.Append(filesystem);
                 if (filesystem.Length != 16)
                 {
                     int a = 16 - filesystem.Length;
                     for (int i = 0; i < a; i++)
-                        StringBuilder += (" ");
+                        sb.Append(" ");
                 }
             }
             else
             {
                 filesystem = "-";
-                StringBuilder += (filesystem);
+                sb.Append(filesystem);
                 int a = 16 - filesystem.Length;
                 for (int i = 0; i < a; i++)
-                    StringBuilder += (" ");
+                    sb.Append(" ");
             }
 
             if (m[args[3].ToString()] != null)
@@ -631,21 +622,22 @@ namespace PuzzelLibrary.WMI
                 freespace = m[args[3].ToString()].ToString();
                 UInt64 b = ((UInt64)m[args[3].ToString()]) / 1024 / 1024 / 1024;
                 freespace += " (" + b.ToString() + "GB)";
-                StringBuilder += (freespace);
+                sb.Append(freespace);
                 if (freespace.Length < 23)
                 {
                     int a = 23 - freespace.Length;
                     for (int i = 0; i < a; i++)
-                        StringBuilder += (" ");
+                        sb.Append(" ");
                 }
 
             }
             else
             {
-                freespace = "-"; StringBuilder += (freespace);
+                freespace = "-";
+                sb.Append(freespace);
                 int a = 23 - freespace.Length;
                 for (int i = 0; i < a; i++)
-                    StringBuilder += (" ");
+                    sb.Append(" ");
             }
 
             if (m["size"] != null)
@@ -653,135 +645,131 @@ namespace PuzzelLibrary.WMI
                 size = m["size"].ToString();
                 UInt64 b = ((UInt64)m["size"]) / 1024 / 1024 / 1024;
                 size += " (" + b.ToString() + "GB)";
-                StringBuilder += (size);
+                sb.Append(size);
             }
-            else { size = "-"; StringBuilder += (size); }
+            else { size = "-"; sb.Append(size); }
 
-            StringBuilder += ("\n");
-            return StringBuilder;
+            sb.Append("\n");
+            return sb.ToString();
         }
 
         private static string BiosInfo(object[] args, ManagementObject m)
         {
             string manufacturer = null;
             string smbiosVersion = null;
-            string releaseDate = null;
-            string StringBuilder = string.Empty;
+            System.Text.StringBuilder sb = new();
 
-            StringBuilder += "Producent                Wersja Bios      Data wydania\n";
+            sb.Append("Producent                Wersja Bios      Data wydania\n");
 
             if (m[args[0].ToString()] != null)
             {
                 manufacturer = m[args[0].ToString()].ToString();
-                StringBuilder += (manufacturer);
+                sb.Append(manufacturer);
                 int a = "Producent".Length + 16 - manufacturer.Length;
                 for (int i = 0; i < a; i++)
                 {
-                    StringBuilder += (" ");
+                    sb.Append(" ");
                 }
             }
 
             if (m[args[1].ToString()] != null)
             {
                 smbiosVersion = m[args[2].ToString()].ToString();
-                StringBuilder += (smbiosVersion);
+                sb.Append(smbiosVersion);
                 int a = "Wersja SMBios".Length + 3 - smbiosVersion.Length;
                 for (int i = 0; i < a; i++)
                 {
-                    StringBuilder += (" ");
+                    sb.Append(" ");
                 }
             }
 
             if (m[args[2].ToString()] != null)
             {
-                releaseDate = m[args[3].ToString()].ToString();
-                StringBuilder += (releaseDate.Remove(8, releaseDate.Length - 8));
+                string releaseDate = m[args[3].ToString()].ToString();
+                sb.Append(releaseDate.Remove(8, releaseDate.Length - 8));
             }
-            return StringBuilder;
+            return sb.ToString();
         }
 
-        private static string osInfo(object[] args, ManagementObject m)
+        private static string OsInfo(object[] args, ManagementObject m)
         {
-            string caption = null;
-            string csdversion = null;
-            string osarchitecture = null;
-            string version = null;
-            string StringBuilder = string.Empty;
+            System.Text.StringBuilder sb = new();
 
             if (m[args[0].ToString()] != null)
             {
-                caption = m[args[0].ToString()].ToString();
-                StringBuilder += (caption);
+                string caption = m[args[0].ToString()].ToString();
+                sb.Append(caption);
                 int a = 44 - caption.Length;
                 for (int i = 0; i < a; i++)
                 {
-                    StringBuilder += (" ");
+                    sb.Append(" ");
                 }
             }
 
+            string csdversion;
             if (m[args[1].ToString()] != null)
             {
                 csdversion = m[args[1].ToString()].ToString();
-                StringBuilder += (csdversion);
+                sb.Append(csdversion);
                 if (csdversion.Length != 22)
                 {
-                    StringBuilder += ("  ");
+                    sb.Append("  ");
                 }
             }
             else
             {
                 csdversion = "-";
-                StringBuilder += (csdversion);
-                StringBuilder += ("  ");
+                sb.Append(csdversion);
+                sb.Append("  ");
             }
 
             if (m[args[2].ToString()] != null)
             {
-                osarchitecture = m[args[2].ToString()].ToString();
-                StringBuilder += (osarchitecture);
+                string osarchitecture = m[args[2].ToString()].ToString();
+                sb.Append(osarchitecture);
                 if (osarchitecture.Length != 16)
                 {
-                    StringBuilder += ("  ");
+                    sb.Append("  ");
                 }
             }
 
             if (m[args[3].ToString()] != null)
             {
-                version = m[args[3].ToString()].ToString();
-                StringBuilder += (version);
+                string version = m[args[3].ToString()].ToString();
+                sb.Append(version);
                 if (version.Length < 23)
                 {
-                    StringBuilder += (" ");
+                    sb.Append(" ");
                 }
             }
-            StringBuilder += ("\n");
-            return StringBuilder;
+            sb.Append("\n");
+            return sb.ToString();
         }
 
         private static string NetworkResources(object[] args, ManagementObject m)
         {
             string name;
-            string StringBuilder = string.Empty;
+            System.Text.StringBuilder sb = new();
             if (m[args[0].ToString()] != null)
             {
                 name = m[args[0].ToString()].ToString();
-                StringBuilder += (name);
+                sb.Append(name);
                 if (name.Length <= 9)
                 {
                     int a = 9 - name.Length;
                     for (int i = 0; i < a; i++)
-                        StringBuilder += (" ");
+                        sb.Append(" ");
                 }
             }
             else
             {
                 name = "-";
-                StringBuilder += (name);
+                sb.Append(name);
                 if (name.Length <= 9)
                 {
                     int a = 9 - name.Length;
                     for (int i = 0; i < a; i++)
-                        StringBuilder += (" ");
+                        sb.Append(" ");
                 }
             }
 
@@ -789,23 +777,23 @@ namespace PuzzelLibrary.WMI
             if (m[args[1].ToString()] != null)
             {
                 Path = m[args[1].ToString()].ToString();
-                StringBuilder += (Path);
+                sb.Append(Path);
                 if (Path.Length != 13)
                 {
                     int a = 13 - Path.Length;
                     for (int i = 0; i < a; i++)
-                        StringBuilder += (" ");
+                        sb.Append(" ");
                 }
             }
             else
             {
                 Path = "-";
-                StringBuilder += (Path);
+                sb.Append(Path);
                 if (Path.Length != 13)
                 {
                     int a = 13 - Path.Length;
                     for (int i = 0; i < a; i++)
-                        StringBuilder += (" ");
+                        sb.Append(" ");
                 }
             }
             if (args.Length > 2)
@@ -814,56 +802,53 @@ namespace PuzzelLibrary.WMI
                 if (m[args[2].ToString()] != null)
                 {
                     description = m[args[2].ToString()].ToString();
-                    StringBuilder += (description);
+                    sb.Append(description);
                 }
                 else
                 {
                     description = "-";
-                    StringBuilder += (description);
+                    sb.Append(description);
                 }
-                StringBuilder += ("\n");
+                sb.Append("\n");
             }
-            return StringBuilder;
+            return sb.ToString();
         }
 
         private static string InstalledPrograms(object[] args, ManagementObject m)
         {
-            string nazwa = null;
-            string wersja = null;
-            string data = null;
             int firstoptimvalue = 80;
             int secondoptimvalue = 31;
-            nazwa = m[args[0].ToString()].ToString();
-            data = m[args[1].ToString()].ToString();
-            wersja = m[args[2].ToString()].ToString();
-            string StringBuilder = string.Empty;
+            string nazwa = m[args[0].ToString()].ToString();
+            string data = m[args[1].ToString()].ToString();
+            string wersja = m[args[2].ToString()].ToString();
+            System.Text.StringBuilder sb = new();
 
             int firstObjLength = nazwa.Length;
             int secondObjLenght = wersja.Length;
             int thirdObjLenght = data.Length;
-            int addspace = 0;
             if (firstObjLength > 1)
                 if (!nazwa.Contains("for Microsoft") && !nazwa.Contains("(KB"))
                 {
-                    StringBuilder += nazwa + " ";
+                    int addspace = 0;
+                    sb.Append(nazwa + " ");
                     if (firstObjLength < firstoptimvalue)
                     {
                         addspace = firstoptimvalue - firstObjLength;
                         for (int i = 0; i < addspace; i++)
-                            StringBuilder += " ";
+                            sb.Append(" ");
                     }
                     else
                     {
-                        StringBuilder += "   ";
+                        sb.Append("   ");
                     }
                     if (secondObjLenght > 1 && thirdObjLenght > 1)
                     {
-                        StringBuilder += data + " ";
+                        sb.Append(data + " ");
                         if (firstoptimvalue > firstObjLength)
                         {
                             addspace = secondoptimvalue - secondObjLenght;
                             for (int i = 0; i < addspace; i++)
-                                StringBuilder += " ";
+                                sb.Append(" ");
                         }
                         if (firstoptimvalue < firstObjLength)
                         {
@@ -871,9 +856,9 @@ namespace PuzzelLibrary.WMI
                             {
                                 addspace = firstoptimvalue + secondoptimvalue - firstObjLength - secondObjLenght - 3;
                                 for (int i = 0; i < addspace; i++)
-                                    StringBuilder += " ";
+                                    sb.Append(" ");
                             }
-                            else StringBuilder += "  ";
+                            else sb.Append("  ");
                         }
                     }
                     if (secondObjLenght < 4 && thirdObjLenght > 1)
@@ -882,70 +867,70 @@ namespace PuzzelLibrary.WMI
                             addspace = secondoptimvalue;
                         else addspace = firstoptimvalue + secondoptimvalue - firstObjLength - 3;
                         for (int i = 0; i < addspace; i++)
-                            StringBuilder += " ";
+                            sb.Append(" ");
                     }
                     if (secondObjLenght < 1 && thirdObjLenght < 1)
                     {
-                        StringBuilder += "\n";
+                        sb.Append("\n");
                     }
                     if (wersja.Length < 2)
                         wersja = "";
-                    StringBuilder += wersja + " " + "\n";
+                    sb.Append(wersja + " " + "\n");
                 }
-            return StringBuilder;
+            return sb.ToString();
         }
 
         private static string EnvironmentPath(object[] args, ManagementObject m)
         {
             string name;
             string variablevalue;
-            string StringBuilder = string.Empty;
+            System.Text.StringBuilder sb = new();
             if (m[args[0].ToString()] != null)
             {
                 name = m[args[0].ToString()].ToString();
-                StringBuilder += (name);
+                sb.Append(name);
                 if (name.Length <= 25)
                 {
                     int a = 25 - name.Length;
                     for (int i = 0; i < a; i++)
-                        StringBuilder += (" ");
+                        sb.Append(" ");
                 }
             }
 
             if (m[args[1].ToString()] != null)
             {
                 variablevalue = m[args[1].ToString()].ToString();
-                StringBuilder += (variablevalue);
+                sb.Append(variablevalue);
 
             }
-            StringBuilder += ("\n");
-            return StringBuilder;
+            sb.Append("\n");
+            return sb.ToString();
         }
 
         private static string AutoStart(object[] args, ManagementObject m)
         {
             string caption = null;
-            string StringBuilder = string.Empty;
+            System.Text.StringBuilder sb = new();
             if (m[args[0].ToString()] != null)
             {
                 caption = m[args[0].ToString()].ToString();
-                StringBuilder += (caption);
+                sb.Append(caption);
                 if (caption.Length <= 25)
                 {
                     int a = 25 - caption.Length;
                     for (int i = 0; i < a; i++)
-                        StringBuilder += (" ");
+                        sb.Append(" ");
                 }
             }
             else
             {
                 caption = "-";
-                StringBuilder += (caption);
+                sb.Append(caption);
                 if (caption.Length <= 25)
                 {
                     int a = 25 - caption.Length;
                     for (int i = 0; i < a; i++)
-                        StringBuilder += (" ");
+                        sb.Append(" ");
                 }
             }
 
@@ -953,11 +938,11 @@ namespace PuzzelLibrary.WMI
             if (m[args[1].ToString()] != null)
             {
                 command = m[args[1].ToString()].ToString();
-                StringBuilder += (command);
+                sb.Append(command);
             }
-            else { command = "-"; StringBuilder += (command); }
-            StringBuilder += ("\n");
-            return StringBuilder;
+            else { command = "-"; sb.Append(command); }
+            sb.Append("\n");
+            return sb.ToString();
         }
 
         private static string MemoryTotal(object[] args, ref ulong TotalCapacity, ref int warunek1, ManagementObjectCollection queryCollection, ManagementObject m)
@@ -972,15 +957,14 @@ namespace PuzzelLibrary.WMI
 
         private static string BootTime(object[] args, ManagementObject m)
         {
-            string boottime = null;
-            boottime = m[args[0].ToString()].ToString();
+            string boottime = m[args[0].ToString()].ToString();
             string year = null;
             string month = null;
             string day = null;
             string hour = null;
             string minute = null;
             string second = null;
-            string StringBuilder = string.Empty;
+            System.Text.StringBuilder sb = new();
             for (int i = 0; i < 4; i++)
                 year += boottime[i];
             for (int i = 4; i < 6; i++)
@@ -1002,32 +986,32 @@ namespace PuzzelLibrary.WMI
             string[] minuteArr = { " minuta ", " minuty ", " minut " };
             string[] secondArr = { " sekunda ", "sekundy", " sekund" };
             if (bootTime.Days == 1)
-                StringBuilder += (bootTime.Days + " " + dayArr[0] + ",");
+                sb.Append(bootTime.Days + " " + dayArr[0] + ",");
             if (bootTime.Days == 0 | bootTime.Days > 1)
-                StringBuilder += (bootTime.Days + " " + dayArr[1] + ",");
+                sb.Append(bootTime.Days + " " + dayArr[1] + ",");
 
             if (bootTime.Hours == 0 | bootTime.Hours > 4)
-                StringBuilder += (bootTime.Hours + " " + hourArr[2] + ",");
+                sb.Append(bootTime.Hours + " " + hourArr[2] + ",");
             if (bootTime.Hours == 1)
-                StringBuilder += (bootTime.Hours + " " + hourArr[0] + ",");
+                sb.Append(bootTime.Hours + " " + hourArr[0] + ",");
             if (bootTime.Hours > 1 && bootTime.Hours < 5)
-                StringBuilder += (bootTime.Hours + " " + hourArr[1] + ",");
+                sb.Append(bootTime.Hours + " " + hourArr[1] + ",");
 
             if (bootTime.Minutes == 0 | bootTime.Minutes > 4)
-                StringBuilder += (bootTime.Minutes + " " + minuteArr[2] + ",");
+                sb.Append(bootTime.Minutes + " " + minuteArr[2] + ",");
             if (bootTime.Minutes == 1)
-                StringBuilder += (bootTime.Minutes + " " + minuteArr[0] + ",");
+                sb.Append(bootTime.Minutes + " " + minuteArr[0] + ",");
             if (bootTime.Minutes > 1 && bootTime.Minutes < 5)
-                StringBuilder += (bootTime.Minutes + " " + minuteArr[1] + ",");
+                sb.Append(bootTime.Minutes + " " + minuteArr[1] + ",");
 
             if (bootTime.Seconds == 0 | bootTime.Seconds > 4)
-                StringBuilder += (bootTime.Seconds + " " + secondArr[2]);
+                sb.Append(bootTime.Seconds + " " + secondArr[2]);
             if (bootTime.Seconds == 1)
-                StringBuilder += (bootTime.Seconds + " " + secondArr[0]);
+                sb.Append(bootTime.Seconds + " " + secondArr[0]);
             if (bootTime.Seconds > 1 && bootTime.Seconds < 5)
-                StringBuilder += (bootTime.Seconds + " " + secondArr[1]);
-            StringBuilder += ("\n");
-            return StringBuilder;
+                sb.Append(bootTime.Seconds + " " + secondArr[1]);
+            sb.Append("\n");
+            return sb.ToString();
         }
     }
 }
