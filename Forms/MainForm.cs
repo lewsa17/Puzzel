@@ -1179,9 +1179,10 @@ namespace Forms
         private void RemotePowerShellCustomAuth_Click(object sender, EventArgs e)
         {
             string psPath = Path.Combine(Environment.SystemDirectory, @"WindowsPowerShell\v1.0\powershell.exe");
+            var userName = WindowsIdentity.GetCurrent().Name;
             if (HostIsAvailable(HostName()))
             {
-                PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess(psPath, "-noexit Enter-PSSession -ComputerName " + HostName() + " -Credential DOMENA\\login");
+                PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess(psPath, "-noexit Enter-PSSession -ComputerName " + HostName() + " -Credential " + userName);
             }
         }
         private void Profilsieciowy(object sender, EventArgs e)
