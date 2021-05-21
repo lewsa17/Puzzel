@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Text;
+//using System.Threading.Tasks;
 using System.IO;
 using PuzzelLibrary.Settings;
-using LibGit2Sharp;
+//using LibGit2Sharp;
 
 namespace PuzzelLibrary.Update
 {
@@ -17,7 +17,7 @@ namespace PuzzelLibrary.Update
         private string CurrentVersion;
         private bool iDFSet { get => Values.LocalUpdateCheck; }
         private string intranetDeploymentFolder { get => Values.LocalUpdatePath; }
-        private List<Commit> commits;
+        //private List<Commit> commits;
 
         private TimeSpan CurrentAgeOfVersion() => currentDate - newDate;
         private readonly string localFolder = Path.Combine(Path.GetTempPath(), "remoteRepo");
@@ -25,16 +25,16 @@ namespace PuzzelLibrary.Update
         private string currentCommits { get; set; }
         private DateTime currentDate { get; set; }
 
-        private async Task<List<Commit>> GetCommits()
-        {
-            const string remote = "https://github.com/Lewsa17/Puzzel.git";
-            if (!File.Exists(localFolder))
-                Repository.Clone(remote, localFolder);
-            List<Commit> listOfCommits;
-            using (var repo = new Repository(localFolder))
-                listOfCommits = await Task.Run(() => repo.Commits.ToList());
-            return listOfCommits;
-        }
+        //private async Task<List<Commit>> GetCommits()
+        //{
+        //    const string remote = "https://github.com/Lewsa17/Puzzel.git";
+        //    if (!File.Exists(localFolder))
+        //        Repository.Clone(remote, localFolder);
+        //    List<Commit> listOfCommits;
+        //    using (var repo = new Repository(localFolder))
+        //        listOfCommits = await Task.Run(() => repo.Commits.ToList());
+        //    return listOfCommits;
+        //}
         private string UpdatingString()
         {
             return string.Format(
@@ -58,11 +58,11 @@ namespace PuzzelLibrary.Update
         {
             if (iDFSet)
                 GetVersionFromIDF();
-            else
-            {
-                var task = Task.Run(() => GetCommits()).GetAwaiter().GetResult();
-                commits = task;
-            }
+            //else
+            //{
+            //    var task = Task.Run(() => GetCommits()).GetAwaiter().GetResult();
+            //    commits = task;
+            //}
 
             CurrentVersion = Version.Major + "." + Version.Minor;
             currentDate = Version.BuildDate;
@@ -127,7 +127,7 @@ namespace PuzzelLibrary.Update
             {
                 if (iDFSet)
                     return propertyVersion[3].GetValue(null).ToString();
-                return commits[0].Sha.Substring(0, 8);
+                return "";//commits[0].Sha.Substring(0, 8);
             }
         }
         private string newcommits
@@ -136,7 +136,7 @@ namespace PuzzelLibrary.Update
             {
                 if (iDFSet)
                     return propertyVersion[2].GetValue(null).ToString();
-                return commits.Count.ToString();
+                return "";// commits.Count.ToString();
             }
         }
         private DateTime newDate
@@ -145,7 +145,7 @@ namespace PuzzelLibrary.Update
             {
                 if (iDFSet)
                     return (DateTime)propertyVersion[4].GetValue(null);
-                return commits[0].Committer.When.DateTime;
+                return DateTime.MinValue;//commits[0].Committer.When.DateTime;
             }
         }
     }
