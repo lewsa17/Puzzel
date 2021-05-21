@@ -73,10 +73,11 @@ namespace Updater
             {
                 var fileName = Path.GetFileName(fileNameWithPath);
                 var targetPath = Application.StartupPath;
-                foreach (var process in Process.GetProcesses())
-                {
-                    WaitForKillingApp(fileNameWithPath, fileName, process);
-                }
+                //foreach (var process in Process.GetProcesses())
+                //{
+                //    WaitForKillingApp(fileNameWithPath, fileName, process);
+                //}
+                Console.WriteLine("Copy " + fileNameWithPath + "to " + targetPath + "\\" + fileName);
                 File.Copy(fileNameWithPath, targetPath + "\\" + fileName, true);
             }
         }
@@ -94,6 +95,7 @@ namespace Updater
             string _waitLabel = WaitLabel.Text;
             var progressBar = Task.Run(() =>
             {
+                WaitLabel.Invoke(new MethodInvoker(() => WaitLabel.Text = "Proszę czekać"));
                 ProgressLoading.Invoke(new MethodInvoker(() => ProgressLoading.Value = 1));
                 PercentLabel.Invoke(new MethodInvoker(() => PercentLabel.Text = "25%"));
                 if (!IDFSet)
@@ -110,38 +112,18 @@ namespace Updater
 
                 ProgressLoading.Invoke(new MethodInvoker(() => ProgressLoading.Value = 4));
                 PercentLabel.Invoke(new MethodInvoker(() => PercentLabel.Text = "100%"));
-            });
-
-            var progressTitle = Task.Run(() =>
-            {
-                while (progressBar.IsCompletedSuccessfully)
-                    for (int i = 0; i < 6; i++)
-                    {
-                        WaitLabel.Invoke(new MethodInvoker(() => WaitLabel.Text += "."));
-                        if (i == 5)
-                        {
-                            WaitLabel.Invoke(new MethodInvoker(() => WaitLabel.Text = "Proszę czekać"));
-                        }
-                        Thread.Sleep(400);
-                    }
-            });
-            progressTitle.ContinueWith(last =>
-            {
-                Thread.Sleep(500);
                 WaitLabel.Invoke(new MethodInvoker(() => WaitLabel.Text = "Aktualizacja zakończona"));
-                cancelOKButton.Invoke(new MethodInvoker(() => cancelOKButton.Text = "OK"));
-                last.ContinueWith(lastLast => 
+                if (MessageBox.Show("Czy chcesz uruchomić ponownie aplikację?", "Uruchamianie aplikacji", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
                 {
-                    if (MessageBox.Show("Czy chcesz uruchomić ponownie aplikację?", "Uruchamianie aplikacji", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
-                    {
-                        string path = Path.Combine(Directory.GetCurrentDirectory(), "Puzzel.exe");
-                        Process.Start(path);
-                        this.Close();
-                    }
-
-                });
+                    string path = Path.Combine(Directory.GetCurrentDirectory(), "Puzzel.exe");
+                    Process.Start(path);
+                    this.Close();
+                }
+                else
+                    Invoke(new MethodInvoker(() => this.Close()));
             });
         }
+    
         private void CleanUpAfterUpdate()
         {
             RemoveLocalRepo(localFolder+"\\Update");
