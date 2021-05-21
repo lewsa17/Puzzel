@@ -622,6 +622,7 @@ namespace Forms
         {
             comboBoxFindedSessions.Items.Clear();
             comboBoxFindedSessions.Text = string.Empty;
+            ReplaceRichTextBox(null);
             Task th = new(() =>
             {
                 try
