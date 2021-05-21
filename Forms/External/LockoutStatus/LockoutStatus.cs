@@ -104,7 +104,7 @@ namespace Forms.External
         private void MenuItemPasswordStatus_Click(object sender, EventArgs e)
         {
             var pd = new PuzzelLibrary.AD.User.Information.PasswordDetails();
-            pd.GetUserPasswordDetails(Username, PuzzelLibrary.AD.Connection.Credentials.DomainName);
+            pd.GetUserPasswordDetails(Username, domainAddress);
             System.Text.StringBuilder messagebox = new();
             DateTime pwdLastSet = pd.lastPasswordSet;
             DateTime expirePwd = pd.passwordExpiryTime;
