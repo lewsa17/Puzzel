@@ -8,6 +8,9 @@ namespace Settings
         public SettingsForm(string ApplicationName)
         {
             InitializeComponent();
+            if (Environment.OSVersion.Version.Major == 10 ||
+                Environment.OSVersion.Version.Major == 6 && Environment.OSVersion.Version.Minor > 1) 
+                this.DescriptionBox.BackColor = System.Drawing.SystemColors.ControlLightLight;
             OnLoad();
             if (ApplicationName != string.Empty)
                 this.Text = ApplicationName + " - " + this.Text;

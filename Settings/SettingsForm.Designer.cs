@@ -32,6 +32,8 @@
             this.CloseButton = new System.Windows.Forms.Button();
             this.TabSettings = new System.Windows.Forms.TabControl();
             this.GeneralPage = new System.Windows.Forms.TabPage();
+            this.ComputerInputBox = new System.Windows.Forms.GroupBox();
+            this.ComputerInputCheck = new System.Windows.Forms.CheckBox();
             this.CustomValueBox = new System.Windows.Forms.GroupBox();
             this.UserMaxLogs = new System.Windows.Forms.Label();
             this.CompMaxLogs = new System.Windows.Forms.Label();
@@ -79,10 +81,9 @@
             this.DescriptionBox = new System.Windows.Forms.GroupBox();
             this.DescriptionLabel = new System.Windows.Forms.Label();
             this.RestoreDefaultButton = new System.Windows.Forms.Button();
-            this.ComputerInputBox = new System.Windows.Forms.GroupBox();
-            this.ComputerInputCheck = new System.Windows.Forms.CheckBox();
             this.TabSettings.SuspendLayout();
             this.GeneralPage.SuspendLayout();
+            this.ComputerInputBox.SuspendLayout();
             this.CustomValueBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumbersOfUserLogs)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumbersOfCompLogs)).BeginInit();
@@ -102,7 +103,6 @@
             this.Other.SuspendLayout();
             this.AutomaticallyAllowBox.SuspendLayout();
             this.DescriptionBox.SuspendLayout();
-            this.ComputerInputBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // SaveButton
@@ -151,6 +151,29 @@
             this.GeneralPage.Text = "Ogólne";
             this.GeneralPage.UseVisualStyleBackColor = true;
             // 
+            // ComputerInputBox
+            // 
+            this.ComputerInputBox.Controls.Add(this.ComputerInputCheck);
+            this.ComputerInputBox.Location = new System.Drawing.Point(20, 160);
+            this.ComputerInputBox.Name = "ComputerInputBox";
+            this.ComputerInputBox.Size = new System.Drawing.Size(209, 53);
+            this.ComputerInputBox.TabIndex = 1;
+            this.ComputerInputBox.TabStop = false;
+            this.ComputerInputBox.Text = "Podstawianie nazwy komputera:";
+            // 
+            // ComputerInputCheck
+            // 
+            this.ComputerInputCheck.AutoSize = true;
+            this.ComputerInputCheck.Location = new System.Drawing.Point(6, 23);
+            this.ComputerInputCheck.Name = "ComputerInputCheck";
+            this.ComputerInputCheck.Size = new System.Drawing.Size(83, 19);
+            this.ComputerInputCheck.TabIndex = 0;
+            this.ComputerInputCheck.Text = "Wyłączone";
+            this.ComputerInputCheck.UseVisualStyleBackColor = true;
+            this.ComputerInputCheck.CheckedChanged += new System.EventHandler(this.ChangeChecked);
+            this.ComputerInputCheck.MouseEnter += new System.EventHandler(this.MouseOn);
+            this.ComputerInputCheck.MouseLeave += new System.EventHandler(this.MouseOut);
+            // 
             // CustomValueBox
             // 
             this.CustomValueBox.Controls.Add(this.UserMaxLogs);
@@ -159,7 +182,7 @@
             this.CustomValueBox.Controls.Add(this.NumbersOfCompLogs);
             this.CustomValueBox.Location = new System.Drawing.Point(20, 13);
             this.CustomValueBox.Name = "CustomValueBox";
-            this.CustomValueBox.Size = new System.Drawing.Size(198, 82);
+            this.CustomValueBox.Size = new System.Drawing.Size(209, 82);
             this.CustomValueBox.TabIndex = 0;
             this.CustomValueBox.TabStop = false;
             this.CustomValueBox.Text = "Niestandardowe wartości:";
@@ -237,7 +260,7 @@
             this.HistoryLogBox.Controls.Add(this.HistoryLogCheck);
             this.HistoryLogBox.Location = new System.Drawing.Point(20, 101);
             this.HistoryLogBox.Name = "HistoryLogBox";
-            this.HistoryLogBox.Size = new System.Drawing.Size(198, 52);
+            this.HistoryLogBox.Size = new System.Drawing.Size(209, 52);
             this.HistoryLogBox.TabIndex = 0;
             this.HistoryLogBox.TabStop = false;
             this.HistoryLogBox.Text = "Historia logów";
@@ -257,7 +280,6 @@
             // 
             // SessionTab
             // 
-            this.SessionTab.BackColor = System.Drawing.Color.Transparent;
             this.SessionTab.Controls.Add(this.SessionShortcutBox);
             this.SessionTab.Controls.Add(this.CustomSourceBox);
             this.SessionTab.Location = new System.Drawing.Point(4, 24);
@@ -342,7 +364,6 @@
             // 
             // UpdaterTab
             // 
-            this.UpdaterTab.BackColor = System.Drawing.Color.Transparent;
             this.UpdaterTab.Controls.Add(this.localUpdateBox);
             this.UpdaterTab.Controls.Add(this.AutoStartUpdateBox);
             this.UpdaterTab.Location = new System.Drawing.Point(4, 24);
@@ -691,7 +712,6 @@
             // 
             // DescriptionBox
             // 
-            this.DescriptionBox.BackColor = System.Drawing.Color.Transparent;
             this.DescriptionBox.Controls.Add(this.DescriptionLabel);
             this.DescriptionBox.Location = new System.Drawing.Point(19, 303);
             this.DescriptionBox.Name = "DescriptionBox";
@@ -719,34 +739,10 @@
             this.RestoreDefaultButton.UseVisualStyleBackColor = true;
             this.RestoreDefaultButton.Click += new System.EventHandler(this.RestoreDefaultSettings);
             // 
-            // ComputerInputBox
-            // 
-            this.ComputerInputBox.Controls.Add(this.ComputerInputCheck);
-            this.ComputerInputBox.Location = new System.Drawing.Point(20, 160);
-            this.ComputerInputBox.Name = "ComputerInputBox";
-            this.ComputerInputBox.Size = new System.Drawing.Size(200, 53);
-            this.ComputerInputBox.TabIndex = 1;
-            this.ComputerInputBox.TabStop = false;
-            this.ComputerInputBox.Text = "Podstawianie nazwy komputera:";
-            // 
-            // ComputerInputCheck
-            // 
-            this.ComputerInputCheck.AutoSize = true;
-            this.ComputerInputCheck.Location = new System.Drawing.Point(6, 23);
-            this.ComputerInputCheck.Name = "ComputerInputCheck";
-            this.ComputerInputCheck.Size = new System.Drawing.Size(83, 19);
-            this.ComputerInputCheck.TabIndex = 0;
-            this.ComputerInputCheck.Text = "Wyłączone";
-            this.ComputerInputCheck.UseVisualStyleBackColor = true;
-            this.ComputerInputCheck.CheckedChanged += new System.EventHandler(this.ChangeChecked);
-            this.ComputerInputCheck.MouseEnter += new System.EventHandler(this.MouseOn);
-            this.ComputerInputCheck.MouseLeave += new System.EventHandler(this.MouseOut);
-            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.ClientSize = new System.Drawing.Size(799, 450);
             this.Controls.Add(this.CloseButton);
             this.Controls.Add(this.DescriptionBox);
@@ -758,6 +754,8 @@
             this.Text = "Ustawienia";
             this.TabSettings.ResumeLayout(false);
             this.GeneralPage.ResumeLayout(false);
+            this.ComputerInputBox.ResumeLayout(false);
+            this.ComputerInputBox.PerformLayout();
             this.CustomValueBox.ResumeLayout(false);
             this.CustomValueBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumbersOfUserLogs)).EndInit();
@@ -790,8 +788,6 @@
             this.AutomaticallyAllowBox.PerformLayout();
             this.DescriptionBox.ResumeLayout(false);
             this.DescriptionBox.PerformLayout();
-            this.ComputerInputBox.ResumeLayout(false);
-            this.ComputerInputBox.PerformLayout();
             this.ResumeLayout(false);
 
         }
