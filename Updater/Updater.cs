@@ -17,7 +17,7 @@ namespace Updater
             ProcessUpdating();
         }
 
-        private static string IntranetDeploymentFolder { get => GetValuesFromXml("Settings.xml", "LocalUpdatePath"); }
+        internal static string IntranetDeploymentFolder { get => GetValuesFromXml("Settings.xml", "LocalUpdatePath"); }
 
         private readonly string localFolder = Path.Combine(Path.GetTempPath(), "remoteRepo");
 
@@ -41,13 +41,12 @@ namespace Updater
             return value;
         }
 
-        private static bool IDFSet
+        internal static bool IDFSet
         {
             get
             {
-                if (string.IsNullOrEmpty(IntranetDeploymentFolder))
-                    return false;
-                return true;
+                bool ifSet = Convert.ToBoolean(GetValuesFromXml("Settings.xml", "LocalUpdateCheck"));
+                return ifSet;
             }
         }
 
