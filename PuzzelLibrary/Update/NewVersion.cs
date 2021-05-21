@@ -15,14 +15,14 @@ namespace PuzzelLibrary.Update
         {
         }
         private string CurrentVersion;
-        private bool iDFSet { get => Values.LocalUpdateCheck; }
+        private bool iDFSet { get => Values.LocalUpdateCheck && !string.IsNullOrEmpty(Values.LocalUpdatePath); }
         private string intranetDeploymentFolder { get => Values.LocalUpdatePath; }
         //private List<Commit> commits;
 
         private TimeSpan CurrentAgeOfVersion() => currentDate - newDate;
         private readonly string localFolder = Path.Combine(Path.GetTempPath(), "remoteRepo");
         private string currentShortSha { get; set; }
-        private string currentCommits { get; set; }
+        private int currentCommits { get; set; }
         private DateTime currentDate { get; set; }
 
         //private async Task<List<Commit>> GetCommits()
@@ -66,7 +66,7 @@ namespace PuzzelLibrary.Update
 
             CurrentVersion = Version.Major + "." + Version.Minor;
             currentDate = Version.BuildDate;
-            currentCommits = Version.Build.ToString();
+            currentCommits = Version.Build;
             currentShortSha = Version.Hash;
             bool newVersion  = CheckNewVersion();
             message = UpdatingString();
@@ -117,8 +117,8 @@ namespace PuzzelLibrary.Update
             get
             {
                 if (iDFSet)
-                    return "0." + propertyVersion[1].GetValue(null).ToString();
-                return string.Empty;
+                    return "0." + (int)propertyVersion[1].GetValue(null);
+                return 0.ToString();
             }
         }
         private string newShortSha
@@ -130,13 +130,13 @@ namespace PuzzelLibrary.Update
                 return "";//commits[0].Sha.Substring(0, 8);
             }
         }
-        private string newcommits
+        private int newcommits
         {
             get
             {
                 if (iDFSet)
-                    return propertyVersion[2].GetValue(null).ToString();
-                return "";// commits.Count.ToString();
+                    return (int)propertyVersion[2].GetValue(null);
+                return 0;// commits.Count.ToString();
             }
         }
         private DateTime newDate
