@@ -12,7 +12,7 @@ namespace Forms.External
             Username = username;
         }        
         public static string Username;
-        public static string domainAddress = null;
+        public string domainAddress = null;
 
         private void LockoutStatus_Load(object sender, EventArgs e)
         {
@@ -24,12 +24,18 @@ namespace Forms.External
         }
         private void MenuItemSelectUser_Click(object sender, EventArgs e)
         {
-            this.Text = "Lockout Status";
             LockoutStatusCustom custom = new();
             if (custom.ShowDialog() == DialogResult.OK)
             {
-                DeleteEntryRows();
-                AddEntry();
+                if (!string.IsNullOrEmpty(custom.Username))
+                {
+                    domainAddress = custom.domainAddress;
+                    Username = custom.Username;
+                    this.Text = Username;
+                    DeleteEntryRows();
+                    AddEntry();
+                }
+                else this.Text = "Lockout Status";
             }
         }
         public void AddEntry()

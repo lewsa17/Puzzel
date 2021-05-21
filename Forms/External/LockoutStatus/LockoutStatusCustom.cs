@@ -17,6 +17,8 @@ namespace Forms.External
             }
 
         }
+        internal string domainAddress;
+        internal string Username;
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
@@ -24,8 +26,8 @@ namespace Forms.External
         }
         private void btnOk_Click(object sender, EventArgs e)
         {
-            LockoutStatus.Username = textUserName.Text;
-            LockoutStatus.domainAddress = PuzzelLibrary.AD.Connection.Credentials.DomainName = textDomainName.Text;
+            Username = textUserName.Text;
+            domainAddress = PuzzelLibrary.AD.Connection.Credentials.DomainName = textDomainName.Text;
             if (alternateCredCheck.Checked)
             {
                 PuzzelLibrary.AD.Connection.Credentials.Domain = DomainText.Text;
