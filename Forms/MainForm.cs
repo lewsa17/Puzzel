@@ -1172,14 +1172,16 @@ namespace Forms
         }
         private void RemotePowerShell_Click(object sender, EventArgs e)
         {
+            string psPath = Path.Combine(Environment.SystemDirectory, @"WindowsPowerShell\v1.0\powershell.exe");
             if (HostIsAvailable(HostName()))
-                PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess("powershell", "-noexit Enter-PSSession -ComputerName " + HostName());
+                PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess(psPath, "-noexit Enter-PSSession -ComputerName " + HostName());
         }
         private void RemotePowerShellCustomAuth_Click(object sender, EventArgs e)
         {
+            string psPath = Path.Combine(Environment.SystemDirectory, @"WindowsPowerShell\v1.0\powershell.exe");
             if (HostIsAvailable(HostName()))
             {
-                PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess("powershell", "-noexit Enter-PSSession -ComputerName " + HostName() + " -Credential DOMENA\\login");
+                PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess(psPath, "-noexit Enter-PSSession -ComputerName " + HostName() + " -Credential DOMENA\\login");
             }
         }
         private void Profilsieciowy(object sender, EventArgs e)
@@ -1312,7 +1314,8 @@ namespace Forms
         }
         private void Powershell_Click(object sender, EventArgs e)
         {
-            PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess("powershell", "-noexit");
+            string psPath = Path.Combine(Environment.SystemDirectory, @"WindowsPowerShell\v1.0\powershell.exe");
+            PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess(psPath, "-noexit");
         }
         private void OpenSettings(object sender, EventArgs e)
         {
