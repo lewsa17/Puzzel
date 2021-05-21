@@ -36,7 +36,7 @@ namespace PuzzelLibrary.Terminal
             {
                 IPAddress = (session.ClientIPAddress.ToString());
             }
-            IPAddress = "Niedostępne";
+            else IPAddress = "Niedostępne";
             data.Append(IPAddress);
             for (int i = 0; i < "    IP klienta   ".Length - IPAddress.Length; i++)
                 data.Append(" ");
