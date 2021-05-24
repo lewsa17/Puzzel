@@ -104,6 +104,7 @@ namespace Forms
         }
         private bool NameIsValid(string Name)
         {
+            ReplaceRichTextBox(null);
             if (Name.Length > 2)
                 return true;
             else ReplaceRichTextBox("Za krótka nazwa");
@@ -1115,39 +1116,36 @@ namespace Forms
         private void LogoffSession(object sender, EventArgs e)
         {
             StartTime();
-            if (NameIsValid(comboBoxFindedSessions.Text))
+            string[] IDSessionServerName = null;
+            try
             {
-                string[] IDSessionServerName = null;
-                try
-                {
-                    if (comboBoxFindedSessions.Items.Count > 0)
-                        if (comboBoxFindedSessions.SelectedIndex >= 0)
-                        {
-                            int comboIndex = comboBoxFindedSessions.SelectedIndex;
-                            IDSessionServerName = comboBoxFindedSessions.Items[comboIndex].ToString().Split(' ');
-                            PuzzelLibrary.Terminal.Explorer.LogOffSession(new PuzzelLibrary.Terminal.Explorer().GetRemoteServer(IDSessionServerName[1]), Convert.ToInt16(IDSessionServerName[0]));
+                if (comboBoxFindedSessions.Items.Count > 0)
+                    if (comboBoxFindedSessions.SelectedIndex >= 0)
+                    {
+                        int comboIndex = comboBoxFindedSessions.SelectedIndex;
+                        IDSessionServerName = comboBoxFindedSessions.Items[comboIndex].ToString().Split(' ');
+                        PuzzelLibrary.Terminal.Explorer.LogOffSession(new PuzzelLibrary.Terminal.Explorer().GetRemoteServer(IDSessionServerName[1]), Convert.ToInt16(IDSessionServerName[0]));
 
-                            //czyszczenie linijki okna z sesją
-                            //oraz 3 linijki z pola tekstowego
-                            comboBoxFindedSessions.Text = "";
-                            comboBoxFindedSessions.Items.RemoveAt(comboIndex);
-                            int lines = richTextBox1.Lines.Length-1;
-                            var array = richTextBox1.Lines.ToList<string>();
-                            array.RemoveRange(comboIndex * 3 + 0, 3);
-                            richTextBox1.Lines = array.ToArray();
-                        }
-                        else ReplaceRichTextBox("Nie wybrano aktywnej sesji");
-                    else ReplaceRichTextBox("Nie ma żadnej aktywnej sesji");
-                }
-                catch (ArgumentOutOfRangeException)
-                {
-                    ReplaceRichTextBox("Nie wybrano żadnego terminala lub nie znalazł żadnej sesji\n");
-                    MessageBox.Show("Nie wybrano żadnego terminala lub nie znalazł żadnej sesji", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                catch (Win32Exception ex)
-                {
-                    PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, IDSessionServerName[1]);
-                }
+                        //czyszczenie linijki okna z sesją
+                        //oraz 3 linijki z pola tekstowego
+                        comboBoxFindedSessions.Text = "";
+                        comboBoxFindedSessions.Items.RemoveAt(comboIndex);
+                        int lines = richTextBox1.Lines.Length - 1;
+                        var array = richTextBox1.Lines.ToList<string>();
+                        array.RemoveRange(comboIndex * 3 + 0, 3);
+                        richTextBox1.Lines = array.ToArray();
+                    }
+                    else ReplaceRichTextBox("Nie wybrano aktywnej sesji");
+                else ReplaceRichTextBox("Nie ma żadnej aktywnej sesji");
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                ReplaceRichTextBox("Nie wybrano żadnego terminala lub nie znalazł żadnej sesji\n");
+                MessageBox.Show("Nie wybrano żadnego terminala lub nie znalazł żadnej sesji", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Win32Exception ex)
+            {
+                PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, IDSessionServerName[1]);
             }
             StopTime();
         }

@@ -35,6 +35,10 @@
       <HintPath>..\Forms\bin\Debug\net5.0-windows\System.DirectoryServices.AccountManagement.dll</HintPath>
       <Private>true</Private>
     </Reference>
+    <Reference Include="System.DirectoryServices.Protocols">
+      <HintPath>..\Forms\bin\Debug\net5.0-windows\System.DirectoryServices.Protocols.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
     <Reference Include="System.Management">
       <HintPath>..\Forms\bin\Debug\net5.0-windows\System.Management.dll</HintPath>
       <Private>true</Private>
