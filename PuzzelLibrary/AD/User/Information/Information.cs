@@ -66,7 +66,11 @@ namespace PuzzelLibrary.AD.User
                     if (!oPrincipalContext.ValidateCredentials(Connection.Credentials.UserName, Connection.Credentials.Password))
                         return null;
                 }
-                else oPrincipalContext = new PrincipalContext(ContextType.Domain, Connection.Credentials.Domain);
+                else if (!string.IsNullOrEmpty(Connection.Credentials.Domain))
+                {
+                    oPrincipalContext = new PrincipalContext(ContextType.Domain, Connection.Credentials.Domain);
+                }
+                else oPrincipalContext = new PrincipalContext(ContextType.Domain);
 
                 UserPrincipal oUserPrincipal = UserPrincipal.FindByIdentity(oPrincipalContext, UserName);
                 return oUserPrincipal;
