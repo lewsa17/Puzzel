@@ -8,8 +8,8 @@ namespace Forms.External
         public ChangePasswordForm(string UserName)
         {
             userName = UserName;
-            CheckIfAccountIsLocked(UserName);
             InitializeComponent();
+            CheckIfAccountIsLocked(UserName);
         }
         private string userName { get; set; }
         private void btnChangePassword_Click(object sender, EventArgs e)
