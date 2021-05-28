@@ -230,7 +230,7 @@ namespace PuzzelLibrary.Debug
                         this._Title = "Wstępne logowanie protokołem Kerberos nie udane.";
                         this._TargetUserSid = eventRecord.Properties[1].Value.ToString();
                         this._TargetUserName = eventRecord.Properties[0].Value.ToString();
-                        this._IpAddress = eventRecord.Properties[6].ToString();
+                        this._IpAddress = eventRecord.Properties[6].Value.ToString();
                     }
                     if (eventRecord.Id == 4740)
                     {
