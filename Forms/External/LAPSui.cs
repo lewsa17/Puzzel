@@ -5,21 +5,16 @@ using PuzzelLibrary.LAPS;
 namespace Forms.External
 {
     public partial class LAPSui : Form
-    {
-        public string HostName { get; set; }
-        public LAPSui()
-        {
-            InitializeComponent();
-        }
+    {             
         public LAPSui(string hostname)
         {
-            HostName = hostname;
+            InitializeComponent();
+            inputtedcomputerName.Text = hostname;
         }
         public void LoadPassword()
         {
             setButton.Enabled = true;
-            inputtedcomputerName.Text = HostName;
-            var lapsproperties = CompPWD.GetPWD(HostName);
+            var lapsproperties = CompPWD.GetPWD(inputtedcomputerName.Text);
             textPassword.Text = lapsproperties[0] != null ? lapsproperties[0].ToString() : string.Empty;
             if (lapsproperties[1] != null)
                 dateTimePasswordExpires.Value = DateTime.FromFileTime(Convert.ToInt64(lapsproperties[1]));
@@ -36,7 +31,7 @@ namespace Forms.External
         }
         private void LAPSui_Load(object sender, EventArgs e)
         {
-            if (HostName != null)
+            if (inputtedcomputerName.Text != null)
             {
                 LoadPassword();
             }
