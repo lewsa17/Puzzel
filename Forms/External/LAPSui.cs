@@ -19,8 +19,9 @@ namespace Forms.External
         {
             inputtedcomputerName.Text = HostName;
             var lapsproperties = CompPWD.GetPWD(HostName);
-            textPassword.Text = lapsproperties[0].ToString();
-            dateTimePasswordExpires.Value = DateTime.FromFileTime(Convert.ToInt64(lapsproperties[1]));
+            textPassword.Text = lapsproperties[0] != null ? lapsproperties[0].ToString() : string.Empty;
+            if (lapsproperties[1] != null)
+                dateTimePasswordExpires.Value = DateTime.FromFileTime(Convert.ToInt64(lapsproperties[1]));
         }
         private void btnClose_Click(object sender, EventArgs e)
         {

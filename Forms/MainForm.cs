@@ -1212,11 +1212,7 @@ namespace Forms
         {
             if (NameIsValid(HostName()))
             {
-                External.LAPSui lAPSui = new()
-                {
-                    HostName = HostName()
-                };
-                lAPSui.LoadPassword();
+                External.LAPSui lAPSui = new(HostName());
                 lAPSui.Show();
             }
         }
