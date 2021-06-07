@@ -43,10 +43,6 @@
       <HintPath>..\Forms\bin\Debug\net5.0-windows\System.Management.dll</HintPath>
       <Private>true</Private>
     </Reference>
-    <Reference Include="System.Management.Automation">
-      <HintPath>..\Forms\bin\Debug\net5.0-windows\System.Management.Automation.dll</HintPath>
-      <Private>true</Private>
-    </Reference>
     <Reference Include="System.Windows.Forms">
       <HintPath>C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\5.0.0\ref\net5.0\System.Windows.Forms.dll</HintPath>
       <Private>false</Private>

@@ -5,7 +5,7 @@ namespace PuzzelLibrary.AD.Computer
 {
     public class Search
     {
-        static public SearchResult ByComputerName(string hostName)
+        public static SearchResult ByComputerName(string hostName)
         {
             var ds = Connection.Initiate.GetDirectorySearcher();
             if (ds != null)
@@ -21,7 +21,7 @@ namespace PuzzelLibrary.AD.Computer
             return null;
         }
 
-        static public SearchResultCollection ByComputerName(string hostName, params string[] propertiesToLoad)
+        public static SearchResultCollection ByComputerName(string hostName, params string[] propertiesToLoad)
         {
             var ds = Connection.Initiate.GetDirectorySearcher();
             if (ds != null)
