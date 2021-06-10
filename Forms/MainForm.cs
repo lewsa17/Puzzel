@@ -1130,10 +1130,13 @@ namespace Forms
                         //oraz 3 linijki z pola tekstowego
                         comboBoxFindedSessions.Text = "";
                         comboBoxFindedSessions.Items.RemoveAt(comboIndex);
-                        int lines = richTextBox1.Lines.Length - 1;
-                        var array = richTextBox1.Lines.ToList<string>();
-                        array.RemoveRange(comboIndex * 3 + 0, 3);
-                        richTextBox1.Lines = array.ToArray();
+                        if (richTextBox1.Lines.Length > 0)
+                        {
+                            int lines = richTextBox1.Lines.Length - 1;
+                            var array = richTextBox1.Lines.ToList<string>();
+                            array.RemoveRange(comboIndex * 3 + 0, 3);
+                            richTextBox1.Lines = array.ToArray();
+                        }
                     }
                     else ReplaceRichTextBox("Nie wybrano aktywnej sesji");
                 else ReplaceRichTextBox("Nie ma żadnej aktywnej sesji");
