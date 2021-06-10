@@ -100,7 +100,8 @@ namespace PuzzelLibrary.Debug
         {
             StringBuilder sb = new();
             int i = 0;
-            while (i++ < MaxCount)
+            logReader.BatchSize = 100;
+            while (i < MaxCount)
             {
                 try
                 {
@@ -130,6 +131,7 @@ namespace PuzzelLibrary.Debug
                         sb.Append(string.Format("Nazwa procesu twórcy: \t\t {0}\n", ep.Descriptions.ParentProcessName));
                     if (!string.IsNullOrEmpty(ep.Descriptions.CommandLine))
                         sb.Append(string.Format("Wiersz polecenia procesu: \t\t {0}\n", ep.Descriptions.CommandLine));
+                    i++;
                 }
                 catch (EventLogException e)
                 {
