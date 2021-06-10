@@ -170,6 +170,7 @@ namespace Forms.External
             dataGridView.AllowUserToDeleteRows = false;
             dataGridView.AllowUserToResizeColumns = false;
             dataGridView.AllowUserToResizeRows = false;
+            dataGridView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridView.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
             dataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             dataGridView.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Raised;
@@ -188,7 +189,8 @@ namespace Forms.External
             this.BadPasswordCountColumn,
             this.LastBadPasswordAttemptColumn,
             this.LastSetPasswordColumn,
-            this.LockoutTimeColumn});
+            this.LockoutTimeColumn,
+            new DataGridViewTextBoxColumn(){ AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill} });
             dataGridView.ContextMenuStrip = this.ContextMenu;
             dataGridView.GridColor = System.Drawing.SystemColors.Control;
             dataGridView.Location = new(0, 25);
@@ -199,7 +201,7 @@ namespace Forms.External
             dataGridView.RowHeadersVisible = false;
             dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             dataGridView.ShowEditingIcon = false;
-            dataGridView.Size = new(742, 309);
+            dataGridView.Size = new(830, 309);
             dataGridView.TabIndex = 1;
             dataGridView.TabStop = false;
             // 
@@ -228,14 +230,14 @@ namespace Forms.External
             // 
             // LastBadPasswordAttemptColumn
             // 
-            this.LastBadPasswordAttemptColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.LastBadPasswordAttemptColumn.Width = 150;
             this.LastBadPasswordAttemptColumn.HeaderText = "Ostatnie błędne";
             this.LastBadPasswordAttemptColumn.Name = "LastBadPasswordAttemptColumn";
             this.LastBadPasswordAttemptColumn.ReadOnly = true;
             // 
             // LastSetPasswordColumn
             // 
-            this.LastSetPasswordColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.LastSetPasswordColumn.Width = 150;
             this.LastSetPasswordColumn.HeaderText = "Ostatnia zmiana";
             this.LastSetPasswordColumn.Name = "LastSetPasswordColumn";
             this.LastSetPasswordColumn.ReadOnly = true;
@@ -291,12 +293,10 @@ namespace Forms.External
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(dataGridView);
             this.Controls.Add(this.mainMenu);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = global::Forms.Resources.Resources.Puzzel;
             this.MainMenuStrip = this.mainMenu;
-            this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.MinimumSize = new(752, 319);
+            this.ClientSize = new(830, 319);
             this.Name = "LockoutStatus";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Lockout Status";
