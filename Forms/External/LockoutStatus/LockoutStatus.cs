@@ -144,7 +144,7 @@ namespace Forms.External
                 var cells = dataGridView.SelectedRows[0].Cells;
                 foreach (DataGridViewCell cell in cells)
                 {
-                    value += cell.Value.ToString() + "\t";
+                    value += cell.Value != null ? cell.Value.ToString() + "\t" : "";
                 }
             }
             Clipboard.SetText(value);
