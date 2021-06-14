@@ -149,9 +149,15 @@ namespace Forms
                     var OSName = PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, PuzzelLibrary.WMI.ComputerInfo.queryOperatingSystem, "Caption");
                     if (PuzzelLibrary.Settings.Values.AutoUnlockFirewall)
                     {
+                        string pathToFile;
+                        string FileName = "netsh.exe";
+                        if (File.Exists(@"C:\Windows\sysnative\" + FileName))
+                            pathToFile = @"C:\Windows\sysnative\" + FileName;
+                        else
+                            pathToFile = @"C:\Windows\system32\" + FileName;
                         if (OSName.Contains("Windows 7"))
-                            PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcessWithWaitingForExit("netsh", "-r " + HostName() + " advfirewall firewall set rule group=\"Windows Firewall Remote Management\" new enable=yes");
-                        else { PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcessWithWaitingForExit("netsh", "-r " + HostName() + "advfirewall firewall set rule name = \"Windows Defender Firewall Remote Management (RPC)\" new enable=yes"); }
+                            PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcessWithWaitingForExit(pathToFile, "-r " + HostName() + " advfirewall firewall set rule group=\"Windows Firewall Remote Management\" new enable=yes");
+                        else { PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcessWithWaitingForExit(pathToFile, "-r " + HostName() + " advfirewall firewall set rule name = \"Windows Defender Firewall Remote Management (RPC)\" new enable=yes"); }
                     }
                     else UpdateRichTextBox("Zdalne zarządzanie Zaporą jest wyłączone");
                     arguments = "wf.msc";
