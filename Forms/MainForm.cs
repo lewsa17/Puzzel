@@ -1132,11 +1132,11 @@ namespace Forms
                         //oraz 3 linijki z pola tekstowego
                         comboBoxFindedSessions.Text = "";
                         comboBoxFindedSessions.Items.RemoveAt(comboIndex);
-                        if (richTextBox1.Lines.Length > 0)
+                        if (richTextBox1.Lines.Length >= comboBoxFindedSessions.Items.Count * 3)
                         {
                             int lines = richTextBox1.Lines.Length - 1;
                             var array = richTextBox1.Lines.ToList<string>();
-                            array.RemoveRange(comboIndex * 3 + 0, 3);
+                            array.RemoveRange(comboIndex * 3, 3);
                             richTextBox1.Lines = array.ToArray();
                         }
                     }
