@@ -194,8 +194,9 @@ namespace PuzzelLibrary.LogonData
             }
             return sb.ToString();
         }
-        public string CheckLogs(string pole, string kindOf)
+        public string CheckLogs(string pole, string kindOf, out List<string> nameEntries)
         {
+            nameEntries = new();
             if (!Directory.Exists(logsDirectory))
                 return ("Brak dostępu do zasobu");
             if (IsInvalidChar(pole))
@@ -205,11 +206,15 @@ namespace PuzzelLibrary.LogonData
                 var usr = UserNameDB.ADUserDB.FindAll(x => x.UserName.Contains(pole));
                 if (usr.Count == 0)
                     return ("Brak użytkownika w cache");
-                else if (usr.Count == 1)
+                else
                 {
-                    if (File.Exists(logsDirectory + kindOf + "\\" + usr[0].UserName + "_logons.log"))
-                        return "";
-                    else return ("Brak w logach");
+                    foreach (var user in usr)
+                    {
+                        if (File.Exists(logsDirectory + kindOf + "\\" + user.UserName + "_logons.log"))
+                            nameEntries.Add(user.UserName);
+                    }
+                    if (nameEntries.Count == 0)
+                        return ("Brak w logach");
                 }
             }
             if (kindOf == "Computer")
@@ -217,11 +222,13 @@ namespace PuzzelLibrary.LogonData
                 var comp = ComputerNameDB.ADComputerDB.FindAll(x => x.Name.Contains(pole));
                 if (comp.Count == 0)
                     return ("Brak nazwy komputera w logach");
-                else if (comp.Count == 1)
+                else
                 {
-                    if (File.Exists(logsDirectory + kindOf + "\\" + comp[0].Name + "_logons.log"))
-                        return "";
-                    else return ("Brak w logach");
+                    foreach (var compName in comp)
+                        if (File.Exists(logsDirectory + kindOf + "\\" + compName.Name + "_logons.log"))
+                            nameEntries.Add(compName.Name);
+                    if (nameEntries.Count == 0)
+                        return ("Brak w logach");
                 }
             }
             return "";

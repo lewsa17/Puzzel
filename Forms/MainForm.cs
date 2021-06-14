@@ -341,20 +341,22 @@ namespace Forms
             ReplaceRichTextBox(null);
             if (!string.IsNullOrWhiteSpace(name))
             {
+                List<string> availableNames;
                 PuzzelLibrary.LogonData.Captcher captcher = new();
-                var warnings = captcher.CheckLogs(name, kindOf);
+                var warnings = captcher.CheckLogs(name, kindOf, out availableNames);
+                string[] nameEntries = availableNames.ToArray();
                 if (!string.IsNullOrEmpty(warnings))
                     ReplaceRichTextBox(warnings);
                 else
                 {
                     if (kindOf == "User")
                     {
-                        var users = captcher.userNames(name, kindOf);
+                        var users = nameEntries;
                         foreach (var LogName in users)
                         {
                             new Thread(() =>
                             {
-                                UpdateRichTextBox(captcher.SearchLogs(numberOfLogs, LogName.UserName, kindOf));
+                                UpdateRichTextBox(captcher.SearchLogs(numberOfLogs, LogName, kindOf));
                                 if (users.Length == 1 && PuzzelLibrary.Settings.Values.ComputerInput)
                                     comboBoxComputer.Invoke(new MethodInvoker(() =>
                                     {
@@ -369,8 +371,8 @@ namespace Forms
                     }
 
                     if (kindOf == "Computer")
-                        foreach (var LogName in captcher.ComputerNames(name, kindOf))
-                            new Thread(() => UpdateRichTextBox(captcher.SearchLogs(numberOfLogs, LogName.Name, kindOf))).Start();
+                        foreach (var LogName in nameEntries)
+                            new Thread(() => UpdateRichTextBox(captcher.SearchLogs(numberOfLogs, LogName, kindOf))).Start();
                 }
             }
         }
