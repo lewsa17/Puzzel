@@ -422,7 +422,7 @@ namespace Forms
                 Additional.RemoteShellCustomAuth customAuthForm = new();
                 customAuthForm.ShowDialog();
                 var applicationName = PuzzelLibrary.ProcessExecutable.ProcExec.PSexec(HostName());
-                if (FileIsAvailable(Directory.GetCurrentDirectory() + @"\" + applicationName))
+                if (FileIsAvailable(applicationName))
                     PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess(applicationName, @"\\" + HostName() + " -u " + customAuthForm.Login + "-p " + customAuthForm.Password + "  cmd");
             }
         }
@@ -432,7 +432,7 @@ namespace Forms
             if (HostIsAvailable(HostName()))
             {
                 var applicationName = PuzzelLibrary.ProcessExecutable.ProcExec.PSexec(HostName());
-                if (FileIsAvailable(Directory.GetCurrentDirectory() + @"\" + applicationName))
+                if (FileIsAvailable(applicationName))
                     PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess(applicationName, @"\\" + HostName() + " -s  cmd");
             }
             StopTime();
@@ -1229,12 +1229,9 @@ namespace Forms
                 if (HostIsAvailable(HostName()))
                 {
                     var OSName = PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, PuzzelLibrary.WMI.ComputerInfo.queryOperatingSystem, "osarchitecture");
-                    string applicationName = null;
-                    if (OSName.Contains("64-bit"))
-                        applicationName = "PsExec64.exe";
-                    else applicationName = "PsExec.exe";
+                    string applicationName = PuzzelLibrary.ProcessExecutable.ProcExec.PSexec(HostName());
 
-                    if (FileIsAvailable(Directory.GetCurrentDirectory() + @"\" + applicationName))
+                    if (FileIsAvailable(applicationName))
                         PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess(applicationName, @"\\" + HostName() + " -user " + System.Environment.UserDomainName + @"\" + System.Environment.UserName + " cmd");
                 }
             }

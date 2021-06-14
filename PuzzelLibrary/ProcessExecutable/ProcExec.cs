@@ -62,9 +62,10 @@ namespace PuzzelLibrary.ProcessExecutable
         public static string PSexec(string HostName)
         {
             var OSName = WMI.ComputerInfo.GetInfo(HostName, WMI.ComputerInfo.pathCIMv2, WMI.ComputerInfo.queryOperatingSystem, "osarchitecture");
+            string rCommandPath = Application.StartupPath;
             if (OSName.Contains("64-bit"))
-                return "PsExec64.exe";
-            return "PsExec.exe";
+                return rCommandPath + "PsExec64.exe";
+            return rCommandPath + "PsExec.exe";
         }
 
         public static string StartExtendedProcess(string FileName, string Arguments)
