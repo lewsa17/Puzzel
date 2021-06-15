@@ -207,37 +207,13 @@ namespace Forms
                 cLogs.AddData(System.IO.File.ReadAllLines(PathName));
                 dblist = cLogs.GetData();
             }
-            var shortedDBList = shortDBlist(dblist, Value, ValueType).GroupBy(dbl => dbl.ComputerName);
-            List<string> listOfFilesLogs = new();
-            foreach (var list in shortedDBList)
-            {
-                var path = Path.Combine(ComputersLogFolder, list.Key);
-                if (File.Exists(path + ".txt"))
-                {
-                    listOfFilesLogs.Add(path + ".txt");
-                }
-                int i = 0;
-                int marginOfError = 0;
-                while (marginOfError<4)
-                {
-                    i++;
-                    var lowerFile = path + "-" + i + ".txt";
-                    if (File.Exists(lowerFile))
-                    {
-                        marginOfError = 0;
-                        listOfFilesLogs.Add(lowerFile);
-                    }
-                    else marginOfError++;
-                }
-            }
+            var shortedDBList = shortDBlist(dblist, Value, ValueType);
+            List<cLogsEntry> listOfFilesLogs = new();
+            listOfFilesLogs.AddRange(shortedDBList);
+
             foreach (var list in listOfFilesLogs)
             {
-                var file = File.ReadAllText(list);
-                var words = file.Split(';');
-                if (words.Length > 2)
-                {
-                    UpdateRichTextBox(string.Format("{0,-16}{1,-16}{2,-12}{3,-22}{4,0}", words[0], words[1], words[2], words[3], File.GetCreationTime(list)) + "\n");
-                }
+                UpdateRichTextBox(string.Format("{0,-16}{1,-16}{2,-12}{3,-22}{4,0}", list.ComputerName, list.UserName, list.SerialNumber, list.Model, list.time.ToString() + "\n"));
             }
             textLogView.Invoke(new MethodInvoker(() =>
             {
@@ -251,25 +227,14 @@ namespace Forms
         private cLogsEntry[] shortDBlist(cLogsEntry[] dblist, string queryValue, int ValueType) 
         {
             List<cLogsEntry> shortedDBList = new();
-            foreach (var list in dblist)
-            {
-                if (ValueType == 0)
-                    if (list.UserName == queryValue)
-                    {
-                        shortedDBList.Add(list);
-                    }
-                if (ValueType == 1)
 
-                    if (list.ComputerName == queryValue)
-                    {
-                        shortedDBList.Add(list);
-                    }
-                if (ValueType == 2)
-                    if (list.SerialNumber == queryValue)
-                    {
-                        shortedDBList.Add(list);
-                    }
-            }
+            if (ValueType == 0)
+                shortedDBList.AddRange(dblist.Where(dbl => dbl.UserName.Equals(queryValue, StringComparison.OrdinalIgnoreCase)));
+            if (ValueType == 1)
+                shortedDBList.AddRange(dblist.Where(dbl => dbl.ComputerName.Equals(queryValue, StringComparison.OrdinalIgnoreCase)));
+            if (ValueType == 2)
+                shortedDBList.AddRange(dblist.Where(dbl => dbl.SerialNumber.Equals(queryValue, StringComparison.OrdinalIgnoreCase)));
+
             return shortedDBList.ToArray();
         }
         public struct cLogsEntry
@@ -278,7 +243,8 @@ namespace Forms
             public string UserName;
             public string SerialNumber;
             public string Model;
-            public string OSVersion;            
+            public string OSVersion;
+            public DateTime time;
         }
         public class cLogs
         {
@@ -301,8 +267,8 @@ namespace Forms
                     cl.UserName = splittedVal[1];
                     cl.SerialNumber = splittedVal[2];
                     cl.Model = splittedVal[3];
-                    if (splittedVal.Length > 4)
-                        cl.OSVersion = splittedVal[4];
+                    cl.OSVersion = splittedVal[4];
+                    cl.time = DateTime.Parse(splittedVal[5]);
                     DBList.Add(cl);
                 }
             }
