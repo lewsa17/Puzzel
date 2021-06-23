@@ -27,6 +27,7 @@ namespace Forms
                 this.Load += new EventHandler(CheckUpdate);
             }
             InitializeAdditionals();
+            VersionInstance();
         }
         private void CheckUpdate(object sender, EventArgs e)
         {
@@ -1351,6 +1352,27 @@ namespace Forms
             if (Control.ModifierKeys == Keys.Shift)
                 btnReloadLogs.Text = "Hard Logs";
             else btnReloadLogs.Text = "Reload Logs";
+        }
+        private void VersionInstance()
+        {
+            var user = Environment.UserName;
+            var path = Path.Combine(Application.StartupPath);
+            string fileName = "";
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+            fileName = Path.Combine(path, user);
+
+            if (File.Exists(fileName))
+                File.Delete(fileName);
+
+            StreamWriter sw = new StreamWriter(new FileStream(fileName, FileMode.OpenOrCreate));
+            sw.WriteLine(PuzzelLibrary.Version.GetVersion());
+            sw.Close();
+
+            var dstPath = Path.Combine(PuzzelLibrary.Settings.Values.LocalUpdatePath, "Versions");
+            var dstFileName = Path.Combine(dstPath, user);
+            if (Directory.Exists(dstPath))
+                File.Copy(fileName, dstFileName, true);
         }
     }
 }
