@@ -203,7 +203,7 @@ namespace PuzzelLibrary.LogonData
                 return ("Użyto niedozwolonych znaków w nazwie");
             if (kindOf == "User")
             {
-                var usr = UserNameDB.ADUserDB.FindAll(x => x.UserName.Equals(pole, StringComparison.OrdinalIgnoreCase));
+                var usr = UserNameDB.ADUserDB.FindAll(x => x.UserName.Contains(pole, StringComparison.OrdinalIgnoreCase));
                 if (usr.Count == 0)
                     return ("Brak użytkownika w cache");
                 else
@@ -219,7 +219,7 @@ namespace PuzzelLibrary.LogonData
             }
             if (kindOf == "Computer")
             {
-                var comp = ComputerNameDB.ADComputerDB.FindAll(x => x.Name.Equals(pole, StringComparison.OrdinalIgnoreCase));
+                var comp = ComputerNameDB.ADComputerDB.FindAll(x => x.Name.Contains(pole, StringComparison.OrdinalIgnoreCase));
                 if (comp.Count == 0)
                     return ("Brak nazwy komputera w logach");
                 else
