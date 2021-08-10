@@ -114,7 +114,7 @@ namespace Forms
         private bool PortIsOpened(string HostName, int Port)
         {
             if (NameIsValid(HostName))
-                if (PuzzelLibrary.NetDiag.Ping.TCPPing(HostName, Port) == PuzzelLibrary.NetDiag.Ping.TCPPingStatus.Success)
+                if (new PuzzelLibrary.NetDiag.TCPPing().TestConnection(HostName, Port) == PuzzelLibrary.NetDiag.TCPPing.Status.Success)
                     return true;
             return false;
         }
@@ -406,10 +406,11 @@ namespace Forms
         private void BtnTestTCP_Click(object sender, EventArgs e)
         {
             StartTime();
-            if (PortIsOpened(HostName(), (int)numericTCP.Value))
+            PuzzelLibrary.NetDiag.TCPPing tcpPing = new();
+            if (tcpPing.TestConnection(HostName(), (int)numericTCP.Value) == PuzzelLibrary.NetDiag.TCPPing.Status.Success)
                 ReplaceRichTextBox("Badanie " + HostName() + " zakończone sukcesem. Port " + numericTCP.Value.ToString() + " jest otwarty.");
             else
-                ReplaceRichTextBox("Badanie " + HostName() + " zakończone porażką. Port " + numericTCP.Value.ToString() + " prawdopoodobnie jest zamknięty.");
+                ReplaceRichTextBox(tcpPing.Result);
             StopTime();
         }
         private void ChangePassword(object sender, EventArgs e)

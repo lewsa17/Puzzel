@@ -107,11 +107,12 @@ namespace Forms.External
             //Wyszukiwanie w na kontrolerze domeny / zablokowane pole
             if (!LocationText.Enabled)
             {
-                if (PuzzelLibrary.NetDiag.Ping.TCPPing(DomainController, 135) == PuzzelLibrary.NetDiag.Ping.TCPPingStatus.Success)
+                PuzzelLibrary.NetDiag.TCPPing tcpPing = new();
+                if (tcpPing.TestConnection(DomainController, 135) == PuzzelLibrary.NetDiag.TCPPing.Status.Success)
                     TextLogView.Text = ec.GetRemoteLog(DomainController, "Security", queryController);
-                else TextLogView.Text = "Brak połączenia z kontrolerem domeny, serwer RPC jest niedostępny";
+                else TextLogView.Text = tcpPing.Result;
             }
-            else if (PuzzelLibrary.NetDiag.Ping.TCPPing(LocationText.Text, 135) == PuzzelLibrary.NetDiag.Ping.TCPPingStatus.Success)
+            else if (new PuzzelLibrary.NetDiag.TCPPing().TestConnection(LocationText.Text, 135) == PuzzelLibrary.NetDiag.TCPPing.Status.Success)
             {
                 //Wyszukiwanie na serwerzer motp
                 if (LocationText.Text.Contains("motp", StringComparison.OrdinalIgnoreCase))
