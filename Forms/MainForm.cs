@@ -1348,14 +1348,14 @@ namespace Forms
         {
             if (sender is Button btn)
             {
-                if (btn.Text == "Hard Logs")
+                if (btn.Text == "Hard Logs" | ModifierKeys == Keys.Shift)
                     PuzzelLibrary.LogonData.Captcher.HardResetCache();
             }
             else PuzzelLibrary.LogonData.Captcher.ReloadCache();
         }
         private void MouseMovingOverbtnReloadLogs(object sender, MouseEventArgs e)
         {
-            if (Control.ModifierKeys == Keys.Shift)
+            if (ModifierKeys == Keys.Shift)
                 btnReloadLogs.Text = "Hard Logs";
             else btnReloadLogs.Text = "Reload Logs";
         }
