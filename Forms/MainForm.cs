@@ -147,7 +147,10 @@ namespace Forms
                     arguments = "eventvwr.msc";
                 if (toolStrip == menuItemWindowsFirewall)
                 {
-                    var OSName = PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, PuzzelLibrary.WMI.ComputerInfo.queryOperatingSystem, "Caption");
+                    string OSName = string.Empty;
+                    System.Management.ManagementScope scope = new();
+                    if (PuzzelLibrary.WMI.ComputerInfo.wmiConnect(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, out scope))
+                        OSName = PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryOperatingSystem, "Caption");
                     if (PuzzelLibrary.Settings.Values.AutoUnlockFirewall)
                     {
                         string pathToFile;
@@ -978,55 +981,57 @@ namespace Forms
         {
             StartTime();
             if (HostIsAvailable(HostName()))
-                if (PortIsOpened(HostName(), 135))
+            {
+                System.Management.ManagementScope scope = new();
+                if (PuzzelLibrary.WMI.ComputerInfo.wmiConnect(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, out scope))
                 {
                     ReplaceRichTextBox("Nazwa komputera: ");
-                    UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, PuzzelLibrary.WMI.ComputerInfo.queryComputerSystem, "DNSHostName"));
+                    UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryComputerSystem, "DNSHostName"));
                     UpdateRichTextBox("----------------------------------------\n");
                     if (sender is ToolStripMenuItem toolStrip)
                     {
                         if (toolStrip == menuItemComputerInfoUptime)
                         {
                             UpdateRichTextBox("Uptime: ");
-                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, PuzzelLibrary.WMI.ComputerInfo.queryOperatingSystem, "LastBootUpTime"));
+                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryOperatingSystem, "LastBootUpTime"));
                         }
 
                         if (toolStrip == menuItemComputerInfoSNPN)
                         {
                             UpdateRichTextBox("SN: ");
-                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, PuzzelLibrary.WMI.ComputerInfo.queryComputerSystemProduct, "IdentifyingNumber"));
+                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryComputerSystemProduct, "IdentifyingNumber"));
                             UpdateRichTextBox("PN: ");
-                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathWMI, PuzzelLibrary.WMI.ComputerInfo.querySystemInformation, "SystemSKU"));
+                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathWMI, scope, PuzzelLibrary.WMI.ComputerInfo.querySystemInformation, "SystemSKU"));
                         }
 
                         if (toolStrip == menuItemComputerInfoModel)
                         {
                             UpdateRichTextBox("MODEL: ");
-                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, PuzzelLibrary.WMI.ComputerInfo.queryComputerSystem, "Model"));
+                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryComputerSystem, "Model"));
                         }
 
                         if (toolStrip == menuItemComputerInfoOS)
                         {
                             UpdateRichTextBox("OS: ");
-                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, PuzzelLibrary.WMI.ComputerInfo.queryOperatingSystem, "Caption", "CsdVersion", "OsArchitecture", "Version"));
+                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryOperatingSystem, "Caption", "CsdVersion", "OsArchitecture", "Version"));
                         }
 
                         if (toolStrip == menuItemComputerInfoRAM)
                         {
                             UpdateRichTextBox("Pamięć TOTAL: \n");
-                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, PuzzelLibrary.WMI.ComputerInfo.queryPhysicalMemory, "Capacity"));
+                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryPhysicalMemory, "Capacity"));
                             UpdateRichTextBox("\n");
-                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, PuzzelLibrary.WMI.ComputerInfo.queryPhysicalMemory, "DeviceLocator", "Manufacturer", "Capacity", "Speed", "PartNumber", "SerialNumber"));
+                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryPhysicalMemory, "DeviceLocator", "Manufacturer", "Capacity", "Speed", "PartNumber", "SerialNumber"));
                         }
 
                         if (toolStrip == menuItemComputerInfoProcessor)
                         {
                             UpdateRichTextBox("CPU \n");
-                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, PuzzelLibrary.WMI.ComputerInfo.queryProcessor, "Name"));
+                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryProcessor, "Name"));
                             UpdateRichTextBox("Rdzenie: ");
-                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, PuzzelLibrary.WMI.ComputerInfo.queryProcessor, "NumberOfCores"));
+                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryProcessor, "NumberOfCores"));
                             UpdateRichTextBox("Wątki: ");
-                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, PuzzelLibrary.WMI.ComputerInfo.queryProcessor, "NumberOfLogicalProcessors"));
+                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryProcessor, "NumberOfLogicalProcessors"));
                         }
 
                         if (toolStrip == menuItemComputerInfoLoggedUser)
@@ -1037,57 +1042,57 @@ namespace Forms
                         if (toolStrip == menuItemComputerInfoProfile)
                         {
                             UpdateRichTextBox("Profile\n");
-                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, PuzzelLibrary.WMI.ComputerInfo.queryDesktop, "Name"));
+                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryDesktop, "Name"));
                         }
 
                         if (toolStrip == menuItemComputerInfoDrives)
                         {
                             UpdateRichTextBox("Dyski: \n");
                             UpdateRichTextBox(ComputerInfo_TEMP += ("Nazwa   Opis                  System plików   Wolna przestrzeń       Rozmiar \n"));
-                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, PuzzelLibrary.WMI.ComputerInfo.queryLogicalDisk, "Name", "Description", "FileSystem", "FreeSpace", "Size"));
+                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryLogicalDisk, "Name", "Description", "FileSystem", "FreeSpace", "Size"));
                         }
 
                         if (toolStrip == menuItemComputerInfoPrinters)
                         {
                             UpdateRichTextBox("Drukarki sieciowe\n\n");
-                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, PuzzelLibrary.WMI.ComputerInfo.queryPrinterConfiguration, "DeviceName"));
+                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryPrinterConfiguration, "DeviceName"));
                         }
 
                         if (toolStrip == menuItemComputerInfoShares)
                         {
                             UpdateRichTextBox("Udziały\n");
-                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, PuzzelLibrary.WMI.ComputerInfo.queryShare, "Name", "Path", "Description"));
+                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryShare, "Name", "Path", "Description"));
                         }
 
                         if (toolStrip == menuItemComputerInfoAutostart)
                         {
                             UpdateRichTextBox("AutoStart\n");
-                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, PuzzelLibrary.WMI.ComputerInfo.queryStartupCommand, "Caption", "Command"));
+                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryStartupCommand, "Caption", "Command"));
                         }
 
                         if (toolStrip == menuItemComputerInfoPath)
                         {
                             UpdateRichTextBox("Środowisko uruchomieniowe\n");
                             UpdateRichTextBox("Nazwa zmiennej           Wartość zmiennej\n");
-                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, PuzzelLibrary.WMI.ComputerInfo.queryEnvironment, "Name", "VariableValue"));
+                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryEnvironment, "Name", "VariableValue"));
                         }
 
                         if (toolStrip == menuItemComputerInfoNetworkRes)
                         {
                             UpdateRichTextBox("Zasoby sieciowe\n\n");
-                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, PuzzelLibrary.WMI.ComputerInfo.queryNetworkConnection, "LocalName", "RemoteName"));
+                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryNetworkConnection, "LocalName", "RemoteName"));
                         }
 
                         if (toolStrip == menuItemComputerInfoDisplay)
                         {
                             UpdateRichTextBox("Podłączone ekrany\n");
-                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, PuzzelLibrary.WMI.ComputerInfo.queryDesktopMonitor, "Caption", "DeviceID", "ScreenHeight", "ScreenWidth", "Status"));
+                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryDesktopMonitor, "Caption", "DeviceID", "ScreenHeight", "ScreenWidth", "Status"));
                         }
 
                         if (toolStrip == menuItemComputerInfoBios)
                         {
                             UpdateRichTextBox("BIOS\n\n");
-                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, PuzzelLibrary.WMI.ComputerInfo.queryBios, "Manufacturer", "BIOSVersion", "SMBIOSBIOSVersion", "ReleaseDate"));
+                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryBios, "Manufacturer", "BIOSVersion", "SMBIOSBIOSVersion", "ReleaseDate"));
                         }
                     }
                     if (sender is Button button)
@@ -1095,16 +1100,17 @@ namespace Forms
                         if (button == btnNetworkInterfaces)
                         {
                             UpdateRichTextBox("Karty Sieciowe: ");
-                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, PuzzelLibrary.WMI.ComputerInfo.queryNetworkAdapterConfiguration, "IPEnabled", "Description", "DNSDomainSuffixSearchOrder", "DNSHostName", "IPAddress", "IPSubnet", "MACAddress"));
+                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryNetworkAdapterConfiguration, "IPEnabled", "Description", "DNSDomainSuffixSearchOrder", "DNSHostName", "IPAddress", "IPSubnet", "MACAddress"));
                         }
 
                         if (button == btnProgramList)
-                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, PuzzelLibrary.WMI.ComputerInfo.queryProduct, "Name","InstallDate","Version"));
+                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryProduct, "Name", "InstallDate", "Version"));
 
                         if (button == btnCompInfo)
                             KomputerInfoMethod();
                     }
                 }
+            }
             StopTime();
         }
         private void KomputerInfoMethod()

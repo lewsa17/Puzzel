@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Management;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace PuzzelLibrary.WMI
@@ -31,286 +32,285 @@ namespace PuzzelLibrary.WMI
         public static string AllComputerInfo(string HostName)
         {
             System.Text.StringBuilder sb = new();
-            sb.Append("Nazwa komputera: ");
-            GetProgressValue = 1;
-            sb.Append(GetInfo(HostName, pathCIMv2, queryComputerSystem, "DNSHostName"));
-            sb.Append("----------------------------------------\n");
-            sb.Append("Domena: ");
-            GetProgressValue = 2;
-            sb.Append(GetInfo(HostName, pathCIMv2, queryComputerSystem, "Domain"));
-            sb.Append("----------------------------------------\n");
-            sb.Append("Uptime: ");
-            GetProgressValue = 3;
-            sb.Append(GetInfo(HostName, pathCIMv2, queryOperatingSystem, "LastBootUpTime"));
-            sb.Append("----------------------------------------\n");
-            sb.Append("SN: ");
-            GetProgressValue = 4;
-            sb.Append(GetInfo(HostName, pathCIMv2, queryComputerSystemProduct, "IdentifyingNumber"));
-            sb.Append("PN: ");
-            GetProgressValue = 5;
-            sb.Append(GetInfo(HostName, pathWMI, querySystemInformation, "SystemSKU"));
-            sb.Append("----------------------------------------\n");
-            sb.Append("Model: ");
-            GetProgressValue = 6;
-            sb.Append(GetInfo(HostName, pathCIMv2, queryComputerSystem, "Model"));
-            sb.Append("----------------------------------------\n");
-            sb.Append("OS: ");
-            GetProgressValue = 7;
-            sb.Append(GetInfo(HostName, pathCIMv2, queryOperatingSystem, "Caption", "CsdVersion", "OsArchitecture", "Version"));
-            sb.Append("----------------------------------------\n");
-            //TotalCapacity
-            sb.Append("Pamięć TOTAL: \n");
-            GetProgressValue = 8;
-            sb.Append(GetInfo(HostName, pathCIMv2, queryPhysicalMemory, "Capacity"));
-            sb.Append("\n");
-            sb.Append(GetInfo(HostName, pathCIMv2, queryPhysicalMemory, "DeviceLocator", "Manufacturer", "Capacity", "Speed", "PartNumber", "SerialNumber"));
-            sb.Append("\n");
-            sb.Append("----------------------------------------\n");
-            sb.Append("CPU \n");
-            GetProgressValue = 9;
-            sb.Append(GetInfo(HostName, pathCIMv2, queryProcessor, "Name"));
-            sb.Append("Rdzenie: ");
-            GetProgressValue = 10;
-            sb.Append(GetInfo(HostName, pathCIMv2, queryProcessor, "NumberOfCores"));
-            sb.Append("Wątki: ");
-            GetProgressValue = 11;
-            sb.Append(GetInfo(HostName, pathCIMv2, queryProcessor, "NumberOfLogicalProcessors"));
-            sb.Append("----------------------------------------\n");
-            sb.Append("Użytkownik: ");
-            GetProgressValue = 12;
-            sb.Append(GetInfo(HostName, pathCIMv2, queryComputerSystem, "UserName"));
-            sb.Append("----------------------------------------\n");
-            sb.Append("Profile\n");
-            GetProgressValue = 13;
-            sb.Append(GetInfo(HostName, pathCIMv2, queryDesktop, "Name"));
-            sb.Append("----------------------------------------\n");
-            sb.Append("Dyski: \n");
-            GetProgressValue = 14;
-            sb.Append("Nazwa   Opis                  System plików   Wolna przestrzeń       Rozmiar \n");
-            sb.Append(GetInfo(HostName, pathCIMv2, queryLogicalDisk, "Name", "Description", "FileSystem", "FreeSpace", "Size"));
-            sb.Append("----------------------------------------\n");
-            sb.Append("Zasoby sieciowe\n\n");
-            GetProgressValue = 15;
-            sb.Append(GetInfo(HostName, pathCIMv2, queryNetworkConnection, "LocalName", "RemoteName"));
-            sb.Append("----------------------------------------\n");
-            sb.Append("Drukarki sieciowe\n\n");
-            GetProgressValue = 16;
-            sb.Append(GetInfo(HostName, pathCIMv2, queryPrinterConfiguration, "DeviceName"));
-            sb.Append("----------------------------------------\n");
-            sb.Append("Udziały\n");
-            GetProgressValue = 17;
-            sb.Append(GetInfo(HostName, pathCIMv2, queryShare, "Name", "Path", "Description"));
-            sb.Append("----------------------------------------\n");
-            sb.Append("AutoStart\n");
-            GetProgressValue = 18;
-            sb.Append(GetInfo(HostName, pathCIMv2, queryStartupCommand, "Caption", "Command"));
-            sb.Append("----------------------------------------\n");
-            sb.Append("Środowisko uruchomieniowe\n");
-            GetProgressValue = 19;
-            sb.Append("Nazwa zmiennej           Wartość zmiennej\n");
-            sb.Append(GetInfo(HostName, pathCIMv2, queryEnvironment, "Name", "VariableValue"));
-            sb.Append("----------------------------------------\n");
-            sb.Append("Podłączone ekrany\n");
-            sb.Append(GetInfo(HostName, pathCIMv2, queryDesktopMonitor, "Caption", "DeviceID", "ScreenHeight", "ScreenWidth", "Status"));
-            sb.Append("----------------------------------------\n");
-            sb.Append("BIOS\n");
-            sb.Append(GetInfo(HostName, pathCIMv2, queryBios, "Manufacturer", "BIOSVersion", "SMBIOSBIOSVersion", "ReleaseDate"));
+            ManagementScope scope = new();
+            if (wmiConnect(HostName, pathCIMv2, out scope))
+            {
+                sb.Append("Nazwa komputera: ");
+                GetProgressValue = 1;
+                sb.Append(GetInfo(HostName, pathCIMv2, scope, queryComputerSystem, "DNSHostName"));
+                sb.Append("----------------------------------------\n");
+                sb.Append("Domena: ");
+                GetProgressValue = 2;
+                sb.Append(GetInfo(HostName, pathCIMv2, scope, queryComputerSystem, "Domain"));
+                sb.Append("----------------------------------------\n");
+                sb.Append("Uptime: ");
+                GetProgressValue = 3;
+                sb.Append(GetInfo(HostName, pathCIMv2, scope, queryOperatingSystem, "LastBootUpTime"));
+                sb.Append("----------------------------------------\n");
+                sb.Append("SN: ");
+                GetProgressValue = 4;
+                sb.Append(GetInfo(HostName, pathCIMv2, scope, queryComputerSystemProduct, "IdentifyingNumber"));
+                sb.Append("PN: ");
+                GetProgressValue = 5;
+                sb.Append(GetInfo(HostName, pathWMI, scope, querySystemInformation, "SystemSKU"));
+                sb.Append("----------------------------------------\n");
+                sb.Append("Model: ");
+                GetProgressValue = 6;
+                sb.Append(GetInfo(HostName, pathCIMv2, scope, queryComputerSystem, "Model"));
+                sb.Append("----------------------------------------\n");
+                sb.Append("OS: ");
+                GetProgressValue = 7;
+                sb.Append(GetInfo(HostName, pathCIMv2, scope, queryOperatingSystem, "Caption", "CsdVersion", "OsArchitecture", "Version"));
+                sb.Append("----------------------------------------\n");
+                //TotalCapacity
+                sb.Append("Pamięć TOTAL: \n");
+                GetProgressValue = 8;
+                sb.Append(GetInfo(HostName, pathCIMv2, scope, queryPhysicalMemory, "Capacity"));
+                sb.Append("\n");
+                sb.Append(GetInfo(HostName, pathCIMv2, scope, queryPhysicalMemory, "DeviceLocator", "Manufacturer", "Capacity", "Speed", "PartNumber", "SerialNumber"));
+                sb.Append("\n");
+                sb.Append("----------------------------------------\n");
+                sb.Append("CPU \n");
+                GetProgressValue = 9;
+                sb.Append(GetInfo(HostName, pathCIMv2, scope, queryProcessor, "Name"));
+                sb.Append("Rdzenie: ");
+                GetProgressValue = 10;
+                sb.Append(GetInfo(HostName, pathCIMv2, scope, queryProcessor, "NumberOfCores"));
+                sb.Append("Wątki: ");
+                GetProgressValue = 11;
+                sb.Append(GetInfo(HostName, pathCIMv2, scope, queryProcessor, "NumberOfLogicalProcessors"));
+                sb.Append("----------------------------------------\n");
+                sb.Append("Użytkownik: ");
+                GetProgressValue = 12;
+                sb.Append(GetInfo(HostName, pathCIMv2, scope, queryComputerSystem, "UserName"));
+                sb.Append("----------------------------------------\n");
+                sb.Append("Profile\n");
+                GetProgressValue = 13;
+                sb.Append(GetInfo(HostName, pathCIMv2, scope, queryDesktop, "Name"));
+                sb.Append("----------------------------------------\n");
+                sb.Append("Dyski: \n");
+                GetProgressValue = 14;
+                sb.Append("Nazwa   Opis                  System plików   Wolna przestrzeń       Rozmiar \n");
+                sb.Append(GetInfo(HostName, pathCIMv2, scope, queryLogicalDisk, "Name", "Description", "FileSystem", "FreeSpace", "Size"));
+                sb.Append("----------------------------------------\n");
+                sb.Append("Zasoby sieciowe\n\n");
+                GetProgressValue = 15;
+                sb.Append(GetInfo(HostName, pathCIMv2, scope, queryNetworkConnection, "LocalName", "RemoteName"));
+                sb.Append("----------------------------------------\n");
+                sb.Append("Drukarki sieciowe\n\n");
+                GetProgressValue = 16;
+                sb.Append(GetInfo(HostName, pathCIMv2, scope, queryPrinterConfiguration, "DeviceName"));
+                sb.Append("----------------------------------------\n");
+                sb.Append("Udziały\n");
+                GetProgressValue = 17;
+                sb.Append(GetInfo(HostName, pathCIMv2, scope, queryShare, "Name", "Path", "Description"));
+                sb.Append("----------------------------------------\n");
+                sb.Append("AutoStart\n");
+                GetProgressValue = 18;
+                sb.Append(GetInfo(HostName, pathCIMv2, scope, queryStartupCommand, "Caption", "Command"));
+                sb.Append("----------------------------------------\n");
+                sb.Append("Środowisko uruchomieniowe\n");
+                GetProgressValue = 19;
+                sb.Append("Nazwa zmiennej           Wartość zmiennej\n");
+                sb.Append(GetInfo(HostName, pathCIMv2, scope, queryEnvironment, "Name", "VariableValue"));
+                sb.Append("----------------------------------------\n");
+                sb.Append("Podłączone ekrany\n");
+                sb.Append(GetInfo(HostName, pathCIMv2, scope, queryDesktopMonitor, "Caption", "DeviceID", "ScreenHeight", "ScreenWidth", "Status"));
+                sb.Append("----------------------------------------\n");
+                sb.Append("BIOS\n");
+                sb.Append(GetInfo(HostName, pathCIMv2, scope, queryBios, "Manufacturer", "BIOSVersion", "SMBIOSBIOSVersion", "ReleaseDate"));
+            }
             return sb.ToString();
         }
-        public static string GetInfo(string nazwaKomputera, string path, string query, params object[] args)
+        public static bool wmiConnect(string computerName, string path, out ManagementScope scope)
+        {
+            ConnectionOptions options = new()
+            {
+                EnablePrivileges = true
+            };
+            scope = new ManagementScope(@"\\" + computerName + path, options);
+            try
+            {
+                scope.Connect();
+                if (scope.IsConnected) return true;
+            }
+            catch (Exception ex)
+            {
+                Debug.LogsCollector.GetLogs(ex, computerName + "," + path);
+                MessageBox.Show("Nie można się połączyć z powodu błędu: " + ex.Message, "WMI Testing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); return false;
+            }
+            return true;
+        }
+        public static string GetInfo(string nazwaKomputera, string path, ManagementScope scope, string query, params object[] args)
         {
             UInt64 TotalCapacity = 0;
             int warunek = 0;
             int warunek1 = 0;
 
             System.Text.StringBuilder sb = new();
-            try
+            SelectQuery Squery = new(query);
+            using ManagementObjectSearcher searcher = new(scope, Squery);
+            using ManagementObjectCollection queryCollection = searcher.Get();
+            foreach (ManagementObject m in queryCollection)
             {
-                ConnectionOptions options = new()
+                switch (args.Length)
                 {
-                    EnablePrivileges = true
-                };
-                ManagementScope scope = new();
-                scope = new ManagementScope(@"\\" + nazwaKomputera + path, options);
-                scope.Connect();
-
-                SelectQuery Squery = new(query);
-                ManagementObjectSearcher searcher = new(scope, Squery);
-                searcher.Dispose();
-                using ManagementObjectCollection queryCollection = searcher.Get();
-                foreach (ManagementObject m in queryCollection)
-                {
-                    switch (args.Length)
-                    {
-                        case 1:
-                            {
-                                //bootTime
-                                //args0 = lastbootuptime
-                                if (args[0].ToString() == "LastBootUpTime")
-                                    if (query == queryOperatingSystem)
-                                    {
-                                        sb.Append(BootTime(args, m));
-                                        break;
-                                    }
-
-                                //memoryTotal
-                                //args0 = capacity
-                                if (query == queryPhysicalMemory)
-                                {
-                                    sb.Append(MemoryTotal(args, ref TotalCapacity, ref warunek1, queryCollection, m));
-                                    break;
-                                }
-                                if (m[args[0].ToString()] != null)
-                                    sb.Append(m[args[0].ToString()] + "\n");
-                                break;
-                            }
-                        case 2:
-                            {
-
-                                if (query == queryNetworkConnection)
-                                {
-                                    sb.Append(NetworkResources(args, m));
-                                    break;
-                                }
-                                //autostart
-                                //args0 = caption
-                                //args1 = command
-                                if (query == queryStartupCommand)
-                                {
-                                    sb.Append(AutoStart(args, m));
-                                    break;
-                                }
-
-                                //Zmienna PATH
-                                //args0 = name
-                                //args1 = variablevalue
-                                if (query == queryEnvironment)
-                                {
-                                    sb.Append(EnvironmentPath(args, m));
-                                    break;
-                                }
-                                if (m[args[0].ToString()] != null)
-                                    sb.Append(m[args[0].ToString()] + "     " + m[args[1].ToString()] + "\n");
-                                break;
-                            }
-                        case 3:
-                            {
-                                //Lista programów
-                                //args1 = Name
-                                //args2 = InstallDate
-                                //args3 = Version
-                                if (query == queryProduct)
-                                {
-                                    sb.Append(InstalledPrograms(args, m));
-                                    break;
-                                }
-
-
-                                //zasoby sieciowe
-                                //args0 = name
-                                //args1 = path
-                                //args2 = description
-                                if (query == queryShare)
-                                {
-                                    sb.Append(NetworkResources(args, m));
-                                    break;
-                                }
-                                break;
-                            }
-                        case 4:
-                            {
-                                //system
-                                //args0 = caption
-                                //args1 = csdversion
-                                //args2 = osarchitecture
-                                //args3 = version
+                    case 1:
+                        {
+                            //bootTime
+                            //args0 = lastbootuptime
+                            if (args[0].ToString() == "LastBootUpTime")
                                 if (query == queryOperatingSystem)
                                 {
-                                    sb.Append(OsInfo(args, m));
+                                    sb.Append(BootTime(args, m));
                                     break;
                                 }
 
-                                //bios
-                                //args0 = manufacturer
-                                //args1 = biosversion
-                                //args2 = smbiobiosversion
-                                //args3 = releasedate
-                                if (query == queryBios)
-                                {
-                                    sb.Append(BiosInfo(args, m));
-                                    break;
-                                }
+                            //memoryTotal
+                            //args0 = capacity
+                            if (query == queryPhysicalMemory)
+                            {
+                                sb.Append(MemoryTotal(args, ref TotalCapacity, ref warunek1, queryCollection, m));
                                 break;
                             }
-                        case 5:
+                            if (m[args[0].ToString()] != null)
+                                sb.Append(m[args[0].ToString()] + "\n");
+                            break;
+                        }
+                    case 2:
+                        {
+
+                            if (query == queryNetworkConnection)
                             {
-                                //Disk
-                                //args0 = name
-                                //args1 = description
-                                //args2 = filesystem
-                                //args3 = freespace
-                                //args4 = size
-                                if (query == queryLogicalDisk)
-                                {
-                                    sb.Append(Disk(args, m));
-                                    break;
-                                }
-                                //args[0] = Caption
-                                //args[1] = DeviceID
-                                //args[2] = ScreenHeight
-                                //args[3] = ScreenWidth
-                                //args[4] = Status
-                                if (query == queryDesktopMonitor)
-                                {
-                                    sb.Append(DesktopMonitor(args, m));
-                                    sb.Append("\n");
-                                    break;
-                                }
+                                sb.Append(NetworkResources(args, m));
+                                break;
+                            }
+                            //autostart
+                            //args0 = caption
+                            //args1 = command
+                            if (query == queryStartupCommand)
+                            {
+                                sb.Append(AutoStart(args, m));
+                                break;
+                            }
+
+                            //Zmienna PATH
+                            //args0 = name
+                            //args1 = variablevalue
+                            if (query == queryEnvironment)
+                            {
+                                sb.Append(EnvironmentPath(args, m));
+                                break;
+                            }
+                            if (m[args[0].ToString()] != null)
+                                sb.Append(m[args[0].ToString()] + "     " + m[args[1].ToString()] + "\n");
+                            break;
+                        }
+                    case 3:
+                        {
+                            //Lista programów
+                            //args1 = Name
+                            //args2 = InstallDate
+                            //args3 = Version
+                            if (query == queryProduct)
+                            {
+                                sb.Append(InstalledPrograms(args, m));
+                                break;
+                            }
+
+
+                            //zasoby sieciowe
+                            //args0 = name
+                            //args1 = path
+                            //args2 = description
+                            if (query == queryShare)
+                            {
+                                sb.Append(NetworkResources(args, m));
+                                break;
+                            }
+                            break;
+                        }
+                    case 4:
+                        {
+                            //system
+                            //args0 = caption
+                            //args1 = csdversion
+                            //args2 = osarchitecture
+                            //args3 = version
+                            if (query == queryOperatingSystem)
+                            {
+                                sb.Append(OsInfo(args, m));
+                                break;
+                            }
+
+                            //bios
+                            //args0 = manufacturer
+                            //args1 = biosversion
+                            //args2 = smbiobiosversion
+                            //args3 = releasedate
+                            if (query == queryBios)
+                            {
+                                sb.Append(BiosInfo(args, m));
+                                break;
+                            }
+                            break;
+                        }
+                    case 5:
+                        {
+                            //Disk
+                            //args0 = name
+                            //args1 = description
+                            //args2 = filesystem
+                            //args3 = freespace
+                            //args4 = size
+                            if (query == queryLogicalDisk)
+                            {
+                                sb.Append(Disk(args, m));
+                                break;
+                            }
+                            //args[0] = Caption
+                            //args[1] = DeviceID
+                            //args[2] = ScreenHeight
+                            //args[3] = ScreenWidth
+                            //args[4] = Status
+                            if (query == queryDesktopMonitor)
+                            {
+                                sb.Append(DesktopMonitor(args, m));
                                 sb.Append("\n");
                                 break;
                             }
-                        case 6:
-                            {
-                                //Memory
-                                //args0 = devicelocator
-                                //args1 = manufacturer
-                                //args2 = capacity
-                                //args3 = speed
-                                //args4 = partnumber
-                                //args5 = serialnumber
-                                sb.Append(Memory(args, warunek, m));
-                                //StringBuilder += ("\n");
-                                break;
-                            }
-                        case 7:
-                            {
-                                //networkAdapter
-                                //args0 = IPEnabled
-                                //args1 = Description
-                                //args2 = DNSDomainSuffixSearchOrder
-                                //args3 = DNSHostName
-                                //args4 = IPAddress
-                                //args5 = IPSubnet
-                                //args6 = MACAddress
-                                sb.Append(NetworkAdapter(args, m));
-                                break;
-                            }
-                    }
+                            sb.Append("\n");
+                            break;
+                        }
+                    case 6:
+                        {
+                            //Memory
+                            //args0 = devicelocator
+                            //args1 = manufacturer
+                            //args2 = capacity
+                            //args3 = speed
+                            //args4 = partnumber
+                            //args5 = serialnumber
+                            sb.Append(Memory(args, warunek, m));
+                            //StringBuilder += ("\n");
+                            break;
+                        }
+                    case 7:
+                        {
+                            //networkAdapter
+                            //args0 = IPEnabled
+                            //args1 = Description
+                            //args2 = DNSDomainSuffixSearchOrder
+                            //args3 = DNSHostName
+                            //args4 = IPAddress
+                            //args5 = IPSubnet
+                            //args6 = MACAddress
+                            sb.Append(NetworkAdapter(args, m));
+                            break;
+                        }
                 }
             }
-            catch (UnauthorizedAccessException ex)
-            {
-                Debug.LogsCollector.GetLogs(ex, nazwaKomputera + "," + path + "," + query);
-                MessageBox.Show("Dostęp zabroniony na obecnych poświadczeniach", "WMI Testing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); return string.Empty;
-            }
-
-            catch (Exception ex)
-            {
-                Debug.LogsCollector.GetLogs(ex, nazwaKomputera + "," + path + "," + query);
-                MessageBox.Show("Nie można się połączyć z powodu błędu: " + ex.Message, "WMI Testing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); return string.Empty;
-            }
             return sb.ToString();
-
         }
 
         private static string Memory(object[] args, int warunek, ManagementObject m)
