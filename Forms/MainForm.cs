@@ -1110,6 +1110,7 @@ namespace Forms
                             KomputerInfoMethod();
                     }
                 }
+                else UpdateRichTextBox($"Nie można połączyć się z {HostName()}");        
             }
             StopTime();
         }
