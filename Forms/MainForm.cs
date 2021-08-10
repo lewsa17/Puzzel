@@ -1241,7 +1241,6 @@ namespace Forms
             {
                 if (HostIsAvailable(HostName()))
                 {
-                    var OSName = PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, PuzzelLibrary.WMI.ComputerInfo.queryOperatingSystem, "osarchitecture");
                     string applicationName = PuzzelLibrary.ProcessExecutable.ProcExec.PSexec(HostName());
 
                     if (FileIsAvailable(applicationName))
