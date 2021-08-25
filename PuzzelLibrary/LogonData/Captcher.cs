@@ -221,7 +221,7 @@ namespace PuzzelLibrary.LogonData
             {
                 var comp = ComputerNameDB.ADComputerDB.FindAll(x => x.Name.Contains(pole, StringComparison.OrdinalIgnoreCase));
                 if (comp.Count == 0)
-                    return ("Brak nazwy komputera w logach");
+                    return ("Brak nazwy komputera w cache");
                 else
                 {
                     foreach (var compName in comp)
