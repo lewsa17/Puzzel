@@ -1329,10 +1329,17 @@ namespace Forms
             string psPath = Path.Combine(Environment.SystemDirectory, @"WindowsPowerShell\v1.0\powershell.exe");
             PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess(psPath, "-noexit");
         }
+
+        private Form SettingFormHandler;
         private void OpenSettings(object sender, EventArgs e)
         {
-            var settingsForm = new Settings.SettingsForm(this.Name);
-            settingsForm.Show();
+            if (SettingFormHandler == null)
+            {
+                SettingFormHandler = new Settings.SettingsForm(this.Name);
+                SettingFormHandler.Show();
+                SettingFormHandler.FormClosing += (sender, e) => SettingFormHandler = null; 
+            }
+            else SettingFormHandler.Focus();
         }
         private void LoadingForm(object sender, EventArgs e)
         {
