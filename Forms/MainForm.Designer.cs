@@ -81,6 +81,7 @@
             this.btnManagement = new();
             this.btnCompInfo = new();
             this.contextMenuComputerInfo = new(this.components);
+            this.menuItemComputerInfoDrivers = new();
             this.menuItemComputerInfoUptime = new();
             this.menuItemComputerInfoSNPN = new();
             this.menuItemComputerInfoModel = new();
@@ -747,16 +748,17 @@
             this.contextMenuComputerInfo.Items.AddRange(new[] {
             this.menuItemComputerInfoAutostart,
             this.menuItemComputerInfoBios,
+            this.menuItemComputerInfoProcessor,
             this.menuItemComputerInfoPrinters,
             this.menuItemComputerInfoDrives,
             this.menuItemComputerInfoDisplay,
             this.menuItemComputerInfoModel,
-            this.menuItemComputerInfoSNPN,
             this.menuItemComputerInfoRAM,
             this.menuItemComputerInfoPath,
-            this.menuItemComputerInfoProcessor,
-            this.menuItemComputerInfoProfile,
             this.menuItemComputerInfoOS,
+            this.menuItemComputerInfoProfile,
+            this.menuItemComputerInfoSNPN,
+            this.menuItemComputerInfoDrivers,
             this.menuItemComputerInfoShares,
             this.menuItemComputerInfoUptime,
             this.menuItemComputerInfoLoggedUser,
@@ -770,6 +772,12 @@
             this.menuItemComputerInfoUptime.Name = "menuItemComputerInfoUptime";
             this.menuItemComputerInfoUptime.Text = "Uptime";
             this.menuItemComputerInfoUptime.Click += new(this.KomputerInfoMenuStrip);
+            //
+            // menuItemComputerInfoDrivers 
+            //
+            this.menuItemComputerInfoDrivers.Name = "menuItemComputerInfoDrivers";
+            this.menuItemComputerInfoDrivers.Text = "Sterowniki";
+            this.menuItemComputerInfoDrivers.Click += new(this.KomputerInfoMenuStrip);
             // 
             // menuItemComputerInfoSNPN
             // 
@@ -1424,6 +1432,7 @@
         private System.Windows.Forms.ToolStripMenuItem menuItemComputerInfoProcessor;
         private System.Windows.Forms.ToolStripMenuItem menuItemComputerInfoLoggedUser;
         private System.Windows.Forms.ToolStripMenuItem menuItemComputerInfoProfile;
+        private System.Windows.Forms.ToolStripMenuItem menuItemComputerInfoDrivers;
         private System.Windows.Forms.ToolStripMenuItem menuItemComputerInfoDrives;
         private System.Windows.Forms.ToolStripMenuItem menuItemComputerInfoPrinters;
         private System.Windows.Forms.ToolStripMenuItem menuItemComputerInfoShares;

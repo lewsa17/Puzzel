@@ -997,6 +997,11 @@ namespace Forms
                             UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryOperatingSystem, "LastBootUpTime"));
                         }
 
+                        if (toolStrip == menuItemComputerInfoDrivers)
+                        {
+                            UpdateRichTextBox("Sterowniki\n");
+                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryPnpDevice, "DeviceName", "Manufacturer", "DriverVersion"));
+                        }
                         if (toolStrip == menuItemComputerInfoSNPN)
                         {
                             UpdateRichTextBox("SN: ");

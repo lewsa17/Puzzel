@@ -26,6 +26,7 @@ namespace PuzzelLibrary.WMI
         public const string queryBios = "Win32_BIOS";
         public const string queryDesktopMonitor = "Win32_DesktopMonitor";
         public const string queryProduct = "Win32_Product";
+        public const string queryPnpDevice = "Win32_PnPSignedDriver";
 
         public static int GetProgressValue { get; set; }
 
@@ -228,6 +229,17 @@ namespace PuzzelLibrary.WMI
                                 sb.Append(NetworkResources(args, m));
                                 break;
                             }
+                            
+                            //Lista sterowników
+                            //args0 = Desription
+                            //args1 = Manufacturer
+                            //args2 = DriverVersion
+                            if (query == queryPnpDevice)
+                            {
+                                sb.Append(PNPDevice(args, m));
+                                break;
+                            }
+
                             break;
                         }
                     case 4:
@@ -1002,6 +1014,31 @@ namespace PuzzelLibrary.WMI
                 sb.Append(bootTime.Seconds + " " + secondArr[1]);
             sb.Append("\n");
             return sb.ToString();
+        }
+
+        private static string PNPDevice(object[] args, ManagementObject m)
+        {
+            System.Text.StringBuilder sb = new();
+            if (m[args[0].ToString()] != null && m[args[1].ToString()] != null && m[args[2].ToString()] != null)
+            {
+                string Description = m[args[0].ToString()].ToString();
+                sb.Append(Description);
+                for (int i = 0; i < 75 - Description.Length; i++)
+                {
+                    sb.Append(" ");
+                }            
+                string Manufacturer = m[args[1].ToString()].ToString();
+                sb.Append(Manufacturer);
+                for (int i = 0; i < 32 - Manufacturer.Length; i++)
+                {
+                    sb.Append(" ");
+                }
+                string DriverVersion = m[args[2].ToString()].ToString();
+                sb.Append(DriverVersion);
+                sb.Append('\n');
+            }
+            return sb.ToString();
+
         }
     }
 }
