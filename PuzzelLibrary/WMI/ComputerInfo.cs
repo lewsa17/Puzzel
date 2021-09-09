@@ -230,20 +230,20 @@ namespace PuzzelLibrary.WMI
                                 break;
                             }
                             
+                            break;
+                        }
+                    case 4:
+                        {
                             //Lista sterowników
                             //args0 = Desription
                             //args1 = Manufacturer
                             //args2 = DriverVersion
+                            //args3 = DriverDate
                             if (query == queryPnpDevice)
                             {
                                 sb.Append(PNPDevice(args, m));
                                 break;
                             }
-
-                            break;
-                        }
-                    case 4:
-                        {
                             //system
                             //args0 = caption
                             //args1 = csdversion
@@ -1019,7 +1019,7 @@ namespace PuzzelLibrary.WMI
         private static string PNPDevice(object[] args, ManagementObject m)
         {
             System.Text.StringBuilder sb = new();
-            if (m[args[0].ToString()] != null && m[args[1].ToString()] != null && m[args[2].ToString()] != null)
+            if (m[args[0].ToString()] != null && m[args[1].ToString()] != null && m[args[2].ToString()] != null && m[args[3].ToString()] != null)
             {
                 string Description = m[args[0].ToString()].ToString();
                 sb.Append(Description);
@@ -1033,7 +1033,12 @@ namespace PuzzelLibrary.WMI
                 {
                     sb.Append(" ");
                 }
-                string DriverVersion = m[args[2].ToString()].ToString();
+                string DriverDate = m[args[2].ToString()].ToString();
+                //Skrócenie ciągu do 8 znaków i format do yyyy-MM-dd
+                DriverDate = DriverDate.Remove(8).Insert(6, "-").Insert(4, "-");
+                DriverDate += "        ";
+                sb.Append(DriverDate);
+                string DriverVersion = m[args[3].ToString()].ToString();
                 sb.Append(DriverVersion);
                 sb.Append('\n');
             }

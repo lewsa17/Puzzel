@@ -999,8 +999,8 @@ namespace Forms
 
                         if (toolStrip == menuItemComputerInfoDrivers)
                         {
-                            UpdateRichTextBox("Sterowniki\n");
-                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryPnpDevice, "DeviceName", "Manufacturer", "DriverVersion"));
+                            UpdateRichTextBox("Nazwa sterownika                                                           Producent                       Data sterownika   Wersja Sterownika\n");
+                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryPnpDevice, "DeviceName", "Manufacturer", "DriverDate", "DriverVersion"));
                         }
                         if (toolStrip == menuItemComputerInfoSNPN)
                         {
