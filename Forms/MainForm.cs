@@ -1361,7 +1361,7 @@ namespace Forms
         {
             if (sender is Button btn)
             {
-                if (btn.Text == "Hard Logs" | ModifierKeys == Keys.Shift)
+                if (btn.Text == "Full Reload" | ModifierKeys == Keys.Shift)
                     PuzzelLibrary.LogonData.Captcher.HardResetCache();
             }
             else PuzzelLibrary.LogonData.Captcher.ReloadCache();
@@ -1369,7 +1369,7 @@ namespace Forms
         private void MouseMovingOverbtnReloadLogs(object sender, MouseEventArgs e)
         {
             if (ModifierKeys == Keys.Shift)
-                btnReloadLogs.Text = "Hard Logs";
+                btnReloadLogs.Text = "Full Reload";
             else btnReloadLogs.Text = "Reload Logs";
         }
         private void VersionInstance()
