@@ -15,7 +15,7 @@ namespace PuzzelLibrary.Terminal
             {
                 server.Open();
                 ITerminalServicesSession session = server.GetSession(sessionID);
-                session.Logoff();
+                session.Logoff(false);
                 server.Close();
                 MessageBox.Show(new Form() { TopMost = true }, "Wysłano instrukcję wyłączenia sesji", "Rozłączanie sesji", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
