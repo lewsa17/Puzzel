@@ -303,7 +303,7 @@ namespace PuzzelLibrary.WMI
                             //args3 = speed
                             //args4 = partnumber
                             //args5 = serialnumber
-                            sb.Append(Memory(args, warunek, m));
+                            sb.Append(Memory(args, ref warunek, m));
                             //StringBuilder += ("\n");
                             break;
                         }
@@ -324,8 +324,7 @@ namespace PuzzelLibrary.WMI
             }
             return sb.ToString();
         }
-
-        private static string Memory(object[] args, int warunek, ManagementObject m)
+        private static string Memory(object[] args, ref int warunek, ManagementObject m)
         {
             string devicelocator = null;
             int devicelocatorSize = 0;
