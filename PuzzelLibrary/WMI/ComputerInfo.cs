@@ -304,7 +304,7 @@ namespace PuzzelLibrary.WMI
                             //args4 = partnumber
                             //args5 = serialnumber
                             sb.Append(Memory(args, ref warunek, m));
-                            //StringBuilder += ("\n");
+                            sb.Append("\n");
                             break;
                         }
                     case 7:
