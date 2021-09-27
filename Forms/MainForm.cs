@@ -1054,7 +1054,7 @@ namespace Forms
                         if (toolStrip == menuItemComputerInfoDrives)
                         {
                             UpdateRichTextBox("Dyski: \n");
-                            UpdateRichTextBox(ComputerInfo_TEMP += ("Nazwa   Opis                  System plików   Wolna przestrzeń       Rozmiar \n"));
+                            UpdateRichTextBox("Nazwa   Opis                  System plików   Wolna przestrzeń       Rozmiar \n");
                             UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryLogicalDisk, "Name", "Description", "FileSystem", "FreeSpace", "Size"));
                         }
 
