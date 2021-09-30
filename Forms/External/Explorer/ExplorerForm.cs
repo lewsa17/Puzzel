@@ -133,7 +133,6 @@ namespace Forms.External.Explorer
         {
             var tabPage = tabControl.SelectedTab;
             var dataGridView = (DataGridView)tabPage.Controls.Find("DataGridView", true)[0];
-            var label = tabPage.Controls.Find("processCount", true)[0];
             dataGridView.Rows.Clear();
             foreach (ITerminalServicesProcess process in new PuzzelLibrary.Terminal.Explorer().GetExplorerProcess(server))
                 if (process.SessionId == selectedSessionID)
@@ -240,11 +239,13 @@ namespace Forms.External.Explorer
                                     if (tabControl.SelectedTab.Name == "dynaProcesTab")
                                     {
                                         RefreshProcesses(sender, server, session, selectedSessionID);
+                                        break;
                                     }
 
                                     if (tabControl.SelectedTab.Name == "dynaStatusTab")
                                     {
                                         RefreshStatus(session, selectedSessionID);
+                                        break;
                                     }
                                     break;
                                 }
