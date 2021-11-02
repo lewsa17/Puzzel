@@ -109,19 +109,32 @@ namespace Forms.External
             {
                 PuzzelLibrary.NetDiag.TCPPing tcpPing = new();
                 if (tcpPing.TestConnection(DomainController, 135) == PuzzelLibrary.NetDiag.TCPPing.Status.Success)
-                    TextLogView.Text = ec.GetRemoteLog(DomainController, "Security", queryController);
+                    TextLogView.Text = ec.GetRemoteLog(DomainController, "Security", queryController, null);
                 else TextLogView.Text = tcpPing.Result;
             }
             else if (new PuzzelLibrary.NetDiag.TCPPing().TestConnection(LocationText.Text, 135) == PuzzelLibrary.NetDiag.TCPPing.Status.Success)
             {
                 //Wyszukiwanie na serwerzer motp
                 if (LocationText.Text.Contains("motp", StringComparison.OrdinalIgnoreCase))
-                    TextLogView.Text = ec.GetRemoteLog(LocationText.Text, PuzzelLibrary.Settings.Values.MotpLogName, MotpQuery);
+                {
+                    if (PuzzelLibrary.Settings.Values.EventLogTableView)
+                    {
+                        _ = ec.GetRemoteLog(LocationText.Text, PuzzelLibrary.Settings.Values.MotpLogName, MotpQuery, TableLogView);
+                        TextLogView.Visible = false;
+                        TableLogView.Visible = true;
+                    }
+                    else
+                    {
+                        TextLogView.Text = ec.GetRemoteLog(LocationText.Text, PuzzelLibrary.Settings.Values.MotpLogName, MotpQuery, null);
+                        TextLogView.Visible = true;
+                        TableLogView.Visible = false;
+                    }
+                }
 
                 //Wyszukiwanie na komputerze o nazwie podanej w polu
                 else if (!string.IsNullOrEmpty(LocationText.Text))
                 {
-                    TextLogView.Text = ec.GetRemoteLog(LocationText.Text, "Security", query);
+                    TextLogView.Text = ec.GetRemoteLog(LocationText.Text, "Security", query, null);
                 }
             }
             else TextLogView.Text = string.Format("Brak połączenia z {0}, serwer RPC jest niedostępny", LocationText.Text);

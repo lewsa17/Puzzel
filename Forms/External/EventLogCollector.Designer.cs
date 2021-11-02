@@ -34,18 +34,20 @@
             this.ToLabel = new System.Windows.Forms.Label();
             this.FindButton = new System.Windows.Forms.Button();
             this.PanelBox = new System.Windows.Forms.GroupBox();
+            this.LogCounterLabel = new System.Windows.Forms.Label();
+            this.LogCounter = new System.Windows.Forms.NumericUpDown();
             this.LocationText = new System.Windows.Forms.ComboBox();
             this.LocationLabel = new System.Windows.Forms.Label();
             this.TextLogView = new System.Windows.Forms.RichTextBox();
-            this.LogCounter = new System.Windows.Forms.NumericUpDown();
-            this.LogCounterLabel = new System.Windows.Forms.Label();
+            this.TableLogView = new System.Windows.Forms.DataGridView();
             this.PanelBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.LogCounter)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TableLogView)).BeginInit();
             this.SuspendLayout();
             // 
             // StartDateRangePicker
             // 
-            this.StartDateRangePicker.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.StartDateRangePicker.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.StartDateRangePicker.CustomFormat = "yyyy-MM-dd HH:mm:ss";
             this.StartDateRangePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
@@ -59,7 +61,7 @@
             // 
             // EndDateRangePicker
             // 
-            this.EndDateRangePicker.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.EndDateRangePicker.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.EndDateRangePicker.CustomFormat = "yyyy-MM-dd HH:mm:ss";
             this.EndDateRangePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
@@ -73,7 +75,7 @@
             // 
             // FromLabel
             // 
-            this.FromLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.FromLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.FromLabel.AutoSize = true;
             this.FromLabel.Location = new System.Drawing.Point(163, 34);
@@ -84,7 +86,7 @@
             // 
             // ToLabel
             // 
-            this.ToLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.ToLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.ToLabel.AutoSize = true;
             this.ToLabel.Location = new System.Drawing.Point(372, 34);
@@ -95,7 +97,7 @@
             // 
             // FindButton
             // 
-            this.FindButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.FindButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.FindButton.Location = new System.Drawing.Point(645, 52);
             this.FindButton.Name = "FindButton";
@@ -107,8 +109,7 @@
             // 
             // PanelBox
             // 
-            this.PanelBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.PanelBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.PanelBox.Controls.Add(this.LogCounterLabel);
             this.PanelBox.Controls.Add(this.LogCounter);
@@ -126,9 +127,29 @@
             this.PanelBox.TabStop = false;
             this.PanelBox.Text = "Wyszukiwanie złych prób logowania";
             // 
+            // LogCounterLabel
+            // 
+            this.LogCounterLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.LogCounterLabel.AutoSize = true;
+            this.LogCounterLabel.Location = new System.Drawing.Point(579, 34);
+            this.LogCounterLabel.Name = "LogCounterLabel";
+            this.LogCounterLabel.Size = new System.Drawing.Size(34, 15);
+            this.LogCounterLabel.TabIndex = 9;
+            this.LogCounterLabel.Text = "Ilość:";
+            // 
+            // LogCounter
+            // 
+            this.LogCounter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.LogCounter.Location = new System.Drawing.Point(576, 51);
+            this.LogCounter.Name = "LogCounter";
+            this.LogCounter.Size = new System.Drawing.Size(63, 23);
+            this.LogCounter.TabIndex = 8;
+            // 
             // LocationText
             // 
-            this.LocationText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.LocationText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.LocationText.Location = new System.Drawing.Point(6, 52);
             this.LocationText.Name = "LocationText";
@@ -137,7 +158,7 @@
             // 
             // LocationLabel
             // 
-            this.LocationLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.LocationLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.LocationLabel.AutoSize = true;
             this.LocationLabel.Location = new System.Drawing.Point(6, 34);
@@ -148,52 +169,51 @@
             // 
             // TextLogView
             // 
-            this.TextLogView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.TextLogView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.TextLogView.AutoWordSelection = true;
             this.TextLogView.Location = new System.Drawing.Point(3, 110);
             this.TextLogView.Name = "TextLogView";
+            this.TextLogView.ShortcutsEnabled = false;
             this.TextLogView.Size = new System.Drawing.Size(754, 328);
             this.TextLogView.TabIndex = 6;
             this.TextLogView.Text = "";
-            this.TextLogView.AutoWordSelection = true;
-            this.TextLogView.ShortcutsEnabled = false;
-            this.TextLogView.KeyDown += new(this.SearchData);
+            this.TextLogView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SearchData);
             // 
-            // LogCounter
+            // TableLogView
             // 
-            this.LogCounter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.LogCounter.Location = new System.Drawing.Point(576, 51);
-            this.LogCounter.Name = "LogCounter";
-            this.LogCounter.Size = new System.Drawing.Size(63, 23);
-            this.LogCounter.TabIndex = 8;
-            // 
-            // LogCounterLabel
-            // 
-            this.LogCounterLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.LogCounterLabel.AutoSize = true;
-            this.LogCounterLabel.Location = new System.Drawing.Point(579, 34);
-            this.LogCounterLabel.Name = "LogCounterLabel";
-            this.LogCounterLabel.Size = new System.Drawing.Size(34, 15);
-            this.LogCounterLabel.TabIndex = 9;
-            this.LogCounterLabel.Text = "Ilość:";
+            this.TableLogView.AllowUserToAddRows = false;
+            this.TableLogView.AllowUserToDeleteRows = false;
+            this.TableLogView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TableLogView.Location = new System.Drawing.Point(3, 110);
+            this.TableLogView.MultiSelect = false;
+            this.TableLogView.Name = "TableLogView";
+            this.TableLogView.ReadOnly = true;
+            this.TableLogView.RowHeadersVisible = false;
+            this.TableLogView.Size = new System.Drawing.Size(754, 328);
+            this.TableLogView.TabIndex = 0;
+            this.TableLogView.Visible = false;
+            this.TableLogView.BackgroundColor = System.Drawing.Color.White; 
             // 
             // EventLogCollector
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(760, 450);
-            this.MinimumSize = new System.Drawing.Size(760, 450);
-            this.Controls.Add(this.TextLogView);
             this.Controls.Add(this.PanelBox);
+            this.Controls.Add(this.TextLogView);
+            this.Controls.Add(this.TableLogView);
+            this.MinimumSize = new System.Drawing.Size(760, 450);
             this.Name = "EventLogCollector";
-            this.Text = "Zbieracz zdarzeń";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Zbieracz zdarzeń";
             this.PanelBox.ResumeLayout(false);
             this.PanelBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.LogCounter)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TableLogView)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -211,5 +231,6 @@
         private System.Windows.Forms.RichTextBox TextLogView;
         private System.Windows.Forms.Label LogCounterLabel;
         private System.Windows.Forms.NumericUpDown LogCounter;
+        private System.Windows.Forms.DataGridView TableLogView;
     }
 }

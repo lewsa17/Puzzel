@@ -41,7 +41,7 @@ namespace PuzzelLibrary.Debug
                 if (evtReader.LogStatus[0].StatusCode == 5)
                     return "Wykonanie operacji wymaga podniesionych uprawnień";
                 else if (evtReader.LogStatus[0].StatusCode == 0)
-                    return DisplayEventAndLogInformation(evtReader);
+                    return GetEventAndLogInformation(evtReader);
             }
             catch (Exception e)
             {
@@ -57,7 +57,7 @@ namespace PuzzelLibrary.Debug
             try
             {
                 var logReader = new EventLogReader(eventsQuery);
-                DisplayEventAndLogInformation(logReader);
+                GetEventAndLogInformation(logReader);
             }
             catch (EventLogException e)
             {
@@ -65,7 +65,7 @@ namespace PuzzelLibrary.Debug
             }
         }
 
-        public string GetRemoteLog(string computerName, string logName, string queryString)
+        public string GetRemoteLog(string computerName, string logName, string queryString, object control)
         {
             EventLogSession session = new(computerName);
 
@@ -78,7 +78,10 @@ namespace PuzzelLibrary.Debug
                 if (logReader.LogStatus[0].StatusCode == 0)
                 {
                     if (computerName.Contains("motp", StringComparison.OrdinalIgnoreCase))
-                        return DisplayEventAndLogInformation(logReader);
+                        if (control is System.Windows.Forms.DataGridView)
+                            DisplayEventAndLogInformation(logReader, (System.Windows.Forms.DataGridView)control);
+                        else
+                            return GetEventAndLogInformation(logReader);
                     else return DisplayEventSecurityLog(logReader);
                 }
                 else if (logReader.LogStatus[0].StatusCode == 5)
@@ -142,7 +145,7 @@ namespace PuzzelLibrary.Debug
             return sb.ToString();
         }
 
-        private string DisplayEventAndLogInformation(EventLogReader logReader)
+        private string GetEventAndLogInformation(EventLogReader logReader)
         {
             StringBuilder sb = new();
             int i = 0;
@@ -166,6 +169,30 @@ namespace PuzzelLibrary.Debug
             }
             if (sb.Length == 0) { sb.Append("Brak logów"); }
             return sb.ToString();
+        }
+        private void DisplayEventAndLogInformation(EventLogReader logReader, System.Windows.Forms.DataGridView dv)
+        {
+            int i = 0;
+            dv.Columns.Clear();
+            dv.Columns.AddRange(new System.Windows.Forms.DataGridViewTextBoxColumn() { Name = "TimeCreated", HeaderText = "TimeCreated", AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells},
+                                new System.Windows.Forms.DataGridViewTextBoxColumn() { Name = "EventId", HeaderText = "EventId", AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells },
+                                new System.Windows.Forms.DataGridViewTextBoxColumn() { Name = "ProviderName", HeaderText = "ProviderName", AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells },
+                                new System.Windows.Forms.DataGridViewTextBoxColumn() { Name = "Description", HeaderText = "Description", AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill });
+            while (i++ < MaxCount)
+            {
+                try
+                {
+                    EventRecord eventInstance = logReader.ReadEvent();
+                    if (eventInstance == null) break;
+                    dv.Rows.Add(eventInstance.TimeCreated, eventInstance.Id, eventInstance.ProviderName, eventInstance.FormatDescription());
+                }
+                catch (EventLogException e)
+                {
+                    Debug.LogsCollector.GetLogs(e, logReader.ToString());
+                }
+            }
+            if (dv.Rows.Count == 0) { dv.Rows.Clear(); 
+                dv.Rows.Add("Brak logów"); }
         }
 
         public class EventParser
