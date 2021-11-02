@@ -56,6 +56,7 @@
             this.AutoStartUpdateCheck = new System.Windows.Forms.CheckBox();
             this.Logs = new System.Windows.Forms.TabPage();
             this.MotpServerBox = new System.Windows.Forms.GroupBox();
+            this.EventLogTableViewCheck = new System.Windows.Forms.CheckBox();
             this.MotpLogNameBox = new System.Windows.Forms.GroupBox();
             this.MotpLogNameTextBox = new System.Windows.Forms.TextBox();
             this.MotpServersTextBox = new System.Windows.Forms.TextBox();
@@ -81,6 +82,7 @@
             this.DescriptionBox = new System.Windows.Forms.GroupBox();
             this.DescriptionLabel = new System.Windows.Forms.Label();
             this.RestoreDefaultButton = new System.Windows.Forms.Button();
+            this.EventLogTableViewBox = new System.Windows.Forms.GroupBox();
             this.TabSettings.SuspendLayout();
             this.GeneralPage.SuspendLayout();
             this.ComputerInputBox.SuspendLayout();
@@ -103,6 +105,7 @@
             this.Other.SuspendLayout();
             this.AutomaticallyAllowBox.SuspendLayout();
             this.DescriptionBox.SuspendLayout();
+            this.EventLogTableViewBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // SaveButton
@@ -448,14 +451,28 @@
             // 
             // MotpServerBox
             // 
+            this.MotpServerBox.Controls.Add(this.EventLogTableViewBox);
             this.MotpServerBox.Controls.Add(this.MotpLogNameBox);
             this.MotpServerBox.Controls.Add(this.MotpServersTextBox);
             this.MotpServerBox.Location = new System.Drawing.Point(513, 62);
             this.MotpServerBox.Name = "MotpServerBox";
-            this.MotpServerBox.Size = new System.Drawing.Size(239, 114);
+            this.MotpServerBox.Size = new System.Drawing.Size(239, 174);
             this.MotpServerBox.TabIndex = 3;
             this.MotpServerBox.TabStop = false;
             this.MotpServerBox.Text = "Serwery MOTP z logami";
+            // 
+            // EventLogTableViewCheck
+            // 
+            this.EventLogTableViewCheck.AutoSize = true;
+            this.EventLogTableViewCheck.Location = new System.Drawing.Point(6, 16);
+            this.EventLogTableViewCheck.Name = "EventLogTableViewCheck";
+            this.EventLogTableViewCheck.Size = new System.Drawing.Size(83, 19);
+            this.EventLogTableViewCheck.TabIndex = 3;
+            this.EventLogTableViewCheck.Text = "Wyłączone";
+            this.EventLogTableViewCheck.UseVisualStyleBackColor = true;
+            this.EventLogTableViewCheck.CheckedChanged += new System.EventHandler(this.ChangeChecked);
+            this.EventLogTableViewCheck.MouseEnter += new System.EventHandler(this.MouseOn);
+            this.EventLogTableViewCheck.MouseLeave += new System.EventHandler(this.MouseOut);
             // 
             // MotpLogNameBox
             // 
@@ -739,6 +756,16 @@
             this.RestoreDefaultButton.UseVisualStyleBackColor = true;
             this.RestoreDefaultButton.Click += new System.EventHandler(this.RestoreDefaultSettings);
             // 
+            // EventLogTableViewBox
+            // 
+            this.EventLogTableViewBox.Controls.Add(this.EventLogTableViewCheck);
+            this.EventLogTableViewBox.Location = new System.Drawing.Point(7, 114);
+            this.EventLogTableViewBox.Name = "EventLogTableViewBox";
+            this.EventLogTableViewBox.Size = new System.Drawing.Size(227, 45);
+            this.EventLogTableViewBox.TabIndex = 4;
+            this.EventLogTableViewBox.TabStop = false;
+            this.EventLogTableViewBox.Text = "Dziennik w formie tabeli";
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -788,6 +815,8 @@
             this.AutomaticallyAllowBox.PerformLayout();
             this.DescriptionBox.ResumeLayout(false);
             this.DescriptionBox.PerformLayout();
+            this.EventLogTableViewBox.ResumeLayout(false);
+            this.EventLogTableViewBox.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -847,6 +876,8 @@
         private System.Windows.Forms.TextBox MotpServersTextBox;
         private System.Windows.Forms.GroupBox ComputerInputBox;
         private System.Windows.Forms.CheckBox ComputerInputCheck;
+        private System.Windows.Forms.CheckBox EventLogTableViewCheck;
+        private System.Windows.Forms.GroupBox EventLogTableViewBox;
     }
 }
 

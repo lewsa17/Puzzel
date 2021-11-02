@@ -17,7 +17,7 @@ namespace Settings
         }
         private Control[] GetCollectionOfFieldSettings()
         {
-            Control[] ListOfFieldWithSettings = { NumbersOfUserLogs, NumbersOfCompLogs, HistoryLogCheck, CustomSourceCheck, LocalUpdateCheck, AutoStartUpdateCheck, SaveUserDataCheck, AutoUnlockFirewallCheck, AutoOpenPortCheck, CheckLogsBeforeStartUpCheck, SessionShortcutText, LocalUpdateTextBox, ComputerLogsFolderTextBox, ComputerSNFileTextBox, TerminalLogsSNFileTextBox, TerminalLogsFileTextBox, TerminalLogsFolderTextBox, CustomSourceTextBox, MotpServersTextBox, MotpLogNameTextBox, ComputerInputCheck };
+            Control[] ListOfFieldWithSettings = { NumbersOfUserLogs, NumbersOfCompLogs, HistoryLogCheck, CustomSourceCheck, LocalUpdateCheck, AutoStartUpdateCheck, SaveUserDataCheck, AutoUnlockFirewallCheck, AutoOpenPortCheck, CheckLogsBeforeStartUpCheck, SessionShortcutText, LocalUpdateTextBox, ComputerLogsFolderTextBox, ComputerSNFileTextBox, TerminalLogsSNFileTextBox, TerminalLogsFileTextBox, TerminalLogsFolderTextBox, CustomSourceTextBox, MotpServersTextBox, MotpLogNameTextBox, ComputerInputCheck, EventLogTableViewCheck };
             return ListOfFieldWithSettings;
         }
 
@@ -168,6 +168,11 @@ namespace Settings
                                 PuzzelLibrary.Settings.Values.ComputerInput = ComputerInputCheck.Checked;
                                 break;
                             }
+                        case nameof(EventLogTableViewCheck):
+                            {
+                                PuzzelLibrary.Settings.Values.EventLogTableView = EventLogTableViewCheck.Checked;
+                                break;
+                            }
                     }
                     return;
                 }
@@ -293,6 +298,7 @@ namespace Settings
                 MotpServersTextBox.Text = PuzzelLibrary.Settings.Values.MotpServers;
                 MotpLogNameTextBox.Text = PuzzelLibrary.Settings.Values.MotpLogName;
                 ComputerInputCheck.Checked = PuzzelLibrary.Settings.Values.ComputerInput;
+                EventLogTableViewCheck.Checked = PuzzelLibrary.Settings.Values.EventLogTableView;
             }
             else
             {
@@ -320,6 +326,7 @@ namespace Settings
                 PuzzelLibrary.Settings.Values.MotpLogName = MotpLogNameTextBox.Text;
                 PuzzelLibrary.Settings.Values.MotpServers= MotpServersTextBox.Text;
                 PuzzelLibrary.Settings.Values.ComputerInput = ComputerInputCheck.Checked;
+                PuzzelLibrary.Settings.Values.EventLogTableView = EventLogTableViewCheck.Checked;
             }
         }
 
