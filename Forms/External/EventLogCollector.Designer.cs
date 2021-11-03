@@ -191,6 +191,8 @@
             this.TableLogView.RowsDefaultCellStyle.BackColor = System.Drawing.Color.White;
             this.TableLogView.AlternatingRowsDefaultCellStyle.BackColor =
                 System.Drawing.Color.LightGray;
+            this.TableLogView.AllowUserToResizeColumns = false;
+            this.TableLogView.AllowUserToResizeRows = false;
             this.TableLogView.Location = new System.Drawing.Point(3, 110);
             this.TableLogView.MultiSelect = false;
             this.TableLogView.Name = "TableLogView";
