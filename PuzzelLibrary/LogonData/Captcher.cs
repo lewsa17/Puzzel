@@ -130,7 +130,7 @@ namespace PuzzelLibrary.LogonData
                     }
             }
         }
-        public string getUserComputerLog(string pole, string rodzaj, decimal licznik)
+        private string getUserComputerLog(string pole, string rodzaj, decimal licznik)
         {
             UserNameDB userNameDB = new();
             StringBuilder sb = new();
