@@ -296,17 +296,21 @@ namespace Forms
         private LogsData UserData()
         {
             LogsData user = new();
+            string userName = string.Empty;
             user.KindOf = "User";
             user.LastUsedName = comboBoxLoginLast;
-            user.Name = UserName();
+            comboBoxLogin.Invoke(new MethodInvoker(() => userName = comboBoxLogin.Text.ToUpper()));
+            user.Name = userName;
             user.NumberOfLog = (int)numericLogin.Value;
             return user;
         }
         private LogsData ComputerData()
         {
             LogsData computer = new();
+            string computerName = string.Empty;
             computer.KindOf = "Computer";
             computer.LastUsedName = comboBoxCompLast;
+            comboBoxComputer.Invoke(new MethodInvoker(() => computerName = comboBoxComputer.Text.ToUpper()));
             computer.Name = HostName();
             computer.NumberOfLog = (int)numericComputer.Value;
             return computer;
@@ -719,7 +723,7 @@ namespace Forms
             if (comboBoxComputer.InvokeRequired)
                 comboBoxComputer.Invoke(new MethodInvoker(() => _HostName = comboBoxComputer.Text.ToUpper()));
             else _HostName = comboBoxComputer.Text.ToUpper();
-            return _HostName;
+            return _HostName.Replace("*", "");
         }
         private void Info_z_AD_Click(object sender, EventArgs e)
         {
@@ -1321,7 +1325,7 @@ namespace Forms
             if (comboBoxLogin.InvokeRequired)
                 comboBoxLogin.Invoke(new MethodInvoker(() => _UserName = comboBoxLogin.Text));
             else _UserName = comboBoxLogin.Text;
-            return _UserName;
+            return _UserName.Replace("*", "");
         }        
         private void WinEnvironment_Click(object sender, EventArgs e)
         {

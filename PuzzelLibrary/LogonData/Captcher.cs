@@ -4,7 +4,6 @@ using System.IO;
 using System.Windows.Forms;
 using PuzzelLibrary.Debug;
 using PuzzelLibrary.Settings;
-using System.ComponentModel;
 using System.DirectoryServices;
 using System.Collections.Generic;
 using System.Linq;
@@ -61,10 +60,11 @@ namespace PuzzelLibrary.LogonData
                         computerNameEntry.Name = Path.GetFileNameWithoutExtension(logsNames[i]).Replace("_logons", "");
                         ADComputerDB.Add(computerNameEntry);
                     }
-                } else MessageBox.Show(String.Concat("Brak dostępu do zasobu ", logsDirectory));
+                }
+                else MessageBox.Show(String.Concat("Brak dostępu do zasobu ", logsDirectory));
             }
         }
-        public class Cache 
+        public class Cache
         {
             internal static void Save()
             {
@@ -171,7 +171,7 @@ namespace PuzzelLibrary.LogonData
                     {
                         words = LogCompLogs[i].Split(';');
 
-                        if (Settings.Values.ComputerInput && lastKnownName < 1)
+                        if (Settings.Values.ComputerInput && lastKnownName < 1 && rodzaj == "User")
                         {
                             ExtractLastKnowComputerName(out lastKnownName, words[1]);
                         }
@@ -180,7 +180,7 @@ namespace PuzzelLibrary.LogonData
                         {
                             if (UserNameDB.ADUserDB == null || UserNameDB.ADUserDB.Count <= 0)
                                 Cache.Refresh();
-                             lastSearchedName = UserNameDB.ADUserDB.Find(x => string.Equals(x.UserName, words[2].Replace(" ", ""), StringComparison.OrdinalIgnoreCase)).DisplayName;
+                            lastSearchedName = UserNameDB.ADUserDB.Find(x => string.Equals(x.UserName, words[2].Replace(" ", ""), StringComparison.OrdinalIgnoreCase)).DisplayName;
                         }
                         //sb.Clear();
                         sb.Append(string.Format("{0,-13}{1,-17}{2,-30}{3,-11}{4,-28}{5,-10}", " " + words[0], words[1], lastSearchedName, words[2].Replace(" ", ""), words[3], words[word.Length - 2]) + "\n");
@@ -194,16 +194,21 @@ namespace PuzzelLibrary.LogonData
             }
             return sb.ToString();
         }
-        public string CheckLogs(string pole, string kindOf, out List<string> nameEntries)
+        public string CheckLogs(string nazwa, string kindOf, out List<string> nameEntries)
         {
             nameEntries = new();
+            string pole = nazwa.Replace("*", "");
             if (!Directory.Exists(logsDirectory))
                 return ("Brak dostępu do zasobu");
             if (IsInvalidChar(pole))
                 return ("Użyto niedozwolonych znaków w nazwie");
             if (kindOf == "User")
             {
-                var usr = UserNameDB.ADUserDB.FindAll(x => x.UserName.Contains(pole, StringComparison.OrdinalIgnoreCase));
+                List<UserNameDB.UserNameEntry> usr;
+                if (nazwa.Contains("*"))
+                    usr = UserNameDB.ADUserDB.FindAll(x => x.UserName.Contains(pole, StringComparison.OrdinalIgnoreCase));
+                else
+                    usr = UserNameDB.ADUserDB.FindAll(x => x.UserName.Equals(pole, StringComparison.OrdinalIgnoreCase));
                 if (usr.Count == 0)
                     return ("Brak użytkownika w cache");
                 else
@@ -219,7 +224,11 @@ namespace PuzzelLibrary.LogonData
             }
             if (kindOf == "Computer")
             {
-                var comp = ComputerNameDB.ADComputerDB.FindAll(x => x.Name.Contains(pole, StringComparison.OrdinalIgnoreCase));
+                List<ComputerNameDB.ComputerNameEntry> comp;
+                if (nazwa.Contains("*"))
+                    comp = ComputerNameDB.ADComputerDB.FindAll(x => x.Name.Contains(pole, StringComparison.OrdinalIgnoreCase));
+                else
+                    comp = ComputerNameDB.ADComputerDB.FindAll(x => x.Name.Equals(pole, StringComparison.OrdinalIgnoreCase));
                 if (comp.Count == 0)
                     return ("Brak nazwy komputera w cache");
                 else
