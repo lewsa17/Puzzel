@@ -243,7 +243,7 @@ namespace PuzzelLibrary.LogonData
         {
             foreach (char x in path)
             {
-                if (Path.GetInvalidFileNameChars().Equals(x))
+                if (Path.GetInvalidFileNameChars().Contains(x))
                 {
                     return true;
                 }
