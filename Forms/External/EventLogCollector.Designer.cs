@@ -188,6 +188,9 @@
             this.TableLogView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.TableLogView.RowsDefaultCellStyle.BackColor = System.Drawing.Color.White;
+            this.TableLogView.AlternatingRowsDefaultCellStyle.BackColor =
+                System.Drawing.Color.LightGray;
             this.TableLogView.Location = new System.Drawing.Point(3, 110);
             this.TableLogView.MultiSelect = false;
             this.TableLogView.Name = "TableLogView";
