@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.StartDateRangePicker = new System.Windows.Forms.DateTimePicker();
             this.EndDateRangePicker = new System.Windows.Forms.DateTimePicker();
             this.FromLabel = new System.Windows.Forms.Label();
@@ -185,23 +187,26 @@
             // 
             this.TableLogView.AllowUserToAddRows = false;
             this.TableLogView.AllowUserToDeleteRows = false;
+            this.TableLogView.AllowUserToResizeColumns = false;
+            this.TableLogView.AllowUserToResizeRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.LightGray;
+            this.TableLogView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.TableLogView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.TableLogView.RowsDefaultCellStyle.BackColor = System.Drawing.Color.White;
-            this.TableLogView.AlternatingRowsDefaultCellStyle.BackColor =
-                System.Drawing.Color.LightGray;
-            this.TableLogView.AllowUserToResizeColumns = false;
-            this.TableLogView.AllowUserToResizeRows = false;
+            this.TableLogView.BackgroundColor = System.Drawing.Color.White;
+            this.TableLogView.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleVertical;
+            this.TableLogView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.TableLogView.Location = new System.Drawing.Point(3, 110);
             this.TableLogView.MultiSelect = false;
             this.TableLogView.Name = "TableLogView";
             this.TableLogView.ReadOnly = true;
             this.TableLogView.RowHeadersVisible = false;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
+            this.TableLogView.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.TableLogView.Size = new System.Drawing.Size(754, 328);
             this.TableLogView.TabIndex = 0;
             this.TableLogView.Visible = false;
-            this.TableLogView.BackgroundColor = System.Drawing.Color.White; 
             // 
             // EventLogCollector
             // 
