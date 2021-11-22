@@ -172,7 +172,6 @@ namespace PuzzelLibrary.AD.User
 
                 if (user.GetGroups() != null)
                 {
-                    string[] s = null;
                     List<string> members = new();
                     foreach (var groups in user.GetGroups())
                         members.Add(groups.SamAccountName);
