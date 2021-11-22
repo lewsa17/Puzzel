@@ -197,7 +197,8 @@ namespace PuzzelLibrary.AD.User
                 }
                 else InternetAccessEnabled = "Brak uprawnień";
 
-                lastLogoff = rs.Properties["lastlogoff"][0].ToString() != "0" ? DateTime.FromFileTime((long)rs.GetDirectoryEntry().Properties["lastLogoff"].Value) : DateTime.MinValue;
+                if (rs.Properties.Contains("lastlogoff"))
+                    lastLogoff = rs.Properties["lastlogoff"][0].ToString() != "0" ? DateTime.FromFileTime((long)rs.GetDirectoryEntry().Properties["lastLogoff"].Value) : DateTime.MinValue;
 
                 if (rs.Properties.Contains("lastlogon"))
                     if (rs.Properties["lastLogon"][0].ToString() != "0")
