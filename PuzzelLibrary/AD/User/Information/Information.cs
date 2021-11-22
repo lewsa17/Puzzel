@@ -31,7 +31,7 @@ namespace PuzzelLibrary.AD.User
         public string passwordNotRequired { get; set; }
         public string permittedWorkstation { get; set; }
         public string SkypeLogin { get; set; }
-        public string Groups { get; set; }
+        public string[] Groups { get; set; }
 
         public Information(string UserName)
         {
@@ -169,10 +169,16 @@ namespace PuzzelLibrary.AD.User
                 else permittedWorkstation = "Wszystkie";
 
                 pwdLastSet = user.LastPasswordSet != null ? DateTime.FromFileTime(user.LastPasswordSet.Value.ToFileTime()) : DateTime.MinValue;
-                
+
                 if (user.GetGroups() != null)
+                {
+                    string[] s = null;
+                    List<string> members = new();
                     foreach (var groups in user.GetGroups())
-                        Groups += groups.SamAccountName + "\n\t\t\t\t\t\t";
+                        members.Add(groups.SamAccountName);
+                    members.Sort();
+                    Groups = members.ToArray();
+                }
                 lastBadPwdAttempt = user.LastBadPasswordAttempt != null ? DateTime.FromFileTime(user.LastBadPasswordAttempt.Value.ToFileTime()) : DateTime.MinValue;
                 homeDrive = user.HomeDrive != null ? (string)user.HomeDrive : string.Empty;
 

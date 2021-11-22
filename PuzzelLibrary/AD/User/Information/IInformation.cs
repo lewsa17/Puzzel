@@ -27,7 +27,7 @@ namespace PuzzelLibrary.AD.User
         public string passwordNotRequired { get; set; }
         string permittedWorkstation { get; set; }
         string SkypeLogin { get; set; }
-        string Groups { get; set; }
+        string[] Groups { get; set; }
 
     }
 }

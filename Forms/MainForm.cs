@@ -813,7 +813,9 @@ namespace Forms
                     //30 linijka
                     UpdateRichTextBox("\n");
                     //31 linijka
-                    UpdateRichTextBox("Członkostwa grup:\t\t\t\t" + user.Groups);
+                    UpdateRichTextBox("Członkostwa grup:\t\t\t\t");
+                    foreach (var groups in user.Groups)
+                        UpdateRichTextBox(groups + "\n\t\t\t\t\t\t");
                 }
                 else UpdateRichTextBox("Nie znaleziono użytkownika w AD");
             }
