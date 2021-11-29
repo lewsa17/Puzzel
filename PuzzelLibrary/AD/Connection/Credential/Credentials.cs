@@ -8,7 +8,7 @@ namespace PuzzelLibrary.AD.Connection
         public static string UserName = string.Empty;
         public static string Password = string.Empty;
         public static string Domain = string.Empty;
-        public static string DomainName = string.Empty;
+        public static string DomainName = Values.DomainController;
         public static bool Available
         {
             get => UserName.Length > 1 && Password.Length > 1 && Domain.Length > 1;

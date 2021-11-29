@@ -39,10 +39,10 @@ namespace Settings
         public static readonly string ComputerSNFileDescription = "Podaj nazwę pliku zawierającego numery seryjne komputerów";
         public static readonly string ComputerLogsFolderDescription = "Podaj lokalizację zawierająca logi komputera";
         public static readonly string CheckLogsBeforeStartUpDescription = "Ustaw czy podczas uruchomienia logi mają być odświeżane";
-        public static readonly string MotpServersDescription = "Podaj nazawy hosta dla serwerów motp (Odzielone , lub ;)";
+        public static readonly string MotpServersDescription = "Podaj nazwę/y hosta dla serwerów motp (Odzielone , lub ;)";
         public static readonly string MotpLogNameDescription = "Podaj nazwę dziennika dla serwera motp";
         public static readonly string ComputerInputDescription = "Ustawienie tej wartości spowododuje podstawianie ostatnio używanej nazwy komputera przy wyszukiwaniu użytkownika";
-
+        public static readonly string DomainControllerDescription = "Podaj nazwę kontrolera(hosta) po którym program będzie odpytywał domenę o informacje.";
         private void CloseButton_Click(object sender, EventArgs e)
         {
             Close();
@@ -229,6 +229,11 @@ namespace Settings
                                 PuzzelLibrary.Settings.Values.MotpServers = MotpServersTextBox.Text;
                                 break;
                             }
+                        case nameof(DomainControllerTextBox):
+                            {
+                                PuzzelLibrary.Settings.Values.DomainController = DomainControllerTextBox.Text;
+                                break;
+                            }
                     }
                     return;
                 }
@@ -299,6 +304,7 @@ namespace Settings
                 MotpLogNameTextBox.Text = PuzzelLibrary.Settings.Values.MotpLogName;
                 ComputerInputCheck.Checked = PuzzelLibrary.Settings.Values.ComputerInput;
                 EventLogTableViewCheck.Checked = PuzzelLibrary.Settings.Values.EventLogTableView;
+                DomainControllerTextBox.Text = PuzzelLibrary.Settings.Values.DomainController;
             }
             else
             {
@@ -327,6 +333,7 @@ namespace Settings
                 PuzzelLibrary.Settings.Values.MotpServers= MotpServersTextBox.Text;
                 PuzzelLibrary.Settings.Values.ComputerInput = ComputerInputCheck.Checked;
                 PuzzelLibrary.Settings.Values.EventLogTableView = EventLogTableViewCheck.Checked;
+                PuzzelLibrary.Settings.Values.DomainController = DomainControllerTextBox.Text;
             }
         }
 

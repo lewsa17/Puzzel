@@ -56,6 +56,7 @@
             this.AutoStartUpdateCheck = new System.Windows.Forms.CheckBox();
             this.Logs = new System.Windows.Forms.TabPage();
             this.MotpServerBox = new System.Windows.Forms.GroupBox();
+            this.EventLogTableViewBox = new System.Windows.Forms.GroupBox();
             this.EventLogTableViewCheck = new System.Windows.Forms.CheckBox();
             this.MotpLogNameBox = new System.Windows.Forms.GroupBox();
             this.MotpLogNameTextBox = new System.Windows.Forms.TextBox();
@@ -82,7 +83,8 @@
             this.DescriptionBox = new System.Windows.Forms.GroupBox();
             this.DescriptionLabel = new System.Windows.Forms.Label();
             this.RestoreDefaultButton = new System.Windows.Forms.Button();
-            this.EventLogTableViewBox = new System.Windows.Forms.GroupBox();
+            this.DomainControllerBox = new System.Windows.Forms.GroupBox();
+            this.DomainControllerTextBox = new System.Windows.Forms.TextBox();
             this.TabSettings.SuspendLayout();
             this.GeneralPage.SuspendLayout();
             this.ComputerInputBox.SuspendLayout();
@@ -98,6 +100,7 @@
             this.AutoStartUpdateBox.SuspendLayout();
             this.Logs.SuspendLayout();
             this.MotpServerBox.SuspendLayout();
+            this.EventLogTableViewBox.SuspendLayout();
             this.MotpLogNameBox.SuspendLayout();
             this.CheckLogsBeforeStartUpBox.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -105,7 +108,7 @@
             this.Other.SuspendLayout();
             this.AutomaticallyAllowBox.SuspendLayout();
             this.DescriptionBox.SuspendLayout();
-            this.EventLogTableViewBox.SuspendLayout();
+            this.DomainControllerBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // SaveButton
@@ -143,6 +146,7 @@
             // 
             // GeneralPage
             // 
+            this.GeneralPage.Controls.Add(this.DomainControllerBox);
             this.GeneralPage.Controls.Add(this.ComputerInputBox);
             this.GeneralPage.Controls.Add(this.CustomValueBox);
             this.GeneralPage.Controls.Add(this.HistoryLogBox);
@@ -157,7 +161,7 @@
             // ComputerInputBox
             // 
             this.ComputerInputBox.Controls.Add(this.ComputerInputCheck);
-            this.ComputerInputBox.Location = new System.Drawing.Point(20, 160);
+            this.ComputerInputBox.Location = new System.Drawing.Point(20, 159);
             this.ComputerInputBox.Name = "ComputerInputBox";
             this.ComputerInputBox.Size = new System.Drawing.Size(209, 53);
             this.ComputerInputBox.TabIndex = 1;
@@ -461,6 +465,16 @@
             this.MotpServerBox.TabStop = false;
             this.MotpServerBox.Text = "Serwery MOTP z logami";
             // 
+            // EventLogTableViewBox
+            // 
+            this.EventLogTableViewBox.Controls.Add(this.EventLogTableViewCheck);
+            this.EventLogTableViewBox.Location = new System.Drawing.Point(7, 114);
+            this.EventLogTableViewBox.Name = "EventLogTableViewBox";
+            this.EventLogTableViewBox.Size = new System.Drawing.Size(227, 45);
+            this.EventLogTableViewBox.TabIndex = 4;
+            this.EventLogTableViewBox.TabStop = false;
+            this.EventLogTableViewBox.Text = "Dziennik w formie tabeli";
+            // 
             // EventLogTableViewCheck
             // 
             this.EventLogTableViewCheck.AutoSize = true;
@@ -756,15 +770,25 @@
             this.RestoreDefaultButton.UseVisualStyleBackColor = true;
             this.RestoreDefaultButton.Click += new System.EventHandler(this.RestoreDefaultSettings);
             // 
-            // EventLogTableViewBox
+            // DomainControllerBox
             // 
-            this.EventLogTableViewBox.Controls.Add(this.EventLogTableViewCheck);
-            this.EventLogTableViewBox.Location = new System.Drawing.Point(7, 114);
-            this.EventLogTableViewBox.Name = "EventLogTableViewBox";
-            this.EventLogTableViewBox.Size = new System.Drawing.Size(227, 45);
-            this.EventLogTableViewBox.TabIndex = 4;
-            this.EventLogTableViewBox.TabStop = false;
-            this.EventLogTableViewBox.Text = "Dziennik w formie tabeli";
+            this.DomainControllerBox.Controls.Add(this.DomainControllerTextBox);
+            this.DomainControllerBox.Location = new System.Drawing.Point(20, 218);
+            this.DomainControllerBox.Name = "DomainControllerBox";
+            this.DomainControllerBox.Size = new System.Drawing.Size(209, 52);
+            this.DomainControllerBox.TabIndex = 2;
+            this.DomainControllerBox.TabStop = false;
+            this.DomainControllerBox.Text = "Domyślny kontroler";
+            // 
+            // DomainControllerTextBox
+            // 
+            this.DomainControllerTextBox.Location = new System.Drawing.Point(6, 22);
+            this.DomainControllerTextBox.Name = "DomainControllerTextBox";
+            this.DomainControllerTextBox.Size = new System.Drawing.Size(197, 23);
+            this.DomainControllerTextBox.TabIndex = 0;
+            this.DomainControllerTextBox.TextChanged += new System.EventHandler(this.OnChangeSaveProperty);
+            this.DomainControllerTextBox.MouseEnter += new System.EventHandler(this.MouseOn);
+            this.DomainControllerTextBox.MouseLeave += new System.EventHandler(this.MouseOut);
             // 
             // SettingsForm
             // 
@@ -802,6 +826,8 @@
             this.Logs.ResumeLayout(false);
             this.MotpServerBox.ResumeLayout(false);
             this.MotpServerBox.PerformLayout();
+            this.EventLogTableViewBox.ResumeLayout(false);
+            this.EventLogTableViewBox.PerformLayout();
             this.MotpLogNameBox.ResumeLayout(false);
             this.MotpLogNameBox.PerformLayout();
             this.CheckLogsBeforeStartUpBox.ResumeLayout(false);
@@ -815,8 +841,8 @@
             this.AutomaticallyAllowBox.PerformLayout();
             this.DescriptionBox.ResumeLayout(false);
             this.DescriptionBox.PerformLayout();
-            this.EventLogTableViewBox.ResumeLayout(false);
-            this.EventLogTableViewBox.PerformLayout();
+            this.DomainControllerBox.ResumeLayout(false);
+            this.DomainControllerBox.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -878,6 +904,8 @@
         private System.Windows.Forms.CheckBox ComputerInputCheck;
         private System.Windows.Forms.CheckBox EventLogTableViewCheck;
         private System.Windows.Forms.GroupBox EventLogTableViewBox;
+        private System.Windows.Forms.GroupBox DomainControllerBox;
+        private System.Windows.Forms.TextBox DomainControllerTextBox;
     }
 }
 
