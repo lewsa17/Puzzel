@@ -5,17 +5,9 @@ namespace PuzzelLibrary.AD.User
 {
     public class AccountOperations
     {
-        private bool UnlockAccount(UserPrincipal userObject)
+        private void UnlockAccount(UserPrincipal userObject)
         {
-            try
-            {
-                userObject.UnlockAccount();
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-            return true;
+            userObject.UnlockAccount();
         }
         public bool UnlockAccount(string UserName)
         {
@@ -25,24 +17,22 @@ namespace PuzzelLibrary.AD.User
                     UnlockAccount(userObject);
                 return true;
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Debug.LogsCollector.GetLogs(e, UserName);
                 return false;
             }
         }
         public bool IsAccountLocked(string userName)
         {
-                foreach (var userObject in Information.GetUserInADControllers(userName))
-                    if (IsAccountLocked(userObject))
-                        return true;
-                return false;
+            foreach (var userObject in Information.GetUserInADControllers(userName))
+                if (IsAccountLocked(userObject))
+                    return true;
+            return false;
         }
         private bool IsAccountLocked(UserPrincipal userObject)
         {
-            if (userObject != null)
-                if (userObject.AccountLockoutTime != null)
-                    return true;
-            return false;
+            return userObject != null && userObject.AccountLockoutTime != null ? true : false;
         }
         private bool IsUpper(string passowrd)
         {
@@ -87,8 +77,7 @@ namespace PuzzelLibrary.AD.User
         {
             if (password == confirmedPassword)
             {
-                //var passwordLength = GetPasswordLegthFromAD(UserName);
-                if (password.Length >= 12/*passwordLength*/)
+                if (password.Length >= 12)
                 {
                     if(CheckRequirementsOfPassword(password))
                     {
