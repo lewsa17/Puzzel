@@ -12,7 +12,7 @@ namespace Forms.External
             Username = username;
         }        
         public static string Username;
-        public string domainAddress = null;
+        public string domainAddress = PuzzelLibrary.Settings.Values.DomainController;
 
         private void LockoutStatus_Load(object sender, EventArgs e)
         {
