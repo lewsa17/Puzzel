@@ -17,7 +17,7 @@ namespace Settings
         }
         private Control[] GetCollectionOfFieldSettings()
         {
-            Control[] ListOfFieldWithSettings = { NumbersOfUserLogs, NumbersOfCompLogs, HistoryLogCheck, CustomSourceCheck, LocalUpdateCheck, AutoStartUpdateCheck, SaveUserDataCheck, AutoUnlockFirewallCheck, AutoOpenPortCheck, CheckLogsBeforeStartUpCheck, SessionShortcutText, LocalUpdateTextBox, ComputerLogsFolderTextBox, ComputerSNFileTextBox, TerminalLogsSNFileTextBox, TerminalLogsFileTextBox, TerminalLogsFolderTextBox, CustomSourceTextBox, MotpServersTextBox, MotpLogNameTextBox, ComputerInputCheck, EventLogTableViewCheck };
+            Control[] ListOfFieldWithSettings = { UserMaxLogsNumeric, CompMaxLogsNumeric, HistoryLogCheck, CustomSourceCheck, LocalUpdateCheck, AutoStartUpdateCheck, SaveUserDataCheck, AutoUnlockFirewallCheck, AutoOpenPortCheck, CheckLogsBeforeStartUpCheck, SessionDisconectShortcutText, LocalUpdatePathText, ComputerLogsFolderTextBox, ComputerSNFileText, TerminalLogsSNFileText, TerminalLogsFileText, TerminalLogsFolderText, CustomDataSourceTextBox, MotpServersText, MotpLogNameText, ComputerInputCheck, EventLogTableViewCheck };
             return ListOfFieldWithSettings;
         }
 
@@ -90,21 +90,21 @@ namespace Settings
         {
             if (CustomSourceCheck.Checked)
             {
-                CustomSourceTextBox.Enabled = true;
+                CustomDataSourceTextBox.Enabled = true;
             }
-            else CustomSourceTextBox.Enabled = false;
+            else CustomDataSourceTextBox.Enabled = false;
 
             if (LocalUpdateCheck.Checked)
             {
-                LocalUpdateTextBox.Enabled = true;
+                LocalUpdatePathText.Enabled = true;
             }
-            else LocalUpdateTextBox.Enabled = false;
+            else LocalUpdatePathText.Enabled = false;
         }
 
         private void SessionShortcutText_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Control && !e.Alt && !e.Shift && !e.KeyCode.ToString().Contains("Oem"))
-            SessionShortcutText.Text = e.Modifiers.ToString() + " + " + new KeysConverter().ConvertToString(e.KeyCode);
+            SessionDisconectShortcutText.Text = e.Modifiers.ToString() + " + " + new KeysConverter().ConvertToString(e.KeyCode);
 
         }
         private void OnChangeSaveProperty(object sender, EventArgs e)
@@ -184,29 +184,29 @@ namespace Settings
                     }
                     switch (tbx.Name)
                     {
-                        case nameof(SessionShortcutText):
+                        case nameof(SessionDisconectShortcutText):
                             {
-                                PuzzelLibrary.Settings.Values.SessionDisconectShortcut = SessionShortcutText.Text;
+                                PuzzelLibrary.Settings.Values.SessionDisconectShortcut = SessionDisconectShortcutText.Text;
                                 break;
                             }
-                        case nameof(LocalUpdateTextBox):
+                        case nameof(localUpdateBox):
                             {
-                                PuzzelLibrary.Settings.Values.LocalUpdatePath = LocalUpdateTextBox.Text;
+                                PuzzelLibrary.Settings.Values.LocalUpdatePath = localUpdateBox.Text;
                                 break;
                             }
-                        case nameof(TerminalLogsFileTextBox):
+                        case nameof(TerminalLogsFileText):
                             {
-                                PuzzelLibrary.Settings.Values.TerminalLogsFile = TerminalLogsFileTextBox.Text;
+                                PuzzelLibrary.Settings.Values.TerminalLogsFile = TerminalLogsFileText.Text;
                                 break;
                             }
-                        case nameof(TerminalLogsFolderTextBox):
+                        case nameof(TerminalLogsFolderText):
                             {
-                                PuzzelLibrary.Settings.Values.TerminalLogsFolder = TerminalLogsFolderTextBox.Text;
+                                PuzzelLibrary.Settings.Values.TerminalLogsFolder = TerminalLogsFolderText.Text;
                                 break;
                             }
-                        case nameof(TerminalLogsSNFileTextBox):
+                        case nameof(TerminalLogsSNFileText):
                             {
-                                PuzzelLibrary.Settings.Values.TerminalLogsSNFile = TerminalLogsSNFileTextBox.Text;
+                                PuzzelLibrary.Settings.Values.TerminalLogsSNFile = TerminalLogsSNFileText.Text;
                                 break;
                             }
                         case nameof(ComputerLogsFolderTextBox):
@@ -214,24 +214,24 @@ namespace Settings
                                 PuzzelLibrary.Settings.Values.ComputerLogsFolder = ComputerLogsFolderTextBox.Text;
                                 break;
                             }
-                        case nameof(ComputerSNFileTextBox):
+                        case nameof(ComputerSNFileText):
                             {
-                                PuzzelLibrary.Settings.Values.ComputerSNFile = ComputerSNFileTextBox.Text;
+                                PuzzelLibrary.Settings.Values.ComputerSNFile = ComputerSNFileText.Text;
                                 break;
                             }
-                        case nameof(MotpLogNameTextBox):
+                        case nameof(MotpLogNameText):
                             {
-                                PuzzelLibrary.Settings.Values.MotpLogName = MotpLogNameTextBox.Text;
+                                PuzzelLibrary.Settings.Values.MotpLogName = MotpLogNameText.Text;
                                 break;
                             }
-                        case nameof(MotpServersTextBox):
+                        case nameof(MotpServersText):
                             {
-                                PuzzelLibrary.Settings.Values.MotpServers = MotpServersTextBox.Text;
+                                PuzzelLibrary.Settings.Values.MotpServers = MotpServersText.Text;
                                 break;
                             }
-                        case nameof(DomainControllerTextBox):
+                        case nameof(DomainControllerText):
                             {
-                                PuzzelLibrary.Settings.Values.DomainController = DomainControllerTextBox.Text;
+                                PuzzelLibrary.Settings.Values.DomainController = DomainControllerText.Text;
                                 break;
                             }
                     }
@@ -245,9 +245,9 @@ namespace Settings
                     }
                     switch (rtbx.Name)
                     {
-                        case nameof(CustomSourceTextBox):
+                        case nameof(CustomDataSourceTextBox):
                             {
-                                PuzzelLibrary.Settings.Values.CustomSourceData = CustomSourceTextBox.Text;
+                                PuzzelLibrary.Settings.Values.CustomDataSource = CustomDataSourceTextBox.Text;
                                 break;
                             }
                     }
@@ -261,14 +261,14 @@ namespace Settings
                     }
                     switch (numeric.Name)
                     {
-                        case nameof(NumbersOfUserLogs):
+                        case nameof(UserMaxLogsNumeric):
                             {
-                                PuzzelLibrary.Settings.Values.UserMaxLogs = NumbersOfUserLogs.Value;
+                                PuzzelLibrary.Settings.Values.UserMaxLogs = UserMaxLogsNumeric.Value;
                                 break;
                             }
-                        case nameof(NumbersOfCompLogs):
+                        case nameof(CompMaxLogsNumeric):
                             {
-                                PuzzelLibrary.Settings.Values.CompMaxLogs = NumbersOfCompLogs.Value;
+                                PuzzelLibrary.Settings.Values.CompMaxLogs = CompMaxLogsNumeric.Value;
                                 break;
                             }
                     }
@@ -287,53 +287,53 @@ namespace Settings
                 SaveUserDataCheck.Checked = PuzzelLibrary.Settings.Values.SaveUserData;
                 AutoUnlockFirewallCheck.Checked = PuzzelLibrary.Settings.Values.AutoUnlockFirewall;
                 AutoOpenPortCheck.Checked = PuzzelLibrary.Settings.Values.AutoOpenPort;
-                SessionShortcutText.Text = PuzzelLibrary.Settings.Values.SessionDisconectShortcut;
-                CustomSourceTextBox.Text = PuzzelLibrary.Settings.Values.CustomSourceData;
-                NumbersOfUserLogs.Value = PuzzelLibrary.Settings.Values.UserMaxLogs;
-                NumbersOfCompLogs.Value = PuzzelLibrary.Settings.Values.CompMaxLogs;
+                SessionDisconectShortcutText.Text = PuzzelLibrary.Settings.Values.SessionDisconectShortcut;
+                CustomDataSourceTextBox.Text = PuzzelLibrary.Settings.Values.CustomDataSource;
+                UserMaxLogsNumeric.Value = PuzzelLibrary.Settings.Values.UserMaxLogs;
+                CompMaxLogsNumeric.Value = PuzzelLibrary.Settings.Values.CompMaxLogs;
                 LocalUpdateCheck.Checked = PuzzelLibrary.Settings.Values.LocalUpdateCheck;
-                LocalUpdateTextBox.Text = PuzzelLibrary.Settings.Values.LocalUpdatePath;
+                LocalUpdatePathText.Text = PuzzelLibrary.Settings.Values.LocalUpdatePath;
                 AutoStartUpdateCheck.Checked = PuzzelLibrary.Settings.Values.AutostartUpdateCheck;
-                TerminalLogsFolderTextBox.Text = PuzzelLibrary.Settings.Values.TerminalLogsFolder;
-                TerminalLogsSNFileTextBox.Text = PuzzelLibrary.Settings.Values.TerminalLogsSNFile;
-                TerminalLogsFileTextBox.Text = PuzzelLibrary.Settings.Values.TerminalLogsFile;
-                ComputerSNFileTextBox.Text = PuzzelLibrary.Settings.Values.ComputerSNFile;
+                TerminalLogsFolderText.Text = PuzzelLibrary.Settings.Values.TerminalLogsFolder;
+                TerminalLogsSNFileText.Text = PuzzelLibrary.Settings.Values.TerminalLogsSNFile;
+                TerminalLogsFileText.Text = PuzzelLibrary.Settings.Values.TerminalLogsFile;
+                ComputerSNFileText.Text = PuzzelLibrary.Settings.Values.ComputerSNFile;
                 ComputerLogsFolderTextBox.Text = PuzzelLibrary.Settings.Values.ComputerLogsFolder;
                 CheckLogsBeforeStartUpCheck.Checked = PuzzelLibrary.Settings.Values.CheckLogsBeforeStartUp;
-                MotpServersTextBox.Text = PuzzelLibrary.Settings.Values.MotpServers;
-                MotpLogNameTextBox.Text = PuzzelLibrary.Settings.Values.MotpLogName;
+                MotpServersText.Text = PuzzelLibrary.Settings.Values.MotpServers;
+                MotpLogNameText.Text = PuzzelLibrary.Settings.Values.MotpLogName;
                 ComputerInputCheck.Checked = PuzzelLibrary.Settings.Values.ComputerInput;
                 EventLogTableViewCheck.Checked = PuzzelLibrary.Settings.Values.EventLogTableView;
-                DomainControllerTextBox.Text = PuzzelLibrary.Settings.Values.DomainController;
+                DomainControllerText.Text = PuzzelLibrary.Settings.Values.DomainController;
             }
             else
             {
                 foreach (var objSettings in GetCollectionOfFieldSettings())
-                    if (objSettings != SessionShortcutText)
+                    if (objSettings != SessionDisconectShortcutText)
                         PuzzelLibrary.Settings.Values.RestoreDefaultSettings(objSettings);
                 PuzzelLibrary.Settings.Values.HistoryLog = HistoryLogCheck.Checked;
                 PuzzelLibrary.Settings.Values.CustomSource = CustomSourceCheck.Checked;
                 PuzzelLibrary.Settings.Values.SaveUserData = SaveUserDataCheck.Checked;
                 PuzzelLibrary.Settings.Values.AutoUnlockFirewall = AutoUnlockFirewallCheck.Checked;
                 PuzzelLibrary.Settings.Values.AutoOpenPort = AutoOpenPortCheck.Checked;
-                PuzzelLibrary.Settings.Values.SessionDisconectShortcut = SessionShortcutText.Text;
-                PuzzelLibrary.Settings.Values.CustomSourceData = CustomSourceTextBox.Text;
-                PuzzelLibrary.Settings.Values.UserMaxLogs = NumbersOfUserLogs.Value;
-                PuzzelLibrary.Settings.Values.CompMaxLogs = NumbersOfCompLogs.Value;
+                PuzzelLibrary.Settings.Values.SessionDisconectShortcut = SessionDisconectShortcutText.Text;
+                PuzzelLibrary.Settings.Values.CustomDataSource = CustomDataSourceTextBox.Text;
+                PuzzelLibrary.Settings.Values.UserMaxLogs = UserMaxLogsNumeric.Value;
+                PuzzelLibrary.Settings.Values.CompMaxLogs = CompMaxLogsNumeric.Value;
                 PuzzelLibrary.Settings.Values.LocalUpdateCheck = LocalUpdateCheck.Checked;
-                PuzzelLibrary.Settings.Values.LocalUpdatePath = LocalUpdateTextBox.Text;
+                PuzzelLibrary.Settings.Values.LocalUpdatePath = LocalUpdatePathText.Text;
                 PuzzelLibrary.Settings.Values.AutostartUpdateCheck = AutoStartUpdateCheck.Checked;
-                PuzzelLibrary.Settings.Values.TerminalLogsFolder = TerminalLogsFolderTextBox.Text;
-                PuzzelLibrary.Settings.Values.TerminalLogsSNFile = TerminalLogsSNFileTextBox.Text;
-                PuzzelLibrary.Settings.Values.TerminalLogsFile = TerminalLogsFileTextBox.Text;
+                PuzzelLibrary.Settings.Values.TerminalLogsFolder = TerminalLogsFolderText.Text;
+                PuzzelLibrary.Settings.Values.TerminalLogsSNFile = TerminalLogsSNFileText.Text;
+                PuzzelLibrary.Settings.Values.TerminalLogsFile = TerminalLogsFileText.Text;
                 PuzzelLibrary.Settings.Values.ComputerLogsFolder = ComputerLogsFolderTextBox.Text;
-                PuzzelLibrary.Settings.Values.ComputerSNFile = ComputerSNFileTextBox.Text;
+                PuzzelLibrary.Settings.Values.ComputerSNFile = ComputerSNFileText.Text;
                 PuzzelLibrary.Settings.Values.CheckLogsBeforeStartUp = CheckLogsBeforeStartUpCheck.Checked;
-                PuzzelLibrary.Settings.Values.MotpLogName = MotpLogNameTextBox.Text;
-                PuzzelLibrary.Settings.Values.MotpServers= MotpServersTextBox.Text;
+                PuzzelLibrary.Settings.Values.MotpLogName = MotpLogNameText.Text;
+                PuzzelLibrary.Settings.Values.MotpServers= MotpServersText.Text;
                 PuzzelLibrary.Settings.Values.ComputerInput = ComputerInputCheck.Checked;
                 PuzzelLibrary.Settings.Values.EventLogTableView = EventLogTableViewCheck.Checked;
-                PuzzelLibrary.Settings.Values.DomainController = DomainControllerTextBox.Text;
+                PuzzelLibrary.Settings.Values.DomainController = DomainControllerText.Text;
             }
         }
 

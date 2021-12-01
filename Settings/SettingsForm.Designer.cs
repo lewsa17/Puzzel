@@ -37,20 +37,20 @@
             this.CustomValueBox = new System.Windows.Forms.GroupBox();
             this.UserMaxLogs = new System.Windows.Forms.Label();
             this.CompMaxLogs = new System.Windows.Forms.Label();
-            this.NumbersOfUserLogs = new System.Windows.Forms.NumericUpDown();
-            this.NumbersOfCompLogs = new System.Windows.Forms.NumericUpDown();
+            this.UserMaxLogsNumeric = new System.Windows.Forms.NumericUpDown();
+            this.CompMaxLogsNumeric = new System.Windows.Forms.NumericUpDown();
             this.HistoryLogBox = new System.Windows.Forms.GroupBox();
             this.HistoryLogCheck = new System.Windows.Forms.CheckBox();
             this.SessionTab = new System.Windows.Forms.TabPage();
             this.SessionShortcutBox = new System.Windows.Forms.GroupBox();
-            this.SessionShortcutText = new System.Windows.Forms.TextBox();
+            this.SessionDisconectShortcutText = new System.Windows.Forms.TextBox();
             this.SessionShortcutLabel = new System.Windows.Forms.Label();
             this.CustomSourceBox = new System.Windows.Forms.GroupBox();
             this.CustomSourceCheck = new System.Windows.Forms.CheckBox();
-            this.CustomSourceTextBox = new System.Windows.Forms.RichTextBox();
+            this.CustomDataSourceTextBox = new System.Windows.Forms.RichTextBox();
             this.UpdaterTab = new System.Windows.Forms.TabPage();
             this.localUpdateBox = new System.Windows.Forms.GroupBox();
-            this.LocalUpdateTextBox = new System.Windows.Forms.TextBox();
+            this.LocalUpdatePathText = new System.Windows.Forms.TextBox();
             this.LocalUpdateCheck = new System.Windows.Forms.CheckBox();
             this.AutoStartUpdateBox = new System.Windows.Forms.GroupBox();
             this.AutoStartUpdateCheck = new System.Windows.Forms.CheckBox();
@@ -59,21 +59,21 @@
             this.EventLogTableViewBox = new System.Windows.Forms.GroupBox();
             this.EventLogTableViewCheck = new System.Windows.Forms.CheckBox();
             this.MotpLogNameBox = new System.Windows.Forms.GroupBox();
-            this.MotpLogNameTextBox = new System.Windows.Forms.TextBox();
-            this.MotpServersTextBox = new System.Windows.Forms.TextBox();
+            this.MotpLogNameText = new System.Windows.Forms.TextBox();
+            this.MotpServersText = new System.Windows.Forms.TextBox();
             this.CheckLogsBeforeStartUpBox = new System.Windows.Forms.GroupBox();
             this.CheckLogsBeforeStartUpCheck = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.ComputerLogsFolderTextBox = new System.Windows.Forms.TextBox();
             this.ComputerLogsFolderLabel = new System.Windows.Forms.Label();
-            this.ComputerSNFileTextBox = new System.Windows.Forms.TextBox();
+            this.ComputerSNFileText = new System.Windows.Forms.TextBox();
             this.ComputerSNFileLabel = new System.Windows.Forms.Label();
             this.TerminalLogsBox = new System.Windows.Forms.GroupBox();
-            this.TerminalLogsSNFileTextBox = new System.Windows.Forms.TextBox();
+            this.TerminalLogsSNFileText = new System.Windows.Forms.TextBox();
             this.TerminalLogsSNFileLabel = new System.Windows.Forms.Label();
-            this.TerminalLogsFileTextBox = new System.Windows.Forms.TextBox();
+            this.TerminalLogsFileText = new System.Windows.Forms.TextBox();
             this.TerminalLogsFileLabel = new System.Windows.Forms.Label();
-            this.TerminalLogsFolderTextBox = new System.Windows.Forms.TextBox();
+            this.TerminalLogsFolderText = new System.Windows.Forms.TextBox();
             this.TerminalLogsFolderLabel = new System.Windows.Forms.Label();
             this.Other = new System.Windows.Forms.TabPage();
             this.AutomaticallyAllowBox = new System.Windows.Forms.GroupBox();
@@ -84,13 +84,13 @@
             this.DescriptionLabel = new System.Windows.Forms.Label();
             this.RestoreDefaultButton = new System.Windows.Forms.Button();
             this.DomainControllerBox = new System.Windows.Forms.GroupBox();
-            this.DomainControllerTextBox = new System.Windows.Forms.TextBox();
+            this.DomainControllerText = new System.Windows.Forms.TextBox();
             this.TabSettings.SuspendLayout();
             this.GeneralPage.SuspendLayout();
             this.ComputerInputBox.SuspendLayout();
             this.CustomValueBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NumbersOfUserLogs)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NumbersOfCompLogs)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.UserMaxLogsNumeric)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CompMaxLogsNumeric)).BeginInit();
             this.HistoryLogBox.SuspendLayout();
             this.SessionTab.SuspendLayout();
             this.SessionShortcutBox.SuspendLayout();
@@ -185,8 +185,8 @@
             // 
             this.CustomValueBox.Controls.Add(this.UserMaxLogs);
             this.CustomValueBox.Controls.Add(this.CompMaxLogs);
-            this.CustomValueBox.Controls.Add(this.NumbersOfUserLogs);
-            this.CustomValueBox.Controls.Add(this.NumbersOfCompLogs);
+            this.CustomValueBox.Controls.Add(this.UserMaxLogsNumeric);
+            this.CustomValueBox.Controls.Add(this.CompMaxLogsNumeric);
             this.CustomValueBox.Location = new System.Drawing.Point(20, 13);
             this.CustomValueBox.Name = "CustomValueBox";
             this.CustomValueBox.Size = new System.Drawing.Size(209, 82);
@@ -218,49 +218,49 @@
             // 
             // NumbersOfUserLogs
             // 
-            this.NumbersOfUserLogs.Location = new System.Drawing.Point(55, 50);
-            this.NumbersOfUserLogs.Maximum = new decimal(new int[] {
+            this.UserMaxLogsNumeric.Location = new System.Drawing.Point(55, 50);
+            this.UserMaxLogsNumeric.Maximum = new decimal(new int[] {
             100000,
             0,
             0,
             0});
-            this.NumbersOfUserLogs.Minimum = new decimal(new int[] {
+            this.UserMaxLogsNumeric.Minimum = new decimal(new int[] {
             5,
             0,
             0,
             0});
-            this.NumbersOfUserLogs.Name = "NumbersOfUserLogs";
-            this.NumbersOfUserLogs.Size = new System.Drawing.Size(61, 23);
-            this.NumbersOfUserLogs.TabIndex = 3;
-            this.NumbersOfUserLogs.Value = new decimal(new int[] {
+            this.UserMaxLogsNumeric.Name = "UserMaxLogsNumeric";
+            this.UserMaxLogsNumeric.Size = new System.Drawing.Size(61, 23);
+            this.UserMaxLogsNumeric.TabIndex = 3;
+            this.UserMaxLogsNumeric.Value = new decimal(new int[] {
             5,
             0,
             0,
             0});
-            this.NumbersOfUserLogs.ValueChanged += new System.EventHandler(this.OnChangeSaveProperty);
+            this.UserMaxLogsNumeric.ValueChanged += new System.EventHandler(this.OnChangeSaveProperty);
             // 
             // NumbersOfCompLogs
             // 
-            this.NumbersOfCompLogs.Location = new System.Drawing.Point(55, 21);
-            this.NumbersOfCompLogs.Maximum = new decimal(new int[] {
+            this.CompMaxLogsNumeric.Location = new System.Drawing.Point(55, 21);
+            this.CompMaxLogsNumeric.Maximum = new decimal(new int[] {
             100000,
             0,
             0,
             0});
-            this.NumbersOfCompLogs.Minimum = new decimal(new int[] {
+            this.CompMaxLogsNumeric.Minimum = new decimal(new int[] {
             5,
             0,
             0,
             0});
-            this.NumbersOfCompLogs.Name = "NumbersOfCompLogs";
-            this.NumbersOfCompLogs.Size = new System.Drawing.Size(61, 23);
-            this.NumbersOfCompLogs.TabIndex = 2;
-            this.NumbersOfCompLogs.Value = new decimal(new int[] {
+            this.CompMaxLogsNumeric.Name = "CompMaxLogsNumeric";
+            this.CompMaxLogsNumeric.Size = new System.Drawing.Size(61, 23);
+            this.CompMaxLogsNumeric.TabIndex = 2;
+            this.CompMaxLogsNumeric.Value = new decimal(new int[] {
             5,
             0,
             0,
             0});
-            this.NumbersOfCompLogs.ValueChanged += new System.EventHandler(this.OnChangeSaveProperty);
+            this.CompMaxLogsNumeric.ValueChanged += new System.EventHandler(this.OnChangeSaveProperty);
             // 
             // HistoryLogBox
             // 
@@ -298,7 +298,7 @@
             // 
             // SessionShortcutBox
             // 
-            this.SessionShortcutBox.Controls.Add(this.SessionShortcutText);
+            this.SessionShortcutBox.Controls.Add(this.SessionDisconectShortcutText);
             this.SessionShortcutBox.Controls.Add(this.SessionShortcutLabel);
             this.SessionShortcutBox.Location = new System.Drawing.Point(23, 175);
             this.SessionShortcutBox.Name = "SessionShortcutBox";
@@ -309,16 +309,16 @@
             // 
             // SessionShortcutText
             // 
-            this.SessionShortcutText.Location = new System.Drawing.Point(144, 20);
-            this.SessionShortcutText.Name = "SessionShortcutText";
-            this.SessionShortcutText.ReadOnly = true;
-            this.SessionShortcutText.Size = new System.Drawing.Size(143, 23);
-            this.SessionShortcutText.TabIndex = 3;
-            this.SessionShortcutText.Text = "Control + Multiply";
-            this.SessionShortcutText.TextChanged += new System.EventHandler(this.OnChangeSaveProperty);
-            this.SessionShortcutText.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SessionShortcutText_KeyDown);
-            this.SessionShortcutText.MouseEnter += new System.EventHandler(this.MouseOn);
-            this.SessionShortcutText.MouseLeave += new System.EventHandler(this.MouseOut);
+            this.SessionDisconectShortcutText.Location = new System.Drawing.Point(144, 20);
+            this.SessionDisconectShortcutText.Name = "SessionDisconectShortcutText";
+            this.SessionDisconectShortcutText.ReadOnly = true;
+            this.SessionDisconectShortcutText.Size = new System.Drawing.Size(143, 23);
+            this.SessionDisconectShortcutText.TabIndex = 3;
+            this.SessionDisconectShortcutText.Text = "Control + Multiply";
+            this.SessionDisconectShortcutText.TextChanged += new System.EventHandler(this.OnChangeSaveProperty);
+            this.SessionDisconectShortcutText.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SessionShortcutText_KeyDown);
+            this.SessionDisconectShortcutText.MouseEnter += new System.EventHandler(this.MouseOn);
+            this.SessionDisconectShortcutText.MouseLeave += new System.EventHandler(this.MouseOut);
             // 
             // SessionShortcutLabel
             // 
@@ -334,7 +334,7 @@
             // CustomSourceBox
             // 
             this.CustomSourceBox.Controls.Add(this.CustomSourceCheck);
-            this.CustomSourceBox.Controls.Add(this.CustomSourceTextBox);
+            this.CustomSourceBox.Controls.Add(this.CustomDataSourceTextBox);
             this.CustomSourceBox.Location = new System.Drawing.Point(20, 11);
             this.CustomSourceBox.Name = "CustomSourceBox";
             this.CustomSourceBox.Size = new System.Drawing.Size(726, 141);
@@ -358,16 +358,16 @@
             // 
             // CustomSourceTextBox
             // 
-            this.CustomSourceTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.CustomSourceTextBox.Enabled = false;
-            this.CustomSourceTextBox.Location = new System.Drawing.Point(3, 50);
-            this.CustomSourceTextBox.Name = "CustomSourceTextBox";
-            this.CustomSourceTextBox.Size = new System.Drawing.Size(720, 87);
-            this.CustomSourceTextBox.TabIndex = 2;
-            this.CustomSourceTextBox.Text = "";
-            this.CustomSourceTextBox.TextChanged += new System.EventHandler(this.OnChangeSaveProperty);
-            this.CustomSourceTextBox.MouseEnter += new System.EventHandler(this.MouseOn);
-            this.CustomSourceTextBox.MouseLeave += new System.EventHandler(this.MouseOut);
+            this.CustomDataSourceTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.CustomDataSourceTextBox.Enabled = false;
+            this.CustomDataSourceTextBox.Location = new System.Drawing.Point(3, 50);
+            this.CustomDataSourceTextBox.Name = "CustomDataSourceTextBox";
+            this.CustomDataSourceTextBox.Size = new System.Drawing.Size(720, 87);
+            this.CustomDataSourceTextBox.TabIndex = 2;
+            this.CustomDataSourceTextBox.Text = "";
+            this.CustomDataSourceTextBox.TextChanged += new System.EventHandler(this.OnChangeSaveProperty);
+            this.CustomDataSourceTextBox.MouseEnter += new System.EventHandler(this.MouseOn);
+            this.CustomDataSourceTextBox.MouseLeave += new System.EventHandler(this.MouseOut);
             // 
             // UpdaterTab
             // 
@@ -382,7 +382,7 @@
             // 
             // localUpdateBox
             // 
-            this.localUpdateBox.Controls.Add(this.LocalUpdateTextBox);
+            this.localUpdateBox.Controls.Add(this.LocalUpdatePathText);
             this.localUpdateBox.Controls.Add(this.LocalUpdateCheck);
             this.localUpdateBox.Location = new System.Drawing.Point(20, 69);
             this.localUpdateBox.Name = "localUpdateBox";
@@ -393,14 +393,14 @@
             // 
             // LocalUpdateTextBox
             // 
-            this.LocalUpdateTextBox.Enabled = false;
-            this.LocalUpdateTextBox.Location = new System.Drawing.Point(11, 47);
-            this.LocalUpdateTextBox.Name = "LocalUpdateTextBox";
-            this.LocalUpdateTextBox.Size = new System.Drawing.Size(205, 23);
-            this.LocalUpdateTextBox.TabIndex = 2;
-            this.LocalUpdateTextBox.TextChanged += new System.EventHandler(this.OnChangeSaveProperty);
-            this.LocalUpdateTextBox.MouseEnter += new System.EventHandler(this.MouseOn);
-            this.LocalUpdateTextBox.MouseLeave += new System.EventHandler(this.MouseOut);
+            this.LocalUpdatePathText.Enabled = false;
+            this.LocalUpdatePathText.Location = new System.Drawing.Point(11, 47);
+            this.LocalUpdatePathText.Name = "LocalUpdatePathText";
+            this.LocalUpdatePathText.Size = new System.Drawing.Size(205, 23);
+            this.LocalUpdatePathText.TabIndex = 2;
+            this.LocalUpdatePathText.TextChanged += new System.EventHandler(this.OnChangeSaveProperty);
+            this.LocalUpdatePathText.MouseEnter += new System.EventHandler(this.MouseOn);
+            this.LocalUpdatePathText.MouseLeave += new System.EventHandler(this.MouseOut);
             // 
             // LocalUpdateCheck
             // 
@@ -457,7 +457,7 @@
             // 
             this.MotpServerBox.Controls.Add(this.EventLogTableViewBox);
             this.MotpServerBox.Controls.Add(this.MotpLogNameBox);
-            this.MotpServerBox.Controls.Add(this.MotpServersTextBox);
+            this.MotpServerBox.Controls.Add(this.MotpServersText);
             this.MotpServerBox.Location = new System.Drawing.Point(513, 62);
             this.MotpServerBox.Name = "MotpServerBox";
             this.MotpServerBox.Size = new System.Drawing.Size(239, 174);
@@ -490,7 +490,7 @@
             // 
             // MotpLogNameBox
             // 
-            this.MotpLogNameBox.Controls.Add(this.MotpLogNameTextBox);
+            this.MotpLogNameBox.Controls.Add(this.MotpLogNameText);
             this.MotpLogNameBox.Location = new System.Drawing.Point(6, 55);
             this.MotpLogNameBox.Name = "MotpLogNameBox";
             this.MotpLogNameBox.Size = new System.Drawing.Size(227, 53);
@@ -500,23 +500,23 @@
             // 
             // MotpLogNameTextBox
             // 
-            this.MotpLogNameTextBox.Location = new System.Drawing.Point(7, 22);
-            this.MotpLogNameTextBox.Name = "MotpLogNameTextBox";
-            this.MotpLogNameTextBox.Size = new System.Drawing.Size(214, 23);
-            this.MotpLogNameTextBox.TabIndex = 1;
-            this.MotpLogNameTextBox.TextChanged += new System.EventHandler(this.OnChangeSaveProperty);
-            this.MotpLogNameTextBox.MouseEnter += new System.EventHandler(this.MouseOn);
-            this.MotpLogNameTextBox.MouseLeave += new System.EventHandler(this.MouseOut);
+            this.MotpLogNameText.Location = new System.Drawing.Point(7, 22);
+            this.MotpLogNameText.Name = "MotpLogNameText";
+            this.MotpLogNameText.Size = new System.Drawing.Size(214, 23);
+            this.MotpLogNameText.TabIndex = 1;
+            this.MotpLogNameText.TextChanged += new System.EventHandler(this.OnChangeSaveProperty);
+            this.MotpLogNameText.MouseEnter += new System.EventHandler(this.MouseOn);
+            this.MotpLogNameText.MouseLeave += new System.EventHandler(this.MouseOut);
             // 
             // MotpServersTextBox
             // 
-            this.MotpServersTextBox.Location = new System.Drawing.Point(7, 24);
-            this.MotpServersTextBox.Name = "MotpServersTextBox";
-            this.MotpServersTextBox.Size = new System.Drawing.Size(226, 23);
-            this.MotpServersTextBox.TabIndex = 0;
-            this.MotpServersTextBox.TextChanged += new System.EventHandler(this.OnChangeSaveProperty);
-            this.MotpServersTextBox.MouseEnter += new System.EventHandler(this.MouseOn);
-            this.MotpServersTextBox.MouseLeave += new System.EventHandler(this.MouseOut);
+            this.MotpServersText.Location = new System.Drawing.Point(7, 24);
+            this.MotpServersText.Name = "MotpServersText";
+            this.MotpServersText.Size = new System.Drawing.Size(226, 23);
+            this.MotpServersText.TabIndex = 0;
+            this.MotpServersText.TextChanged += new System.EventHandler(this.OnChangeSaveProperty);
+            this.MotpServersText.MouseEnter += new System.EventHandler(this.MouseOn);
+            this.MotpServersText.MouseLeave += new System.EventHandler(this.MouseOut);
             // 
             // CheckLogsBeforeStartUpBox
             // 
@@ -545,7 +545,7 @@
             // 
             this.groupBox1.Controls.Add(this.ComputerLogsFolderTextBox);
             this.groupBox1.Controls.Add(this.ComputerLogsFolderLabel);
-            this.groupBox1.Controls.Add(this.ComputerSNFileTextBox);
+            this.groupBox1.Controls.Add(this.ComputerSNFileText);
             this.groupBox1.Controls.Add(this.ComputerSNFileLabel);
             this.groupBox1.Location = new System.Drawing.Point(20, 155);
             this.groupBox1.Name = "groupBox1";
@@ -578,14 +578,14 @@
             // 
             // ComputerSNFileTextBox
             // 
-            this.ComputerSNFileTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ComputerSNFileTextBox.Location = new System.Drawing.Point(165, 62);
-            this.ComputerSNFileTextBox.Name = "ComputerSNFileTextBox";
-            this.ComputerSNFileTextBox.Size = new System.Drawing.Size(299, 23);
-            this.ComputerSNFileTextBox.TabIndex = 7;
-            this.ComputerSNFileTextBox.TextChanged += new System.EventHandler(this.OnChangeSaveProperty);
-            this.ComputerSNFileTextBox.MouseEnter += new System.EventHandler(this.MouseOn);
-            this.ComputerSNFileTextBox.MouseLeave += new System.EventHandler(this.MouseOut);
+            this.ComputerSNFileText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ComputerSNFileText.Location = new System.Drawing.Point(165, 62);
+            this.ComputerSNFileText.Name = "ComputerSNFileText";
+            this.ComputerSNFileText.Size = new System.Drawing.Size(299, 23);
+            this.ComputerSNFileText.TabIndex = 7;
+            this.ComputerSNFileText.TextChanged += new System.EventHandler(this.OnChangeSaveProperty);
+            this.ComputerSNFileText.MouseEnter += new System.EventHandler(this.MouseOn);
+            this.ComputerSNFileText.MouseLeave += new System.EventHandler(this.MouseOut);
             // 
             // ComputerSNFileLabel
             // 
@@ -600,11 +600,11 @@
             // 
             // TerminalLogsBox
             // 
-            this.TerminalLogsBox.Controls.Add(this.TerminalLogsSNFileTextBox);
+            this.TerminalLogsBox.Controls.Add(this.TerminalLogsSNFileText);
             this.TerminalLogsBox.Controls.Add(this.TerminalLogsSNFileLabel);
-            this.TerminalLogsBox.Controls.Add(this.TerminalLogsFileTextBox);
+            this.TerminalLogsBox.Controls.Add(this.TerminalLogsFileText);
             this.TerminalLogsBox.Controls.Add(this.TerminalLogsFileLabel);
-            this.TerminalLogsBox.Controls.Add(this.TerminalLogsFolderTextBox);
+            this.TerminalLogsBox.Controls.Add(this.TerminalLogsFolderText);
             this.TerminalLogsBox.Controls.Add(this.TerminalLogsFolderLabel);
             this.TerminalLogsBox.Location = new System.Drawing.Point(20, 11);
             this.TerminalLogsBox.Name = "TerminalLogsBox";
@@ -615,14 +615,14 @@
             // 
             // TerminalLogsSNFileTextBox
             // 
-            this.TerminalLogsSNFileTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.TerminalLogsSNFileTextBox.Location = new System.Drawing.Point(165, 102);
-            this.TerminalLogsSNFileTextBox.Name = "TerminalLogsSNFileTextBox";
-            this.TerminalLogsSNFileTextBox.Size = new System.Drawing.Size(299, 23);
-            this.TerminalLogsSNFileTextBox.TabIndex = 3;
-            this.TerminalLogsSNFileTextBox.TextChanged += new System.EventHandler(this.OnChangeSaveProperty);
-            this.TerminalLogsSNFileTextBox.MouseEnter += new System.EventHandler(this.MouseOn);
-            this.TerminalLogsSNFileTextBox.MouseLeave += new System.EventHandler(this.MouseOut);
+            this.TerminalLogsSNFileText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.TerminalLogsSNFileText.Location = new System.Drawing.Point(165, 102);
+            this.TerminalLogsSNFileText.Name = "TerminalLogsSNFileText";
+            this.TerminalLogsSNFileText.Size = new System.Drawing.Size(299, 23);
+            this.TerminalLogsSNFileText.TabIndex = 3;
+            this.TerminalLogsSNFileText.TextChanged += new System.EventHandler(this.OnChangeSaveProperty);
+            this.TerminalLogsSNFileText.MouseEnter += new System.EventHandler(this.MouseOn);
+            this.TerminalLogsSNFileText.MouseLeave += new System.EventHandler(this.MouseOut);
             // 
             // TerminalLogsSNFileLabel
             // 
@@ -637,14 +637,14 @@
             // 
             // TerminalLogsFileTextBox
             // 
-            this.TerminalLogsFileTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.TerminalLogsFileTextBox.Location = new System.Drawing.Point(165, 62);
-            this.TerminalLogsFileTextBox.Name = "TerminalLogsFileTextBox";
-            this.TerminalLogsFileTextBox.Size = new System.Drawing.Size(299, 23);
-            this.TerminalLogsFileTextBox.TabIndex = 2;
-            this.TerminalLogsFileTextBox.TextChanged += new System.EventHandler(this.OnChangeSaveProperty);
-            this.TerminalLogsFileTextBox.MouseEnter += new System.EventHandler(this.MouseOn);
-            this.TerminalLogsFileTextBox.MouseLeave += new System.EventHandler(this.MouseOut);
+            this.TerminalLogsFileText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.TerminalLogsFileText.Location = new System.Drawing.Point(165, 62);
+            this.TerminalLogsFileText.Name = "TerminalLogsFileText";
+            this.TerminalLogsFileText.Size = new System.Drawing.Size(299, 23);
+            this.TerminalLogsFileText.TabIndex = 2;
+            this.TerminalLogsFileText.TextChanged += new System.EventHandler(this.OnChangeSaveProperty);
+            this.TerminalLogsFileText.MouseEnter += new System.EventHandler(this.MouseOn);
+            this.TerminalLogsFileText.MouseLeave += new System.EventHandler(this.MouseOut);
             // 
             // TerminalLogsFileLabel
             // 
@@ -659,14 +659,14 @@
             // 
             // TerminalLogsFolderTextBox
             // 
-            this.TerminalLogsFolderTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.TerminalLogsFolderTextBox.Location = new System.Drawing.Point(165, 22);
-            this.TerminalLogsFolderTextBox.Name = "TerminalLogsFolderTextBox";
-            this.TerminalLogsFolderTextBox.Size = new System.Drawing.Size(299, 23);
-            this.TerminalLogsFolderTextBox.TabIndex = 1;
-            this.TerminalLogsFolderTextBox.TextChanged += new System.EventHandler(this.OnChangeSaveProperty);
-            this.TerminalLogsFolderTextBox.MouseEnter += new System.EventHandler(this.MouseOn);
-            this.TerminalLogsFolderTextBox.MouseLeave += new System.EventHandler(this.MouseOut);
+            this.TerminalLogsFolderText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.TerminalLogsFolderText.Location = new System.Drawing.Point(165, 22);
+            this.TerminalLogsFolderText.Name = "TerminalLogsFolderText";
+            this.TerminalLogsFolderText.Size = new System.Drawing.Size(299, 23);
+            this.TerminalLogsFolderText.TabIndex = 1;
+            this.TerminalLogsFolderText.TextChanged += new System.EventHandler(this.OnChangeSaveProperty);
+            this.TerminalLogsFolderText.MouseEnter += new System.EventHandler(this.MouseOn);
+            this.TerminalLogsFolderText.MouseLeave += new System.EventHandler(this.MouseOut);
             // 
             // TerminalLogsFolderLabel
             // 
@@ -772,7 +772,7 @@
             // 
             // DomainControllerBox
             // 
-            this.DomainControllerBox.Controls.Add(this.DomainControllerTextBox);
+            this.DomainControllerBox.Controls.Add(this.DomainControllerText);
             this.DomainControllerBox.Location = new System.Drawing.Point(20, 218);
             this.DomainControllerBox.Name = "DomainControllerBox";
             this.DomainControllerBox.Size = new System.Drawing.Size(209, 52);
@@ -782,13 +782,13 @@
             // 
             // DomainControllerTextBox
             // 
-            this.DomainControllerTextBox.Location = new System.Drawing.Point(6, 22);
-            this.DomainControllerTextBox.Name = "DomainControllerTextBox";
-            this.DomainControllerTextBox.Size = new System.Drawing.Size(197, 23);
-            this.DomainControllerTextBox.TabIndex = 0;
-            this.DomainControllerTextBox.TextChanged += new System.EventHandler(this.OnChangeSaveProperty);
-            this.DomainControllerTextBox.MouseEnter += new System.EventHandler(this.MouseOn);
-            this.DomainControllerTextBox.MouseLeave += new System.EventHandler(this.MouseOut);
+            this.DomainControllerText.Location = new System.Drawing.Point(6, 22);
+            this.DomainControllerText.Name = "DomainControllerText";
+            this.DomainControllerText.Size = new System.Drawing.Size(197, 23);
+            this.DomainControllerText.TabIndex = 0;
+            this.DomainControllerText.TextChanged += new System.EventHandler(this.OnChangeSaveProperty);
+            this.DomainControllerText.MouseEnter += new System.EventHandler(this.MouseOn);
+            this.DomainControllerText.MouseLeave += new System.EventHandler(this.MouseOut);
             // 
             // SettingsForm
             // 
@@ -809,8 +809,8 @@
             this.ComputerInputBox.PerformLayout();
             this.CustomValueBox.ResumeLayout(false);
             this.CustomValueBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NumbersOfUserLogs)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NumbersOfCompLogs)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.UserMaxLogsNumeric)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CompMaxLogsNumeric)).EndInit();
             this.HistoryLogBox.ResumeLayout(false);
             this.HistoryLogBox.PerformLayout();
             this.SessionTab.ResumeLayout(false);
@@ -878,9 +878,9 @@
         private System.Windows.Forms.Label TerminalLogsFolderLabel;
         private System.Windows.Forms.Label TerminalLogsSNFileLabel;
         private System.Windows.Forms.Label UserMaxLogs;
-        private System.Windows.Forms.NumericUpDown NumbersOfCompLogs;
-        private System.Windows.Forms.NumericUpDown NumbersOfUserLogs;
-        private System.Windows.Forms.RichTextBox CustomSourceTextBox;
+        private System.Windows.Forms.NumericUpDown CompMaxLogsNumeric;
+        private System.Windows.Forms.NumericUpDown UserMaxLogsNumeric;
+        private System.Windows.Forms.RichTextBox CustomDataSourceTextBox;
         private System.Windows.Forms.TabControl TabSettings;
         private System.Windows.Forms.TabPage GeneralPage;
         private System.Windows.Forms.TabPage Other;
@@ -888,24 +888,24 @@
         private System.Windows.Forms.TabPage Logs;
         private System.Windows.Forms.TabPage UpdaterTab;
         private System.Windows.Forms.TextBox ComputerLogsFolderTextBox;
-        private System.Windows.Forms.TextBox ComputerSNFileTextBox;
-        private System.Windows.Forms.TextBox LocalUpdateTextBox;
-        private System.Windows.Forms.TextBox SessionShortcutText;
-        private System.Windows.Forms.TextBox TerminalLogsFileTextBox;
-        private System.Windows.Forms.TextBox TerminalLogsFolderTextBox;
-        private System.Windows.Forms.TextBox TerminalLogsSNFileTextBox;
+        private System.Windows.Forms.TextBox ComputerSNFileText;
+        private System.Windows.Forms.TextBox LocalUpdatePathText;
+        private System.Windows.Forms.TextBox SessionDisconectShortcutText;
+        private System.Windows.Forms.TextBox TerminalLogsFileText;
+        private System.Windows.Forms.TextBox TerminalLogsFolderText;
+        private System.Windows.Forms.TextBox TerminalLogsSNFileText;
         private System.Windows.Forms.GroupBox CheckLogsBeforeStartUpBox;
         private System.Windows.Forms.CheckBox CheckLogsBeforeStartUpCheck;
         private System.Windows.Forms.GroupBox MotpServerBox;
         private System.Windows.Forms.GroupBox MotpLogNameBox;
-        private System.Windows.Forms.TextBox MotpLogNameTextBox;
-        private System.Windows.Forms.TextBox MotpServersTextBox;
+        private System.Windows.Forms.TextBox MotpLogNameText;
+        private System.Windows.Forms.TextBox MotpServersText;
         private System.Windows.Forms.GroupBox ComputerInputBox;
         private System.Windows.Forms.CheckBox ComputerInputCheck;
         private System.Windows.Forms.CheckBox EventLogTableViewCheck;
         private System.Windows.Forms.GroupBox EventLogTableViewBox;
         private System.Windows.Forms.GroupBox DomainControllerBox;
-        private System.Windows.Forms.TextBox DomainControllerTextBox;
+        private System.Windows.Forms.TextBox DomainControllerText;
     }
 }
 
