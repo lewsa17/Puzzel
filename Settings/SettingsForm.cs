@@ -57,19 +57,10 @@ namespace Settings
             OnChangeSaveProperty(sender, e);
         }
         private void MouseOn(object sender, EventArgs e)
-        {
-            string Name = string.Empty;
-            if (sender is CheckBox check)
-                Name = check.Name;
-            if (sender is Label label)
-                Name = label.Name;
-            if (sender is TextBox tbx)
-                Name = tbx.Name;
-            if (sender is RichTextBox rcbx)
-                Name = rcbx.Name;
+        {         
             foreach (var Value in typeof(SettingsForm).GetFields())
             {
-                if (Name.Contains(Value.Name.Replace("Description", "")))
+                if (((Control)sender).Name.Contains(Value.Name.Replace("Description", "")))
                 {
                     DescriptionLabel.Text = Value.GetValue(null).ToString();
                     break;
