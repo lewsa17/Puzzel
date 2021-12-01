@@ -823,9 +823,9 @@ namespace Forms
         }
         private void InitializeAdditionals()
         {
-            if (PuzzelLibrary.Settings.Values.CustomSourceData.Contains(','))
+            if (PuzzelLibrary.Settings.Values.CustomDataSource.Contains(','))
             {
-                var termservers = PuzzelLibrary.Settings.Values.CustomSourceData.Split(',');
+                var termservers = PuzzelLibrary.Settings.Values.CustomDataSource.Split(',');
                 List<string> terms = new();
                 terms.AddRange(termservers);
                 terms.Sort();
