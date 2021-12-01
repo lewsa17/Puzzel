@@ -109,173 +109,18 @@ namespace Settings
         }
         private void OnChangeSaveProperty(object sender, EventArgs e)
         {
-            foreach (var Value in typeof(PuzzelLibrary.Settings.Values).GetProperties())
-            {
-                if (sender is ComboBox)
+            foreach (var propertyInfo in typeof(PuzzelLibrary.Settings.Values).GetProperties())
+                if (((Control)sender).Name.Contains(propertyInfo.Name))
                 {
-                    return;
+                    switch (propertyInfo.PropertyType.Name)
+                    {
+                        case "Boolean": { propertyInfo.SetValue(null, Convert.ToBoolean(((CheckBox)sender).Checked)); break; }
+                        case "Decimal": { propertyInfo.SetValue(null, Convert.ToDecimal(((NumericUpDown)sender).Value)); break; }
+                        case "String" : { propertyInfo.SetValue(null, Convert.ToString(((TextBoxBase)sender).Text)); break; }
+                    }
                 }
-                if (sender is CheckBox check)
-                {
-                    if (check.Name.Contains(Value.Name))
-                    {
-                        Value.SetValue(null, check.Checked);
-                    }
-                    switch (check.Name)
-                    {
-                        case nameof(CheckLogsBeforeStartUpCheck):
-                            {
-                                PuzzelLibrary.Settings.Values.CheckLogsBeforeStartUp = CheckLogsBeforeStartUpCheck.Checked;
-                                break;
-                            }
-                        case nameof(HistoryLogCheck):
-                            {
-                                PuzzelLibrary.Settings.Values.HistoryLog = HistoryLogCheck.Checked;
-                                break;
-                            }
-                        case nameof(CustomSourceCheck):
-                            {
-                                PuzzelLibrary.Settings.Values.CustomSource = CustomSourceCheck.Checked;
-                                break;
-                            }
-                        case nameof(SaveUserDataCheck):
-                            {
-                                PuzzelLibrary.Settings.Values.SaveUserData = SaveUserDataCheck.Checked;
-                                break;
-                            }
-                        case nameof(AutoUnlockFirewallCheck):
-                            {
-                                PuzzelLibrary.Settings.Values.AutoUnlockFirewall = AutoUnlockFirewallCheck.Checked;
-                                break;
-                            }
-                        case nameof(AutoOpenPortCheck):
-                            {
-                                PuzzelLibrary.Settings.Values.AutoOpenPort = AutoOpenPortCheck.Checked;
-                                break;
-                            }
-                        case nameof(LocalUpdateCheck):
-                            {
-                                PuzzelLibrary.Settings.Values.LocalUpdateCheck = LocalUpdateCheck.Checked;
-                                break;
-                            }
-                        case nameof(AutoStartUpdateCheck):
-                            {
-                                PuzzelLibrary.Settings.Values.AutostartUpdateCheck = AutoStartUpdateCheck.Checked;
-                                break;
-                            }
-                        case nameof(ComputerInputCheck):
-                            {
-                                PuzzelLibrary.Settings.Values.ComputerInput = ComputerInputCheck.Checked;
-                                break;
-                            }
-                        case nameof(EventLogTableViewCheck):
-                            {
-                                PuzzelLibrary.Settings.Values.EventLogTableView = EventLogTableViewCheck.Checked;
-                                break;
-                            }
-                    }
-                    return;
-                }
-                if (sender is TextBox tbx)
-                {
-                    if (tbx.Name.Contains(Value.Name))
-                    {
-                        Value.SetValue(typeof(PuzzelLibrary.Settings.Values), tbx.Text);
-                    }
-                    switch (tbx.Name)
-                    {
-                        case nameof(SessionDisconectShortcutText):
-                            {
-                                PuzzelLibrary.Settings.Values.SessionDisconectShortcut = SessionDisconectShortcutText.Text;
-                                break;
-                            }
-                        case nameof(localUpdateBox):
-                            {
-                                PuzzelLibrary.Settings.Values.LocalUpdatePath = localUpdateBox.Text;
-                                break;
-                            }
-                        case nameof(TerminalLogsFileText):
-                            {
-                                PuzzelLibrary.Settings.Values.TerminalLogsFile = TerminalLogsFileText.Text;
-                                break;
-                            }
-                        case nameof(TerminalLogsFolderText):
-                            {
-                                PuzzelLibrary.Settings.Values.TerminalLogsFolder = TerminalLogsFolderText.Text;
-                                break;
-                            }
-                        case nameof(TerminalLogsSNFileText):
-                            {
-                                PuzzelLibrary.Settings.Values.TerminalLogsSNFile = TerminalLogsSNFileText.Text;
-                                break;
-                            }
-                        case nameof(ComputerLogsFolderTextBox):
-                            {
-                                PuzzelLibrary.Settings.Values.ComputerLogsFolder = ComputerLogsFolderTextBox.Text;
-                                break;
-                            }
-                        case nameof(ComputerSNFileText):
-                            {
-                                PuzzelLibrary.Settings.Values.ComputerSNFile = ComputerSNFileText.Text;
-                                break;
-                            }
-                        case nameof(MotpLogNameText):
-                            {
-                                PuzzelLibrary.Settings.Values.MotpLogName = MotpLogNameText.Text;
-                                break;
-                            }
-                        case nameof(MotpServersText):
-                            {
-                                PuzzelLibrary.Settings.Values.MotpServers = MotpServersText.Text;
-                                break;
-                            }
-                        case nameof(DomainControllerText):
-                            {
-                                PuzzelLibrary.Settings.Values.DomainController = DomainControllerText.Text;
-                                break;
-                            }
-                    }
-                    return;
-                }
-                if (sender is RichTextBox rtbx)
-                {
-                    if (rtbx.Name.Contains(Value.Name))
-                    {
-                        Value.SetValue(null, rtbx.Text);
-                    }
-                    switch (rtbx.Name)
-                    {
-                        case nameof(CustomDataSourceTextBox):
-                            {
-                                PuzzelLibrary.Settings.Values.CustomDataSource = CustomDataSourceTextBox.Text;
-                                break;
-                            }
-                    }
-                    return;
-                }
-                if (sender is NumericUpDown numeric)
-                {
-                    if (numeric.Name.Contains(Value.Name))
-                    {
-                        Value.SetValue(null, numeric.Value);
-                    }
-                    switch (numeric.Name)
-                    {
-                        case nameof(UserMaxLogsNumeric):
-                            {
-                                PuzzelLibrary.Settings.Values.UserMaxLogs = UserMaxLogsNumeric.Value;
-                                break;
-                            }
-                        case nameof(CompMaxLogsNumeric):
-                            {
-                                PuzzelLibrary.Settings.Values.CompMaxLogs = CompMaxLogsNumeric.Value;
-                                break;
-                            }
-                    }
-                    return;
-                }
-            }
         }
+        
 
         private void OnLoad()
         {
