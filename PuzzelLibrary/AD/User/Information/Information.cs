@@ -98,6 +98,10 @@ namespace PuzzelLibrary.AD.User
                 UserPrincipal oUserPrincipal = UserPrincipal.FindByIdentity(oPrincipalContext, UserName);
                 return oUserPrincipal;
             }
+            catch (PrincipalServerDownException)
+            {
+                return null;
+            }
             catch (Exception e)
             {
                 Debug.LogsCollector.GetLogs(e, UserName);
@@ -124,6 +128,10 @@ namespace PuzzelLibrary.AD.User
                     userAccountLocked = uP.AccountLockoutTime != null ? "Zablokowane" : "Odblokowane";
                     userLockoutTime = uP.AccountLockoutTime != null ? DateTime.FromFileTime(uP.AccountLockoutTime.Value.ToFileTime()) : DateTime.MinValue;
                     passwordExpiryTime = (rs.Properties["msDS-UserPasswordExpiryTimeComputed"][0] != null) ? DateTime.FromFileTime((long)rs.Properties["msDS-UserPasswordExpiryTimeComputed"][0]) : DateTime.MinValue;
+                }
+                else
+                {
+                    userAccountLocked = "Niedostępne";
                 }
             }
         }
