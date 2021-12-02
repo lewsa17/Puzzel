@@ -236,28 +236,28 @@ namespace Forms.External
             this.BadPasswordCountColumn.Name = "BadPasswordCountColumn";
             this.BadPasswordCountColumn.ReadOnly = true;
             this.BadPasswordCountColumn.DefaultCellStyle = new() { Alignment = DataGridViewContentAlignment.MiddleCenter };
-            this.BadPasswordCountColumn.Width = 150;
+            this.BadPasswordCountColumn.Width = 126;
             // 
             // LastBadPasswordAttemptColumn
             // 
-            this.LastBadPasswordAttemptColumn.Width = 150;
             this.LastBadPasswordAttemptColumn.HeaderText = "Ostatnie błędne";
             this.LastBadPasswordAttemptColumn.Name = "LastBadPasswordAttemptColumn";
             this.LastBadPasswordAttemptColumn.ReadOnly = true;
+            this.LastBadPasswordAttemptColumn.Width = 121;
             // 
             // LastSetPasswordColumn
             // 
-            this.LastSetPasswordColumn.Width = 150;
             this.LastSetPasswordColumn.HeaderText = "Ostatnia zmiana";
             this.LastSetPasswordColumn.Name = "LastSetPasswordColumn";
             this.LastSetPasswordColumn.ReadOnly = true;
+            this.LastSetPasswordColumn.Width = 121;
             // 
             // LockoutTimeColumn
             // 
             this.LockoutTimeColumn.HeaderText = "Kiedy zablokowane";
             this.LockoutTimeColumn.Name = "LockoutTimeColumn";
             this.LockoutTimeColumn.ReadOnly = true;
-            this.LockoutTimeColumn.Width = 130;
+            this.LockoutTimeColumn.Width = 122;
             // 
             // ContextMenu
             // 
