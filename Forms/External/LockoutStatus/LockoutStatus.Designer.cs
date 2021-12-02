@@ -48,6 +48,7 @@ namespace Forms.External
             this.contextMenuItemRefreshAll = new();
             dataGridView = new();
             this.DCColumn = new();
+            this.DCSiteName = new();
             this.UserStateColumn = new();
             this.BadPasswordCountColumn = new();
             this.LastBadPasswordAttemptColumn = new();
@@ -185,6 +186,7 @@ namespace Forms.External
             dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView.Columns.AddRange(new[] {
             this.DCColumn,
+            this.DCSiteName,
             this.UserStateColumn,
             this.BadPasswordCountColumn,
             this.LastBadPasswordAttemptColumn,
@@ -211,6 +213,14 @@ namespace Forms.External
             this.DCColumn.Name = "DCColumn";
             this.DCColumn.ReadOnly = true;
             this.DCColumn.Width = 120;
+            // 
+            // DCSiteName
+            // 
+            this.DCSiteName.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader | DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.DCSiteName.HeaderText = "Lokacja";
+            this.DCSiteName.Name = "DCSiteName";
+            this.DCSiteName.ReadOnly = true;
+            this.DCSiteName.Width = 120;
             // 
             // UserStateColumn
             // 
@@ -334,6 +344,7 @@ namespace Forms.External
         private System.Windows.Forms.ToolStripMenuItem menuItemRefreshSelected;
         private System.Windows.Forms.ToolStripMenuItem menuItemRefreshAll;
         private System.Windows.Forms.DataGridViewTextBoxColumn DCColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DCSiteName;
         private System.Windows.Forms.DataGridViewTextBoxColumn UserStateColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn BadPasswordCountColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn LastBadPasswordAttemptColumn;
