@@ -81,11 +81,7 @@ namespace Forms.External
                     var pd = new PuzzelLibrary.AD.User.Information.PasswordDetails();
                     pd.GetUserPasswordDetails(Username, dcName);
                     var site = PuzzelLibrary.AD.Computer.Search.ByComputerName(dcName, "serverReferenceBL")[0].Properties["serverReferenceBL"][0].ToString().Split(',')[2].Replace("CN=","");
-                    if (dataGridView.InvokeRequired)
-                    {
-                        dataGridView.Invoke(new MethodInvoker(() => dataGridView.Rows.Add(dcName, site, pd.userAccountLocked, pd.badLogonCount, pd.lastBadPasswordAttempt, pd.lastPasswordSet, pd.userLockoutTime)));
-                    }
-                    else dataGridView.Rows.Add(dcName, site , pd.userAccountLocked, pd.badLogonCount, pd.lastBadPasswordAttempt, pd.lastPasswordSet, pd.userLockoutTime);
+                    dataGridView.Invoke(new MethodInvoker(() => dataGridView.Rows.Add(dcName, site, pd.userAccountLocked, pd.badLogonCount, pd.lastBadPasswordAttempt, pd.lastPasswordSet, pd.userLockoutTime)));
                 }
                 catch (Exception e)
                 {
