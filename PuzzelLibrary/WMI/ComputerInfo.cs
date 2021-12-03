@@ -135,6 +135,10 @@ namespace PuzzelLibrary.WMI
                 scope.Connect();
                 if (scope.IsConnected) return true;
             }
+            catch (UnauthorizedAccessException)
+            {
+                MessageBox.Show("Dostęp jest zabroniony");
+            }
             catch (Exception ex)
             {
                 Debug.LogsCollector.GetLogs(ex, computerName + "," + path);
