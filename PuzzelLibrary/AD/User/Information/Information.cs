@@ -125,7 +125,7 @@ namespace PuzzelLibrary.AD.User
                     badLogonCount = uP.BadLogonCount > 0 ? uP.BadLogonCount : 0;
                     lastBadPasswordAttempt = uP.LastBadPasswordAttempt != null ? DateTime.FromFileTime(uP.LastBadPasswordAttempt.Value.ToFileTime()) : DateTime.MinValue;
                     lastPasswordSet = uP.LastPasswordSet != null ? DateTime.FromFileTime(uP.LastPasswordSet.Value.ToFileTime()) : DateTime.MinValue;
-                    userAccountLocked = uP.AccountLockoutTime != null ? "Zablokowane" : "Odblokowane";
+                    userAccountLocked = uP.IsAccountLockedOut() == true ? "Zablokowane" : "Odblokowane";
                     userLockoutTime = uP.AccountLockoutTime != null ? DateTime.FromFileTime(uP.AccountLockoutTime.Value.ToFileTime()) : DateTime.MinValue;
                     passwordExpiryTime = (rs.Properties["msDS-UserPasswordExpiryTimeComputed"][0] != null) ? DateTime.FromFileTime((long)rs.Properties["msDS-UserPasswordExpiryTimeComputed"][0]) : DateTime.MinValue;
                 }
