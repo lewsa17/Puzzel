@@ -9,16 +9,27 @@ namespace Settings
         {
             InitializeComponent();
             if (Environment.OSVersion.Version.Major == 10 ||
-                Environment.OSVersion.Version.Major == 6 && Environment.OSVersion.Version.Minor > 1) 
+                Environment.OSVersion.Version.Major == 6 && Environment.OSVersion.Version.Minor > 1)
                 this.DescriptionBox.BackColor = System.Drawing.SystemColors.ControlLightLight;
             OnLoad();
             if (ApplicationName != string.Empty)
                 this.Text = ApplicationName + " - " + this.Text;
         }
+
+        private void GetAllControls(Control container, ref System.Collections.Generic.List<Control> ctrl)
+        {
+            foreach (Control c in container.Controls)
+            {
+                GetAllControls(c, ref ctrl);
+                if (c is TextBox | c is RichTextBox | c is CheckBox | c is NumericUpDown)
+                    ctrl.Add(c);
+            }
+        }
         private Control[] GetCollectionOfFieldSettings()
         {
-            Control[] ListOfFieldWithSettings = { UserMaxLogsNumeric, CompMaxLogsNumeric, HistoryLogCheck, CustomSourceCheck, LocalUpdateCheck, AutoStartUpdateCheck, SaveUserDataCheck, AutoUnlockFirewallCheck, AutoOpenPortCheck, CheckLogsBeforeStartUpCheck, SessionDisconectShortcutText, LocalUpdatePathText, ComputerLogsFolderTextBox, ComputerSNFileText, TerminalLogsSNFileText, TerminalLogsFileText, TerminalLogsFolderText, CustomDataSourceTextBox, MotpServersText, MotpLogNameText, ComputerInputCheck, EventLogTableViewCheck };
-            return ListOfFieldWithSettings;
+            System.Collections.Generic.List<Control> controls = new();
+            GetAllControls(TabSettings, ref controls);
+            return controls.ToArray();
         }
 
         static readonly string defaultDescription = "Najedź kursorem na opcję aby wyświetlić tutaj jej opis";
@@ -57,7 +68,7 @@ namespace Settings
             OnChangeSaveProperty(sender, e);
         }
         private void MouseOn(object sender, EventArgs e)
-        {         
+        {
             foreach (var Value in typeof(SettingsForm).GetFields())
             {
                 if (((Control)sender).Name.Contains(Value.Name.Replace("Description", "")))
@@ -65,7 +76,7 @@ namespace Settings
                     DescriptionLabel.Text = Value.GetValue(null).ToString();
                     break;
                 }
-            }        
+            }
         }
         private void MouseOut(object sender, EventArgs e)
         {
@@ -75,7 +86,7 @@ namespace Settings
         private void SaveButton_Click(object sender, EventArgs e)
         {
             PuzzelLibrary.Settings.Values.CommitChanges();
-            MessageBox.Show("Ustawienia zostały zapisane.\nZmiany wejdą w życie po ponownym uruchomieniu aplikacji","Zapisywanie ustawień",MessageBoxButtons.OK,MessageBoxIcon.Information);
+            MessageBox.Show("Ustawienia zostały zapisane.\nZmiany wejdą w życie po ponownym uruchomieniu aplikacji", "Zapisywanie ustawień", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         private void EnablingTextBox(object sender, EventArgs e)
         {
@@ -95,7 +106,7 @@ namespace Settings
         private void SessionShortcutText_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Control && !e.Alt && !e.Shift && !e.KeyCode.ToString().Contains("Oem"))
-            SessionDisconectShortcutText.Text = e.Modifiers.ToString() + " + " + new KeysConverter().ConvertToString(e.KeyCode);
+                SessionDisconectShortcutText.Text = e.Modifiers.ToString() + " + " + new KeysConverter().ConvertToString(e.KeyCode);
 
         }
         private void OnChangeSaveProperty(object sender, EventArgs e)
@@ -107,11 +118,11 @@ namespace Settings
                     {
                         case "Boolean": { propertyInfo.SetValue(null, Convert.ToBoolean(((CheckBox)sender).Checked)); break; }
                         case "Decimal": { propertyInfo.SetValue(null, Convert.ToDecimal(((NumericUpDown)sender).Value)); break; }
-                        case "String" : { propertyInfo.SetValue(null, Convert.ToString(((TextBoxBase)sender).Text)); break; }
+                        case "String": { propertyInfo.SetValue(null, Convert.ToString(((TextBoxBase)sender).Text)); break; }
                     }
                 }
         }
-        
+
 
         private void OnLoad()
         {
@@ -147,6 +158,7 @@ namespace Settings
                 foreach (var objSettings in GetCollectionOfFieldSettings())
                     if (objSettings != SessionDisconectShortcutText)
                         PuzzelLibrary.Settings.Values.RestoreDefaultSettings(objSettings);
+
                 PuzzelLibrary.Settings.Values.HistoryLog = HistoryLogCheck.Checked;
                 PuzzelLibrary.Settings.Values.CustomSource = CustomSourceCheck.Checked;
                 PuzzelLibrary.Settings.Values.SaveUserData = SaveUserDataCheck.Checked;
@@ -166,7 +178,7 @@ namespace Settings
                 PuzzelLibrary.Settings.Values.ComputerSNFile = ComputerSNFileText.Text;
                 PuzzelLibrary.Settings.Values.CheckLogsBeforeStartUp = CheckLogsBeforeStartUpCheck.Checked;
                 PuzzelLibrary.Settings.Values.MotpLogName = MotpLogNameText.Text;
-                PuzzelLibrary.Settings.Values.MotpServers= MotpServersText.Text;
+                PuzzelLibrary.Settings.Values.MotpServers = MotpServersText.Text;
                 PuzzelLibrary.Settings.Values.ComputerInput = ComputerInputCheck.Checked;
                 PuzzelLibrary.Settings.Values.EventLogTableView = EventLogTableViewCheck.Checked;
                 PuzzelLibrary.Settings.Values.DomainController = DomainControllerText.Text;
