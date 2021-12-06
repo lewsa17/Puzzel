@@ -32,28 +32,6 @@ namespace Settings
             return controls.ToArray();
         }
 
-        static readonly string defaultDescription = "Najedź kursorem na opcję aby wyświetlić tutaj jej opis";
-        public static readonly string HistoryLogDescription = "Ustawienie tej opcji będzie wyświetlać lub nie ostatnio wyszukiwanej wartości";
-        public static readonly string UserMaxLogsDescription = "Zmiana tej wartości ustala maksymalną liczbę logowań użytkownika jaką można wyszukać";
-        public static readonly string CompMaxLogsDescription = "Zmiana tej wartości ustala maksymalną liczbę logowań do komputera jaką można wyszukać";
-        public static readonly string CustomSourceCheckDescription = "Zezwala na wyszukiwanie sesji z ręcznie przygotowanej listy";
-        public static readonly string CustomSourceTextBoxDescription = "Podaj nazwę terminali z których będa wyszukiwane sesje, musi być odzielone przecinkami";
-        public static readonly string AutoOpenPortDescription = "Zmiana tej wartości wyłączy pytanie o otwarcie portu 135 (RPC) odpowiedzialny za wykonywanie niektórych funkcji - będzie to wykonywane automatycznie";
-        public static readonly string AutoUnlockFirewallDescription = "Zmiana tej wartości wyłączy pytanie o odblokowywanie Zdalnej Zapory - będzie to wykonywane automatycznie";
-        public static readonly string SaveUserDataCheckDescription = "Zamiana tej wartości wyłączy pytanie o zapisywanie danych użytkownika przy usuwaniu - będzie to wykonywane automatycznie";
-        public static readonly string SessionShortcutDescription = "Ustaw skrót klawiszowy odpowiedzialny za rozłączanie się od sesji zdalnej. \nWystarczy zaznaczyć kursorem na pole tekstowe i nacisnąć klawisze\nDziała tylko do serwera terminali 2008R2";
-        public static readonly string LocalUpdateDescription = "Zmienia miejsce wyszukiwania aktualizacji / ze zdalnie na lokalnie";
-        public static readonly string AutoStartUpdateDescription = "Automatyczne sprawdzanie aktualizacji przy uruchomieniu";
-        public static readonly string TerminalLogsSNFileDescription = "Podaj nazwę pliku zawierającego numery seryjne terminali";
-        public static readonly string TerminalLogsFileDescription = "Podaj nazwy plików odzielone przecinkiem zawierające logi terminali";
-        public static readonly string TerminalLogsFolderDescription = "Podaj lokalizację zawierająca logi terminali";
-        public static readonly string ComputerSNFileDescription = "Podaj nazwę pliku zawierającego numery seryjne komputerów";
-        public static readonly string ComputerLogsFolderDescription = "Podaj lokalizację zawierająca logi komputera";
-        public static readonly string CheckLogsBeforeStartUpDescription = "Ustaw czy podczas uruchomienia logi mają być odświeżane";
-        public static readonly string MotpServersDescription = "Podaj nazwę/y hosta dla serwerów motp (Odzielone , lub ;)";
-        public static readonly string MotpLogNameDescription = "Podaj nazwę dziennika dla serwera motp";
-        public static readonly string ComputerInputDescription = "Ustawienie tej wartości spowododuje podstawianie ostatnio używanej nazwy komputera przy wyszukiwaniu użytkownika";
-        public static readonly string DomainControllerDescription = "Podaj nazwę kontrolera(hosta) po którym program będzie odpytywał domenę o informacje.";
         private void CloseButton_Click(object sender, EventArgs e)
         {
             Close();
@@ -68,25 +46,25 @@ namespace Settings
             OnChangeSaveProperty(sender, e);
         }
         private void MouseOn(object sender, EventArgs e)
-        {
-            foreach (var Value in typeof(SettingsForm).GetFields())
+        {         
+            foreach (var Value in typeof(Descriptions).GetFields())
             {
-                if (((Control)sender).Name.Contains(Value.Name.Replace("Description", "")))
+                if (((Control)sender).Name.Contains(Value.Name))
                 {
                     DescriptionLabel.Text = Value.GetValue(null).ToString();
                     break;
                 }
-            }
+            }        
         }
         private void MouseOut(object sender, EventArgs e)
         {
-            DescriptionLabel.Text = defaultDescription;
+            DescriptionLabel.Text = Descriptions._default;
         }
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
             PuzzelLibrary.Settings.Values.CommitChanges();
-            MessageBox.Show("Ustawienia zostały zapisane.\nZmiany wejdą w życie po ponownym uruchomieniu aplikacji", "Zapisywanie ustawień", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Ustawienia zostały zapisane.\nZmiany wejdą w życie po ponownym uruchomieniu aplikacji","Zapisywanie ustawień",MessageBoxButtons.OK,MessageBoxIcon.Information);
         }
         private void EnablingTextBox(object sender, EventArgs e)
         {
@@ -106,7 +84,7 @@ namespace Settings
         private void SessionShortcutText_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Control && !e.Alt && !e.Shift && !e.KeyCode.ToString().Contains("Oem"))
-                SessionDisconectShortcutText.Text = e.Modifiers.ToString() + " + " + new KeysConverter().ConvertToString(e.KeyCode);
+            SessionDisconectShortcutText.Text = e.Modifiers.ToString() + " + " + new KeysConverter().ConvertToString(e.KeyCode);
 
         }
         private void OnChangeSaveProperty(object sender, EventArgs e)
@@ -118,11 +96,11 @@ namespace Settings
                     {
                         case "Boolean": { propertyInfo.SetValue(null, Convert.ToBoolean(((CheckBox)sender).Checked)); break; }
                         case "Decimal": { propertyInfo.SetValue(null, Convert.ToDecimal(((NumericUpDown)sender).Value)); break; }
-                        case "String": { propertyInfo.SetValue(null, Convert.ToString(((TextBoxBase)sender).Text)); break; }
+                        case "String" : { propertyInfo.SetValue(null, Convert.ToString(((TextBoxBase)sender).Text)); break; }
                     }
                 }
         }
-
+        
 
         private void OnLoad()
         {
@@ -178,7 +156,7 @@ namespace Settings
                 PuzzelLibrary.Settings.Values.ComputerSNFile = ComputerSNFileText.Text;
                 PuzzelLibrary.Settings.Values.CheckLogsBeforeStartUp = CheckLogsBeforeStartUpCheck.Checked;
                 PuzzelLibrary.Settings.Values.MotpLogName = MotpLogNameText.Text;
-                PuzzelLibrary.Settings.Values.MotpServers = MotpServersText.Text;
+                PuzzelLibrary.Settings.Values.MotpServers= MotpServersText.Text;
                 PuzzelLibrary.Settings.Values.ComputerInput = ComputerInputCheck.Checked;
                 PuzzelLibrary.Settings.Values.EventLogTableView = EventLogTableViewCheck.Checked;
                 PuzzelLibrary.Settings.Values.DomainController = DomainControllerText.Text;
