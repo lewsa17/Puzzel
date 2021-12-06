@@ -68,17 +68,8 @@ namespace Settings
         }
         private void EnablingTextBox(object sender, EventArgs e)
         {
-            if (CustomSourceCheck.Checked)
-            {
-                CustomDataSourceTextBox.Enabled = true;
-            }
-            else CustomDataSourceTextBox.Enabled = false;
-
-            if (LocalUpdateCheck.Checked)
-            {
-                LocalUpdatePathText.Enabled = true;
-            }
-            else LocalUpdatePathText.Enabled = false;
+            CustomDataSourceTextBox.Enabled = CustomSourceCheck.Checked;
+            LocalUpdatePathText.Enabled = LocalUpdateCheck.Checked;
         }
 
         private void SessionShortcutText_KeyDown(object sender, KeyEventArgs e)
