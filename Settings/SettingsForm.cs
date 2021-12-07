@@ -5,6 +5,8 @@ namespace Settings
 {
     public partial class SettingsForm : Form
     {
+        private System.Reflection.PropertyInfo[] SettingsValues = typeof(PuzzelLibrary.Settings.Values).GetProperties();
+        private System.Collections.Generic.List<Control> controls = new();
         public SettingsForm(string ApplicationName)
         {
             InitializeComponent();
@@ -25,17 +27,18 @@ namespace Settings
                     ctrl.Add(c);
             }
         }
-        private Control[] GetCollectionOfFieldSettings()
+        
+        private void GetCollectionOfFieldSettings()
         {
-            System.Collections.Generic.List<Control> controls = new();
+            controls.Clear();
             GetAllControls(TabSettings, ref controls);
-            return controls.ToArray();
         }
 
         private void CloseButton_Click(object sender, EventArgs e)
         {
             Close();
         }
+        
         private void ChangeChecked(object sender, EventArgs e)
         {
             if (((CheckBox)sender).Checked)
@@ -45,6 +48,7 @@ namespace Settings
             else ((CheckBox)sender).Text = "Wyłaczone";
             OnChangeSaveProperty(sender, e);
         }
+
         private void MouseOn(object sender, EventArgs e)
         {         
             foreach (var Value in typeof(Descriptions).GetFields())
@@ -56,6 +60,7 @@ namespace Settings
                 }
             }        
         }
+
         private void MouseOut(object sender, EventArgs e)
         {
             DescriptionLabel.Text = Descriptions._default;
@@ -66,6 +71,7 @@ namespace Settings
             PuzzelLibrary.Settings.Values.CommitChanges();
             MessageBox.Show("Ustawienia zostały zapisane.\nZmiany wejdą w życie po ponownym uruchomieniu aplikacji","Zapisywanie ustawień",MessageBoxButtons.OK,MessageBoxIcon.Information);
         }
+
         private void EnablingTextBox(object sender, EventArgs e)
         {
             CustomDataSourceTextBox.Enabled = CustomSourceCheck.Checked;
@@ -76,87 +82,65 @@ namespace Settings
         {
             if (e.Control && !e.Alt && !e.Shift && !e.KeyCode.ToString().Contains("Oem"))
             SessionDisconectShortcutText.Text = e.Modifiers.ToString() + " + " + new KeysConverter().ConvertToString(e.KeyCode);
-
         }
+        
         private void OnChangeSaveProperty(object sender, EventArgs e)
         {
-            foreach (var propertyInfo in typeof(PuzzelLibrary.Settings.Values).GetProperties())
-                if (((Control)sender).Name.Contains(propertyInfo.Name))
+            SaveFromControlsToValues((Control)sender);
+        }        
+
+        private void SaveFromControlsToValues(Control ctrl)
+        {
+            foreach (var propertyInfo in SettingsValues)
+                if (ctrl.Name.Contains(propertyInfo.Name))
                 {
                     switch (propertyInfo.PropertyType.Name)
                     {
-                        case "Boolean": { propertyInfo.SetValue(null, Convert.ToBoolean(((CheckBox)sender).Checked)); break; }
-                        case "Decimal": { propertyInfo.SetValue(null, Convert.ToDecimal(((NumericUpDown)sender).Value)); break; }
-                        case "String" : { propertyInfo.SetValue(null, Convert.ToString(((TextBoxBase)sender).Text)); break; }
+                        case "Boolean": { propertyInfo.SetValue(null, Convert.ToBoolean(((CheckBox)ctrl).Checked)); break; }
+                        case "Decimal": { propertyInfo.SetValue(null, Convert.ToDecimal(((NumericUpDown)ctrl).Value)); break; }
+                        case "String": { propertyInfo.SetValue(null, Convert.ToString(((TextBoxBase)ctrl).Text)); break; }
                     }
                 }
         }
-        
-
+        private void LoadValuesToControls(Control ctrl)
+        {
+            foreach (var value in SettingsValues)
+            {
+                if (ctrl.Name.Contains(value.Name))
+                    switch (ctrl.GetType().Name)
+                    {
+                        case "TextBox": { ((TextBox)ctrl).Text = Convert.ToString(value.GetValue(null)); break; }
+                        case "RichTextBox": { ((RichTextBox)ctrl).Text = Convert.ToString(value.GetValue(null)); break; }
+                        case "NumericUpDown": { ((NumericUpDown)ctrl).Value = Convert.ToDecimal(value.GetValue(null)); break; }
+                        case "CheckBox": { ((CheckBox)ctrl).Checked = Convert.ToBoolean(value.GetValue(null)); break; }
+                    }
+            }
+        }
         private void OnLoad()
         {
+            GetCollectionOfFieldSettings();
             if (System.IO.File.Exists("Settings.xml"))
             {
                 PuzzelLibrary.Settings.Values.LoadValues();
-                HistoryLogCheck.Checked = PuzzelLibrary.Settings.Values.HistoryLog;
-                CustomSourceCheck.Checked = PuzzelLibrary.Settings.Values.CustomSource;
-                SaveUserDataCheck.Checked = PuzzelLibrary.Settings.Values.SaveUserData;
-                AutoUnlockFirewallCheck.Checked = PuzzelLibrary.Settings.Values.AutoUnlockFirewall;
-                AutoOpenPortCheck.Checked = PuzzelLibrary.Settings.Values.AutoOpenPort;
-                SessionDisconectShortcutText.Text = PuzzelLibrary.Settings.Values.SessionDisconectShortcut;
-                CustomDataSourceTextBox.Text = PuzzelLibrary.Settings.Values.CustomDataSource;
-                UserMaxLogsNumeric.Value = PuzzelLibrary.Settings.Values.UserMaxLogs;
-                CompMaxLogsNumeric.Value = PuzzelLibrary.Settings.Values.CompMaxLogs;
-                LocalUpdateCheck.Checked = PuzzelLibrary.Settings.Values.LocalUpdateCheck;
-                LocalUpdatePathText.Text = PuzzelLibrary.Settings.Values.LocalUpdatePath;
-                AutoStartUpdateCheck.Checked = PuzzelLibrary.Settings.Values.AutostartUpdateCheck;
-                TerminalLogsFolderText.Text = PuzzelLibrary.Settings.Values.TerminalLogsFolder;
-                TerminalLogsSNFileText.Text = PuzzelLibrary.Settings.Values.TerminalLogsSNFile;
-                TerminalLogsFileText.Text = PuzzelLibrary.Settings.Values.TerminalLogsFile;
-                ComputerSNFileText.Text = PuzzelLibrary.Settings.Values.ComputerSNFile;
-                ComputerLogsFolderTextBox.Text = PuzzelLibrary.Settings.Values.ComputerLogsFolder;
-                CheckLogsBeforeStartUpCheck.Checked = PuzzelLibrary.Settings.Values.CheckLogsBeforeStartUp;
-                MotpServersText.Text = PuzzelLibrary.Settings.Values.MotpServers;
-                MotpLogNameText.Text = PuzzelLibrary.Settings.Values.MotpLogName;
-                ComputerInputCheck.Checked = PuzzelLibrary.Settings.Values.ComputerInput;
-                EventLogTableViewCheck.Checked = PuzzelLibrary.Settings.Values.EventLogTableView;
-                DomainControllerText.Text = PuzzelLibrary.Settings.Values.DomainController;
+                foreach (var ctrl in controls)
+                {
+                    LoadValuesToControls(ctrl);
+                }
             }
             else
             {
-                foreach (var objSettings in GetCollectionOfFieldSettings())
+                foreach (var objSettings in controls)
+                {
                     if (objSettings != SessionDisconectShortcutText)
                         PuzzelLibrary.Settings.Values.RestoreDefaultSettings(objSettings);
-
-                PuzzelLibrary.Settings.Values.HistoryLog = HistoryLogCheck.Checked;
-                PuzzelLibrary.Settings.Values.CustomSource = CustomSourceCheck.Checked;
-                PuzzelLibrary.Settings.Values.SaveUserData = SaveUserDataCheck.Checked;
-                PuzzelLibrary.Settings.Values.AutoUnlockFirewall = AutoUnlockFirewallCheck.Checked;
-                PuzzelLibrary.Settings.Values.AutoOpenPort = AutoOpenPortCheck.Checked;
-                PuzzelLibrary.Settings.Values.SessionDisconectShortcut = SessionDisconectShortcutText.Text;
-                PuzzelLibrary.Settings.Values.CustomDataSource = CustomDataSourceTextBox.Text;
-                PuzzelLibrary.Settings.Values.UserMaxLogs = UserMaxLogsNumeric.Value;
-                PuzzelLibrary.Settings.Values.CompMaxLogs = CompMaxLogsNumeric.Value;
-                PuzzelLibrary.Settings.Values.LocalUpdateCheck = LocalUpdateCheck.Checked;
-                PuzzelLibrary.Settings.Values.LocalUpdatePath = LocalUpdatePathText.Text;
-                PuzzelLibrary.Settings.Values.AutostartUpdateCheck = AutoStartUpdateCheck.Checked;
-                PuzzelLibrary.Settings.Values.TerminalLogsFolder = TerminalLogsFolderText.Text;
-                PuzzelLibrary.Settings.Values.TerminalLogsSNFile = TerminalLogsSNFileText.Text;
-                PuzzelLibrary.Settings.Values.TerminalLogsFile = TerminalLogsFileText.Text;
-                PuzzelLibrary.Settings.Values.ComputerLogsFolder = ComputerLogsFolderTextBox.Text;
-                PuzzelLibrary.Settings.Values.ComputerSNFile = ComputerSNFileText.Text;
-                PuzzelLibrary.Settings.Values.CheckLogsBeforeStartUp = CheckLogsBeforeStartUpCheck.Checked;
-                PuzzelLibrary.Settings.Values.MotpLogName = MotpLogNameText.Text;
-                PuzzelLibrary.Settings.Values.MotpServers= MotpServersText.Text;
-                PuzzelLibrary.Settings.Values.ComputerInput = ComputerInputCheck.Checked;
-                PuzzelLibrary.Settings.Values.EventLogTableView = EventLogTableViewCheck.Checked;
-                PuzzelLibrary.Settings.Values.DomainController = DomainControllerText.Text;
+                    SaveFromControlsToValues(objSettings);
+                }
             }
         }
 
         private void RestoreDefaultSettings(object sender, EventArgs e)
         {
-            foreach (var objSettings in GetCollectionOfFieldSettings())
+            foreach (var objSettings in controls)
                 PuzzelLibrary.Settings.Values.RestoreDefaultSettings(objSettings);
         }
     }
