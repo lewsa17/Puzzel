@@ -13,6 +13,8 @@ namespace Forms.External
         }        
         public static string Username;
         public string domainAddress = PuzzelLibrary.Settings.Values.DomainController;
+        private System.Collections.Generic.List<System.Threading.Tasks.Task> tasks = new();
+        private CancellationTokenSource tokenSource = new CancellationTokenSource();
 
         private void LockoutStatus_Load(object sender, EventArgs e)
         {
@@ -21,6 +23,11 @@ namespace Forms.External
             {
                 this.Text = Username;
             }
+        }
+
+        private void ClosingForm(object sender, EventArgs e)
+        {
+            tokenSource.Cancel();
         }
         private void MenuItemSelectUser_Click(object sender, EventArgs e)
         {
@@ -38,18 +45,26 @@ namespace Forms.External
                 else this.Text = "Lockout Status";
             }
         }
+
         public void AddEntry()
         {
             string[] domainControllers = null;
             if (domainAddress != null)
                 domainControllers = PuzzelLibrary.AD.Other.Domain.GetCustomDomainControllers(domainAddress);
             else domainControllers = PuzzelLibrary.AD.Other.Domain.GetCurrentDomainControllers();
+            int i = 0;
             foreach (string dcName in domainControllers)
             {
-                Thread thread = new(() => GetUserPasswordDetails(dcName));
-                thread.Start();
+                System.Threading.Tasks.Task task = new(() =>
+                {
+                    GetUserPasswordDetails(dcName);
+                }, tokenSource.Token);
+                tasks.Add(task);
+                task.Start();
+                i++;
             }
         }
+
         private void DeleteEntryRows()
         {
             if (dataGridView.Rows.Count > 1)
@@ -66,6 +81,7 @@ namespace Forms.External
                     GetUserPasswordDetails(dcName);
                 }
         }
+
         private void LockoutStatus_Activated(object sender, EventArgs e)
         {
             if (Username.Length > 1)
@@ -73,21 +89,25 @@ namespace Forms.External
         }
         public void GetUserPasswordDetails(string dcName)
         {
-            if (this.IsHandleCreated)
-                Invoke(new MethodInvoker(() => Cursor = Cursors.WaitCursor));
             if (dataGridView.Columns != null)
+            {
                 try
                 {
-                    var pd = new PuzzelLibrary.AD.User.Information.PasswordDetails();
-                    pd.GetUserPasswordDetails(Username, dcName);
-                    var site = PuzzelLibrary.AD.Computer.Search.ByComputerName(dcName, "serverReferenceBL")[0].Properties["serverReferenceBL"][0].ToString().Split(',')[2].Replace("CN=","");
-                    dataGridView.Invoke(new MethodInvoker(() => dataGridView.Rows.Add(dcName, site, pd.userAccountLocked, pd.badLogonCount, pd.lastBadPasswordAttempt, pd.lastPasswordSet, pd.userLockoutTime)));
+                    if (IsHandleCreated)
+                    {
+                        BeginInvoke(new MethodInvoker(() => Cursor = Cursors.WaitCursor));
+                        var pd = new PuzzelLibrary.AD.User.Information.PasswordDetails();
+                        pd.GetUserPasswordDetails(Username, dcName);
+                        var site = PuzzelLibrary.AD.Computer.Search.ByComputerName(dcName, "serverReferenceBL")[0].Properties["serverReferenceBL"][0].ToString().Split(',')[2].Replace("CN=", "");
+                        dataGridView.Invoke(new MethodInvoker(() => dataGridView.Rows.Add(dcName, site, pd.userAccountLocked, pd.badLogonCount, pd.lastBadPasswordAttempt, pd.lastPasswordSet, pd.userLockoutTime)));
+                        BeginInvoke(new MethodInvoker(() => Cursor = Cursors.Default));
+                    }
                 }
                 catch (Exception e)
                 {
                     PuzzelLibrary.Debug.LogsCollector.GetLogs(e, dcName + "," + Username);
                 }
-            Invoke(new MethodInvoker(() => Cursor = Cursors.Default));
+            }
         }
         private void MenuItemClearAll_Click(object sender, EventArgs e)
         {
