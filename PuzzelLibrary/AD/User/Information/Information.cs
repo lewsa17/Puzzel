@@ -66,9 +66,9 @@ namespace PuzzelLibrary.AD.User
                     if (!oPrincipalContext.ValidateCredentials(Connection.Credentials.UserName, Connection.Credentials.Password))
                         return null;
                 }
-                else if (!string.IsNullOrEmpty(Connection.Credentials.Domain))
+                else if (!string.IsNullOrEmpty(Connection.Credentials.DomainName))
                 {
-                    oPrincipalContext = new PrincipalContext(ContextType.Domain, Connection.Credentials.Domain);
+                    oPrincipalContext = new PrincipalContext(ContextType.Domain, Connection.Credentials.DomainName);
                 }
                 else oPrincipalContext = new PrincipalContext(ContextType.Domain);
 
@@ -97,10 +97,6 @@ namespace PuzzelLibrary.AD.User
 
                 UserPrincipal oUserPrincipal = UserPrincipal.FindByIdentity(oPrincipalContext, UserName);
                 return oUserPrincipal;
-            }
-            catch (PrincipalServerDownException)
-            {
-                return null;
             }
             catch (Exception e)
             {
@@ -178,10 +174,11 @@ namespace PuzzelLibrary.AD.User
 
                 pwdLastSet = user.LastPasswordSet != null ? DateTime.FromFileTime(user.LastPasswordSet.Value.ToFileTime()) : DateTime.MinValue;
 
-                if (user.GetGroups() != null)
+                var _groups = user.GetGroups(user.Context);
+                if (_groups != null)
                 {
                     List<string> members = new();
-                    foreach (var groups in user.GetGroups())
+                    foreach (var groups in _groups)
                         members.Add(groups.SamAccountName);
                     members.Sort();
                     Groups = members.ToArray();
