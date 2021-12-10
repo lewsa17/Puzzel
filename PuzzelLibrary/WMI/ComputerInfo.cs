@@ -154,8 +154,8 @@ namespace PuzzelLibrary.WMI
 
             System.Text.StringBuilder sb = new();
             SelectQuery Squery = new(query);
-            if (scope.Path.NamespacePath.Replace($"\\\\{nazwaKomputera}","") != path)
-                scope = new ManagementScope(path, new ConnectionOptions() { EnablePrivileges = true });
+            if (scope.Path.Path != $"\\\\{nazwaKomputera}{path}")
+                scope = new ManagementScope($"\\\\{nazwaKomputera}{path}", new ConnectionOptions() { EnablePrivileges = true });
             using ManagementObjectSearcher searcher = new(scope, Squery);
             using ManagementObjectCollection queryCollection = searcher.Get();
             foreach (ManagementObject m in queryCollection)
