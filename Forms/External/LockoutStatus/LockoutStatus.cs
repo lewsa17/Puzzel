@@ -57,7 +57,7 @@ namespace Forms.External
             {
                 System.Threading.Tasks.Task task = new(() =>
                 {
-                    GetUserPasswordDetails(dcName);
+                    GetUserPasswordDetails(dcName, -1);
                 }, tokenSource.Token);
                 tasks.Add(task);
                 task.Start();
@@ -74,11 +74,10 @@ namespace Forms.External
         private void MenuItemRefreshSelected_Click(object sender, EventArgs e)
         {
             if (dataGridView.CurrentCell != null)
-                if (dataGridView.CurrentCell.RowIndex != 0)
                 {
                     int RowIndex = dataGridView.CurrentCell.RowIndex;
                     string dcName = dataGridView.Rows[RowIndex].Cells[0].Value.ToString();
-                    GetUserPasswordDetails(dcName);
+                    GetUserPasswordDetails(dcName, RowIndex);
                 }
         }
 
@@ -87,7 +86,7 @@ namespace Forms.External
             if (Username.Length > 1)
                 this.Text = Username;
         }
-        public void GetUserPasswordDetails(string dcName)
+        public void GetUserPasswordDetails(string dcName, int rowIndex)
         {
             if (dataGridView.Columns != null)
             {
@@ -95,11 +94,23 @@ namespace Forms.External
                 {
                     if (IsHandleCreated)
                     {
-                        BeginInvoke(new MethodInvoker(() => Cursor = Cursors.WaitCursor));
+                        BeginInvoke(new MethodInvoker(() => Cursor= Cursors.WaitCursor));
                         var pd = new PuzzelLibrary.AD.User.Information.PasswordDetails();
                         pd.GetUserPasswordDetails(Username, dcName);
                         var site = PuzzelLibrary.AD.Computer.Search.ByComputerName(dcName, "serverReferenceBL")[0].Properties["serverReferenceBL"][0].ToString().Split(',')[2].Replace("CN=", "");
-                        dataGridView.Invoke(new MethodInvoker(() => dataGridView.Rows.Add(dcName, site, pd.userAccountLocked, pd.badLogonCount, pd.lastBadPasswordAttempt, pd.lastPasswordSet, pd.userLockoutTime)));
+                        switch (rowIndex >= 0)
+                        {
+                            case true:
+                                {
+                                    dataGridView.Invoke(new MethodInvoker(() => dataGridView.Rows[rowIndex].SetValues(dcName, site, pd.userAccountLocked, pd.badLogonCount, pd.lastBadPasswordAttempt, pd.lastPasswordSet, pd.userLockoutTime)));
+                                    break;
+                                }
+                            case false:
+                                {
+                                    dataGridView.Invoke(new MethodInvoker(() => dataGridView.Rows.Add(dcName, site, pd.userAccountLocked, pd.badLogonCount, pd.lastBadPasswordAttempt, pd.lastPasswordSet, pd.userLockoutTime)));
+                                    break;
+                                }
+                        }    
                         BeginInvoke(new MethodInvoker(() => Cursor = Cursors.Default));
                     }
                 }
