@@ -94,7 +94,7 @@ namespace Forms.External
                 {
                     if (IsHandleCreated)
                     {
-                        BeginInvoke(new MethodInvoker(() => Cursor= Cursors.WaitCursor));
+                        BeginInvoke(new MethodInvoker(() => dataGridView.Cursor= Cursors.WaitCursor));
                         var pd = new PuzzelLibrary.AD.User.Information.PasswordDetails();
                         pd.GetUserPasswordDetails(Username, dcName);
                         var site = PuzzelLibrary.AD.Computer.Search.ByComputerName(dcName, "serverReferenceBL")[0].Properties["serverReferenceBL"][0].ToString().Split(',')[2].Replace("CN=", "");
@@ -111,7 +111,7 @@ namespace Forms.External
                                     break;
                                 }
                         }    
-                        BeginInvoke(new MethodInvoker(() => Cursor = Cursors.Default));
+                        BeginInvoke(new MethodInvoker(() => dataGridView.Cursor = Cursors.Default));
                     }
                 }
                 catch (Exception e)
