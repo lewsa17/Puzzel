@@ -86,17 +86,21 @@ namespace PuzzelLibrary.AD.User
         {
             try
             {
-                PrincipalContext oPrincipalContext;
-                if (Connection.Credentials.Available)
+                if (NetDiag.Ping.Pinging(domainController) == System.Net.NetworkInformation.IPStatus.Success)
                 {
-                    oPrincipalContext = new PrincipalContext(ContextType.Domain, domainController, Connection.Credentials.UserName, Connection.Credentials.Password);
-                    if (!oPrincipalContext.ValidateCredentials(Connection.Credentials.UserName, Connection.Credentials.Password))
-                        return null;
-                }
-                else oPrincipalContext = new PrincipalContext(ContextType.Domain, domainController);
+                    PrincipalContext oPrincipalContext;
+                    if (Connection.Credentials.Available)
+                    {
+                        oPrincipalContext = new PrincipalContext(ContextType.Domain, domainController, Connection.Credentials.UserName, Connection.Credentials.Password);
+                        if (!oPrincipalContext.ValidateCredentials(Connection.Credentials.UserName, Connection.Credentials.Password))
+                            return null;
+                    }
+                    else oPrincipalContext = new PrincipalContext(ContextType.Domain, domainController);
 
-                UserPrincipal oUserPrincipal = UserPrincipal.FindByIdentity(oPrincipalContext, UserName);
-                return oUserPrincipal;
+                    UserPrincipal oUserPrincipal = UserPrincipal.FindByIdentity(oPrincipalContext, UserName);
+                    return oUserPrincipal;
+                }
+                else return null;
             }
             catch (Exception e)
             {

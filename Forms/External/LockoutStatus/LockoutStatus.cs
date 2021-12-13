@@ -13,8 +13,6 @@ namespace Forms.External
         }        
         public static string Username;
         public string domainAddress = PuzzelLibrary.Settings.Values.DomainController;
-        private System.Collections.Generic.List<System.Threading.Tasks.Task> tasks = new();
-        private CancellationTokenSource tokenSource = new CancellationTokenSource();
 
         private void LockoutStatus_Load(object sender, EventArgs e)
         {
@@ -23,11 +21,6 @@ namespace Forms.External
             {
                 this.Text = Username;
             }
-        }
-
-        private void ClosingForm(object sender, EventArgs e)
-        {
-            tokenSource.Cancel();
         }
         private void MenuItemSelectUser_Click(object sender, EventArgs e)
         {
@@ -58,8 +51,7 @@ namespace Forms.External
                 System.Threading.Tasks.Task task = new(() =>
                 {
                     GetUserPasswordDetails(dcName, -1);
-                }, tokenSource.Token);
-                tasks.Add(task);
+                });
                 task.Start();
                 i++;
             }

@@ -312,7 +312,6 @@ namespace Forms.External
             this.Text = "Lockout Status";
             this.Activated += new(this.LockoutStatus_Activated);
             this.Load += new(this.LockoutStatus_Load);
-            this.FormClosing += new(this.ClosingForm);
             this.mainMenu.ResumeLayout(false);
             this.mainMenu.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(dataGridView)).EndInit();
