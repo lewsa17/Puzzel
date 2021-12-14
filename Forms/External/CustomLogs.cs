@@ -213,7 +213,7 @@ namespace Forms
 
             foreach (var list in listOfFilesLogs)
             {
-                UpdateRichTextBox(string.Format("{0,-16}{1,-16}{2,-12}{3,-22}{4,0}", list.ComputerName, list.UserName, list.SerialNumber, list.Model, list.time.ToString() + "\n"));
+                UpdateRichTextBox(string.Format("{0,-16}{1,-16}{2,-12}{3,-22}", list.ComputerName, list.UserName, list.SerialNumber, list.Model + "\n"));
             }
             textLogView.Invoke(new MethodInvoker(() =>
             {
@@ -244,7 +244,6 @@ namespace Forms
             public string SerialNumber;
             public string Model;
             public string OSVersion;
-            public DateTime time;
         }
         public class cLogs
         {
@@ -267,8 +266,8 @@ namespace Forms
                     cl.UserName = splittedVal[1];
                     cl.SerialNumber = splittedVal[2];
                     cl.Model = splittedVal[3];
-                    cl.OSVersion = splittedVal[4];
-                    cl.time = DateTime.Parse(splittedVal[5]);
+                    if (splittedVal.Length > 4)
+                        cl.OSVersion = splittedVal[4];
                     DBList.Add(cl);
                 }
             }
