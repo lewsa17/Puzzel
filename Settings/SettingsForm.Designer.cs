@@ -32,6 +32,8 @@
             this.CloseButton = new System.Windows.Forms.Button();
             this.TabSettings = new System.Windows.Forms.TabControl();
             this.GeneralPage = new System.Windows.Forms.TabPage();
+            this.DomainControllerBox = new System.Windows.Forms.GroupBox();
+            this.DomainControllerText = new System.Windows.Forms.TextBox();
             this.ComputerInputBox = new System.Windows.Forms.GroupBox();
             this.ComputerInputCheck = new System.Windows.Forms.CheckBox();
             this.CustomValueBox = new System.Windows.Forms.GroupBox();
@@ -76,6 +78,8 @@
             this.TerminalLogsFolderText = new System.Windows.Forms.TextBox();
             this.TerminalLogsFolderLabel = new System.Windows.Forms.Label();
             this.Other = new System.Windows.Forms.TabPage();
+            this.KeywordSearchingBox = new System.Windows.Forms.GroupBox();
+            this.KeywordSearchingCheck = new System.Windows.Forms.CheckBox();
             this.AutomaticallyAllowBox = new System.Windows.Forms.GroupBox();
             this.SaveUserDataCheck = new System.Windows.Forms.CheckBox();
             this.AutoUnlockFirewallCheck = new System.Windows.Forms.CheckBox();
@@ -83,10 +87,9 @@
             this.DescriptionBox = new System.Windows.Forms.GroupBox();
             this.DescriptionLabel = new System.Windows.Forms.Label();
             this.RestoreDefaultButton = new System.Windows.Forms.Button();
-            this.DomainControllerBox = new System.Windows.Forms.GroupBox();
-            this.DomainControllerText = new System.Windows.Forms.TextBox();
             this.TabSettings.SuspendLayout();
             this.GeneralPage.SuspendLayout();
+            this.DomainControllerBox.SuspendLayout();
             this.ComputerInputBox.SuspendLayout();
             this.CustomValueBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.UserMaxLogsNumeric)).BeginInit();
@@ -106,9 +109,9 @@
             this.groupBox1.SuspendLayout();
             this.TerminalLogsBox.SuspendLayout();
             this.Other.SuspendLayout();
+            this.KeywordSearchingBox.SuspendLayout();
             this.AutomaticallyAllowBox.SuspendLayout();
             this.DescriptionBox.SuspendLayout();
-            this.DomainControllerBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // SaveButton
@@ -157,6 +160,26 @@
             this.GeneralPage.TabIndex = 0;
             this.GeneralPage.Text = "Ogólne";
             this.GeneralPage.UseVisualStyleBackColor = true;
+            // 
+            // DomainControllerBox
+            // 
+            this.DomainControllerBox.Controls.Add(this.DomainControllerText);
+            this.DomainControllerBox.Location = new System.Drawing.Point(20, 218);
+            this.DomainControllerBox.Name = "DomainControllerBox";
+            this.DomainControllerBox.Size = new System.Drawing.Size(209, 52);
+            this.DomainControllerBox.TabIndex = 2;
+            this.DomainControllerBox.TabStop = false;
+            this.DomainControllerBox.Text = "Domyślny kontroler";
+            // 
+            // DomainControllerText
+            // 
+            this.DomainControllerText.Location = new System.Drawing.Point(6, 22);
+            this.DomainControllerText.Name = "DomainControllerText";
+            this.DomainControllerText.Size = new System.Drawing.Size(197, 23);
+            this.DomainControllerText.TabIndex = 0;
+            this.DomainControllerText.TextChanged += new System.EventHandler(this.OnChangeSaveProperty);
+            this.DomainControllerText.MouseEnter += new System.EventHandler(this.MouseOn);
+            this.DomainControllerText.MouseLeave += new System.EventHandler(this.MouseOut);
             // 
             // ComputerInputBox
             // 
@@ -216,7 +239,7 @@
             this.CompMaxLogs.MouseEnter += new System.EventHandler(this.MouseOn);
             this.CompMaxLogs.MouseLeave += new System.EventHandler(this.MouseOut);
             // 
-            // NumbersOfUserLogs
+            // UserMaxLogsNumeric
             // 
             this.UserMaxLogsNumeric.Location = new System.Drawing.Point(55, 50);
             this.UserMaxLogsNumeric.Maximum = new decimal(new int[] {
@@ -239,7 +262,7 @@
             0});
             this.UserMaxLogsNumeric.ValueChanged += new System.EventHandler(this.OnChangeSaveProperty);
             // 
-            // NumbersOfCompLogs
+            // CompMaxLogsNumeric
             // 
             this.CompMaxLogsNumeric.Location = new System.Drawing.Point(55, 21);
             this.CompMaxLogsNumeric.Maximum = new decimal(new int[] {
@@ -307,7 +330,7 @@
             this.SessionShortcutBox.TabStop = false;
             this.SessionShortcutBox.Text = "Skrót klawiszowy do rozłączenia";
             // 
-            // SessionShortcutText
+            // SessionDisconectShortcutText
             // 
             this.SessionDisconectShortcutText.Location = new System.Drawing.Point(144, 20);
             this.SessionDisconectShortcutText.Name = "SessionDisconectShortcutText";
@@ -356,7 +379,7 @@
             this.CustomSourceCheck.MouseEnter += new System.EventHandler(this.MouseOn);
             this.CustomSourceCheck.MouseLeave += new System.EventHandler(this.MouseOut);
             // 
-            // CustomSourceTextBox
+            // CustomDataSourceTextBox
             // 
             this.CustomDataSourceTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.CustomDataSourceTextBox.Enabled = false;
@@ -391,7 +414,7 @@
             this.localUpdateBox.TabStop = false;
             this.localUpdateBox.Text = "Aktualizacje lokalne";
             // 
-            // LocalUpdateTextBox
+            // LocalUpdatePathText
             // 
             this.LocalUpdatePathText.Enabled = false;
             this.LocalUpdatePathText.Location = new System.Drawing.Point(11, 47);
@@ -498,7 +521,7 @@
             this.MotpLogNameBox.TabStop = false;
             this.MotpLogNameBox.Text = "LogName z dziennika";
             // 
-            // MotpLogNameTextBox
+            // MotpLogNameText
             // 
             this.MotpLogNameText.Location = new System.Drawing.Point(7, 22);
             this.MotpLogNameText.Name = "MotpLogNameText";
@@ -508,7 +531,7 @@
             this.MotpLogNameText.MouseEnter += new System.EventHandler(this.MouseOn);
             this.MotpLogNameText.MouseLeave += new System.EventHandler(this.MouseOut);
             // 
-            // MotpServersTextBox
+            // MotpServersText
             // 
             this.MotpServersText.Location = new System.Drawing.Point(7, 24);
             this.MotpServersText.Name = "MotpServersText";
@@ -576,7 +599,7 @@
             this.ComputerLogsFolderLabel.MouseEnter += new System.EventHandler(this.MouseOn);
             this.ComputerLogsFolderLabel.MouseLeave += new System.EventHandler(this.MouseOut);
             // 
-            // ComputerSNFileTextBox
+            // ComputerSNFileText
             // 
             this.ComputerSNFileText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.ComputerSNFileText.Location = new System.Drawing.Point(165, 62);
@@ -613,7 +636,7 @@
             this.TerminalLogsBox.TabStop = false;
             this.TerminalLogsBox.Text = "Wymagane do zbierania danych o terminalach";
             // 
-            // TerminalLogsSNFileTextBox
+            // TerminalLogsSNFileText
             // 
             this.TerminalLogsSNFileText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.TerminalLogsSNFileText.Location = new System.Drawing.Point(165, 102);
@@ -635,7 +658,7 @@
             this.TerminalLogsSNFileLabel.MouseEnter += new System.EventHandler(this.MouseOn);
             this.TerminalLogsSNFileLabel.MouseLeave += new System.EventHandler(this.MouseOut);
             // 
-            // TerminalLogsFileTextBox
+            // TerminalLogsFileText
             // 
             this.TerminalLogsFileText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.TerminalLogsFileText.Location = new System.Drawing.Point(165, 62);
@@ -657,7 +680,7 @@
             this.TerminalLogsFileLabel.MouseEnter += new System.EventHandler(this.MouseOn);
             this.TerminalLogsFileLabel.MouseLeave += new System.EventHandler(this.MouseOut);
             // 
-            // TerminalLogsFolderTextBox
+            // TerminalLogsFolderText
             // 
             this.TerminalLogsFolderText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.TerminalLogsFolderText.Location = new System.Drawing.Point(165, 22);
@@ -681,6 +704,7 @@
             // 
             // Other
             // 
+            this.Other.Controls.Add(this.KeywordSearchingBox);
             this.Other.Controls.Add(this.AutomaticallyAllowBox);
             this.Other.Location = new System.Drawing.Point(4, 24);
             this.Other.Name = "Other";
@@ -689,6 +713,31 @@
             this.Other.TabIndex = 4;
             this.Other.Text = "Inne";
             this.Other.UseVisualStyleBackColor = true;
+            // 
+            // KeywordSearchingBox
+            // 
+            this.KeywordSearchingBox.Controls.Add(this.KeywordSearchingCheck);
+            this.KeywordSearchingBox.Location = new System.Drawing.Point(20, 117);
+            this.KeywordSearchingBox.Name = "KeywordSearchingBox";
+            this.KeywordSearchingBox.Size = new System.Drawing.Size(236, 47);
+            this.KeywordSearchingBox.TabIndex = 1;
+            this.KeywordSearchingBox.TabStop = false;
+            this.KeywordSearchingBox.Text = "Wyszukiwanie loginu/nazwy komputera";
+            // 
+            // KeywordSearchingCheck
+            // 
+            this.KeywordSearchingCheck.AutoSize = true;
+            this.KeywordSearchingCheck.Checked = true;
+            this.KeywordSearchingCheck.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.KeywordSearchingCheck.Location = new System.Drawing.Point(6, 22);
+            this.KeywordSearchingCheck.Name = "KeywordSearchingCheck";
+            this.KeywordSearchingCheck.Size = new System.Drawing.Size(77, 19);
+            this.KeywordSearchingCheck.TabIndex = 0;
+            this.KeywordSearchingCheck.Text = "Włączone";
+            this.KeywordSearchingCheck.UseVisualStyleBackColor = true;
+            this.KeywordSearchingCheck.CheckedChanged += new System.EventHandler(this.ChangeChecked);
+            this.KeywordSearchingCheck.MouseEnter += new System.EventHandler(this.MouseOn);
+            this.KeywordSearchingCheck.MouseLeave += new System.EventHandler(this.MouseOut);
             // 
             // AutomaticallyAllowBox
             // 
@@ -770,26 +819,6 @@
             this.RestoreDefaultButton.UseVisualStyleBackColor = true;
             this.RestoreDefaultButton.Click += new System.EventHandler(this.RestoreDefaultSettings);
             // 
-            // DomainControllerBox
-            // 
-            this.DomainControllerBox.Controls.Add(this.DomainControllerText);
-            this.DomainControllerBox.Location = new System.Drawing.Point(20, 218);
-            this.DomainControllerBox.Name = "DomainControllerBox";
-            this.DomainControllerBox.Size = new System.Drawing.Size(209, 52);
-            this.DomainControllerBox.TabIndex = 2;
-            this.DomainControllerBox.TabStop = false;
-            this.DomainControllerBox.Text = "Domyślny kontroler";
-            // 
-            // DomainControllerTextBox
-            // 
-            this.DomainControllerText.Location = new System.Drawing.Point(6, 22);
-            this.DomainControllerText.Name = "DomainControllerText";
-            this.DomainControllerText.Size = new System.Drawing.Size(197, 23);
-            this.DomainControllerText.TabIndex = 0;
-            this.DomainControllerText.TextChanged += new System.EventHandler(this.OnChangeSaveProperty);
-            this.DomainControllerText.MouseEnter += new System.EventHandler(this.MouseOn);
-            this.DomainControllerText.MouseLeave += new System.EventHandler(this.MouseOut);
-            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -805,6 +834,8 @@
             this.Text = "Ustawienia";
             this.TabSettings.ResumeLayout(false);
             this.GeneralPage.ResumeLayout(false);
+            this.DomainControllerBox.ResumeLayout(false);
+            this.DomainControllerBox.PerformLayout();
             this.ComputerInputBox.ResumeLayout(false);
             this.ComputerInputBox.PerformLayout();
             this.CustomValueBox.ResumeLayout(false);
@@ -837,12 +868,12 @@
             this.TerminalLogsBox.ResumeLayout(false);
             this.TerminalLogsBox.PerformLayout();
             this.Other.ResumeLayout(false);
+            this.KeywordSearchingBox.ResumeLayout(false);
+            this.KeywordSearchingBox.PerformLayout();
             this.AutomaticallyAllowBox.ResumeLayout(false);
             this.AutomaticallyAllowBox.PerformLayout();
             this.DescriptionBox.ResumeLayout(false);
             this.DescriptionBox.PerformLayout();
-            this.DomainControllerBox.ResumeLayout(false);
-            this.DomainControllerBox.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -906,6 +937,8 @@
         private System.Windows.Forms.GroupBox EventLogTableViewBox;
         private System.Windows.Forms.GroupBox DomainControllerBox;
         private System.Windows.Forms.TextBox DomainControllerText;
+        private System.Windows.Forms.GroupBox KeywordSearchingBox;
+        private System.Windows.Forms.CheckBox KeywordSearchingCheck;
     }
 }
 

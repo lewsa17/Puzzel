@@ -30,5 +30,6 @@ namespace Settings
         public static readonly string TerminalLogsFolder = "Podaj lokalizację zawierająca logi terminali";
         public static readonly string TerminalLogsSNFile = "Podaj nazwę pliku zawierającego numery seryjne terminali";
         public static readonly string UserMaxLogs = "Zmiana tej wartości ustala maksymalną liczbę logowań użytkownika jaką można wyszukać";
+        public static readonly string KeywordSearching = "Ustawienie tej opcji spowoduje zmianę sposobu wyszukiwania nazw, domyślnie wyszukianie jest po słowie kluczowym. Po zmianie aby wyszukiwać należy po wyszukiwanym słowie podać *(gwiazdkę)";
     }
 }

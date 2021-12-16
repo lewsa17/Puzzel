@@ -197,7 +197,9 @@ namespace PuzzelLibrary.LogonData
         public string CheckLogs(string nazwa, string kindOf, out List<string> nameEntries)
         {
             nameEntries = new();
-            string pole = nazwa.Replace("*", "");
+            string pole = nazwa;
+            if (Values.KeywordSearching)
+                pole = nazwa.Replace("*", "");
             if (!Directory.Exists(logsDirectory))
                 return ("Brak dostępu do zasobu");
             if (IsInvalidChar(pole))
@@ -205,7 +207,7 @@ namespace PuzzelLibrary.LogonData
             if (kindOf == "User")
             {
                 List<UserNameDB.UserNameEntry> usr;
-                if (nazwa.Contains("*"))
+                if (nazwa.Contains("*") | !Values.KeywordSearching)
                     usr = UserNameDB.ADUserDB.FindAll(x => x.UserName.Contains(pole, StringComparison.OrdinalIgnoreCase));
                 else
                     usr = UserNameDB.ADUserDB.FindAll(x => x.UserName.Equals(pole, StringComparison.OrdinalIgnoreCase));
