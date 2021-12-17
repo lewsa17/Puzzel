@@ -262,13 +262,15 @@ namespace Forms
                 {
                     cLogsEntry cl = new();
                     string[] splittedVal = value.Split(';');
-                    cl.ComputerName = splittedVal[0];
-                    cl.UserName = splittedVal[1];
-                    cl.SerialNumber = splittedVal[2];
-                    cl.Model = splittedVal[3];
                     if (splittedVal.Length > 4)
-                        cl.OSVersion = splittedVal[4];
-                    DBList.Add(cl);
+                    {
+                        cl.ComputerName = splittedVal[0].ToUpper().Trim();
+                        cl.UserName = splittedVal[1].Trim();
+                        cl.SerialNumber = splittedVal[2].Trim();
+                        cl.Model = splittedVal[3].Trim();
+                        cl.OSVersion = splittedVal[4].Trim();
+                        DBList.Add(cl);
+                    }
                 }
             }
         }
