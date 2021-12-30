@@ -207,6 +207,7 @@
             this.TableLogView.Size = new System.Drawing.Size(754, 328);
             this.TableLogView.TabIndex = 0;
             this.TableLogView.Visible = false;
+            this.TableLogView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SearchData);
             // 
             // EventLogCollector
             // 
@@ -225,7 +226,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.LogCounter)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TableLogView)).EndInit();
             this.ResumeLayout(false);
-
         }
 
         #endregion

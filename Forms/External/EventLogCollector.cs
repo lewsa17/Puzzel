@@ -153,8 +153,21 @@ namespace Forms.External
         {
             if (e.Control && e.KeyCode == Keys.F)
             {
-                Additional.SearchingMainForm wyszukiwarka = new Additional.SearchingMainForm(TextLogView);
-                wyszukiwarka.Show();
+                Additional.SearchingMainForm wyszukiwarka = null;
+                switch (sender) {
+                    case RichTextBox:
+                        {
+                            wyszukiwarka = new Additional.SearchingMainForm(TextLogView);
+                            wyszukiwarka.Show();
+                            break;
+                        }
+                    case DataGridView:
+                        {
+                            wyszukiwarka = new Additional.SearchingMainForm(TableLogView);
+                            wyszukiwarka.Show();
+                            break;
+                        }
+                }
             }
         }
         private void ChangedValue(object sender, EventArgs e)

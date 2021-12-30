@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Drawing;
 using System.Windows.Forms;
 
 namespace Forms.Additional
@@ -7,19 +6,87 @@ namespace Forms.Additional
     public partial class SearchingMainForm : Form
     {
         RichTextBox textField = new();
-        public SearchingMainForm(RichTextBox richTextBox)
+        DataGridView table = new();
+        public SearchingMainForm(RichTextBox control)
         {
             InitializeComponent();
-            textField = richTextBox;
+            textField = control;
             textField.HideSelection = true;
             textField.SelectionStart = 0;
             textField.SelectionLength = 0;
+        }
+
+        public SearchingMainForm(DataGridView control)
+        {
+            InitializeComponent();
+            table = control;
+        }
+        private void SearchingInTable(object sender, EventArgs e)
+        {
+            string SearchWord = textBoxSearchedText.Text;
+            table.ClearSelection();
+
+            var begginingCell = table.CurrentCell;
+            int currentCellIndex = begginingCell.ColumnIndex;
+
+            int currentRowIndex = begginingCell.RowIndex;
+            
+            DataGridViewRow newRow = begginingCell.OwningRow;
+            DataGridViewCell newCell = null;
+            if (sender is Button)
+            {
+                if (((Button)sender) == btnSearch | ((Button)sender) == btnNextWord)
+                {
+                    while (currentCellIndex < table.ColumnCount && currentRowIndex < table.RowCount)
+                    {
+                        newRow = table.Rows[currentRowIndex];
+                        for (int j = currentCellIndex; j < table.ColumnCount; j++)
+                        {
+                            newCell = newRow.Cells[j];
+                            if (newCell.Value.ToString().Contains(SearchWord, StringComparison.CurrentCultureIgnoreCase) && newCell != begginingCell)
+                            {
+                                newCell.Selected = true;
+                                return;
+                            }
+                            table.CurrentCell = newCell;
+                        }
+                        currentCellIndex = 0;
+                        currentRowIndex++;
+                    }
+                    MessageBox.Show("Dotarłeś do końca");
+                }
+
+                if (((Button)sender) == btnPreviousWord)
+                {
+                    while (currentCellIndex >= 0 && currentRowIndex >= 0)
+                    {
+                        newRow = table.Rows[currentRowIndex];
+                        for (int j = currentCellIndex; j >= 0; j--)
+                        {
+                            newCell = newRow.Cells[j];
+                            if (newCell.Value.ToString().Contains(SearchWord, StringComparison.CurrentCultureIgnoreCase) && newCell != begginingCell)
+                            {
+                                newCell.Selected = true;
+                                return;
+                            }
+                            table.CurrentCell = newCell;
+                        }
+                        currentCellIndex = table.ColumnCount -1;
+                        currentRowIndex--;
+                    }
+                    MessageBox.Show("Jesteś na początku");
+                }
+
+            }
+
         }
         private void Buttons_Click(object sender, EventArgs e)
         {
             string SearchWord = textBoxSearchedText.Text;
             int SelectionStart = 0;
-            if (sender is Button)
+            if (table.Visible)
+                SearchingInTable(sender, e);
+            else if (sender is Button)
             {
                 if (TabControl.SelectedTab == TabFind)
                 {
@@ -35,7 +102,7 @@ namespace Forms.Additional
                     textField.HideSelection = false;
                 }
             }
-            if (sender is TextBox)
+            else if (sender is TextBox)
             {
                 if (textField.SelectionStart > 1)
                     SelectionStart = textField.Text.IndexOf(SearchWord, textField.SelectionStart + SearchWord.Length, StringComparison.CurrentCultureIgnoreCase);
