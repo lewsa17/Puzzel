@@ -120,14 +120,10 @@ namespace Forms.External
                     if (PuzzelLibrary.Settings.Values.EventLogTableView)
                     {
                         _ = ec.GetRemoteLog(LocationText.Text, PuzzelLibrary.Settings.Values.MotpLogName, MotpQuery, TableLogView);
-                        TextLogView.Visible = false;
-                        TableLogView.Visible = true;
                     }
                     else
                     {
                         TextLogView.Text = ec.GetRemoteLog(LocationText.Text, PuzzelLibrary.Settings.Values.MotpLogName, MotpQuery, null);
-                        TextLogView.Visible = true;
-                        TableLogView.Visible = false;
                     }
                 }
 

@@ -181,6 +181,7 @@
             this.TextLogView.Size = new System.Drawing.Size(754, 328);
             this.TextLogView.TabIndex = 6;
             this.TextLogView.Text = "";
+            this.TextLogView.Visible = !PuzzelLibrary.Settings.Values.EventLogTableView;
             this.TextLogView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SearchData);
             // 
             // TableLogView
@@ -206,7 +207,7 @@
             this.TableLogView.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.TableLogView.Size = new System.Drawing.Size(754, 328);
             this.TableLogView.TabIndex = 0;
-            this.TableLogView.Visible = false;
+            this.TableLogView.Visible = PuzzelLibrary.Settings.Values.EventLogTableView;
             this.TableLogView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SearchData);
             // 
             // EventLogCollector
