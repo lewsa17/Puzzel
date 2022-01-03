@@ -1,11 +1,6 @@
 ﻿using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
 using System.IO;
 using PuzzelLibrary.Settings;
-//using LibGit2Sharp;
 
 namespace PuzzelLibrary.Update
 {
@@ -25,16 +20,6 @@ namespace PuzzelLibrary.Update
         private int currentCommits { get; set; }
         private DateTime currentDate { get; set; }
 
-        //private async Task<List<Commit>> GetCommits()
-        //{
-        //    const string remote = "https://github.com/Lewsa17/Puzzel.git";
-        //    if (!File.Exists(localFolder))
-        //        Repository.Clone(remote, localFolder);
-        //    List<Commit> listOfCommits;
-        //    using (var repo = new Repository(localFolder))
-        //        listOfCommits = await Task.Run(() => repo.Commits.ToList());
-        //    return listOfCommits;
-        //}
         private string UpdatingString()
         {
             return string.Format(
@@ -58,12 +43,6 @@ namespace PuzzelLibrary.Update
         {
             if (iDFSet)
                 GetVersionFromIDF();
-            //else
-            //{
-            //    var task = Task.Run(() => GetCommits()).GetAwaiter().GetResult();
-            //    commits = task;
-            //}
-
             CurrentVersion = Version.Major + "." + Version.Minor;
             currentDate = Version.BuildDate;
             currentCommits = Version.Build;
