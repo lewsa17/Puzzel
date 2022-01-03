@@ -31,19 +31,25 @@ namespace Forms
         }
         private void CheckUpdate(object sender, EventArgs e)
         {
-            var NewVersion = new PuzzelLibrary.Update.NewVersion();
-            bool isNewVersion = NewVersion.CheckVersion(out string message);
-            if (isNewVersion)
+            if (File.Exists(Path.Combine(PuzzelLibrary.Settings.Values.LocalUpdatePath, "PuzzelLibrary.dll")))
             {
-                if (MessageBox.Show(message, "Aktualizacja jest dostępna", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
+                var NewVersion = new PuzzelLibrary.Update.NewVersion();
+                bool isNewVersion = NewVersion.CheckVersion(out string message);
+                if (isNewVersion)
                 {
-                    PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess(Directory.GetCurrentDirectory() + "\\Updater.exe", "");
-                    this.Close();
+                    if (MessageBox.Show(message, "Aktualizacja jest dostępna", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
+                    {
+                        PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess(Directory.GetCurrentDirectory() + "\\Updater.exe", "");
+                        this.Close();
+                    }
                 }
+                else
+                    MessageBox.Show("Twoja wersja jest aktualna", "Auto-Updater", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
             }
             else
-                MessageBox.Show("Twoja wersja jest aktualna", "Auto-Updater", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                MessageBox.Show("Nie można sprawdzić aktualizacji.\nBilbioteka aplikacji nie jest dostępna w katalogu aktualizacji", "Błąd podczas sprawdzania aktualizacji", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
+
         public static int ProgressBarValue = 0;
         public static int ProgressMax = 0;
         public readonly Stopwatch stopWatch = new();
