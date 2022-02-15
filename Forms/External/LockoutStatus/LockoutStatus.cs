@@ -80,36 +80,32 @@ namespace Forms.External
         }
         public void GetUserPasswordDetails(string dcName, int rowIndex)
         {
-            if (dataGridView.Columns != null)
+            while (!IsHandleCreated)
+                Thread.Sleep(200);
+            try
             {
-                try
+                BeginInvoke(new MethodInvoker(() => dataGridView.Cursor = Cursors.WaitCursor));
+                var pd = new PuzzelLibrary.AD.User.Information.PasswordDetails();
+                pd.GetUserPasswordDetails(Username, dcName);
+                var site = PuzzelLibrary.AD.Computer.Search.ByComputerName(dcName, "serverReferenceBL")[0].Properties["serverReferenceBL"][0].ToString().Split(',')[2].Replace("CN=", "");
+                switch (rowIndex >= 0)
                 {
-                    if (IsHandleCreated)
-                    {
-                        BeginInvoke(new MethodInvoker(() => dataGridView.Cursor= Cursors.WaitCursor));
-                        var pd = new PuzzelLibrary.AD.User.Information.PasswordDetails();
-                        pd.GetUserPasswordDetails(Username, dcName);
-                        var site = PuzzelLibrary.AD.Computer.Search.ByComputerName(dcName, "serverReferenceBL")[0].Properties["serverReferenceBL"][0].ToString().Split(',')[2].Replace("CN=", "");
-                        switch (rowIndex >= 0)
+                    case true:
                         {
-                            case true:
-                                {
-                                    dataGridView.Invoke(new MethodInvoker(() => dataGridView.Rows[rowIndex].SetValues(dcName, site, pd.userAccountLocked, pd.badLogonCount, pd.lastBadPasswordAttempt, pd.lastPasswordSet, pd.userLockoutTime)));
-                                    break;
-                                }
-                            case false:
-                                {
-                                    dataGridView.Invoke(new MethodInvoker(() => dataGridView.Rows.Add(dcName, site, pd.userAccountLocked, pd.badLogonCount, pd.lastBadPasswordAttempt, pd.lastPasswordSet, pd.userLockoutTime)));
-                                    break;
-                                }
-                        }    
-                        BeginInvoke(new MethodInvoker(() => dataGridView.Cursor = Cursors.Default));
-                    }
+                            dataGridView.Invoke(new MethodInvoker(() => dataGridView.Rows[rowIndex].SetValues(dcName, site, pd.userAccountLocked, pd.badLogonCount, pd.lastBadPasswordAttempt, pd.lastPasswordSet, pd.userLockoutTime)));
+                            break;
+                        }
+                    case false:
+                        {
+                            dataGridView.Invoke(new MethodInvoker(() => dataGridView.Rows.Add(dcName, site, pd.userAccountLocked, pd.badLogonCount, pd.lastBadPasswordAttempt, pd.lastPasswordSet, pd.userLockoutTime)));
+                            break;
+                        }
                 }
-                catch (Exception e)
-                {
-                    PuzzelLibrary.Debug.LogsCollector.GetLogs(e, dcName + "," + Username);
-                }
+                BeginInvoke(new MethodInvoker(() => dataGridView.Cursor = Cursors.Default));
+            }
+            catch (Exception e)
+            {
+                PuzzelLibrary.Debug.LogsCollector.GetLogs(e, dcName + "," + Username);
             }
         }
         private void MenuItemClearAll_Click(object sender, EventArgs e)
