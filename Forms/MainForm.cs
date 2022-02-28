@@ -729,7 +729,7 @@ namespace Forms
             if (comboBoxComputer.InvokeRequired)
                 comboBoxComputer.Invoke(new MethodInvoker(() => _HostName = comboBoxComputer.Text.ToUpper()));
             else _HostName = comboBoxComputer.Text.ToUpper();
-            return _HostName.Replace("*", "");
+            return _HostName;
         }
         private void Info_z_AD_Click(object sender, EventArgs e)
         {

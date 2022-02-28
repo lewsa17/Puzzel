@@ -207,7 +207,7 @@ namespace PuzzelLibrary.LogonData
             if (kindOf == "User")
             {
                 List<UserNameDB.UserNameEntry> usr;
-                if (nazwa.Contains("*") | !Values.KeywordSearching)
+                if (nazwa.Contains("*"))
                     usr = UserNameDB.ADUserDB.FindAll(x => x.UserName.Contains(pole, StringComparison.OrdinalIgnoreCase));
                 else
                     usr = UserNameDB.ADUserDB.FindAll(x => x.UserName.Equals(pole, StringComparison.OrdinalIgnoreCase));
