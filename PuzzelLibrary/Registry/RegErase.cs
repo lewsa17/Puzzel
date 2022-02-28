@@ -10,6 +10,8 @@ namespace PuzzelLibrary.Registry
         {
         }
 
+        public bool isDone;
+
         /// <summary>
         /// Usuwanie wartości z rejestru
         /// </summary>
@@ -32,7 +34,10 @@ namespace PuzzelLibrary.Registry
                 {
                     var names = remoteSubKey.GetValue(value).ToString();
                     if (!names.Contains(value))
+                    {
                         System.Windows.Forms.MessageBox.Show("Wartość została poprawnie usunięta");
+                        isDone = true;
+                    }
                 }
             }
         }
@@ -58,7 +63,10 @@ namespace PuzzelLibrary.Registry
                 {
                     var names = remoteSubKey.GetValueNames();
                     if (!names.Contains(subKeyName))
+                    {
                         System.Windows.Forms.MessageBox.Show("Wartość została poprawnie usunięta");
+                        isDone = true;
+                    }
                 }
             }
         }
@@ -85,7 +93,10 @@ namespace PuzzelLibrary.Registry
                 {
                     var names = remoteSubKey.GetValueNames();
                     if (!names.Contains(subKeyName))
+                    {
                         System.Windows.Forms.MessageBox.Show("Wartość została poprawnie usunięta");
+                        isDone = true;
+                    }
                 }
             }
         }
