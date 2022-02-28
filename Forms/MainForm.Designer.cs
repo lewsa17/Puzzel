@@ -81,6 +81,7 @@
             this.btnManagement = new();
             this.btnCompInfo = new();
             this.contextMenuComputerInfo = new(this.components);
+            this.MsLicensingCache = new();
             this.menuItemComputerInfoDrivers = new();
             this.menuItemComputerInfoUptime = new();
             this.menuItemComputerInfoSNPN = new();
@@ -1302,7 +1303,8 @@
             this.menuItemActivateOffice,
             this.menuItemDeleteUsers,
             this.menuItemEnableIEHosting,
-            this.menuItemWinEnvironment});
+            this.menuItemWinEnvironment,
+            this.MsLicensingCache});
             this.menuItemQuickFix.Name = "menuItemQuickFix";
             this.menuItemQuickFix.Text = "Szybkie rozwiązanie";
             //
@@ -1329,6 +1331,12 @@
             this.menuItemDeleteUsers.Name = "menuItemDeleteUsers";
             this.menuItemDeleteUsers.Text = "Usuwanie użytkowników";
             this.menuItemDeleteUsers.Click += new(this.DeleteUsers_Click);
+            //
+            // MsLicensingCache
+            //
+            this.MsLicensingCache.Name = "MsLicensingCache";
+            this.MsLicensingCache.Text = "Usuwanie cache licencji RDP";
+            this.MsLicensingCache.Click += new(this.DeleteRDPLicensingCache);
             // 
             // MainForm
             // 
@@ -1453,6 +1461,7 @@
         private System.Windows.Forms.ToolStripMenuItem ComputerCustomData;
         private System.Windows.Forms.ToolStripMenuItem LogonsOnDomainHub;
         private System.Windows.Forms.ToolStripMenuItem LogonsOnComputer;
+        private System.Windows.Forms.ToolStripMenuItem MsLicensingCache;
         private System.Windows.Forms.ToolStripMenuItem MotpLogons;
         private System.Windows.Forms.ToolStripMenuItem menuItemTermimalExplorer;
         private System.Windows.Forms.ToolStripMenuItem menuItemComputerExplorer;

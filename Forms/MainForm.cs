@@ -1405,5 +1405,10 @@ namespace Forms
             if (Directory.Exists(dstPath))
                 File.Copy(fileName, dstFileName, true);
         }
+		
+        private void DeleteRDPLicensingCache(object sender, EventArgs e)
+        {
+            new PuzzelLibrary.QuickFix.RdpLicensingCache(HostName()).Remove();
+        }
     }
 }
