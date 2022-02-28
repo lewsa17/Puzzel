@@ -16,6 +16,7 @@ namespace PuzzelLibrary.QuickFix
         public void Remove()
         {
             new Registry.RegErase().SubKeyRecursive(_hostName, Microsoft.Win32.RegistryHive.LocalMachine, @"SOFTWARE\Microsoft\MSLicensing", "Store");
+            System.Windows.Forms.MessageBox.Show("Należy uruchomić aplikację \"Podłączanie pulpitu zdalnego \" jako administrator aby zrestartować licencje.");
         }
     }
 }
