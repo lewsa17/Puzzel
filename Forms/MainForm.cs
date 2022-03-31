@@ -215,22 +215,25 @@ namespace Forms
                         else
                         {
                             string login = null;
-                            string pwd = null;
+                            object pwd = null;
                             if (sender is ToolStripMenuItem toolStrip)
                             {
                                 if (toolStrip.Name.Contains("LAPS"))
                                 {
                                     login = PuzzelLibrary.Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "LAPSLogin");
-                                    pwd = PuzzelLibrary.LAPS.CompPWD.GetPWD(HostName())[0].ToString();
+                                    pwd = PuzzelLibrary.LAPS.CompPWD.GetPWD(HostName())[0];
                                 }
                                 else
                                 {
                                     login = PuzzelLibrary.Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "ELogin");
                                     pwd = PuzzelLibrary.Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "ELoginPWD");
                                 }
-                                if (pwd.Length > 1)
-                                    PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess(FilePath, "-m:" + HostName() + " -x -a:2 -u:" + login + " -p:" + pwd + " -d:");
-                                else MessageBox.Show("Brak hasła");
+                                if (pwd == null)
+                                {
+                                    pwd = "";
+                                    MessageBox.Show("Brak hasła", "Brak hasła",MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                                }
+                                PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess(FilePath, "-m:" + HostName() + " -x -a:2 -u:" + login + " -p:" + pwd.ToString() + " -d:");
                             }
                         }
                     }
