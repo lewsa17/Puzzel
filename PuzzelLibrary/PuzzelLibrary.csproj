@@ -16,38 +16,34 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Cassia">
-      <HintPath>..\Forms\bin\Debug\net5.0-windows\Cassia.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Win32.Registry">
-      <HintPath>..\Forms\bin\Debug\net5.0-windows\Microsoft.Win32.Registry.dll</HintPath>
-      <Private>true</Private>
+      <HintPath>..\Forms\bin\Debug\net6.0-windows\Cassia.dll</HintPath>
     </Reference>
     <Reference Include="System.Diagnostics.EventLog">
-      <HintPath>C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\5.0.0\ref\net5.0\System.Diagnostics.EventLog.dll</HintPath>
+      <HintPath>..\Forms\bin\Debug\net6.0-windows\System.Diagnostics.EventLog.dll</HintPath>
       <Private>true</Private>
     </Reference>
     <Reference Include="System.DirectoryServices">
-      <HintPath>..\Forms\bin\Debug\net5.0-windows\System.DirectoryServices.dll</HintPath>
+      <HintPath>..\Forms\bin\Debug\net6.0-windows\System.DirectoryServices.dll</HintPath>
       <Private>true</Private>
     </Reference>
     <Reference Include="System.DirectoryServices.AccountManagement">
-      <HintPath>..\Forms\bin\Debug\net5.0-windows\System.DirectoryServices.AccountManagement.dll</HintPath>
+      <HintPath>..\Forms\bin\Debug\net6.0-windows\System.DirectoryServices.AccountManagement.dll</HintPath>
       <Private>true</Private>
     </Reference>
     <Reference Include="System.DirectoryServices.Protocols">
-      <HintPath>..\Forms\bin\Debug\net5.0-windows\System.DirectoryServices.Protocols.dll</HintPath>
+      <HintPath>..\Forms\bin\Debug\net6.0-windows\System.DirectoryServices.Protocols.dll</HintPath>
       <Private>true</Private>
     </Reference>
     <Reference Include="System.Management">
-      <HintPath>..\Forms\bin\Debug\net5.0-windows\System.Management.dll</HintPath>
+      <HintPath>..\Forms\bin\Debug\net6.0-windows\System.Management.dll</HintPath>
       <Private>true</Private>
     </Reference>
     <Reference Include="System.Windows.Forms">
-      <HintPath>C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\5.0.0\ref\net5.0\System.Windows.Forms.dll</HintPath>
+      <HintPath>C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\6.0.3\ref\net6.0\System.Windows.Forms.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="System.Windows.Forms.Primitives">
-      <HintPath>C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\5.0.0\ref\net5.0\System.Windows.Forms.Primitives.dll</HintPath>
+      <HintPath>C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\6.0.3\ref\net6.0\System.Windows.Forms.Primitives.dll</HintPath>
       <Private>false</Private>
     </Reference>
   </ItemGroup>

@@ -22,11 +22,11 @@
   
   <ItemGroup>
     <Reference Include="Cassia">
-      <HintPath>..\Forms\bin\Debug\net5.0-windows\Cassia.dll</HintPath>
+      <HintPath>bin\Debug\net6.0-windows\Cassia.dll</HintPath>
       <Private>true</Private>
     </Reference>
     <Reference Include="System.Management">
-      <HintPath>bin\Debug\net5.0-windows\System.Management.dll</HintPath>
+      <HintPath>bin\Debug\net6.0-windows\System.Management.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
