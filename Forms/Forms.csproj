@@ -25,6 +25,9 @@
       <HintPath>bin\Debug\net6.0-windows\Cassia.dll</HintPath>
       <Private>true</Private>
     </Reference>
+    <Reference Include="System.DirectoryServices.Protocols">
+      <HintPath>bin\Debug\net6.0-windows\System.DirectoryServices.Protocols.dll</HintPath>
+    </Reference>
     <Reference Include="System.Management">
       <HintPath>bin\Debug\net6.0-windows\System.Management.dll</HintPath>
     </Reference>

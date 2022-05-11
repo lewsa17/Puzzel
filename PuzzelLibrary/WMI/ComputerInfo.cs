@@ -139,6 +139,10 @@ namespace PuzzelLibrary.WMI
             {
                 MessageBox.Show("Dostęp jest zabroniony");
             }
+            catch (COMException comErr)
+            {
+                MessageBox.Show(comErr.Message);
+            }
             catch (Exception ex)
             {
                 Debug.LogsCollector.GetLogs(ex, computerName + "," + path);
