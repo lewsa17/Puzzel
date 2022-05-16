@@ -912,7 +912,7 @@ namespace Forms
                         if (comboBoxComputer.SelectedText.Length > 0 && !string.IsNullOrEmpty(comboBoxComputer.SelectedText) && !string.IsNullOrWhiteSpace(comboBoxComputer.SelectedText))
                         {
                             comboBoxComputer.Text = comboBoxComputer.Text.Trim(' ');
-                            comboBoxLogin.SelectAll();
+                            comboBoxComputer.SelectAll();
                             Clipboard.SetText(comboBoxComputer.SelectedText.Trim(' '));
                         }
                 }
