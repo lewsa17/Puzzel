@@ -1167,7 +1167,7 @@ namespace Forms
                         //oraz 3 linijki z pola tekstowego
                         comboBoxFindedSessions.Text = "";
                         comboBoxFindedSessions.Items.RemoveAt(comboIndex);
-                        if (richTextBox1.Lines.Length >= comboBoxFindedSessions.Items.Count * 3)
+                        if (richTextBox1.Lines.Length >= comboBoxFindedSessions.Items.Count * 3 && richTextBox1.Text.Contains(IDSessionServerName[1]))
                         {
                             int lines = richTextBox1.Lines.Length - 1;
                             var array = richTextBox1.Lines.ToList<string>();
