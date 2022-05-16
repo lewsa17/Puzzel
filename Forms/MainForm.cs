@@ -127,13 +127,13 @@ namespace Forms
         }
         private void ActivateOffice(object sender, EventArgs e)
         {
-            if (HostIsAvailable(HostName()))
-                UpdateRichTextBox(PuzzelLibrary.QuickFix.ActivateOffice.Activate(HostName()));
+            if (HostIsAvailable(HostName))
+                UpdateRichTextBox(PuzzelLibrary.QuickFix.ActivateOffice.Activate(HostName));
         }
         private void ActiveSession(object sender, EventArgs e)
         {
-            if(NameIsValid(HostName()))
-                UpdateRichTextBox(new PuzzelLibrary.Terminal.CompExplorer().ActiveSession(HostName()));
+            if(NameIsValid(HostName))
+                UpdateRichTextBox(new PuzzelLibrary.Terminal.CompExplorer().ActiveSession(HostName));
         }
         private void AdmTools(object sender, EventArgs e)
         {
@@ -156,8 +156,8 @@ namespace Forms
                 {
                     string OSName = string.Empty;
                     System.Management.ManagementScope scope = new();
-                    if (PuzzelLibrary.WMI.ComputerInfo.wmiConnect(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, out scope))
-                        OSName = PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryOperatingSystem, "Caption");
+                    if (PuzzelLibrary.WMI.ComputerInfo.wmiConnect(HostName, PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, out scope))
+                        OSName = PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName, PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryOperatingSystem, "Caption");
                     if (PuzzelLibrary.Settings.Values.AutoUnlockFirewall)
                     {
                         string pathToFile;
@@ -167,8 +167,8 @@ namespace Forms
                         else
                             pathToFile = @"C:\Windows\system32\" + FileName;
                         if (OSName.Contains("Windows 7"))
-                            PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcessWithWaitingForExit(pathToFile, "-r " + HostName() + " advfirewall firewall set rule group=\"Windows Firewall Remote Management\" new enable=yes");
-                        else { PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcessWithWaitingForExit(pathToFile, "-r " + HostName() + " advfirewall firewall set rule name = \"Windows Defender Firewall Remote Management (RPC)\" new enable=yes"); }
+                            PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcessWithWaitingForExit(pathToFile, "-r " + HostName + " advfirewall firewall set rule group=\"Windows Firewall Remote Management\" new enable=yes");
+                        else { PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcessWithWaitingForExit(pathToFile, "-r " + HostName + " advfirewall firewall set rule name = \"Windows Defender Firewall Remote Management (RPC)\" new enable=yes"); }
                     }
                     else UpdateRichTextBox("Zdalne zarządzanie Zaporą jest wyłączone");
                     arguments = "wf.msc";
@@ -177,8 +177,8 @@ namespace Forms
             if (sender is Button button)
                 if (button == btnManagement)
                     arguments = "compmgmt.msc";
-            if (HostIsAvailable(HostName()))
-                PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess("mmc.exe", arguments + @" /computer:\\" + HostName());
+            if (HostIsAvailable(HostName))
+                PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess("mmc.exe", arguments + @" /computer:\\" + HostName);
             else
                 PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess("mmc.exe", arguments);
             StopTime();
@@ -205,14 +205,14 @@ namespace Forms
         private void BtnDW_Click(object sender, EventArgs e)
         {
             StartTime();
-            if (NameIsValid(HostName()))
+            if (NameIsValid(HostName))
                 try
                 {
                     string FilePath = PuzzelLibrary.Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "DWPath");
                     if (FileIsAvailable(FilePath))
                     {
                         if (sender is Button)
-                            PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess(FilePath, "-m:" + HostName() + " -x -a:1");
+                            PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess(FilePath, "-m:" + HostName + " -x -a:1");
                         else
                         {
                             string login = null;
@@ -222,7 +222,7 @@ namespace Forms
                                 if (toolStrip.Name.Contains("LAPS"))
                                 {
                                     login = PuzzelLibrary.Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "LAPSLogin");
-                                    pwd = PuzzelLibrary.LAPS.CompPWD.GetPWD(HostName())[0];
+                                    pwd = PuzzelLibrary.LAPS.CompPWD.GetPWD(HostName)[0];
                                 }
                                 else
                                 {
@@ -234,7 +234,7 @@ namespace Forms
                                     pwd = "";
                                     MessageBox.Show("Brak hasła", "Brak hasła",MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                                 }
-                                PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess(FilePath, "-m:" + HostName() + " -x -a:2 -u:" + login + " -p:" + pwd.ToString() + " -d:");
+                                PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess(FilePath, "-m:" + HostName + " -x -a:2 -u:" + login + " -p:" + pwd.ToString() + " -d:");
                             }
                         }
                     }
@@ -248,9 +248,9 @@ namespace Forms
         private void BtnExplorer_Click(object sender, EventArgs e)
         {
             StartTime();
-            if (HostIsAvailable(HostName()))
+            if (HostIsAvailable(HostName))
             {
-                PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess("explorer.exe", @"\\" + HostName() + @"\c$");
+                PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess("explorer.exe", @"\\" + HostName + @"\c$");
             }
             StopTime();
         }
@@ -284,7 +284,7 @@ namespace Forms
             Forms.External.EventLogCollector badPwdForm;
             if (sender == LogonsOnComputer)
             {
-                badPwdForm = new(HostName());
+                badPwdForm = new(HostName);
                 badPwdForm.ShowDialog();
             }
             else if (sender == MotpLogons)
@@ -295,9 +295,9 @@ namespace Forms
             }
             else if (sender == LogonsOnDomainHub)
             {
-                if (!string.IsNullOrEmpty(UserName()))
+                if (!string.IsNullOrEmpty(UserName))
                 {
-                    badPwdForm = new("DomainHub", UserName());
+                    badPwdForm = new("DomainHub", UserName);
                     badPwdForm.ShowDialog();
                 }
                 else MessageBox.Show("Nie podano nazwy użytkownika", "Brak danych", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -321,7 +321,7 @@ namespace Forms
             computer.KindOf = "Computer";
             computer.LastUsedName = comboBoxCompLast;
             comboBoxComputer.Invoke(new MethodInvoker(() => computerName = comboBoxComputer.Text.ToUpper()));
-            computer.Name = HostName();
+            computer.Name = HostName;
             computer.NumberOfLog = (int)numericComputer.Value;
             return computer;
         }
@@ -403,36 +403,36 @@ namespace Forms
         private void BtnPing_Click(object sender, EventArgs e)
         {
             StartTime();
-            if (NameIsValid(HostName()))
+            if (NameIsValid(HostName))
             {
-                StartWinSysApplication("ping.exe", "-n 2 " + HostName());
-                StartWinSysApplication("nbtstat.exe", "-a " + HostName() + " -c");
+                StartWinSysApplication("ping.exe", "-n 2 " + HostName);
+                StartWinSysApplication("nbtstat.exe", "-a " + HostName + " -c");
             }
             StopTime();
         }
         private void BtnRDP_Click(object sender, EventArgs e)
         {
             StartTime();
-            if (HostIsAvailable(HostName()))
-                PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess("mstsc.exe", "/v " + HostName());
+            if (HostIsAvailable(HostName))
+                PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess("mstsc.exe", "/v " + HostName);
             StopTime();
         }
         private void BtnTestTCP_Click(object sender, EventArgs e)
         {
             StartTime();
             PuzzelLibrary.NetDiag.TCPPing tcpPing = new();
-            if (tcpPing.TestConnection(HostName(), (int)numericTCP.Value) == PuzzelLibrary.NetDiag.TCPPing.Status.Success)
-                ReplaceRichTextBox("Badanie " + HostName() + " zakończone sukcesem. Port " + numericTCP.Value.ToString() + " jest otwarty.");
+            if (tcpPing.TestConnection(HostName, (int)numericTCP.Value) == PuzzelLibrary.NetDiag.TCPPing.Status.Success)
+                ReplaceRichTextBox("Badanie " + HostName + " zakończone sukcesem. Port " + numericTCP.Value.ToString() + " jest otwarty.");
             else
                 ReplaceRichTextBox(tcpPing.Result);
             StopTime();
         }
         private void ChangePassword(object sender, EventArgs e)
         {
-            if (NameIsValid(UserName()))
-                if (PuzzelLibrary.AD.User.Information.IsUserAvailable(UserName()))
+            if (NameIsValid(UserName))
+                if (PuzzelLibrary.AD.User.Information.IsUserAvailable(UserName))
                 {
-                    External.ChangePasswordForm zh = new(UserName());
+                    External.ChangePasswordForm zh = new(UserName);
                     zh.Show();
                 }
         }
@@ -442,23 +442,23 @@ namespace Forms
         }
         private void CMDRemoteCustomAuth(object sender, EventArgs e)
         {
-            if (HostIsAvailable(HostName()))
+            if (HostIsAvailable(HostName))
             {
                 Additional.RemoteShellCustomAuth customAuthForm = new();
                 customAuthForm.ShowDialog();
-                var applicationName = PuzzelLibrary.ProcessExecutable.ProcExec.PSexec(HostName());
+                var applicationName = PuzzelLibrary.ProcessExecutable.ProcExec.PSexec(HostName);
                 if (FileIsAvailable(applicationName))
-                    PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess(applicationName, @"\\" + HostName() + " -u " + customAuthForm.Login + "-p " + customAuthForm.Password + "  cmd");
+                    PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess(applicationName, @"\\" + HostName + " -u " + customAuthForm.Login + "-p " + customAuthForm.Password + "  cmd");
             }
         }
         private void MenuItemCMDSYSTEM_Click(object sender, EventArgs e)
         {
             StartTime();
-            if (HostIsAvailable(HostName()))
+            if (HostIsAvailable(HostName))
             {
-                var applicationName = PuzzelLibrary.ProcessExecutable.ProcExec.PSexec(HostName());
+                var applicationName = PuzzelLibrary.ProcessExecutable.ProcExec.PSexec(HostName);
                 if (FileIsAvailable(applicationName))
-                    PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess(applicationName, @"\\" + HostName() + " -s  cmd");
+                    PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess(applicationName, @"\\" + HostName + " -s  cmd");
             }
             StopTime();
         }
@@ -629,9 +629,9 @@ namespace Forms
         }
         private void DeleteUsers_Click(object sender, EventArgs e)
         {
-            if (HostIsAvailable(HostName()))
+            if (HostIsAvailable(HostName))
             {
-                using DeleteUsers deleteUsers = new(HostName());
+                using DeleteUsers deleteUsers = new(HostName);
                 deleteUsers.ShowDialog();
             }
         }
@@ -643,8 +643,8 @@ namespace Forms
             StopTime();
         }        private void EnableIEHosting_Click(object sender, EventArgs e)
         {
-            if (HostIsAvailable(HostName()))
-                PuzzelLibrary.QuickFix.IEHosting.EnableCompatibilityFramework4inIE(HostName());
+            if (HostIsAvailable(HostName))
+                PuzzelLibrary.QuickFix.IEHosting.EnableCompatibilityFramework4inIE(HostName);
         }
         private void FindSessionBtn_Click(object sender, EventArgs e)
         {
@@ -656,10 +656,10 @@ namespace Forms
                 try
                 {
                     StartTime();
-                    if (NameIsValid(UserName()))
+                    if (NameIsValid(UserName))
                     {
                         string data = string.Empty;
-                        if (PuzzelLibrary.AD.User.Information.IsUserAvailable(UserName()))
+                        if (PuzzelLibrary.AD.User.Information.IsUserAvailable(UserName))
                         {
                             var termServers = PuzzelLibrary.Terminal.TerminalExplorer.GetTerminalServers;
                             foreach (string server in termServers)
@@ -667,7 +667,7 @@ namespace Forms
                                 Thread thread = new(() =>
                                 {
                                     PuzzelLibrary.Terminal.TerminalExplorer TE = new();
-                                    var task = Task<string>.Run(() => { return TE.ActiveSession(server, UserName()); });
+                                    var task = Task<string>.Run(() => { return TE.ActiveSession(server, UserName); });
                                     UpdateRichTextBox(task.Result);
                                     task.ContinueWith(antecedent =>
                                     {
@@ -711,11 +711,11 @@ namespace Forms
                     _HostName = CustomTermsNameForms.TerminalName;
                 }
                 else if (sender == menuItemSessions)
-                    if (HostName() == string.Empty || HostName().Length == 0)
+                    if (HostName == string.Empty || HostName.Length == 0)
                     {
                         _HostName = "localhost";
                     }
-                    else _HostName = HostName();
+                    else _HostName = HostName;
                 else _HostName = toolStrip.Text;
 
                 Thread thread;
@@ -727,13 +727,16 @@ namespace Forms
             thread.Start();
             explorer.Show();
         }
-        private string HostName()
+        private string HostName
         {
-            string _HostName = null;
-            if (comboBoxComputer.InvokeRequired)
-                comboBoxComputer.Invoke(new MethodInvoker(() => _HostName = comboBoxComputer.Text.ToUpper()));
-            else _HostName = comboBoxComputer.Text.ToUpper();
-            return _HostName;
+            get
+            {
+                string _HostName = null;
+                if (comboBoxComputer.InvokeRequired)
+                    comboBoxComputer.Invoke(new MethodInvoker(() => _HostName = comboBoxComputer.Text.ToUpper()));
+                else _HostName = comboBoxComputer.Text.ToUpper();
+                return _HostName;
+            }
         }
         private void Info_z_AD_Click(object sender, EventArgs e)
         {
@@ -745,11 +748,11 @@ namespace Forms
         private void InfozAD_DoWork(object sender, DoWorkEventArgs e)
         {
             StartTime();
-            if (NameIsValid(UserName()))
+            if (NameIsValid(UserName))
             {
-                if (PuzzelLibrary.AD.User.Information.IsUserAvailable(UserName()))
+                if (PuzzelLibrary.AD.User.Information.IsUserAvailable(UserName))
                 {
-                    var user = new PuzzelLibrary.AD.User.Information(UserName());
+                    var user = new PuzzelLibrary.AD.User.Information(UserName);
                     //1 linijka
                     TimeSpan temp = (user.pwdLastSet.AddDays(30) - DateTime.Now);
                     if (temp > (DateTime.Now.AddDays(2) - DateTime.Now))
@@ -991,69 +994,69 @@ namespace Forms
         private void KomputerInfoCOMM()
         {
             StartTime();
-            ReplaceRichTextBox(PuzzelLibrary.WMI.ComputerInfo.AllComputerInfo(HostName()));
+            ReplaceRichTextBox(PuzzelLibrary.WMI.ComputerInfo.AllComputerInfo(HostName));
             StopTime();
         }
         private void KomputerInfoMenuStrip(object sender, EventArgs e)
         {
             StartTime();
-            if (HostIsAvailable(HostName()))
+            if (HostIsAvailable(HostName))
             {
                 System.Management.ManagementScope scope = new();
-                if (PuzzelLibrary.WMI.ComputerInfo.wmiConnect(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, out scope))
+                if (PuzzelLibrary.WMI.ComputerInfo.wmiConnect(HostName, PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, out scope))
                 {
                     ReplaceRichTextBox("Nazwa komputera: ");
-                    UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryComputerSystem, "DNSHostName"));
+                    UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName, PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryComputerSystem, "DNSHostName"));
                     UpdateRichTextBox("----------------------------------------\n");
                     if (sender is ToolStripMenuItem toolStrip)
                     {
                         if (toolStrip == menuItemComputerInfoUptime)
                         {
                             UpdateRichTextBox("Uptime: ");
-                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryOperatingSystem, "LastBootUpTime"));
+                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName, PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryOperatingSystem, "LastBootUpTime"));
                         }
 
                         if (toolStrip == menuItemComputerInfoDrivers)
                         {
                             UpdateRichTextBox("Nazwa sterownika                                                           Producent                       Data sterownika   Wersja Sterownika\n");
-                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryPnpDevice, "DeviceName", "Manufacturer", "DriverDate", "DriverVersion"));
+                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName, PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryPnpDevice, "DeviceName", "Manufacturer", "DriverDate", "DriverVersion"));
                         }
                         if (toolStrip == menuItemComputerInfoSNPN)
                         {
                             UpdateRichTextBox("SN: ");
-                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryComputerSystemProduct, "IdentifyingNumber"));
+                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName, PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryComputerSystemProduct, "IdentifyingNumber"));
                             UpdateRichTextBox("PN: ");
-                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathWMI, scope, PuzzelLibrary.WMI.ComputerInfo.querySystemInformation, "SystemSKU"));
+                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName, PuzzelLibrary.WMI.ComputerInfo.pathWMI, scope, PuzzelLibrary.WMI.ComputerInfo.querySystemInformation, "SystemSKU"));
                         }
 
                         if (toolStrip == menuItemComputerInfoModel)
                         {
                             UpdateRichTextBox("MODEL: ");
-                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryComputerSystem, "Model"));
+                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName, PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryComputerSystem, "Model"));
                         }
 
                         if (toolStrip == menuItemComputerInfoOS)
                         {
                             UpdateRichTextBox("OS: ");
-                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryOperatingSystem, "Caption", "CsdVersion", "OsArchitecture", "Version"));
+                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName, PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryOperatingSystem, "Caption", "CsdVersion", "OsArchitecture", "Version"));
                         }
 
                         if (toolStrip == menuItemComputerInfoRAM)
                         {
                             UpdateRichTextBox("Pamięć TOTAL: \n");
-                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryPhysicalMemory, "Capacity"));
+                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName, PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryPhysicalMemory, "Capacity"));
                             UpdateRichTextBox("\n");
-                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryPhysicalMemory, "DeviceLocator", "Manufacturer", "Capacity", "Speed", "PartNumber", "SerialNumber"));
+                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName, PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryPhysicalMemory, "DeviceLocator", "Manufacturer", "Capacity", "Speed", "PartNumber", "SerialNumber"));
                         }
 
                         if (toolStrip == menuItemComputerInfoProcessor)
                         {
                             UpdateRichTextBox("CPU \n");
-                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryProcessor, "Name"));
+                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName, PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryProcessor, "Name"));
                             UpdateRichTextBox("Rdzenie: ");
-                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryProcessor, "NumberOfCores"));
+                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName, PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryProcessor, "NumberOfCores"));
                             UpdateRichTextBox("Wątki: ");
-                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryProcessor, "NumberOfLogicalProcessors"));
+                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName, PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryProcessor, "NumberOfLogicalProcessors"));
                         }
 
                         if (toolStrip == menuItemComputerInfoLoggedUser)
@@ -1064,57 +1067,57 @@ namespace Forms
                         if (toolStrip == menuItemComputerInfoProfile)
                         {
                             UpdateRichTextBox("Profile\n");
-                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryDesktop, "Name"));
+                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName, PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryDesktop, "Name"));
                         }
 
                         if (toolStrip == menuItemComputerInfoDrives)
                         {
                             UpdateRichTextBox("Dyski: \n");
                             UpdateRichTextBox("Nazwa   Opis                  System plików   Wolna przestrzeń       Rozmiar \n");
-                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryLogicalDisk, "Name", "Description", "FileSystem", "FreeSpace", "Size"));
+                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName, PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryLogicalDisk, "Name", "Description", "FileSystem", "FreeSpace", "Size"));
                         }
 
                         if (toolStrip == menuItemComputerInfoPrinters)
                         {
                             UpdateRichTextBox("Drukarki sieciowe\n\n");
-                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryPrinterConfiguration, "DeviceName"));
+                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName, PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryPrinterConfiguration, "DeviceName"));
                         }
 
                         if (toolStrip == menuItemComputerInfoShares)
                         {
                             UpdateRichTextBox("Udziały\n");
-                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryShare, "Name", "Path", "Description"));
+                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName, PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryShare, "Name", "Path", "Description"));
                         }
 
                         if (toolStrip == menuItemComputerInfoAutostart)
                         {
                             UpdateRichTextBox("AutoStart\n");
-                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryStartupCommand, "Caption", "Command"));
+                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName, PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryStartupCommand, "Caption", "Command"));
                         }
 
                         if (toolStrip == menuItemComputerInfoPath)
                         {
                             UpdateRichTextBox("Środowisko uruchomieniowe\n");
                             UpdateRichTextBox("Nazwa zmiennej           Wartość zmiennej\n");
-                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryEnvironment, "Name", "VariableValue"));
+                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName, PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryEnvironment, "Name", "VariableValue"));
                         }
 
                         if (toolStrip == menuItemComputerInfoNetworkRes)
                         {
                             UpdateRichTextBox("Zasoby sieciowe\n\n");
-                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryNetworkConnection, "LocalName", "RemoteName"));
+                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName, PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryNetworkConnection, "LocalName", "RemoteName"));
                         }
 
                         if (toolStrip == menuItemComputerInfoDisplay)
                         {
                             UpdateRichTextBox("Podłączone ekrany\n");
-                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryDesktopMonitor, "Caption", "DeviceID", "ScreenHeight", "ScreenWidth", "Status"));
+                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName, PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryDesktopMonitor, "Caption", "DeviceID", "ScreenHeight", "ScreenWidth", "Status"));
                         }
 
                         if (toolStrip == menuItemComputerInfoBios)
                         {
                             UpdateRichTextBox("BIOS\n\n");
-                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryBios, "Manufacturer", "BIOSVersion", "SMBIOSBIOSVersion", "ReleaseDate"));
+                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName, PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryBios, "Manufacturer", "BIOSVersion", "SMBIOSBIOSVersion", "ReleaseDate"));
                         }
                     }
                     if (sender is Button button)
@@ -1122,17 +1125,17 @@ namespace Forms
                         if (button == btnNetworkInterfaces)
                         {
                             UpdateRichTextBox("Karty Sieciowe: ");
-                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryNetworkAdapterConfiguration, "IPEnabled", "Description", "DNSDomainSuffixSearchOrder", "DNSHostName", "IPAddress", "IPSubnet", "MACAddress"));
+                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName, PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryNetworkAdapterConfiguration, "IPEnabled", "Description", "DNSDomainSuffixSearchOrder", "DNSHostName", "IPAddress", "IPSubnet", "MACAddress"));
                         }
 
                         if (button == btnProgramList)
-                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName(), PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryProduct, "Name", "InstallDate", "Version"));
+                            UpdateRichTextBox(PuzzelLibrary.WMI.ComputerInfo.GetInfo(HostName, PuzzelLibrary.WMI.ComputerInfo.pathCIMv2, scope, PuzzelLibrary.WMI.ComputerInfo.queryProduct, "Name", "InstallDate", "Version"));
 
                         if (button == btnCompInfo)
                             KomputerInfoMethod();
                     }
                 }
-                else UpdateRichTextBox($"Nie można połączyć się z {HostName()}");        
+                else UpdateRichTextBox($"Nie można połączyć się z {HostName}");        
             }
             StopTime();
         }
@@ -1192,10 +1195,10 @@ namespace Forms
         }
         private void MenuItemLockoutStatus_Click(object sender, EventArgs e)
         {
-            External.LockoutStatus LS = new(UserName());
-            if (NameIsValid(UserName()))
+            External.LockoutStatus LS = new(UserName);
+            if (NameIsValid(UserName))
             {
-                if (PuzzelLibrary.AD.User.Information.IsUserAvailable(UserName()))
+                if (PuzzelLibrary.AD.User.Information.IsUserAvailable(UserName))
                 {
                     LS.AddEntry();
                     LS.Show();
@@ -1213,22 +1216,22 @@ namespace Forms
         private void RemotePowerShell_Click(object sender, EventArgs e)
         {
             string psPath = Path.Combine(Environment.SystemDirectory, @"WindowsPowerShell\v1.0\powershell.exe");
-            if (HostIsAvailable(HostName()))
-                PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess(psPath, "-noexit Enter-PSSession -ComputerName " + HostName());
+            if (HostIsAvailable(HostName))
+                PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess(psPath, "-noexit Enter-PSSession -ComputerName " + HostName);
         }
         private void RemotePowerShellCustomAuth_Click(object sender, EventArgs e)
         {
             string psPath = Path.Combine(Environment.SystemDirectory, @"WindowsPowerShell\v1.0\powershell.exe");
             var userName = WindowsIdentity.GetCurrent().Name;
-            if (HostIsAvailable(HostName()))
+            if (HostIsAvailable(HostName))
             {
-                PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess(psPath, "-noexit Enter-PSSession -ComputerName " + HostName() + " -Credential " + userName);
+                PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess(psPath, "-noexit Enter-PSSession -ComputerName " + HostName + " -Credential " + userName);
             }
         }
         private void Profilsieciowy(object sender, EventArgs e)
         {
             StartTime();
-            if (NameIsValid(UserName()))
+            if (NameIsValid(UserName))
             {
                 string folder = null;
                 if (((Button)sender) == btnProfilVFS)
@@ -1243,17 +1246,17 @@ namespace Forms
                 if (((Button)sender) == btnProfilEXT)
                     folder = PuzzelLibrary.Settings.GetSettings.GetValuesFromXml("ExternalResources.xml", "EXT");
                 if (!string.IsNullOrEmpty(folder))
-                    if (Directory.Exists(Path.Combine(folder, UserName())))
-                        PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess("explorer.exe", folder + UserName());
+                    if (Directory.Exists(Path.Combine(folder, UserName)))
+                        PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess("explorer.exe", folder + UserName);
                     else MessageBox.Show("Brak dostępu lub brak uprawnień do zasobu");
             }
             StopTime();
         }
         private void PwdLAPS(object sender, EventArgs e)
         {
-            if (NameIsValid(HostName()))
+            if (NameIsValid(HostName))
             {
-                External.LAPSui lAPSui = new(HostName());
+                External.LAPSui lAPSui = new(HostName);
                 lAPSui.Show();
             }
         }
@@ -1262,17 +1265,17 @@ namespace Forms
             StartTime();
             try
             {
-                if (HostIsAvailable(HostName()))
+                if (HostIsAvailable(HostName))
                 {
-                    string applicationName = PuzzelLibrary.ProcessExecutable.ProcExec.PSexec(HostName());
+                    string applicationName = PuzzelLibrary.ProcessExecutable.ProcExec.PSexec(HostName);
 
                     if (FileIsAvailable(applicationName))
-                        PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess(applicationName, @"\\" + HostName() + " -user " + System.Environment.UserDomainName + @"\" + System.Environment.UserName + " cmd");
+                        PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess(applicationName, @"\\" + HostName + " -user " + System.Environment.UserDomainName + @"\" + System.Environment.UserName + " cmd");
                 }
             }
             catch (Exception ex)
             {
-                PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, HostName() + "," + PuzzelLibrary.WMI.ComputerInfo.pathCIMv2 + "," + PuzzelLibrary.WMI.ComputerInfo.queryOperatingSystem);
+                PuzzelLibrary.Debug.LogsCollector.GetLogs(ex, HostName + "," + PuzzelLibrary.WMI.ComputerInfo.pathCIMv2 + "," + PuzzelLibrary.WMI.ComputerInfo.queryOperatingSystem);
             }
             StopTime();
         }
@@ -1282,12 +1285,12 @@ namespace Forms
             PingTracert.ShowDialog();
             if (sender == btnRemotePing)
             {
-                PuzzelLibrary.NetDiag.RemotePing ping = new(HostName());
+                PuzzelLibrary.NetDiag.RemotePing ping = new(HostName);
                 UpdateRichTextBox(ping.StartRemotePing(PingTracert.GetHost, PingTracert.GetCounter));
             }
             else
             {
-                PuzzelLibrary.NetDiag.RemoteTracert tracert = new(HostName());
+                PuzzelLibrary.NetDiag.RemoteTracert tracert = new(HostName);
                 UpdateRichTextBox(tracert.StartRemoteTracert(PingTracert.GetHost));
             }
         }
@@ -1331,18 +1334,21 @@ namespace Forms
                 statusBar1.Invoke(new Statusbp1TextEventHandler(UpdateStatusbp2text), new object[] { text });
             else statusBP2.Text = text;
         }
-        private string UserName()
+        private string UserName
         {
-            string _UserName = null;
-            if (comboBoxLogin.InvokeRequired)
-                comboBoxLogin.Invoke(new MethodInvoker(() => _UserName = comboBoxLogin.Text));
-            else _UserName = comboBoxLogin.Text;
-            return _UserName.Replace("*", "");
+            get
+            {
+                string _UserName = null;
+                if (comboBoxLogin.InvokeRequired)
+                    comboBoxLogin.Invoke(new MethodInvoker(() => _UserName = comboBoxLogin.Text));
+                else _UserName = comboBoxLogin.Text;
+                return _UserName.Replace("*", "");
+            }
         }        
         private void WinEnvironment_Click(object sender, EventArgs e)
         {
-            if (HostIsAvailable(HostName()))
-                using (EnvironmentVariable env = new(HostName()))
+            if (HostIsAvailable(HostName))
+                using (EnvironmentVariable env = new(HostName))
                     env.ShowDialog();
         }
         private void Powershell_Click(object sender, EventArgs e)
@@ -1412,7 +1418,7 @@ namespace Forms
 		
         private void DeleteRDPLicensingCache(object sender, EventArgs e)
         {
-            new PuzzelLibrary.QuickFix.RdpLicensingCache(HostName()).Remove();
+            new PuzzelLibrary.QuickFix.RdpLicensingCache(HostName).Remove();
         }
     }
 }
