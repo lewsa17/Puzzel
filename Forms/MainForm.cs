@@ -61,7 +61,6 @@ namespace Forms
         private delegate void Statusbp2TextEventHandler(string text);
         private delegate void updateComboBoxEventHandler(string message);
         private delegate void UpdateRichTextBoxEventHandler(string message);
-        public static string ComputerInfo_TEMP { get; set; }
         public bool isAdminRole = false;
         private void UserLoggedVisibility()
         {
