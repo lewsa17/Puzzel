@@ -106,7 +106,8 @@ namespace Forms
             if (NameIsValid(HostName))
                 if (PuzzelLibrary.NetDiag.Ping.Pinging(HostName) == System.Net.NetworkInformation.IPStatus.Success)
                     return true;
-                else ReplaceRichTextBox("Stacja: " + HostName + " nie jest widoczna na sieci");
+                else ReplaceRichTextBox("Stacja: " + HostName + " nie jest widoczna na sieci" +
+                    "\nKomuniakat błędu: " + PuzzelLibrary.NetDiag.Ping.Result);
             return false;
         }
         private bool NameIsValid(string Name)

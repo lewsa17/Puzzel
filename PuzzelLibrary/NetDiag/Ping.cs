@@ -7,6 +7,7 @@ namespace PuzzelLibrary.NetDiag
 {
     public static class Ping
     {
+        public static string Result;
         public static IPStatus Pinging(string HostName)
         {
             IPStatus iPStatus = IPStatus.Unknown;
@@ -20,7 +21,7 @@ namespace PuzzelLibrary.NetDiag
             }
             catch (SocketException SockEx)
             {
-                Debug.LogsCollector.GetLogs(SockEx, HostName);
+                Result = SockEx.Message;
             }
             catch (Exception e)
             {
