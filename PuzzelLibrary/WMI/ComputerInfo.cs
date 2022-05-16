@@ -141,14 +141,14 @@ namespace PuzzelLibrary.WMI
             }
             catch (COMException comErr)
             {
-                MessageBox.Show(comErr.Message);
+                MessageBox.Show(new Form(), comErr.Message, "Błąd połączenia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             catch (Exception ex)
             {
                 Debug.LogsCollector.GetLogs(ex, computerName + "," + path);
                 MessageBox.Show("Nie można się połączyć z powodu błędu: " + ex.Message, "WMI Testing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); return false;
             }
-            return true;
+            return false;
         }
         public static string GetInfo(string nazwaKomputera, string path, ManagementScope scope, string query, params object[] args)
         {
