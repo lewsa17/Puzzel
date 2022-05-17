@@ -42,7 +42,7 @@ namespace Forms.External
         public void AddEntry()
         {
             string[] domainControllers = null;
-            if (domainAddress != null)
+            if (!string.IsNullOrEmpty(domainAddress))
                 domainControllers = PuzzelLibrary.AD.Other.Domain.GetCustomDomainControllers(domainAddress);
             else domainControllers = PuzzelLibrary.AD.Other.Domain.GetCurrentDomainControllers();
             int i = 0;
