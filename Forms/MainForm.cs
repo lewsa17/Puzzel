@@ -437,7 +437,7 @@ namespace Forms
         }
         private void MenuItemCMD_Click(object sender, EventArgs e)
         {
-            PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess("cmd", "/u");
+            PuzzelLibrary.ProcessExecutable.ProcExec.StartSimpleProcess("C:\\windows\\system32\\cmd.exe", "/u");
         }
         private void CMDRemoteCustomAuth(object sender, EventArgs e)
         {
